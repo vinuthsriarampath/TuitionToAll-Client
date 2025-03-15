@@ -1,0 +1,186 @@
+<!--
+ * Copyright (c) 2025 Vinuth Sri Arampath
+ * 
+ * This code is the intellectual property of Vinuth Sri Arampath and is protected under copyright law.
+ * Unauthorized copying, modification, distribution, or use of this code, in whole or in part,
+ * without prior written permission is strictly prohibited.
+ * 
+ * Portions of this code may be generated with AI and modified by Vinuth Sri Arampath.
+ * All rights reserved.
+ * 
+ * Project: TuitionToAll
+ * Author Email: vinuthsriarampath@outlook.com
+-->
+
+<div class="bg-gray-50 text-gray-900">
+  <header class="bg-blue-900 shadow-lg">
+    <div class="container mx-auto px-2 sm:px-4 py-6 flex flex-col md:flex-row items-center justify-between">
+
+      <div class="flex items-center justify-between w-full md:w-auto">
+        <h1 class="text-white text-2xl sm:text-3xl font-bold">TuitionToAll</h1>
+
+        <button class="md:hidden text-white focus:outline-none" (click)="toggleMenu()">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>          
+        </button>
+      </div>
+
+      <nav [ngClass]="{'hidden': !menuOpen, 'md:block': true}" class="w-full md:w-auto mt-4 md:mt-0">
+        <ul class="flex flex-col md:flex-row md:space-x-6 text-center">
+          <li class="py-2 md:py-0">
+            <a href="#" class="text-white hover:text-blue-300 transition-colors duration-300">Login</a>
+          </li>
+          <li class="py-2 md:py-0">
+            <a href="#" class="bg-white text-blue-900 px-4 py-2 rounded hover:bg-gray-200 transition-colors duration-300">Signup</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  
+  <section class="relative">
+    <img src="online_meeting.jpg" class="absolute w-full h-full object-cover" alt="Background Image">
+    <div class="absolute inset-0 bg-black/50"></div>
+    <div class="relative z-10 py-42 text-center text-white">
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+        Empowering Education Across Institutes
+      </h2>
+      <p class="text-lg sm:text-xl mb-8">
+        Unify your courses, notes, and assignments from multiple institutes in one simple platform.
+      </p>
+      <a routerLink="/signup" class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-full transition-colors duration-300">
+        Get Started
+      </a>
+    </div>
+  </section>
+  
+  <section class="container mx-auto px-2 sm:px-4 py-16">
+    <h2 class="text-3xl font-bold text-center text-blue-900 mb-8">About Our Service</h2>
+    <div class=" md:flex-row items-center" [ngClass]="{'flex flex-row': showMore , 'flex flex-col': !showMore}">
+      <div class="md:w-1/2 mb-8 md:mb-0" [ngClass]="{'hidden': showMore}">
+        <img src="meeting.jpg" alt="Online Education" class="rounded-lg shadow-lg w-full h-auto">
+      </div>
+      <div class="md:w-1/2 md:pl-12" [ngClass]="{'md:w-full': showMore}">
+        <p class="mb-4">Our centralized Learning Management System (LMS) revolutionizes how institutes, teachers, and students interact with educational content. Designed for efficiency and ease-of-use, our platform enables institutes to manage courses, teachers, and students effortlessly.</p>
+        <p class="mb-4">Teachers enjoy a unified dashboard that aggregates courses from multiple institutes, making it easier to organize notes, assignments, and student submissions. Meanwhile, students can easily access study materials, submit assignments, and track their academic progress—all in one place.</p>
+        <div *ngIf="showMore">
+          <p class="mb-4">Our platform reduces repetitive registrations and administrative overhead, saving valuable time and reducing costs for educational institutions. With intuitive navigation and a responsive design, every user can focus on learning and teaching without technical hassles.</p>
+          <p class="mb-4">Moreover, our secure infrastructure ensures that sensitive educational data is handled with the highest standards of privacy and integrity, providing peace of mind for everyone.</p>
+        </div>
+        <button class="text-blue-600 font-bold focus:outline-none" (click)="toggleReadMore()">{{ showMore ? 'Read Less' : 'Read More' }}</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-gray-100 py-16">
+    <div class="container mx-auto px-2 sm:px-4">
+      <h2 class="text-3xl font-bold text-center text-blue-900 mb-12">Who We Serve</h2>
+      <div class="flex flex-col md:flex-row justify-center gap-8">
+        <div class="bg-white rounded-lg shadow-lg p-6 flex-1">
+          <div class="flex justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-14 text-blue-600">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75Z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-center mb-2">Institutes</h3>
+          <p class="text-center text-gray-600">
+            Manage courses, teachers, and students in one place. Save on costs by eliminating individual LMS systems
+          </p>
+  
+        </div>
+        <div class="bg-white rounded-lg shadow-lg p-6 flex-1">
+          <div class="flex justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-14 text-blue-600">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+            </svg>
+
+          </div> 
+          <h3 class="text-xl font-bold text-center mb-2">Teachers</h3>
+          <p class="text-center text-gray-600">
+            Oversee courses across multiple institutes from a single dashboard. Organize notes, assignments, and track progress effortlessly.
+          </p>
+         
+        </div>
+        <div class="bg-white rounded-lg shadow-lg p-6 flex-1">
+          <div class="flex justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-14 text-blue-600">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-center mb-2">Students</h3>
+          <p class="text-center text-gray-600">
+            Access all your courses, download study materials, submit assignments, and stay organized no matter how many institutes you join.
+          </p>  
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="container mx-auto px-2 sm:px-4">
+      <h2 class="text-3xl font-bold text-center text-blue-900 mb-12">How It Works</h2>
+      <div class="flex flex-col md:flex-row justify-center gap-8">
+        <div class="bg-white rounded-lg shadow-lg p-6 flex-1">
+          <div class="flex justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-14 text-blue-600">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
+            </svg>            
+          </div>
+          <h3 class="text-xl font-bold text-center mb-2">Register</h3>
+          <p class="text-center text-gray-600">
+            Sign up as an institute, teacher, or student and create your profile with ease.
+          </p>
+  
+        </div>
+        <div class="bg-white rounded-lg shadow-lg p-6 flex-1">
+          <div class="flex justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg"fill="#155dfc" viewBox="0 -960 960 960" stroke-width="1.5" class="size-14">
+              <path d="m234-480-12-60q-12-5-22.5-10.5T178-564l-58 18-40-68 46-40q-2-13-2-26t2-26l-46-40 40-68 58 18q11-8 21.5-13.5T222-820l12-60h80l12 60q12 5 22.5 10.5T370-796l58-18 40 68-46 40q2 13 2 26t-2 26l46 40-40 68-58-18q-11 8-21.5 13.5T326-540l-12 60h-80Zm40-120q33 0 56.5-23.5T354-680q0-33-23.5-56.5T274-760q-33 0-56.5 23.5T194-680q0 33 23.5 56.5T274-600ZM592-40l-18-84q-17-6-31.5-14.5T514-158l-80 26-56-96 64-56q-2-18-2-36t2-36l-64-56 56-96 80 26q14-11 28.5-19.5T574-516l18-84h112l18 84q17 6 31.5 14.5T782-482l80-26 56 96-64 56q2 18 2 36t-2 36l64 56-56 96-80-26q-14 11-28.5 19.5T722-124l-18 84H592Zm56-160q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35Z"/>
+            </svg>
+          </div> 
+          <h3 class="text-xl font-bold text-center mb-2">Manage</h3>
+          <p class="text-center text-gray-600">
+            Institutes manage courses and users, while teachers and students enjoy centralized course management. 
+          </p>
+         
+        </div>
+        <div class="bg-white rounded-lg shadow-lg p-6 flex-1">
+          <div class="flex justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-14 text-blue-600">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-center mb-2">Engage</h3>
+          <p class="text-center text-gray-600">
+            Access study materials, submit assignments, and track academic progress—all from one platform.
+          </p>  
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-gray-100 py-16">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-blue-900 mb-8">Why Choose Our LMS?</h2>
+      <div class="flex flex-col md:flex-row justify-center items-center">
+        <div class="md:w-1/2 mb-8 md:mb-0">
+          <img src="handshake.jpg" alt="Handshake Image" class="rounded-lg w-full h-auto">
+        </div>
+        <div class="md:w-1/2 md:pl-12">
+          <ul class="list-disc list-inside space-y-3 text-gray-600 text-lg">
+            <li><strong>Effective:</strong>  Save money by avoiding multiple LMS subscriptions.</li>
+            <li><strong>Simplified Management:</strong> Institutes easily manage teachers and students under one roof.</li>
+            <li><strong>Time-Saving:</strong> Teachers and students no longer need to re-register for each institute.</li>
+            <li><strong>Unified Experience:</strong> All course content, assignments, and notes are available at your fingertips.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-blue-900 text-white py-6 text-center">
+      <p>&copy; 2025 TuitionToAll. All rights reserved.</p>
+  </footer>
+
+</div>

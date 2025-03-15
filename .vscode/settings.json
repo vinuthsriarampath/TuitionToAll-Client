@@ -1,0 +1,83 @@
+{
+    "psi-header.config": {
+        "forceToTop": true,
+        "blankLinesAfter": 1,
+        "autoHeader": "autoSave",
+        "company": "Vinuth Sri Arampath",
+        "copyrightHolder": "Vinuth Sri Arampath",
+        "creationDateZero": "blank",
+        "hostname": "https://github.com/vinuthsriarampath"
+    },
+    "psi-header.variables": [
+        ["author", "Vinuth Sri Arampath"],
+        ["projectname", "TuitionToAll"],
+        ["authoremail", "vinuthsriarampath@outlook.com"]
+    ],
+    "psi-header.lang-config": [
+        {
+            "language": "ts",
+            "begin": "/*",
+            "prefix": " * ",
+            "end": " */"
+        },
+        {
+            "language": "js",
+            "begin": "/*",
+            "prefix": " * ",
+            "end": " */"
+        },
+        {
+            "language": "html",
+            "begin": "<!--",
+            "prefix": " * ",
+            "end": "-->"
+        },
+        {
+            "language": "css",
+            "begin": "/*",
+            "prefix": " * ",
+            "end": " */"
+        }
+    ],
+    "psi-header.templates": [
+        {
+            "language": "*",
+            "template": [
+                "Copyright (c) <<year>> <<company>>",
+                "",
+                "This code is the intellectual property of <<author>> and is protected under copyright law.",
+                "Unauthorized copying, modification, distribution, or use of this code, in whole or in part,",
+                "without prior written permission is strictly prohibited.",
+                "",
+                "Portions of this code may be generated with AI and modified by <<author>>.",
+                "All rights reserved.",
+                "",
+                "Project: <<projectname>>",
+                "Author Email: <<authoremail>>"
+            ]
+        }
+    ],
+    "psi-header.changes-tracking": {
+        "isActive": true,
+        "modAuthor": "Modified By: ",
+        "modDate": "Last Modified: ",
+        "modDateFormat": "DD-MM-YYYY HH:mm:ss",
+        "autoHeader": "autoSave",
+        "include": [
+            "html",
+            "ts",
+            "js",
+            "css"
+        ],
+        "exclude": [
+            "markdown",
+            "json",
+            "blade.php"
+        ]
+    },
+    "cSpell.words": [
+        "Arampath",
+        "Vinuth",
+        "VinuthSriArampath"
+    ]
+}
