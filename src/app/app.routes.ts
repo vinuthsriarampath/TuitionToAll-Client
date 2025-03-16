@@ -11,10 +11,15 @@
 
 import { Routes } from '@angular/router';
 import {LandingPageComponent} from './common/landing-page/landing-page.component';
+import { LoginPageComponent } from './common/login-page/login-page.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: LandingPageComponent
+  },
+  {
+    path: 'auth/login',
+    component: LoginPageComponent
   }
 ];
