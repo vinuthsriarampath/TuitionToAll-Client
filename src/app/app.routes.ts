@@ -12,6 +12,8 @@
 import { Routes } from '@angular/router';
 import {LandingPageComponent} from './common/landing-page/landing-page.component';
 import { LoginPageComponent } from './common/login-page/login-page.component';
+import { UnderDevelopmentPageComponent } from './common/under-development-page/under-development-page.component';
+import { authGuard } from './services/auth/guard/auth.guard';
 
 export const routes: Routes = [
   {
@@ -21,5 +23,10 @@ export const routes: Routes = [
   {
     path: 'auth/login',
     component: LoginPageComponent
+  },
+  {
+    path:'maintenance',
+    component:UnderDevelopmentPageComponent,
+    canActivate: [authGuard]
   }
 ];
