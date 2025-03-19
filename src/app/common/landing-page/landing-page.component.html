@@ -32,7 +32,7 @@
             <a [routerLink]="['/auth/login']"  class="text-white hover:text-blue-300 transition-colors duration-300">Login</a>
           </li>
           <li class="py-2 md:py-0">
-            <a href="#" class="bg-white text-blue-900 px-4 py-2 rounded hover:bg-gray-200 transition-colors duration-300">Signup</a>
+            <a [routerLink]="['/auth/signup']" routerLinkActive="router-link-active"  class="bg-white text-blue-900 px-4 py-2 rounded hover:bg-gray-200 transition-colors duration-300">Signup</a>
           </li>
         </ul>
       </nav>
@@ -49,7 +49,7 @@
       <p class="text-lg sm:text-xl mb-8">
         Unify your courses, notes, and assignments from multiple institutes in one simple platform.
       </p>
-      <a routerLink="/signup" class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-full transition-colors duration-300">
+      <a [routerLink]="['/auth/signup']" routerLinkActive="router-link-active"  class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-full transition-colors duration-300">
         Get Started
       </a>
     </div>
