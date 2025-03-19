@@ -14,6 +14,7 @@ import {LandingPageComponent} from './common/landing-page/landing-page.component
 import { LoginPageComponent } from './common/login-page/login-page.component';
 import { UnderDevelopmentPageComponent } from './common/under-development-page/under-development-page.component';
 import { authGuard } from './services/auth/guard/auth.guard';
+import { SignupPageComponent } from './common/signup-page/signup-page.component';
 
 export const routes: Routes = [
   {
@@ -23,6 +24,10 @@ export const routes: Routes = [
   {
     path: 'auth/login',
     component: LoginPageComponent
+  },
+  {
+    path: 'auth/signup',
+    component: SignupPageComponent
   },
   {
     path:'maintenance',
