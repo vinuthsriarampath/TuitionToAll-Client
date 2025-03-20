@@ -1,0 +1,33 @@
+name: GitHub Release
+
+on:
+  push:
+    branches:
+      - chore/CI-CD
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Get package version
+        id: package-version
+        run: |
+            VERSION=$(jq -r .version package.json)
+            echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+        
+      - name: Use the version
+        run: |
+            echo "The version is ${{ steps.package-version.outputs.VERSION }}"
+
