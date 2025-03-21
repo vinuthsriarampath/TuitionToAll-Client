@@ -99,3 +99,13 @@ jobs:
           tags: |
             type=raw,value=${{ steps.package-version.outputs.VERSION }}
             type=sha
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile
+          push: true
+          platforms: linux/amd64
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}:${{ steps.package-version.outputs.VERSION }}
