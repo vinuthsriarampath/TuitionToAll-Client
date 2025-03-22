@@ -12,8 +12,20 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
+import { isDevMode, provideAppInitializer } from '@angular/core';
+import { inject as vercelInject } from '@vercel/analytics';
+
+function initializeAnalytics() {
+  vercelInject({ mode: isDevMode() ? 'development' : 'production' });
+}
 
 setTimeout(() => {
-  bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error(err));
-},3000);
+  bootstrapApplication(AppComponent, {
+    ...appConfig,
+    providers: [
+      ...(appConfig.providers || []),
+      provideAppInitializer(initializeAnalytics)
+    ]
+  })
+  .catch(err => console.error(err));
+}, 3000);
