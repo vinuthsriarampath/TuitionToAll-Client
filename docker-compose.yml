@@ -2,8 +2,8 @@ version: '3.8'
 
 services:
   ui:
-    container_name: client
-    image: vinuthsriarampath/tuitiontoall-client:2.1.1
+    container_name: tuitiontoall-client
+    image: vinuthsriarampath/tuitiontoall-client:latest
     ports:
       - "4200:4200"
     environment:
@@ -15,8 +15,8 @@ services:
       - db
 
   server:
-    container_name: server
-    image: vinuthsriarampath/tuituiontoall-v2-server:2.1.1
+    container_name: tuitiontoall-server
+    image: vinuthsriarampath/tuituiontoall-server:latest
     ports:
       - "8080:8080"
     environment:
