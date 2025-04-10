@@ -15,6 +15,7 @@ import { LoginPageComponent } from './common/login-page/login-page.component';
 import { UnderDevelopmentPageComponent } from './common/under-development-page/under-development-page.component';
 import { authGuard } from './services/auth/guard/auth.guard';
 import { SignupPageComponent } from './common/signup-page/signup-page.component';
+import {DashboardComponent} from './pages/dashboard/dashboard.component';
 
 export const routes: Routes = [
   {
@@ -32,6 +33,11 @@ export const routes: Routes = [
   {
     path:'maintenance',
     component:UnderDevelopmentPageComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
     canActivate: [authGuard]
   }
 ];
