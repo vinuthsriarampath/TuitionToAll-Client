@@ -51,8 +51,9 @@ export class LoginPageComponent {
 
             this.authResponse = response;
             localStorage.setItem('token',response.token as string)
+            localStorage.setItem('user',JSON.stringify(response.user))
             this.isLoading=false;
-            this.router.navigate(['maintenance'])
+            this.router.navigate(['dashboard'])
           } else {
 
             this.errorMessage='UnExpected Error ! ';
