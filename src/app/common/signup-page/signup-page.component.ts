@@ -1,3 +1,14 @@
+/*
+ * Copyright (c) 2025 vinuth sri arampath
+ *
+ * This code is the intellectual property of vinuth sri arampath and is protected under copyright law.
+ * Unauthorized copying, modification, distribution, or use of this code, in whole or in part,
+ * without prior written permission is strictly prohibited.
+ *
+ * Portions of this code may be generated with AI and modified by vinuth sri arampath
+ * All rights reserved.
+ */
+
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StudentRegistrationRequest } from '../../requestDtos/registration/student-registration-request';
@@ -5,7 +16,7 @@ import { InstituteRegistrationRequest } from '../../requestDtos/registration/ins
 import { TeacherRegistrationRequest } from '../../requestDtos/registration/teacher-registration-request';
 import { CommonModule, NgClass } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { AuthenticationServiceService } from '../../services/auth/authentication-service.service';
+import { AuthenticationService } from '../../services/auth/authentication.service';
 
 @Component({
   selector: 'app-signup-page',
@@ -40,7 +51,7 @@ export class SignupPageComponent {
   teacherRegistrationRequest: TeacherRegistrationRequest = {};
   instituteRegistrationRequest: InstituteRegistrationRequest = {};
 
-  constructor(private authService:AuthenticationServiceService,private router:Router){}
+  constructor(private authService:AuthenticationService, private router:Router){}
 
   setUserType(type: string) {
     this.userType = type;
@@ -83,7 +94,7 @@ export class SignupPageComponent {
     }
   }
 
-  isStep3Valid(): boolean {    
+  isStep3Valid(): boolean {
     return !!this.signupRequest.email && !!this.signupRequest.password && (this.signupRequest.password === this.confirmPassword) ;
   }
 
@@ -91,7 +102,7 @@ export class SignupPageComponent {
     if(this.isLoading=true){
 
     }else{
-      
+
     }
     this.isLoading = true;
     this.errorMessage = '';
