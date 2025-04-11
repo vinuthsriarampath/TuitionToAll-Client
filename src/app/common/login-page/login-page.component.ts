@@ -1,10 +1,21 @@
+/*
+ * Copyright (c) 2025 vinuth sri arampath
+ *
+ * This code is the intellectual property of vinuth sri arampath and is protected under copyright law.
+ * Unauthorized copying, modification, distribution, or use of this code, in whole or in part,
+ * without prior written permission is strictly prohibited.
+ *
+ * Portions of this code may be generated with AI and modified by vinuth sri arampath
+ * All rights reserved.
+ */
+
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { UserLoginRequest } from '../../requestDtos/user-login-request';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthResponse } from '../../responseDtos/auth-response';
-import { AuthenticationServiceService } from '../../services/auth/authentication-service.service';
+import { AuthenticationService } from '../../services/auth/authentication.service';
 
 @Component({
   selector: 'app-login-page',
@@ -24,7 +35,7 @@ export class LoginPageComponent {
   isLoading:boolean=false;
   errorMessage?:string;
   error?:boolean;
-  constructor(private authService: AuthenticationServiceService, private router:Router) {}
+  constructor(private authService: AuthenticationService, private router:Router) {}
 
   login() {
     this.isLoading=true;

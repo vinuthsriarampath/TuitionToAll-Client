@@ -1,3 +1,14 @@
+<!--
+  ~ Copyright (c) 2025 vinuth sri arampath
+  ~
+  ~ This code is the intellectual property of vinuth sri arampath and is protected under copyright law.
+  ~ Unauthorized copying, modification, distribution, or use of this code, in whole or in part,
+  ~ without prior written permission is strictly prohibited.
+  ~
+  ~ Portions of this code may be generated with AI and modified by vinuth sri arampath
+  ~ All rights reserved.
+  -->
+
 <div class="bg-gray-50 text-gray-900 h-screen flex flex-col">
     <header class="bg-blue-900 shadow-lg">
       <div class="container mx-auto px-2 sm:px-4 py-6 flex flex-col md:flex-row items-center justify-between">
@@ -22,12 +33,12 @@
                         <path d="M20 3.36667C10.8167 3.36667 3.3667 10.8167 3.3667 20C3.3667 29.1833 10.8167 36.6333 20 36.6333C29.1834 36.6333 36.6334 29.1833 36.6334 20C36.6334 10.8167 29.1834 3.36667 20 3.36667ZM19.1334 33.3333V22.9H13.3334L21.6667 6.66667V17.1H27.25L19.1334 33.3333Z">
                         </path>
                     </svg>
-        
+
                     <p class="mx-3">{{errorMessage}}</p>
                 </div>
             </div>
           </div>
-  
+
           <label for="email" class="block text-md text-gray-700">Email Address</label>
           <div class="relative flex items-center my-2 sm:my-4">
             <span class="absolute">
@@ -41,7 +52,7 @@
             <div *ngIf="email.errors?.['required']">Email is required.</div>
             <div *ngIf="email.errors?.['email']">Please enter a valid email address.</div>
           </div>
-  
+
           <label for="password" class="block text-md text-gray-700">Password</label>
           <div class="relative flex items-center my-2 sm:mt-4">
             <span class="absolute">
@@ -55,15 +66,15 @@
             <div *ngIf="password.errors?.['required']">Password is required.</div>
             <div *ngIf="password.errors?.['minlength']">Password must be at least 6 characters long.</div>
           </div>
-  
+
           <a href="#" class="text-blue-600 font-semibold flex justify-end my-3">Forgot Password?</a>
-  
+
           <button type="button" class="bg-blue-900 text-gray-200 font-semibold rounded-md w-full py-2 " [ngClass]="{'cursor-not-allowed': email.invalid || password.invalid , 'cursor-pointer': !email.invalid  && !password.invalid}"  (click)="login()" [disabled]="email.invalid || password.invalid">
-          
+
           <span *ngIf="!isLoading">Login</span>
           <span *ngIf="isLoading">Loading...</span>
         </button>
-  
+
           <div class="flex items-center gap-2 font-light my-3">
             <span class="flex-1 border-t border-gray-500"></span>
             <span class="text-gray-700">New to TuitionToAll?</span>
@@ -72,7 +83,7 @@
           <a [routerLink]="['/auth/signup']" routerLinkActive="router-link-active" ><input type="button" value="Register" class="text-black border border-black font-semibold rounded-md w-full py-2 cursor-pointer"></a>
         </div>
       </div>
-  
+
       <div class="hidden sm:hidden lg:block flex-1 bg-gray-100">
         <img src="loginpage_pic.jpg" alt="Login Image" class="w-full h-full object-cover">
       </div>
