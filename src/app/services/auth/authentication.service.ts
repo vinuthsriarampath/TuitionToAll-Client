@@ -48,7 +48,6 @@ export class AuthenticationService {
   }
 
   getAuthToken(){
-    console.log(localStorage.getItem('token'))
     return localStorage.getItem('token')
   }
 }
