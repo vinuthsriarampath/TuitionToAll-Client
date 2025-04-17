@@ -52,6 +52,7 @@ export class LoginPageComponent {
             this.authResponse = response;
             localStorage.setItem('token',response.token as string)
             localStorage.setItem('user',JSON.stringify(response.user))
+            localStorage.setItem('role',JSON.stringify(response.user?.role))
             this.isLoading=false;
             this.router.navigate(['dashboard'])
           } else {
