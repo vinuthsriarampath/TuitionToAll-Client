@@ -68,8 +68,12 @@
             </div>
           </div>
           <div class="lg:block hidden">
-            <p class="text-md">{{ user?.role == 'ROLE_INSTITUTE' ? user.instituteName : user.firstname+" "+user.lastname }}</p>
-            <p class="font-semibold text-sm text-muted-foreground">{{ user?.email }}</p>
+            <p class="text-md truncate max-w-xs" title="{{ user?.role == 'ROLE_INSTITUTE' ? user.instituteName : user.firstName+' '+user.lastName }}">
+              {{ user?.role == 'ROLE_INSTITUTE' ? user.instituteName : user.firstName+" "+user.lastName }}
+            </p>
+            <p class="font-semibold text-sm text-muted-foreground truncate max-w-xs" title="{{ user?.email }}">
+              {{ user?.email }}
+            </p>
           </div>
         </div>
       </div>
