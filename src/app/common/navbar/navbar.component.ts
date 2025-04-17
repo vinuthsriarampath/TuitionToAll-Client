@@ -123,4 +123,16 @@ export class NavbarComponent {
     }
   }
 
+  logout() {
+    const token: string|null = localStorage.getItem("token");
+    const user = localStorage.getItem("user");
+    const role = localStorage.getItem("role");
+
+    if(token && user && role){
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      localStorage.removeItem("role");
+      window.location.replace("/auth/login");
+    }
+  }
 }
