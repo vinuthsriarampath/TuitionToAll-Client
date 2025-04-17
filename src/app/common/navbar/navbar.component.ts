@@ -1,8 +1,7 @@
-import {Component, HostListener} from '@angular/core';
+import {Component, ElementRef, HostListener, ViewChild} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {User} from '../../models/userModels/user';
 import {Student} from '../../models/userModels/student';
 import {Teacher} from '../../models/userModels/teacher';
 import {Institute} from '../../models/userModels/institute';
@@ -23,6 +22,8 @@ export class NavbarComponent {
   isMobileSearchActive:boolean = false;
   user: any;
   searchInput : string | undefined;
+
+  @ViewChild('mobileSearchInput') mobileSearchInput!: ElementRef;
 
   constructor() {
     const userData = localStorage.getItem("user");
@@ -46,49 +47,80 @@ export class NavbarComponent {
     }
   }
 
-  toggleProfileDropdown() {
+  ngOnInit(): void {
+    this.updateBodyScrollClass();
+  }
+
+  toggleSearchDropdown(): void {
+    this.isSearchDropdownOpen = !this.isSearchDropdownOpen;
+  }
+
+  toggleProfileDropdown(): void {
     this.isProfileDropdownOpen = !this.isProfileDropdownOpen;
   }
 
-  toggleMobileSearch() {
+  activateMobileSearch(): void {
     this.isMobileSearchActive = true;
-  }
+    this.updateBodyScrollClass();
 
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent) {
-    const target = event.target as HTMLElement;
-
-    const dropdowns = [
-      { isOpen: this.isProfileDropdownOpen, buttonClass: '.profile_button', menuClass: '.profile_menu' },
-      { isOpen: this.isSearchDropdownOpen, buttonClass: '.search_field', menuClass: '.search_menu' }
-    ];
-
-    dropdowns.forEach(dropdown => {
-      const dropdownButton = document.querySelector(dropdown.buttonClass);
-      const dropdownMenu = document.querySelector(dropdown.menuClass);
-
-      if (
-        dropdown.isOpen &&
-        dropdownButton &&
-        dropdownMenu &&
-        !dropdownButton.contains(target) &&
-        !dropdownMenu.contains(target)
-      ) {
-        this.closeAllDropdowns();
+    setTimeout(() => {
+      if (this.mobileSearchInput) {
+        this.mobileSearchInput.nativeElement.focus();
       }
-    });
-  }
-  closeAllDropdowns(){
-    this.isProfileDropdownOpen = false;
-    this.isSearchDropdownOpen = false;
+    }, 100);
   }
 
-  toggleSearchDropdown() {
-    this.isSearchDropdownOpen = !this.isSearchDropdownOpen;
+  deactivateMobileSearch(): void {
+    this.isMobileSearchActive = false;
+    this.updateBodyScrollClass();
+  }
+
+  private updateBodyScrollClass(): void {
+    if (this.isMobileSearchActive) {
+      document.body.classList.add('overflow-hidden');
+    } else {
+      document.body.classList.remove('overflow-hidden');
+    }
   }
 
   onSearchChange(event: Event): void {
     this.searchInput = (event.target as HTMLInputElement).value;
-    console.log('Search input changed:', this.searchInput);
+
+    this.isSearchDropdownOpen = this.searchInput.length > 0;
   }
+
+  @HostListener('document:keydown.escape', ['$event'])
+  onEscapeKey(event: KeyboardEvent): void {
+    if (this.isMobileSearchActive) {
+      this.deactivateMobileSearch();
+    }
+
+    if (this.isSearchDropdownOpen) {
+      this.isSearchDropdownOpen = false;
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClick(event: MouseEvent): void {
+
+    const profileButton = document.querySelector('.profile_button');
+    const profileMenu = document.querySelector('.profile_menu');
+
+    if (profileButton?.contains(event.target as Node)) {
+      return;
+    }
+
+    if (profileMenu && !profileMenu.contains(event.target as Node)) {
+      this.isProfileDropdownOpen = false;
+    }
+
+    const searchField = document.querySelector('.search_field');
+    const searchMenu = document.querySelector('.search_menu');
+
+    if (searchField && !searchField.contains(event.target as Node) &&
+      searchMenu && !searchMenu.contains(event.target as Node)) {
+      this.isSearchDropdownOpen = false;
+    }
+  }
+
 }
