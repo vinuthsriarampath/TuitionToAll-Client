@@ -18,6 +18,7 @@ import { SignupPageComponent } from './common/signup-page/signup-page.component'
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {tokenGuard} from './services/auth/guard/token/token.guard';
 import {PageNotFoundComponent} from './shared/components/page-not-found/page-not-found.component';
+import {UserProfileComponent} from './features/profile/user-profile/user-profile.component';
 
 export const routes: Routes = [
   {
@@ -42,6 +43,11 @@ export const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [tokenGuard]
+  },
+  {
+    path: 'profile/:userSlug',
+    component: UserProfileComponent,
+    canActivate: [authGuard],
   },
   {
     path: '**',
