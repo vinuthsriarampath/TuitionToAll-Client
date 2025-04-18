@@ -4,31 +4,31 @@
   </div>
 
   <div class="min-h-screen bg-blue-50">
-    <div class="w-full max-w-screen-xl mx-auto px-2">
+    <div class="w-full max-w-screen-xl mx-auto px-2 sm:px-4 md:px-6">
 
       <div class="h-96 bg-blue-50/50 shadow-md">
-        <div class="relative w-full h-60 bg-gray-600">
+        <div class="relative w-full md:h-60 h-72 bg-gray-600">
           <img src="beach.jpg" alt="thumbnail" loading="lazy" class="w-full h-full object-cover">
-          <div class="absolute left-0 bottom-0 translate-y-3/4 flex items-center gap-4 pl-4">
-            <div class="h-40 w-40 rounded-full overflow-hidden">
+          <div class="absolute left-0 bottom-0 w-full flex flex-col items-center md:flex-row  md:gap-4 md:pl-2 md:pr-2 md:sm:pl-4 translate-y-2/4 md:translate-y-3/4">
+            <div class="h-32 md:h-40 w-32 md:w-40  rounded-full overflow-hidden">
               <img src="https://avatar.iran.liara.run/public/boy" loading="lazy" alt="avatar" class="w-full h-full object-cover">
             </div>
-            <div class="px-3 py-4">
+            <div class="px-1.5 md:px-3 py-2 md:py-4 text-center md:text-left">
               <div [ngSwitch]="userRole">
                 <ng-container *ngSwitchCase="'institute'">
-                  <p class="text-2xl font-semibold">{{ instituteDetails?.instituteName }}</p>
+                  <p class="text-base sm:text-lg md:text-2xl font-semibold">{{ instituteDetails?.instituteName }}</p>
                   <p class="text-gray-800">{{ instituteDetails?.email || 'N/A' }}</p>
                 </ng-container>
                 <ng-container *ngSwitchCase="'teacher'">
-                  <p class="text-2xl font-semibold">{{ teacherDetails?.firstName+' '+teacherDetails?.lastName}}</p>
+                  <p class="text-base sm:text-lg md:text-2xl font-semibold">{{ teacherDetails?.firstName+' '+teacherDetails?.lastName}}</p>
                   <p class="text-gray-800">{{ teacherDetails?.email || 'N/A' }}</p>
                 </ng-container>
                 <ng-container *ngSwitchCase="'student'">
-                  <p class="text-2xl font-semibold">{{ studentDetails?.firstName+' '+studentDetails?.lastName}}</p>
+                  <p class="text-base sm:text-lg md:text-2xl font-semibold">{{ studentDetails?.firstName+' '+studentDetails?.lastName}}</p>
                   <p class="text-gray-800">{{ studentDetails?.email || 'N/A' }}</p>
                 </ng-container>
                 <ng-container *ngSwitchDefault>
-                  <p class="text-2xl font-semibold">User Name</p>
+                  <p class="text-base sm:text-lg md:text-2xl font-semibold">User Name</p>
                   <p class="text-gray-800">User Email</p>
                 </ng-container>
               </div>
@@ -38,8 +38,8 @@
       </div>
 
       <div class="flex flex-col md:flex-row gap-4 p-4 items-start">
-        <div class="flex flex-col gap-4 text-gray-800 md:w-1/3 md:sticky md:top-16 md:z-10">
-          <div class="bg-blue-100/75 p-4 flex flex-col gap-3 rounded-xl shadow w-full transition-all duration-300 hover:shadow-lg">
+        <div class="flex flex-col gap-4 text-gray-800 w-full md:w-1/3 md:sticky md:top-16 md:z-10">
+          <div class="bg-blue-100/75 p-3 sm:p-4 flex flex-col gap-2 rounded-xl shadow transition-all duration-300 hover:shadow-lg">
             <h1 class="text-xl font-bold">Intro</h1>
 
             <div [ngSwitch]="userRole">
