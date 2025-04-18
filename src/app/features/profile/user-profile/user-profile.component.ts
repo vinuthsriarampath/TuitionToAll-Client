@@ -6,44 +6,43 @@ import {Teacher} from '../../../models/userModels/teacher';
 import {Student} from '../../../models/userModels/student';
 import {AuthenticationService} from '../../../services/auth/authentication.service';
 import {User} from '../../../models/userModels/user';
+import {NgSwitch, NgSwitchCase, NgSwitchDefault} from '@angular/common';
 
 @Component({
   selector: 'app-user-profile',
   imports: [
-    NavbarComponent
+    NavbarComponent,
+    NgSwitch,
+    NgSwitchCase,
+    NgSwitchDefault
   ],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css'
 })
 export class UserProfileComponent {
-  userRole:string = '';
+
   instituteDetails?:Institute;
   teacherDetails?:Teacher;
   studentDetails?:Student;
+
+  userRole:string = '';
+
   authService: AuthenticationService = inject(AuthenticationService);
-
-  displayName: string = '';
-  email: string = '';
-
 
   constructor(authService:AuthenticationService) {
     this.authService.verifyToken().subscribe({
       next: (res) => {
         const user :User = res.data!;
-        this.email = user.email ?? '';
 
         if (isInstitute(user)) {
-          this.userRole = 'Institute';
+          this.userRole = 'institute';
           this.instituteDetails = user;
-          this.displayName = user.instituteName ?? '';
         } else if (isStudent(user)) {
-          this.userRole = 'Student';
+          this.userRole = 'student';
           this.studentDetails = user;
-          this.displayName = `${user.firstName ?? ''} ${user.lastName ?? ''}`.trim();
         } else if (isTeacher(user)) {
-          this.userRole = 'Teacher';
+          this.userRole = 'teacher';
           this.teacherDetails = user;
-          this.displayName = `${user.firstName ?? ''} ${user.lastName ?? ''}`.trim();
         }
       },
       error(err){
