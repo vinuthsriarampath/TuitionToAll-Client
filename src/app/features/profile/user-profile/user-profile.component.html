@@ -2,8 +2,10 @@
   <div class="sticky top-0 z-50">
     <app-navbar></app-navbar>
   </div>
+
   <div class="min-h-screen bg-blue-50">
     <div class="w-full max-w-screen-xl mx-auto px-2">
+
       <div class="h-96 bg-blue-50/50 shadow-md">
         <div class="relative w-full h-60 bg-gray-600">
           <img src="beach.jpg" alt="thumbnail" class="w-full h-full object-cover">
@@ -12,13 +14,24 @@
               <img src="https://avatar.iran.liara.run/public/boy" alt="avatar" class="w-full h-full object-cover">
             </div>
             <div class="px-3 py-4">
-              <p class="text-2xl font-semibold">Test User name</p>
-              <p class="text-gray-800">Test User Email</p>
+              <p class="text-2xl font-semibold">{{ displayName }}</p>
+              <p class="text-gray-800">{{ email }}</p>
             </div>
           </div>
+        </div>
+      </div>
+
+
+      <div class="flex flex-col md:flex-row gap-4 p-4 items-start">
+
+        <div class="bg-blue-100/75 p-4 text-gray-800 rounded-xl shadow w-full md:w-1/3">
+          <h1 class="text-xl font-bold">Intro</h1>
+        </div>
+
+        <div class="bg-blue-100/75 p-4 text-gray-800 rounded-xl shadow w-full md:w-2/3">
+          <h1 class="text-xl font-bold">Post</h1>
         </div>
       </div>
     </div>
   </div>
 </div>
-
