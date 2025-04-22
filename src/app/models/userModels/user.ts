@@ -18,4 +18,5 @@ export interface User {
     email?: string;
     role?: Roles;
     isDisabled?: boolean;
+    userSlug?:string;
 }
