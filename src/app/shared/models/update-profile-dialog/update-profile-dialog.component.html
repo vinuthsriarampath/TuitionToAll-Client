@@ -1,0 +1,61 @@
+<div class="p-4">
+  <div class="w-full flex justify-between items-center border-b-2 border-gray-200">
+    <h1 class="text-lg">Edit Intro</h1>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 cursor-pointer" (click)="onCancel()" (keydown)="onCancel()">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+    </svg>
+  </div>
+  <form (ngSubmit)="onSubmit()">
+    <div class="w-full overflow-y-scroll h-96 px-4 my-2">
+      <div class="flex flex-col gap-4 mt-2 pb-4">
+        <div class="flex flex-col gap-2">
+          <p class="text-md text-gray-400 text-sm"><sup class="text-red-500">* </sup>Indicates required</p>
+        </div>
+        <div *ngIf="data.userRole === 'student' || data.userRole === 'teacher'" class="flex flex-col gap-2">
+          <div class="flex flex-col gap-2">
+            <label for="first-name" class="text-md text-gray-700">First name<sup class="text-red-500"> *</sup></label>
+            <input type="text" id="first-name" [(ngModel)]="userDetails.firstName" name="first-name" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500" placeholder="Your first name" required #firstName="ngModel" />
+            <div *ngIf="firstName.invalid && firstName.touched" class="text-sm text-red-500 mb-4">First Name is required.</div>
+          </div>
+          <div class="flex flex-col gap-2">
+            <label for="last-name" class="text-md text-gray-700">Last name<sup class="text-red-500"> *</sup></label>
+            <input type="text" id="last-name" [(ngModel)]="userDetails.lastName" name="last-name" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500" placeholder="Your last name" required #lastName="ngModel" />
+            <div *ngIf="lastName.invalid && lastName.touched" class="text-sm text-red-500 mb-4">Last Name is required.</div>
+          </div>
+          <div class="flex flex-col gap-2">
+            <label for="dob" class="text-md text-gray-700">Date of Birth<sup class="text-sm text-red-500"> *</sup></label>
+            <input type="date" id="dob" [(ngModel)]="userDetails.dob" name="dob" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500" placeholder="Your Birthday" required #dateOfBirth="ngModel" />
+          </div>
+          <div *ngIf="dateOfBirth.invalid && dateOfBirth.touched" class="text-sm text-red-500 mb-4">Date of Birth is required.</div>
+        </div>
+
+        <div *ngIf="data.userRole === 'institute'">
+          <div class="flex flex-col gap-2">
+            <label for="institute-name" class="text-md text-gray-700">Institute name<sup class="text-red-500"> *</sup></label>
+            <input type="text" id="institute-name" [(ngModel)]="userDetails.instituteName" name="institute-name" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500" placeholder="Your institute name" required #instituteName="ngModel" />
+            <div *ngIf="instituteName.invalid && instituteName.touched" class="text-sm text-red-500 mb-4">Institute Name is required.</div>
+          </div>
+        </div>
+
+
+        <div class="flex flex-col gap-2">
+          <label for="contact-no" class="text-md text-gray-700">Contact<sup class="text-red-500"> *</sup></label>
+          <input type="tel" id="contact-no" [(ngModel)]="userDetails.contact" name="contact-no" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500" placeholder="Your contact no" required pattern="[0-9]{10}" #contactNo="ngModel"  />
+          <div *ngIf="contactNo.invalid && contactNo.touched" class="text-sm text-red-500 mb-4">
+            <div *ngIf="contactNo.errors?.['required']">Contact Number is required.</div>
+            <div *ngIf="contactNo.errors?.['pattern']">Please enter a valid 10-digit phone number.</div>
+          </div>
+        </div>
+        <div class="flex flex-col gap-2">
+          <label for="address" class="text-md text-gray-700">Address<sup class="text-red-500"> *</sup></label>
+          <textarea id="bio" [(ngModel)]="userDetails.address" name="address" rows="2" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500" placeholder="Your address" required #address="ngModel"></textarea>
+          <div *ngIf="address.invalid && address.touched" class="text-sm text-red-500 mb-4">Address is required.</div>
+        </div>
+      </div>
+    </div>
+    <div class="w-full border-t-2 border-gray-200 flex justify-end items-center">
+      <input type="submit" value="Save" class="bg-blue-600 text-white text-md font-semibold py-2 px-4 rounded-xl mt-1.5 me-2 cursor-pointer">
+    </div>
+  </form>
+
+</div>
