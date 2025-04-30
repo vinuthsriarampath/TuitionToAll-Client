@@ -1,7 +1,7 @@
 import {Component, OnInit, inject} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {NavbarComponent} from '../../../common/navbar/navbar.component';
-import {NgSwitch, NgSwitchCase, NgSwitchDefault} from '@angular/common';
+import {NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault} from '@angular/common';
 import {User} from '../../../models/userModels/user';
 import {isInstitute, isStudent, isTeacher} from '../../../core/helpers/user/user-type-guards';
 import {Institute} from '../../../models/userModels/institute';
@@ -9,6 +9,10 @@ import {Teacher} from '../../../models/userModels/teacher';
 import {AuthenticationService} from '../../../services/auth/authentication.service';
 import {UserService} from '../../../core/services/user/user.service';
 import {Student} from '../../../models/userModels/student';
+import {MatDialog} from '@angular/material/dialog';
+import {
+  UpdateProfileDialogComponent
+} from '../../../shared/models/update-profile-dialog/update-profile-dialog.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -16,7 +20,8 @@ import {Student} from '../../../models/userModels/student';
     NavbarComponent,
     NgSwitch,
     NgSwitchCase,
-    NgSwitchDefault
+    NgSwitchDefault,
+    NgIf
   ],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css'
@@ -33,7 +38,7 @@ export class UserProfileComponent implements OnInit {
   authService: AuthenticationService = inject(AuthenticationService);
   userService: UserService = inject(UserService);
 
-  constructor(private readonly activatedRoute: ActivatedRoute) {
+  constructor(private readonly activatedRoute: ActivatedRoute, private  readonly dialog:MatDialog) {
     this.authService.verifyToken().subscribe({
       next: (res) => {
         this.currentUser = res.data!;
@@ -76,6 +81,35 @@ export class UserProfileComponent implements OnInit {
       },
       error(err) {
         window.location.replace('/dashboard');
+      }
+    });
+  }
+
+  openProfileUpdateDialog() {
+    let userDetails;
+    if (this.userRole === 'student') {
+      userDetails = this.studentDetails;
+    }else if (this.userRole === 'teacher') {
+      userDetails = this.teacherDetails;
+    }else{
+      userDetails = this.instituteDetails;
+    }
+
+    const dialogRef = this.dialog.open(UpdateProfileDialogComponent, {
+      maxWidth: '80vh',
+      width: '100%',
+      panelClass: 'update-profile-dialog',
+      data: {
+        userRole: structuredClone(this.userRole),
+        details: structuredClone(userDetails)
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        console.info('User confirmed!');
+      } else {
+        console.error('User canceled.');
       }
     });
   }

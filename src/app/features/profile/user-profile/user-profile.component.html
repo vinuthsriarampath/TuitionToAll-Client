@@ -129,7 +129,7 @@
                   <p class="text-sm">User Address</p>
                 </div>
               </ng-container>
-              <button class="w-full bg-white hover:bg-gray-100 text-black outline-0 mt-3 rounded-md py-1 text-sm">Edit Details</button>
+              <button class="w-full bg-white hover:bg-gray-100 text-black outline-0 mt-3 rounded-md py-1 text-sm" (click)="openProfileUpdateDialog()" *ngIf="isSameUser" >Edit Details</button>
             </div>
           </div>
         </div>
