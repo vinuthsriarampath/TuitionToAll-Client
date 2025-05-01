@@ -11,11 +11,11 @@
 
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { UserLoginRequest } from '../../core/dto/request-dto/login-dto/user-login-request';
+import { UserLoginRequest } from '../../../core/dto/request-dto/login-dto/user-login-request';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AuthResponse } from '../../core/dto/response-dto/auth-response';
-import { AuthenticationService } from '../../core/services/auth/authentication.service';
+import { AuthResponse } from '../../../core/dto/response-dto/auth-response';
+import { AuthenticationService } from '../../../core/services/auth/authentication.service';
 
 @Component({
   selector: 'app-login-dto-page',
