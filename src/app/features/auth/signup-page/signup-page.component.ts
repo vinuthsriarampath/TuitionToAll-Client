@@ -11,12 +11,12 @@
 
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { StudentRegistrationRequest } from '../../core/dto/request-dto/registration-dto/sub-registration-dto/student-registration-request';
-import { InstituteRegistrationRequest } from '../../core/dto/request-dto/registration-dto/sub-registration-dto/institute-registration-request';
-import { TeacherRegistrationRequest } from '../../core/dto/request-dto/registration-dto/sub-registration-dto/teacher-registration-request';
+import { StudentRegistrationRequest } from '../../../core/dto/request-dto/registration-dto/sub-registration-dto/student-registration-request';
+import { InstituteRegistrationRequest } from '../../../core/dto/request-dto/registration-dto/sub-registration-dto/institute-registration-request';
+import { TeacherRegistrationRequest } from '../../../core/dto/request-dto/registration-dto/sub-registration-dto/teacher-registration-request';
 import { CommonModule, NgClass } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { AuthenticationService } from '../../core/services/auth/authentication.service';
+import { AuthenticationService } from '../../../core/services/auth/authentication.service';
 
 @Component({
   selector: 'app-signup-page',

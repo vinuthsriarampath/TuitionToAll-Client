@@ -1,6 +1,6 @@
 import {Component, OnInit, inject} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {NavbarComponent} from '../../../common/navbar/navbar.component';
+import {NavbarComponent} from '../../../shared/components/navbar/navbar.component';
 import {NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault} from '@angular/common';
 import {User} from '../../../core/models/user-models/user';
 import {isInstitute, isStudent, isTeacher} from '../../../core/helpers/user/user-type-guards';
