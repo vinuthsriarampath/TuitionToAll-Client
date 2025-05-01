@@ -6,7 +6,7 @@ import {User} from '../../../core/models/user-models/user';
 import {isInstitute, isStudent, isTeacher} from '../../../core/helpers/user/user-type-guards';
 import {Institute} from '../../../core/models/user-models/sub-user-models/institute';
 import {Teacher} from '../../../core/models/user-models/sub-user-models/teacher';
-import {AuthenticationService} from '../../../services/auth/authentication.service';
+import {AuthenticationService} from '../../../core/services/auth/authentication.service';
 import {UserService} from '../../../core/services/user/user.service';
 import {Student} from '../../../core/models/user-models/sub-user-models/student';
 import {MatDialog} from '@angular/material/dialog';
