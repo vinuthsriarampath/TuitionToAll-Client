@@ -9,11 +9,11 @@
  * All rights reserved.
  */
 
-import {Student} from '../../../models/userModels/student';
-import {User} from '../../../models/userModels/user';
+import {Student} from '../../models/user-models/sub-user-models/student';
+import {User} from '../../models/user-models/user';
 import {Roles} from '../../../enums/roles';
-import {Institute} from '../../../models/userModels/institute';
-import {Teacher} from '../../../models/userModels/teacher';
+import {Institute} from '../../models/user-models/sub-user-models/institute';
+import {Teacher} from '../../models/user-models/sub-user-models/teacher';
 
 export function isStudent(user: User): user is Student {
   return user.role === Roles.ROLE_STUDENT;

@@ -9,8 +9,14 @@
  * All rights reserved.
  */
 
-import { User } from "./user";
+import { Roles } from "../../../enums/roles";
 
-export interface Institute extends User{
-    instituteName?:string;
+export interface User {
+    id?: number;
+    address?: string;
+    contact?: string;
+    email?: string;
+    role?: Roles;
+    isDisabled?: boolean;
+    userSlug?:string;
 }
