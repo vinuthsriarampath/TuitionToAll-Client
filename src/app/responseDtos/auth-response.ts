@@ -9,7 +9,7 @@
  * All rights reserved.
  */
 
-import { User } from "../models/userModels/user";
+import { User } from "../core/models/user-models/user";
 
 export interface AuthResponse {
     token?:string;

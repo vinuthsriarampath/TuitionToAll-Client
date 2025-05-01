@@ -2,13 +2,13 @@ import {Component, OnInit, inject} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {NavbarComponent} from '../../../common/navbar/navbar.component';
 import {NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault} from '@angular/common';
-import {User} from '../../../models/userModels/user';
+import {User} from '../../../core/models/user-models/user';
 import {isInstitute, isStudent, isTeacher} from '../../../core/helpers/user/user-type-guards';
-import {Institute} from '../../../models/userModels/institute';
-import {Teacher} from '../../../models/userModels/teacher';
+import {Institute} from '../../../core/models/user-models/sub-user-models/institute';
+import {Teacher} from '../../../core/models/user-models/sub-user-models/teacher';
 import {AuthenticationService} from '../../../services/auth/authentication.service';
 import {UserService} from '../../../core/services/user/user.service';
-import {Student} from '../../../models/userModels/student';
+import {Student} from '../../../core/models/user-models/sub-user-models/student';
 import {MatDialog} from '@angular/material/dialog';
 import {
   UpdateProfileDialogComponent

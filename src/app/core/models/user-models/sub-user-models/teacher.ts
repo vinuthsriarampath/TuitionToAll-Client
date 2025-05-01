@@ -9,14 +9,10 @@
  * All rights reserved.
  */
 
-import { Roles } from "../../enums/roles";
+import { User } from "../user";
 
-export interface User {
-    id?: number;
-    address?: string;
-    contact?: string;
-    email?: string;
-    role?: Roles;
-    isDisabled?: boolean;
-    userSlug?:string;
+export interface Teacher extends User{
+    firstName?:string;
+    lastName?:string;
+    dob?:Date;
 }
