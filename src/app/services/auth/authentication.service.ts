@@ -11,13 +11,13 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { UserLoginRequest } from '../../requestDtos/user-login-request';
+import { UserLoginRequest } from '../../core/dto/request-dto/login-dto/user-login-request';
 import { environment } from '../../environment/environment.development';
-import { AuthResponse } from '../../responseDtos/auth-response';
-import { StudentRegistrationRequest } from '../../requestDtos/registration/student-registration-request';
-import { TeacherRegistrationRequest } from '../../requestDtos/registration/teacher-registration-request';
-import { InstituteRegistrationRequest } from '../../requestDtos/registration/institute-registration-request';
-import { ApiResponse } from '../../responseDtos/api-response';
+import { AuthResponse } from '../../core/dto/response-dto/auth-response';
+import { StudentRegistrationRequest } from '../../core/dto/request-dto/registration-dto/sub-registration-dto/student-registration-request';
+import { TeacherRegistrationRequest } from '../../core/dto/request-dto/registration-dto/sub-registration-dto/teacher-registration-request';
+import { InstituteRegistrationRequest } from '../../core/dto/request-dto/registration-dto/sub-registration-dto/institute-registration-request';
+import { ApiResponse } from '../../core/dto/response-dto/api-response';
 
 @Injectable({
   providedIn: 'root'

@@ -9,9 +9,8 @@
  * All rights reserved.
  */
 
-import { User } from "../core/models/user-models/user";
+import { UserRegistrationRequest } from "../user-registration-request";
 
-export interface AuthResponse {
-    token?:string;
-    user?:User;
+export interface InstituteRegistrationRequest extends UserRegistrationRequest{
+    instituteName?:string;
 }

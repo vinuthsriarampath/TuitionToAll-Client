@@ -27,7 +27,7 @@ export const routes: Routes = [
     canActivate: [tokenGuard]
   },
   {
-    path: 'auth/login',
+    path: 'auth/login-dto',
     component: LoginPageComponent
   },
   {

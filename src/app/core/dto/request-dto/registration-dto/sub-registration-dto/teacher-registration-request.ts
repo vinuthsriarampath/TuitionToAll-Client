@@ -9,8 +9,10 @@
  * All rights reserved.
  */
 
-import { UserRegistrationRequest } from "./user-registration-request";
+import { UserRegistrationRequest } from "../user-registration-request";
 
-export interface InstituteRegistrationRequest extends UserRegistrationRequest{
-    instituteName?:string;
+export interface TeacherRegistrationRequest extends UserRegistrationRequest{
+    firstName?:string;
+    lastName?:string;
+    dob?:Date;
 }

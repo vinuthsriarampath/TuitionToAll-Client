@@ -11,7 +11,7 @@
 
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ApiResponse} from '../../../responseDtos/api-response';
+import {ApiResponse} from '../../dto/response-dto/api-response';
 import {environment} from '../../../environment/environment.development';
 
 @Injectable({
