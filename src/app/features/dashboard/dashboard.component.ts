@@ -10,7 +10,7 @@
  */
 
 import { Component } from '@angular/core';
-import {NavbarComponent} from '../../common/navbar/navbar.component';
+import {NavbarComponent} from '../../shared/components/navbar/navbar.component';
 import {RouterOutlet} from '@angular/router';
 
 @Component({
