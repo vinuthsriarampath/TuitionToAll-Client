@@ -13,6 +13,15 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ApiResponse} from '../../dto/response-dto/api-response';
 import {environment} from '../../../environment/environment.development';
+import {
+  InstituteDetailsUpdateRequest
+} from '../../dto/request-dto/update-user-dto/sub-user-details-update-dto/InstituteDetailsUpdateRequest';
+import {
+  StudentDetailsUpdateRequest
+} from '../../dto/request-dto/update-user-dto/sub-user-details-update-dto/StudentDetailsUpdateRequest';
+import {
+  TeacherDetailsUpdateRequest
+} from '../../dto/request-dto/update-user-dto/sub-user-details-update-dto/TeacherDetailsUpdateRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +33,17 @@ export class UserService {
 
   findUserByUserSlug(userSlug: string){
     return this.http.get<ApiResponse>(`${environment.USER_API}/by-user-slug/${userSlug}`);
+  }
+
+  updateInstituteDetails(updateRequest: InstituteDetailsUpdateRequest){
+    return this.http.patch(`${environment.USER_API}/institutes/update/me`,updateRequest);
+  }
+
+  updateTeacherDetails(updateRequest: TeacherDetailsUpdateRequest){
+    return this.http.patch(`${environment.USER_API}/teachers/update/me`,updateRequest);
+  }
+
+  updateStudentDetails(updateRequest: StudentDetailsUpdateRequest){
+    return this.http.patch(`${environment.USER_API}/student/update/me`,updateRequest);
   }
 }
