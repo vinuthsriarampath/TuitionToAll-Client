@@ -10,7 +10,7 @@
  */
 
 import { Routes } from '@angular/router';
-import {LandingPageComponent} from './features/landing-page/landing-page.component';
+import {LandingPageComponent} from './shared/pages/landing-page/landing-page.component';
 import { LoginPageComponent } from './features/auth/login-page/login-page.component';
 import { UnderDevelopmentPageComponent } from './shared/pages/under-development-page/under-development-page.component';
 import { authGuard } from './core/guards/auth-guard/auth.guard';
