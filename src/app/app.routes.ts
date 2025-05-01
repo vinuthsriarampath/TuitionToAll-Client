@@ -13,10 +13,10 @@ import { Routes } from '@angular/router';
 import {LandingPageComponent} from './common/landing-page/landing-page.component';
 import { LoginPageComponent } from './common/login-page/login-page.component';
 import { UnderDevelopmentPageComponent } from './common/under-development-page/under-development-page.component';
-import { authGuard } from './services/auth/guard/auth/auth.guard';
+import { authGuard } from './core/guards/auth-guard/auth.guard';
 import { SignupPageComponent } from './common/signup-page/signup-page.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
-import {tokenGuard} from './services/auth/guard/token/token.guard';
+import {tokenGuard} from './core/guards/token-guard/token.guard';
 import {PageNotFoundComponent} from './shared/components/page-not-found/page-not-found.component';
 import {UserProfileComponent} from './features/profile/user-profile/user-profile.component';
 
