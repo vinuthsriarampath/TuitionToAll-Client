@@ -16,7 +16,7 @@ import { InstituteRegistrationRequest } from '../../core/dto/request-dto/registr
 import { TeacherRegistrationRequest } from '../../core/dto/request-dto/registration-dto/sub-registration-dto/teacher-registration-request';
 import { CommonModule, NgClass } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { AuthenticationService } from '../../services/auth/authentication.service';
+import { AuthenticationService } from '../../core/services/auth/authentication.service';
 
 @Component({
   selector: 'app-signup-page',
