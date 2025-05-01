@@ -9,10 +9,9 @@
  * All rights reserved.
  */
 
-import { UserRegistrationRequest } from "./user-registration-request";
+import { User } from "../../models/user-models/user";
 
-export interface StudentRegistrationRequest extends UserRegistrationRequest{
-    firstName?:string;
-    lastName?:string;
-    dob?:Date;
+export interface AuthResponse {
+    token?:string;
+    user?:User;
 }

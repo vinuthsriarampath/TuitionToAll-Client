@@ -11,9 +11,9 @@
 
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { StudentRegistrationRequest } from '../../requestDtos/registration/student-registration-request';
-import { InstituteRegistrationRequest } from '../../requestDtos/registration/institute-registration-request';
-import { TeacherRegistrationRequest } from '../../requestDtos/registration/teacher-registration-request';
+import { StudentRegistrationRequest } from '../../core/dto/request-dto/registration-dto/sub-registration-dto/student-registration-request';
+import { InstituteRegistrationRequest } from '../../core/dto/request-dto/registration-dto/sub-registration-dto/institute-registration-request';
+import { TeacherRegistrationRequest } from '../../core/dto/request-dto/registration-dto/sub-registration-dto/teacher-registration-request';
 import { CommonModule, NgClass } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { AuthenticationService } from '../../services/auth/authentication.service';
@@ -120,7 +120,7 @@ export class SignupPageComponent {
       this.authService.registerStudent(this.studentRegistrationRequest).subscribe({
         next: async (response) =>{
           if(response){
-            this.successMessage=response.message+", you will navigate to login page soon..";
+            this.successMessage=response.message+", you will navigate to login-dto page soon..";
             this.clearFields();
             await this.hideAlertAfterDelay();
             this.router.navigate(['/auth/login'])
@@ -147,7 +147,7 @@ export class SignupPageComponent {
       this.authService.registerTeacher(this.teacherRegistrationRequest).subscribe({
         next:async (response) =>{
           if(response){
-            this.successMessage=response.message+", you will navigate to login page soon..";
+            this.successMessage=response.message+", you will navigate to login-dto page soon..";
             this.clearFields();
             await this.hideAlertAfterDelay();
             this.router.navigate(['/auth/login'])
@@ -172,7 +172,7 @@ export class SignupPageComponent {
       this.authService.registerInstitute(this.instituteRegistrationRequest).subscribe({
         next:async (response) =>{
           if(response){
-            this.successMessage=response.message+", you will navigate to login page soon..";
+            this.successMessage=response.message+", you will navigate to login-dto page soon..";
             this.clearFields();
             await this.hideAlertAfterDelay();
             this.router.navigate(['/auth/login'])

@@ -11,14 +11,14 @@
 
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { UserLoginRequest } from '../../requestDtos/user-login-request';
+import { UserLoginRequest } from '../../core/dto/request-dto/login-dto/user-login-request';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AuthResponse } from '../../responseDtos/auth-response';
+import { AuthResponse } from '../../core/dto/response-dto/auth-response';
 import { AuthenticationService } from '../../services/auth/authentication.service';
 
 @Component({
-  selector: 'app-login-page',
+  selector: 'app-login-dto-page',
   imports: [
     RouterLink,
     CommonModule,
