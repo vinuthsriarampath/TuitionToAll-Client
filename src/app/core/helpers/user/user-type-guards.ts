@@ -11,7 +11,7 @@
 
 import {Student} from '../../models/user-models/sub-user-models/student';
 import {User} from '../../models/user-models/user';
-import {Roles} from '../../../enums/roles';
+import {Roles} from '../../enums/roles';
 import {Institute} from '../../models/user-models/sub-user-models/institute';
 import {Teacher} from '../../models/user-models/sub-user-models/teacher';
 
