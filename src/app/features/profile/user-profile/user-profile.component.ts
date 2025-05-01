@@ -79,7 +79,7 @@ export class UserProfileComponent implements OnInit {
         }
         this.isSameUser = this.currentUser.email === user.email;
       },
-      error(err) {
+      error() {
         window.location.replace('/dashboard');
       }
     });
@@ -89,9 +89,9 @@ export class UserProfileComponent implements OnInit {
     let userDetails;
     if (this.userRole === 'student') {
       userDetails = this.studentDetails;
-    }else if (this.userRole === 'teacher') {
+    } else if (this.userRole === 'teacher') {
       userDetails = this.teacherDetails;
-    }else{
+    } else {
       userDetails = this.instituteDetails;
     }
 
@@ -105,11 +105,17 @@ export class UserProfileComponent implements OnInit {
       }
     });
 
-    dialogRef.afterClosed().subscribe((result: boolean) => {
-      if (result) {
-        console.info('User confirmed!');
-      } else {
-        console.error('User canceled.');
+    dialogRef.afterClosed().subscribe({
+      next: (res) => {
+        if (res) {
+          if (this.userRole === 'student') {
+            this.studentDetails = structuredClone(res);
+          } else if (this.userRole === 'teacher') {
+            this.teacherDetails = structuredClone(res);
+          } else if (this.userRole === 'institute') {
+            this.instituteDetails = structuredClone(res);
+          }
+        }
       }
     });
   }
