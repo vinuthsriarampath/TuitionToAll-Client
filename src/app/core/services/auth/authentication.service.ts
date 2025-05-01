@@ -11,13 +11,13 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { UserLoginRequest } from '../../core/dto/request-dto/login-dto/user-login-request';
-import { environment } from '../../environment/environment.development';
-import { AuthResponse } from '../../core/dto/response-dto/auth-response';
-import { StudentRegistrationRequest } from '../../core/dto/request-dto/registration-dto/sub-registration-dto/student-registration-request';
-import { TeacherRegistrationRequest } from '../../core/dto/request-dto/registration-dto/sub-registration-dto/teacher-registration-request';
-import { InstituteRegistrationRequest } from '../../core/dto/request-dto/registration-dto/sub-registration-dto/institute-registration-request';
-import { ApiResponse } from '../../core/dto/response-dto/api-response';
+import { UserLoginRequest } from '../../dto/request-dto/login-dto/user-login-request';
+import { environment } from '../../../environment/environment.development';
+import { AuthResponse } from '../../dto/response-dto/auth-response';
+import { StudentRegistrationRequest } from '../../dto/request-dto/registration-dto/sub-registration-dto/student-registration-request';
+import { TeacherRegistrationRequest } from '../../dto/request-dto/registration-dto/sub-registration-dto/teacher-registration-request';
+import { InstituteRegistrationRequest } from '../../dto/request-dto/registration-dto/sub-registration-dto/institute-registration-request';
+import { ApiResponse } from '../../dto/response-dto/api-response';
 
 @Injectable({
   providedIn: 'root'

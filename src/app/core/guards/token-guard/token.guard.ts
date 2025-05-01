@@ -10,7 +10,7 @@
  */
 
 import {CanActivateFn, Router} from '@angular/router';
-import { AuthenticationService } from '../../../services/auth/authentication.service';
+import { AuthenticationService } from '../../services/auth/authentication.service';
 import { inject } from '@angular/core';
 import { of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
