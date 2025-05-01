@@ -1,9 +1,9 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {FormsModule} from '@angular/forms';
-import {Institute} from '../../../models/userModels/institute';
-import {Teacher} from '../../../models/userModels/teacher';
-import {Student} from '../../../models/userModels/student';
+import {Institute} from '../../../core/models/user-models/sub-user-models/institute';
+import {Teacher} from '../../../core/models/user-models/sub-user-models/teacher';
+import {Student} from '../../../core/models/user-models/sub-user-models/student';
 import {NgIf} from '@angular/common';
 
 @Component({
