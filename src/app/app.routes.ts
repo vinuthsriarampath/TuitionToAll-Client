@@ -12,13 +12,14 @@
 import { Routes } from '@angular/router';
 import {LandingPageComponent} from './shared/pages/landing-page/landing-page.component';
 import { LoginPageComponent } from './features/auth/login-page/login-page.component';
-import { UnderDevelopmentPageComponent } from './shared/pages/under-development-page/under-development-page.component';
-import { authGuard } from './core/guards/auth-guard/auth.guard';
-import { SignupPageComponent } from './features/auth/signup-page/signup-page.component';
-import {DashboardComponent} from './features/dashboard/dashboard.component';
 import {tokenGuard} from './core/guards/token-guard/token.guard';
-import {PageNotFoundComponent} from './shared/pages/page-not-found/page-not-found.component';
+import {SignupPageComponent} from './features/auth/signup-page/signup-page.component';
+import {UnderDevelopmentPageComponent} from './shared/pages/under-development-page/under-development-page.component';
+import {authGuard} from './core/guards/auth-guard/auth.guard';
+import {DashboardComponent} from './features/dashboard/dashboard.component';
 import {UserProfileComponent} from './features/profile/user-profile/user-profile.component';
+import {PageNotFoundComponent} from './shared/pages/page-not-found/page-not-found.component';
+
 
 export const routes: Routes = [
   {
@@ -27,7 +28,7 @@ export const routes: Routes = [
     canActivate: [tokenGuard]
   },
   {
-    path: 'auth/login-dto',
+    path: 'auth/login',
     component: LoginPageComponent
   },
   {
