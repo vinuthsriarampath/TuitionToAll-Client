@@ -11,3 +11,23 @@
 
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
+
+.success-snackbar .mat-mdc-snackbar-surface {
+  background-color: #20c55b !important;
+  color: white !important;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 2px 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.error-snackbar .mat-mdc-snackbar-surface {
+  background-color: #ef4444 !important;
+  color: white !important;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 2px 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
