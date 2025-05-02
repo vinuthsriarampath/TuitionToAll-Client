@@ -14,10 +14,9 @@ interface Environment {
   USER_API:string;
 }
 
-const BASE_URL = 'http://localhost:8080';
+const BASE_URL = 'https://tuitiontoall-production.up.railway.app';
 
 export const environment: Environment = {
   AUTH_API: `${BASE_URL}/api/v2/auth`,
   USER_API: `${BASE_URL}/api/v2/users`
 };
-
