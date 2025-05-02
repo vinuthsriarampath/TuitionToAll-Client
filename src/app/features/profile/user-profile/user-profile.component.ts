@@ -13,7 +13,6 @@ import {MatDialog} from '@angular/material/dialog';
 import {
   UpdateProfileDialogComponent
 } from '../../../shared/models/update-profile-dialog/update-profile-dialog.component';
-import {MatSnackBar} from '@angular/material/snack-bar';
 import {AlertService} from '../../../core/services/alerts/alert.service';
 
 @Component({
@@ -43,7 +42,6 @@ export class UserProfileComponent implements OnInit {
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private  readonly dialog:MatDialog,
-    private readonly snackBar:MatSnackBar,
     private  readonly alertService:AlertService) {
     this.authService.verifyToken().subscribe({
       next: (res) => {
