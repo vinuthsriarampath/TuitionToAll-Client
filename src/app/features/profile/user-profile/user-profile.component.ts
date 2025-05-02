@@ -13,6 +13,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {
   UpdateProfileDialogComponent
 } from '../../../shared/models/update-profile-dialog/update-profile-dialog.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-profile',
@@ -38,7 +39,7 @@ export class UserProfileComponent implements OnInit {
   authService: AuthenticationService = inject(AuthenticationService);
   userService: UserService = inject(UserService);
 
-  constructor(private readonly activatedRoute: ActivatedRoute, private  readonly dialog:MatDialog) {
+  constructor(private readonly activatedRoute: ActivatedRoute, private  readonly dialog:MatDialog,private readonly snackBar:MatSnackBar) {
     this.authService.verifyToken().subscribe({
       next: (res) => {
         this.currentUser = res.data!;
@@ -109,14 +110,45 @@ export class UserProfileComponent implements OnInit {
       next: (res) => {
         if (res) {
           if (this.userRole === 'student') {
+            this.triggerSuccessAlert();
             this.studentDetails = structuredClone(res);
+            return;
           } else if (this.userRole === 'teacher') {
+            this.triggerSuccessAlert();
             this.teacherDetails = structuredClone(res);
+            return;
           } else if (this.userRole === 'institute') {
+            this.triggerSuccessAlert();
             this.instituteDetails = structuredClone(res);
+            return;
           }
+          this.triggerErrorAlert();
+          return;
         }
+        this.triggerErrorAlert();
       }
     });
+  }
+
+  private triggerSuccessAlert(message?:string){
+    this.snackBar.open(
+      message ?? 'Profile updated successfully!', '', {
+        duration: 5000,
+        horizontalPosition: 'start',
+        verticalPosition: 'bottom',
+        panelClass: 'success-snackbar'
+      }
+    )
+  }
+
+  private triggerErrorAlert(message?:string){
+    this.snackBar.open(
+      message ?? 'Something went wrong !','',{
+        duration: 5000,
+        horizontalPosition: 'start',
+        verticalPosition: 'bottom',
+        panelClass: 'error-snackbar'
+      }
+    )
   }
 }
