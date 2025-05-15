@@ -17,6 +17,7 @@ import { TeacherRegistrationRequest } from '../../../core/dto/request-dto/regist
 import { CommonModule, NgClass } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { AuthenticationService } from '../../../core/services/auth/authentication.service';
+import {ApiResponse} from '../../../core/dto/response-dto/api-response';
 
 @Component({
   selector: 'app-signup-page',
@@ -51,7 +52,7 @@ export class SignupPageComponent {
   teacherRegistrationRequest: TeacherRegistrationRequest = {};
   instituteRegistrationRequest: InstituteRegistrationRequest = {};
 
-  constructor(private authService:AuthenticationService, private router:Router){}
+  constructor(private readonly authService:AuthenticationService, private readonly router:Router){}
 
   setUserType(type: string) {
     this.userType = type;
@@ -83,6 +84,9 @@ export class SignupPageComponent {
     if (this.step > 1) {
       this.step--;
       this.errorMessage = '';
+      if(this.isLoading){
+        this.isLoading = false;
+      }
     }
   }
 
@@ -99,11 +103,6 @@ export class SignupPageComponent {
   }
 
   register() {
-    if(this.isLoading=true){
-
-    }else{
-
-    }
     this.isLoading = true;
     this.errorMessage = '';
 
@@ -118,18 +117,21 @@ export class SignupPageComponent {
         password: this.signupRequest.password
       };
       this.authService.registerStudent(this.studentRegistrationRequest).subscribe({
-        next: async (response) =>{
-          if(response){
-            this.successMessage=response.message+", you will navigate to login-dto page soon..";
+        next:async (response) => {
+          if (response) {
+            this.successMessage = `${response.message}, you will navigate to the login page soon.`;
             this.clearFields();
+            this.hideAlertAfterDelay().then(() => {
+              this.router.navigate(['/auth/login']);
+            });
+          } else {
+            this.isLoading = false;
+            this.errorMessage = 'Something went wrong!';
             await this.hideAlertAfterDelay();
-            this.router.navigate(['/auth/login'])
-          }else{
-            this.errorMessage = 'Something Went Wrong!!';
-            this.hideAlertAfterDelay();
           }
         },
         error:(error) =>{
+          this.isLoading = false;
           this.errorMessage=error.error.message;
           this.hideAlertAfterDelay();
         }
@@ -145,18 +147,21 @@ export class SignupPageComponent {
         password: this.signupRequest.password
       };
       this.authService.registerTeacher(this.teacherRegistrationRequest).subscribe({
-        next:async (response) =>{
-          if(response){
-            this.successMessage=response.message+", you will navigate to login-dto page soon..";
+        next: (response: ApiResponse) => {
+          if (response) {
+            this.successMessage = response.message + ", you will navigate to login-dto page soon..";
             this.clearFields();
-            await this.hideAlertAfterDelay();
-            this.router.navigate(['/auth/login'])
-          }else{
+            this.hideAlertAfterDelay().then(() => {
+              this.router.navigate(['/auth/login']);
+            });
+          } else {
+            this.isLoading = false;
             this.errorMessage = 'Something Went Wrong!!';
             this.hideAlertAfterDelay();
           }
         },
         error:(error) =>{
+          this.isLoading = false;
           this.errorMessage=error.error.message;
           this.hideAlertAfterDelay();
         }
@@ -172,16 +177,19 @@ export class SignupPageComponent {
       this.authService.registerInstitute(this.instituteRegistrationRequest).subscribe({
         next:async (response) =>{
           if(response){
-            this.successMessage=response.message+", you will navigate to login-dto page soon..";
+            this.successMessage=response.message+", you will navigate to login page soon..";
             this.clearFields();
-            await this.hideAlertAfterDelay();
-            this.router.navigate(['/auth/login'])
+            this.hideAlertAfterDelay().then(() => {
+              this.router.navigate(['/auth/login']);
+            });
           }else{
+            this.isLoading = false;
             this.errorMessage = 'Something Went Wrong!!';
-            this.hideAlertAfterDelay();
+            await this.hideAlertAfterDelay();
           }
         },
         error:(error) =>{
+          this.isLoading = false;
           this.errorMessage=error.error.message;
           this.hideAlertAfterDelay();
         }
@@ -204,6 +212,7 @@ export class SignupPageComponent {
     };
     this.confirmPassword = '';
     this.errorMessage = '';
+    this.isLoading = false;
   }
 
   hideAlertAfterDelay():Promise<void> {
