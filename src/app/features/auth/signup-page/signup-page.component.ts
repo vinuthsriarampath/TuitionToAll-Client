@@ -149,7 +149,7 @@ export class SignupPageComponent {
       this.authService.registerTeacher(this.teacherRegistrationRequest).subscribe({
         next: (response: ApiResponse) => {
           if (response) {
-            this.successMessage = response.message + ", you will navigate to login-dto page soon..";
+            this.successMessage = response.message + ", you will navigate to login page soon..";
             this.clearFields();
             this.hideAlertAfterDelay().then(() => {
               this.router.navigate(['/auth/login']);
