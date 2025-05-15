@@ -11,14 +11,15 @@
 
 import { CommonModule, NgClass } from '@angular/common';
 import { Component } from '@angular/core';
-import {  RouterLink } from '@angular/router';
+import {RouterLink, RouterLinkActive} from '@angular/router';
 
 @Component({
   selector: 'app-landing-page',
   imports: [
     NgClass,
     CommonModule,
-    RouterLink
+    RouterLink,
+    RouterLinkActive
   ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css'
