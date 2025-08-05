@@ -10,9 +10,14 @@
         <div class="relative w-full md:h-60 h-72 bg-gray-600">
           <img src="beach.jpg" alt="thumbnail" loading="lazy" class="w-full h-full object-cover">
           <div class="absolute left-0 bottom-0 w-full flex flex-col items-center md:flex-row  md:gap-4 md:pl-2 md:pr-2 md:sm:pl-4 translate-y-2/4 md:translate-y-3/4">
-            <div class="h-32 md:h-40 w-32 md:w-40  rounded-full overflow-hidden">
-              <img src="https://avatar.iran.liara.run/public/boy" loading="lazy" alt="avatar" class="w-full h-full object-cover">
+            <div class="relative h-32 md:h-40 w-32 md:w-40 overflow-hidden">
+              <img src="https://avatar.iran.liara.run/public/boy" loading="lazy" alt="avatar" class="w-full h-full rounded-full object-cover">
+              <button class="absolute flex items-center gap-2 bottom-1 right-1 bg-white text-gray-700 px-2 rounded-full shadow hover:bg-gray-100 cursor-pointer" title="Edit Profile Picture" (click)="openProfilePicUpdateDialog()" *ngIf="isSameUser">
+                <lucide-angular [img]="Pen" class="my-icon" size=12></lucide-angular>
+                Edit
+              </button>
             </div>
+
             <div class="px-1.5 md:px-3 py-2 md:py-4 text-center md:text-left">
               <div [ngSwitch]="userRole">
                 <ng-container *ngSwitchCase="'institute'">

@@ -14,6 +14,10 @@ import {
   UpdateProfileDialogComponent
 } from '../../../shared/models/update-profile-dialog/update-profile-dialog.component';
 import {AlertService} from '../../../core/services/alerts/alert.service';
+import {LucideAngularModule, Pen} from 'lucide-angular';
+import {
+  UpdateUserProfilePicDialogComponent
+} from '../../../shared/models/update-user-profile-pic-dialog/update-user-profile-pic-dialog.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -22,12 +26,15 @@ import {AlertService} from '../../../core/services/alerts/alert.service';
     NgSwitch,
     NgSwitchCase,
     NgSwitchDefault,
-    NgIf
+    NgIf,
+    LucideAngularModule
   ],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css'
 })
 export class UserProfileComponent implements OnInit {
+  readonly Pen = Pen;
+
   isSameUser: boolean = false;
   currentUser: any;
   instituteDetails?: Institute;
@@ -85,6 +92,50 @@ export class UserProfileComponent implements OnInit {
       },
       error() {
         window.location.replace('/dashboard');
+      }
+    });
+  }
+
+  openProfilePicUpdateDialog() {
+    let userDetails;
+    if (this.userRole === 'student') {
+      userDetails = this.studentDetails;
+    } else if (this.userRole === 'teacher') {
+      userDetails = this.teacherDetails;
+    } else {
+      userDetails = this.instituteDetails;
+    }
+
+    const dialogRef = this.dialog.open(UpdateUserProfilePicDialogComponent, {
+      maxWidth: '80vh',
+      width: '100%',
+      panelClass: 'update-profile-dialog',
+      data: {
+        userRole: structuredClone(this.userRole),
+        details: structuredClone(userDetails)
+      }
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: (res) => {
+        if (res) {
+          if (this.userRole === 'student') {
+            this.alertService.triggerSuccessAlert();
+            this.studentDetails = structuredClone(res);
+            return;
+          } else if (this.userRole === 'teacher') {
+            this.alertService.triggerSuccessAlert();
+            this.teacherDetails = structuredClone(res);
+            return;
+          } else if (this.userRole === 'institute') {
+            this.alertService.triggerSuccessAlert();
+            this.instituteDetails = structuredClone(res);
+            return;
+          }
+          this.alertService.triggerErrorAlert();
+          return;
+        }
+        this.alertService.triggerErrorAlert();
       }
     });
   }
