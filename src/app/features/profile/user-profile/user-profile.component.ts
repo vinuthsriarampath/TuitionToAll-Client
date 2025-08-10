@@ -1,7 +1,7 @@
 import {Component, OnInit, inject} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {NavbarComponent} from '../../../shared/components/navbar/navbar.component';
-import {NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault} from '@angular/common';
+import {NgIf, NgOptimizedImage, NgSwitch, NgSwitchCase, NgSwitchDefault} from '@angular/common';
 import {User} from '../../../core/models/user-models/user';
 import {isInstitute, isStudent, isTeacher} from '../../../core/helpers/user/user-type-guards';
 import {Institute} from '../../../core/models/user-models/sub-user-models/institute';
@@ -18,6 +18,7 @@ import {LucideAngularModule, Pen} from 'lucide-angular';
 import {
   UpdateUserProfilePicDialogComponent
 } from '../../../shared/models/update-user-profile-pic-dialog/update-user-profile-pic-dialog.component';
+import {environment} from '../../../environment/environment.development';
 
 @Component({
   selector: 'app-user-profile',
@@ -27,7 +28,8 @@ import {
     NgSwitchCase,
     NgSwitchDefault,
     NgIf,
-    LucideAngularModule
+    LucideAngularModule,
+    NgOptimizedImage
   ],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css'
@@ -116,23 +118,26 @@ export class UserProfileComponent implements OnInit {
       }
     });
 
+    const alert:string = "Dp updated successfully";
+
     dialogRef.afterClosed().subscribe({
       next: (res) => {
         if (res) {
           if (this.userRole === 'student') {
-            this.alertService.triggerSuccessAlert();
+            this.alertService.triggerSuccessAlert(alert);
             this.studentDetails = structuredClone(res);
             return;
           } else if (this.userRole === 'teacher') {
-            this.alertService.triggerSuccessAlert();
+            this.alertService.triggerSuccessAlert(alert);
             this.teacherDetails = structuredClone(res);
             return;
           } else if (this.userRole === 'institute') {
-            this.alertService.triggerSuccessAlert();
+            this.alertService.triggerSuccessAlert(alert);
             this.instituteDetails = structuredClone(res);
             return;
           }
           this.alertService.triggerErrorAlert();
+          console.log(res);
           return;
         }
         this.alertService.triggerErrorAlert();
@@ -183,4 +188,6 @@ export class UserProfileComponent implements OnInit {
       }
     });
   }
+
+  protected readonly environment = environment;
 }
