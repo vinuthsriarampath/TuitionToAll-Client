@@ -19,4 +19,6 @@ export interface User {
     role?: Roles;
     isDisabled?: boolean;
     userSlug?:string;
+    dp?:string;
+    banner?:string;
 }
