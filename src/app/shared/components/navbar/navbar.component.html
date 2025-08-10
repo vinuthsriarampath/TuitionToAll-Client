@@ -56,8 +56,8 @@
 
         <div class="flex items-center gap-x-5 ml-2">
           <div class="relative">
-            <button class="profile_button sm:h-10 sm:w-10 h-8 w-8 rounded-full bg-white dark:bg-gray-800 cursor-pointer border-0" (click)="toggleProfileDropdown()">
-              <img src="https://avatar.iran.liara.run/public/boy" alt="User Avatar" class="h-full w-full rounded-full">
+            <button class="profile_button sm:h-10 sm:w-10 h-8 w-8 rounded-full cursor-pointer border-0" (click)="toggleProfileDropdown()">
+              <img src="{{ user?.dp ? `${environment.USER_PROFILE_API}${user?.dp}` : 'https://avatar.iran.liara.run/public/boy' }}" alt="User Avatar" class="h-full w-full rounded-full">
             </button>
             <div *ngIf="isProfileDropdownOpen" class="profile_menu absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded shadow-md z-20">
               <ul>

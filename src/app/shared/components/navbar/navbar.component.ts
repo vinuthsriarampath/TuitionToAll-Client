@@ -5,6 +5,7 @@ import {FormsModule} from '@angular/forms';
 import {Student} from '../../../core/models/user-models/sub-user-models/student';
 import {Teacher} from '../../../core/models/user-models/sub-user-models/teacher';
 import {Institute} from '../../../core/models/user-models/sub-user-models/institute';
+import {environment} from '../../../environment/environment.development';
 
 @Component({
   selector: 'app-navbar',
@@ -135,4 +136,6 @@ export class NavbarComponent {
       window.location.replace("/auth/login");
     }
   }
+
+  protected readonly environment = environment;
 }
