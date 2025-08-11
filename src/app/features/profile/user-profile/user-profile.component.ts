@@ -19,6 +19,9 @@ import {
   UpdateUserProfilePicDialogComponent
 } from '../../../shared/models/update-user-profile-pic-dialog/update-user-profile-pic-dialog.component';
 import {environment} from '../../../environment/environment.development';
+import {
+  UpdateProfileBannerDialogComponent
+} from '../../../shared/models/update-profile-banner-dialog/update-profile-banner-dialog.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -111,7 +114,7 @@ export class UserProfileComponent implements OnInit {
     const dialogRef = this.dialog.open(UpdateUserProfilePicDialogComponent, {
       maxWidth: '80vh',
       width: '100%',
-      panelClass: 'update-profile-dialog',
+      panelClass: 'update-profile-dp-dialog',
       data: {
         userRole: structuredClone(this.userRole),
         details: structuredClone(userDetails)
@@ -182,6 +185,53 @@ export class UserProfileComponent implements OnInit {
             return;
           }
           this.alertService.triggerErrorAlert();
+          return;
+        }
+        this.alertService.triggerErrorAlert();
+      }
+    });
+  }
+
+  openProfileBannerUpdateDialog() {
+    let userDetails;
+    if (this.userRole === 'student') {
+      userDetails = this.studentDetails;
+    } else if (this.userRole === 'teacher') {
+      userDetails = this.teacherDetails;
+    } else {
+      userDetails = this.instituteDetails;
+    }
+
+    const dialogRef = this.dialog.open(UpdateProfileBannerDialogComponent, {
+      maxWidth: '100vh',
+      width: '100%',
+      panelClass: 'update-profile-banner-dialog',
+      data: {
+        userRole: structuredClone(this.userRole),
+        details: structuredClone(userDetails)
+      }
+    });
+
+    const alert:string = "Banner updated successfully!";
+
+    dialogRef.afterClosed().subscribe({
+      next: (res) => {
+        if (res) {
+          if (this.userRole === 'student') {
+            this.alertService.triggerSuccessAlert(alert);
+            this.studentDetails = structuredClone(res);
+            return;
+          } else if (this.userRole === 'teacher') {
+            this.alertService.triggerSuccessAlert(alert);
+            this.teacherDetails = structuredClone(res);
+            return;
+          } else if (this.userRole === 'institute') {
+            this.alertService.triggerSuccessAlert(alert);
+            this.instituteDetails = structuredClone(res);
+            return;
+          }
+          this.alertService.triggerErrorAlert();
+          console.log(res);
           return;
         }
         this.alertService.triggerErrorAlert();
