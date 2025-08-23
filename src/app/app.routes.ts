@@ -19,6 +19,10 @@ import {authGuard} from './core/guards/auth-guard/auth.guard';
 import {DashboardComponent} from './features/dashboard/dashboard.component';
 import {UserProfileComponent} from './features/profile/user-profile/user-profile.component';
 import {PageNotFoundComponent} from './shared/pages/page-not-found/page-not-found.component';
+import {
+  ResetPasswordRequestPageComponent
+} from './features/auth/reset-password-request-page/reset-password-request-page.component';
+import {PasswordResetPageComponent} from './features/auth/password-reset-page/password-reset-page.component';
 
 
 export const routes: Routes = [
@@ -34,6 +38,14 @@ export const routes: Routes = [
   {
     path: 'auth/signup',
     component: SignupPageComponent
+  },
+  {
+    path: 'auth/reset-password/request',
+    component: ResetPasswordRequestPageComponent
+  },
+  {
+    path: 'reset',
+    component: PasswordResetPageComponent
   },
   {
     path:'maintenance',
