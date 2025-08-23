@@ -67,7 +67,7 @@
             <div *ngIf="password.errors?.['minlength']">Password must be at least 6 characters long.</div>
           </div>
 
-          <a href="#" class="text-blue-600 font-semibold flex justify-end my-3">Forgot Password?</a>
+          <a [routerLink]="[`/auth/reset-password/request`]" class="text-blue-600 font-semibold flex justify-end my-3">Forgot Password?</a>
 
           <button type="button" class="bg-blue-900 text-gray-200 font-semibold rounded-md w-full py-2 " [ngClass]="{'cursor-not-allowed': email.invalid || password.invalid , 'cursor-pointer': !email.invalid  && !password.invalid}"  (click)="login()" [disabled]="email.invalid || password.invalid">
 
