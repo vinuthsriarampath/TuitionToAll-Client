@@ -35,7 +35,7 @@ export class LoginPageComponent {
   isLoading:boolean=false;
   errorMessage?:string;
   error?:boolean;
-  constructor(private authService: AuthenticationService, private router:Router) {}
+  constructor(private readonly authService: AuthenticationService, private readonly router:Router) {}
 
   login() {
     this.isLoading=true;
