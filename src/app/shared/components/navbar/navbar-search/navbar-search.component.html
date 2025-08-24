@@ -1,0 +1,79 @@
+<!-- Desktop Search -->
+<div class="lg:relative hidden lg:block">
+  <div class="relative">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+         stroke="currentColor" class="size-5 absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-600">
+      <path stroke-linecap="round" stroke-linejoin="round"
+            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607z"/>
+    </svg>
+    <input type="search" (keydown)="onEscapeKey()" name="search"
+           class="search_field bg-white h-8 pl-10 pr-2 sm:w-md placeholder-gray-600 text-gray-600 outline-blue-500 rounded-md"
+           placeholder="Search"
+           (focus)="toggleSearchDropdown()"
+           autocomplete="off"
+           (input)="onSearchChange($event)"/>
+  </div>
+
+  <div *ngIf="isSearchDropdownOpen"
+       class="search_menu absolute right-2 mt-2 p-5 w-md rounded-md shadow-md shadow-gray-400 bg-white flex flex-col gap-2">
+    <p class="text-foreground" *ngIf="!searchResults">No Search Results.</p>
+    <a *ngFor="let results of searchResults?.students" [routerLink]="['/profile', results.userSlug]"
+       class="flex gap-2 justify-center items-center">
+      <img
+        src="{{ results?.dp ? `${environment.USER_PROFILE_API}${results?.dp}` : 'https://avatar.iran.liara.run/public/boy' }}"
+        alt="Student Avatar" class="h-10 w-10 rounded-full col-span-1 justify-center items-center">
+      <span class="flex-2/3">{{ results.firstName }} {{ results.lastName }}</span>
+    </a>
+    <a *ngFor="let results of searchResults?.teachers" [routerLink]="['/profile', results.userSlug]"
+       class="flex gap-2 justify-center items-center">
+      <img
+        src="{{ results?.dp ? `${environment.USER_PROFILE_API}${results?.dp}` : 'https://avatar.iran.liara.run/public/boy' }}"
+        alt="Student Avatar" class="h-10 w-10 rounded-full col-span-1 justify-center items-center">
+      <span class="flex-2/3">{{ results.firstName }} {{ results.lastName }}</span>
+    </a>
+    <a *ngFor="let results of searchResults?.institutes" [routerLink]="['/profile', results.userSlug]"
+       class="flex gap-2 justify-center items-center">
+      <img
+        src="{{ results?.dp ? `${environment.USER_PROFILE_API}${results?.dp}` : 'https://avatar.iran.liara.run/public/boy' }}"
+        alt="Student Avatar" class="h-10 w-10 rounded-full col-span-1 justify-center items-center">
+      <span class="flex-2/3">{{ results.instituteName }}</span>
+    </a>
+  </div>
+</div>
+
+<!-- Mobile Search -->
+<div class="relative flex items-center h-14 lg:hidden" *ngIf="isMobileSearchActive">
+  <div class="absolute inset-0 backdrop-blur-sm" (click)="deactivateMobileSearch()"></div>
+
+  <div class="flex items-center w-full gap-2 z-20 relative">
+    <button class="p-2" (click)="deactivateMobileSearch()">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+           stroke="currentColor" class="size-5 text-gray-700">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/>
+      </svg>
+    </button>
+
+    <div class="relative flex-1">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+           stroke="currentColor" class="size-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600">
+        <path stroke-linecap="round" stroke-linejoin="round"
+              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607z"/>
+      </svg>
+      <input type="search" name="mobileSearch" id="mobileSearch"
+             class="search_field bg-white h-10 my-2 pl-10 pr-3 w-full placeholder-gray-600 text-gray-600 outline-blue-500 rounded-md"
+             placeholder="Search" autocomplete="off"
+             (input)="onSearchChange($event)" #mobileSearchInput/>
+    </div>
+  </div>
+
+  <div
+    class="search_menu absolute left-0 right-0 top-14 mx-4 p-5 w-auto rounded-md shadow-md shadow-gray-400 bg-white flex flex-col gap-2 z-20">
+    <p class="text-foreground" *ngIf="!searchResults">No Search Results.</p>
+    <a *ngFor="let results of searchResults?.institutes" [href]="'profile/' + results.userSlug"
+       class="break-words">{{ results.instituteName }}</a>
+    <a *ngFor="let results of searchResults?.teachers" [href]="'profile/' + results.userSlug"
+       class="break-words">{{ results.firstName }}</a>
+    <a *ngFor="let results of searchResults?.students" [href]="'profile/' + results.userSlug"
+       class="break-words">{{ results.firstName }}</a>
+  </div>
+</div>

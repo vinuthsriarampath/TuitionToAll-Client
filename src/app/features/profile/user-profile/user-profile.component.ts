@@ -1,7 +1,7 @@
 import {Component, OnInit, inject} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {NavbarComponent} from '../../../shared/components/navbar/navbar.component';
-import {NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault} from '@angular/common';
+import {NgIf, NgOptimizedImage, NgSwitch, NgSwitchCase, NgSwitchDefault} from '@angular/common';
 import {User} from '../../../core/models/user-models/user';
 import {isInstitute, isStudent, isTeacher} from '../../../core/helpers/user/user-type-guards';
 import {Institute} from '../../../core/models/user-models/sub-user-models/institute';
@@ -14,6 +14,14 @@ import {
   UpdateProfileDialogComponent
 } from '../../../shared/models/update-profile-dialog/update-profile-dialog.component';
 import {AlertService} from '../../../core/services/alerts/alert.service';
+import {LucideAngularModule, Pen} from 'lucide-angular';
+import {
+  UpdateUserProfilePicDialogComponent
+} from '../../../shared/models/update-user-profile-pic-dialog/update-user-profile-pic-dialog.component';
+import {environment} from '../../../environment/environment.development';
+import {
+  UpdateProfileBannerDialogComponent
+} from '../../../shared/models/update-profile-banner-dialog/update-profile-banner-dialog.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -22,12 +30,16 @@ import {AlertService} from '../../../core/services/alerts/alert.service';
     NgSwitch,
     NgSwitchCase,
     NgSwitchDefault,
-    NgIf
+    NgIf,
+    LucideAngularModule,
+    NgOptimizedImage
   ],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css'
 })
 export class UserProfileComponent implements OnInit {
+  readonly Pen = Pen;
+
   isSameUser: boolean = false;
   currentUser: any;
   instituteDetails?: Institute;
@@ -89,6 +101,53 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  openProfilePicUpdateDialog() {
+    let userDetails;
+    if (this.userRole === 'student') {
+      userDetails = this.studentDetails;
+    } else if (this.userRole === 'teacher') {
+      userDetails = this.teacherDetails;
+    } else {
+      userDetails = this.instituteDetails;
+    }
+
+    const dialogRef = this.dialog.open(UpdateUserProfilePicDialogComponent, {
+      maxWidth: '80vh',
+      width: '100%',
+      panelClass: 'update-profile-dp-dialog',
+      data: {
+        userRole: structuredClone(this.userRole),
+        details: structuredClone(userDetails)
+      }
+    });
+
+    const alert:string = "Dp updated successfully";
+
+    dialogRef.afterClosed().subscribe({
+      next: (res) => {
+        if (res) {
+          if (this.userRole === 'student') {
+            this.alertService.triggerSuccessAlert(alert);
+            this.studentDetails = structuredClone(res);
+            return;
+          } else if (this.userRole === 'teacher') {
+            this.alertService.triggerSuccessAlert(alert);
+            this.teacherDetails = structuredClone(res);
+            return;
+          } else if (this.userRole === 'institute') {
+            this.alertService.triggerSuccessAlert(alert);
+            this.instituteDetails = structuredClone(res);
+            return;
+          }
+          this.alertService.triggerErrorAlert();
+          console.log(res);
+          return;
+        }
+        this.alertService.triggerErrorAlert();
+      }
+    });
+  }
+
   openProfileUpdateDialog() {
     let userDetails;
     if (this.userRole === 'student') {
@@ -132,4 +191,53 @@ export class UserProfileComponent implements OnInit {
       }
     });
   }
+
+  openProfileBannerUpdateDialog() {
+    let userDetails;
+    if (this.userRole === 'student') {
+      userDetails = this.studentDetails;
+    } else if (this.userRole === 'teacher') {
+      userDetails = this.teacherDetails;
+    } else {
+      userDetails = this.instituteDetails;
+    }
+
+    const dialogRef = this.dialog.open(UpdateProfileBannerDialogComponent, {
+      maxWidth: '100vh',
+      width: '100%',
+      panelClass: 'update-profile-banner-dialog',
+      data: {
+        userRole: structuredClone(this.userRole),
+        details: structuredClone(userDetails)
+      }
+    });
+
+    const alert:string = "Banner updated successfully!";
+
+    dialogRef.afterClosed().subscribe({
+      next: (res) => {
+        if (res) {
+          if (this.userRole === 'student') {
+            this.alertService.triggerSuccessAlert(alert);
+            this.studentDetails = structuredClone(res);
+            return;
+          } else if (this.userRole === 'teacher') {
+            this.alertService.triggerSuccessAlert(alert);
+            this.teacherDetails = structuredClone(res);
+            return;
+          } else if (this.userRole === 'institute') {
+            this.alertService.triggerSuccessAlert(alert);
+            this.instituteDetails = structuredClone(res);
+            return;
+          }
+          this.alertService.triggerErrorAlert();
+          console.log(res);
+          return;
+        }
+        this.alertService.triggerErrorAlert();
+      }
+    });
+  }
+
+  protected readonly environment = environment;
 }

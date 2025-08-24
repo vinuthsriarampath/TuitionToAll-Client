@@ -47,6 +47,14 @@ export class AuthenticationService {
     return this.http.get<ApiResponse>(`${environment.USER_API}/me`);
   }
 
+  resetPasswordRequest(email:string){
+    return this.http.post<ApiResponse>(`${environment.AUTH_API}/forgot-password/request`, email);
+  }
+
+  PasswordReset(token:string, newPassword:string){
+    return this.http.post<ApiResponse>(`${environment.AUTH_API}/forgot-password/reset?token=${token}`, newPassword);
+  }
+
   getAuthToken(){
     return localStorage.getItem('token')
   }
