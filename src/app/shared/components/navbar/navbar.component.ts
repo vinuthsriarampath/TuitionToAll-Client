@@ -1,5 +1,5 @@
 import {Component, ElementRef, HostListener, ViewChild} from '@angular/core';
-import {RouterLink} from '@angular/router';
+import {RouterLink, RouterLinkActive} from '@angular/router';
 import {NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {Student} from '../../../core/models/user-models/sub-user-models/student';
@@ -7,6 +7,7 @@ import {Teacher} from '../../../core/models/user-models/sub-user-models/teacher'
 import {Institute} from '../../../core/models/user-models/sub-user-models/institute';
 import {environment} from '../../../environment/environment.development';
 import {NavbarSearchComponent} from './navbar-search/navbar-search.component';
+import {LayoutDashboard, LucideAngularModule, MessageSquareText, Bell, Users, House,Search} from 'lucide-angular';
 
 @Component({
   selector: 'app-navbar',
@@ -15,12 +16,22 @@ import {NavbarSearchComponent} from './navbar-search/navbar-search.component';
     RouterLink,
     FormsModule,
     NgIf,
-    NavbarSearchComponent
+    NavbarSearchComponent,
+    LucideAngularModule,
+    RouterLinkActive
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+
+  readonly LayoutDashboard = LayoutDashboard;
+  readonly MessageSquareText = MessageSquareText
+  readonly Bell = Bell;
+  readonly Users = Users;
+  readonly House = House;
+  readonly Search = Search;
+
   isProfileDropdownOpen: boolean = false;
   isSearchDropdownOpen: boolean = false;
   isMobileSearchActive:boolean = false;
