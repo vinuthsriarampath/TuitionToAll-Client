@@ -16,13 +16,14 @@ import {tokenGuard} from './core/guards/token-guard/token.guard';
 import {SignupPageComponent} from './features/auth/signup-page/signup-page.component';
 import {UnderDevelopmentPageComponent} from './shared/pages/under-development-page/under-development-page.component';
 import {authGuard} from './core/guards/auth-guard/auth.guard';
-import {DashboardComponent} from './features/dashboard/dashboard.component';
 import {UserProfileComponent} from './features/profile/user-profile/user-profile.component';
 import {PageNotFoundComponent} from './shared/pages/page-not-found/page-not-found.component';
 import {
   ResetPasswordRequestPageComponent
 } from './features/auth/reset-password-request-page/reset-password-request-page.component';
 import {PasswordResetPageComponent} from './features/auth/password-reset-page/password-reset-page.component';
+import {AppComponent} from './features/app/app.component';
+import {FeedComponent} from './features/feed/feed.component';
 
 
 export const routes: Routes = [
@@ -53,9 +54,15 @@ export const routes: Routes = [
     canActivate: [authGuard]
   },
   {
-    path: 'dashboard',
-    component: DashboardComponent,
-    canActivate: [tokenGuard]
+    path: 'app',
+    component: AppComponent,
+    canActivate: [tokenGuard],
+    children: [
+      {
+        path:'',
+        component:FeedComponent
+      }
+    ]
   },
   {
     path: 'profile/:userSlug',

@@ -24,7 +24,7 @@ export const tokenGuard: CanActivateFn = (route, state) => {
     return authService.verifyToken().pipe(
       map(() => {
         if (state.url === '/'){
-          router.navigate(['dashboard']);
+          router.navigate(['app']);
           return false;
         }
         return true;

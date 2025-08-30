@@ -54,7 +54,7 @@ export class LoginPageComponent {
             localStorage.setItem('user',JSON.stringify(response.user))
             localStorage.setItem('role',JSON.stringify(response.user?.role))
             this.isLoading=false;
-            this.router.navigate(['dashboard'])
+            this.router.navigate(['app'])
           } else {
 
             this.errorMessage='UnExpected Error ! ';
