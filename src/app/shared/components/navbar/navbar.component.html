@@ -37,7 +37,7 @@
           <lucide-icon [img]="MessageSquareText" [strokeWidth]="1.35"></lucide-icon>
           <p class="text-[0.9rem] hidden lg:block">Message</p>
         </a>
-        <a [routerLink]="user?.role == 'ROLE_INSTITUTE' ? ['/app/ins/dashboard'] : user?.role == 'ROLE_STUDENT' ? ['/app/std/dashboard'] : user?.role == 'ROLE_TEACHER' ? ['/app/tch/dashboard'] : ['/app/dashboard']"
+        <a [routerLink]="user?.role == 'ROLE_INSTITUTE' ? ['/ins/dashboard'] : user?.role == 'ROLE_STUDENT' ? ['/std/dashboard'] : user?.role == 'ROLE_TEACHER' ? ['/tch/dashboard'] : ['/dashboard']"
            class="flex flex-col justify-center items-center cursor-pointer hover:font-bold" *ngIf="!isMobileSearchActive">
           <lucide-icon [img]="LayoutDashboard" [strokeWidth]="1.35"></lucide-icon>
           <p class="text-[0.9rem] hidden lg:block">Dashboard</p>

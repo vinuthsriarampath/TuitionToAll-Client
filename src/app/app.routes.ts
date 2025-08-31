@@ -57,12 +57,20 @@ export const routes: Routes = [
     path: 'app',
     component: AppComponent,
     canActivate: [tokenGuard],
+    canActivate: [tokenGuard,authGuard],
+
     children: [
       {
         path:'',
         component:FeedComponent
-      }
+      },
+
     ]
+  },
+  {
+    path: 'ins/dashboard',
+    component:InstituteDashboardComponent,
+    canActivate: [authGuard,tokenGuard],
   },
   {
     path: 'profile/:userSlug',
