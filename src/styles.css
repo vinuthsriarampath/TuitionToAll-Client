@@ -11,6 +11,9 @@
 
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
+@import "flowbite/src/themes/default.css";
+@plugin "flowbite/plugin";
+@source "../node_modules/flowbite";
 
 .success-snackbar .mat-mdc-snackbar-surface {
   background-color: #20c55b !important;
