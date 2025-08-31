@@ -24,6 +24,8 @@ import {
 import {PasswordResetPageComponent} from './features/auth/password-reset-page/password-reset-page.component';
 import {AppComponent} from './features/app/app.component';
 import {FeedComponent} from './features/feed/feed.component';
+import {InstituteDashboardComponent} from './features/dashboards/institute-dashboard/institute-dashboard.component';
+import {instituteRoleGuard} from './core/guards/institute-role-guard/institute-role.guard';
 
 
 export const routes: Routes = [
@@ -56,8 +58,8 @@ export const routes: Routes = [
   {
     path: 'app',
     component: AppComponent,
-    canActivate: [tokenGuard],
     canActivate: [tokenGuard,authGuard],
+    canActivateChild: [tokenGuard,authGuard],
 
     children: [
       {
@@ -71,6 +73,7 @@ export const routes: Routes = [
     path: 'ins/dashboard',
     component:InstituteDashboardComponent,
     canActivate: [authGuard,tokenGuard],
+    canActivateChild: [instituteRoleGuard]
   },
   {
     path: 'profile/:userSlug',

@@ -58,4 +58,8 @@ export class AuthenticationService {
   getAuthToken(){
     return localStorage.getItem('token')
   }
+
+  validateInstitute(){
+    return this.http.get<ApiResponse>(` ${environment.USER_API}/validate/institute`);
+  }
 }
