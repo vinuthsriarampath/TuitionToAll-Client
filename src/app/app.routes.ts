@@ -26,6 +26,10 @@ import {AppComponent} from './features/app/app.component';
 import {FeedComponent} from './features/feed/feed.component';
 import {InstituteDashboardComponent} from './features/dashboards/institute-dashboard/institute-dashboard.component';
 import {instituteRoleGuard} from './core/guards/institute-role-guard/institute-role.guard';
+import {DashboardComponent} from './features/dashboards/institute-dashboard/pages/dashboard/dashboard.component';
+import {
+  InstituteCourseManagementComponent
+} from './features/dashboards/institute-dashboard/pages/institute-course-management/institute-course-management.component';
 
 
 export const routes: Routes = [
@@ -73,7 +77,17 @@ export const routes: Routes = [
     path: 'ins/dashboard',
     component:InstituteDashboardComponent,
     canActivate: [authGuard,tokenGuard],
-    canActivateChild: [instituteRoleGuard]
+    canActivateChild: [instituteRoleGuard],
+    children:[
+      {
+        path: '',
+        component: DashboardComponent
+      },
+      {
+        path: 'course-mgt',
+        component: InstituteCourseManagementComponent
+      }
+    ]
   },
   {
     path: 'profile/:userSlug',

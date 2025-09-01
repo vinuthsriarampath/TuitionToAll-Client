@@ -1,5 +1,3 @@
-
-
 <nav class="fixed top-0 z-50 w-full bg-blue-100 border-b border-gray-200">
   <div class="px-3 py-3 lg:px-5 lg:pl-3">
     <div class="flex items-center justify-between">
@@ -63,7 +61,7 @@
         </a>
       </li>
       <li>
-        <a [routerLink]="['/ins/dashboard']" class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100 group">
+        <a [routerLink]="['course-mgt']" class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100 group">
           <lucide-icon [img]="Book"></lucide-icon>
           <span class="ms-3">Courses</span>
         </a>
@@ -73,5 +71,7 @@
 </aside>
 
 <div class="p-4 sm:ml-64">
-  <router-outlet></router-outlet>
+  <div class="p-4 mt-14 overflow-x-hidden">
+    <router-outlet></router-outlet>
+  </div>
 </div>
