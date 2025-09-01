@@ -60,6 +60,6 @@ export class AuthenticationService {
   }
 
   validateInstitute(){
-    return this.http.get<ApiResponse>(` ${environment.USER_API}/validate/institute`);
+    return this.http.get<ApiResponse>(` ${environment.USER_API}/validate/institute-role`);
   }
 }
