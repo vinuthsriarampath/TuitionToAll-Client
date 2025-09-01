@@ -1,6 +1,8 @@
 import {CanActivateChildFn, Router} from '@angular/router';
 import {AuthenticationService} from '../../services/auth/authentication.service';
 import {inject} from '@angular/core';
+import {catchError, map} from 'rxjs/operators';
+import {of} from 'rxjs';
 
 export const instituteRoleGuard: CanActivateChildFn = (childRoute, state) => {
   const router = inject(Router);
@@ -11,14 +13,14 @@ export const instituteRoleGuard: CanActivateChildFn = (childRoute, state) => {
     return false;
   }
 
-  authService.validateInstitute().subscribe({
-    next: () => {
+  return authService.validateInstitute().pipe(
+    map(() => {
       return true;
-    },
-    error: () => {
+    }),
+    catchError(() => {
       router.navigate([router.lastSuccessfulNavigation?.finalUrl?.toString() || 'auth/login']);
-      return false;
-    }
-  });
-  return false;
+      return of(false);
+    })
+  );
 };
+
