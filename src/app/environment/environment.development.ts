@@ -14,6 +14,7 @@ interface Environment {
   USER_API:string;
   USER_PROFILE_API:string;
   SEARCH_API:string;
+  COURSE_API:string;
 }
 
 const BASE_URL = 'http://localhost:8080/api/v2';
@@ -22,6 +23,7 @@ export const environment: Environment = {
   AUTH_API: `${BASE_URL}/auth`,
   USER_API: `${BASE_URL}/users`,
   USER_PROFILE_API: `${BASE_URL}/profile-files`,
-  SEARCH_API: `${BASE_URL}/search`
+  SEARCH_API: `${BASE_URL}/search`,
+  COURSE_API: `${BASE_URL}/courses`,
 };
 
