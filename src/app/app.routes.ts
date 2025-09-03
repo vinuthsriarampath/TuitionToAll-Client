@@ -30,6 +30,9 @@ import {DashboardComponent} from './features/dashboards/institute-dashboard/page
 import {
   InstituteCourseManagementComponent
 } from './features/dashboards/institute-dashboard/pages/institute-course-management/institute-course-management.component';
+import {
+  CourseCreateComponent
+} from './features/dashboards/institute-dashboard/pages/institute-course-management/pages/course-create/course-create.component';
 
 
 export const routes: Routes = [
@@ -85,7 +88,16 @@ export const routes: Routes = [
       },
       {
         path: 'course-mgt',
-        component: InstituteCourseManagementComponent
+        children:[
+          {
+            path: '',
+            component: InstituteCourseManagementComponent,
+          },
+          {
+            path: 'create',
+            component: CourseCreateComponent
+          }
+        ]
       }
     ]
   },
