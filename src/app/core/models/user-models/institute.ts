@@ -9,8 +9,7 @@
  * All rights reserved.
  */
 
-import { User } from "../user";
-
-export interface Institute extends User{
-    instituteName?:string;
+export class Institute{
+  id?: number;
+  instituteName?: string;
 }

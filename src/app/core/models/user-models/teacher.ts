@@ -9,10 +9,9 @@
  * All rights reserved.
  */
 
-import { User } from "../user";
-
-export interface Student extends User{
+export class Teacher{
+    id?:number;
     firstName?:string;
     lastName?:string;
-    dob?:Date;
+    dob?:string;
 }
