@@ -10,19 +10,22 @@
  */
 
 import {CanActivateFn, Router} from '@angular/router';
-import { AuthenticationService } from '../../services/auth/authentication.service';
-import { inject } from '@angular/core';
-import { of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import {AuthenticationService} from '../../services/auth/authentication.service';
+import {inject} from '@angular/core';
+import {of} from 'rxjs';
+import {catchError, map} from 'rxjs/operators';
+import {UserService} from '../../services/user/user.service';
 
 export const tokenGuard: CanActivateFn = (route, state) => {
   const token: string | null = localStorage.getItem('token');
   const authService: AuthenticationService = inject(AuthenticationService);
   const router: Router = inject(Router);
+  const userService:UserService = inject(UserService);
 
   if (token) {
     return authService.verifyToken().pipe(
-      map(() => {
+      map((res) => {
+        if (res.data) userService.setCurrentUser(res.data)
         if (state.url === '/'){
           router.navigate(['app']);
           return false;
