@@ -1,9 +1,7 @@
-import {Student} from '../../models/user-models/sub-user-models/student';
-import {Teacher} from '../../models/user-models/sub-user-models/teacher';
-import {Institute} from '../../models/user-models/sub-user-models/institute';
+import {User} from '../../models/user-models/user';
 
 export interface SearchResponse{
-  students?:Student[];
-  teachers?:Teacher[];
-  institutes?:Institute[];
+  students?:User[];
+  teachers?:User[];
+  institutes?:User[];
 }
