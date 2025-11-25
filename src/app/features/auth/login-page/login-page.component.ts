@@ -9,20 +9,21 @@
  * All rights reserved.
  */
 
-import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { UserLoginRequest } from '../../../core/dto/request-dto/login-dto/user-login-request';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { AuthResponse } from '../../../core/dto/response-dto/auth-response';
-import { AuthenticationService } from '../../../core/services/auth/authentication.service';
+import {Component, inject} from '@angular/core';
+import {Router, RouterLink, RouterLinkActive} from '@angular/router';
+import {UserLoginRequest} from '../../../core/dto/request-dto/login-dto/user-login-request';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {AuthenticationService} from '../../../core/services/auth/authentication.service';
+import {UserService} from '../../../core/services/user/user.service';
 
 @Component({
   selector: 'app-login-dto-page',
   imports: [
     RouterLink,
     CommonModule,
-    FormsModule
+    FormsModule,
+    RouterLinkActive
   ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css'
@@ -30,11 +31,11 @@ import { AuthenticationService } from '../../../core/services/auth/authenticatio
 export class LoginPageComponent {
 
   userLoginRequest: UserLoginRequest = {};
-  authResponse: AuthResponse = {};
 
   isLoading:boolean=false;
   errorMessage?:string;
   error?:boolean;
+  private readonly userService:UserService = inject(UserService);
   constructor(private readonly authService: AuthenticationService, private readonly router:Router) {}
 
   login() {
@@ -48,11 +49,9 @@ export class LoginPageComponent {
         next: (response) => {
 
           if (response) {
-
-            this.authResponse = response;
             localStorage.setItem('token',response.token as string)
-            localStorage.setItem('user',JSON.stringify(response.user))
-            localStorage.setItem('role',JSON.stringify(response.user?.role))
+            if(response.user) this.userService.setCurrentUser(response?.user)
+
             this.isLoading=false;
             this.router.navigate(['app'])
           } else {
