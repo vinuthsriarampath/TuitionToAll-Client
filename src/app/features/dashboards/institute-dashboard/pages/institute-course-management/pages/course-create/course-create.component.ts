@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {LucideAngularModule, Undo2} from 'lucide-angular';
 import {FormsModule} from '@angular/forms';
 import {CourseLevel} from '../../../../../../../core/enums/course-level';

@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { UpdateProfileDialogComponent } from './update-profile-dialog.component';
+import {UpdateProfileDialogComponent} from './update-profile-dialog.component';
 
 describe('UpdateProfileDialogComponent', () => {
   let component: UpdateProfileDialogComponent;

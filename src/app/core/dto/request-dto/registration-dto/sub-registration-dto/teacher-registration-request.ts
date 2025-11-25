@@ -9,7 +9,7 @@
  * All rights reserved.
  */
 
-import { UserRegistrationRequest } from "../user-registration-request";
+import {UserRegistrationRequest} from "../user-registration-request";
 
 export interface TeacherRegistrationRequest extends UserRegistrationRequest{
     firstName?:string;

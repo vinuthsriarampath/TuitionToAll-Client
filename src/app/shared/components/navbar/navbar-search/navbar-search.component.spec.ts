@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { NavbarSearchComponent } from './navbar-search.component';
+import {NavbarSearchComponent} from './navbar-search.component';
 
 describe('NavbarSearchComponent', () => {
   let component: NavbarSearchComponent;

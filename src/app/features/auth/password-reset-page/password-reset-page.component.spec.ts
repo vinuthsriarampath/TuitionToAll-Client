@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PasswordResetPageComponent } from './password-reset-page.component';
+import {PasswordResetPageComponent} from './password-reset-page.component';
 
 describe('PasswordResetPageComponent', () => {
   let component: PasswordResetPageComponent;

@@ -9,8 +9,8 @@
  * All rights reserved.
  */
 
-import { CommonModule, NgClass } from '@angular/common';
-import { Component } from '@angular/core';
+import {CommonModule, NgClass} from '@angular/common';
+import {Component} from '@angular/core';
 import {RouterLink, RouterLinkActive} from '@angular/router';
 
 @Component({

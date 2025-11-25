@@ -9,9 +9,9 @@
  * All rights reserved.
  */
 
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SignupPageComponent } from './signup-page.component';
+import {SignupPageComponent} from './signup-page.component';
 
 describe('SignupPageComponent', () => {
   let component: SignupPageComponent;
