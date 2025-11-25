@@ -1,9 +1,9 @@
 import {Component, inject, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {FormsModule} from '@angular/forms';
-import {Institute} from '../../../core/models/user-models/sub-user-models/institute';
-import {Teacher} from '../../../core/models/user-models/sub-user-models/teacher';
-import {Student} from '../../../core/models/user-models/sub-user-models/student';
+import {Institute} from '../../../core/models/user-models/institute';
+import {Teacher} from '../../../core/models/user-models/teacher';
+import {Student} from '../../../core/models/user-models/student';
 import {NgIf} from '@angular/common';
 import {
   InstituteDetailsUpdateRequest
@@ -15,6 +15,7 @@ import {
   StudentDetailsUpdateRequest
 } from '../../../core/dto/request-dto/update-user-dto/sub-user-details-update-dto/StudentDetailsUpdateRequest';
 import {UserService} from '../../../core/services/user/user.service';
+import {User} from '../../../core/models/user-models/user';
 
 @Component({
   selector: 'app-update-profile-dialog',
@@ -27,7 +28,7 @@ import {UserService} from '../../../core/services/user/user.service';
 })
 export class UpdateProfileDialogComponent {
 
-  userDetails!: any;
+  user!: User;
   isLoading: boolean = false;
 
   userService:UserService = inject(UserService);
@@ -38,12 +39,13 @@ export class UpdateProfileDialogComponent {
       userRole: string;
       details: Institute|Teacher|Student;
     }) {
-    this.userDetails = {...data.details};
+    this.user = {...data.details};
+    console.log(this.user);
   }
 
 
   onConfirm(){
-    this.dialogRef.close(this.userDetails);
+    this.dialogRef.close(this.user);
   }
 
   onCancel(){
@@ -98,28 +100,29 @@ export class UpdateProfileDialogComponent {
   }
 
   private createUpdateRequest(): InstituteDetailsUpdateRequest | TeacherDetailsUpdateRequest | StudentDetailsUpdateRequest | null {
+    console.log("3",this.data.userRole);
     switch (this.data.userRole) {
       case 'institute':
         return {
-          instituteName: this.userDetails.instituteName,
-          address: this.userDetails.address,
-          contact: this.userDetails.contact,
+          instituteName: (this.user.details as Institute).instituteName,
+          address: this.user.address,
+          contact: this.user.contact,
         } as InstituteDetailsUpdateRequest;
       case 'teacher':
         return {
-          firstName: this.userDetails.firstName,
-          lastName: this.userDetails.lastName,
-          dob: this.userDetails.dob,
-          address: this.userDetails.address,
-          contact: this.userDetails.contact,
+          firstName: (this.user.details as Teacher).firstName,
+          lastName: (this.user.details as Teacher).lastName,
+          dob: (this.user.details as Teacher).dob,
+          address: this.user.address,
+          contact: this.user.contact,
         } as TeacherDetailsUpdateRequest;
       case 'student':
         return {
-          firstName: this.userDetails.firstName,
-          lastName: this.userDetails.lastName,
-          dob: this.userDetails.dob,
-          address: this.userDetails.address,
-          contact: this.userDetails.contact,
+          firstName: (this.user.details as Student).firstName,
+          lastName: (this.user.details as Student).lastName,
+          dob: (this.user.details as Student).dob,
+          address: this.user.address,
+          contact: this.user.contact,
         } as StudentDetailsUpdateRequest;
       default:
         return null;

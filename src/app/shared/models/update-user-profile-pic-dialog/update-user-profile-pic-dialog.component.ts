@@ -1,11 +1,9 @@
 import {Component, inject, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {Institute} from '../../../core/models/user-models/sub-user-models/institute';
-import {Teacher} from '../../../core/models/user-models/sub-user-models/teacher';
-import {Student} from '../../../core/models/user-models/sub-user-models/student';
-import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
 import {ProfileFileServiceService} from '../../../core/services/profile-files/profile-file-service.service';
+import {User} from '../../../core/models/user-models/user';
 
 @Component({
   selector: 'app-update-user-profile-pic-dialog',
@@ -19,7 +17,7 @@ import {ProfileFileServiceService} from '../../../core/services/profile-files/pr
 })
 export class UpdateUserProfilePicDialogComponent {
 
-  userDetails!: Institute|Teacher|Student;
+  userDetails!: any;
   imageUrl: string = '';
   selectedFile: File | null = null;
   isLoading: boolean = false;
@@ -30,7 +28,7 @@ export class UpdateUserProfilePicDialogComponent {
     public dialogRef: MatDialogRef<UpdateUserProfilePicDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {
       userRole: string;
-      details: Institute | Teacher | Student;
+      details: User;
     }) {
     this.userDetails = {...data.details};
   }
@@ -70,7 +68,7 @@ export class UpdateUserProfilePicDialogComponent {
       {
         next: (res) =>{
           if (res.data) {
-            this.data.details.dp = res.data as string;
+            this.userDetails.dp = res.data as string;
           }
           this.triggerLoading();
           this.onConfirm();
