@@ -15,35 +15,35 @@
   </div>
 
   <div *ngIf="isSearchDropdownOpen"
-       class="search_menu absolute right-2 mt-2 p-5 w-md rounded-md shadow-md shadow-gray-400 bg-white flex flex-col gap-2">
-    <p class="text-foreground" *ngIf="!searchResults">No Search Results.</p>
+       class="search_menu absolute right-2 mt-2 p-5 w-md h-auto rounded-md shadow-md shadow-gray-400 bg-white flex flex-col gap-2 overflow-y-scroll">
+    <p class="text-foreground" *ngIf="!searchResults || (searchResults?.institutes?.length === 0 && searchResults?.students?.length === 0 && searchResults?.teachers?.length === 0)">No Search Results.</p>
     <a *ngFor="let results of searchResults?.students" [routerLink]="['/profile', results.userSlug]"
        class="flex gap-2 justify-center items-center">
       <img
         src="{{ results?.dp ? `${environment.USER_PROFILE_API}${results?.dp}` : 'https://avatar.iran.liara.run/public/boy' }}"
         alt="Student Avatar" class="h-10 w-10 rounded-full col-span-1 justify-center items-center">
-      <span class="flex-2/3">{{ results.firstName }} {{ results.lastName }}</span>
+      <span class="flex-2/3">{{ $any(results.details).firstName }} {{ $any(results.details).lastName }}</span>
     </a>
     <a *ngFor="let results of searchResults?.teachers" [routerLink]="['/profile', results.userSlug]"
        class="flex gap-2 justify-center items-center">
       <img
         src="{{ results?.dp ? `${environment.USER_PROFILE_API}${results?.dp}` : 'https://avatar.iran.liara.run/public/boy' }}"
         alt="Student Avatar" class="h-10 w-10 rounded-full col-span-1 justify-center items-center">
-      <span class="flex-2/3">{{ results.firstName }} {{ results.lastName }}</span>
+      <span class="flex-2/3">{{ $any(results.details).firstName }} {{ $any(results.details).lastName }}</span>
     </a>
     <a *ngFor="let results of searchResults?.institutes" [routerLink]="['/profile', results.userSlug]"
        class="flex gap-2 justify-center items-center">
       <img
         src="{{ results?.dp ? `${environment.USER_PROFILE_API}${results?.dp}` : 'https://avatar.iran.liara.run/public/boy' }}"
         alt="Student Avatar" class="h-10 w-10 rounded-full col-span-1 justify-center items-center">
-      <span class="flex-2/3">{{ results.instituteName }}</span>
+      <span class="flex-2/3">{{ $any(results.details).instituteName }}</span>
     </a>
   </div>
 </div>
 
 <!-- Mobile Search -->
 <div class="relative flex items-center h-14 lg:hidden" *ngIf="isMobileSearchActive">
-  <div class="absolute inset-0 backdrop-blur-sm" (click)="deactivateMobileSearch()"></div>
+  <div class="absolute inset-0 backdrop-blur-sm" (keydown)="onEscapeKey()" (click)="deactivateMobileSearch()"></div>
 
   <div class="flex items-center w-full gap-2 z-20 relative">
     <button class="p-2" (click)="deactivateMobileSearch()">
@@ -70,10 +70,10 @@
     class="search_menu absolute left-0 right-0 top-14 mx-4 p-5 w-auto rounded-md shadow-md shadow-gray-400 bg-white flex flex-col gap-2 z-20">
     <p class="text-foreground" *ngIf="!searchResults">No Search Results.</p>
     <a *ngFor="let results of searchResults?.institutes" [href]="'profile/' + results.userSlug"
-       class="break-words">{{ results.instituteName }}</a>
+       class="break-words">{{ $any(results.details).instituteName }}</a>
     <a *ngFor="let results of searchResults?.teachers" [href]="'profile/' + results.userSlug"
-       class="break-words">{{ results.firstName }}</a>
+       class="break-words">{{ $any(results.details).firstName }}</a>
     <a *ngFor="let results of searchResults?.students" [href]="'profile/' + results.userSlug"
-       class="break-words">{{ results.firstName }}</a>
+       class="break-words">{{ $any(results.details).firstName }}</a>
   </div>
 </div>

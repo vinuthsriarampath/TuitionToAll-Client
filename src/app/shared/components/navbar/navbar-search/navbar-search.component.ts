@@ -1,5 +1,5 @@
 import {Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild} from '@angular/core';
-import {NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 import {SearchResponse} from '../../../../core/dto/response-dto/search-response';
 import {environment} from '../../../../environment/environment.development';
@@ -50,7 +50,6 @@ export class NavbarSearchComponent {
     this.searchInput = (event.target as HTMLInputElement).value;
     this.isSearchDropdownOpen = this.searchInput.length > 0;
 
-    console.log(this.searchInput);
     this.http.get<SearchResponse>(`http://localhost:8080/api/v2/search?query=${this.searchInput}`).subscribe({
       next: (res) =>{
         this.searchResults = res;
