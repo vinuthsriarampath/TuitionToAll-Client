@@ -37,7 +37,7 @@
           <lucide-icon [img]="MessageSquareText" [strokeWidth]="1.35"></lucide-icon>
           <p class="text-[0.9rem] hidden lg:block">Message</p>
         </a>
-        <a [routerLink]="user?.role == 'ROLE_INSTITUTE' ? ['/ins/dashboard'] : user?.role == 'ROLE_STUDENT' ? ['/std/dashboard'] : user?.role == 'ROLE_TEACHER' ? ['/tch/dashboard'] : ['/dashboard']"
+        <a [routerLink]="user?.role?.role == 'institute' ? ['/ins/dashboard'] : user?.role?.role == 'student' ? ['/std/dashboard'] : user?.role?.role == 'teacher' ? ['/tch/dashboard'] : ['/dashboard']"
            class="flex flex-col justify-center items-center cursor-pointer hover:font-bold" *ngIf="!isMobileSearchActive">
           <lucide-icon [img]="LayoutDashboard" [strokeWidth]="1.35"></lucide-icon>
           <p class="text-[0.9rem] hidden lg:block">Dashboard</p>
@@ -54,7 +54,7 @@
             <div *ngIf="isProfileDropdownOpen"
                  class="profile_menu absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded shadow-md z-20">
               <ul>
-                <li [routerLink]="['/profile/'+user.userSlug]"
+                <li [routerLink]="['/profile/'+user?.userSlug]"
                     class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-gray-800 dark:text-gray-200">
                   Profile
                 </li>
@@ -70,14 +70,15 @@
             </div>
           </div>
           <div class="lg:block hidden">
-            <p class="text-md truncate max-w-xs"
-               title="{{ user?.role == 'ROLE_INSTITUTE' ? user.instituteName : user.firstName+' '+user.lastName }}">
-              {{ user?.role == 'ROLE_INSTITUTE' ? user.instituteName : user.firstName + " " + user.lastName }}
+            <p class="text-md truncate max-w-xs" title="displayName">
+              {{ displayName }}
             </p>
-            <p class="font-semibold text-sm text-muted-foreground truncate max-w-xs" title="{{ user?.email }}">
+            <p class="font-semibold text-sm text-muted-foreground truncate max-w-xs" [title]="user?.email">
               {{ user?.email }}
             </p>
           </div>
+
+
         </div>
       </div>
     </div>
