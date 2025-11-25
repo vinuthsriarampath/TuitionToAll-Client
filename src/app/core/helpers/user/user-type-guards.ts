@@ -9,20 +9,17 @@
  * All rights reserved.
  */
 
-import {Student} from '../../models/user-models/sub-user-models/student';
 import {User} from '../../models/user-models/user';
-import {Roles} from '../../enums/roles';
-import {Institute} from '../../models/user-models/sub-user-models/institute';
-import {Teacher} from '../../models/user-models/sub-user-models/teacher';
+import {Institute} from '../../models/user-models/institute';
 
-export function isStudent(user: User): user is Student {
-  return user.role === Roles.ROLE_STUDENT;
+export function isStudent(user: User): boolean{
+  return user.role?.role === 'student';
 }
 
-export function isTeacher(user: User): user is Teacher {
-  return user.role === Roles.ROLE_TEACHER;
+export function isTeacher(user: User):boolean {
+  return user.role?.role === 'teacher';
 }
 
-export function isInstitute(user: User): user is Institute {
-  return user.role === Roles.ROLE_INSTITUTE;
+export function isInstitute(user: User): user is Institute{
+  return user.role?.role === 'institute';
 }
