@@ -1,11 +1,9 @@
 import {Component, inject, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {Institute} from '../../../core/models/user-models/sub-user-models/institute';
-import {Teacher} from '../../../core/models/user-models/sub-user-models/teacher';
-import {Student} from '../../../core/models/user-models/sub-user-models/student';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
 import {ProfileFileServiceService} from '../../../core/services/profile-files/profile-file-service.service';
+import {User} from '../../../core/models/user-models/user';
 
 @Component({
   selector: 'app-update-profile-banner-dialog',
@@ -31,7 +29,7 @@ export class UpdateProfileBannerDialogComponent {
     public dialogRef:MatDialogRef<UpdateProfileBannerDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data:{
     serRole: string;
-    details: Institute|Teacher|Student;
+    details: User;
   }) {
     this.userDetails = {...data.details};
   }
@@ -48,7 +46,6 @@ export class UpdateProfileBannerDialogComponent {
     this.triggerLoading();
 
     if(!this.selectedFile){
-      console.log('No file selected');
       this.triggerLoading();
       this.onCancel();
       return;
@@ -58,7 +55,7 @@ export class UpdateProfileBannerDialogComponent {
       {
         next: (res) =>{
           if (res.data) {
-            this.data.details.banner = res.data as string;
+            this.userDetails.banner = res.data as string;
           }
           this.triggerLoading();
           this.onConfirm();
