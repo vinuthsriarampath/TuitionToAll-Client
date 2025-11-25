@@ -1,14 +1,9 @@
-import {Component, OnInit, inject} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {Component, inject, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 import {NavbarComponent} from '../../../shared/components/navbar/navbar.component';
 import {NgIf, NgOptimizedImage, NgSwitch, NgSwitchCase, NgSwitchDefault} from '@angular/common';
 import {User} from '../../../core/models/user-models/user';
-import {isInstitute, isStudent, isTeacher} from '../../../core/helpers/user/user-type-guards';
-import {Institute} from '../../../core/models/user-models/sub-user-models/institute';
-import {Teacher} from '../../../core/models/user-models/sub-user-models/teacher';
-import {AuthenticationService} from '../../../core/services/auth/authentication.service';
 import {UserService} from '../../../core/services/user/user.service';
-import {Student} from '../../../core/models/user-models/sub-user-models/student';
 import {MatDialog} from '@angular/material/dialog';
 import {
   UpdateProfileDialogComponent
@@ -41,75 +36,45 @@ export class UserProfileComponent implements OnInit {
   readonly Pen = Pen;
 
   isSameUser: boolean = false;
-  currentUser: any;
-  instituteDetails?: Institute;
-  teacherDetails?: Teacher;
-  studentDetails?: Student;
+  currentUser: User = new User();
+  profileUser:User = new User();
   userRole: string = '';
 
-
-  authService: AuthenticationService = inject(AuthenticationService);
-  userService: UserService = inject(UserService);
+  private readonly userService: UserService = inject(UserService);
+  private readonly alertService:AlertService = inject(AlertService);
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
-    private  readonly dialog:MatDialog,
-    private  readonly alertService:AlertService) {
-    this.authService.verifyToken().subscribe({
-      next: (res) => {
-        this.currentUser = res.data!;
-      },
-      error(err) {
-        console.error(err);
-        window.location.replace('/dashboard');
-      }
-    });
-  }
+    private  readonly dialog:MatDialog) {}
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(params => {
       const userSlug = params.get('userSlug') ?? '';
       this.loadUserData(userSlug);
     });
+
+    this.userService.currentUser$.subscribe(user => {
+      if(user) this.currentUser = structuredClone(user);
+    })
   }
 
   private loadUserData(userSlug: string) {
     this.userService.findUserByUserSlug(userSlug).subscribe({
       next: (res) => {
         const user: User = res.data!;
+        this.userRole = user.role?.role || '';
 
-        this.instituteDetails = undefined;
-        this.teacherDetails = undefined;
-        this.studentDetails = undefined;
-        this.userRole = '';
-
-        if (isInstitute(user)) {
-          this.userRole = 'institute';
-          this.instituteDetails = user;
-        } else if (isStudent(user)) {
-          this.userRole = 'student';
-          this.studentDetails = user;
-        } else if (isTeacher(user)) {
-          this.userRole = 'teacher';
-          this.teacherDetails = user;
-        }
+        this.profileUser = structuredClone(user);
         this.isSameUser = this.currentUser.email === user.email;
       },
       error() {
-        window.location.replace('/dashboard');
+        window.location.replace('/app');
       }
     });
   }
 
   openProfilePicUpdateDialog() {
-    let userDetails;
-    if (this.userRole === 'student') {
-      userDetails = this.studentDetails;
-    } else if (this.userRole === 'teacher') {
-      userDetails = this.teacherDetails;
-    } else {
-      userDetails = this.instituteDetails;
-    }
+    let userDetails:User = this.profileUser;
 
     const dialogRef = this.dialog.open(UpdateUserProfilePicDialogComponent, {
       maxWidth: '80vh',
@@ -126,21 +91,9 @@ export class UserProfileComponent implements OnInit {
     dialogRef.afterClosed().subscribe({
       next: (res) => {
         if (res) {
-          if (this.userRole === 'student') {
-            this.alertService.triggerSuccessAlert(alert);
-            this.studentDetails = structuredClone(res);
-            return;
-          } else if (this.userRole === 'teacher') {
-            this.alertService.triggerSuccessAlert(alert);
-            this.teacherDetails = structuredClone(res);
-            return;
-          } else if (this.userRole === 'institute') {
-            this.alertService.triggerSuccessAlert(alert);
-            this.instituteDetails = structuredClone(res);
-            return;
-          }
-          this.alertService.triggerErrorAlert();
-          console.log(res);
+          this.alertService.triggerSuccessAlert(alert);
+          this.profileUser = structuredClone(res);
+          if(this.isSameUser) this.userService.setCurrentUser(this.profileUser);
           return;
         }
         this.alertService.triggerErrorAlert();
@@ -149,14 +102,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   openProfileUpdateDialog() {
-    let userDetails;
-    if (this.userRole === 'student') {
-      userDetails = this.studentDetails;
-    } else if (this.userRole === 'teacher') {
-      userDetails = this.teacherDetails;
-    } else {
-      userDetails = this.instituteDetails;
-    }
+    let userDetails:User = this.profileUser;
 
     const dialogRef = this.dialog.open(UpdateProfileDialogComponent, {
       maxWidth: '80vh',
@@ -171,20 +117,9 @@ export class UserProfileComponent implements OnInit {
     dialogRef.afterClosed().subscribe({
       next: (res) => {
         if (res) {
-          if (this.userRole === 'student') {
-            this.alertService.triggerSuccessAlert();
-            this.studentDetails = structuredClone(res);
-            return;
-          } else if (this.userRole === 'teacher') {
-            this.alertService.triggerSuccessAlert();
-            this.teacherDetails = structuredClone(res);
-            return;
-          } else if (this.userRole === 'institute') {
-            this.alertService.triggerSuccessAlert();
-            this.instituteDetails = structuredClone(res);
-            return;
-          }
-          this.alertService.triggerErrorAlert();
+          this.alertService.triggerSuccessAlert();
+          this.profileUser = structuredClone(res);
+          if(this.isSameUser) this.userService.setCurrentUser(this.profileUser);
           return;
         }
         this.alertService.triggerErrorAlert();
@@ -193,14 +128,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   openProfileBannerUpdateDialog() {
-    let userDetails;
-    if (this.userRole === 'student') {
-      userDetails = this.studentDetails;
-    } else if (this.userRole === 'teacher') {
-      userDetails = this.teacherDetails;
-    } else {
-      userDetails = this.instituteDetails;
-    }
+    let userDetails:User = this.profileUser;
 
     const dialogRef = this.dialog.open(UpdateProfileBannerDialogComponent, {
       maxWidth: '100vh',
@@ -217,21 +145,9 @@ export class UserProfileComponent implements OnInit {
     dialogRef.afterClosed().subscribe({
       next: (res) => {
         if (res) {
-          if (this.userRole === 'student') {
-            this.alertService.triggerSuccessAlert(alert);
-            this.studentDetails = structuredClone(res);
-            return;
-          } else if (this.userRole === 'teacher') {
-            this.alertService.triggerSuccessAlert(alert);
-            this.teacherDetails = structuredClone(res);
-            return;
-          } else if (this.userRole === 'institute') {
-            this.alertService.triggerSuccessAlert(alert);
-            this.instituteDetails = structuredClone(res);
-            return;
-          }
-          this.alertService.triggerErrorAlert();
-          console.log(res);
+          this.alertService.triggerSuccessAlert(alert);
+          this.profileUser = structuredClone(res);
+          if(this.isSameUser) this.userService.setCurrentUser(this.profileUser);
           return;
         }
         this.alertService.triggerErrorAlert();
