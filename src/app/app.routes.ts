@@ -9,9 +9,9 @@
  * All rights reserved.
  */
 
-import { Routes } from '@angular/router';
+import {Routes} from '@angular/router';
 import {LandingPageComponent} from './shared/pages/landing-page/landing-page.component';
-import { LoginPageComponent } from './features/auth/login-page/login-page.component';
+import {LoginPageComponent} from './features/auth/login-page/login-page.component';
 import {tokenGuard} from './core/guards/token-guard/token.guard';
 import {SignupPageComponent} from './features/auth/signup-page/signup-page.component';
 import {UnderDevelopmentPageComponent} from './shared/pages/under-development-page/under-development-page.component';
@@ -104,7 +104,7 @@ export const routes: Routes = [
   {
     path: 'profile/:userSlug',
     component: UserProfileComponent,
-    canActivate: [authGuard],
+    canActivate: [authGuard,tokenGuard],
   },
   {
     path: '**',
