@@ -9,16 +9,22 @@
  * All rights reserved.
  */
 
-import { Roles } from "../../enums/roles";
 
-export interface User {
+import {Role} from '../Role';
+import {RoleDetails} from '../RoleDetails';
+
+export class User {
     id?: number;
     address?: string;
     contact?: string;
     email?: string;
-    role?: Roles;
+    role?: Role;
     isDisabled?: boolean;
     userSlug?:string;
     dp?:string;
     banner?:string;
+    creationTimeStamp?:string;
+    updatedAt?:string;
+
+    details?:RoleDetails;
 }
