@@ -14,5 +14,7 @@ export interface Course{
   category:CourseCategory;
   status:CourseStatus;
   language:CourseLanguage;
-  mode:CourseMode
+  mode:CourseMode;
+  creationTimeStamp:string;
+  updatedAt:string;
 }
