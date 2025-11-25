@@ -9,7 +9,7 @@
  * All rights reserved.
  */
 
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ApiResponse} from '../../dto/response-dto/api-response';
 import {environment} from '../../../environment/environment.development';
@@ -22,14 +22,18 @@ import {
 import {
   TeacherDetailsUpdateRequest
 } from '../../dto/request-dto/update-user-dto/sub-user-details-update-dto/TeacherDetailsUpdateRequest';
+import {User} from '../../models/user-models/user';
+import {BehaviorSubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private readonly http:HttpClient) {
-  }
+  private readonly currentUserSubject:BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
+  currentUser$ = this.currentUserSubject.asObservable();
+
+  constructor(private readonly http:HttpClient) {}
 
   findUserByUserSlug(userSlug: string){
     return this.http.get<ApiResponse>(`${environment.USER_API}/by-user-slug/${userSlug}`);
@@ -45,5 +49,9 @@ export class UserService {
 
   updateStudentDetails(updateRequest: StudentDetailsUpdateRequest){
     return this.http.patch(`${environment.USER_API}/student/update/me`,updateRequest);
+  }
+
+  setCurrentUser(user: User|null){
+    this.currentUserSubject.next(user);
   }
 }
