@@ -9,7 +9,7 @@
           </svg>
         </button>
         <a [routerLink]="['/app']" class="flex ms-2 md:me-24">
-          <img src="tuitiontoall_logo.png" class="h-8 me-3" alt="TuitionToAll Logo" />
+          <img [ngSrc]="'tuitiontoall_logo.png'" width="32" height="32" loading="lazy" class="h-8 me-3" alt="TuitionToAll Logo" />
           <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-blue-950">TuitionToAll</span>
         </a>
       </div>
@@ -18,13 +18,13 @@
           <div>
             <button type="button" class="flex text-sm bg-sky-800 rounded-full focus:ring-4 focus:ring-gray-300 " aria-expanded="false" data-dropdown-toggle="dropdown-user">
               <span class="sr-only">Open user menu</span>
-              <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user">
+              <img [ngSrc]="institute.dp ? `${environment.USER_PROFILE_API}${institute.dp}` : 'https://avatar.iran.liara.run/public/boy'" width="32" height="32" loading="lazy" alt="avatar" class="w-8 h-8 rounded-full object-cover">
             </button>
           </div>
           <div class="z-50 hidden my-4 text-base list-none bg-blue-200 divide-y divide-gray-100 rounded-sm shadow-sm" id="dropdown-user">
             <div class="px-4 py-3">
               <p class="text-sm text-gray-900">
-                {{institute.instituteName}}
+                {{$any(institute.details)?.instituteName}}
               </p>
               <p class="text-sm font-medium text-gray-900 truncate">
                 {{institute.email}}
