@@ -32,13 +32,13 @@
             </div>
             <ul class="py-1">
               <li>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 " role="menuitem">Dashboard</a>
+                <a [routerLink]="['/profile/'+institute.userSlug]" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 " role="menuitem">Profile</a>
               </li>
               <li>
                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 " role="menuitem">Settings</a>
               </li>
               <li>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 " role="menuitem">Earnings</a>
+                <a [routerLink]="['/app']" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 " role="menuitem">Feed</a>
               </li>
               <li>
                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 " role="menuitem">Sign out</a>
@@ -55,13 +55,13 @@
   <div class="h-full px-3 pb-4 overflow-y-auto bg-blue-200">
     <ul class="space-y-2 font-medium">
       <li>
-        <a [routerLink]="['/ins/dashboard']" class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100 group">
-          <lucide-icon [img]="ChartPie"></lucide-icon>
-          <span class="ms-3">Dashboard</span>
-        </a>
-      </li>
+      <a [routerLink]="['/ins/dashboard']" class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100">
+        <lucide-icon [img]="ChartPie"></lucide-icon>
+        <span class="ms-3">Dashboard</span>
+      </a>
+    </li>
       <li>
-        <a [routerLink]="['course-mgt']" class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100 group">
+        <a [routerLink]="['course-mgt']" routerLinkActive="bg-blue-300" class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100 ">
           <lucide-icon [img]="Book"></lucide-icon>
           <span class="ms-3">Courses</span>
         </a>

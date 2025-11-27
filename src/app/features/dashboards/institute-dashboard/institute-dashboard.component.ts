@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FlowbiteService} from '../../../core/services/flowbite/flowbite.service';
 import {initFlowbite} from 'flowbite';
-import {RouterLink, RouterOutlet} from '@angular/router';
+import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {Book, ChartPie, LucideAngularModule} from 'lucide-angular';
 import {UserService} from '../../../core/services/user/user.service';
 import {AuthenticationService} from '../../../core/services/auth/authentication.service';
@@ -17,7 +17,8 @@ import {environment} from '../../../environment/environment.development';
     RouterLink,
     LucideAngularModule,
     RouterOutlet,
-    NgOptimizedImage
+    NgOptimizedImage,
+    RouterLinkActive
   ],
   templateUrl: './institute-dashboard.component.html',
   styleUrl: './institute-dashboard.component.css'
