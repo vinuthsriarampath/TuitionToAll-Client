@@ -15,7 +15,11 @@ export class CourseService {
     return this.http.get<ApiResponse>(`${environment.COURSE_API}/institute/all`);
   }
 
-  createCourse(request:CourseCreate){
-    return this.http.post<ApiResponse>(`${environment.COURSE_API}/create`,request);
+  createCourse(request:CourseCreate,file?:File){
+    const formData = new FormData();
+    if(file) formData.append('thumbnail',file);
+    formData.append('course',new Blob([JSON.stringify(request)], { type: 'application/json' }));
+
+    return this.http.post<ApiResponse>(`${environment.COURSE_API}/create`,formData);
   }
 }

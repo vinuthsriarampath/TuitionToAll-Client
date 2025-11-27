@@ -7,60 +7,82 @@
     <button class=" cursor-pointer bg-blue-900 text-gray-200 font-semibold rounded-md p-2 flex gap-2" (click)="window.history.back()">Go Back <lucide-icon [img]="undo2" /> </button>
   </div>
 
-  <form (ngSubmit)="onSubmit()" class="grid grid-cols-1 gap-4">
-    <div class="flex flex-col gap-2 col-span-12">
-      <label for="title">Title :</label>
-      <input type="text"  name="title" [(ngModel)]="courseCreateRequest.title" required #title="ngModel" placeholder="Course title" class="py-1.5 w-md rounded-lg placeholder-gray-400 bg-white border border-gray-400 focus:ring focus:ring-opacity-40 focus:border-blue-400 focus:ring-blue-300 focus:outline-none ">
-      <div *ngIf="title.invalid && title.touched" class="text-red-500 mb-4">
-        <div *ngIf="title.errors?.['required']">Title is required.</div>
+  <form (ngSubmit)="onSubmit()" class="grid grid-cols-12 gap-4">
+    <div class="col-span-6 grid grid-cols-2 gap-4 ">
+      <div class="flex flex-col gap-2 col-span-2">
+        <label for="title">Title :</label>
+        <input type="text" name="title" [(ngModel)]="courseCreateRequest.title" required #title="ngModel" placeholder="Course title" class="py-1.5 w-full rounded-lg placeholder-gray-400 bg-white border border-gray-400 focus:ring focus:ring-opacity-40 focus:border-blue-400 focus:ring-blue-300 focus:outline-none " [disabled]="loading">
+        <div *ngIf="title.invalid && title.touched" class="text-red-500 mb-4">
+          <div *ngIf="title.errors?.['required']">Title is required.</div>
+        </div>
+      </div>
+      <div class="flex flex-col gap-2 col-span-2">
+        <label for="description">Description :</label>
+        <textarea name="description" [(ngModel)]="courseCreateRequest.description" required #description="ngModel" placeholder="Course description" rows="3" class="py-1.5 w-full rounded-lg placeholder-gray-400 bg-white border border-gray-400 focus:ring focus:ring-opacity-40 focus:border-blue-400 focus:ring-blue-300 focus:outline-none "[disabled]="loading"></textarea>
+        <div *ngIf="description.invalid && description.touched" class="text-red-500 mb-4">
+          <div *ngIf="description.errors?.['required']">Description is required.</div>
+        </div>
+      </div>
+      <div class="flex flex-row gap-2 col-span-2">
+        <div class="flex flex-col flex-1">
+          <label for="duration">Course duration (In Hours) :</label>
+          <input type="number" name="duration" [(ngModel)]="courseCreateRequest.durationInHours" required min="0" #duration="ngModel" placeholder="Course duration" class="py-1.5 w-full rounded-lg placeholder-gray-400 bg-white border border-gray-400 focus:ring focus:ring-opacity-40 focus:border-blue-400 focus:ring-blue-300 focus:outline-none "[disabled]="loading">
+          <div *ngIf="duration.invalid && duration.touched" class="text-red-500 mb-4">
+            <div *ngIf="duration.errors?.['required']">Course duration is required.</div>
+            <div *ngIf="duration.errors?.['min']">Course duration cannot be negative.</div>
+          </div>
+        </div>
+        <div class="flex flex-col flex-1">
+          <label for="price">Course price (In LKR) :</label>
+          <input type="number" name="price" [(ngModel)]="courseCreateRequest.price" required min="0" #price="ngModel" placeholder="Course price" class="py-1.5 w-full rounded-lg placeholder-gray-400 bg-white border border-gray-400 focus:ring focus:ring-opacity-40 focus:border-blue-400 focus:ring-blue-300 focus:outline-none "[disabled]="loading">
+          <div *ngIf="price.invalid && price.touched" class="text-red-500 mb-4">
+            <div *ngIf="price.errors?.['required']">Course price is required.</div>
+            <div *ngIf="price.errors?.['min']">Course price cannot be negative.</div>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-row gap-2 col-span-2">
+        <div class="flex flex-col flex-1">
+          <label for="category">Category :</label>
+          <select name="category" [(ngModel)]="courseCreateRequest.category" required #category="ngModel" class="py-1.5 w-full rounded-lg placeholder-gray-400 bg-white border border-gray-400 focus:ring focus:ring-opacity-40 focus:border-blue-400 focus:ring-blue-300 focus:outline-none "[disabled]="loading">
+            <option disabled value="">-- Select Category --</option>
+            <option *ngFor="let category of courseCategories" [value]="category" class="text-gray-700 bg-white hover:bg-blue-300">{{category | titlecase}}</option>
+          </select>
+          <div *ngIf="category.invalid && category.touched" class="text-red-500 mb-4">
+            <div *ngIf="category.errors?.['required']">Course category is required.</div>
+          </div>
+        </div>
+        <div class="flex flex-col flex-1">
+          <label for="language">Language :</label>
+          <select name="language" [(ngModel)]="courseCreateRequest.language" required #language="ngModel" class="py-1.5 w-full rounded-lg placeholder-gray-400 bg-white border border-gray-400 focus:ring focus:ring-opacity-40 focus:border-blue-400 focus:ring-blue-300 focus:outline-none "[disabled]="loading">
+            <option disabled value="">-- Select Language --</option>
+            <option *ngFor="let language of courseLanguages" [value]="language" class="text-gray-700 bg-white hover:bg-blue-300">{{language | titlecase}}</option>
+          </select>
+          <div *ngIf="language.invalid && language.touched" class="text-red-500 mb-4">
+            <div *ngIf="language.errors?.['required']">Course language is required.</div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="flex flex-col gap-2 col-span-12">
-      <label for="description">Description :</label>
-      <textarea name="description" [(ngModel)]="courseCreateRequest.description" required #description="ngModel" placeholder="Course description" rows="3" class="py-1.5 w-2xl rounded-lg placeholder-gray-400 bg-white border border-gray-400 focus:ring focus:ring-opacity-40 focus:border-blue-400 focus:ring-blue-300 focus:outline-none "></textarea>
-      <div *ngIf="description.invalid && description.touched" class="text-red-500 mb-4">
-        <div *ngIf="description.errors?.['required']">Description is required.</div>
-      </div>
-    </div>
-    <div class="flex flex-row gap-2 col-span-12">
-      <div class="flex flex-col">
-        <label for="duration">Course duration (In Hours) :</label>
-        <input type="number" name="duration" [(ngModel)]="courseCreateRequest.durationInHours" required min="0" #duration="ngModel" placeholder="Course duration" class="py-1.5 w-xs rounded-lg placeholder-gray-400 bg-white border border-gray-400 focus:ring focus:ring-opacity-40 focus:border-blue-400 focus:ring-blue-300 focus:outline-none ">
-        <div *ngIf="duration.invalid && duration.touched" class="text-red-500 mb-4">
-          <div *ngIf="duration.errors?.['required']">Course duration is required.</div>
-          <div *ngIf="duration.errors?.['min']">Course duration cannot be negative.</div>
-        </div>
-      </div>
-      <div class="flex flex-col">
-        <label for="price">Course price (In LKR) :</label>
-        <input type="number" name="price" [(ngModel)]="courseCreateRequest.price" required min="0" #price="ngModel" placeholder="Course price" class="py-1.5 w-xs rounded-lg placeholder-gray-400 bg-white border border-gray-400 focus:ring focus:ring-opacity-40 focus:border-blue-400 focus:ring-blue-300 focus:outline-none ">
-        <div *ngIf="price.invalid && price.touched" class="text-red-500 mb-4">
-          <div *ngIf="price.errors?.['required']">Course price is required.</div>
-          <div *ngIf="price.errors?.['min']">Course price cannot be negative.</div>
-        </div>
-      </div>
-    </div>
-    <div class="flex flex-row gap-2 col-span-12">
-      <div class="flex flex-col">
-        <label for="category">Category :</label>
-        <select name="category" [(ngModel)]="courseCreateRequest.category" required #category="ngModel" class="py-1.5 w-xs rounded-lg placeholder-gray-400 bg-white border border-gray-400 focus:ring focus:ring-opacity-40 focus:border-blue-400 focus:ring-blue-300 focus:outline-none ">
-          <option disabled value="">-- Select Category --</option>
-          <option *ngFor="let category of courseCategories" [value]="category" class="text-gray-700 bg-white hover:bg-blue-300">{{category | titlecase}}</option>
-        </select>
-        <div *ngIf="category.invalid && category.touched" class="text-red-500 mb-4">
-          <div *ngIf="category.errors?.['required']">Course category is required.</div>
-        </div>
-      </div>
-      <div class="flex flex-col">
-        <label for="language">Language :</label>
-        <select name="language" [(ngModel)]="courseCreateRequest.language" required #language="ngModel" class="py-1.5 w-xs rounded-lg placeholder-gray-400 bg-white border border-gray-400 focus:ring focus:ring-opacity-40 focus:border-blue-400 focus:ring-blue-300 focus:outline-none ">
-          <option disabled value="">-- Select Language --</option>
-          <option *ngFor="let language of courseLanguages" [value]="language" class="text-gray-700 bg-white hover:bg-blue-300">{{language | titlecase}}</option>
-        </select>
-        <div *ngIf="language.invalid && language.touched" class="text-red-500 mb-4">
-          <div *ngIf="language.errors?.['required']">Course language is required.</div>
-        </div>
-      </div>
+    <div class="col-span-6 flex flex-col gap-4 items-center justify-center">
+          <label for="image-input" class="w-md h-60 flex justify-center items-center border-dashed border-2 border-blue-500">
+            <input type="file" id="image-input" #fileInput (change)="onImageSelect($event)" accept="image/*" hidden class="w-full p-2 border border-gray-300 focus:outline-none focus:ring focus:ring-blue-500" [disabled]="loading"/>
+            <div id="image-view" [style]="imageUrl ? 'background-image: url(' + imageUrl + '); ' : ''" class="w-full h-full bg-gray-200/30 flex justify-center items-center bg-center bg-cover overflow-hidden">
+              <div *ngIf="!selectedFile " class="flex flex-col justify-center items-center">
+                <svg id="upload-icon" xmlns="http://www.w3.org/2000/svg" class="w-11 mb-2 fill-gray-500"
+                     viewBox="0 0 32 32">
+                  <path
+                    d="M23.75 11.044a7.99 7.99 0 0 0-15.5-.009A8 8 0 0 0 9 27h3a1 1 0 0 0 0-2H9a6 6 0 0 1-.035-12 1.038 1.038 0 0 0 1.1-.854 5.991 5.991 0 0 1 11.862 0A1.08 1.08 0 0 0 23 13a6 6 0 0 1 0 12h-3a1 1 0 0 0 0 2h3a8 8 0 0 0 .75-15.956z" />
+                  <path
+                    d="M20.293 19.707a1 1 0 0 0 1.414-1.414l-5-5a1 1 0 0 0-1.414 0l-5 5a1 1 0 0 0 1.414 1.414L15 16.414V29a1 1 0 0 0 2 0V16.414z" />
+                </svg>
+                <p class="text-sm">Drag and Drop or click here to upload an Thumbnail (Optional)</p>
+              </div>
+            </div>
+          </label>
+      @if (!loading && selectedFile){
+        <button type="button" (click)="resetUpload()" class="text-black border border-black font-semibold rounded-lg w-2xs p-2 text-center cursor-pointer">Reset Upload</button>
+      }
     </div>
     <div class="flex flex-row gap-2 col-span-12">
       <div class="flex flex-col">
@@ -92,8 +114,12 @@
       </div>
     </div>
     <div class="flex flex-row gap-2 justify-end col-span-12">
-      <button type="button" (click)="resetForm()" class="text-black border border-black font-semibold rounded-lg w-2xs p-2 text-center cursor-pointer">Reset Form</button>
-      <button type="submit" class="bg-blue-900 text-gray-200 rounded-lg font-semibold p-2 cursor-pointer w-2xs">Create Course</button>
+      @if (!loading) {
+        <button type="button" (click)="resetForm()" class="text-black border border-black font-semibold rounded-lg w-2xs p-2 text-center cursor-pointer">Reset Form</button>
+        <button type="submit" class="bg-blue-900 text-gray-200 rounded-lg font-semibold p-2 cursor-pointer w-2xs">Create Course</button>
+      } @else {
+        <button type="button" class="bg-blue-900 text-gray-200 rounded-lg font-semibold p-2 cursor-pointer w-2xs flex justify-center items-center" disabled><mat-spinner diameter="30"></mat-spinner></button>
+      }
     </div>
 
   </form>
