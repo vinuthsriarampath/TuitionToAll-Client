@@ -171,7 +171,20 @@
         </div>
 
         <div class="bg-blue-100/75 p-4 text-gray-800 rounded-xl shadow w-full md:w-2/3">
-          <h1 class="text-xl font-bold">Post</h1>
+          <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="500ms">
+            <mat-tab label="Posts">
+              <ng-template matTabContent>
+                <app-user-posts></app-user-posts>
+              </ng-template>
+            </mat-tab>
+            @if (profileUser.role?.role === 'institute'){
+              <mat-tab label="Courses">
+                <ng-template matTabContent>
+                  <app-user-courses [userId]="$any(profileUser.details)?.id"></app-user-courses>
+                </ng-template>
+              </mat-tab>
+            }
+          </mat-tab-group>
         </div>
       </div>
     </div>

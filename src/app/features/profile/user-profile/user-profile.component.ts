@@ -17,6 +17,9 @@ import {environment} from '../../../environment/environment.development';
 import {
   UpdateProfileBannerDialogComponent
 } from '../../../shared/models/update-profile-banner-dialog/update-profile-banner-dialog.component';
+import {MatTab, MatTabContent, MatTabGroup} from '@angular/material/tabs';
+import {UserPostsComponent} from '../user-posts/user-posts.component';
+import {UserCoursesComponent} from '../user-courses/user-courses.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -27,7 +30,12 @@ import {
     NgSwitchDefault,
     NgIf,
     LucideAngularModule,
-    NgOptimizedImage
+    NgOptimizedImage,
+    MatTabGroup,
+    MatTab,
+    MatTabContent,
+    UserPostsComponent,
+    UserCoursesComponent,
   ],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css'
@@ -153,6 +161,15 @@ export class UserProfileComponent implements OnInit {
         this.alertService.triggerErrorAlert();
       }
     });
+  }
+  tabLoadTimes: Date[] = [];
+
+  getTimeLoaded(index: number) {
+    if (!this.tabLoadTimes[index]) {
+      this.tabLoadTimes[index] = new Date();
+    }
+
+    return this.tabLoadTimes[index];
   }
 
   protected readonly environment = environment;
