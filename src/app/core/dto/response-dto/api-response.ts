@@ -9,7 +9,7 @@
  * All rights reserved.
  */
 
-export interface ApiResponse {
+export interface ApiResponse<T> {
     message?:string;
-    data?:Object;
+    data?:T;
 }

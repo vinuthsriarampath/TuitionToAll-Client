@@ -13,7 +13,7 @@ export class ProfileFileServiceService {
   uploadFile(type:string,file:File){
     const formData = new FormData();
     formData.append('file', file);
-    return this.http.post<ApiResponse>(`${environment.USER_PROFILE_API}/upload/${type}`, formData);
+    return this.http.post<ApiResponse<string>>(`${environment.USER_PROFILE_API}/upload/${type}`, formData);
   }
 
 }

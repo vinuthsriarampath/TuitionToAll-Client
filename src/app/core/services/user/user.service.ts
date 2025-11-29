@@ -24,6 +24,9 @@ import {
 } from '../../dto/request-dto/update-user-dto/sub-user-details-update-dto/TeacherDetailsUpdateRequest';
 import {User} from '../../models/user-models/user';
 import {BehaviorSubject} from 'rxjs';
+import {Institute} from '../../models/user-models/institute';
+import {Teacher} from '../../models/user-models/teacher';
+import {Student} from '../../models/user-models/student';
 
 @Injectable({
   providedIn: 'root'
@@ -36,19 +39,19 @@ export class UserService {
   constructor(private readonly http:HttpClient) {}
 
   findUserByUserSlug(userSlug: string){
-    return this.http.get<ApiResponse>(`${environment.USER_API}/by-user-slug/${userSlug}`);
+    return this.http.get<ApiResponse<User>>(`${environment.USER_API}/by-user-slug/${userSlug}`);
   }
 
   updateInstituteDetails(updateRequest: InstituteDetailsUpdateRequest){
-    return this.http.patch(`${environment.USER_API}/institutes/update/me`,updateRequest);
+    return this.http.patch<ApiResponse<Institute>>(`${environment.USER_API}/institutes/update/me`,updateRequest);
   }
 
   updateTeacherDetails(updateRequest: TeacherDetailsUpdateRequest){
-    return this.http.patch(`${environment.USER_API}/teachers/update/me`,updateRequest);
+    return this.http.patch<ApiResponse<Teacher>>(`${environment.USER_API}/teachers/update/me`,updateRequest);
   }
 
   updateStudentDetails(updateRequest: StudentDetailsUpdateRequest){
-    return this.http.patch(`${environment.USER_API}/student/update/me`,updateRequest);
+    return this.http.patch<ApiResponse<Student>>(`${environment.USER_API}/student/update/me`,updateRequest);
   }
 
   setCurrentUser(user: User|null){

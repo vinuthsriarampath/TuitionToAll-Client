@@ -24,6 +24,10 @@ import {
   InstituteRegistrationRequest
 } from '../../dto/request-dto/registration-dto/sub-registration-dto/institute-registration-request';
 import {ApiResponse} from '../../dto/response-dto/api-response';
+import {User} from '../../models/user-models/user';
+import {Institute} from '../../models/user-models/institute';
+import {Teacher} from '../../models/user-models/teacher';
+import {Student} from '../../models/user-models/student';
 
 @Injectable({
   providedIn: 'root'
@@ -38,27 +42,27 @@ export class AuthenticationService {
   }
 
   registerStudent(StudentRegistrationRequest:StudentRegistrationRequest){
-    return this.http.post<ApiResponse>(`${environment.AUTH_API}/register/student`, StudentRegistrationRequest);
+    return this.http.post<ApiResponse<Student>>(`${environment.AUTH_API}/register/student`, StudentRegistrationRequest);
   }
 
   registerTeacher(TeacherRegistrationRequest:TeacherRegistrationRequest){
-    return this.http.post<ApiResponse>(`${environment.AUTH_API}/register/teacher`, TeacherRegistrationRequest);
+    return this.http.post<ApiResponse<Teacher>>(`${environment.AUTH_API}/register/teacher`, TeacherRegistrationRequest);
   }
 
   registerInstitute(InstituteRegistrationRequest:InstituteRegistrationRequest){
-    return this.http.post<ApiResponse>(`${environment.AUTH_API}/register/institute`, InstituteRegistrationRequest);
+    return this.http.post<ApiResponse<Institute>>(`${environment.AUTH_API}/register/institute`, InstituteRegistrationRequest);
   }
 
   verifyToken(){
-    return this.http.get<ApiResponse>(`${environment.USER_API}/me`);
+    return this.http.get<ApiResponse<User>>(`${environment.USER_API}/me`);
   }
 
   resetPasswordRequest(email:string){
-    return this.http.post<ApiResponse>(`${environment.AUTH_API}/forgot-password/request`, email);
+    return this.http.post<ApiResponse<null>>(`${environment.AUTH_API}/forgot-password/request`, email);
   }
 
   PasswordReset(token:string, newPassword:string){
-    return this.http.post<ApiResponse>(`${environment.AUTH_API}/forgot-password/reset?token=${token}`, newPassword);
+    return this.http.post<ApiResponse<null>>(`${environment.AUTH_API}/forgot-password/reset?token=${token}`, newPassword);
   }
 
   getAuthToken(){
@@ -66,6 +70,6 @@ export class AuthenticationService {
   }
 
   validateInstitute(){
-    return this.http.get<ApiResponse>(` ${environment.USER_API}/validate/institute-role`);
+    return this.http.get<ApiResponse<null>>(` ${environment.USER_API}/validate/institute-role`);
   }
 }
