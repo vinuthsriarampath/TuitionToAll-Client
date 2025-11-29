@@ -24,6 +24,9 @@ import {CommonModule, NgClass} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
 import {AuthenticationService} from '../../../core/services/auth/authentication.service';
 import {ApiResponse} from '../../../core/dto/response-dto/api-response';
+import {Teacher} from '../../../core/models/user-models/teacher';
+import {Institute} from '../../../core/models/user-models/institute';
+import {Student} from '../../../core/models/user-models/student';
 
 @Component({
   selector: 'app-signup-page',
@@ -123,7 +126,7 @@ export class SignupPageComponent {
         password: this.signupRequest.password
       };
       this.authService.registerStudent(this.studentRegistrationRequest).subscribe({
-        next:async (response) => {
+        next:async (response:ApiResponse<Student>) => {
           if (response) {
             this.successMessage = `${response.message}, you will navigate to the login page soon.`;
             this.clearFields();
@@ -153,7 +156,7 @@ export class SignupPageComponent {
         password: this.signupRequest.password
       };
       this.authService.registerTeacher(this.teacherRegistrationRequest).subscribe({
-        next: (response: ApiResponse) => {
+        next: (response: ApiResponse<Teacher>) => {
           if (response) {
             this.successMessage = response.message + ", you will navigate to login page soon..";
             this.clearFields();
@@ -181,7 +184,7 @@ export class SignupPageComponent {
         password: this.signupRequest.password
       };
       this.authService.registerInstitute(this.instituteRegistrationRequest).subscribe({
-        next:async (response) =>{
+        next:async (response:ApiResponse<Institute>) =>{
           if(response){
             this.successMessage=response.message+", you will navigate to login page soon..";
             this.clearFields();
