@@ -15,6 +15,7 @@ export interface Course{
   status:CourseStatus;
   language:CourseLanguage;
   mode:CourseMode;
+  thumbnail:string;
   creationTimeStamp:string;
   updatedAt:string;
 }
