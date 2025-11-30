@@ -34,3 +34,24 @@
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
+
+
+.btn-primary {
+  @apply bg-blue-600 text-white font-semibold px-4 py-2 rounded-md shadow hover:bg-blue-700 cursor-pointer;
+}
+
+.btn-secondary {
+  @apply bg-green-600 text-white font-semibold px-4 py-2 rounded-md shadow hover:bg-green-700 cursor-pointer;
+}
+
+.btn-light {
+  @apply bg-gray-200 text-gray-700 px-4 py-2 rounded-md shadow hover:bg-gray-300 cursor-pointer;
+}
+
+.btn-mini-primary {
+  @apply bg-blue-600 text-white text-sm px-3 py-1 rounded-md hover:bg-blue-700 cursor-pointer;
+}
+
+.btn-mini-secondary {
+  @apply bg-indigo-600 text-white text-sm px-3 py-1 rounded-md hover:bg-indigo-700 cursor-pointer;
+}

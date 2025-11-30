@@ -33,6 +33,9 @@ import {
 import {
   CourseCreateComponent
 } from './features/dashboards/institute-dashboard/pages/institute-course-management/pages/course-create/course-create.component';
+import {
+  CourseViewComponent
+} from './features/dashboards/institute-dashboard/pages/institute-course-management/pages/course-view/course-view.component';
 
 
 export const routes: Routes = [
@@ -96,6 +99,15 @@ export const routes: Routes = [
           {
             path: 'create',
             component: CourseCreateComponent
+          },
+          {
+            path: ':courseId',
+            children:[
+              {
+                path: '',
+                component: CourseViewComponent,
+              },
+            ]
           }
         ]
       }

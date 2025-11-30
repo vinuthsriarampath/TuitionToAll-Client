@@ -6,6 +6,8 @@ import {AlertService} from '../../../../../core/services/alerts/alert.service';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {CurrencyPipe, NgClass} from '@angular/common';
 import {RouterLink} from '@angular/router';
+import {Eye, LucideAngularModule, Pen} from 'lucide-angular';
+import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-institute-course-management',
@@ -15,16 +17,21 @@ import {RouterLink} from '@angular/router';
     CurrencyPipe,
     MatPaginatorModule,
     RouterLink,
+    LucideAngularModule,
+    MatTooltip,
   ],
   templateUrl: './institute-course-management.component.html',
   styleUrl: './institute-course-management.component.css'
 })
 export class InstituteCourseManagementComponent implements AfterViewInit {
+
+  protected readonly Eye = Eye;
+
   courses: Course[] = [];
   dataSource = new MatTableDataSource<Course>();
   loading: boolean = false;
 
-  displayedColumns: string[] = [ 'id', 'title', 'category', 'durationInHours', 'price', 'status'];
+  displayedColumns: string[] = [ 'id', 'title', 'category', 'durationInHours', 'price', 'status', 'actions'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
@@ -62,4 +69,5 @@ export class InstituteCourseManagementComponent implements AfterViewInit {
   triggerLoading(): void {
     this.loading = !this.loading;
   }
+
 }
