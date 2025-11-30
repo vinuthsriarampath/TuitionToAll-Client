@@ -4,7 +4,7 @@
       <h1 class="text-2xl font-bold">Create Course</h1>
       <p>Create a new course for the students!</p>
     </div>
-    <button class=" cursor-pointer bg-blue-900 text-gray-200 font-semibold rounded-md p-2 flex gap-2" (click)="window.history.back()">Go Back <lucide-icon [img]="undo2" /> </button>
+    <button class="btn-primary flex gap-2" (click)="window.history.back()"><lucide-icon [img]="ArrowLeft" /> Go Back</button>
   </div>
 
   <form (ngSubmit)="onSubmit()" class="grid grid-cols-12 gap-4">
@@ -81,7 +81,7 @@
             </div>
           </label>
       @if (!loading && selectedFile){
-        <button type="button" (click)="resetUpload()" class="text-black border border-black font-semibold rounded-lg w-2xs p-2 text-center cursor-pointer">Reset Upload</button>
+        <button type="button" (click)="resetUpload()" class="btn-light w-2xs border-2 border-gray-400">Reset Upload</button>
       }
     </div>
     <div class="flex flex-row gap-2 col-span-12">
@@ -115,10 +115,10 @@
     </div>
     <div class="flex flex-row gap-2 justify-end col-span-12">
       @if (!loading) {
-        <button type="button" (click)="resetForm()" class="text-black border border-black font-semibold rounded-lg w-2xs p-2 text-center cursor-pointer">Reset Form</button>
-        <button type="submit" class="bg-blue-900 text-gray-200 rounded-lg font-semibold p-2 cursor-pointer w-2xs">Create Course</button>
+        <button type="button" (click)="resetForm()" class="btn-light w-2xs border-2 border-gray-400">Reset Form</button>
+        <button type="submit" class="btn-primary w-2xs">Create Course</button>
       } @else {
-        <button type="button" class="bg-blue-900 text-gray-200 rounded-lg font-semibold p-2 cursor-pointer w-2xs flex justify-center items-center" disabled><mat-spinner diameter="30"></mat-spinner></button>
+        <button type="button" class="btn-secondary w-2xs flex justify-center items-center" disabled><mat-spinner diameter="30"></mat-spinner></button>
       }
     </div>
 

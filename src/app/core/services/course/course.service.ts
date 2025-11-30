@@ -44,4 +44,11 @@ export class CourseService {
       map(res => res.data!)
     );
   }
+
+  getCourseById(courseId:number):Observable<Course>{
+    return this.http.get<ApiResponse<Course>>(`${environment.COURSE_API}/get/${courseId}`)
+      .pipe(
+        map(res => res.data!)
+      );
+  }
 }

@@ -1,5 +1,5 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
-import {LucideAngularModule, Undo2} from 'lucide-angular';
+import {ArrowLeft, LucideAngularModule} from 'lucide-angular';
 import {FormsModule} from '@angular/forms';
 import {CourseLevel} from '../../../../../../../core/enums/course-level';
 import {CourseCategory} from '../../../../../../../core/enums/course-category';
@@ -32,7 +32,7 @@ import {MatProgressSpinner} from '@angular/material/progress-spinner';
 export class CourseCreateComponent {
 
   protected readonly window = window;
-  protected readonly undo2 = Undo2
+  protected readonly ArrowLeft = ArrowLeft;
 
   protected readonly courseLevels = Object.values(CourseLevel);
   protected readonly courseModes = Object.values(CourseMode);
@@ -135,4 +135,5 @@ export class CourseCreateComponent {
   triggerLoading(){
     this.loading = !this.loading;
   }
+
 }
