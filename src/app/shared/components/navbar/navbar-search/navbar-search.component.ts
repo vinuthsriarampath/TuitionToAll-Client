@@ -7,7 +7,6 @@ import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-navbar-search',
-  standalone: true,
   imports: [
     NgIf,
     NgForOf,
