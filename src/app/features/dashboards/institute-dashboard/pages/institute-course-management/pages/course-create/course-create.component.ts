@@ -31,7 +31,7 @@ import {MatProgressSpinner} from '@angular/material/progress-spinner';
 })
 export class CourseCreateComponent {
 
-  protected readonly window = window;
+  protected readonly window = globalThis.window;
   protected readonly ArrowLeft = ArrowLeft;
 
   protected readonly courseLevels = Object.values(CourseLevel);
@@ -54,7 +54,7 @@ export class CourseCreateComponent {
     title:"",
     description:"",
     durationInHours:1,
-    price:0.00,
+    price: 0,
     level:CourseLevel.BEGINNER,
     category:CourseCategory.OTHER,
     status:CourseStatus.DRAFT,
