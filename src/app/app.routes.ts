@@ -36,6 +36,9 @@ import {
 import {
   CourseViewComponent
 } from './features/dashboards/institute-dashboard/pages/institute-course-management/pages/course-view/course-view.component';
+import {
+  CourseUpdateComponent
+} from './features/dashboards/institute-dashboard/pages/institute-course-management/pages/course-update/course-update.component';
 
 
 export const routes: Routes = [
@@ -107,6 +110,10 @@ export const routes: Routes = [
                 path: '',
                 component: CourseViewComponent,
               },
+              {
+                path: 'update',
+                component: CourseUpdateComponent
+              }
             ]
           }
         ]

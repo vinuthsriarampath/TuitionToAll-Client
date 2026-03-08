@@ -7,6 +7,7 @@ import {Course} from '../../models/course';
 import {CourseFilter} from '../../dto/request-dto/course/course-filter';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import {CourseUpdate} from '../../dto/request-dto/course/course-update';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,14 @@ export class CourseService {
     formData.append('course',new Blob([JSON.stringify(request)], { type: 'application/json' }));
 
     return this.http.post<ApiResponse<Course>>(`${environment.COURSE_API}/create`,formData);
+  }
+
+  updateCourse(updatingCourseId:number,request:CourseUpdate,file?:File):Observable<ApiResponse<Course>>{
+    const formData = new FormData();
+    if(file) formData.append('thumbnail',file);
+    formData.append('course',new Blob([JSON.stringify(request)], { type: 'application/json' }));
+
+    return this.http.patch<ApiResponse<Course>>(`${environment.COURSE_API}/update/${updatingCourseId}` ,formData);
   }
 
   getAllCoursesByInstituteId(instituteId:number,filter?:CourseFilter):Observable<Course[]>{
