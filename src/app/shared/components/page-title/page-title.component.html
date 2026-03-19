@@ -1,0 +1,12 @@
+<div class="flex justify-between items-center mb-4">
+  <div>
+    <h1 class="text-2xl font-bold">{{title()}}</h1>
+    <p>{{description()}}</p>
+  </div>
+  <div class="flex gap-2">
+    @if (backButton()){
+      <button class="btn-primary flex gap-2" (click)="window.history.back()"><lucide-icon [img]="ArrowLeft" /> Go Back</button>
+    }
+    <ng-content select="[data-actions]"></ng-content>
+  </div>
+</div>
