@@ -1,10 +1,10 @@
 import {AfterViewInit, Component, inject, OnInit, ViewChild} from '@angular/core';
 import {ArrowLeft, Eye, LucideAngularModule} from 'lucide-angular';
-import {PageTitleComponent} from '../../../../../../../../../../shared/components/page-title/page-title.component';
-import {BatchService} from '../../../../../../../../../../core/services/batch/batch.service';
+import {PageTitleComponent} from '../../../../../../../../../shared/components/page-title/page-title.component';
+import {BatchService} from '../../../../../../../../../core/services/batch/batch.service';
 import {ActivatedRoute, RouterLink} from '@angular/router';
-import {AlertService} from '../../../../../../../../../../core/services/alerts/alert.service';
-import {Batch} from '../../../../../../../../../../core/models/batch';
+import {AlertService} from '../../../../../../../../../core/services/alerts/alert.service';
+import {Batch} from '../../../../../../../../../core/models/batch';
 import {
   MatCell,
   MatCellDef,
@@ -15,11 +15,11 @@ import {
   MatTable, MatTableDataSource
 } from '@angular/material/table';
 import {NgClass} from '@angular/common';
-import {BatchEnrollmentStatus} from '../../../../../../../../../../core/enums/batch-enrollment-status';
-import {BatchStatus} from '../../../../../../../../../../core/enums/batch-status';
+import {BatchEnrollmentStatus} from '../../../../../../../../../core/enums/batch-enrollment-status';
+import {BatchStatus} from '../../../../../../../../../core/enums/batch-status';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatPaginator} from '@angular/material/paginator';
-import {Course} from '../../../../../../../../../../core/models/course';
+import {Course} from '../../../../../../../../../core/models/course';
 
 @Component({
   selector: 'app-batch-management',

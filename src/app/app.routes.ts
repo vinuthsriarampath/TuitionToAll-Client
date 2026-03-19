@@ -41,7 +41,7 @@ import {
 } from './features/dashboards/institute-dashboard/pages/institute-course-management/pages/course-update/course-update.component';
 import {
   BatchManagementComponent
-} from './features/dashboards/institute-dashboard/pages/institute-course-management/pages/course-view/pages/batch-management/batch-management/batch-management.component';
+} from './features/dashboards/institute-dashboard/pages/institute-course-management/pages/course-view/pages/batch-management/batch-management.component';
 
 
 export const routes: Routes = [
