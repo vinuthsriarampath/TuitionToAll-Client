@@ -1,13 +1,9 @@
 <div class="w-full overflow-x-auto">
-  <div class="flex justify-between items-center mb-4">
-    <div>
-      <h1 class="text-2xl font-bold">Course Management</h1>
-      <p>Manage all your courses here!</p>
-    </div>
+  <app-page-title [title]="'Course Management'" [description]="'Manage all your courses here!'" [backButton]="false">
     <a [routerLink]="['create']">
       <button class="btn-primary">Add Course</button>
     </a>
-  </div>
+  </app-page-title>
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" multiTemplateDataRows>
     <ng-container matColumnDef="id">

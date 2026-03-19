@@ -8,6 +8,7 @@ import {CurrencyPipe, NgClass} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {Eye, LucideAngularModule, Pen} from 'lucide-angular';
 import {MatTooltip} from '@angular/material/tooltip';
+import {PageTitleComponent} from '../../../../../shared/components/page-title/page-title.component';
 
 @Component({
   selector: 'app-institute-course-management',
@@ -19,6 +20,7 @@ import {MatTooltip} from '@angular/material/tooltip';
     RouterLink,
     LucideAngularModule,
     MatTooltip,
+    PageTitleComponent,
   ],
   templateUrl: './institute-course-management.component.html',
   styleUrl: './institute-course-management.component.css'
