@@ -1,9 +1,7 @@
 <app-page-title [title]="'Batch Management'" [description]="'Manage All your Batched related the course'" [backButton]="true">
-  <a data-actions [routerLink]="['create']">
-    <button  class="btn-primary">
+    <button data-actions (click)="openCreateBatchDialog()"  class="btn-primary">
       Create Batch
     </button>
-  </a>
 </app-page-title>
 <div>
 
@@ -29,13 +27,18 @@
       <td mat-cell *matCellDef="let element"> {{element.start_time}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="max_seat_limit">
+      <th mat-header-cell *matHeaderCellDef> Seats </th>
+      <td mat-cell *matCellDef="let element" > {{element.max_seat_limit}} </td>
+    </ng-container>
+
     <ng-container matColumnDef="batch_status">
       <th mat-header-cell *matHeaderCellDef> Batch Status</th>
       <td mat-cell *matCellDef="let element"> <span class="px-3 py-1 rounded-full text-white text-sm font-semibold"
                                                     [ngClass]="{
                                                     'bg-gray-500': element.batch_status === BatchStatus.PREPARATION,
-                                                    'bg-amber-500': element.batch_satus === BatchStatus.ONGOING,
-                                                    'bg-green-500': element.batch_status === BatchStatus.COMPLETED
+                                                    'bg-green-500': element.batch_satus === BatchStatus.COMPLETED,
+                                                    'bg-amber-500': element.batch_status === BatchStatus.ONGOING
                                                     }" >{{element.batch_status}}</span> </td>
     </ng-container>
 
@@ -49,11 +52,16 @@
     </ng-container>
 
     <ng-container matColumnDef="actions" sticky="end" class="w-24">
-      <th mat-header-cell *matHeaderCellDef><span class="sr-only">Actions</span></th>
+      <th mat-header-cell *matHeaderCellDef><span >Actions</span></th>
       <td mat-cell *matCellDef="let element" class="text-center">
-        <a [routerLink]="[element.id]" matTooltip="View Batch" matTooltipPosition="above">
-          <lucide-icon [img]="Eye" [size]="16"></lucide-icon>
-        </a>
+        <div class="flex gap-2">
+          <a [routerLink]="[element.id]" matTooltip="View Batch" matTooltipPosition="above">
+            <lucide-icon [img]="Eye" [size]="16"></lucide-icon>
+          </a>
+          <a  matTooltip="Edit Batch" matTooltipPosition="above" >
+            <lucide-icon [img]="Edit" [size]="16"></lucide-icon>
+          </a>
+        </div>
       </td>
     </ng-container>
 

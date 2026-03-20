@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, inject, OnInit, ViewChild} from '@angular/core';
-import {ArrowLeft, Eye, LucideAngularModule} from 'lucide-angular';
+import {ArrowLeft, Edit, Eye, LucideAngularModule} from 'lucide-angular';
 import {PageTitleComponent} from '../../../../../../../../../shared/components/page-title/page-title.component';
 import {BatchService} from '../../../../../../../../../core/services/batch/batch.service';
 import {ActivatedRoute, RouterLink} from '@angular/router';
@@ -20,6 +20,8 @@ import {BatchStatus} from '../../../../../../../../../core/enums/batch-status';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatPaginator} from '@angular/material/paginator';
 import {Course} from '../../../../../../../../../core/models/course';
+import {CreateBatchDialogComponent} from './models/create-batch-dialog/create-batch-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-batch-management',
@@ -51,7 +53,7 @@ export class BatchManagementComponent implements OnInit, AfterViewInit{
 
   private courseId:number = -1;
   protected batches:Batch[] = [];
-  protected readonly columnsToDisplay: string[] = ['id','name','start_date','start_time','batch_status','batch_enrollment_status','actions'];
+  protected readonly columnsToDisplay: string[] = ['id','name','start_date','start_time','max_seat_limit','batch_status','batch_enrollment_status','actions'];
   dataSource = new MatTableDataSource<Course>();
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
@@ -59,11 +61,38 @@ export class BatchManagementComponent implements OnInit, AfterViewInit{
   private readonly activatedRoute =  inject(ActivatedRoute);
   private readonly alertService =  inject(AlertService);
 
+  constructor(private readonly dialog:MatDialog) {}
+
+  protected openCreateBatchDialog(){
+
+    const dialogRef =  this.dialog.open(CreateBatchDialogComponent,{
+      maxWidth: '60vh',
+      width: '100%',
+      panelClass: 'create-batch-dialog',
+      data: this.courseId
+    });
+
+    dialogRef.afterOpened().subscribe(() => {
+      document.querySelector('input')?.focus();
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: (res:Batch) => {
+        if(res){
+          this.alertService.triggerSuccessAlert("Batch created successfully");
+          this.fetchBatches(this.courseId);
+        }
+      },
+      error: (err) => {
+        this.alertService.triggerErrorAlert(err.error.message);
+      }
+    })
+  }
+
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params =>{
       this.courseId = Number.parseInt(params.get('courseId') ?? '-1');
       this.fetchBatches(this.courseId);
-
     })
   }
 
@@ -88,4 +117,5 @@ export class BatchManagementComponent implements OnInit, AfterViewInit{
   protected readonly BatchEnrollmentStatus = BatchEnrollmentStatus;
   protected readonly BatchStatus = BatchStatus;
   protected readonly Eye = Eye;
+  protected readonly Edit = Edit;
 }
