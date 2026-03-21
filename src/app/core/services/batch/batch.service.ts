@@ -5,6 +5,7 @@ import {Batch} from '../../models/batch';
 import {environment} from '../../../environment/environment.development';
 import {ApiResponse} from '../../dto/response-dto/api-response';
 import {BatchCreateRequest} from '../../dto/request-dto/batch/batch-create-request';
+import {BatchUpdateRequest} from '../../dto/request-dto/batch/batch-update-request';
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +20,9 @@ export class BatchService {
 
   createBatch(request:BatchCreateRequest):Observable<ApiResponse<Batch>>{
     return this.http.post<ApiResponse<Batch>>(`${environment.BATCH_API}/create`,request);
+  }
+
+  updateBatch(batchId:number, request:BatchUpdateRequest):Observable<ApiResponse<Batch>>{
+    return this.http.patch<ApiResponse<Batch>>(`${environment.BATCH_API}/${batchId}/update`,request);
   }
 }
