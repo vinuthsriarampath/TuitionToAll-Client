@@ -22,6 +22,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {Course} from '../../../../../../../../../core/models/course';
 import {CreateBatchDialogComponent} from './models/create-batch-dialog/create-batch-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
+import {UpdateBatchDialogComponent} from './models/update-batch-dialog/update-batch-dialog.component';
 
 @Component({
   selector: 'app-batch-management',
@@ -80,6 +81,34 @@ export class BatchManagementComponent implements OnInit, AfterViewInit{
       next: (res:Batch) => {
         if(res){
           this.alertService.triggerSuccessAlert("Batch created successfully");
+          this.fetchBatches(this.courseId);
+        }
+      },
+      error: (err) => {
+        this.alertService.triggerErrorAlert(err.error.message);
+      }
+    })
+  }
+
+  protected openUpdateBatchDialog(batch:Batch){
+    const dialogRef =  this.dialog.open(UpdateBatchDialogComponent,{
+      maxWidth: '60vh',
+      width: '100%',
+      panelClass: 'update-batch-dialog',
+      data: {
+        batch:batch,
+        courseId: this.courseId
+      }
+    });
+
+    dialogRef.afterOpened().subscribe(() => {
+      document.querySelector('input')?.focus();
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: (res:Batch) => {
+        if(res){
+          this.alertService.triggerSuccessAlert("Batch updated successfully");
           this.fetchBatches(this.courseId);
         }
       },

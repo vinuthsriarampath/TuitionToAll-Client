@@ -34,17 +34,17 @@
 
     <ng-container matColumnDef="batch_status">
       <th mat-header-cell *matHeaderCellDef> Batch Status</th>
-      <td mat-cell *matCellDef="let element"> <span class="px-3 py-1 rounded-full text-white text-sm font-semibold"
+      <td mat-cell *matCellDef="let element"> <span class="px-2 py-0.5 rounded-full text-white text-sm font-semibold"
                                                     [ngClass]="{
                                                     'bg-gray-500': element.batch_status === BatchStatus.PREPARATION,
-                                                    'bg-green-500': element.batch_satus === BatchStatus.COMPLETED,
-                                                    'bg-amber-500': element.batch_status === BatchStatus.ONGOING
+                                                    'bg-amber-500': element.batch_status === BatchStatus.ONGOING,
+                                                    'bg-green-500': element.batch_status === BatchStatus.COMPLETED,
                                                     }" >{{element.batch_status}}</span> </td>
     </ng-container>
 
     <ng-container matColumnDef="batch_enrollment_status">
       <th mat-header-cell *matHeaderCellDef> Enrollment Status</th>
-      <td mat-cell *matCellDef="let element"> <span class="px-3 py-1 rounded-full text-white text-sm font-semibold"
+      <td mat-cell *matCellDef="let element"> <span class="px-2 py-0.5 rounded-full text-white text-sm font-semibold"
                                                     [ngClass]="{
                                                     'bg-green-500':element.enrollment_status === BatchEnrollmentStatus.OPEN,
                                                     'bg-red-500':element.enrollment_status === BatchEnrollmentStatus.CLOSED
@@ -58,9 +58,9 @@
           <a [routerLink]="[element.id]" matTooltip="View Batch" matTooltipPosition="above">
             <lucide-icon [img]="Eye" [size]="16"></lucide-icon>
           </a>
-          <a  matTooltip="Edit Batch" matTooltipPosition="above" >
+          <button (click)="openUpdateBatchDialog(element)"  matTooltip="Edit Batch" matTooltipPosition="above" class="cursor-pointer">
             <lucide-icon [img]="Edit" [size]="16"></lucide-icon>
-          </a>
+          </button>
         </div>
       </td>
     </ng-container>
