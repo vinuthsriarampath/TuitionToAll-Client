@@ -5,7 +5,6 @@ import {BatchEnrollmentStatus} from '../../../../../../../../../../../core/enums
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {BatchService} from '../../../../../../../../../../../core/services/batch/batch.service';
 import {Batch} from '../../../../../../../../../../../core/models/batch';
-import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {NgIf} from '@angular/common';
 
 @Component({
@@ -13,7 +12,6 @@ import {NgIf} from '@angular/common';
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    MatProgressSpinner,
     NgIf
   ],
   templateUrl: './create-batch-dialog.component.html',
@@ -61,12 +59,18 @@ export class CreateBatchDialogComponent implements OnInit{
   }
 
   protected onSubmit():void{
-    if (this.form.invalid) return;
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    this.triggerLoading();
 
 
     this.batchService.createBatch(this.form.value).subscribe({
       next: res => {
         this.dialogRef.close(res.data as Batch);
+        this.triggerLoading();
       },
       error: err => {
         const errors = err.error?.errors;
@@ -77,6 +81,10 @@ export class CreateBatchDialogComponent implements OnInit{
               server: e.message
             });
           });
+          this.triggerLoading();
+        }else{
+          this.triggerLoading();
+          this.form.setErrors({server: err.error.message()});
         }
       }
     });

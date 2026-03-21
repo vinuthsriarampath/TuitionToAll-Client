@@ -1,6 +1,6 @@
 <div class=" p-4 bg-white">
   <div class="w-full flex justify-between items-center border-b-2 border-gray-200">
-    <h1 class="text-lg">Edit Intro</h1>
+    <h1 class="text-lg">Create Batch</h1>
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
          class="size-5 cursor-pointer" (click)="onCancel()" (keydown)="onCancel()">
       <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
@@ -25,7 +25,7 @@
       <!--Batch Start Date-->
       <div class="col-span-1">
         <label for="batch-start-date" class="text-sm text-gray-700">Start Date<sup class="text-red-500"> *</sup></label>
-        <input type="date" id="batch-start-date" name="batch-start-date" class="form-input" formControlName="start_date" [class.form-input-error]="form.get('stat_date')?.invalid && form.get('start_date')?.touched" (change)="validateStartDate()" />
+        <input type="date" id="batch-start-date" name="batch-start-date" class="form-input" formControlName="start_date" [class.form-input-error]="form.get('start_date')?.invalid && form.get('start_date')?.touched" (change)="validateStartDate()" />
         @if (form.get('start_date')?.errors?.['required']) {
           <p class="form-error">Start date is required</p>
         }
