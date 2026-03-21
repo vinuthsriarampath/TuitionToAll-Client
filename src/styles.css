@@ -79,3 +79,15 @@
 .form-input-error{
   @apply border border-red-500;
 }
+
+.mat-mdc-table .mat-mdc-row,
+.mat-mdc-table .mat-mdc-header-row {
+  height: 36px !important;
+  min-height: 36px !important;
+}
+
+.mat-mdc-table .mat-mdc-cell,
+.mat-mdc-table .mat-mdc-header-cell {
+  height: 36px !important;
+  align-items: center;
+}
