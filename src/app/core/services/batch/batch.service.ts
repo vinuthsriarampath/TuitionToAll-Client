@@ -25,4 +25,8 @@ export class BatchService {
   updateBatch(batchId:number, request:BatchUpdateRequest):Observable<ApiResponse<Batch>>{
     return this.http.patch<ApiResponse<Batch>>(`${environment.BATCH_API}/${batchId}/update`,request);
   }
+
+  getBatchById(batchId: number):Observable<ApiResponse<Batch>> {
+    return this.http.get<ApiResponse<Batch>>(`${environment.BATCH_API}/find/batch/${batchId}`);
+  }
 }

@@ -42,6 +42,9 @@ import {
 import {
   BatchManagementComponent
 } from './features/dashboards/institute-dashboard/pages/institute-course-management/pages/course-view/pages/batch-management/batch-management.component';
+import {
+  BatchViewComponent
+} from './features/dashboards/institute-dashboard/pages/institute-course-management/pages/course-view/pages/batch-management/pages/batch-view/batch-view.component';
 
 
 export const routes: Routes = [
@@ -124,6 +127,10 @@ export const routes: Routes = [
                     path: '',
                     component: BatchManagementComponent
                   },
+                  {
+                    path: ':batchId',
+                    component: BatchViewComponent
+                  }
                 ]
               }
             ]
