@@ -2,10 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FlowbiteService} from '../../../core/services/flowbite/flowbite.service';
 import {initFlowbite} from 'flowbite';
 import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
-import {Book, ChartPie, LucideAngularModule} from 'lucide-angular';
+import {Book, ChartPie, LucideAngularModule, User2} from 'lucide-angular';
 import {UserService} from '../../../core/services/user/user.service';
-import {AuthenticationService} from '../../../core/services/auth/authentication.service';
-import {Institute} from '../../../core/models/user-models/institute';
 import {AlertService} from '../../../core/services/alerts/alert.service';
 import {User} from '../../../core/models/user-models/user';
 import {NgOptimizedImage} from '@angular/common';
@@ -52,4 +50,5 @@ export class InstituteDashboardComponent implements OnInit{
 
 
   protected readonly environment = environment;
+  protected readonly User2 = User2;
 }

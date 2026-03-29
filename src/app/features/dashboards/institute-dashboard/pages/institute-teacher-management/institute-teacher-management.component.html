@@ -1,0 +1,155 @@
+<mat-sidenav-container class="h-full ">
+
+  <!-- 🔹 DRAWER -->
+  <mat-sidenav #drawer mode="over" position="end"
+               class="h-full p-4 bg-white"
+               style="width: 23vw;">
+
+    <div *ngIf="selectedTeacher">
+
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-semibold">Teacher Profile</h2>
+        <button class="btn-light" (click)="drawer.close()">Close</button>
+      </div>
+
+      <div class="flex flex-col items-center text-center mb-4">
+        <img [src]="selectedTeacher.dp"
+             class="w-20 h-20 rounded-full object-cover border mb-2" />
+        <h3 class="text-md font-semibold">{{ selectedTeacher.name }}</h3>
+        <p class="text-sm text-gray-500">{{ selectedTeacher.email }}</p>
+      </div>
+
+      <div class="space-y-2 text-sm">
+        <div>
+          <span class="text-gray-500">Teacher ID:</span>
+          <span class="font-medium ml-1">{{ selectedTeacher.id }}</span>
+        </div>
+
+        <div>
+          <span class="text-gray-500">Joined Date:</span>
+          <span class="font-medium ml-1">{{ selectedTeacher.joinedDate }}</span>
+        </div>
+
+        <div>
+          <span class="text-gray-500">Status:</span>
+          <span class="ml-1 px-2 py-1 rounded text-xs font-medium"
+                [ngClass]="{
+                  'bg-green-100 text-green-700': selectedTeacher.status === 'ACTIVE',
+                  'bg-red-100 text-red-700': selectedTeacher.status === 'INACTIVE'
+                }">
+            {{ selectedTeacher.status }}
+          </span>
+        </div>
+      </div>
+
+      <div class="mt-6 flex gap-2">
+        <button *ngIf="selectedTeacher.status === 'ACTIVE'"
+                class="btn-secondary"
+                (click)="deactivateTeacher(selectedTeacher)">
+          Deactivate
+        </button>
+
+        <button *ngIf="selectedTeacher.status === 'INACTIVE'" class="btn-primary btn-success" (click)="activateTeacher(selectedTeacher)">
+          Activate
+        </button>
+      </div>
+
+    </div>
+  </mat-sidenav>
+
+  <!-- 🔹 MAIN CONTENT -->
+  <mat-sidenav-content class="h-full flex flex-col bg-white p-4">
+
+    <!-- HEADER -->
+    <app-page-title
+      [title]="'Teacher Management'"
+      [description]="'Manage teachers and hiring for your institute'"
+      [backButton]="false">
+
+      <div data-actions class="flex gap-2">
+        <button class="btn-primary" (click)="openCreateVacancy()">
+          Create Vacancy
+        </button>
+
+        <button class="btn-secondary" (click)="navigateToVacancies()">
+          View Vacancies
+        </button>
+      </div>
+
+    </app-page-title>
+
+    <!-- CONTENT -->
+    <div class="flex-1 flex flex-col ">
+
+      <!-- STATS -->
+      <div class="grid grid-cols-3 gap-4 mb-4 shrink-0">
+        <div class="p-4 bg-blue-50 rounded-lg">
+          <p class="text-sm text-gray-500">Total Teachers</p>
+          <h2 class="text-xl font-semibold">{{ stats.total }}</h2>
+        </div>
+        <div class="p-4 bg-green-50 rounded-lg">
+          <p class="text-sm text-gray-500">Active</p>
+          <h2 class="text-xl font-semibold">{{ stats.active }}</h2>
+        </div>
+        <div class="p-4 bg-red-50 rounded-lg">
+          <p class="text-sm text-gray-500">Inactive</p>
+          <h2 class="text-xl font-semibold">{{ stats.inactive }}</h2>
+        </div>
+      </div>
+
+      <div class="h-full bg-white rounded-xl shadow">
+
+        <!-- Scrollable container -->
+        <div class="overflow-y-auto h-[62vh]">
+
+          <table class="w-full text-left border-collapse table-fixed">
+
+            <!-- Header -->
+            <thead class="bg-gray-100 sticky top-0 z-10">
+            <tr class="text-sm text-gray-700">
+              <th class="p-3 font-semibold w-[25%]">Teacher</th>
+              <th class="p-3 font-semibold w-[25%]">Email</th>
+              <th class="p-3 font-semibold w-[15%]">Joined</th>
+              <th class="p-3 font-semibold w-[15%]">Status</th>
+              <th class="p-3 font-semibold text-right w-[20%]">Action</th>
+            </tr>
+            </thead>
+
+            <!-- Body -->
+            <tbody>
+            <tr *ngFor="let teacher of teachers" class="border-t hover:bg-gray-50 transition">
+              <td class="p-3">
+                <div class="flex items-center gap-3">
+                  <img [src]="teacher.dp || 'https://i.pravatar.cc/40'" class="w-10 h-10 rounded-full border object-cover" />
+                  <div>
+                    <p class="text-sm font-medium text-gray-800">{{ teacher.name }}</p>
+                  </div>
+                </div>
+              </td>
+              <td class="p-3 text-sm text-gray-600">{{ teacher.email }}</td>
+              <td class="p-3 text-sm text-gray-700">{{ teacher.joinedDate }}</td>
+              <td class="p-3">
+            <span class="px-2.5 py-1 rounded-full text-xs font-medium"
+                  [ngClass]="{
+                    'bg-green-100 text-green-700': teacher.status === 'ACTIVE',
+                    'bg-red-100 text-red-700': teacher.status === 'INACTIVE'
+                  }">
+              {{ teacher.status }}
+            </span>
+              </td>
+              <td class="p-3 text-right">
+                <button class="btn-mini-primary" (click)="openProfileDrawer(teacher)">View</button>
+              </td>
+            </tr>
+            </tbody>
+
+          </table>
+        </div>
+
+      </div>
+
+    </div>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
