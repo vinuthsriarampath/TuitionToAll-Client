@@ -12,6 +12,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
 @import "flowbite/src/themes/default.css";
+@import '../node_modules/quill/dist/quill.snow.css';
 @plugin "flowbite/plugin";
 @source "../node_modules/flowbite";
 
@@ -90,4 +91,8 @@
 .mat-mdc-table .mat-mdc-header-cell {
   height: 36px !important;
   align-items: center;
+}
+
+.mat-sidenav-container{
+  overflow: hidden !important ;
 }
