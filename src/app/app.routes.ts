@@ -45,6 +45,9 @@ import {
 import {
   BatchViewComponent
 } from './features/dashboards/institute-dashboard/pages/institute-course-management/pages/course-view/pages/batch-management/pages/batch-view/batch-view.component';
+import {
+  InstituteTeacherManagementComponent
+} from './features/dashboards/institute-dashboard/pages/institute-teacher-management/institute-teacher-management.component';
 
 
 export const routes: Routes = [
@@ -134,6 +137,15 @@ export const routes: Routes = [
                 ]
               }
             ]
+          }
+        ]
+      },
+      {
+        path: "teacher-mgt",
+        children:[
+          {
+            path: '',
+            component: InstituteTeacherManagementComponent
           }
         ]
       }
