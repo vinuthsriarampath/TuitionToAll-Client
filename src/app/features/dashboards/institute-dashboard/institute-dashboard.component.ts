@@ -1,13 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {FlowbiteService} from '../../../core/services/flowbite/flowbite.service';
 import {initFlowbite} from 'flowbite';
-import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
-import {Book, ChartPie, LucideAngularModule, User2} from 'lucide-angular';
+import {Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
+import {ArrowLeft, ArrowRight, Book, ChevronDownIcon, Home, LucideAngularModule, Menu, User2} from 'lucide-angular';
 import {UserService} from '../../../core/services/user/user.service';
 import {AlertService} from '../../../core/services/alerts/alert.service';
 import {User} from '../../../core/models/user-models/user';
-import {NgOptimizedImage} from '@angular/common';
+import {NgClass, NgOptimizedImage} from '@angular/common';
 import {environment} from '../../../environment/environment.development';
+import {SidebarMenuItem} from '../../../core/helpers/sidebar-menu-item';
 
 @Component({
   selector: 'app-institute-dashboard',
@@ -16,6 +17,7 @@ import {environment} from '../../../environment/environment.development';
     LucideAngularModule,
     RouterOutlet,
     NgOptimizedImage,
+    NgClass,
     RouterLinkActive
   ],
   templateUrl: './institute-dashboard.component.html',
@@ -23,32 +25,59 @@ import {environment} from '../../../environment/environment.development';
 })
 export class InstituteDashboardComponent implements OnInit{
 
-  readonly ChartPie = ChartPie;
-  readonly Book = Book;
+  institute:User = new User(); // Current User
 
-  institute:User = new User();
+  private readonly window = globalThis.window;
 
-  constructor(
-    private readonly flowbiteService: FlowbiteService,
-    private readonly userService:UserService,
-    private readonly alertService: AlertService
-  ) {}
+  private readonly flowbiteService: FlowbiteService = inject(FlowbiteService);
+  private readonly userService: UserService = inject(UserService);
+  private readonly alertService: AlertService = inject(AlertService);
+  private readonly router = inject(Router)
 
   ngOnInit(): void {
+    //Initialize flowbite
     this.flowbiteService.loadFlowbite((flowbite) => {
       initFlowbite();
     });
 
+    // Get current user
     this.userService.currentUser$.subscribe(user => {
       if(user) {
         this.institute = structuredClone(user)
       }else {
         this.alertService.triggerErrorAlert("User not found");
       }
-    })
+    });
   }
 
-
+  // Sidebar lucid icons
   protected readonly environment = environment;
-  protected readonly User2 = User2;
+  protected readonly arrowLeft = ArrowLeft;
+  protected readonly arrowRight = ArrowRight;
+  protected readonly dropDownIcon = ChevronDownIcon;
+  protected readonly menu = Menu;
+
+  // Sidebar functionality state variables
+  protected sidebarOpen: boolean = true;
+  protected subMenuOpen: boolean = false;
+  protected profileMenuOpen: boolean = false;
+
+  // Sidebar menu item list
+  protected menus : SidebarMenuItem[] = [
+    {
+      title: "Dashboard",
+      icon: Home,
+      route: "/ins/dashboard"
+    },
+    {
+      title: "Courses",
+      icon: Book,
+      route: "course-mgt"
+    },
+    {
+      title: "Teachers",
+      icon: User2,
+      route: "teacher-mgt"
+    }
+  ]
 }

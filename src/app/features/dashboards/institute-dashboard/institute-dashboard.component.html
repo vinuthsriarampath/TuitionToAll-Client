@@ -1,100 +1,81 @@
-<nav class="fixed top-0 z-50 w-full bg-blue-100 border-b border-gray-200">
-  <div class="px-3 py-3 lg:px-5 lg:pl-3">
-    <div class="flex items-center justify-between">
-      <div class="flex items-center justify-start rtl:justify-end">
-        <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar"
-                type="button"
-                class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
-          <span class="sr-only">Open sidebar</span>
-          <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-               xmlns="http://www.w3.org/2000/svg">
-            <path clip-rule="evenodd" fill-rule="evenodd"
-                  d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
-          </svg>
-        </button>
-        <a [routerLink]="['/app']" class="flex ms-2 md:me-24">
-          <img [ngSrc]="'tuitiontoall_logo.png'" width="32" height="32" loading="lazy" class="h-8 me-3"
-               alt="TuitionToAll Logo"/>
-          <span
-            class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-blue-950">TuitionToAll</span>
-        </a>
-      </div>
-      <div class="flex items-center">
-        <div class="flex items-center ms-3">
-          <div>
-            <button type="button" class="flex text-sm bg-sky-800 rounded-full focus:ring-4 focus:ring-gray-300 "
-                    aria-expanded="false" data-dropdown-toggle="dropdown-user">
-              <span class="sr-only">Open user menu</span>
-              <img
-                [ngSrc]="institute.dp ? `${environment.USER_PROFILE_API}${institute.dp}` : 'https://avatar.iran.liara.run/public/boy'"
-                width="32" height="32" loading="lazy" alt="avatar" class="w-8 h-8 rounded-full object-cover">
-            </button>
-          </div>
-          <div class="z-50 hidden my-4 text-base list-none bg-blue-200 divide-y divide-gray-100 rounded-sm shadow-sm"
-               id="dropdown-user">
-            <div class="px-4 py-3">
-              <p class="text-sm text-gray-900">
-                {{ $any(institute.details)?.instituteName }}
-              </p>
-              <p class="text-sm font-medium text-gray-900 truncate">
-                {{ institute.email }}
-              </p>
-            </div>
-            <ul class="py-1">
-              <li>
-                <a [routerLink]="['/profile/'+institute.userSlug]"
-                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 " role="menuitem">Profile</a>
+<div class="h-screen flex overflow-hidden">
+  <div class="p-5 pt-8 w-20 relative duration-300 flex flex-col" [ngClass]="sidebarOpen ? 'w-72 bg-gradient-to-br from-sky-950 from-30% to-gray-800 to-90%' : 'w-20 bg-gradient-to-b from-sky-950 from-40% to-gray-800 to-80%'">
+
+    <!--Sidebar trigger Icon-->
+    <lucide-icon [img]="sidebarOpen ? arrowLeft : arrowRight" [size]="20" class="text-sky-900 bg-white rounded-full absolute -right-1.5 top-4.5 border border-sky-950 cursor-pointer"  (click)="sidebarOpen = !sidebarOpen" (keydown.enter)="sidebarOpen = !sidebarOpen"></lucide-icon>
+
+    <!--Sidebar header-->
+    <div class="inline-flex">
+        <img [ngSrc]="'tuitiontoall_logo.png'" width="42" height="42" class="me-3 rounded cursor-pointer float-left duration-300" [ngClass]="{'rotate-[360deg]':!sidebarOpen}" alt="app-logo"/>
+        <span class="text-2xl font-medium origin-left text-sky-50 duration-300" [ngClass]="{'scale-0':!sidebarOpen}">TuitionToAll</span>
+    </div>
+
+    <!--Sidebar menu-->
+    <ul class="pt-2">
+      <!--Sidebar menu items-->
+      @for (menu of menus; track menus) {
+        <li [routerLink]="[menu.route]" class="text-sky-50 flex items-center gap-x-2 cursor-pointer hover:bg-sky-800 rounded-md p-2" routerLinkActive="bg-sky-800" [routerLinkActiveOptions]="{exact : true}" [ngClass]="menu.spacing ? 'mt-5' : 'mt-2'">
+          <span class="text-2xl block" [ngClass]=" !sidebarOpen ? 'float-none' : 'float-left'">
+            <lucide-icon [img]="menu.icon" size="18"></lucide-icon>
+          </span>
+          <span class="text-sm font-medium flex-1" [hidden]="!sidebarOpen">{{ menu.title }}</span>
+          @if (menu.subMenu && sidebarOpen) {
+            <!--Sidebar submenu trigger icon-->
+            <lucide-icon [img]="dropDownIcon" [ngClass]="{'rotate-180': !subMenuOpen}" (click)="subMenuOpen = !subMenuOpen" (keydown.enter)="subMenuOpen = !subMenuOpen"></lucide-icon>
+          }
+        </li>
+
+        <!--Sidebar submenu-->
+        @if (menu.subMenu && subMenuOpen && sidebarOpen) {
+          <ul>
+            <!--Sidebar submenu items-->
+            @for (menu of menu.subMenuItems; track menus) {
+              <li class="text-sky-50 text-sm flex items-center gap-x-4 cursor-pointer hover:bg-sky-800 rounded-md p-2 px-5" [ngClass]="menu.spacing ? 'mt-5' : 'mt-2'">
+                <span class="text-xs font-medium flex-1" [hidden]="!sidebarOpen">{{ menu.title }}</span>
               </li>
-              <li>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
-                   role="menuitem">Settings</a>
+            }
+          </ul>
+        }
+      }
+    </ul>
+
+    <!--Sidebar footer-->
+    @if (sidebarOpen) {
+
+      <!--Sidebar footer when sidebar is open-->
+      <button class="  w-full flex items-center justify-center mb-2 bg-sky-800 rounded-md p-2 mt-auto gap-x-2 relative cursor-pointer" (click)="profileMenuOpen = !profileMenuOpen" (keydown.enter)="profileMenuOpen = !profileMenuOpen">
+        <img [src]="institute.dp ? (environment.USER_PROFILE_API+institute.dp) : 'https://avatar.iran.liara.run/public/boy'" class="w-8 h-8 rounded-full object-cover" alt="user-dp"/>
+        <p class="text-xs text-sky-50 font-semibold ">{{ $any(institute.details)?.instituteName }}</p>
+        @if (profileMenuOpen) {
+          <div class="absolute bottom-0 -right-52 w-50 h-auto bg-sky-800 flex flex-col  cursor-pointer rounded-md p-2">
+            <ul class="w-full flex flex-col gap-y-2 ">
+              <li [routerLink]="['/profile/'+institute.userSlug]" class="flex items-center  cursor-pointer hover:bg-sky-600 rounded-md">
+                  <span class="text-sky-50 text-sm font-medium p-2">Profile</span>
               </li>
-              <li>
-                <a [routerLink]="['/app']" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
-                   role="menuitem">Feed</a>
+              <li class="flex items-center cursor-pointer hover:bg-sky-600 rounded-md ">
+                  <span class="text-sky-50 text-sm font-medium p-2">Settings</span>
               </li>
-              <li>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 " role="menuitem">Sign
-                  out</a>
+              <li [routerLink]="['/app']" class="flex items-center cursor-pointer hover:bg-sky-600 rounded-md ">
+                  <span class="text-sky-50 text-sm font-medium p-2">Feed</span>
               </li>
             </ul>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</nav>
+        }
+      </button>
 
-<aside id="logo-sidebar"
-       class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-blue-200 border-r border-gray-200 sm:translate-x-0"
-       aria-label="Sidebar">
-  <div class="h-full px-3 pb-4 overflow-y-auto bg-blue-200">
-    <ul class="space-y-2 font-medium">
-      <li>
-        <a [routerLink]="['/ins/dashboard']" class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100">
-          <lucide-icon [img]="ChartPie"></lucide-icon>
-          <span class="ms-3">Dashboard</span>
-        </a>
-      </li>
-      <li>
-        <a [routerLink]="['course-mgt']" routerLinkActive="bg-blue-300"
-           class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100 ">
-          <lucide-icon [img]="Book"></lucide-icon>
-          <span class="ms-3">Courses</span>
-        </a>
-      </li>
-      <li>
-        <a [routerLink]="['teacher-mgt']" routerLinkActive="bg-blue-300"
-           class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100 ">
-          <lucide-icon [img]="User2"></lucide-icon>
-          <span class="ms-3">Teacher</span>
-        </a>
-      </li>
-    </ul>
+    } @else {
+
+      <!--Sidebar footer when sidebar is closed-->
+      <img [src]="institute.dp ? (environment.USER_PROFILE_API+institute.dp) : 'https://avatar.iran.liara.run/public/boy'" class="w-10 h-10 rounded-full object-cover mt-auto bg-red-500" alt="user-dp"/>
+
+    }
   </div>
-</aside>
-<div class="p-4 sm:ml-64 h-screen flex flex-col">
-  <div class="mt-14 flex-1 overflow-hidden">
-    <router-outlet></router-outlet>
+
+  <!--Main content wrapper-->
+  <div class="flex-1 flex flex-col overflow-hidden">
+    <!--Router outlet container-->
+    <div class="flex-1 overflow-auto p-7">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>
