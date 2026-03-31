@@ -81,18 +81,48 @@
   @apply border border-red-500;
 }
 
-.mat-mdc-table .mat-mdc-row,
-.mat-mdc-table .mat-mdc-header-row {
-  height: 36px !important;
-  min-height: 36px !important;
+
+/*common table style*/
+
+.mat-mdc-table {
+  width: 100% !important;
+  background-color: #ffffff !important;
+  border: 1px solid #8BC6EFFF !important; /* light */
 }
 
-.mat-mdc-table .mat-mdc-cell,
-.mat-mdc-table .mat-mdc-header-cell {
-  height: 36px !important;
+.mat-mdc-header-row {
+  background-color: #083b5d !important; /* dark */
+  height: 40px !important;
+}
+
+.mat-mdc-header-cell {
+  color: #ffffff !important;
+  text-align: center !important;
+  border: 1px solid #8BC6EFFF !important; /* light */
+}
+
+.mat-mdc-row {
+  height: 40px !important;
+}
+
+.mat-mdc-cell{
+  text-align: center !important;
+  border: 1px solid #8BC6EFFF !important; /* light */
+}
+
+.mat-mdc-row:hover{
+  background-color: #a3cfee !important;
+}
+
+.mat-column-actions .flex {
+  justify-content: center; /* 🔥 this is the key */
   align-items: center;
 }
 
-.mat-sidenav-container{
-  overflow: hidden !important ;
+.mat-mdc-paginator {
+  background-color: #e0f3ff !important;
+}
+
+.mat-mdc-cell,.mat-mdc-header-cell {
+  white-space: nowrap;
 }
