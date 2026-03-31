@@ -48,6 +48,9 @@ import {
 import {
   InstituteTeacherManagementComponent
 } from './features/dashboards/institute-dashboard/pages/institute-teacher-management/institute-teacher-management.component';
+import {
+  ViewTeacherVacancyComponent
+} from './features/dashboards/institute-dashboard/pages/institute-teacher-management/pages/view-teacher-vacancy/view-teacher-vacancy.component';
 
 
 export const routes: Routes = [
@@ -146,6 +149,10 @@ export const routes: Routes = [
           {
             path: '',
             component: InstituteTeacherManagementComponent
+          },
+          {
+            path: 'vacancies',
+            component: ViewTeacherVacancyComponent
           }
         ]
       }

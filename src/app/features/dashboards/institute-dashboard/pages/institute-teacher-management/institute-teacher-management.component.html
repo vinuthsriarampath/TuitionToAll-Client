@@ -58,7 +58,7 @@
   </mat-sidenav>
 
   <!-- 🔹 MAIN CONTENT -->
-  <mat-sidenav-content class="h-full flex flex-col bg-white p-4">
+  <mat-sidenav-content class="h-full flex flex-col bg-white">
 
     <!-- HEADER -->
     <app-page-title
@@ -71,7 +71,7 @@
           Create Vacancy
         </button>
 
-        <button class="btn-secondary" (click)="navigateToVacancies()">
+        <button class="btn-secondary" [routerLink]="['vacancies']">
           View Vacancies
         </button>
       </div>

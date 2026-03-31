@@ -5,6 +5,7 @@ import {PageTitleComponent} from '../../../../../shared/components/page-title/pa
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from '@angular/material/sidenav';
 import {MatDialog} from '@angular/material/dialog';
 import {CreateVacancyDialogComponent} from './models/create-vacancy-dialog/create-vacancy-dialog.component';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-institute-teacher-management',
@@ -16,7 +17,8 @@ import {CreateVacancyDialogComponent} from './models/create-vacancy-dialog/creat
     NgIf,
     MatSidenavContent,
     MatSidenav,
-    MatSidenavContainer
+    MatSidenavContainer,
+    RouterLink
   ],
   templateUrl: './institute-teacher-management.component.html',
   styleUrl: './institute-teacher-management.component.css'

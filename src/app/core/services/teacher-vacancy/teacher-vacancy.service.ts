@@ -16,4 +16,9 @@ export class TeacherVacancyService {
   createVacancy(request:TeacherVacancyCreateRequest):Observable<ApiResponse<TeacherVacancy>>{
     return this.http.post<ApiResponse<TeacherVacancy>>(`${environment.TEACHER_VACANCY_API}/`,request);
   }
+
+  getVacanciesByInstitute():Observable<ApiResponse<TeacherVacancy[]>>{
+    return this.http.get<ApiResponse<TeacherVacancy[]>>(`${environment.TEACHER_VACANCY_API}/my`);
+  }
+
 }
