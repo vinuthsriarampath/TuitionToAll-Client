@@ -1,0 +1,39 @@
+<div class="bg-white p-4">
+  <div class="w-full flex justify-between items-center p-2 border-b-2 border-gray-200">
+    <h1 class="text-lg">Vacancy Details</h1>
+    <div class="flex justify-center items-center gap-2">
+      <button class="btn-mini-primary" (click)="onEdit()">Edit</button>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+           class="size-5 cursor-pointer" (click)="onCancel()" (keydown)="onCancel()">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="mt-4 p-4 border-2 border-gray-200 bg-gray-100 rounded-lg">
+    <h1 class="text-2xl font-black"> {{ vacancy.title }}</h1>
+    <div class="flex justify-between gap-2 mt-2 mx-2">
+      <div class="text-sm flex flex-col gap-y-2">
+        <h3 class="font-medium">Status:</h3>
+        <span class="batch" [ngClass]="{
+          'batch-success':vacancy.status == TeacherVacancyStatus.OPEN,
+          'batch-warning': vacancy.status == TeacherVacancyStatus.FILLED,
+          'batch-danger': vacancy.status == TeacherVacancyStatus.CLOSED}">
+          {{ vacancy.status}}
+        </span>
+      </div>
+      <div class="text-sm flex flex-col gap-y-2 ">
+        <h3 class="font-medium">Years of Experience (YoE) Required :</h3>
+        <span>{{ vacancy.requiredExperienceYears}}</span>
+      </div>
+      <div class="text-sm flex flex-col gap-y-2 ">
+        <h3 class="font-medium">Closing Date:</h3>
+        <span>{{ vacancy.vacancyClosingDate | date : "medium" }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="mt-4 p-4 border-2 border-gray-200 rounded-lg h-80 overflow-y-auto">
+    <h2 class="text-md font-medium">Job Description</h2>
+    <p class="text-sm mt-2" [innerHTML]="vacancy.jobDescription"></p>
+  </div>
+</div>
