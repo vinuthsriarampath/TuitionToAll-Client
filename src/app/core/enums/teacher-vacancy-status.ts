@@ -1,5 +1,5 @@
 export enum TeacherVacancyStatus {
-  ACTIVE = 'ACTIVE',
-  INACTIVE = 'INACTIVE',
+  OPEN = 'OPEN',
+  FILLED = 'FILLED',
   CLOSED = 'CLOSED'
 }
