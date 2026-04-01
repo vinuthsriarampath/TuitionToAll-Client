@@ -13,7 +13,7 @@
     <!--Sidebar menu-->
     <ul class="pt-2">
       <!--Sidebar menu items-->
-      @for (menu of menus; track menus) {
+      @for (menu of menus; track menu.title) {
         <li [routerLink]="[menu.route]" class="text-sky-50 flex items-center gap-x-2 cursor-pointer hover:bg-sky-800 rounded-md p-2" routerLinkActive="bg-sky-800" [routerLinkActiveOptions]="{exact : true}" [ngClass]="menu.spacing ? 'mt-5' : 'mt-2'">
           <span class="text-2xl block" [ngClass]=" !sidebarOpen ? 'float-none' : 'float-left'">
             <lucide-icon [img]="menu.icon" size="18"></lucide-icon>
@@ -29,7 +29,7 @@
         @if (menu.subMenu && subMenuOpen && sidebarOpen) {
           <ul>
             <!--Sidebar submenu items-->
-            @for (menu of menu.subMenuItems; track menus) {
+            @for (menu of menu.subMenuItems; track menu.title) {
               <li class="text-sky-50 text-sm flex items-center gap-x-4 cursor-pointer hover:bg-sky-800 rounded-md p-2 px-5" [ngClass]="menu.spacing ? 'mt-5' : 'mt-2'">
                 <span class="text-xs font-medium flex-1" [hidden]="!sidebarOpen">{{ menu.title }}</span>
               </li>
