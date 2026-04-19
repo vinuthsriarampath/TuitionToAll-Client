@@ -32,10 +32,11 @@
         <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let element">
           <div class="flex gap-2">
-            <a matTooltip="View Vacancy" matTooltipPosition="above">
+            <button (click)="openSingleVacancyView(element)" matTooltip="View Vacancy" matTooltipPosition="above" class="cursor-pointer">
               <lucide-icon [img]="Eye" [size]="16"></lucide-icon>
             </a>
             <button matTooltip="Edit Vacancy" matTooltipPosition="above" class="cursor-pointer">
+            </button>
               <lucide-icon [img]="Edit" [size]="16"></lucide-icon>
             </button>
           </div>
