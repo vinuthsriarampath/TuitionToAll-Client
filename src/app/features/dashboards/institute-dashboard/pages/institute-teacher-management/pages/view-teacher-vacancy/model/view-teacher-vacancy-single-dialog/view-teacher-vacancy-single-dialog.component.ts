@@ -3,12 +3,17 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {TeacherVacancy} from '../../../../../../../../../core/models/teacher-vacancy';
 import {DatePipe, NgClass} from '@angular/common';
 import {TeacherVacancyStatus} from '../../../../../../../../../core/enums/teacher-vacancy-status';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {QuillEditorComponent} from 'ngx-quill';
 
 @Component({
   selector: 'app-view-teacher-vacancy-single-dialog',
   imports: [
     DatePipe,
-    NgClass
+    NgClass,
+    FormsModule,
+    QuillEditorComponent,
+    ReactiveFormsModule
   ],
   templateUrl: './view-teacher-vacancy-single-dialog.component.html',
   styleUrl: './view-teacher-vacancy-single-dialog.component.css'

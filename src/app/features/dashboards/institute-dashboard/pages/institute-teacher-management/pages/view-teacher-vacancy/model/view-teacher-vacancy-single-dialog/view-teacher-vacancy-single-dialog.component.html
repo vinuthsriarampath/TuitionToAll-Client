@@ -32,8 +32,8 @@
       </div>
     </div>
   </div>
-  <div class="mt-4 p-4 border-2 border-gray-200 rounded-lg h-80 overflow-y-auto">
+  <div class="mt-4 p-4 border-2 border-gray-200 rounded-lg h-80 flex flex-col">
     <h2 class="text-md font-medium">Job Description</h2>
-    <p class="text-sm mt-2" [innerHTML]="vacancy.jobDescription"></p>
+    <quill-editor class="w-full flex-1 min-h-0 " id="jobDescription" [modules]="{toolbar:false}" [ngModel]="vacancy.jobDescription" [readOnly]="true" [styles]="{ border: 'none'}"></quill-editor>
   </div>
 </div>
