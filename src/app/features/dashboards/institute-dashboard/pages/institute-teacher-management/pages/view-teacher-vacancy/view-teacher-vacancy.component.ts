@@ -13,7 +13,15 @@ import {
 } from '@angular/material/table';
 import {Edit, Eye, LucideAngularModule} from 'lucide-angular';
 import {MatTooltip} from '@angular/material/tooltip';
-import {DatePipe} from '@angular/common';
+import {DatePipe, NgClass} from '@angular/common';
+import {MatDialog} from '@angular/material/dialog';
+import {
+  ViewTeacherVacancySingleDialogComponent
+} from './model/view-teacher-vacancy-single-dialog/view-teacher-vacancy-single-dialog.component';
+import {TeacherVacancyStatus} from '../../../../../../../core/enums/teacher-vacancy-status';
+import {
+  UpdateTeacherVacancyDialogComponent
+} from './model/update-teacher-vacancy-dialog/update-teacher-vacancy-dialog.component';
 
 @Component({
   selector: 'app-view-teacher-vacancy',
@@ -31,7 +39,8 @@ import {DatePipe} from '@angular/common';
     MatCellDef,
     LucideAngularModule,
     MatTooltip,
-    DatePipe
+    DatePipe,
+    NgClass
   ],
   templateUrl: './view-teacher-vacancy.component.html',
   styleUrl: './view-teacher-vacancy.component.css'
@@ -41,6 +50,7 @@ export class ViewTeacherVacancyComponent {
   protected vacancies:TeacherVacancy[] = [];
 
   private readonly teacherVacancyService = inject(TeacherVacancyService);
+  private readonly dialog = inject(MatDialog);
 
   //table related
   protected dataSource = new MatTableDataSource(this.vacancies);
@@ -58,6 +68,47 @@ export class ViewTeacherVacancyComponent {
     })
   }
 
+  openSingleVacancyView(vacancy:TeacherVacancy):void{
+    const dialogRef = this.dialog.open(ViewTeacherVacancySingleDialogComponent,{
+      maxWidth: '100vh',
+      width: '500%',
+      panelClass: 'view-single-vacancy-dialog',
+      data:vacancy
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      if(res){
+        this.openVacancyUpdateDialog(vacancy);
+      }
+    });
+
+  }
+
+  protected openVacancyUpdateDialog(vacancy:TeacherVacancy):void{
+    const dialogRef =  this.dialog.open(UpdateTeacherVacancyDialogComponent,{
+      maxWidth: '100vh',
+      width: '500%',
+      panelClass: 'update-vacancy-dialog',
+      data: vacancy
+    });
+
+    dialogRef.afterOpened().subscribe(() => {
+      document.querySelector('input')?.focus();
+    });
+
+    dialogRef.afterClosed().subscribe((res:{message:string,data:TeacherVacancy}) => {
+      if(res){
+        this.vacancies.forEach((v,i)=>{
+          if(v.id === res.data.id){
+            this.vacancies[i] = res.data;
+            this.dataSource.data = this.vacancies;
+          }
+        });
+      }
+    });
+  }
+
   protected readonly Edit = Edit;
   protected readonly Eye = Eye;
+  protected readonly TeacherVacancyStatus = TeacherVacancyStatus;
 }
