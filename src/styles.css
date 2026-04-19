@@ -97,6 +97,11 @@
   @apply bg-red-100 text-red-700
 }
 
+/*cards*/
+
+.full-w-card{
+ @apply bg-white w-full mb-3 rounded-xl shadow-sm hover:shadow-md transition p-3 flex gap-3 cursor-pointer
+}
 
 /*common table style*/
 
