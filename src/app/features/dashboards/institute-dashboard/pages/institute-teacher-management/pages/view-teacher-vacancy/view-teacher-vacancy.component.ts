@@ -1,8 +1,7 @@
-import {Component, inject} from '@angular/core';
+import {AfterViewInit, Component, inject, OnInit, ViewChild} from '@angular/core';
 import {PageTitleComponent} from '../../../../../../../shared/components/page-title/page-title.component';
 import {TeacherVacancyService} from '../../../../../../../core/services/teacher-vacancy/teacher-vacancy.service';
 import {TeacherVacancy} from '../../../../../../../core/models/teacher-vacancy';
-import {ApiResponse} from '../../../../../../../core/dto/response-dto/api-response';
 import {
   MatCell, MatCellDef,
   MatColumnDef,
@@ -22,6 +21,8 @@ import {TeacherVacancyStatus} from '../../../../../../../core/enums/teacher-vaca
 import {
   UpdateTeacherVacancyDialogComponent
 } from './model/update-teacher-vacancy-dialog/update-teacher-vacancy-dialog.component';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {PaginatedApiResponse} from '../../../../../../../core/dto/response-dto/paginated-api-response';
 
 @Component({
   selector: 'app-view-teacher-vacancy',
@@ -40,30 +41,57 @@ import {
     LucideAngularModule,
     MatTooltip,
     DatePipe,
-    NgClass
+    NgClass,
+    MatPaginator
   ],
   templateUrl: './view-teacher-vacancy.component.html',
   styleUrl: './view-teacher-vacancy.component.css'
 })
-export class ViewTeacherVacancyComponent {
+export class ViewTeacherVacancyComponent implements OnInit{
+
+  protected loading:boolean= false;
 
   protected vacancies:TeacherVacancy[] = [];
 
   private readonly teacherVacancyService = inject(TeacherVacancyService);
   private readonly dialog = inject(MatDialog);
+  protected readonly TeacherVacancyStatus = TeacherVacancyStatus;
+
 
   //table related
   protected dataSource = new MatTableDataSource(this.vacancies);
   protected columns:string[] = ['title','status','requiredExperienceYears', 'closingDate', 'actions']
 
-  constructor() {
-    this.teacherVacancyService.getVacanciesByInstitute().subscribe({
-      next: (res:ApiResponse<TeacherVacancy[]>)=>{
+  protected totalElements:number=0;
+  protected pageSize:number = 10;
+  protected pageIndex:number = 0;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
+
+  ngOnInit() {
+    this.loadVacancies();
+  }
+
+  protected onPageChange(event: PageEvent):void{
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.loadVacancies();
+  }
+  private loadVacancies(){
+    this.triggerLoading();
+    this.teacherVacancyService.getVacanciesByInstitute( this.pageIndex, this.pageSize).subscribe({
+      next: (res:PaginatedApiResponse<TeacherVacancy>)=>{
         this.vacancies= Array.isArray(res.data) ? res.data : [];
         this.dataSource.data = this.vacancies;
+        this.totalElements = res.totalElements ?? 0;
+        this.pageIndex = res.page ?? 0;
+        this.pageSize = res.size ?? 10;
+
+        this.triggerLoading();
       },
       error: (err)=>{
         console.error(err)
+        this.triggerLoading();
       }
     })
   }
@@ -108,7 +136,10 @@ export class ViewTeacherVacancyComponent {
     });
   }
 
+  private triggerLoading():void{
+    this.loading = !this.loading;
+  }
+
   protected readonly Edit = Edit;
   protected readonly Eye = Eye;
-  protected readonly TeacherVacancyStatus = TeacherVacancyStatus;
 }

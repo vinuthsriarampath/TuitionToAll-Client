@@ -53,6 +53,17 @@
       <tr mat-header-row *matHeaderRowDef="columns; sticky:true;"></tr>
       <tr mat-row *matRowDef=" let myRowData; columns:columns"></tr>
     </table>
+
+    <mat-paginator
+      [length]="totalElements"
+      [pageIndex]="pageIndex"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[10, 20, 50]"
+      showFirstLastButtons
+      aria-label="Select page of vacancies"
+      [hidden]="loading || dataSource.data.length === 0"
+      (page)="onPageChange($event)"
+    ></mat-paginator>
   </div>
 
 </div>
