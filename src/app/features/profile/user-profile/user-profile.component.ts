@@ -20,6 +20,7 @@ import {
 import {MatTab, MatTabContent, MatTabGroup} from '@angular/material/tabs';
 import {UserPostsComponent} from '../user-posts/user-posts.component';
 import {UserCoursesComponent} from '../user-courses/user-courses.component';
+import {InstituteJobsComponent} from '../institute-jobs/institute-jobs.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -36,6 +37,7 @@ import {UserCoursesComponent} from '../user-courses/user-courses.component';
     MatTabContent,
     UserPostsComponent,
     UserCoursesComponent,
+    InstituteJobsComponent,
   ],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css'

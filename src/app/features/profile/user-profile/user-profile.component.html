@@ -183,6 +183,11 @@
                   <app-user-courses [userId]="$any(profileUser.details)?.id"></app-user-courses>
                 </ng-template>
               </mat-tab>
+              <mat-tab label="Jobs">
+                <ng-template matTabContent>
+                  <app-institute-jobs [instituteId]="$any(profileUser.details)?.id"></app-institute-jobs>
+                </ng-template>
+              </mat-tab>
             }
           </mat-tab-group>
         </div>
