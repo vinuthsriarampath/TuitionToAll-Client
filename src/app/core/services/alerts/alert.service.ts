@@ -1,10 +1,18 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatDialog} from '@angular/material/dialog';
+import {
+  SuccessConfirmationAlertComponent
+} from '../../../shared/models/success-confirmation-alert/success-confirmation-alert.component';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlertService {
+
+  private readonly dialog:MatDialog = inject(MatDialog);
 
   constructor( private readonly snackBar:MatSnackBar) { }
 
@@ -33,4 +41,21 @@ export class AlertService {
       )
     }
   }
+
+  triggerSuccessConfirmationAlert(message?:string, description?:string):Observable<boolean>{
+    const dialogRef= this.dialog.open(SuccessConfirmationAlertComponent,{
+      maxWidth:'40vw',
+      width:'100%',
+      panelClass:'success-confirmation-alert',
+      data:{
+        message:message ?? 'Are you sure you want to do this ?',
+        description:description ?? 'This action cannot be undone'
+      }
+    });
+
+    return dialogRef.afterClosed().pipe(
+      map(result => result ?? false)
+    );
+  }
+
 }
