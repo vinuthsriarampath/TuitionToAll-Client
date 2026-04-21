@@ -18,6 +18,7 @@ interface Environment {
   BATCH_API:string;
   TEACHER_VACANCY_API:string;
   INSTITUTE_API?:string;
+  APPLICATION_API?:string;
 }
 
 const BASE_URL = 'http://localhost:8080/api/v2';
@@ -31,5 +32,6 @@ export const environment: Environment = {
   BATCH_API: `${BASE_URL}/batches`,
   TEACHER_VACANCY_API: `${BASE_URL}/vacancies`,
   INSTITUTE_API: `${BASE_URL}/institutes`,
+  APPLICATION_API: `${BASE_URL}/applications`,
 };
 
