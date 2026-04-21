@@ -57,6 +57,10 @@
   @apply bg-gray-400 text-white text-sm px-3 py-1 rounded-md hover:bg-gray-500 cursor-pointer;
 }
 
+.btn-mini-light {
+  @apply bg-gray-200 text-gray-700 px-3 py-1 rounded-md shadow hover:bg-gray-300 cursor-pointer;
+}
+
 .btn-danger {
   @apply bg-red-600 hover:bg-red-700;
 }
