@@ -51,6 +51,7 @@ import {
 import {
   ViewTeacherVacancyComponent
 } from './features/dashboards/institute-dashboard/pages/institute-teacher-management/pages/view-teacher-vacancy/view-teacher-vacancy.component';
+import {JobApplicationComponent} from './features/profile/institute-jobs/job-application/job-application.component';
 
 
 export const routes: Routes = [
@@ -157,6 +158,10 @@ export const routes: Routes = [
         ]
       }
     ]
+  },
+  {
+    path: "profile/:userSlug/:vacancyId/apply",
+    component: JobApplicationComponent
   },
   {
     path: 'profile/:userSlug',
