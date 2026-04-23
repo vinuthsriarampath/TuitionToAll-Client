@@ -5,14 +5,15 @@ import {TeacherVacancy} from '../../../core/models/teacher-vacancy';
 import {DatePipe, SlicePipe} from '@angular/common';
 import {QuillEditorComponent} from 'ngx-quill';
 import {FormsModule} from '@angular/forms';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-institute-jobs',
   imports: [
     DatePipe,
-    SlicePipe,
     QuillEditorComponent,
-    FormsModule
+    FormsModule,
+    RouterLink
   ],
   templateUrl: './institute-jobs.component.html',
   styleUrl: './institute-jobs.component.css'
@@ -49,6 +50,4 @@ export class InstituteJobsComponent implements OnInit{
   triggerLoading(){
     this.loading = !this.loading;
   }
-
-  protected readonly toolbar = toolbar;
 }
