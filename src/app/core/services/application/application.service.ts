@@ -16,7 +16,7 @@ export class ApplicationService {
     return this.http.post<ApiResponse<Application>>(`${environment.APPLICATION_API}/vacancies/${vacancyId}/apply`,null)
   }
 
-  checkIfUserAlreadyApplied(teacherId:number,vacancyId:number):Observable<ApiResponse<any>>{
-    return this.http.get<ApiResponse<any>>(`${environment.APPLICATION_API}/ckeck?teacherId=${vacancyId}&vacancyId=${teacherId}`);
+  checkIfUserAlreadyApplied(teacherId:number,vacancyId:number):Observable<ApiResponse<boolean>>{
+    return this.http.get<ApiResponse<boolean>>(`${environment.APPLICATION_API}/check?teacherId=${teacherId}&vacancyId=${vacancyId}`);
   }
 }
