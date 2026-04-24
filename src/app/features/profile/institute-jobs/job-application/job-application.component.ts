@@ -10,6 +10,7 @@ import {UserService} from '../../../../core/services/user/user.service';
 import {User} from '../../../../core/models/user-models/user';
 import {ApplicationService} from '../../../../core/services/application/application.service';
 import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {TeacherVacancyStatus} from '../../../../core/enums/teacher-vacancy-status';
 
 @Component({
   selector: 'app-job-application',
@@ -44,7 +45,7 @@ export class JobApplicationComponent implements OnInit{
   }
 
   private loadVacancyData():void{
-    this.teacherVacancyService.getById(this.vacancyId).subscribe({
+    this.teacherVacancyService.getByIdAndStatus(this.vacancyId,TeacherVacancyStatus.OPEN).subscribe({
       next: (res)=>{
         if(res.data){
           this.vacancy = res.data;
@@ -52,7 +53,11 @@ export class JobApplicationComponent implements OnInit{
         }
       },
       error: (err)=>{
-        this.alertService.triggerErrorAlert(err.error.message);
+        if (err.status == 404){
+          this.alertService.triggerErrorAlert("This vacancy is not available for application.")
+        }else{
+          this.alertService.triggerErrorAlert("Something Went Wrong!");
+        }
       }
     })
   }

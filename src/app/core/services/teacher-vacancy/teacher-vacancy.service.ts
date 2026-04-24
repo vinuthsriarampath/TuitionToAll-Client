@@ -6,6 +6,7 @@ import {ApiResponse} from '../../dto/response-dto/api-response';
 import {TeacherVacancy} from '../../models/teacher-vacancy';
 import {environment} from '../../../environment/environment.development';
 import {PaginatedApiResponse} from '../../dto/response-dto/paginated-api-response';
+import {TeacherVacancyStatus} from '../../enums/teacher-vacancy-status';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +27,8 @@ export class TeacherVacancyService {
     return this.http.patch<ApiResponse<TeacherVacancy>>(`${environment.TEACHER_VACANCY_API}/${vacancyId}`,request);
   }
 
-  getById(vacancyId:number):Observable<ApiResponse<TeacherVacancy>>{
-    return this.http.get<ApiResponse<TeacherVacancy>>(`${environment.TEACHER_VACANCY_API}/${vacancyId}`);
+  getByIdAndStatus(vacancyId:number,status:TeacherVacancyStatus = TeacherVacancyStatus.OPEN):Observable<ApiResponse<TeacherVacancy>>{
+    return this.http.get<ApiResponse<TeacherVacancy>>(`${environment.TEACHER_VACANCY_API}/${vacancyId}?status=${status}`);
   }
 
 }
