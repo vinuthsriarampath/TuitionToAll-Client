@@ -52,7 +52,7 @@ export class JobApplicationComponent implements OnInit{
         }
       },
       error: (err)=>{
-        console.log(err);
+        this.alertService.triggerErrorAlert(err.error.message);
       }
     })
   }
@@ -73,7 +73,7 @@ export class JobApplicationComponent implements OnInit{
           }
         },
         error: (err)=>{
-          console.log(err);
+          this.alertService.triggerErrorAlert(err.error.message)
         }
       })
 
@@ -95,6 +95,7 @@ export class JobApplicationComponent implements OnInit{
                 }
               },
               error: (err)=>{
+                this.alertService.triggerErrorAlert(err.error.message);
                 this.checkIfApplied();
               }
             })
