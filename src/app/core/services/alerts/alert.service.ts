@@ -6,6 +6,7 @@ import {
 } from '../../../shared/models/success-confirmation-alert/success-confirmation-alert.component';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {InformationAlertComponent} from '../../../shared/models/information-alert/information-alert.component';
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +57,22 @@ export class AlertService {
     return dialogRef.afterClosed().pipe(
       map(result => result ?? false)
     );
+  }
+
+  triggerInformationAlert(title?:string, description?:string):Observable<boolean>{
+    const dialogRef = this.dialog.open(InformationAlertComponent,{
+      maxWidth:'40vw',
+      width:'100%',
+      panelClass:'information-alert',
+      data:{
+        title:title ?? 'Attention !',
+        description:description ?? 'This is an important message'
+      }
+    })
+
+    return dialogRef.afterClosed().pipe(
+      map(result => result ?? false)
+    )
   }
 
 }
