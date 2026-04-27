@@ -47,7 +47,7 @@
         <img [src]="institute.dp ? (environment.USER_PROFILE_API+institute.dp) : 'https://avatar.iran.liara.run/public/boy'" class="w-8 h-8 rounded-full object-cover" alt="user-dp"/>
         <p class="text-xs text-sky-50 font-semibold ">{{ $any(institute.details)?.instituteName }}</p>
         @if (profileMenuOpen) {
-          <div class="absolute bottom-0 -right-52 w-50 h-auto bg-sky-800 flex flex-col  cursor-pointer rounded-md p-2">
+          <div class="absolute bottom-0 -right-52 w-50 h-auto bg-sky-800 flex flex-col  cursor-pointer rounded-md p-2 z-50">
             <ul class="w-full flex flex-col gap-y-2 ">
               <li [routerLink]="['/profile/'+institute.userSlug]" class="flex items-center  cursor-pointer hover:bg-sky-600 rounded-md">
                   <span class="text-sky-50 text-sm font-medium p-2">Profile</span>
@@ -66,7 +66,7 @@
     } @else {
 
       <!--Sidebar footer when sidebar is closed-->
-      <img [src]="institute.dp ? (environment.USER_PROFILE_API+institute.dp) : 'https://avatar.iran.liara.run/public/boy'" class="w-10 h-10 rounded-full object-cover mt-auto bg-red-500" alt="user-dp"/>
+      <img [src]="institute.dp ? (environment.USER_PROFILE_API+institute.dp) : 'profile_logo.png'" class="w-10 h-10 rounded-full object-cover mt-auto bg-red-500" alt="user-dp"/>
 
     }
   </div>
