@@ -52,6 +52,9 @@ import {
   ViewTeacherVacancyComponent
 } from './features/dashboards/institute-dashboard/pages/institute-teacher-management/pages/view-teacher-vacancy/view-teacher-vacancy.component';
 import {JobApplicationComponent} from './features/profile/institute-jobs/job-application/job-application.component';
+import {
+  ViewApplicationComponent
+} from './features/dashboards/institute-dashboard/pages/institute-teacher-management/pages/view-teacher-vacancy/pages/view-application/view-application.component';
 
 
 export const routes: Routes = [
@@ -153,7 +156,16 @@ export const routes: Routes = [
           },
           {
             path: 'vacancies',
-            component: ViewTeacherVacancyComponent
+            children: [
+              {
+                path: '',
+                component: ViewTeacherVacancyComponent
+              },
+              {
+                path: ':vacancyId/applications',
+                component: ViewApplicationComponent
+              }
+            ]
           }
         ]
       }
