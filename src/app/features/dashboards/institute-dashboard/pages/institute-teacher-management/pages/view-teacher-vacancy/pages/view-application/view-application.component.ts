@@ -192,6 +192,7 @@ export class ViewApplicationComponent implements OnInit {
 
   protected openDrawer(teacher:ApplicationDetailsResponse):void{
     this.selectedTeacher = teacher;
+    this.resetSelection();
     this.drawer.open();
   }
 
