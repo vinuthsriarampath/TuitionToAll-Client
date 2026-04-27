@@ -4,6 +4,8 @@ import {Observable} from 'rxjs';
 import {ApiResponse} from '../../dto/response-dto/api-response';
 import {Application} from '../../models/application';
 import {environment} from '../../../environment/environment.development';
+import {PaginatedApiResponse} from '../../dto/response-dto/paginated-api-response';
+import {ApplicationDetailsResponse} from '../../dto/response-dto/application-details-response';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +20,9 @@ export class ApplicationService {
 
   checkIfUserAlreadyApplied(teacherId:number,vacancyId:number):Observable<ApiResponse<boolean>>{
     return this.http.get<ApiResponse<boolean>>(`${environment.APPLICATION_API}/check?teacherId=${teacherId}&vacancyId=${vacancyId}`);
+  }
+
+  getAllApplicationsByVacancy(vacancyId:number,page:number=0,size:number=10,sortBy:string='appliedDate',direction:string='desc'):Observable<PaginatedApiResponse<ApplicationDetailsResponse>>{
+    return this.http.get<PaginatedApiResponse<ApplicationDetailsResponse>>(`${environment.APPLICATION_API}/vacancies/${vacancyId}?page=${page}&size=${size}&sortBy=${sortBy}&direction=${direction}`);
   }
 }
