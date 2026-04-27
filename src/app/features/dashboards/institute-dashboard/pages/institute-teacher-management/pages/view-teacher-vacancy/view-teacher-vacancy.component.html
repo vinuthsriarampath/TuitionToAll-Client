@@ -46,6 +46,9 @@
             <button (click)="openVacancyUpdateDialog(element)" matTooltip="Edit Vacancy" matTooltipPosition="above" class="cursor-pointer">
               <lucide-icon [img]="Edit" [size]="16"></lucide-icon>
             </button>
+            <button [routerLink]="[element.id+'/applications']" matTooltip="View Applications" matTooltipPosition="above" class="cursor-pointer">
+              <lucide-icon [img]="FileUser" [size]="16"></lucide-icon>
+            </button>
           </div>
         </td>
       </ng-container>

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, inject, OnInit, ViewChild} from '@angular/core';
+import {Component, inject, OnInit, ViewChild} from '@angular/core';
 import {PageTitleComponent} from '../../../../../../../shared/components/page-title/page-title.component';
 import {TeacherVacancyService} from '../../../../../../../core/services/teacher-vacancy/teacher-vacancy.service';
 import {TeacherVacancy} from '../../../../../../../core/models/teacher-vacancy';
@@ -10,7 +10,7 @@ import {
   MatTable,
   MatTableDataSource
 } from '@angular/material/table';
-import {Edit, Eye, LucideAngularModule} from 'lucide-angular';
+import {Edit, Eye, FileUser, LucideAngularModule} from 'lucide-angular';
 import {MatTooltip} from '@angular/material/tooltip';
 import {DatePipe, NgClass} from '@angular/common';
 import {MatDialog} from '@angular/material/dialog';
@@ -23,6 +23,7 @@ import {
 } from './model/update-teacher-vacancy-dialog/update-teacher-vacancy-dialog.component';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {PaginatedApiResponse} from '../../../../../../../core/dto/response-dto/paginated-api-response';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-view-teacher-vacancy',
@@ -42,7 +43,8 @@ import {PaginatedApiResponse} from '../../../../../../../core/dto/response-dto/p
     MatTooltip,
     DatePipe,
     NgClass,
-    MatPaginator
+    MatPaginator,
+    RouterLink
   ],
   templateUrl: './view-teacher-vacancy.component.html',
   styleUrl: './view-teacher-vacancy.component.css'
@@ -142,4 +144,5 @@ export class ViewTeacherVacancyComponent implements OnInit{
 
   protected readonly Edit = Edit;
   protected readonly Eye = Eye;
+  protected readonly FileUser = FileUser;
 }
