@@ -100,8 +100,41 @@
     <app-page-title [title]="'Job Applications'" [description]="'View all your job applications for the vacancy here!'"
                     [backButton]="true"></app-page-title>
 
+    <div *ngIf="hasSelection"
+         class="flex items-center justify-between bg-blue-50 border border-blue-200 rounded-lg px-4 py-2 mb-3">
+
+    <span class="text-sm text-gray-700 font-medium">
+      {{ selection.selected.length }} selected
+    </span>
+
+      <div class="flex gap-2">
+        <button (click)="onBulkSelect()" class="btn-mini-primary">
+          Select
+        </button>
+
+        <button class="btn-mini-primary btn-danger">
+          Reject
+        </button>
+      </div>
+    </div>
+
     <div class="flex-1 overflow-auto">
       <table mat-table [dataSource]="dataSource">
+
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <input type="checkbox" class="form-checkbox h-3 w-3 text-blue-600 rounded-sm"
+                   [checked]="isAllSelected()"
+                   (change)="toggleAll()" />
+          </th>
+
+          <td mat-cell *matCellDef="let element">
+            <input type="checkbox" class="form-checkbox h-3 w-3 text-blue-600 rounded-sm"
+                   (click)="$event.stopPropagation()"
+                   (change)="toggleRow(element)"
+                   [checked]="selection.isSelected(element)" />
+          </td>
+        </ng-container>
 
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef>#</th>
@@ -117,6 +150,16 @@
             </div>
 
           </td>
+        </ng-container>
+
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef>First Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.teacher.firstName}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="lastName">
+          <th mat-header-cell *matHeaderCellDef>Last Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.teacher.lastName}}</td>
         </ng-container>
 
         <ng-container matColumnDef="status">
@@ -147,7 +190,7 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="columns; sticky:true"></tr>
-        <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+        <tr mat-row *matRowDef="let row; columns: columns;" (click)="toggleRow(row)"></tr>
 
       </table>
 
