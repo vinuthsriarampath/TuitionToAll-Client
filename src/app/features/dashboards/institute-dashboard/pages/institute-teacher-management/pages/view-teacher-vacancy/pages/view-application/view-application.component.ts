@@ -29,6 +29,7 @@ import {
   InstituteTeacherService
 } from '../../../../../../../../../core/services/institute-teacher/institute-teacher.service';
 import {ApplicationSelectionRequest} from '../../../../../../../../../core/dto/request-dto/ApplicationSelectionRequest';
+import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-view-application',
@@ -50,7 +51,8 @@ import {ApplicationSelectionRequest} from '../../../../../../../../../core/dto/r
     MatSidenav,
     MatSidenavContent,
     NgClass,
-    NgIf
+    NgIf,
+    MatTooltip
   ],
   templateUrl: './view-application.component.html',
   styleUrl: './view-application.component.css'
@@ -90,6 +92,10 @@ export class ViewApplicationComponent implements OnInit {
     } else {
       this.dataSource.data.forEach(row => this.selection.select(row));
     }
+  }
+
+  protected resetSelection():void{
+    this.selection.clear();
   }
 
   // Drawer related variables
@@ -141,6 +147,18 @@ export class ViewApplicationComponent implements OnInit {
   onBulkSelect():void{
     const request:ApplicationSelectionRequest = new ApplicationSelectionRequest();
     request.applicationIds = this.selection.selected.map(a => a.id);
+    this.sendSelectionRequest(request);
+  }
+
+  onSingleSelect(applicationId:number){
+    if(applicationId){
+      const request:ApplicationSelectionRequest = new ApplicationSelectionRequest();
+      request.applicationIds.push(applicationId);
+      this.sendSelectionRequest(request);
+    }
+  }
+
+  sendSelectionRequest(request:ApplicationSelectionRequest):void{
     this.instituteTeacherService.onboardTeachers(request).subscribe({
       next: (res)=>{
         if(res.data){
@@ -156,7 +174,7 @@ export class ViewApplicationComponent implements OnInit {
             this.alertService.triggerErrorAlert(` ${res.data.failedApplicationIds.length} applications got failed to onboarded!`);
           }
 
-          this.selection.clear();
+          this.resetSelection();
         }
       },
       error: (err)=>{
@@ -169,7 +187,7 @@ export class ViewApplicationComponent implements OnInit {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
     this.loadApplications();
-    this.selection.clear();
+    this.resetSelection();
   }
 
   protected openDrawer(teacher:ApplicationDetailsResponse):void{
