@@ -14,7 +14,7 @@
       <div class="flex flex-col items-center text-center">
         <img
           [src]="data.teacher.dp
-              ? environment.USER_PROFILE_API + '/' + data.teacher.dp
+              ? environment.USER_PROFILE_API + data.teacher.dp
               : 'profile_logo.png'"
           class="w-24 h-24 rounded-full object-cover border shadow-sm"
           alt="profile"
@@ -83,11 +83,32 @@
         </span>
         </div>
       </div>
-      <div class="border-t p-4">
-        <button (click)="onSingleSelect(data.id )" class="btn-primary w-full">
-          Select
-        </button>
-      </div>
+      @if (data.status === ApplicationStatus.PENDING){
+        <div class="border-t p-4 flex flex-col gap-2">
+          <button (click)="onSingleSelect(data.id)" class="btn-primary w-full">
+            Select
+          </button>
+
+          <button (click)="onSingleReject(data.id)" class="btn-primary btn-danger w-full">
+            Reject
+          </button>
+        </div>
+      } @else {
+        @if (data.status === ApplicationStatus.SELECTED) {
+          <div class="border-t p-4">
+            <button [disabled]="true" class="btn-primary w-full">
+              Already Selected
+            </button>
+          </div>
+        } @else if(data.status === ApplicationStatus.REJECTED || data.status === ApplicationStatus.CANCELED) {
+          <div class="border-t p-4">
+            <button [disabled]="true" class="btn-primary w-full">
+              {{ data.status === ApplicationStatus.REJECTED ? 'Already Rejected' : 'Canceled' }}
+            </button>
+          </div>
+        }
+
+      }
     </div>
 
 
@@ -115,7 +136,7 @@
           Select
         </button>
 
-        <button class="btn-mini-primary btn-danger">
+        <button (click)="onBulkReject()" class="btn-mini-primary btn-danger">
           Reject
         </button>
       </div>

@@ -30,6 +30,7 @@ import {
 } from '../../../../../../../../../core/services/institute-teacher/institute-teacher.service';
 import {ApplicationSelectionRequest} from '../../../../../../../../../core/dto/request-dto/ApplicationSelectionRequest';
 import {MatTooltip} from '@angular/material/tooltip';
+import {ApplicationRejectionRequest} from '../../../../../../../../../core/dto/request-dto/ApplicationRejectionRequest';
 
 @Component({
   selector: 'app-view-application',
@@ -179,6 +180,40 @@ export class ViewApplicationComponent implements OnInit {
       },
       error: (err)=>{
         console.log(err.error.message)
+      }
+    })
+  }
+
+  onBulkReject(){
+    const request:ApplicationRejectionRequest = new ApplicationRejectionRequest();
+    request.applicationIds = this.selection.selected.map(a => a.id);
+    this.sendRejectionRequest(request);
+  }
+
+  onSingleReject(applicationId:number){
+    const request:ApplicationRejectionRequest = new ApplicationRejectionRequest();
+    request.applicationIds.push(applicationId);
+    this.sendRejectionRequest(request);
+  }
+
+  sendRejectionRequest(request:ApplicationRejectionRequest){
+    this.instituteTeacherService.rejectApplications(request).subscribe({
+      next: (res)=>{
+        if(res.data){
+          if (res.data.successApplicationIds.length > res.data.failedApplicationIds.length){
+            this.alertService.triggerSuccessAlert(`${res.data.successApplicationIds.length} out of ${request.applicationIds.length} applications successfully rejected!`);
+            for (let app of this.dataSource.data){
+              if(res.data?.successApplicationIds.includes(app.id)){
+                app.status = ApplicationStatus.REJECTED;
+              }
+            }
+          }else{
+            this.alertService.triggerErrorAlert(`${res.data.failedApplicationIds.length} out of ${request.applicationIds.length} applications failed rejected!`)
+          }
+        }
+      },
+      error: (err)=>{
+        this.alertService.triggerErrorAlert(err.error.message);
       }
     })
   }
