@@ -5,6 +5,8 @@ import {ApiResponse} from '../../dto/response-dto/api-response';
 import {environment} from '../../../environment/environment.development';
 import {ApplicationSelectionRequest} from '../../dto/request-dto/ApplicationSelectionRequest';
 import {ApplicationSelectionResponse} from '../../dto/response-dto/ApplicationSelectionResponse';
+import {ApplicationRejectionRequest} from '../../dto/request-dto/ApplicationRejectionRequest';
+import {ApplicationRejectionResponse} from '../../dto/response-dto/ApplicationRejectionResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -15,5 +17,9 @@ export class InstituteTeacherService {
 
   onboardTeachers(request: ApplicationSelectionRequest):Observable<ApiResponse<ApplicationSelectionResponse>>{
     return this.http.post<ApiResponse<ApplicationSelectionResponse>>(`${environment.INSTITUTE_TEACHER_API}/onboard`,request);
+  }
+
+  rejectApplications(request: ApplicationRejectionRequest):Observable<ApiResponse<ApplicationRejectionResponse>>{
+    return this.http.post<ApiResponse<ApplicationRejectionResponse>>(`${environment.INSTITUTE_TEACHER_API}/reject`,request);
   }
 }
