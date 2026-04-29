@@ -116,14 +116,6 @@ export class InstituteTeacherManagementComponent implements OnInit{
     this.drawer.open();
   }
 
-  deactivateTeacher(teacher: any) {
-    teacher.status = 'INACTIVE';
-  }
-
-  activateTeacher(teacher: any) {
-    teacher.status = 'ACTIVE';
-  }
-
   // Create Vacancy Dialog
 
   openCreateVacancy() {
