@@ -1,59 +1,67 @@
 <mat-sidenav-container class="h-full ">
 
   <!-- 🔹 DRAWER -->
-  <mat-sidenav #drawer mode="over" position="end"
-               class="h-full p-4 bg-white"
-               style="width: 23vw;">
+  <mat-sidenav #drawer mode="over" position="end" class="h-full bg-white shadow-xl flex flex-col"
+               style="width: 23vw; min-width: 320px;">
+    <div class="flex items-center justify-between border-b pb-3 px-4 pt-4">
+      <h2 class="text-lg font-semibold text-gray-800">Teacher Details</h2>
+      <button class="btn-mini-secondary" (click)="drawer.close()">Close</button>
+    </div>
 
-    <div *ngIf="selectedTeacher">
+    <div *ngIf="selectedTeacher as data" class="flex-1 overflow-auto p-4 space-y-4">
 
-      <div class="flex justify-between items-center mb-4">
-        <h2 class="text-lg font-semibold">Teacher Profile</h2>
-        <button class="btn-light" (click)="drawer.close()">Close</button>
+      <!-- PROFILE SECTION -->
+      <div class="flex flex-col items-center text-center">
+        <img
+          [src]="data.teacher.dp
+              ? environment.USER_PROFILE_API + data.teacher.dp
+              : 'profile_logo.png'"
+          class="w-24 h-24 rounded-full object-cover border shadow-sm"
+          alt="profile"
+        />
+
+        <h3 class="mt-3 text-lg font-semibold text-gray-800">
+          {{ data.teacher.firstName }} {{ data.teacher.lastName }}
+        </h3>
+
+        <p class="text-sm text-gray-500">{{ data.teacher.email }}</p>
       </div>
 
-      <div class="flex flex-col items-center text-center mb-4">
-        <img [src]="selectedTeacher.dp"
-             class="w-20 h-20 rounded-full object-cover border mb-2" />
-        <h3 class="text-md font-semibold">{{ selectedTeacher.name }}</h3>
-        <p class="text-sm text-gray-500">{{ selectedTeacher.email }}</p>
-      </div>
+      <!-- INFO CARD -->
+      <div class="bg-gray-50 rounded-xl p-4 space-y-3 shadow-sm">
 
-      <div class="space-y-2 text-sm">
-        <div>
-          <span class="text-gray-500">Teacher ID:</span>
-          <span class="font-medium ml-1">{{ selectedTeacher.id }}</span>
+        <div class="flex justify-between">
+          <span class="text-gray-500 text-sm">Contact</span>
+          <span class="text-gray-800 text-sm font-medium">
+          {{ data.teacher.contact }}
+        </span>
         </div>
 
-        <div>
-          <span class="text-gray-500">Joined Date:</span>
-          <span class="font-medium ml-1">{{ selectedTeacher.joinedDate }}</span>
+        <div class="flex justify-between">
+          <span class="text-gray-500 text-sm">Date of Birth</span>
+          <span class="text-gray-800 text-sm font-medium">
+          {{ data.teacher.dob | date }}
+        </span>
         </div>
 
-        <div>
-          <span class="text-gray-500">Status:</span>
-          <span class="ml-1 px-2 py-1 rounded text-xs font-medium"
-                [ngClass]="{
-                  'bg-green-100 text-green-700': selectedTeacher.status === 'ACTIVE',
-                  'bg-red-100 text-red-700': selectedTeacher.status === 'INACTIVE'
+        <div class="flex flex-col">
+          <span class="text-gray-500 text-sm">Address</span>
+          <span class="text-gray-800 text-sm font-medium break-words">
+          {{ data.teacher.address }}
+        </span>
+        </div>
+
+        <div class="flex justify-between">
+          <span class="text-gray-500 text-sm">Status between institute</span>
+          <span class="batch" [ngClass]="{
+                'batch-success': data.status === InstituteTeacherStatus.ACTIVE,
+                'batch-warning':data.status === InstituteTeacherStatus.SUSPENDED,
+                'batch-danger':data.status === InstituteTeacherStatus.INACTIVE,
                 }">
-            {{ selectedTeacher.status }}
+                  {{ data.status }}
           </span>
         </div>
       </div>
-
-      <div class="mt-6 flex gap-2">
-        <button *ngIf="selectedTeacher.status === 'ACTIVE'"
-                class="btn-secondary"
-                (click)="deactivateTeacher(selectedTeacher)">
-          Deactivate
-        </button>
-
-        <button *ngIf="selectedTeacher.status === 'INACTIVE'" class="btn-primary btn-success" (click)="activateTeacher(selectedTeacher)">
-          Activate
-        </button>
-      </div>
-
     </div>
   </mat-sidenav>
 
@@ -96,58 +104,76 @@
           <h2 class="text-xl font-semibold">{{ stats.inactive }}</h2>
         </div>
       </div>
+      <!-- Scrollable container -->
+      <div class="flex-1 overflow-auto">
 
-      <div class="h-full bg-white rounded-xl shadow">
+        <table mat-table [dataSource]="dataSource">
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>#</th>
+            <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+          </ng-container>
 
-        <!-- Scrollable container -->
-        <div class="overflow-y-auto h-[62vh]">
+          <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef>First Name</th>
+            <td mat-cell *matCellDef="let element">{{ element.teacher.firstName }}</td>
+          </ng-container>
 
-          <table class="w-full text-left border-collapse table-fixed">
+          <ng-container matColumnDef="lastName">
+            <th mat-header-cell *matHeaderCellDef>Last Name</th>
+            <td mat-cell *matCellDef="let element">{{ element.teacher.lastName }}</td>
+          </ng-container>
 
-            <!-- Header -->
-            <thead class="bg-gray-100 sticky top-0 z-10">
-            <tr class="text-sm text-gray-700">
-              <th class="p-3 font-semibold w-[25%]">Teacher</th>
-              <th class="p-3 font-semibold w-[25%]">Email</th>
-              <th class="p-3 font-semibold w-[15%]">Joined</th>
-              <th class="p-3 font-semibold w-[15%]">Status</th>
-              <th class="p-3 font-semibold text-right w-[20%]">Action</th>
-            </tr>
-            </thead>
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>email</th>
+            <td mat-cell *matCellDef="let element">{{ element.teacher.email }}</td>
+          </ng-container>
 
-            <!-- Body -->
-            <tbody>
-            <tr *ngFor="let teacher of teachers" class="border-t hover:bg-gray-50 transition">
-              <td class="p-3">
-                <div class="flex items-center gap-3">
-                  <img [src]="teacher.dp || 'https://i.pravatar.cc/40'" class="w-10 h-10 rounded-full border object-cover" />
-                  <div>
-                    <p class="text-sm font-medium text-gray-800">{{ teacher.name }}</p>
-                  </div>
-                </div>
-              </td>
-              <td class="p-3 text-sm text-gray-600">{{ teacher.email }}</td>
-              <td class="p-3 text-sm text-gray-700">{{ teacher.joinedDate }}</td>
-              <td class="p-3">
-            <span class="px-2.5 py-1 rounded-full text-xs font-medium"
-                  [ngClass]="{
-                    'bg-green-100 text-green-700': teacher.status === 'ACTIVE',
-                    'bg-red-100 text-red-700': teacher.status === 'INACTIVE'
-                  }">
-              {{ teacher.status }}
-            </span>
-              </td>
-              <td class="p-3 text-right">
-                <button class="btn-mini-primary" (click)="openProfileDrawer(teacher)">View</button>
-              </td>
-            </tr>
-            </tbody>
+          <ng-container matColumnDef="contact">
+            <th mat-header-cell *matHeaderCellDef>Contact</th>
+            <td mat-cell *matCellDef="let element">{{ element.teacher.contact }}</td>
+          </ng-container>
 
-          </table>
-        </div>
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let element">
+                <span class="batch" [ngClass]="{
+                'batch-success': element.status === InstituteTeacherStatus.ACTIVE,
+                'batch-warning':element.status === InstituteTeacherStatus.SUSPENDED,
+                'batch-danger':element.status === InstituteTeacherStatus.INACTIVE,
+                }">
+                  {{ element.status }}
+                </span>
+            </td>
+          </ng-container>
 
+          <ng-container matColumnDef="joinedDate">
+            <th mat-header-cell *matHeaderCellDef>Joined Date</th>
+            <td mat-cell *matCellDef="let element">{{ element.joinedDate | date }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let element">
+              <button class="btn-mini-primary" (click)="openProfileDrawer(element)" matTooltip="View Teacher Profile"
+                      matTooltipPosition="above">view
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="columns, sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+        </table>
+
+        <mat-paginator
+          [length]="totalElements"
+          [pageIndex]="pageIndex"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="[10, 20, 50]"
+          showFirstLastButtons
+          aria-label="Select page of Teachers"
+          (page)="onPageChange($event)">
+        </mat-paginator>
       </div>
-
     </div>
 
   </mat-sidenav-content>

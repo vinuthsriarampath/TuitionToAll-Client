@@ -1,34 +1,65 @@
-import {Component, inject, ViewChild} from '@angular/core';
-import {NgClass, NgForOf, NgIf} from '@angular/common';
+import {Component, inject, OnInit, ViewChild} from '@angular/core';
+import {DatePipe, NgClass, NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {PageTitleComponent} from '../../../../../shared/components/page-title/page-title.component';
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from '@angular/material/sidenav';
 import {MatDialog} from '@angular/material/dialog';
 import {CreateVacancyDialogComponent} from './models/create-vacancy-dialog/create-vacancy-dialog.component';
 import {RouterLink} from '@angular/router';
+import {
+  MatCell, MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
+  MatTable,
+  MatTableDataSource
+} from '@angular/material/table';
+import {MatTooltip} from '@angular/material/tooltip';
+import {InstituteTeacherService} from '../../../../../core/services/institute-teacher/institute-teacher.service';
+import {InstituteTeacherResponse} from '../../../../../core/dto/response-dto/InstituteTeacherResponse';
+import {AlertService} from '../../../../../core/services/alerts/alert.service';
+import {environment} from '../../../../../environment/environment.development';
+import {ApplicationStatus} from '../../../../../core/enums/application-status';
+import {InstituteTeacherStatus} from '../../../../../core/enums/InstituteTeacherStatus';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-institute-teacher-management',
   imports: [
-    NgClass,
     FormsModule,
     PageTitleComponent,
-    NgForOf,
     NgIf,
     MatSidenavContent,
     MatSidenav,
     MatSidenavContainer,
-    RouterLink
+    RouterLink,
+    MatTable,
+    MatColumnDef,
+    MatHeaderCell,
+    MatCell,
+    MatHeaderCellDef,
+    MatCellDef,
+    MatTooltip,
+    DatePipe,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatRowDef,
+    MatRow,
+    NgClass,
+    MatPaginator
   ],
   templateUrl: './institute-teacher-management.component.html',
   styleUrl: './institute-teacher-management.component.css'
 })
-export class InstituteTeacherManagementComponent {
+export class InstituteTeacherManagementComponent implements OnInit{
+
   @ViewChild('drawer') drawer!: MatSidenav;
 
   private readonly dialog = inject(MatDialog);
+  private readonly instituteTeacherService:InstituteTeacherService = inject(InstituteTeacherService)
+  private readonly alertService:AlertService = inject(AlertService);
 
-  selectedTeacher: any = null;
+  selectedTeacher!: InstituteTeacherResponse;
 
   stats = {
     total: 3,
@@ -36,226 +67,51 @@ export class InstituteTeacherManagementComponent {
     inactive: 1
   };
 
-  teachers = [
-    {
-      id: 1,
-      name: 'John Doe',
-      email: 'john@example.com',
-      dp: 'https://i.pravatar.cc/40?img=1',
-      status: 'ACTIVE',
-      joinedDate: '2026-01-10'
-    },
-    {
-      id: 2,
-      name: 'Jane Smith',
-      email: 'jane@example.com',
-      dp: 'https://i.pravatar.cc/40?img=2',
-      status: 'ACTIVE',
-      joinedDate: '2026-02-15'
-    },
-    {
-      id: 3,
-      name: 'Alex Brown',
-      email: 'alex@example.com',
-      dp: 'https://i.pravatar.cc/40?img=3',
-      status: 'INACTIVE',
-      joinedDate: '2025-12-01'
-    },
-    {
-      id: 3,
-      name: 'Alex Brown',
-      email: 'alex@example.com',
-      dp: 'https://i.pravatar.cc/40?img=3',
-      status: 'INACTIVE',
-      joinedDate: '2025-12-01'
-    },
-    {
-      id: 3,
-      name: 'Alex Brown',
-      email: 'alex@example.com',
-      dp: 'https://i.pravatar.cc/40?img=3',
-      status: 'INACTIVE',
-      joinedDate: '2025-12-01'
-    },
-    {
-      id: 3,
-      name: 'Alex Brown',
-      email: 'alex@example.com',
-      dp: 'https://i.pravatar.cc/40?img=3',
-      status: 'INACTIVE',
-      joinedDate: '2025-12-01'
-    },
-    {
-      id: 3,
-      name: 'Alex Brown',
-      email: 'alex@example.com',
-      dp: 'https://i.pravatar.cc/40?img=3',
-      status: 'INACTIVE',
-      joinedDate: '2025-12-01'
-    },
-    {
-      id: 3,
-      name: 'Alex Brown',
-      email: 'alex@example.com',
-      dp: 'https://i.pravatar.cc/40?img=3',
-      status: 'INACTIVE',
-      joinedDate: '2025-12-01'
-    },
-    {
-      id: 3,
-      name: 'Alex Brown',
-      email: 'alex@example.com',
-      dp: 'https://i.pravatar.cc/40?img=3',
-      status: 'INACTIVE',
-      joinedDate: '2025-12-01'
-    },
-    {
-      id: 3,
-      name: 'Alex Brown',
-      email: 'alex@example.com',
-      dp: 'https://i.pravatar.cc/40?img=3',
-      status: 'INACTIVE',
-      joinedDate: '2025-12-01'
-    },
-    {
-      id: 3,
-      name: 'Alex Brown',
-      email: 'alex@example.com',
-      dp: 'https://i.pravatar.cc/40?img=3',
-      status: 'INACTIVE',
-      joinedDate: '2025-12-01'
-    },
-    {
-      id: 3,
-      name: 'Alex Brown',
-      email: 'alex@example.com',
-      dp: 'https://i.pravatar.cc/40?img=3',
-      status: 'INACTIVE',
-      joinedDate: '2025-12-01'
-    },
-    {
-      id: 3,
-      name: 'Alex Brown',
-      email: 'alex@example.com',
-      dp: 'https://i.pravatar.cc/40?img=3',
-      status: 'INACTIVE',
-      joinedDate: '2025-12-01'
-    },
-    {
-      id: 3,
-      name: 'Alex Brown',
-      email: 'alex@example.com',
-      dp: 'https://i.pravatar.cc/40?img=3',
-      status: 'INACTIVE',
-      joinedDate: '2025-12-01'
-    },
-    {
-      id: 3,
-      name: 'Alex Brown',
-      email: 'alex@example.com',
-      dp: 'https://i.pravatar.cc/40?img=3',
-      status: 'INACTIVE',
-      joinedDate: '2025-12-01'
-    },
-    {
-      id: 3,
-      name: 'Alex Brown',
-      email: 'alex@example.com',
-      dp: 'https://i.pravatar.cc/40?img=3',
-      status: 'INACTIVE',
-      joinedDate: '2025-12-01'
-    },
-    {
-      id: 3,
-      name: 'Alex Brown',
-      email: 'alex@example.com',
-      dp: 'https://i.pravatar.cc/40?img=3',
-      status: 'INACTIVE',
-      joinedDate: '2025-12-01'
-    },
-    {
-      id: 3,
-      name: 'Alex Brown',
-      email: 'alex@example.com',
-      dp: 'https://i.pravatar.cc/40?img=3',
-      status: 'INACTIVE',
-      joinedDate: '2025-12-01'
-    },
-    {
-      id: 3,
-      name: 'Alex Brown',
-      email: 'alex@example.com',
-      dp: 'https://i.pravatar.cc/40?img=3',
-      status: 'INACTIVE',
-      joinedDate: '2025-12-01'
-    },
-    {
-      id: 3,
-      name: 'Alex Brown',
-      email: 'alex@example.com',
-      dp: 'https://i.pravatar.cc/40?img=3',
-      status: 'INACTIVE',
-      joinedDate: '2025-12-01'
-    },
-    {
-      id: 3,
-      name: 'Alex Brown',
-      email: 'alex@example.com',
-      dp: 'https://i.pravatar.cc/40?img=3',
-      status: 'INACTIVE',
-      joinedDate: '2025-12-01'
-    },
-    {
-      id: 3,
-      name: 'Alex Brown',
-      email: 'alex@example.com',
-      dp: 'https://i.pravatar.cc/40?img=3',
-      status: 'INACTIVE',
-      joinedDate: '2025-12-01'
-    },
-    {
-      id: 3,
-      name: 'Alex Brown',
-      email: 'alex@example.com',
-      dp: 'https://i.pravatar.cc/40?img=3',
-      status: 'INACTIVE',
-      joinedDate: '2025-12-01'
-    },
-    {
-      id: 3,
-      name: 'Alex Brown',
-      email: 'alex@example.com',
-      dp: 'https://i.pravatar.cc/40?img=3',
-      status: 'INACTIVE',
-      joinedDate: '2025-12-01'
-    },
-    {
-      id: 3,
-      name: 'Alex Brown',
-      email: 'alex@example.com',
-      dp: 'https://i.pravatar.cc/40?img=3',
-      status: 'INACTIVE',
-      joinedDate: '2025-12-01'
-    },
-    {
-      id: 3,
-      name: 'Alex Brown',
-      email: 'alex@example.com',
-      dp: 'https://i.pravatar.cc/40?img=3',
-      status: 'INACTIVE',
-      joinedDate: '2025-12-01'
-    },
-    {
-      id: 3,
-      name: 'Alex Brown',
-      email: 'alex@example.com',
-      dp: 'https://i.pravatar.cc/40?img=3',
-      status: 'INACTIVE',
-      joinedDate: '2025-12-01'
-    }
-  ];
+  //table related variables
+  protected dataSource = new MatTableDataSource<InstituteTeacherResponse>();
+  columns:string[] = ['id','firstName','lastName','email','contact','status','joinedDate','actions'];
 
-  openProfileDrawer(teacher: any) {
+
+  // pagination related
+
+  protected pageIndex:number = 0;
+  protected pageSize:number = 10;
+  protected totalElements:number = 0;
+
+  protected onPageChange(event:PageEvent){
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.loadTeachersByInstitute();
+  }
+
+  // initialize data
+
+  ngOnInit(): void {
+    this.loadTeachersByInstitute();
+  }
+
+  /***
+   Load all teachers related to the current institute
+  ***/
+  private loadTeachersByInstitute():void{
+    this.instituteTeacherService.getAllTeachersByInstitute(this.pageIndex,this.pageSize).subscribe({
+      next: (res) => {
+        if(res){
+          this.dataSource.data = res.data ?? [];
+          this.pageIndex = res.page ?? 0;
+          this.pageSize = res.size ?? 10;
+          this.totalElements = res.totalElements ?? 0;
+        }
+      },
+      error: (err) => {
+        this.alertService.triggerErrorAlert(err.error.message);
+      }
+    })
+  }
+
+  // Drawer Related methods
+
+  openProfileDrawer(teacher: InstituteTeacherResponse) {
     this.selectedTeacher = teacher;
     this.drawer.open();
   }
@@ -267,6 +123,8 @@ export class InstituteTeacherManagementComponent {
   activateTeacher(teacher: any) {
     teacher.status = 'ACTIVE';
   }
+
+  // Create Vacancy Dialog
 
   openCreateVacancy() {
     const dialogRef = this.dialog.open(CreateVacancyDialogComponent,{
@@ -284,6 +142,9 @@ export class InstituteTeacherManagementComponent {
       this.selectedTeacher = result;
     });
   }
-  navigateToVacancies() {}
 
+  protected readonly environment = environment;
+  protected readonly ApplicationStatus = ApplicationStatus;
+  protected readonly InstituteTeacherResponse = InstituteTeacherResponse;
+  protected readonly InstituteTeacherStatus = InstituteTeacherStatus;
 }

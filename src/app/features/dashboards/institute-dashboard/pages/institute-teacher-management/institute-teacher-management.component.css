@@ -1,0 +1,23 @@
+.mat-column-select{
+  width: 2rem;
+}
+
+.mat-column-id{
+  width: 2rem;
+}
+
+.mat-column-dp{
+  width: 5rem;
+}
+
+.mat-column-status{
+  width: 10rem;
+}
+
+.mat-column-appliedDate{
+  width: 10rem;
+}
+
+.mat-column-actions{
+  width: 5rem;
+}
