@@ -90,18 +90,22 @@
     <div class="flex-1 flex flex-col ">
 
       <!-- STATS -->
-      <div class="grid grid-cols-3 gap-4 mb-4 shrink-0">
+      <div class="grid grid-cols-4 gap-4 mb-4 shrink-0">
         <div class="p-4 bg-blue-50 rounded-lg">
           <p class="text-sm text-gray-500">Total Teachers</p>
-          <h2 class="text-xl font-semibold">{{ stats.total }}</h2>
+          <h2 class="text-xl font-semibold">{{ stats.totalTeachers }}</h2>
         </div>
         <div class="p-4 bg-green-50 rounded-lg">
           <p class="text-sm text-gray-500">Active</p>
-          <h2 class="text-xl font-semibold">{{ stats.active }}</h2>
+          <h2 class="text-xl font-semibold">{{ stats.activeTeachers }}</h2>
+        </div>
+        <div class="p-4 bg-yellow-50 rounded-lg">
+          <p class="text-sm text-gray-500">Active</p>
+          <h2 class="text-xl font-semibold">{{ stats.suspendedTeachers }}</h2>
         </div>
         <div class="p-4 bg-red-50 rounded-lg">
           <p class="text-sm text-gray-500">Inactive</p>
-          <h2 class="text-xl font-semibold">{{ stats.inactive }}</h2>
+          <h2 class="text-xl font-semibold">{{ stats.inactiveTeachers }}</h2>
         </div>
       </div>
       <!-- Scrollable container -->

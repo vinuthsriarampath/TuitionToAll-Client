@@ -22,6 +22,7 @@ import {environment} from '../../../../../environment/environment.development';
 import {ApplicationStatus} from '../../../../../core/enums/application-status';
 import {InstituteTeacherStatus} from '../../../../../core/enums/InstituteTeacherStatus';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {InstituteTeacherStatsResponse} from '../../../../../core/dto/response-dto/InstituteTeacherStatsResponse';
 
 @Component({
   selector: 'app-institute-teacher-management',
@@ -61,10 +62,11 @@ export class InstituteTeacherManagementComponent implements OnInit{
 
   selectedTeacher!: InstituteTeacherResponse;
 
-  stats = {
-    total: 3,
-    active: 2,
-    inactive: 1
+  stats:InstituteTeacherStatsResponse = {
+    totalTeachers: 0,
+    activeTeachers: 0,
+    suspendedTeachers: 0,
+    inactiveTeachers: 0
   };
 
   //table related variables
@@ -87,6 +89,7 @@ export class InstituteTeacherManagementComponent implements OnInit{
   // initialize data
 
   ngOnInit(): void {
+    this.loadInstituteTeacherStats();
     this.loadTeachersByInstitute();
   }
 
@@ -101,6 +104,25 @@ export class InstituteTeacherManagementComponent implements OnInit{
           this.pageIndex = res.page ?? 0;
           this.pageSize = res.size ?? 10;
           this.totalElements = res.totalElements ?? 0;
+        }
+      },
+      error: (err) => {
+        this.alertService.triggerErrorAlert(err.error.message);
+      }
+    })
+  }
+
+  /***
+   fetch stats related to the current institute
+   ***/
+  private loadInstituteTeacherStats():void{
+    this.instituteTeacherService.getInstituteTeacherStats().subscribe({
+      next: (res)=> {
+        if(res.data){
+          this.stats.totalTeachers = res.data.totalTeachers ?? 0;
+          this.stats.activeTeachers = res.data.activeTeachers ?? 0;
+          this.stats.suspendedTeachers = res.data.suspendedTeachers ?? 0;
+          this.stats.inactiveTeachers = res.data.inactiveTeachers ?? 0;
         }
       },
       error: (err) => {
