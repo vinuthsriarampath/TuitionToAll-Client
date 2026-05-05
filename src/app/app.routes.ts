@@ -55,6 +55,9 @@ import {JobApplicationComponent} from './features/profile/institute-jobs/job-app
 import {
   ViewApplicationComponent
 } from './features/dashboards/institute-dashboard/pages/institute-teacher-management/pages/view-teacher-vacancy/pages/view-application/view-application.component';
+import {
+  AnnouncementsManagementComponent
+} from './features/dashboards/institute-dashboard/pages/announcements-management/announcements-management.component';
 
 
 export const routes: Routes = [
@@ -166,6 +169,15 @@ export const routes: Routes = [
                 component: ViewApplicationComponent
               }
             ]
+          }
+        ]
+      },
+      {
+        path: "announcements-mgt",
+        children:[
+          {
+            path: '',
+            component: AnnouncementsManagementComponent
           }
         ]
       }
