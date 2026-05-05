@@ -20,6 +20,7 @@ interface Environment {
   INSTITUTE_API?:string;
   APPLICATION_API?:string;
   INSTITUTE_TEACHER_API?:string;
+  ANNOUNCEMENT_API?:string;
 }
 
 const BASE_URL = 'http://localhost:8080/api/v2';
@@ -35,5 +36,6 @@ export const environment: Environment = {
   INSTITUTE_API: `${BASE_URL}/institutes`,
   APPLICATION_API: `${BASE_URL}/applications`,
   INSTITUTE_TEACHER_API: `${BASE_URL}/institutes/teachers`,
+  ANNOUNCEMENT_API: `${BASE_URL}/announcements`,
 };
 
