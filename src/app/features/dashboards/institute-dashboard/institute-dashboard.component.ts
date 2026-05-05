@@ -2,7 +2,17 @@ import {Component, inject, OnInit} from '@angular/core';
 import {FlowbiteService} from '../../../core/services/flowbite/flowbite.service';
 import {initFlowbite} from 'flowbite';
 import {Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
-import {ArrowLeft, ArrowRight, Book, ChevronDownIcon, Home, LucideAngularModule, Menu, User2} from 'lucide-angular';
+import {
+  ArrowLeft,
+  ArrowRight,
+  Book,
+  ChevronDownIcon,
+  Home,
+  LucideAngularModule,
+  Megaphone,
+  Menu,
+  User2
+} from 'lucide-angular';
 import {UserService} from '../../../core/services/user/user.service';
 import {AlertService} from '../../../core/services/alerts/alert.service';
 import {User} from '../../../core/models/user-models/user';
@@ -78,6 +88,11 @@ export class InstituteDashboardComponent implements OnInit{
       title: "Teachers",
       icon: User2,
       route: "teacher-mgt"
+    },
+    {
+      title: "Announcements",
+      icon: Megaphone,
+      route: "announcements-mgt"
     }
   ]
 }
