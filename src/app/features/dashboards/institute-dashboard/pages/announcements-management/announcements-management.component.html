@@ -4,7 +4,7 @@
     [description]="'Create and manage announcements for your institute'"
     [backButton]="false">
 
-    <button data-actions  type="button" class="btn-primary">New Announcement</button>
+    <button data-actions  type="button" class="btn-primary" (click)="openCreateAnnouncementDialog()">New Announcement</button>
   </app-page-title>
 
   <div class="flex-1 overflow-auto">
@@ -21,12 +21,25 @@
 
       <ng-container matColumnDef="visibility">
         <th mat-header-cell *matHeaderCellDef>Visibility</th>
-        <td mat-cell *matCellDef="let element">{{ element.visibility }}</td>
+        <td mat-cell *matCellDef="let element">
+          <span class="batch" [ngClass]="{
+          'batch-info': element.visibility == AnnouncementVisibility.PRIVATE,
+          'batch-secondary': element.visibility == AnnouncementVisibility.ALL_TEACHERS,
+          'batch-violet':element.visibility == AnnouncementVisibility.COURSE,
+          'batch-primary':element.visibility == AnnouncementVisibility.BATCH
+          }">{{ element.visibility }}</span>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef>Status</th>
-        <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+        <td mat-cell *matCellDef="let element">
+          <span class="batch" [ngClass]="{
+            'batch-success':element.status == AnnouncementStatus.PUBLISHED,
+            'batch-secondary':element.status == AnnouncementStatus.DRAFT,
+            'batch-warning':element.status == AnnouncementStatus.ARCHIVED,
+            'batch-danger':element.status == AnnouncementStatus.DELETED || element.status == AnnouncementStatus.EXPIRED
+          }">{{ element.status }}</span></td>
       </ng-container>
 
       <ng-container matColumnDef="createdDate">
@@ -36,7 +49,13 @@
 
       <ng-container matColumnDef="lastModifiedDate">
         <th mat-header-cell *matHeaderCellDef>Last Modified Date</th>
-        <td mat-cell *matCellDef="let element">{{ element.lastModifiedDate }}</td>
+        <td mat-cell *matCellDef="let element">
+          @if (element.lastModifiedDate){
+            {{ element.lastModifiedDate }}
+          } @else {
+            N/A
+          }
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="actions">

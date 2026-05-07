@@ -14,6 +14,13 @@ import {AlertService} from '../../../../../core/services/alerts/alert.service';
 import {Edit, Eye, FileUser, LucideAngularModule} from 'lucide-angular';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {MatDialog} from '@angular/material/dialog';
+import {
+  CreateAnnouncementDialogComponent
+} from './model/create-announcement-dialog/create-announcement-dialog.component';
+import {NgClass} from '@angular/common';
+import {AnnouncementStatus} from '../../../../../core/enums/AnnouncementStatus';
+import {AnnouncementVisibility} from '../../../../../core/enums/AnnouncementVisibility';
 
 @Component({
   selector: 'app-announcements-management',
@@ -31,7 +38,8 @@ import {MatPaginator, PageEvent} from '@angular/material/paginator';
     MatRow,
     LucideAngularModule,
     MatTooltip,
-    MatPaginator
+    MatPaginator,
+    NgClass
   ],
   templateUrl: './announcements-management.component.html',
   styleUrl: './announcements-management.component.css'
@@ -40,6 +48,7 @@ export class AnnouncementsManagementComponent implements OnInit {
 
   private readonly announcementService :AnnouncementService = inject(AnnouncementService);
   private readonly alertService:AlertService = inject(AlertService);
+  private readonly dialog:MatDialog = inject(MatDialog);
 
   // table related variables
   protected readonly columns:string[] = ['id','title','visibility','status','createdDate','lastModifiedDate','actions'];
@@ -77,6 +86,20 @@ export class AnnouncementsManagementComponent implements OnInit {
     this.loadAnnouncements();
   }
 
+  protected openCreateAnnouncementDialog(){
+    const dialogRef =  this.dialog.open(CreateAnnouncementDialogComponent,{
+      maxWidth: '100vh',
+      width: '500%',
+      panelClass: 'create-announcement-dialog'
+    });
+
+    dialogRef.afterClosed().subscribe(()=>{
+      this.loadAnnouncements();
+    })
+  }
+
   protected readonly Eye = Eye;
   protected readonly Edit = Edit;
+  protected readonly AnnouncementStatus = AnnouncementStatus;
+  protected readonly AnnouncementVisibility = AnnouncementVisibility;
 }
