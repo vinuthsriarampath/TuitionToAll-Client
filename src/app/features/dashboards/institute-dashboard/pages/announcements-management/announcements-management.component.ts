@@ -65,7 +65,7 @@ export class AnnouncementsManagementComponent implements OnInit {
   }
 
   loadAnnouncements(){
-    this.announcementService.getAllAnnouncements().subscribe({
+    this.announcementService.getAllAnnouncements(this.pageIndex,this.pageSize).subscribe({
       next: (res) => {
         if (res){
           this.dataSource.data = res.data ?? [];
