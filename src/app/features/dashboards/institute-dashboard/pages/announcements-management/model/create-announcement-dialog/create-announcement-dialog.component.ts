@@ -231,5 +231,4 @@ export class CreateAnnouncementDialogComponent implements OnInit{
   }
 
   protected readonly Megaphone = Megaphone;
-  protected readonly AnnouncementVisibility = AnnouncementVisibility;
 }
