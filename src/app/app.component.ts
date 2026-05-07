@@ -9,11 +9,13 @@
  * All rights reserved.
  */
 
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {RouterOutlet} from '@angular/router';
 import {initFlowbite} from 'flowbite';
 import {QuillModule} from 'ngx-quill';
+import {AuthenticationService} from './core/services/auth/authentication.service';
+import {UserService} from './core/services/user/user.service';
 
 @Component({
   selector: 'app-root',
@@ -22,8 +24,25 @@ import {QuillModule} from 'ngx-quill';
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit{
+
+  private readonly authService:AuthenticationService = inject(AuthenticationService);
+  private readonly userService:UserService = inject(UserService);
+
   ngOnInit(): void {
     initFlowbite();
+
+    const token = this.authService.getAuthToken();
+
+    if (token) {
+      this.authService.verifyToken().subscribe({
+        next: (res) => {
+          if (res.data) this.userService.setCurrentUser(res.data);
+        },
+        error: () => {
+          localStorage.removeItem('token');
+        }
+      });
+    }
   }
   title = 'TuitionToAll';
 }
