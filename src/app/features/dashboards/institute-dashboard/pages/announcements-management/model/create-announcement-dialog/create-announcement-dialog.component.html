@@ -55,12 +55,12 @@
           Title <span class="text-red-500">*</span>
         </label>
 
-        <input id="title" class="form-input" formControlName="title" placeholder="Enter announcement title" [disabled]="loading" [class.form-input-error]="form.get('title')?.invalid && form.get('title')?.touched"/>
+        <input id="title" class="form-input" formControlName="title" placeholder="Enter announcement title" [class.form-input-error]="form.get('title')?.invalid && form.get('title')?.touched"/>
         @if (form.get('title')?.errors?.['required'] && form.get('title')?.touched){
           <p class="form-error"> * Title is Mandatory!</p>
         }
-        @if (form.get('title')?.errors?.['title'] && form.get('title')?.touched){
-          <p class="form-error"> * {{ form.get('title')?.errors?.['title'].message }}</p>
+        @if (form.get('title')?.errors?.['server'] ){
+          <p class="form-error"> * {{ form.get('title')?.errors?.['server'] }}</p>
         }
       </div>
 
@@ -80,8 +80,8 @@
         @if (form.get('description')?.errors?.['required'] && form.get('description')?.touched){
           <p class="form-error"> * Description is Mandatory!</p>
         }
-        @if (form.get('description')?.errors?.['description'] && form.get('description')?.touched){
-          <p class="form-error"> * {{ form.get('description')?.errors?.['description'].message }}</p>
+        @if (form.get('description')?.errors?.['server'] && form.get('description')?.touched){
+          <p class="form-error"> * {{ form.get('description')?.errors?.['server'] }}</p>
         }
 
       </div>
@@ -107,8 +107,8 @@
         @if (form.get('visibility')?.errors?.['required'] && form.get('visibility')?.touched){
           <p class="form-error"> * Visibility is Mandatory!</p>
         }
-        @if (form.get('visibility')?.errors?.['visibility'] && form.get('visibility')?.touched){
-          <p class="form-error"> * {{ form.get('visibility')?.errors?.['visibility'].message }}</p>
+        @if (form.get('visibility')?.errors?.['server'] && form.get('visibility')?.touched){
+          <p class="form-error"> * {{ form.get('visibility')?.errors?.['server'] }}</p>
         }
       </div>
 
@@ -133,8 +133,8 @@
         @if (form.get('status')?.errors?.['required'] && form.get('status')?.touched){
           <p class="form-error"> * Status is Mandatory!</p>
         }
-        @if (form.get('status')?.errors?.['status'] && form.get('status')?.touched){
-          <p class="form-error"> * {{ form.get('status')?.errors?.['status'].message }}</p>
+        @if (form.get('status')?.errors?.['server'] ){
+          <p class="form-error"> * {{ form.get('status')?.errors?.['server'] }}</p>
         }
       </div>
 
@@ -173,8 +173,8 @@
             }
 
           </select>
-          @if (form.get('courseId')?.errors?.['courseId'] && form.get('courseId')?.touched){
-            <p class="form-error"> * {{ form.get('courseId')?.errors?.['courseId'].message }}</p>
+          @if (form.get('courseId')?.errors?.['server']){
+            <p class="form-error"> * {{ form.get('courseId')?.errors?.['server'] }}</p>
           }
 
           <!-- Selected Course Preview -->
@@ -206,7 +206,7 @@
 
           <label for="batch" class="form-label">Batch <span class="text-red-500">*</span></label>
 
-          <select id="batch" class="form-input" formControlName="batchId" [class.form-input-error]="form.get('batchId')?.invalid && form.get('batchId')?.touched">
+          <select id="batch" class="form-input" formControlName="batchId" [class.form-input-error]="(form.get('batchId')?.invalid || form.get('expireAt')?.errors?.['server']) && form.get('batchId')?.touched">
 
             @if (!form.get('courseId')?.value) {
               <option [ngValue]="null" disabled selected>
@@ -225,8 +225,8 @@
             }
           </select>
 
-          @if (form.get('batchId')?.errors?.['batchId'] && form.get('batchId')?.touched){
-            <p class="form-error"> * {{ form.get('batchId')?.errors?.['batchId'].message }}</p>
+          @if (form.get('batchId')?.errors?.['server'] ){
+            <p class="form-error"> * {{ form.get('batchId')?.errors?.['server'] }}</p>
           }
 
           <!-- Selected Batch Preview -->
@@ -255,8 +255,8 @@
         @if (form.get('expireAt')?.errors?.['required'] && form.get('expireAt')?.touched){
           <p class="form-error"> * expireAt is Mandatory!</p>
         }
-        @if (form.get('expireAt')?.errors?.['expireAt'] && form.get('expireAt')?.touched){
-          <p class="form-error"> * {{ form.get('expireAt')?.errors?.['expireAt'].message }}</p>
+        @if (form.get('expireAt')?.errors?.['server'] ){
+          <p class="form-error">{{ form.get('expireAt')?.errors?.['server'] }}</p>
         }
       </div>
 

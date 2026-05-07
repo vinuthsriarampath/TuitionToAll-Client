@@ -182,23 +182,22 @@ export class CreateAnnouncementDialogComponent implements OnInit{
           }
         },
         error:(err) =>{
-          const errors =  err.error?.errors;
+          this.triggerLoading();
 
-          if (errors && errors.length > 0) {
-            for (const e of errors) {
+          const errors = err.error?.errors;
+
+          console.log(errors);
+
+          if (errors) {
+            errors.forEach((e: any) => {
               this.form.get(e.field)?.setErrors({
                 server: e.message
               });
-            }
-            this.triggerLoading();
-          }else if(err.error?.message){
-            this.triggerLoading();
-            this.form.setErrors({server: err.error.message});
-          }else {
-            this.triggerLoading();
-            this.alertService.triggerErrorAlert("An unexpected error occurred");
-            this.form.setErrors({server: "An unexpected error occurred"});
+            });
+          }else{
+            this.form.setErrors({server: err.error.message()});
           }
+
         }
       })
     }
