@@ -18,7 +18,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {
   CreateAnnouncementDialogComponent
 } from './model/create-announcement-dialog/create-announcement-dialog.component';
-import {NgClass} from '@angular/common';
+import {DatePipe, NgClass} from '@angular/common';
 import {AnnouncementStatus} from '../../../../../core/enums/AnnouncementStatus';
 import {AnnouncementVisibility} from '../../../../../core/enums/AnnouncementVisibility';
 import {
@@ -42,7 +42,8 @@ import {
     LucideAngularModule,
     MatTooltip,
     MatPaginator,
-    NgClass
+    NgClass,
+    DatePipe
   ],
   templateUrl: './announcements-management.component.html',
   styleUrl: './announcements-management.component.css'
