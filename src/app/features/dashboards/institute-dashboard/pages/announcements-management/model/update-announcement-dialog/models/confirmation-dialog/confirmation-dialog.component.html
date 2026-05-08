@@ -1,0 +1,63 @@
+<div class="bg-white rounded-md shadow-lg border border-gray-200 overflow-hidden w-[450px]">
+
+  <!-- Header -->
+  <div class="px-5 py-4 border-b border-gray-200 bg-gray-50 flex items-center gap-3">
+
+    <!-- Icon -->
+    <div
+      class="p-2 rounded-xl"
+      [ngClass]="{
+        'bg-red-100 text-red-600': data.type === 'danger',
+        'bg-yellow-100 text-yellow-600': data.type === 'warning',
+        'bg-blue-100 text-blue-600': data.type === 'info',
+        'bg-green-100 text-green-600': data.type === 'success'
+      }">
+
+      <lucide-icon [img]="data.icon" [size]="18"></lucide-icon>
+
+    </div>
+
+    <!-- Title -->
+    <div>
+      <h1 class="text-lg font-semibold text-gray-800">
+        {{ data.title }}
+      </h1>
+
+      <p class="text-xs text-gray-500">
+        Please confirm your action
+      </p>
+    </div>
+
+  </div>
+
+  <!-- Body -->
+  <div class="p-5">
+
+    <p class="text-sm text-gray-600 leading-relaxed">
+      {{ data.message }}
+    </p>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="px-5 py-4 border-t border-gray-200 flex justify-end gap-3">
+
+    <button
+      type="button"
+      class="btn-mini-secondary"
+      (click)="onCancel()">
+
+      Cancel
+    </button>
+
+    <button
+      type="button"
+      [class]="data.confirmButtonClass"
+      (click)="onConfirm()">
+
+      {{ data.confirmText }}
+    </button>
+
+  </div>
+
+</div>
