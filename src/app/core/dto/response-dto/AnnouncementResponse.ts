@@ -7,7 +7,7 @@ export class AnnouncementResponse {
   description!: string;
   visibility!: AnnouncementVisibility;
   status!: AnnouncementStatus;
-  isPinned!: boolean;
+  pinned!: boolean;
   publishedDate!: string;     // ISO string
   expireAt!: string;          // ISO string
   createdDate!: string;       // ISO string

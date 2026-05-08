@@ -28,7 +28,7 @@ export class AnnouncementService {
     return this.http.patch<ApiResponse<AnnouncementResponse>>(`${this.baseUrl}/${announcementId}/visibility`, request);
   }
 
-  updateAnnouncementTitleAndDescription(announcementId: number, request: AnnouncementUpdateRequest): Observable<ApiResponse<AnnouncementResponse>> {
+  updateAnnouncement(announcementId: number, request: AnnouncementUpdateRequest): Observable<ApiResponse<AnnouncementResponse>> {
     return this.http.patch<ApiResponse<AnnouncementResponse>>(`${this.baseUrl}/${announcementId}`, request);
   }
 
@@ -64,5 +64,17 @@ export class AnnouncementService {
     }
 
     return this.http.get<PaginatedApiResponse<AnnouncementResponse>>(`${this.baseUrl}`, { params });
+  }
+
+  publishAnnouncement(announcementId:number):Observable<ApiResponse<AnnouncementResponse>>{
+    return this.http.patch<ApiResponse<AnnouncementResponse>>(`${this.baseUrl}/${announcementId}/publish`,null);
+  }
+
+  deleteAnnouncement(announcementId:number):Observable<ApiResponse<AnnouncementResponse>>{
+    return this.http.delete<ApiResponse<AnnouncementResponse>>(`${this.baseUrl}/${announcementId}`);
+  }
+
+  getAnnouncementById(announcementId:number):Observable<ApiResponse<AnnouncementResponse>>{
+    return this.http.get<ApiResponse<AnnouncementResponse>>(`${this.baseUrl}/${announcementId}`);
   }
 }
