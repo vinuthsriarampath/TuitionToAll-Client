@@ -65,7 +65,7 @@
             <button  matTooltip="View Announcement" matTooltipPosition="above" class="cursor-pointer">
               <lucide-icon [img]="Eye" [size]="16"></lucide-icon>
             </button>
-            <button matTooltip="Edit Announcement" matTooltipPosition="above" class="cursor-pointer">
+            <button (click)="openUpdateAnnouncementDialog(element.id)" matTooltip="Edit Announcement" matTooltipPosition="above" class="cursor-pointer">
               <lucide-icon [img]="Edit" [size]="16"></lucide-icon>
             </button>
           </div>

@@ -21,6 +21,9 @@ import {
 import {NgClass} from '@angular/common';
 import {AnnouncementStatus} from '../../../../../core/enums/AnnouncementStatus';
 import {AnnouncementVisibility} from '../../../../../core/enums/AnnouncementVisibility';
+import {
+  UpdateAnnouncementDialogComponent
+} from './model/update-announcement-dialog/update-announcement-dialog.component';
 
 @Component({
   selector: 'app-announcements-management',
@@ -91,6 +94,19 @@ export class AnnouncementsManagementComponent implements OnInit {
       maxWidth: '100vh',
       width: '500%',
       panelClass: 'create-announcement-dialog'
+    });
+
+    dialogRef.afterClosed().subscribe(()=>{
+      this.loadAnnouncements();
+    })
+  }
+
+  protected openUpdateAnnouncementDialog(announcementId:number){
+    const dialogRef =  this.dialog.open(UpdateAnnouncementDialogComponent,{
+      maxWidth: '100vh',
+      width: '500%',
+      panelClass: 'update-announcement-dialog',
+      data: announcementId
     });
 
     dialogRef.afterClosed().subscribe(()=>{
