@@ -26,6 +26,13 @@ import {
   ConfirmationDialogComponent,
   ConfirmationDialogData
 } from './models/confirmation-dialog/confirmation-dialog.component';
+import {
+  UpdateAnnouncementContentDialogComponent,
+  UpdateAnnouncementContentDialogData
+} from './models/update-announcement-content-dialog/update-announcement-content-dialog.component';
+import {
+  AnnouncementUpdateRequest
+} from '../../../../../../../core/dto/request-dto/announcement/AnnouncementUpdateRequest';
 
 @Component({
   selector: 'app-update-announcement-dialog',
@@ -69,7 +76,22 @@ export class UpdateAnnouncementDialogComponent {
       this.dialogRef.close();
   }
   openContentUpdate() {
-      throw new Error("Method not implemented.");
+      const formData:UpdateAnnouncementContentDialogData = {
+        id: this.announcement.id,
+        title: this.announcement.title,
+        description: this.announcement.description,
+        expireAt: this.announcement.expireAt
+      }
+
+      const dialogRef = this.dialog.open(UpdateAnnouncementContentDialogComponent, {
+        disableClose: true,
+        width: '600px',
+        data: formData
+      });
+
+      dialogRef.afterClosed().subscribe((updatedData: AnnouncementResponse) => {
+        if (updatedData) this.announcement = updatedData;
+      });
   }
   protected publishAnnouncement() {
     const confirmationData:ConfirmationDialogData = {
