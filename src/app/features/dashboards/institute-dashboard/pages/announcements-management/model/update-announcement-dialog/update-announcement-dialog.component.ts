@@ -31,8 +31,8 @@ import {
   UpdateAnnouncementContentDialogData
 } from './models/update-announcement-content-dialog/update-announcement-content-dialog.component';
 import {
-  AnnouncementUpdateRequest
-} from '../../../../../../../core/dto/request-dto/announcement/AnnouncementUpdateRequest';
+  UpdateAnnouncementVisibilityDialogComponent, UpdateAnnouncementVisibilityDialogData
+} from './models/update-announcement-visibility-dialog/update-announcement-visibility-dialog.component';
 
 @Component({
   selector: 'app-update-announcement-dialog',
@@ -261,7 +261,23 @@ export class UpdateAnnouncementDialogComponent {
     });
   }
   protected openVisibilityUpdate() {
-    throw new Error("Method not implemented.");
+    const formData:UpdateAnnouncementVisibilityDialogData = {
+      id : this.announcement.id,
+      visibility : this.announcement.visibility,
+      courseId: this.announcement.courseId,
+      batchId: this.announcement.batchId
+
+    }
+    const dialogRef = this.dialog.open(UpdateAnnouncementVisibilityDialogComponent,{
+      disableClose: true,
+      width: '600px',
+      data: formData
+    })
+
+    dialogRef.afterClosed().subscribe((updatedData:AnnouncementResponse) => {
+      if (updatedData) this.announcement = updatedData;
+    })
+
   }
 
   private triggerConfirmation(confirmationData:ConfirmationDialogData):MatDialogRef<ConfirmationDialogComponent>{
