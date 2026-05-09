@@ -90,8 +90,6 @@ export class UpdateAnnouncementContentDialogComponent {
 
         const errors = err.error?.errors;
 
-        console.log(errors);
-
         if (errors) {
           errors.forEach((e: any) => {
             this.form.get(e.field)?.setErrors({
