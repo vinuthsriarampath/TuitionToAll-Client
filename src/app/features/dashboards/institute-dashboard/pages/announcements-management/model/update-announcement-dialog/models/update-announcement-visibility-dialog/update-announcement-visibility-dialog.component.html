@@ -1,0 +1,222 @@
+<div class="reactive bg-white rounded-md shadow-lg border border-gray-200 overflow-hidden">
+
+  @if (loading) {
+    <div class="absolute inset-0 z-50 bg-white/70 backdrop-blur-[2px] flex items-center justify-center">
+
+      <div class="bg-white px-6 py-5 rounded-2xl shadow-xl border border-gray-200 flex flex-col items-center gap-3 min-w-[180px]">
+
+        <!-- Spinner -->
+        <div class="w-10 h-10 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
+
+        <!-- Text -->
+        <div class="text-center">
+          <p class="text-sm font-semibold text-gray-700">
+            Creating Announcement
+          </p>
+          <p class="text-xs text-gray-500 mt-1">
+            Please wait...
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  }
+
+  <!-- Header -->
+  <div class="flex justify-between items-center px-5 py-4 border-b border-gray-200 bg-gray-50">
+
+    <div class="flex items-center gap-2">
+
+      <div class="p-2 rounded-xl bg-violet-100 text-violet-600">
+        <lucide-icon [img]="Eye" [size]="18"></lucide-icon>
+      </div>
+
+      <div>
+        <h1 class="text-lg font-semibold text-gray-800">
+          Update Visibility
+        </h1>
+
+        <p class="text-xs text-gray-500">
+          Change announcement visibility and relationships
+        </p>
+      </div>
+
+    </div>
+
+    <button type="button" class="p-2 rounded-lg hover:bg-red-100 hover:text-red-600 transition cursor-pointer" (click)="onCancel()">
+
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
+      </svg>
+
+    </button>
+
+  </div>
+
+  <!-- Body -->
+  <div class="max-h-[80vh] overflow-y-auto">
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="p-5 grid grid-cols-2 gap-5">
+
+      <!-- Current Visibility -->
+      <div class="col-span-2 p-4 rounded-2xl border border-gray-200 bg-gray-50">
+
+        <p class="text-xs text-gray-500 mb-2">
+          Current Visibility
+        </p>
+
+        <span class="batch" [ngClass]="{
+          'batch-info': originalData.visibility == AnnouncementVisibility.PRIVATE,
+          'batch-secondary': originalData.visibility == AnnouncementVisibility.ALL_TEACHERS,
+          'batch-violet': originalData.visibility == AnnouncementVisibility.COURSE,
+          'batch-primary': originalData.visibility == AnnouncementVisibility.BATCH
+        }">
+          {{ originalData.visibility }}
+        </span>
+
+      </div>
+
+      <!-- Visibility -->
+      <div class="col-span-2">
+
+        <label for="visibility" class="form-label">
+          Visibility <span class="text-red-500">*</span>
+        </label>
+
+        <select id="visibility" class="form-input" formControlName="visibility" [class.form-input-error]="form.get('visibility')?.invalid && form.get('visibility')?.touched">
+
+          <option [ngValue]="null" disabled>
+            -- Select Visibility --
+          </option>
+
+          @for (v of visibilities; track v) {
+            <option [value]="v">
+              {{ v }}
+            </option>
+          }
+
+        </select>
+
+        @if (this.form.get('visibility')?.errors?.['required'] && this.form.get('visibility')?.touched){
+          <p class="form-error">
+            * Visibility is required
+          </p>
+        }
+
+        @if (this.form.get('visibility')?.errors?.['server']) {
+          <p class="form-error">
+            * {{ this.form.get('visibility')?.errors?.['server'] }}
+          </p>
+        }
+
+      </div>
+
+      <!-- Course -->
+      @if (form.value.visibility === 'COURSE' || form.value.visibility === 'BATCH') {
+
+        <div class="col-span-2 p-4 rounded-2xl border border-blue-100 bg-blue-50">
+
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-2 h-2 rounded-full bg-blue-500"></div>
+
+            <h2 class="text-sm font-semibold text-blue-700">
+              Course Selection
+            </h2>
+          </div>
+
+          <label for="courseId" class="form-label">
+            Course <span class="text-red-500">*</span>
+          </label>
+
+          <select id="courseId" class="form-input" formControlName="courseId">
+
+            <option [ngValue]="null" disabled>
+              -- Select Course --
+            </option>
+
+            @for (c of courses; track c.id) {
+              <option [ngValue]="c.id">
+                {{ c.title }}
+              </option>
+            }
+
+          </select>
+          @if (this.form.get('courseId')?.errors?.['server']) {
+            <p class="form-error">
+              * {{ this.form.get('courseId')?.errors?.['server'] }}
+            </p>
+          }
+        </div>
+
+      }
+
+      <!-- Batch -->
+      @if (form.value.visibility === 'BATCH') {
+
+        <div class="col-span-2 p-4 rounded-2xl border border-purple-100 bg-purple-50">
+
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-2 h-2 rounded-full bg-purple-500"></div>
+
+            <h2 class="text-sm font-semibold text-purple-700">
+              Batch Selection
+            </h2>
+          </div>
+
+          <label for="batchId" class="form-label">
+            Batch <span class="text-red-500">*</span>
+          </label>
+
+          <select id="batchId" class="form-input" formControlName="batchId">
+
+            @if (!form.get('courseId')?.value) {
+              <option [ngValue]="null" disabled selected>
+                -- Select a Course First --
+              </option>
+            } @else if (batches.length == 0){
+              <option [ngValue]="null" disabled selected>
+                No batches available for the selected course
+              </option>
+            } @else {
+              @for (b of batches; track b.id) {
+                <option [ngValue]="b.id">
+                  {{ b.name }}
+                </option>
+              }
+            }
+
+          </select>
+
+          @if (this.form.get('batchId')?.errors?.['server']) {
+            <p class="form-error">
+              * {{ this.form.get('batchId')?.errors?.['server'] }}
+            </p>
+          }
+        </div>
+
+      }
+
+      <!-- Footer -->
+      <div class="col-span-2 flex justify-end gap-3 pt-3 border-t border-gray-200">
+
+        <button type="button" class="btn-mini-secondary" (click)="onCancel()">
+          Cancel
+        </button>
+
+        <button type="button" class="btn-mini-secondary" (click)="onReset()">
+          Reset
+        </button>
+
+        <button type="submit" class="btn-mini-primary" [disabled]="form.invalid || loading">
+          Update Visibility
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
