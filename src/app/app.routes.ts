@@ -58,6 +58,9 @@ import {
 import {
   AnnouncementsManagementComponent
 } from './features/dashboards/institute-dashboard/pages/announcements-management/announcements-management.component';
+import {
+  ViewAnnouncementComponent
+} from './features/dashboards/institute-dashboard/pages/announcements-management/pages/view-announcement/view-announcement.component';
 
 
 export const routes: Routes = [
@@ -178,6 +181,10 @@ export const routes: Routes = [
           {
             path: '',
             component: AnnouncementsManagementComponent
+          },
+          {
+            path: ':announcementId',
+            component: ViewAnnouncementComponent
           }
         ]
       }
