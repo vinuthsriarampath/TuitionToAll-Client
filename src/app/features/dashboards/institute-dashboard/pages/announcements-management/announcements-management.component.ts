@@ -11,7 +11,7 @@ import {
 } from '@angular/material/table';
 import {AnnouncementResponse} from '../../../../../core/dto/response-dto/AnnouncementResponse';
 import {AlertService} from '../../../../../core/services/alerts/alert.service';
-import {Edit, Eye, FileUser, LucideAngularModule} from 'lucide-angular';
+import {Edit, Eye, LucideAngularModule} from 'lucide-angular';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatDialog} from '@angular/material/dialog';
@@ -24,6 +24,7 @@ import {AnnouncementVisibility} from '../../../../../core/enums/AnnouncementVisi
 import {
   UpdateAnnouncementDialogComponent
 } from './model/update-announcement-dialog/update-announcement-dialog.component';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-announcements-management',
@@ -43,7 +44,8 @@ import {
     MatTooltip,
     MatPaginator,
     NgClass,
-    DatePipe
+    DatePipe,
+    RouterLink
   ],
   templateUrl: './announcements-management.component.html',
   styleUrl: './announcements-management.component.css'
