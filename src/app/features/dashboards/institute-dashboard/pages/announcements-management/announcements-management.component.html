@@ -1,13 +1,12 @@
-<div class="h-full- flex flex-col">
-  <app-page-title
-    [title]="'Announcements Management'"
-    [description]="'Create and manage announcements for your institute'"
-    [backButton]="false">
+<app-page-layout
+  [headerTitle]="'Announcements Management'"
+  [headerDescription]="'Create and manage announcements for your institute'"
+  [showBackButton]="false"
+>
 
-    <button data-actions  type="button" class="btn-primary" (click)="openCreateAnnouncementDialog()">New Announcement</button>
-  </app-page-title>
+  <button data-actions  type="button" class="btn-primary" (click)="openCreateAnnouncementDialog()">New Announcement</button>
 
-  <div class="flex-1 overflow-auto">
+  <div data-body>
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>#</th>
@@ -83,4 +82,5 @@
       (page)="onPageChange($event)"
     ></mat-paginator>
   </div>
-</div>
+
+</app-page-layout>

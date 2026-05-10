@@ -25,6 +25,7 @@ import {
   UpdateAnnouncementDialogComponent
 } from './model/update-announcement-dialog/update-announcement-dialog.component';
 import {RouterLink} from '@angular/router';
+import {PageLayoutComponent} from '../../../../../core/layouts/page-layout/page-layout.component';
 
 @Component({
   selector: 'app-announcements-management',
@@ -45,7 +46,8 @@ import {RouterLink} from '@angular/router';
     MatPaginator,
     NgClass,
     DatePipe,
-    RouterLink
+    RouterLink,
+    PageLayoutComponent
   ],
   templateUrl: './announcements-management.component.html',
   styleUrl: './announcements-management.component.css'
