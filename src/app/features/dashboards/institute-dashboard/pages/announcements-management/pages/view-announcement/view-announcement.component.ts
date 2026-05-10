@@ -1,5 +1,4 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {PageTitleComponent} from '../../../../../../../shared/components/page-title/page-title.component';
 import {AnnouncementService} from '../../../../../../../core/services/announcements/announcement.service';
 import {ActivatedRoute} from '@angular/router';
 import {AnnouncementResponse} from '../../../../../../../core/dto/response-dto/AnnouncementResponse';
@@ -10,17 +9,18 @@ import {BookOpen, CalendarClock, LucideAngularModule, Pin, Users} from 'lucide-a
 import {AnnouncementStatus} from '../../../../../../../core/enums/AnnouncementStatus';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {QuillEditorComponent} from 'ngx-quill';
+import {PageLayoutComponent} from '../../../../../../../core/layouts/page-layout/page-layout.component';
 
 @Component({
   selector: 'app-view-announcement',
   imports: [
-    PageTitleComponent,
     NgClass,
     DatePipe,
     LucideAngularModule,
     FormsModule,
     QuillEditorComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PageLayoutComponent
   ],
   templateUrl: './view-announcement.component.html',
   styleUrl: './view-announcement.component.css'

@@ -1,19 +1,15 @@
-<div class="h-full flex flex-col">
-  <app-page-title [title]="`${announcement.title}`" [description]="''" [backButton]="true"></app-page-title>
-<!--  <div>-->
-<!--    <span class="batch" [ngClass]="{-->
-<!--      'batch-info': announcement.visibility == AnnouncementVisibility.PRIVATE,-->
-<!--      'batch-secondary': announcement.visibility == AnnouncementVisibility.ALL_TEACHERS,-->
-<!--      'batch-violet': announcement.visibility == AnnouncementVisibility.COURSE,-->
-<!--      'batch-primary': announcement.visibility == AnnouncementVisibility.BATCH-->
-<!--    }">{{ announcement.visibility }}</span>-->
-<!--  </div>-->
-  <div class="flex-1 min-w-0">
+<app-page-layout
+  [headerTitle]="`${announcement.title}`"
+  [headerDescription]="''"
+  [showBackButton]="true"
+>
+  <div data-body>
+    <div class="flex-1 min-w-0">
 
-    <div class="flex items-center gap-2 flex-wrap mb-2">
+      <div class="flex items-center gap-2 flex-wrap mb-2">
 
-      <!-- Visibility -->
-      <span class="batch" [ngClass]="{
+        <!-- Visibility -->
+        <span class="batch" [ngClass]="{
                 'batch-info': announcement.visibility == AnnouncementVisibility.PRIVATE,
                 'batch-secondary': announcement.visibility == AnnouncementVisibility.ALL_TEACHERS,
                 'batch-violet': announcement.visibility == AnnouncementVisibility.COURSE,
@@ -22,8 +18,8 @@
                 {{ announcement.visibility }}
               </span>
 
-      <!-- Status -->
-      <span class="batch" [ngClass]="{
+        <!-- Status -->
+        <span class="batch" [ngClass]="{
                 'batch-success': announcement.status == AnnouncementStatus.PUBLISHED,
                 'batch-secondary': announcement.status == AnnouncementStatus.DRAFT,
                 'batch-warning': announcement.status == AnnouncementStatus.ARCHIVED,
@@ -32,44 +28,44 @@
                 {{ announcement.status }}
               </span>
 
-      <!-- Pinned -->
-      @if (announcement.pinned) {
-        <span class="batch batch-warning flex items-center gap-1">
+        <!-- Pinned -->
+        @if (announcement.pinned) {
+          <span class="batch batch-warning flex items-center gap-1">
                   <lucide-icon [img]="Pin" [size]="12"></lucide-icon>
                   PINNED
                 </span>
-      }
-
-      <div class="text-sm text-gray-500 flex flex-wrap gap-x-5 gap-y-1">
-
-        @if (announcement.courseId) {
-          <div class="flex items-center gap-1">
-            <lucide-icon [img]="BookOpen" [size]="14"></lucide-icon>
-            {{ announcement.courseId }}
-          </div>
         }
 
-        @if (announcement.batchId) {
-          <div class="flex items-center gap-1">
-            <lucide-icon [img]="Users" [size]="14"></lucide-icon>
-            {{ announcement.batchId }}
-          </div>
-        }
+        <div class="text-sm text-gray-500 flex flex-wrap gap-x-5 gap-y-1">
 
-        <div class="flex items-center gap-1">
-          <lucide-icon [img]="CalendarClock" [size]="14"></lucide-icon>
-          Expires {{ announcement.expireAt | date:'medium' }}
+          @if (announcement.courseId) {
+            <div class="flex items-center gap-1">
+              <lucide-icon [img]="BookOpen" [size]="14"></lucide-icon>
+              {{ announcement.courseId }}
+            </div>
+          }
+
+          @if (announcement.batchId) {
+            <div class="flex items-center gap-1">
+              <lucide-icon [img]="Users" [size]="14"></lucide-icon>
+              {{ announcement.batchId }}
+            </div>
+          }
+
+          <div class="flex items-center gap-1">
+            <lucide-icon [img]="CalendarClock" [size]="14"></lucide-icon>
+            Expires {{ announcement.expireAt | date:'medium' }}
+          </div>
+
         </div>
 
       </div>
 
+      <div class="flex-1 overflow-y-auto">
+        <quill-editor id="description" class="w-full h-full px-25 mt-4" [modules]="{toolbar:false}" [readOnly]="true" [ngModel]="announcement.description"></quill-editor>
+      </div>
+
+
     </div>
-
-    <div class="flex-1 overflow-y-auto ">
-      <quill-editor id="description" class="w-full h-full" [modules]="{toolbar:false}" [readOnly]="true" [ngModel]="announcement.description"></quill-editor>
-    </div>
-
-
   </div>
-
-</div>
+</app-page-layout>
