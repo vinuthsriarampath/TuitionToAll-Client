@@ -1,0 +1,13 @@
+<div class="h-full- flex flex-col">
+  <app-page-title
+    [title]="headerTitle()"
+    [description]="headerDescription()"
+    [backButton]="showBackButton()">
+
+    <ng-content data-actions select="[data-actions]"></ng-content>
+  </app-page-title>
+
+  <div class="flex-1 overflow-auto">
+    <ng-content select="[data-body]"></ng-content>
+  </div>
+</div>
