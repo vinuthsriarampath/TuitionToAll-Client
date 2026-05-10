@@ -9,6 +9,7 @@ import {RouterLink} from '@angular/router';
 import {Eye, LucideAngularModule, Pen} from 'lucide-angular';
 import {MatTooltip} from '@angular/material/tooltip';
 import {PageTitleComponent} from '../../../../../shared/components/page-title/page-title.component';
+import {PageLayoutComponent} from '../../../../../core/layouts/page-layout/page-layout.component';
 
 @Component({
   selector: 'app-institute-course-management',
@@ -21,6 +22,7 @@ import {PageTitleComponent} from '../../../../../shared/components/page-title/pa
     LucideAngularModule,
     MatTooltip,
     PageTitleComponent,
+    PageLayoutComponent,
   ],
   templateUrl: './institute-course-management.component.html',
   styleUrl: './institute-course-management.component.css'
