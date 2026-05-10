@@ -30,7 +30,6 @@ import {PageLayoutComponent} from '../../../../../core/layouts/page-layout/page-
 @Component({
   selector: 'app-announcements-management',
   imports: [
-    PageTitleComponent,
     MatTable,
     MatColumnDef,
     MatHeaderCell,
