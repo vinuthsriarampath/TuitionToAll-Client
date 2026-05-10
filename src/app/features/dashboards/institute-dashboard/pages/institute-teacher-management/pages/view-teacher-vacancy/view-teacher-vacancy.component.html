@@ -1,10 +1,9 @@
-<div class="h-full flex flex-col">
-
-  <app-page-title [title]="'Teacher Vacancy Management'" [description]="'Manage all your vacancies here!'"
-                  [backButton]="true"></app-page-title>
-
-  <!-- 🔹 PAGE CONTENT -->
-  <div class="flex-1 overflow-auto">
+<app-page-layout
+  [headerTitle]="'Teacher Vacancy Management'"
+  [headerDescription]="'Manage all your vacancies here!'"
+  [showBackButton]="true"
+>
+  <div data-body>
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef>Title</th>
@@ -68,5 +67,4 @@
       (page)="onPageChange($event)"
     ></mat-paginator>
   </div>
-
-</div>
+</app-page-layout>

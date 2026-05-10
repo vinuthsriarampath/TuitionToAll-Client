@@ -1,12 +1,16 @@
 import {Component, inject, OnInit, ViewChild} from '@angular/core';
-import {PageTitleComponent} from '../../../../../../../shared/components/page-title/page-title.component';
 import {TeacherVacancyService} from '../../../../../../../core/services/teacher-vacancy/teacher-vacancy.service';
 import {TeacherVacancy} from '../../../../../../../core/models/teacher-vacancy';
 import {
-  MatCell, MatCellDef,
+  MatCell,
+  MatCellDef,
   MatColumnDef,
-  MatHeaderCell, MatHeaderCellDef,
-  MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
   MatTable,
   MatTableDataSource
 } from '@angular/material/table';
@@ -24,11 +28,11 @@ import {
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {PaginatedApiResponse} from '../../../../../../../core/dto/response-dto/paginated-api-response';
 import {RouterLink} from '@angular/router';
+import {PageLayoutComponent} from '../../../../../../../core/layouts/page-layout/page-layout.component';
 
 @Component({
   selector: 'app-view-teacher-vacancy',
   imports: [
-    PageTitleComponent,
     MatTable,
     MatColumnDef,
     MatHeaderCell,
@@ -44,7 +48,8 @@ import {RouterLink} from '@angular/router';
     DatePipe,
     NgClass,
     MatPaginator,
-    RouterLink
+    RouterLink,
+    PageLayoutComponent
   ],
   templateUrl: './view-teacher-vacancy.component.html',
   styleUrl: './view-teacher-vacancy.component.css'
