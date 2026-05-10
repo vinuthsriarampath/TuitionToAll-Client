@@ -58,6 +58,47 @@ export class CourseAnnouncementListComponent implements OnInit{
     return pinned && new Date(expireAt).getTime() > Date.now();
   }
 
+  protected calculatePublishedDate(date: string): string {
+    const publishedDate = new Date(date);
+    const now = new Date();
+
+    const diffInMs = now.getTime() - publishedDate.getTime();
+
+    const seconds = Math.floor(diffInMs / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const months = Math.floor(days / 30);
+
+    // <= 59 seconds
+    if (seconds <= 59) {
+      return 'now';
+    }
+
+    // 1 - 59 minutes
+    if (minutes <= 59) {
+      return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+    }
+
+    // 1 - 23 hours
+    if (hours <= 23) {
+      return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+    }
+
+    // 1 - 29 days
+    if (days < 30) {
+      return `${days} day${days > 1 ? 's' : ''} ago`;
+    }
+
+    // 1 - 12 months
+    if (months <= 12) {
+      return `${months} month${months > 1 ? 's' : ''} ago`;
+    }
+
+    // More than 1 year
+    return publishedDate.toLocaleDateString();
+  }
+
 
   protected readonly Pin = Pin;
   protected readonly Number = Number;

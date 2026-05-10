@@ -16,7 +16,7 @@
             <lucide-icon [img]="Pin" [size]="18" class="rotate-[20deg] text-amber-600"></lucide-icon>
           }
         </div>
-        <p class="text-xs text-gray-500 cols-span-2">2 hours ago</p>
+        <p class="text-xs text-gray-500 cols-span-2">{{calculatePublishedDate(announcement.publishedDate)}}</p>
       </div>
     }
 
