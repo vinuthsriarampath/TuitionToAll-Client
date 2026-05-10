@@ -1,0 +1,64 @@
+import {Component, inject, input, OnInit} from '@angular/core';
+import {AnnouncementService} from '../../../../../../../../../core/services/announcements/announcement.service';
+import {AnnouncementResponse} from '../../../../../../../../../core/dto/response-dto/AnnouncementResponse';
+import {AlertService} from '../../../../../../../../../core/services/alerts/alert.service';
+import {
+  AnnouncementFilterRequest
+} from '../../../../../../../../../core/dto/request-dto/announcement/AnnouncementFilterRequest';
+import {AnnouncementStatus} from '../../../../../../../../../core/enums/AnnouncementStatus';
+import {LucideAngularModule, Pin} from 'lucide-angular';
+import {NgClass} from '@angular/common';
+import {RouterLink} from '@angular/router';
+@Component({
+  selector: 'app-course-announcement-list',
+  imports: [
+    LucideAngularModule,
+    NgClass,
+    RouterLink
+  ],
+  templateUrl: './course-announcement-list.component.html',
+  styleUrl: './course-announcement-list.component.css'
+})
+export class CourseAnnouncementListComponent implements OnInit{
+  protected announcements:AnnouncementResponse[] = [];
+
+  protected totalAnnouncements:number = 0;
+
+  private readonly announcementService:AnnouncementService = inject(AnnouncementService);
+  private readonly alertService = inject(AlertService);
+
+  courseId = input.required<number>();
+  recentAnnouncements = input.required<boolean>();
+
+  ngOnInit(): void {
+    this.loadAnnouncements();
+  }
+
+  private loadAnnouncements(){
+    if(this.recentAnnouncements()){
+      const filters:AnnouncementFilterRequest = new AnnouncementFilterRequest();
+      filters.status = AnnouncementStatus.PUBLISHED;
+      filters.courseId = this.courseId();
+
+      this.announcementService.getAllAnnouncements(0,10,'desc',['is_pinned','published_date'],filters).subscribe({
+        next: (res)=>{
+          if(res.data){
+            this.announcements = res.data;
+            this.totalAnnouncements = res.totalElements ?? 0;
+          }
+        },
+        error: (err)=>{
+          this.alertService.triggerErrorAlert(err.error.message);
+        }
+      })
+    }
+  }
+
+  isPinnedAndActive(expireAt: string, pinned: boolean): boolean {
+    return pinned && new Date(expireAt).getTime() > Date.now();
+  }
+
+
+  protected readonly Pin = Pin;
+  protected readonly Number = Number;
+}
