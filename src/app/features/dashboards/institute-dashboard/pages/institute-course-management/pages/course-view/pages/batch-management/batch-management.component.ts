@@ -1,6 +1,5 @@
 import {AfterViewInit, Component, inject, OnInit, ViewChild} from '@angular/core';
 import {ArrowLeft, Edit, Eye, LucideAngularModule} from 'lucide-angular';
-import {PageTitleComponent} from '../../../../../../../../../shared/components/page-title/page-title.component';
 import {BatchService} from '../../../../../../../../../core/services/batch/batch.service';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {AlertService} from '../../../../../../../../../core/services/alerts/alert.service';
@@ -23,12 +22,12 @@ import {Course} from '../../../../../../../../../core/models/course';
 import {CreateBatchDialogComponent} from './models/create-batch-dialog/create-batch-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {UpdateBatchDialogComponent} from './models/update-batch-dialog/update-batch-dialog.component';
+import {PageLayoutComponent} from '../../../../../../../../../core/layouts/page-layout/page-layout.component';
 
 @Component({
   selector: 'app-batch-management',
   imports: [
     LucideAngularModule,
-    PageTitleComponent,
     MatTable,
     MatColumnDef,
     MatHeaderCell,
@@ -42,7 +41,8 @@ import {UpdateBatchDialogComponent} from './models/update-batch-dialog/update-ba
     NgClass,
     MatTooltip,
     RouterLink,
-    MatPaginator
+    MatPaginator,
+    PageLayoutComponent
   ],
   templateUrl: './batch-management.component.html',
   styleUrl: './batch-management.component.css'
