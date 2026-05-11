@@ -16,12 +16,15 @@ import {
 } from '../../../core/dto/request-dto/update-user-dto/sub-user-details-update-dto/StudentDetailsUpdateRequest';
 import {UserService} from '../../../core/services/user/user.service';
 import {User} from '../../../core/models/user-models/user';
+import {DialogLayoutComponent} from '../../../core/layouts/dialog-layout/dialog-layout.component';
+import {SquarePen} from 'lucide-angular';
 
 @Component({
   selector: 'app-update-profile-dialog',
   imports: [
     FormsModule,
     NgIf,
+    DialogLayoutComponent,
   ],
   templateUrl: './update-profile-dialog.component.html',
   styleUrl: './update-profile-dialog.component.css'
@@ -128,4 +131,6 @@ export class UpdateProfileDialogComponent {
         return null;
     }
   }
+
+  protected readonly SquarePen = SquarePen;
 }
