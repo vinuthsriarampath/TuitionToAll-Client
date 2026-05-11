@@ -4,13 +4,16 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
 import {ProfileFileServiceService} from '../../../core/services/profile-files/profile-file-service.service';
 import {User} from '../../../core/models/user-models/user';
+import {DialogLayoutComponent} from '../../../core/layouts/dialog-layout/dialog-layout.component';
+import {ImageIcon} from 'lucide-angular';
 
 @Component({
   selector: 'app-update-user-profile-pic-dialog',
   imports: [
     ReactiveFormsModule,
     NgIf,
-    FormsModule
+    FormsModule,
+    DialogLayoutComponent
   ],
   templateUrl: './update-user-profile-pic-dialog.component.html',
   styleUrl: './update-user-profile-pic-dialog.component.css'
@@ -89,4 +92,6 @@ export class UpdateUserProfilePicDialogComponent {
   private triggerLoading(){
     this.isLoading = !this.isLoading;
   }
+
+  protected readonly ImageIcon = ImageIcon;
 }
