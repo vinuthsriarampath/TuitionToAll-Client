@@ -1,0 +1,51 @@
+<app-card-shell>
+
+  <app-card-header
+    title="Visibility Settings"
+    description="Manage announcement visibility">
+
+    <button card-action
+            class="btn-mini-primary flex items-center gap-1"
+            (click)="openVisibilityUpdate()">
+
+      <lucide-icon [img]="Eye" [size]="14"></lucide-icon>
+      Change Visibility
+    </button>
+
+  </app-card-header>
+
+  <div class="p-5 grid grid-cols-2 gap-5">
+
+    <div>
+
+      <p class="text-xs text-gray-500 mb-2">
+        Current Visibility
+      </p>
+
+      <app-badge
+        [text]="announcement().visibility"
+        [variant]="announcement().visibility == AnnouncementVisibility.PRIVATE ? 'info' :
+        announcement().visibility == AnnouncementVisibility.ALL_TEACHERS ? 'secondary' :
+        announcement().visibility == AnnouncementVisibility.COURSE ? 'violet' : 'primary'">
+      </app-badge>
+
+    </div>
+
+    @if (announcement().courseId) {
+
+        <app-info-row
+          label="Course"
+          [value]="announcement().courseId">
+        </app-info-row>
+
+    }
+
+    @if (announcement().batchId) {
+        <app-info-row
+          label="Batch"
+          [value]="announcement().batchId">
+        </app-info-row>
+    }
+  </div>
+
+</app-card-shell>
