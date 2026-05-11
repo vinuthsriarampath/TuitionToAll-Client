@@ -1,0 +1,81 @@
+<div class="w-full mb-3">
+  <app-card-shell>
+    <div class="p-3 flex gap-3 cursor-pointer">
+
+      <div class="w-1/3 relative">
+
+        <img
+          [ngSrc]="course().thumbnail ? environment.COURSE_API + course().thumbnail : 'no_image_provided.png'"
+          alt="thumbnail"
+          class="object-cover rounded-lg"
+          loading="lazy"
+          fill
+        />
+
+      </div>
+
+      <div class="flex flex-col justify-between flex-1">
+
+        <div>
+
+          <p class="font-semibold text-sm">
+            {{ course().title }}
+          </p>
+
+          <p class="text-xs text-gray-600 line-clamp-1 mt-1">
+            {{ course().description }}
+          </p>
+
+          <div class="flex flex-wrap gap-1 mt-2">
+
+            <app-badge
+              [text]="course().category ?? ''"
+              variant="info">
+            </app-badge>
+
+            <app-badge
+              [text]="course().language ?? ''"
+              variant="violet">
+            </app-badge>
+
+            <app-badge
+              [text]="course().level ?? ''"
+              [variant]="
+                  course().level === 'BEGINNER'
+                  ? 'success'
+                  : course().level === 'INTERMEDIATE'
+                  ? 'warning'
+                  : 'danger'
+                ">
+            </app-badge>
+
+          </div>
+
+        </div>
+
+        <div class="flex items-center justify-between mt-3">
+
+          <p class="font-semibold text-emerald-700 text-sm">
+
+            {{ (course()?.price ?? 0) > 0
+              ? ('Rs. ' + (course()?.price | currency:'':'':'1.0-2') + ' /=')
+              : 'Free'
+            }}
+
+          </p>
+
+          <button
+            class="btn-mini-primary">
+
+            View Details
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </app-card-shell>
+</div>
