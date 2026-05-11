@@ -1,0 +1,71 @@
+<app-card-shell>
+
+  <div class="p-5 border-b border-gray-100">
+
+    <div class="flex gap-2 flex-wrap mb-2">
+
+      <app-badge
+        [text]="announcement().visibility"
+        [variant]="announcement().visibility == AnnouncementVisibility.PRIVATE ? 'info' :
+        announcement().visibility == AnnouncementVisibility.ALL_TEACHERS ? 'secondary' :
+        announcement().visibility == AnnouncementVisibility.COURSE ? 'violet' : 'primary'">
+      </app-badge>
+
+      <app-badge
+        [text]="announcement().status"
+        [variant]="
+        announcement().status == AnnouncementStatus.PUBLISHED ? 'success':
+        announcement().status == AnnouncementStatus.DRAFT ? 'secondary' :
+        announcement().status == AnnouncementStatus.ARCHIVED ? 'warning' :
+        'danger'">
+      </app-badge>
+
+      @if (announcement().pinned) {
+        <app-badge [text]="'PINNED'" [icon]="Pin" [variant]="'warning'"></app-badge>
+      }
+
+    </div>
+
+    <h1 class="text-xl font-semibold text-gray-800 break-words">
+      {{ announcement().title }}
+    </h1>
+
+    <div class="mt-3 text-sm text-gray-500 flex flex-wrap gap-x-5 gap-y-1">
+
+      @if (announcement().courseId) {
+        <div class="flex items-center gap-1">
+          <lucide-icon [img]="BookOpen" [size]="14"></lucide-icon>
+          {{ announcement().courseId }}
+        </div>
+      }
+
+      @if (announcement().batchId) {
+        <div class="flex items-center gap-1">
+          <lucide-icon [img]="Users" [size]="14"></lucide-icon>
+          {{ announcement().batchId }}
+        </div>
+      }
+
+      <div class="flex items-center gap-1">
+        <lucide-icon [img]="CalendarClock" [size]="14"></lucide-icon>
+        Expires {{ announcement().expireAt | date:'medium' }}
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="p-5">
+
+    <quill-editor
+      class="w-full h-auto"
+      [modules]="{toolbar:false}"
+      [readOnly]="true"
+      [styles]="{ border: 'none'}"
+      [ngModel]="announcement().description">
+
+    </quill-editor>
+
+  </div>
+
+</app-card-shell>
