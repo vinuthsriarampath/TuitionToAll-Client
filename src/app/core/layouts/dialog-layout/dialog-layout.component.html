@@ -1,0 +1,54 @@
+<div class=" reactive bg-white rounded-md shadow-lg border border-gray-200 overflow-hidden">
+
+  @if (loading()) {
+    <div class="absolute inset-0 z-50 bg-white/70 backdrop-blur-[2px] flex items-center justify-center">
+
+      <div class="bg-white px-6 py-5 rounded-2xl shadow-xl border border-gray-200 flex flex-col items-center gap-3 min-w-[180px]">
+
+        <!-- Spinner -->
+        <div class="w-10 h-10 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
+
+        <!-- Text -->
+        <div class="text-center">
+          <p class="text-sm font-semibold text-gray-700">
+            {{loaderTitle()}}
+          </p>
+          <p class="text-xs text-gray-500 mt-1">
+            {{loaderDescription()}}
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  }
+
+  <!-- Header -->
+  <div class="flex justify-between items-center px-5 py-4 border-b border-gray-200 bg-gray-50">
+    <div class="flex items-center gap-2">
+      <div class="p-2 rounded-xl bg-blue-100 text-blue-600">
+        <lucide-icon [img]="icon()" [size]="18"></lucide-icon>
+      </div>
+      <div>
+        <h1 class="text-lg font-semibold text-gray-800">{{ title()}}</h1>
+        <p class="text-xs text-gray-500">
+          {{ description() }}
+        </p>
+      </div>
+    </div>
+
+    <button type="button" class="p-2 rounded-lg hover:bg-red-100 hover:text-red-600 transition cursor-pointer" (click)="onCancel()">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Body -->
+  <div class="max-h-[80vh] overflow-y-auto">
+
+    <ng-content select="[data-body]"></ng-content>
+
+  </div>
+
+</div>
