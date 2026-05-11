@@ -1,13 +1,15 @@
 import {Component, input, output} from '@angular/core';
 import {LucideAngularModule, LucideIconData, Megaphone} from "lucide-angular";
 import {ReactiveFormsModule} from "@angular/forms";
+import {NgClass} from '@angular/common';
 
 @Component({
   selector: 'app-dialog-layout',
-    imports: [
-        LucideAngularModule,
-        ReactiveFormsModule
-    ],
+  imports: [
+    LucideAngularModule,
+    ReactiveFormsModule,
+    NgClass
+  ],
   templateUrl: './dialog-layout.component.html',
   styleUrl: './dialog-layout.component.css'
 })
@@ -21,7 +23,9 @@ export class DialogLayoutComponent {
 
   title = input.required<string>();
   description = input.required<string>();
-  icon = input.required<LucideIconData>()
+
+  icon = input.required<LucideIconData>();
+  iconColour = input<'info' | 'danger' | 'warning' | 'success'>('info');
 
   cancelEvent = output<void>();
 
