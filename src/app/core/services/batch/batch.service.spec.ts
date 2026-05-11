@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { BatchService } from './batch.service';
+import {BatchService} from './batch.service';
 
 describe('BatchService', () => {
   let service: BatchService;

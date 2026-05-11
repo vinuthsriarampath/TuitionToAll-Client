@@ -2,19 +2,13 @@ import {Component, inject, input, OnInit} from '@angular/core';
 import {InstituteService} from '../../../core/services/institute/institute.service';
 import {TeacherVacancyStatus} from '../../../core/enums/teacher-vacancy-status';
 import {TeacherVacancy} from '../../../core/models/teacher-vacancy';
-import {DatePipe, SlicePipe} from '@angular/common';
-import {QuillEditorComponent} from 'ngx-quill';
 import {FormsModule} from '@angular/forms';
-import {RouterLink} from '@angular/router';
 import {VacancyCardComponent} from './components/vacancy-card/vacancy-card.component';
 
 @Component({
   selector: 'app-institute-jobs',
   imports: [
-    DatePipe,
-    QuillEditorComponent,
     FormsModule,
-    RouterLink,
     VacancyCardComponent
   ],
   templateUrl: './institute-jobs.component.html',

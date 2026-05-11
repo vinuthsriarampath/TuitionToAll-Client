@@ -9,6 +9,7 @@ import {AnnouncementStatus} from '../../../../../../../../../core/enums/Announce
 import {LucideAngularModule, Pin} from 'lucide-angular';
 import {NgClass} from '@angular/common';
 import {RouterLink} from '@angular/router';
+
 @Component({
   selector: 'app-course-announcement-list',
   imports: [

@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { UpdateBatchDialogComponent } from './update-batch-dialog.component';
+import {UpdateBatchDialogComponent} from './update-batch-dialog.component';
 
 describe('UpdateBatchDialogComponent', () => {
   let component: UpdateBatchDialogComponent;

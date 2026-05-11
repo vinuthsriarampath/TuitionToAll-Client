@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CardHeaderComponent } from './card-header.component';
+import {CardHeaderComponent} from './card-header.component';
 
 describe('CardHeaderComponent', () => {
   let component: CardHeaderComponent;

@@ -62,9 +62,6 @@ import {
   ViewAnnouncementComponent
 } from './features/dashboards/institute-dashboard/pages/announcements-management/pages/view-announcement/view-announcement.component';
 import {
-  CourseAnnouncementListComponent
-} from './features/dashboards/institute-dashboard/pages/institute-course-management/pages/course-view/components/course-announcement-list/course-announcement-list.component';
-import {
   CourseAnnouncementViewComponent
 } from './features/dashboards/institute-dashboard/pages/institute-course-management/pages/course-view/components/course-announcement-view/course-announcement-view.component';
 

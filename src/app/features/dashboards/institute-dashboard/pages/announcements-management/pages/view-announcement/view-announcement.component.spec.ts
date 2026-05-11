@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ViewAnnouncementComponent } from './view-announcement.component';
+import {ViewAnnouncementComponent} from './view-announcement.component';
 
 describe('ViewAnnouncementComponent', () => {
   let component: ViewAnnouncementComponent;

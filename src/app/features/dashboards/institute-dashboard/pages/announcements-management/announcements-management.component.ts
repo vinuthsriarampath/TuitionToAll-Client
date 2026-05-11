@@ -1,11 +1,15 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {PageTitleComponent} from '../../../../../shared/components/page-title/page-title.component';
 import {AnnouncementService} from '../../../../../core/services/announcements/announcement.service';
 import {
-  MatCell, MatCellDef,
+  MatCell,
+  MatCellDef,
   MatColumnDef,
   MatHeaderCell,
-  MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
   MatTable,
   MatTableDataSource
 } from '@angular/material/table';

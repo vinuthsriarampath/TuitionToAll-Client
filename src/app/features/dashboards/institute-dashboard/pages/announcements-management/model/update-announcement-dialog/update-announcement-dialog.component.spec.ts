@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { UpdateAnnouncementDialogComponent } from './update-announcement-dialog.component';
+import {UpdateAnnouncementDialogComponent} from './update-announcement-dialog.component';
 
 describe('UpdateAnnouncementDialogComponent', () => {
   let component: UpdateAnnouncementDialogComponent;

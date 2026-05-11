@@ -1,9 +1,9 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment} from '../../../environment/environment.development';
-import { AnnouncementCreateRequest } from "../../dto/request-dto/announcement/AnnouncementCreateRequest";
+import {AnnouncementCreateRequest} from "../../dto/request-dto/announcement/AnnouncementCreateRequest";
 import {ApiResponse} from '../../dto/response-dto/api-response';
-import { Observable } from "rxjs";
+import {Observable} from "rxjs";
 import {AnnouncementResponse} from '../../dto/response-dto/AnnouncementResponse';
 import {
   AnnouncementVisibilityUpdateRequest

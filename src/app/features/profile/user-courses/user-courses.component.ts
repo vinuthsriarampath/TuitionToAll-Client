@@ -1,7 +1,6 @@
 import {Component, inject, input, OnInit} from '@angular/core';
 import {CourseService} from '../../../core/services/course/course.service';
 import {Course} from '../../../core/models/course';
-import {CurrencyPipe, NgClass, NgOptimizedImage} from '@angular/common';
 import {environment} from '../../../environment/environment.development';
 import {AlertService} from '../../../core/services/alerts/alert.service';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
@@ -11,10 +10,7 @@ import {CourseCardComponent} from './components/course-card/course-card.componen
 @Component({
   selector: 'app-user-courses',
   imports: [
-    NgOptimizedImage,
     MatProgressSpinner,
-    CurrencyPipe,
-    NgClass,
     CourseCardComponent
   ],
   templateUrl: './user-courses.component.html',

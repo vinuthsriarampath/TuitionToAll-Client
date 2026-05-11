@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SuccessConfirmationAlertComponent } from './success-confirmation-alert.component';
+import {SuccessConfirmationAlertComponent} from './success-confirmation-alert.component';
 
 describe('SuccessConfirmationAlertComponent', () => {
   let component: SuccessConfirmationAlertComponent;

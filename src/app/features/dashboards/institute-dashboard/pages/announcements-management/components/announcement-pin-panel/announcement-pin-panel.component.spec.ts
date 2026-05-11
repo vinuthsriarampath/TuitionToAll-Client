@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AnnouncementPinPanelComponent } from './announcement-pin-panel.component';
+import {AnnouncementPinPanelComponent} from './announcement-pin-panel.component';
 
 describe('AnnouncementPinPanelComponent', () => {
   let component: AnnouncementPinPanelComponent;

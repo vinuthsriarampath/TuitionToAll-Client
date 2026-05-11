@@ -7,10 +7,15 @@ import {MatDialog} from '@angular/material/dialog';
 import {CreateVacancyDialogComponent} from './models/create-vacancy-dialog/create-vacancy-dialog.component';
 import {RouterLink} from '@angular/router';
 import {
-  MatCell, MatCellDef,
+  MatCell,
+  MatCellDef,
   MatColumnDef,
   MatHeaderCell,
-  MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
   MatTable,
   MatTableDataSource
 } from '@angular/material/table';

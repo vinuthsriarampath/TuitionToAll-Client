@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { InformationAlertComponent } from './information-alert.component';
+import {InformationAlertComponent} from './information-alert.component';
 
 describe('InformationAlertComponent', () => {
   let component: InformationAlertComponent;

@@ -4,7 +4,7 @@ import {Course} from '../../../../../../../core/models/course';
 import {CourseService} from '../../../../../../../core/services/course/course.service';
 import {AlertService} from '../../../../../../../core/services/alerts/alert.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {LucideAngularModule, ArrowLeft} from 'lucide-angular';
+import {ArrowLeft, LucideAngularModule} from 'lucide-angular';
 import {MatButtonToggle, MatButtonToggleGroup} from '@angular/material/button-toggle';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {NgForOf, NgIf, TitleCasePipe} from '@angular/common';

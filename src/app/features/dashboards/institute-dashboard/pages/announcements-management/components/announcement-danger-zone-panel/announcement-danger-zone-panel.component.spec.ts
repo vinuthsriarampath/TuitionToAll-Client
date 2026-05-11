@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AnnouncementDangerZonePanelComponent } from './announcement-danger-zone-panel.component';
+import {AnnouncementDangerZonePanelComponent} from './announcement-danger-zone-panel.component';
 
 describe('AnnouncementDangerZonePanelComponent', () => {
   let component: AnnouncementDangerZonePanelComponent;

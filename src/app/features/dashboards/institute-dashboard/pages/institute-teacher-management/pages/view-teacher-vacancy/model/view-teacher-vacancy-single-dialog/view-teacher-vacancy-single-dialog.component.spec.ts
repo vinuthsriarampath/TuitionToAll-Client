@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ViewTeacherVacancySingleDialogComponent } from './view-teacher-vacancy-single-dialog.component';
+import {ViewTeacherVacancySingleDialogComponent} from './view-teacher-vacancy-single-dialog.component';
 
 describe('ViewTeacherVacancySingleDialogComponent', () => {
   let component: ViewTeacherVacancySingleDialogComponent;
