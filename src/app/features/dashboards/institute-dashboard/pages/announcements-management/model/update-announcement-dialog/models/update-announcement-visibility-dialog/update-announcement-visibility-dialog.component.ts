@@ -17,6 +17,7 @@ import {CourseService} from '../../../../../../../../../core/services/course/cou
 import {
   AnnouncementVisibilityUpdateRequest
 } from '../../../../../../../../../core/dto/request-dto/announcement/AnnouncementVisibilityUpdateRequest';
+import {DialogLayoutComponent} from '../../../../../../../../../core/layouts/dialog-layout/dialog-layout.component';
 
 export interface UpdateAnnouncementVisibilityDialogData {
   id:number;
@@ -30,7 +31,8 @@ export interface UpdateAnnouncementVisibilityDialogData {
   imports: [
     LucideAngularModule,
     ReactiveFormsModule,
-    NgClass
+    NgClass,
+    DialogLayoutComponent
   ],
   templateUrl: './update-announcement-visibility-dialog.component.html',
   styleUrl: './update-announcement-visibility-dialog.component.css'
