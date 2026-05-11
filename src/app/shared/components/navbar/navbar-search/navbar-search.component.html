@@ -20,21 +20,21 @@
     <a *ngFor="let results of searchResults?.students" [routerLink]="['/profile', results.userSlug]"
        class="flex gap-2 justify-center items-center">
       <img
-        src="{{ results?.dp ? `${environment.USER_PROFILE_API}${results?.dp}` : 'https://avatar.iran.liara.run/public/boy' }}"
+        src="{{ results?.dp ? `${environment.USER_PROFILE_API}${results?.dp}` : 'profile_logo.png' }}"
         alt="Student Avatar" class="h-10 w-10 rounded-full col-span-1 justify-center items-center">
       <span class="flex-2/3">{{ $any(results.details).firstName }} {{ $any(results.details).lastName }}</span>
     </a>
     <a *ngFor="let results of searchResults?.teachers" [routerLink]="['/profile', results.userSlug]"
        class="flex gap-2 justify-center items-center">
       <img
-        src="{{ results?.dp ? `${environment.USER_PROFILE_API}${results?.dp}` : 'https://avatar.iran.liara.run/public/boy' }}"
+        src="{{ results?.dp ? `${environment.USER_PROFILE_API}${results?.dp}` : 'profile_logo.png' }}"
         alt="Student Avatar" class="h-10 w-10 rounded-full col-span-1 justify-center items-center">
       <span class="flex-2/3">{{ $any(results.details).firstName }} {{ $any(results.details).lastName }}</span>
     </a>
     <a *ngFor="let results of searchResults?.institutes" [routerLink]="['/profile', results.userSlug]"
        class="flex gap-2 justify-center items-center">
       <img
-        src="{{ results?.dp ? `${environment.USER_PROFILE_API}${results?.dp}` : 'https://avatar.iran.liara.run/public/boy' }}"
+        src="{{ results?.dp ? `${environment.USER_PROFILE_API}${results?.dp}` : 'profile_logo.png' }}"
         alt="Student Avatar" class="h-10 w-10 rounded-full col-span-1 justify-center items-center">
       <span class="flex-2/3">{{ $any(results.details).instituteName }}</span>
     </a>

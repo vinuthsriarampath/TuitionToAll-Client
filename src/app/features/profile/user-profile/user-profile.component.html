@@ -27,16 +27,16 @@
 
               <div [ngSwitch]="profileUser.role?.role">
                 <ng-container *ngSwitchCase="'institute'">
-                  <img [ngSrc]="profileUser.dp ? `${environment.USER_PROFILE_API}${profileUser.dp}` : 'https://avatar.iran.liara.run/public/boy'" loading="lazy" alt="avatar" class="w-full h-full rounded-full object-cover" fill>
+                  <img [ngSrc]="profileUser.dp ? `${environment.USER_PROFILE_API}${profileUser.dp}` : 'profile_logo.pngy'" loading="lazy" alt="avatar" class="w-full h-full rounded-full object-cover" fill>
                 </ng-container>
                 <ng-container *ngSwitchCase="'teacher'">
-                  <img [ngSrc]="profileUser.dp ? `${environment.USER_PROFILE_API}${profileUser.dp}` : 'https://avatar.iran.liara.run/public/boy'" loading="lazy" alt="avatar" class="w-full h-full rounded-full object-cover" fill>
+                  <img [ngSrc]="profileUser.dp ? `${environment.USER_PROFILE_API}${profileUser.dp}` : 'profile_logo.png'" loading="lazy" alt="avatar" class="w-full h-full rounded-full object-cover" fill>
                 </ng-container>
                 <ng-container *ngSwitchCase="'student'">
-                  <img [ngSrc]="profileUser.dp ? `${environment.USER_PROFILE_API}${profileUser.dp}` : 'https://avatar.iran.liara.run/public/boy'" loading="lazy" alt="avatar" class="w-full h-full rounded-full object-cover" fill>
+                  <img [ngSrc]="profileUser.dp ? `${environment.USER_PROFILE_API}${profileUser.dp}` : 'profile_logo.png'" loading="lazy" alt="avatar" class="w-full h-full rounded-full object-cover" fill>
                 </ng-container>
                 <ng-container *ngSwitchDefault>
-                  <img ngSrc="https://avatar.iran.liara.run/public/boy" loading="lazy" alt="avatar" class="w-full h-full rounded-full object-cover" fill>
+                  <img ngSrc="/profile_logo.png" loading="lazy" alt="avatar" class="w-full h-full rounded-full object-cover" fill>
                 </ng-container>
               </div>
               <button class="absolute flex items-center gap-2 bottom-1 right-1 bg-white text-gray-700 px-2 rounded-full shadow hover:bg-gray-100 cursor-pointer" title="Edit Profile Picture" (click)="openProfilePicUpdateDialog()" *ngIf="isSameUser">

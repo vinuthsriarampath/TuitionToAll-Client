@@ -48,7 +48,7 @@
             <button class="profile_button sm:h-10 sm:w-10 h-8 w-8 rounded-full cursor-pointer border-0"
                     (click)="toggleProfileDropdown()">
               <img
-                src="{{ user?.dp ? `${environment.USER_PROFILE_API}${user?.dp}` : 'https://avatar.iran.liara.run/public/boy' }}"
+                src="{{ user?.dp ? `${environment.USER_PROFILE_API}${user?.dp}` : 'profile_logo.png' }}"
                 alt="User Avatar" class="h-full w-full rounded-full">
             </button>
             <div *ngIf="isProfileDropdownOpen"
