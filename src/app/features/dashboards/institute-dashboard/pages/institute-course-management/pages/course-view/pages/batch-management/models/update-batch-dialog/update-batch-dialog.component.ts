@@ -6,13 +6,18 @@ import {BatchStatus} from '../../../../../../../../../../../core/enums/batch-sta
 import {BatchEnrollmentStatus} from '../../../../../../../../../../../core/enums/batch-enrollment-status';
 import {NgIf} from '@angular/common';
 import {BatchService} from '../../../../../../../../../../../core/services/batch/batch.service';
+import {
+  DialogLayoutComponent
+} from '../../../../../../../../../../../core/layouts/dialog-layout/dialog-layout.component';
+import {SquarePen} from 'lucide-angular';
 
 @Component({
   selector: 'app-update-batch-dialog',
   imports: [
     FormsModule,
     NgIf,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DialogLayoutComponent
   ],
   templateUrl: './update-batch-dialog.component.html',
   styleUrl: './update-batch-dialog.component.css'
@@ -146,4 +151,5 @@ export class UpdateBatchDialogComponent implements OnInit{
     }
   }
 
+  protected readonly SquarePen = SquarePen;
 }
