@@ -8,6 +8,7 @@ import {
 } from '../../../../../../../../../core/dto/request-dto/announcement/AnnouncementUpdateRequest';
 import {AnnouncementService} from '../../../../../../../../../core/services/announcements/announcement.service';
 import {AlertService} from '../../../../../../../../../core/services/alerts/alert.service';
+import {DialogLayoutComponent} from '../../../../../../../../../core/layouts/dialog-layout/dialog-layout.component';
 
 export interface UpdateAnnouncementContentDialogData {
   id: number;
@@ -22,7 +23,8 @@ export interface UpdateAnnouncementContentDialogData {
     FormsModule,
     QuillEditorComponent,
     ReactiveFormsModule,
-    LucideAngularModule
+    LucideAngularModule,
+    DialogLayoutComponent
   ],
   templateUrl: './update-announcement-content-dialog.component.html',
   styleUrl: './update-announcement-content-dialog.component.css'
@@ -32,7 +34,7 @@ export class UpdateAnnouncementContentDialogComponent {
   protected form!:FormGroup;
   protected loading:boolean = false;
 
-  private originalAnnouncement :UpdateAnnouncementContentDialogData;
+  private readonly originalAnnouncement :UpdateAnnouncementContentDialogData;
 
   private readonly dialogRef:MatDialogRef<UpdateAnnouncementContentDialogComponent> = inject(MatDialogRef<UpdateAnnouncementContentDialogComponent>)
   private readonly formBuilder = inject(FormBuilder);
