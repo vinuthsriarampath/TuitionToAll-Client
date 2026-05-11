@@ -1,7 +1,6 @@
 import {Component, Inject, inject} from '@angular/core';
 import {LucideAngularModule, LucideIconData} from 'lucide-angular';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {NgClass} from '@angular/common';
 import {DialogLayoutComponent} from '../../../../../../../../../core/layouts/dialog-layout/dialog-layout.component';
 
 export interface ConfirmationDialogData {
@@ -22,7 +21,6 @@ export interface ConfirmationDialogData {
   selector: 'app-confirmation-dialog',
   imports: [
     LucideAngularModule,
-    NgClass,
     DialogLayoutComponent
   ],
   templateUrl: './confirmation-dialog.component.html',
