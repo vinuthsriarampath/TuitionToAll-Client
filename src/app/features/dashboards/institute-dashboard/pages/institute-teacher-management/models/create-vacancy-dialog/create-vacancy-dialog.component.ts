@@ -5,19 +5,20 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {getDateTime} from '../../../../../../../core/helpers/date-helper';
 import {isFutureDate} from '../../../../../../../core/helpers/form-custom-validators';
 import {TeacherVacancyService} from '../../../../../../../core/services/teacher-vacancy/teacher-vacancy.service';
-import {ApiResponse} from '../../../../../../../core/dto/response-dto/api-response';
-import {TeacherVacancy} from '../../../../../../../core/models/teacher-vacancy';
 import {
   TeacherVacancyCreateRequest
 } from '../../../../../../../core/dto/request-dto/teacher-vacancy/teacher-vacancy-create-request';
 import {AlertService} from '../../../../../../../core/services/alerts/alert.service';
+import {DialogLayoutComponent} from '../../../../../../../core/layouts/dialog-layout/dialog-layout.component';
+import {SquarePen} from 'lucide-angular';
 
 @Component({
   selector: 'app-create-vacancy-dialog',
   imports: [
     QuillEditorComponent,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DialogLayoutComponent
   ],
   templateUrl: './create-vacancy-dialog.component.html',
   styleUrl: './create-vacancy-dialog.component.css'
@@ -112,4 +113,5 @@ export class CreateVacancyDialogComponent {
     }
   }
 
+  protected readonly SquarePen = SquarePen;
 }

@@ -1,13 +1,13 @@
-<div class="bg-white p-4">
-  <div class="w-full flex justify-between items-center border-b-2 border-gray-200">
-    <h1 class="text-lg">Create Vacancy</h1>
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-         class="size-5 cursor-pointer" (click)="onCancel()" (keydown)="onCancel()">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
-    </svg>
-  </div>
-  <div>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="gap-4 mt-4 grid grid-cols-1 md:grid-cols-2">
+<app-dialog-layout
+  [loading]="loading"
+  [loaderTitle]="'Creating Vacancy'"
+  [title]="'Create Vacancy'"
+  [description]="'Create vacancy details'"
+  [icon]="SquarePen"
+  (cancelEvent)="onCancel()"
+>
+  <div data-body>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="gap-4 grid grid-cols-1 md:grid-cols-2">
       <div class="col-span-2">
         <label for="title" class="form-label">Title <span class="text-red-500">*</span></label>
         <input type="text" id="title" class="form-input" placeholder="Title" formControlName="title">
@@ -39,7 +39,7 @@
       <div class="col-span-2">
         <label for="jobDescription" class="form-label">Job Description <span class="text-red-500">*</span></label>
         <quill-editor class="w-full h-56" id="jobDescription" [modules]="modules" formControlName="jobDescription"
-          placeholder="Enter Your Job Description Here...">
+                      placeholder="Enter Your Job Description Here...">
         </quill-editor>
         @if (form.get('jobDescription')?.errors?.['required'] && form.get('jobDescription')?.touched) {
           <p class="form-error">Job Description is required</p>
@@ -50,7 +50,5 @@
         <input type="submit" class="btn-mini-primary" value="Create Vacancy">
       </div>
     </form>
-
   </div>
-
-</div>
+</app-dialog-layout>
