@@ -5,14 +5,17 @@ import {BatchEnrollmentStatus} from '../../../../../../../../../../../core/enums
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {BatchService} from '../../../../../../../../../../../core/services/batch/batch.service';
 import {Batch} from '../../../../../../../../../../../core/models/batch';
-import {NgIf} from '@angular/common';
+import {
+  DialogLayoutComponent
+} from '../../../../../../../../../../../core/layouts/dialog-layout/dialog-layout.component';
+import {Plus} from 'lucide-angular';
 
 @Component({
   selector: 'app-create-batch-dialog',
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    NgIf
+    DialogLayoutComponent
   ],
   templateUrl: './create-batch-dialog.component.html',
   styleUrl: './create-batch-dialog.component.css'
@@ -145,4 +148,5 @@ export class CreateBatchDialogComponent implements OnInit{
     }
   }
 
+  protected readonly Plus = Plus;
 }
