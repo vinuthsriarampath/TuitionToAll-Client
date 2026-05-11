@@ -1,43 +1,8 @@
 <div class="p-4 space-y-4">
 
   @for (vacancy of teacherVacancies; track vacancy.id) {
-    <div class="full-w-card bg-white flex flex-col gap-3">
-
-      <!-- 🔹 HEADER -->
-      <div class="flex justify-between items-start">
-        <div>
-          <h2 class="text-lg font-semibold text-gray-800">
-            {{ vacancy.title }}
-          </h2>
-
-          <div class="flex gap-2 mt-1 text-xs text-gray-500">
-            <span class="batch batch-warning">
-              {{ vacancy.requiredExperienceYears }} yrs exp
-            </span>
-
-            <span class="batch batch-danger">
-              Closes: {{ vacancy.vacancyClosingDate | date:'mediumDate' }}
-            </span>
-          </div>
-        </div>
-
-        <!-- 🔹 ACTION -->
-        <button [routerLink]="[vacancy.id+'/apply']" class="btn-mini-primary">
-          Apply
-        </button>
-      </div>
-
-      <!-- 🔹 DESCRIPTION -->
-      <div class="text-sm text-gray-700">
-
-        <!-- full -->
-        <quill-editor [readOnly]="true" [modules]="{toolbar:false}"
-             class="prose w-full h-auto " [styles]="{ border: 'none'}"
-             [ngModel]="vacancy.jobDescription">
-        </quill-editor>
-
-      </div>
-
+    <div class="mb-2">
+      <app-vacancy-card [vacancy]="vacancy"></app-vacancy-card>
     </div>
   }
 

@@ -6,6 +6,7 @@ import {DatePipe, SlicePipe} from '@angular/common';
 import {QuillEditorComponent} from 'ngx-quill';
 import {FormsModule} from '@angular/forms';
 import {RouterLink} from '@angular/router';
+import {VacancyCardComponent} from './components/vacancy-card/vacancy-card.component';
 
 @Component({
   selector: 'app-institute-jobs',
@@ -13,7 +14,8 @@ import {RouterLink} from '@angular/router';
     DatePipe,
     QuillEditorComponent,
     FormsModule,
-    RouterLink
+    RouterLink,
+    VacancyCardComponent
   ],
   templateUrl: './institute-jobs.component.html',
   styleUrl: './institute-jobs.component.css'
