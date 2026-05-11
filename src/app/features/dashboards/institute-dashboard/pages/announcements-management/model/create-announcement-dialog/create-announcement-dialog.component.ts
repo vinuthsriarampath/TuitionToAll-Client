@@ -21,6 +21,7 @@ import {CourseFilter} from '../../../../../../../core/dto/request-dto/course/cou
 import {CourseStatus} from '../../../../../../../core/enums/course-status';
 import {UserService} from '../../../../../../../core/services/user/user.service';
 import {Institute} from '../../../../../../../core/models/user-models/institute';
+import {DialogLayoutComponent} from '../../../../../../../core/layouts/dialog-layout/dialog-layout.component';
 
 @Component({
   selector: 'app-create-announcement-dialog',
@@ -28,6 +29,7 @@ import {Institute} from '../../../../../../../core/models/user-models/institute'
     QuillEditorComponent,
     ReactiveFormsModule,
     LucideAngularModule,
+    DialogLayoutComponent,
   ],
   templateUrl: './create-announcement-dialog.component.html',
   styleUrl: './create-announcement-dialog.component.css'

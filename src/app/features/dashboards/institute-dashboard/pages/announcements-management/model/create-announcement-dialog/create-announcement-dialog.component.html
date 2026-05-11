@@ -1,52 +1,13 @@
-<div class=" reactive bg-white rounded-md shadow-lg border border-gray-200 overflow-hidden">
+<app-dialog-layout
+  [loading]="loading"
+  [loaderTitle]="'Creating Announcement'"
+  [title]="'Create Announcement'"
+  [description]="'Publish announcements for teachers, courses, or batches'"
+  [icon]="Megaphone"
+  (cancelEvent)="onCancel()"
+>
 
-  @if (loading) {
-    <div class="absolute inset-0 z-50 bg-white/70 backdrop-blur-[2px] flex items-center justify-center">
-
-      <div class="bg-white px-6 py-5 rounded-2xl shadow-xl border border-gray-200 flex flex-col items-center gap-3 min-w-[180px]">
-
-        <!-- Spinner -->
-        <div class="w-10 h-10 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
-
-        <!-- Text -->
-        <div class="text-center">
-          <p class="text-sm font-semibold text-gray-700">
-            Creating Announcement
-          </p>
-          <p class="text-xs text-gray-500 mt-1">
-            Please wait...
-          </p>
-        </div>
-
-      </div>
-
-    </div>
-  }
-
-  <!-- Header -->
-  <div class="flex justify-between items-center px-5 py-4 border-b border-gray-200 bg-gray-50">
-    <div class="flex items-center gap-2">
-      <div class="p-2 rounded-xl bg-blue-100 text-blue-600">
-        <lucide-icon [img]="Megaphone" [size]="18"></lucide-icon>
-      </div>
-      <div>
-        <h1 class="text-lg font-semibold text-gray-800">Create Announcement</h1>
-        <p class="text-xs text-gray-500">
-          Publish announcements for teachers, courses, or batches
-        </p>
-      </div>
-    </div>
-
-    <button type="button" class="p-2 rounded-lg hover:bg-red-100 hover:text-red-600 transition cursor-pointer" (click)="onCancel()">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
-      </svg>
-    </button>
-  </div>
-
-  <!-- Body -->
-  <div class="max-h-[80vh] overflow-y-auto">
-
+  <div data-body>
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="p-5 grid grid-cols-2 gap-5">
 
       <!-- Title -->
@@ -55,11 +16,12 @@
           Title <span class="text-red-500">*</span>
         </label>
 
-        <input id="title" class="form-input" formControlName="title" placeholder="Enter announcement title" [class.form-input-error]="form.get('title')?.invalid && form.get('title')?.touched"/>
-        @if (form.get('title')?.errors?.['required'] && form.get('title')?.touched){
+        <input id="title" class="form-input" formControlName="title" placeholder="Enter announcement title"
+               [class.form-input-error]="form.get('title')?.invalid && form.get('title')?.touched"/>
+        @if (form.get('title')?.errors?.['required'] && form.get('title')?.touched) {
           <p class="form-error"> * Title is Mandatory!</p>
         }
-        @if (form.get('title')?.errors?.['server'] ){
+        @if (form.get('title')?.errors?.['server']) {
           <p class="form-error"> * {{ form.get('title')?.errors?.['server'] }}</p>
         }
       </div>
@@ -70,17 +32,17 @@
           Description <span class="text-red-500">*</span>
         </label>
 
-          <quill-editor
-            id="description"
-            class="w-full h-55"
-            [modules]="modules"
-            formControlName="description"
-            placeholder="Enter your announcement description here..." >
-          </quill-editor>
-        @if (form.get('description')?.errors?.['required'] && form.get('description')?.touched){
+        <quill-editor
+          id="description"
+          class="w-full h-55"
+          [modules]="modules"
+          formControlName="description"
+          placeholder="Enter your announcement description here...">
+        </quill-editor>
+        @if (form.get('description')?.errors?.['required'] && form.get('description')?.touched) {
           <p class="form-error"> * Description is Mandatory!</p>
         }
-        @if (form.get('description')?.errors?.['server'] && form.get('description')?.touched){
+        @if (form.get('description')?.errors?.['server'] && form.get('description')?.touched) {
           <p class="form-error"> * {{ form.get('description')?.errors?.['server'] }}</p>
         }
 
@@ -92,7 +54,8 @@
           Visibility <span class="text-red-500">*</span>
         </label>
 
-        <select class="form-input" id="visibility" formControlName="visibility" [class.form-input-error]="form.get('visibility')?.invalid && form.get('visibility')?.touched">
+        <select class="form-input" id="visibility" formControlName="visibility"
+                [class.form-input-error]="form.get('visibility')?.invalid && form.get('visibility')?.touched">
           <option [ngValue]="null" disabled>
             -- Select Visibility --
           </option>
@@ -104,10 +67,10 @@
           }
         </select>
 
-        @if (form.get('visibility')?.errors?.['required'] && form.get('visibility')?.touched){
+        @if (form.get('visibility')?.errors?.['required'] && form.get('visibility')?.touched) {
           <p class="form-error"> * Visibility is Mandatory!</p>
         }
-        @if (form.get('visibility')?.errors?.['server'] && form.get('visibility')?.touched){
+        @if (form.get('visibility')?.errors?.['server'] && form.get('visibility')?.touched) {
           <p class="form-error"> * {{ form.get('visibility')?.errors?.['server'] }}</p>
         }
       </div>
@@ -118,7 +81,8 @@
           Status <span class="text-red-500">*</span>
         </label>
 
-        <select class="form-input" id="status" formControlName="status" [class.form-input-error]="form.get('status')?.invalid && form.get('status')?.touched">
+        <select class="form-input" id="status" formControlName="status"
+                [class.form-input-error]="form.get('status')?.invalid && form.get('status')?.touched">
           <option [ngValue]="null" disabled>
             -- Select Status --
           </option>
@@ -130,10 +94,10 @@
           }
         </select>
 
-        @if (form.get('status')?.errors?.['required'] && form.get('status')?.touched){
+        @if (form.get('status')?.errors?.['required'] && form.get('status')?.touched) {
           <p class="form-error"> * Status is Mandatory!</p>
         }
-        @if (form.get('status')?.errors?.['server'] ){
+        @if (form.get('status')?.errors?.['server']) {
           <p class="form-error"> * {{ form.get('status')?.errors?.['server'] }}</p>
         }
       </div>
@@ -154,13 +118,14 @@
             Course <span class="text-red-500">*</span>
           </label>
 
-          <select id="course" class="form-input" formControlName="courseId" [class.form-input-error]="form.get('courseId')?.invalid && form.get('courseId')?.touched">
+          <select id="course" class="form-input" formControlName="courseId"
+                  [class.form-input-error]="form.get('courseId')?.invalid && form.get('courseId')?.touched">
 
-            @if (courses.length == 0){
+            @if (courses.length == 0) {
               <option [ngValue]="null" disabled selected>
                 No courses available
               </option>
-            }@else{
+            } @else {
               <option [ngValue]="null" disabled>
                 -- Select Course --
               </option>
@@ -173,7 +138,7 @@
             }
 
           </select>
-          @if (form.get('courseId')?.errors?.['server']){
+          @if (form.get('courseId')?.errors?.['server']) {
             <p class="form-error"> * {{ form.get('courseId')?.errors?.['server'] }}</p>
           }
 
@@ -206,26 +171,27 @@
 
           <label for="batch" class="form-label">Batch <span class="text-red-500">*</span></label>
 
-          <select id="batch" class="form-input" formControlName="batchId" [class.form-input-error]="(form.get('batchId')?.invalid || form.get('expireAt')?.errors?.['server']) && form.get('batchId')?.touched">
+          <select id="batch" class="form-input" formControlName="batchId"
+                  [class.form-input-error]="(form.get('batchId')?.invalid || form.get('expireAt')?.errors?.['server']) && form.get('batchId')?.touched">
 
             @if (!form.get('courseId')?.value) {
               <option [ngValue]="null" disabled selected>
                 -- Select a Course First --
               </option>
-            } @else if (batches.length == 0){
+            } @else if (batches.length == 0) {
               <option [ngValue]="null" disabled selected>
                 No batches available for the selected course
               </option>
             } @else {
               @for (b of batches; track b.id) {
-              <option [ngValue]="b.id">
-                {{ b.name }}
-              </option>
+                <option [ngValue]="b.id">
+                  {{ b.name }}
+                </option>
               }
             }
           </select>
 
-          @if (form.get('batchId')?.errors?.['server'] ){
+          @if (form.get('batchId')?.errors?.['server']) {
             <p class="form-error"> * {{ form.get('batchId')?.errors?.['server'] }}</p>
           }
 
@@ -250,12 +216,13 @@
           Expire At <span class="text-red-500">*</span>
         </label>
 
-        <input class="form-input h-11" id="expireDate" type="datetime-local" formControlName="expireAt" [class.form-input-error]="form.get('expireAt')?.invalid && form.get('expireAt')?.touched"/>
+        <input class="form-input h-11" id="expireDate" type="datetime-local" formControlName="expireAt"
+               [class.form-input-error]="form.get('expireAt')?.invalid && form.get('expireAt')?.touched"/>
 
-        @if (form.get('expireAt')?.errors?.['required'] && form.get('expireAt')?.touched){
+        @if (form.get('expireAt')?.errors?.['required'] && form.get('expireAt')?.touched) {
           <p class="form-error"> * expireAt is Mandatory!</p>
         }
-        @if (form.get('expireAt')?.errors?.['server'] ){
+        @if (form.get('expireAt')?.errors?.['server']) {
           <p class="form-error">{{ form.get('expireAt')?.errors?.['server'] }}</p>
         }
       </div>
@@ -267,14 +234,12 @@
           Reset
         </button>
 
-        <button class="btn-mini-primary" type="submit" [disabled]="form.invalid || loading" >
+        <button class="btn-mini-primary" type="submit" [disabled]="form.invalid || loading">
           Create Announcement
         </button>
 
       </div>
 
     </form>
-
   </div>
-
-</div>
+</app-dialog-layout>
