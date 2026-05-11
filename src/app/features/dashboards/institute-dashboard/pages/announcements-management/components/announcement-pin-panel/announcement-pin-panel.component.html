@@ -1,0 +1,62 @@
+<app-card-shell>
+
+  <app-card-header
+    title="Pin Controls"
+    description="Highlight important announcements">
+  </app-card-header>
+
+  <div class="p-5">
+
+    @if (!announcement().pinned) {
+
+      <div class="flex justify-between items-center gap-5 flex-wrap">
+
+        <div>
+          <p class="text-sm font-medium text-gray-700">
+            Announcement is currently not pinned
+          </p>
+
+          <p class="text-xs text-gray-500 mt-1">
+            Pin this announcement to increase visibility
+          </p>
+        </div>
+
+        <button
+          class="btn-mini-primary flex items-center gap-2"
+          (click)="pinAnnouncement()" [disabled]="announcement().status === AnnouncementStatus.DELETED">
+
+          <lucide-icon [img]="Pin" [size]="14"></lucide-icon>
+          Pin Announcement
+        </button>
+
+      </div>
+
+    } @else {
+
+      <div class="flex justify-between items-center gap-5 flex-wrap">
+
+        <div>
+          <p class="text-sm font-medium text-yellow-700">
+            Announcement is currently pinned
+          </p>
+
+          <p class="text-xs text-gray-500 mt-1">
+            This announcement appears with higher priority
+          </p>
+        </div>
+
+        <button
+          class="btn-mini-secondary flex items-center gap-2"
+          (click)="unpinAnnouncement()" [disabled]="announcement().status === AnnouncementStatus.DELETED">
+
+          <lucide-icon [img]="PinOff" [size]="14"></lucide-icon>
+          Unpin Announcement
+        </button>
+
+      </div>
+
+    }
+
+  </div>
+
+</app-card-shell>
