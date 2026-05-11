@@ -1,0 +1,19 @@
+<div class="px-5 py-4 border-b border-gray-100 flex justify-between items-center gap-4">
+
+  <div>
+    <h2 class="text-sm font-semibold text-gray-800">
+      {{ title() }}
+    </h2>
+
+    @if (description()) {
+      <p class="text-xs text-gray-500 mt-1">
+        {{ description() }}
+      </p>
+    }
+  </div>
+
+  <div>
+    <ng-content select="[card-action]"></ng-content>
+  </div>
+
+</div>
