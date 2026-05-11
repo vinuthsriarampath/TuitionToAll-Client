@@ -6,6 +6,7 @@ import {ProfileFileServiceService} from '../../../core/services/profile-files/pr
 import {User} from '../../../core/models/user-models/user';
 import {DialogLayoutComponent} from '../../../core/layouts/dialog-layout/dialog-layout.component';
 import {ImageIcon} from 'lucide-angular';
+import {AlertService} from '../../../core/services/alerts/alert.service';
 
 @Component({
   selector: 'app-update-profile-banner-dialog',
@@ -27,6 +28,8 @@ export class UpdateProfileBannerDialogComponent {
   selectedFile: File | null = null;
 
   profileService:ProfileFileServiceService = inject(ProfileFileServiceService);
+
+  private readonly alertService:AlertService = inject(AlertService);
 
   constructor(
     public dialogRef:MatDialogRef<UpdateProfileBannerDialogComponent>,
@@ -65,7 +68,7 @@ export class UpdateProfileBannerDialogComponent {
         },
         error: (err) =>{
           this.triggerLoading();
-          this.onCancel();
+          this.alertService.triggerErrorAlert(err.error.message);
         }
       }
     )

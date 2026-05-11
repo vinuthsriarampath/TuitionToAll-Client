@@ -6,6 +6,7 @@ import {ProfileFileServiceService} from '../../../core/services/profile-files/pr
 import {User} from '../../../core/models/user-models/user';
 import {DialogLayoutComponent} from '../../../core/layouts/dialog-layout/dialog-layout.component';
 import {ImageIcon} from 'lucide-angular';
+import {AlertService} from '../../../core/services/alerts/alert.service';
 
 @Component({
   selector: 'app-update-user-profile-pic-dialog',
@@ -26,6 +27,7 @@ export class UpdateUserProfilePicDialogComponent {
   isLoading: boolean = false;
 
   profileService:ProfileFileServiceService =  inject(ProfileFileServiceService);
+  private readonly alertService:AlertService = inject(AlertService);
 
   constructor(
     public dialogRef: MatDialogRef<UpdateUserProfilePicDialogComponent>,
@@ -71,14 +73,14 @@ export class UpdateUserProfilePicDialogComponent {
       {
         next: (res) =>{
           if (res.data) {
-            this.userDetails.dp = res.data as string;
+            this.userDetails.dp = res.data;
           }
           this.triggerLoading();
           this.onConfirm();
         },
         error: (err) =>{
           this.triggerLoading();
-          this.onCancel();
+          this.alertService.triggerErrorAlert(err.error.message);
         }
       }
     )
