@@ -31,8 +31,10 @@ import {
   UpdateAnnouncementContentDialogData
 } from './models/update-announcement-content-dialog/update-announcement-content-dialog.component';
 import {
-  UpdateAnnouncementVisibilityDialogComponent, UpdateAnnouncementVisibilityDialogData
+  UpdateAnnouncementVisibilityDialogComponent,
+  UpdateAnnouncementVisibilityDialogData
 } from './models/update-announcement-visibility-dialog/update-announcement-visibility-dialog.component';
+import {DialogLayoutComponent} from '../../../../../../../core/layouts/dialog-layout/dialog-layout.component';
 
 @Component({
   selector: 'app-update-announcement-dialog',
@@ -41,7 +43,8 @@ import {
     NgClass,
     DatePipe,
     QuillEditorComponent,
-    FormsModule
+    FormsModule,
+    DialogLayoutComponent
   ],
   templateUrl: './update-announcement-dialog.component.html',
   styleUrl: './update-announcement-dialog.component.css'
