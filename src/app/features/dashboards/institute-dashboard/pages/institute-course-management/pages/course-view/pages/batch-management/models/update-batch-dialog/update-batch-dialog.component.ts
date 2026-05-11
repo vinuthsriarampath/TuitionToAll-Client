@@ -4,7 +4,6 @@ import {Batch} from '../../../../../../../../../../../core/models/batch';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {BatchStatus} from '../../../../../../../../../../../core/enums/batch-status';
 import {BatchEnrollmentStatus} from '../../../../../../../../../../../core/enums/batch-enrollment-status';
-import {NgIf} from '@angular/common';
 import {BatchService} from '../../../../../../../../../../../core/services/batch/batch.service';
 import {
   DialogLayoutComponent
@@ -15,7 +14,6 @@ import {SquarePen} from 'lucide-angular';
   selector: 'app-update-batch-dialog',
   imports: [
     FormsModule,
-    NgIf,
     ReactiveFormsModule,
     DialogLayoutComponent
   ],
