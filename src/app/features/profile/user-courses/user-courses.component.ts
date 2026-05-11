@@ -6,6 +6,7 @@ import {environment} from '../../../environment/environment.development';
 import {AlertService} from '../../../core/services/alerts/alert.service';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {CourseFilter} from '../../../core/dto/request-dto/course/course-filter';
+import {CourseCardComponent} from './components/course-card/course-card.component';
 
 @Component({
   selector: 'app-user-courses',
@@ -13,7 +14,8 @@ import {CourseFilter} from '../../../core/dto/request-dto/course/course-filter';
     NgOptimizedImage,
     MatProgressSpinner,
     CurrencyPipe,
-    NgClass
+    NgClass,
+    CourseCardComponent
   ],
   templateUrl: './user-courses.component.html',
   styleUrl: './user-courses.component.css'
