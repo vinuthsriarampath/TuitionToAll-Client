@@ -3,14 +3,14 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {QuillEditorComponent} from "ngx-quill";
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {TeacherVacancy} from '../../../../../../../../../core/models/teacher-vacancy';
-import {isFutureDate} from '../../../../../../../../../core/helpers/form-custom-validators';
 import {TeacherVacancyService} from '../../../../../../../../../core/services/teacher-vacancy/teacher-vacancy.service';
 import {TeacherVacancyStatus} from '../../../../../../../../../core/enums/teacher-vacancy-status';
 import {
   TeacherVacancyUpdateRequest
 } from '../../../../../../../../../core/dto/request-dto/teacher-vacancy/teacher-vacancy-update-request';
 import {AlertService} from '../../../../../../../../../core/services/alerts/alert.service';
-import {NgIf} from '@angular/common';
+import {DialogLayoutComponent} from '../../../../../../../../../core/layouts/dialog-layout/dialog-layout.component';
+import {SquarePen} from 'lucide-angular';
 
 @Component({
   selector: 'app-update-teacher-vacancy-dialog',
@@ -18,7 +18,7 @@ import {NgIf} from '@angular/common';
     FormsModule,
     QuillEditorComponent,
     ReactiveFormsModule,
-    NgIf
+    DialogLayoutComponent
   ],
   templateUrl: './update-teacher-vacancy-dialog.component.html',
   styleUrl: './update-teacher-vacancy-dialog.component.css'
@@ -111,4 +111,6 @@ export class UpdateTeacherVacancyDialogComponent {
       this.form.enable();
     }
   }
+
+  protected readonly SquarePen = SquarePen;
 }

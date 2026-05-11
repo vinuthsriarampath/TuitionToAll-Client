@@ -1,12 +1,12 @@
-<div class="bg-white p-4">
-  <div class="w-full flex justify-between items-center border-b-2 border-gray-200">
-    <h1 class="text-lg">Create Vacancy</h1>
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-         class="size-5 cursor-pointer" (click)="onCancel()" (keydown)="onCancel()">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
-    </svg>
-  </div>
-  <div>
+<app-dialog-layout
+  [icon]="SquarePen"
+  [loading]="loading"
+  [loaderTitle]="'Updating Vacancy'"
+  [title]="'Update Vacancy'"
+  [description]="'Please fill in the form below to update the vacancy'"
+  (cancelEvent)="onCancel()"
+>
+  <div data-body>
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="gap-4 mt-4 grid grid-cols-1 md:grid-cols-2">
       <div class="col-span-2">
         <label for="title" class="form-label">Title <span class="text-red-500">*</span></label>
@@ -16,7 +16,7 @@
         }
       </div>
       <div class="col-span-1">
-        <label for="yearsOfExperience" class="form-label">Years Of Experience Required <span class="text-red-500">*</span></label>
+        <label for="yearsOfExperience" class="form-label">Years Of Experience <span class="text-red-500">*</span></label>
         <input type="number" id="yearsOfExperience" class="form-input" placeholder="YearsOfExperience" formControlName="requiredExperienceYears">
         @if (form.get('requiredExperienceYears')?.errors?.['required'] && form.get('requiredExperienceYears')?.touched) {
           <p class="form-error">Years of Experience is required</p>
@@ -62,12 +62,5 @@
         <input type="submit" class="btn-mini-primary" value="Update Vacancy">
       </div>
     </form>
-    <div *ngIf="loading" class="w-full h-full bg-gray-100 opacity-50 absolute top-0 left-0 z-10 flex flex-col justify-center items-center ">
-      <div class="relative z-20 flex flex-col justify-center items-center">
-        <div class="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full border-blue-600 border-t-transparent"></div>
-        <p class="text-gray-800 font-semibold">Updating..</p>
-      </div>
-    </div>
   </div>
-
-</div>
+</app-dialog-layout>
