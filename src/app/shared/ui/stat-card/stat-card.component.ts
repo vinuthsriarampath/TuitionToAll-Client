@@ -1,0 +1,13 @@
+import {Component, input} from '@angular/core';
+
+@Component({
+  selector: 'app-stat-card',
+  imports: [],
+  templateUrl: './stat-card.component.html',
+  styleUrl: './stat-card.component.css'
+})
+export class StatCardComponent {
+  title = input.required<string>();
+
+  value = input.required<string | number>();
+}
