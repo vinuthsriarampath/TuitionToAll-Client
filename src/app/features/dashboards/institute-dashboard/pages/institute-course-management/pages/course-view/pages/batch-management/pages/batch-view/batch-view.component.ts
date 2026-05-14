@@ -7,13 +7,25 @@ import {AlertService} from '../../../../../../../../../../../core/services/alert
 import {ApiResponse} from '../../../../../../../../../../../core/dto/response-dto/api-response';
 import {MatDialog} from '@angular/material/dialog';
 import {UpdateBatchDialogComponent} from '../../models/update-batch-dialog/update-batch-dialog.component';
-import {PageTitleComponent} from '../../../../../../../../../../../shared/components/page-title/page-title.component';
+import {PageLayoutComponent} from '../../../../../../../../../../../core/layouts/page-layout/page-layout.component';
+import {CardShellComponent} from '../../../../../../../../../../../shared/ui/card-shell/card-shell.component';
+import {CardHeaderComponent} from '../../../../../../../../../../../shared/ui/card-header/card-header.component';
+import {MatTab, MatTabContent, MatTabGroup} from '@angular/material/tabs';
+import {Calendar, LucideAngularModule} from 'lucide-angular';
+import {ModuleSectionComponent} from './components/module-section/module-section.component';
 
 @Component({
   selector: 'app-batch-view',
   imports: [
     DatePipe,
-    PageTitleComponent
+    PageLayoutComponent,
+    CardShellComponent,
+    CardHeaderComponent,
+    MatTabGroup,
+    MatTab,
+    MatTabContent,
+    LucideAngularModule,
+    ModuleSectionComponent
   ],
   templateUrl: './batch-view.component.html',
   styleUrl: './batch-view.component.css'
@@ -32,7 +44,7 @@ export class BatchViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {
-      this.batchId = Number.parseInt(params.get('batchId') ?? '-1');
+      this.batchId = Number.parseInt(params.get('batchId') ?? '');
     });
     this.fetchBatchDetails(this.batchId);
   }
@@ -42,7 +54,6 @@ export class BatchViewComponent implements OnInit {
         next: (res:ApiResponse<Batch>) => {
           if(res.data){
             this.batch = res.data;
-            console.log(res);
           }
         },
         error: (err) => {
@@ -73,4 +84,6 @@ export class BatchViewComponent implements OnInit {
     )
 
   }
+
+  protected readonly Calendar = Calendar;
 }
