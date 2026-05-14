@@ -1,11 +1,13 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Batch} from '../../models/batch';
 import {environment} from '../../../environment/environment.development';
 import {ApiResponse} from '../../dto/response-dto/api-response';
 import {BatchCreateRequest} from '../../dto/request-dto/batch/batch-create-request';
 import {BatchUpdateRequest} from '../../dto/request-dto/batch/batch-update-request';
+import {PaginatedApiResponse} from '../../dto/response-dto/paginated-api-response';
+import {ModuleResponse} from '../../dto/response-dto/module/ModuleResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +30,19 @@ export class BatchService {
 
   getBatchById(batchId: number):Observable<ApiResponse<Batch>> {
     return this.http.get<ApiResponse<Batch>>(`${environment.BATCH_API}/find/batch/${batchId}`);
+  }
+
+  getAllModulesByBatch(id: number, page: number = 0, size: number = 10, direction: string = 'desc', sortBy: string[] = ['created_date']): Observable<PaginatedApiResponse<ModuleResponse>> {
+
+    let params = new HttpParams()
+      .set('page', page)
+      .set('size', size)
+      .set('direction', direction);
+
+    sortBy.forEach(value => {
+      params = params.append('sortBy', value);
+    });
+
+    return this.http.get<PaginatedApiResponse<ModuleResponse>>(`${environment.BATCH_API}/${id}/modules`, { params });
   }
 }
