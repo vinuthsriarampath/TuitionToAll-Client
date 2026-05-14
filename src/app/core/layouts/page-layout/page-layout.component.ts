@@ -14,6 +14,6 @@ import {PageTitleComponent} from '../../../shared/components/page-title/page-tit
 export class PageLayoutComponent {
 
   headerTitle = input.required<string>();
-  headerDescription = input.required<string>();
+  headerDescription = input<string>();
   showBackButton = input<boolean>(false);
 }
