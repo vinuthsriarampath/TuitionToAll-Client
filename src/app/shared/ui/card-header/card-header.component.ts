@@ -9,5 +9,5 @@ import {Component, input} from '@angular/core';
 export class CardHeaderComponent {
 
   title = input.required<string>();
-  description = input<string>('');
+  description = input<string | number | null>('');
 }
