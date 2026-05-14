@@ -15,6 +15,6 @@ export class PageTitleComponent {
   protected readonly window = globalThis.window;
 
   title = input.required<string>();
-  description = input.required<string>();
+  description = input<string>();
   backButton = input<boolean>(false);
 }
