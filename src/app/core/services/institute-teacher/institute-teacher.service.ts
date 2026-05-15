@@ -10,6 +10,7 @@ import {ApplicationRejectionResponse} from '../../dto/response-dto/ApplicationRe
 import {PaginatedApiResponse} from '../../dto/response-dto/paginated-api-response';
 import {InstituteTeacherResponse} from '../../dto/response-dto/InstituteTeacherResponse';
 import {InstituteTeacherStatsResponse} from '../../dto/response-dto/InstituteTeacherStatsResponse';
+import {TeacherBasicResponse} from '../../dto/response-dto/TeacherBasicResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -32,5 +33,9 @@ export class InstituteTeacherService {
 
   getInstituteTeacherStats():Observable<ApiResponse<InstituteTeacherStatsResponse>>{
     return this.http.get<ApiResponse<InstituteTeacherStatsResponse>>(`${environment.INSTITUTE_TEACHER_API}/stats`);
+  }
+
+  getAllTeachersByCurrentInstitute():Observable<ApiResponse<TeacherBasicResponse[]>>{
+    return this.http.get<ApiResponse<TeacherBasicResponse[]>>(`${environment.INSTITUTE_TEACHER_API}/basic`);
   }
 }
