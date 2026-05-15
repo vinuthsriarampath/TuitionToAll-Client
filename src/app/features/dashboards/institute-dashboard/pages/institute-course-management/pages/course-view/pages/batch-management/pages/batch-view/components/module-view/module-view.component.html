@@ -65,7 +65,8 @@
 
       <!-- Actions -->
       <div class="flex flex-row justify-center items-center mt-3 gap-2">
-        <button matTooltip="Edit Module"
+        <button (click)="openModuleUpdateViewDialog()"
+          matTooltip="Edit Module"
                 matTooltipPosition="above"
                 class="bg-white/10 rounded-full p-2 cursor-pointer">
           <lucide-icon [img]="Pen" [size]="20" class="filled-icon"/>

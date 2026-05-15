@@ -11,6 +11,9 @@ import {CardShellComponent} from '../../../../../../../../../../../../../shared/
 import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray} from '@angular/cdk/drag-drop';
 import {MatTooltip} from '@angular/material/tooltip';
 import {ArrowLeft, Edit, LucideAngularModule, Pen, Plus, Trash2} from 'lucide-angular';
+import {MatDialog} from '@angular/material/dialog';
+import {ModuleUpdateViewComponent} from '../module-update-view/module-update-view.component';
+import {ModuleResponse} from '../../../../../../../../../../../../../core/dto/response-dto/module/ModuleResponse';
 
 @Component({
   selector: 'app-module-view',
@@ -50,6 +53,7 @@ export class ModuleViewComponent implements OnInit{
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly moduleService:ModuleService = inject(ModuleService);
   private readonly alertService:AlertService = inject(AlertService);
+  private readonly dialog:MatDialog = inject(MatDialog);
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {
@@ -75,6 +79,23 @@ export class ModuleViewComponent implements OnInit{
       }
     })
   }
+
+  protected openModuleUpdateViewDialog():void{
+    const dialogRef = this.dialog.open(ModuleUpdateViewComponent,{
+      data : this.module,
+      width: '600px'
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next:()=>{
+        this.fetchModuleDetails(this.moduleId);
+      },
+      error:() => {
+        this.alertService.triggerErrorAlert("Failed to update module");
+      }
+    })
+  }
+
 
   protected drop($event: CdkDragDrop<string[]>) {
     moveItemInArray(this.chapters, $event.previousIndex, $event.currentIndex);
