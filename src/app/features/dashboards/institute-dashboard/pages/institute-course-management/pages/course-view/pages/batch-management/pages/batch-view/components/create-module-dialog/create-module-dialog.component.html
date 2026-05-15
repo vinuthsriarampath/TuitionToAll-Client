@@ -1,0 +1,21 @@
+<app-dialog-layout (cancelEvent)="onCancel()" [title]="'Create Module'" [description]="'Create a new module for the batch here!'" [loading]="loading" [loaderTitle]="'Creating Module'" [loaderDescription]="'Please be patient until module is created'" [icon]="Book">
+  <div data-body>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="flex flex-col gap-4">
+        <div>
+          <app-input id="name" label="Name" placeholder="Enter module name" [required]="true" [control]="form.get('name')" />
+        </div>
+        <div>
+          <app-select id="status" label="Status" placeholder="Select a status for model" [required]="true" [control]="form.get('status')" [options]="statusOptions"></app-select>
+        </div>
+        <div>
+          <app-select id="teacherId" label="Assign Teacher" placeholder="Select a teacher from the institute" [control]="form.get('teacherId')" [options]="teacherOptions"></app-select>
+        </div>
+        <div class="flex justify-end gap-2">
+          <button type="button" class="btn btn-mini-secondary" (click)="onReset()">Reset</button>
+          <button type="submit" class="btn btn-mini-primary">Create Module</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</app-dialog-layout>
