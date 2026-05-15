@@ -1,0 +1,36 @@
+<label class="form-label" [for]="id()">
+  {{ label() }}
+
+  @if (required()) {
+    <span class="text-red-500">*</span>
+  }
+</label>
+
+<select
+  class="form-input"
+  [id]="id()"
+  [formControl]="$any(control())"
+  [class.form-input-error]="control()?.invalid && control()?.touched"
+>
+  <option value="" disabled selected>
+    {{ placeholder() }}
+  </option>
+
+  @for (opt of options(); track opt) {
+    <option [value]="getValue(opt)">
+      {{ getLabel(opt) }}
+    </option>
+  }
+</select>
+
+@if (control()?.errors?.['required'] && control()?.touched) {
+  <p class="form-error">
+    * {{ label() }} is Mandatory!
+  </p>
+}
+
+@if (control()?.errors?.['server']) {
+  <p class="form-error">
+    * {{ control()?.errors?.['server'] }}
+  </p>
+}
