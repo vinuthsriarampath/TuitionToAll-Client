@@ -1,0 +1,121 @@
+<div class="h-full overflow-hidden flex gap-4 p-3">
+
+  <!-- Left Side (Module Card) -->
+  <div class="relative w-80 rounded-2xl p-3 shadow-lg overflow-hidden">
+
+    <!-- Background Image -->
+    <img
+      ngSrc="/no_image_provided.png"
+      width="1280"
+      height="720"
+      alt="background-img"
+      class="absolute inset-0 w-full h-full object-cover scale-125 blur-xl"
+    />
+
+    <!-- Dark Overlay -->
+    <div class="absolute inset-0 bg-black/50"></div>
+
+    <!-- Content -->
+    <div class="relative z-10 flex flex-col text-white">
+
+      <!-- ✅ Back Button (Option 2 placement) -->
+      <button
+        class="flex items-center gap-2 text-white/80 hover:text-white mb-3 w-fit"
+      >
+        <lucide-icon [img]="ArrowLeft" [size]="18" />
+        <span class="text-sm">Back</span>
+      </button>
+
+      <!-- Module Thumbnail -->
+      <div class="w-full h-48 overflow-hidden rounded-lg mb-3">
+        <img
+          ngSrc="/no_image_provided.png"
+          width="1280"
+          height="720"
+          alt="Module Thumbnail"
+          class="w-full h-48 object-cover rounded-lg"
+        />
+      </div>
+
+      <!-- Title -->
+      <h1 class="text-xl font-semibold mb-2">
+        Enterprise Application Development
+      </h1>
+
+      <!-- Meta Row -->
+      <div class="flex justify-between">
+        <div class="flex flex-row gap-1 text-sm text-gray-200">
+          <span class="text-gray-300">Created At:</span>
+          <p>{{ module.createdDate | date:'dd MMM yyyy' }}</p>
+        </div>
+
+        <app-module-badge [status]="module.status"></app-module-badge>
+      </div>
+
+      <!-- Teacher -->
+      <div class="flex flex-row gap-1 text-sm text-gray-200 mt-1">
+        <span class="text-gray-300">Teacher:</span>
+        <a
+          [routerLink]="['/profile', module.teacher.userslug]"
+          class="hover:underline"
+        >
+          {{ module.teacher.firstName }} {{ module.teacher.lastName }}
+        </a>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex flex-row justify-center items-center mt-3 gap-2">
+        <button matTooltip="Edit Module"
+                matTooltipPosition="above"
+                class="bg-white/10 rounded-full p-2 cursor-pointer">
+          <lucide-icon [img]="Pen" [size]="20" class="filled-icon"/>
+        </button>
+
+        <button matTooltip="Add Chapter"
+                matTooltipPosition="above"
+                class="bg-white/10 rounded-full p-2 cursor-pointer">
+          <lucide-icon [img]="Plus" [size]="20" class="filled-icon"/>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Right Side -->
+  <div class="flex-1 shadow-lg rounded-2xl bg-gray-50 border border-gray-200 p-3">
+
+    <div class="flex justify-between items-center mb-3">
+      <h1 class="text-xl font-semibold">Chapters</h1>
+      <button class="btn-mini-primary">Add Chapter</button>
+    </div>
+
+    <div class="flex flex-col gap-2 chapter-boundry"
+         cdkDropList
+         (cdkDropListDropped)="drop($event)">
+
+      @for (chapter of chapters; track chapter) {
+        <app-card-shell
+          cdkDragLockAxis="y"
+          cdkDragBoundary=".chapter-boundry"
+          cdkDrag
+          class="mb-2"
+        >
+          <div class="flex justify-between items-center p-2 mb-2">
+            <h2 class="text-md font-medium">{{ chapter }}</h2>
+
+            <div class="flex gap-2">
+              <button matTooltip="Edit Chapter" matTooltipPosition="above">
+                <lucide-icon [img]="Edit" [size]="14"/>
+              </button>
+
+              <button matTooltip="Delete Chapter" matTooltipPosition="above">
+                <lucide-icon [img]="Trash2" [size]="14"/>
+              </button>
+            </div>
+          </div>
+        </app-card-shell>
+      }
+
+    </div>
+  </div>
+</div>
