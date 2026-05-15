@@ -29,7 +29,7 @@
         <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let element" >
           <div class="flex gap-2">
-            <button type="button" matTooltip="View Module" matTooltipPosition="above" class="cursor-pointer">
+            <button [routerLink]="['modules',element.id]" type="button" matTooltip="View Module" matTooltipPosition="above" class="cursor-pointer">
               <lucide-icon [img]="Eye" [size]="14"/>
             </button>
             <button type="button" matTooltip="Edit Module" matTooltipPosition="above" class="cursor-pointer">

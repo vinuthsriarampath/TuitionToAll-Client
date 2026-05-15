@@ -20,6 +20,7 @@ import {DatePipe} from '@angular/common';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatDialog} from '@angular/material/dialog';
 import {CreateModuleDialogComponent} from '../create-module-dialog/create-module-dialog.component';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-module-section',
@@ -39,7 +40,8 @@ import {CreateModuleDialogComponent} from '../create-module-dialog/create-module
     ModuleBadgeComponent,
     MatPaginator,
     DatePipe,
-    MatTooltip
+    MatTooltip,
+    RouterLink
   ],
   templateUrl: './module-section.component.html',
   styleUrl: './module-section.component.css'
