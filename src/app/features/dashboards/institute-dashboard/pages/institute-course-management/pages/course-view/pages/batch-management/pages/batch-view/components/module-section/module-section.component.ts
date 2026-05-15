@@ -18,6 +18,8 @@ import {ModuleBadgeComponent} from '../module-badge/module-badge.component';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {DatePipe} from '@angular/common';
 import {MatTooltip} from '@angular/material/tooltip';
+import {MatDialog} from '@angular/material/dialog';
+import {CreateModuleDialogComponent} from '../create-module-dialog/create-module-dialog.component';
 
 @Component({
   selector: 'app-module-section',
@@ -57,6 +59,7 @@ export class ModuleSectionComponent implements OnInit {
   //dependencies
   private readonly batchService:BatchService = inject(BatchService);
   private readonly alertService:AlertService = inject(AlertService);
+  private readonly dialog:MatDialog = inject(MatDialog);
 
 
   ngOnInit(): void {
@@ -77,6 +80,22 @@ export class ModuleSectionComponent implements OnInit {
           this.alertService.triggerErrorAlert(err.error.message);
       }
     });
+  }
+
+  protected openCreateModuleDialog():void{
+    const dialogRef = this.dialog.open(CreateModuleDialogComponent,{
+      width: '600px',
+      data: this.batchId(),
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next:() => {
+        this.loadModulesByBatch();
+      },
+      error: (err) => {
+        this.alertService.triggerErrorAlert(err.error.message);
+      }
+    })
   }
 
   protected onPageChange(event : PageEvent):void{

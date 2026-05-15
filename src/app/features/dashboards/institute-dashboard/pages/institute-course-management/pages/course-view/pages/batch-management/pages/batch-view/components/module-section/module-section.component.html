@@ -1,5 +1,5 @@
 <app-page-layout [headerTitle]="'Modules'">
-  <button data-actions class="btn-mini-primary flex items-center gap-1" matTooltip="Create a new module" matTooltipPosition="above">
+  <button data-actions class="btn-mini-primary flex items-center gap-1" matTooltip="Create a new module" matTooltipPosition="above" (click)="openCreateModuleDialog()">
     <lucide-icon [img]="Plus" [size]="14"></lucide-icon>
     Add Module
   </button>
