@@ -64,6 +64,9 @@ import {
 import {
   CourseAnnouncementViewComponent
 } from './features/dashboards/institute-dashboard/pages/institute-course-management/pages/course-view/components/course-announcement-view/course-announcement-view.component';
+import {
+  ModuleViewComponent
+} from './features/dashboards/institute-dashboard/pages/institute-course-management/pages/course-view/pages/batch-management/pages/batch-view/components/module-view/module-view.component';
 
 
 export const routes: Routes = [
@@ -161,7 +164,21 @@ export const routes: Routes = [
                   },
                   {
                     path: ':batchId',
-                    component: BatchViewComponent
+                    children:[
+                      {
+                        path: '',
+                        component: BatchViewComponent
+                      },
+                      {
+                        path: 'modules',
+                        children:[
+                          {
+                            path: ':moduleId',
+                            component: ModuleViewComponent
+                          }
+                        ]
+                      }
+                    ]
                   }
                 ]
               }
