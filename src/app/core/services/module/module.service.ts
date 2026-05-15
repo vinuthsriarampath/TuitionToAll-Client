@@ -8,6 +8,9 @@ import {ApiResponse} from '../../dto/response-dto/api-response';
 import {ModuleNameUpdateRequest} from '../../dto/request-dto/module/ModuleNameUpdateRequest';
 import {ModuleCreateRequest} from '../../dto/request-dto/module/ModuleCreateRequest';
 import {environment} from '../../../environment/environment.development';
+import {ModuleTeacherUpdateRequest} from '../../dto/request-dto/module/ModuleTeacherUpdateRequest';
+import {ModuleBatchUpdateRequest} from '../../dto/request-dto/module/ModuleBatchUpdateRequest';
+import {ModuleDetailedResponse} from '../../dto/response-dto/module/ModuleDetailedResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +38,22 @@ export class ModuleService {
 
   archiveModule(id: number): Observable<ApiResponse<ModuleResponse>> {
     return this.http.patch<ApiResponse<ModuleResponse>>(`${this.baseUrl}/${id}/archive`, {});
+  }
+
+  updateTeacher(id:number, request: ModuleTeacherUpdateRequest):Observable<ApiResponse<ModuleResponse>>{
+    return this.http.patch<ApiResponse<ModuleResponse>>(`${this.baseUrl}/${id}/teacher`,request);
+  }
+
+  updateBatch(id:number,request:ModuleBatchUpdateRequest):Observable<ApiResponse<ModuleResponse>>{
+    return this.http.patch<ApiResponse<ModuleResponse>>(`${this.baseUrl}/${id}/batch`,request);
+  }
+
+  getModuleById(id:number):Observable<ApiResponse<ModuleResponse>>{
+    return this.http.get<ApiResponse<ModuleResponse>>(`${this.baseUrl}/${id}`);
+  }
+
+  getDetailedModuleById(id:number):Observable<ApiResponse<ModuleDetailedResponse>>{
+    return this.http.get<ApiResponse<ModuleDetailedResponse>>(`${this.baseUrl}/${id}/detailed`);
   }
 
   getAllModules(page: number = 0, size: number = 10, direction: string = 'desc', sortBy: string[] = ['created_date'], filter?: ModuleFilterRequest): Observable<PaginatedApiResponse<ModuleResponse>> {
