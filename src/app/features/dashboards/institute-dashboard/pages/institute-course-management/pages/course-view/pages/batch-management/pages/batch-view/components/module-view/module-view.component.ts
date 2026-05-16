@@ -84,7 +84,7 @@ export class ModuleViewComponent implements OnInit{
   protected openModuleUpdateViewDialog():void{
     const dialogRef = this.dialog.open(ModuleUpdateViewComponent,{
       data : this.module,
-      width: '600px'
+      maxWidth: '100vh'
     });
 
     dialogRef.afterClosed().subscribe({
