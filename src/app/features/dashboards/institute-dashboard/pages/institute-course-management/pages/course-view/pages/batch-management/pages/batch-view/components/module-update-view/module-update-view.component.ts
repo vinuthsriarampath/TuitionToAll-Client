@@ -3,24 +3,28 @@ import {
   DialogLayoutComponent
 } from '../../../../../../../../../../../../../core/layouts/dialog-layout/dialog-layout.component';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {ModuleResponse} from '../../../../../../../../../../../../../core/dto/response-dto/module/ModuleResponse';
 import {Book} from 'lucide-angular';
+import {
+  ModuleDetailedResponse
+} from '../../../../../../../../../../../../../core/dto/response-dto/module/ModuleDetailedResponse';
+import {ModuleDangerPanelComponent} from '../module-danger-panel/module-danger-panel.component';
 
 @Component({
   selector: 'app-module-update-view',
   imports: [
-    DialogLayoutComponent
+    DialogLayoutComponent,
+    ModuleDangerPanelComponent,
   ],
   templateUrl: './module-update-view.component.html',
   styleUrl: './module-update-view.component.css'
 })
 export class ModuleUpdateViewComponent {
 
-
-  protected module!:ModuleResponse;
+  protected loading:boolean = false;
+  protected module!:ModuleDetailedResponse;
   private readonly dialogRef:MatDialogRef<ModuleUpdateViewComponent> = inject(MatDialogRef<ModuleUpdateViewComponent>);
 
-  constructor(@Inject(MAT_DIALOG_DATA) private readonly data:ModuleResponse) {
+  constructor(@Inject(MAT_DIALOG_DATA) private readonly data:ModuleDetailedResponse) {
     this.module = data;
   }
 
@@ -28,5 +32,8 @@ export class ModuleUpdateViewComponent {
     this.dialogRef.close();
   }
 
+  protected triggerLoading():void{
+    this.loading = !this.loading;
+  }
   protected readonly Book = Book;
 }
