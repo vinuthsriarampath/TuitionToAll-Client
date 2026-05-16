@@ -8,12 +8,14 @@ import {
   ModuleDetailedResponse
 } from '../../../../../../../../../../../../../core/dto/response-dto/module/ModuleDetailedResponse';
 import {ModuleDangerPanelComponent} from '../module-danger-panel/module-danger-panel.component';
+import {ModuleNamePanelComponent} from '../module-name-panel/module-name-panel.component';
 
 @Component({
   selector: 'app-module-update-view',
   imports: [
     DialogLayoutComponent,
     ModuleDangerPanelComponent,
+    ModuleNamePanelComponent,
   ],
   templateUrl: './module-update-view.component.html',
   styleUrl: './module-update-view.component.css'
