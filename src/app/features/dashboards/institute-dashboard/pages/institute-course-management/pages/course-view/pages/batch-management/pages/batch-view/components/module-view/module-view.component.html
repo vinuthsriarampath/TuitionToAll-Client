@@ -19,8 +19,8 @@
     <div class="relative z-10 flex flex-col text-white">
 
       <!-- ✅ Back Button (Option 2 placement) -->
-      <button
-        class="flex items-center gap-2 text-white/80 hover:text-white mb-3 w-fit"
+      <button (click)="window.history.back()"
+        class="flex items-center gap-2 text-white/80 hover:text-white mb-3 w-fit cursor-pointer"
       >
         <lucide-icon [img]="ArrowLeft" [size]="18" />
         <span class="text-sm">Back</span>

@@ -13,7 +13,7 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {ArrowLeft, Edit, LucideAngularModule, Pen, Plus, Trash2} from 'lucide-angular';
 import {MatDialog} from '@angular/material/dialog';
 import {ModuleUpdateViewComponent} from '../module-update-view/module-update-view.component';
-import {ModuleResponse} from '../../../../../../../../../../../../../core/dto/response-dto/module/ModuleResponse';
+import {window} from 'rxjs';
 
 @Component({
   selector: 'app-module-view',
@@ -34,6 +34,7 @@ import {ModuleResponse} from '../../../../../../../../../../../../../core/dto/re
 export class ModuleViewComponent implements OnInit{
 
   protected module!:ModuleDetailedResponse;
+  protected readonly window = globalThis.window;
 
   private moduleId!:number;
 
