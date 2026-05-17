@@ -11,6 +11,7 @@ import {ModuleDangerPanelComponent} from '../module-danger-panel/module-danger-p
 import {ModuleNamePanelComponent} from '../module-name-panel/module-name-panel.component';
 import {ModuleBatchPanelComponent} from '../module-batch-panel/module-batch-panel.component';
 import {ModuleTeacherPanelComponent} from '../module-teacher-panel/module-teacher-panel.component';
+import {ModuleStatusPanelComponent} from '../module-status-panel/module-status-panel.component';
 
 @Component({
   selector: 'app-module-update-view',
@@ -20,6 +21,7 @@ import {ModuleTeacherPanelComponent} from '../module-teacher-panel/module-teache
     ModuleNamePanelComponent,
     ModuleBatchPanelComponent,
     ModuleTeacherPanelComponent,
+    ModuleStatusPanelComponent,
   ],
   templateUrl: './module-update-view.component.html',
   styleUrl: './module-update-view.component.css'
