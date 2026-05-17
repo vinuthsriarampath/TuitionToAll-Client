@@ -1,0 +1,23 @@
+<app-card-shell>
+  <app-card-header
+    title="Module Teacher Details"
+    description="View the details of the module teacher here!">
+
+    <button card-action class="btn-mini-primary flex items-center gap-1" (click)="openUpdateModuleTeacherDialog()">
+      <lucide-icon [img]="Edit" [size]="14"></lucide-icon>
+      Edit Module Teacher
+    </button>
+  </app-card-header>
+  <div class="p-5 grid grid-cols-2 gap-5">
+    <div class="col-span-1">
+      <app-info-row label="Name" value="{{ module().teacher.firstName }} {{ module().teacher.lastName }}"></app-info-row>
+    </div>
+    <div class="col-span-1">
+      <app-info-row label="Email" value="{{ module().teacher.email }}"></app-info-row>
+    </div>
+    <div class="col-span-1">
+      <app-info-row label="Contact" value="{{ module().teacher.contact }}"></app-info-row>
+    </div>
+
+  </div>
+</app-card-shell>
