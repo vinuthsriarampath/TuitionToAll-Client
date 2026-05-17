@@ -76,7 +76,7 @@ export class ModuleStatusPanelComponent {
   protected openArchiveModuleDialog():void{
     const confirmationData:ConfirmationDialogData = {
       title: 'Archive module',
-      confirmText: 'Publish',
+      confirmText: 'Archive',
       message: 'Please Confirm this action, once Archived module is not visible to all related teachers and students',
       icon: Archive,
       type: "danger",
