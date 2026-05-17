@@ -21,6 +21,7 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {MatDialog} from '@angular/material/dialog';
 import {CreateModuleDialogComponent} from '../create-module-dialog/create-module-dialog.component';
 import {RouterLink} from '@angular/router';
+import {ModuleUpdateViewComponent} from '../module-update-view/module-update-view.component';
 
 @Component({
   selector: 'app-module-section',
@@ -104,6 +105,22 @@ export class ModuleSectionComponent implements OnInit {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
     this.loadModulesByBatch();
+  }
+
+  protected openModuleUpdateViewDialog(moduleId:number):void{
+    const dialogRef = this.dialog.open(ModuleUpdateViewComponent,{
+      data : moduleId,
+      maxWidth: '100vh'
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next:()=>{
+        this.loadModulesByBatch();
+      },
+      error:() => {
+        this.alertService.triggerErrorAlert("Failed to update module");
+      }
+    })
   }
 
   protected readonly Plus = Plus;

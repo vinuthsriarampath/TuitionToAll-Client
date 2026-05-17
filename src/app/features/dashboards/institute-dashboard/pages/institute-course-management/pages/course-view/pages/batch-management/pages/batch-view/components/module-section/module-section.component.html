@@ -32,7 +32,7 @@
             <button [routerLink]="['modules',element.id]" type="button" matTooltip="View Module" matTooltipPosition="above" class="cursor-pointer">
               <lucide-icon [img]="Eye" [size]="14"/>
             </button>
-            <button type="button" matTooltip="Edit Module" matTooltipPosition="above" class="cursor-pointer">
+            <button (click)="openModuleUpdateViewDialog(element.id)" type="button" matTooltip="Edit Module" matTooltipPosition="above" class="cursor-pointer">
               <lucide-icon [img]="Edit" [size]="14"/>
             </button>
           </div>
