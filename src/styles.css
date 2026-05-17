@@ -69,6 +69,10 @@
   @apply bg-green-600 hover:bg-green-700;
 }
 
+.btn-warning {
+  @apply bg-yellow-600 hover:bg-yellow-700;
+}
+
 .form-label {
   @apply text-sm text-gray-700 block mb-1;
 }
