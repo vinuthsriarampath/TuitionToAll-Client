@@ -11,7 +11,7 @@ import {PageLayoutComponent} from '../../../../../../../../../../../core/layouts
 import {CardShellComponent} from '../../../../../../../../../../../shared/ui/card-shell/card-shell.component';
 import {CardHeaderComponent} from '../../../../../../../../../../../shared/ui/card-header/card-header.component';
 import {MatTab, MatTabContent, MatTabGroup} from '@angular/material/tabs';
-import {Calendar, LucideAngularModule} from 'lucide-angular';
+import {LucideAngularModule} from 'lucide-angular';
 import {ModuleSectionComponent} from './components/module-section/module-section.component';
 
 @Component({
@@ -85,5 +85,4 @@ export class BatchViewComponent implements OnInit {
 
   }
 
-  protected readonly Calendar = Calendar;
 }
