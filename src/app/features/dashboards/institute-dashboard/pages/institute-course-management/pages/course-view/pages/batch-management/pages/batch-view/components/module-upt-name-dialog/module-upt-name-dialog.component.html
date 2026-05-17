@@ -1,0 +1,12 @@
+<app-dialog-layout [title]="'Update Module Name'" [description]="'Update the name of the module here!'" [icon]="Edit" [loading]="loading" [loaderTitle]="'Updating Module Name'" (cancelEvent)="onCancel()">
+  <div data-body>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <app-input id="name" label="Name" placeholder="Enter module name" [required]="true" [control]="form.get('name')" />
+      <div class="flex justify-end my-3 gap-2">
+        <button type="button" class="btn-mini-secondary" (click)="onReset()">Cancel</button>
+        <button type="submit" class="btn-mini-primary">Update</button>
+      </div>
+    </form>
+  </div>
+
+</app-dialog-layout>
