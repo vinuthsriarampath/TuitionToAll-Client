@@ -1,6 +1,7 @@
 <app-dialog-layout (cancelEvent)="close()" [title]="'Update Module View'" [description]="'Update module details'" [icon]="Book" [loaderTitle]="'Updating Module'" [loaderDescription]="'Please wait while the module is being updated'">
   <div data-body class="flex flex-col gap-4">
-    <app-module-name-panel [module]="module"></app-module-name-panel>
+    <app-module-name-panel [module]="module"/>
+    <app-module-batch-panel [module]="module"/>
     <app-module-danger-panel [module]="this.module" (triggerLoading)="this.triggerLoading()"/>
   </div>
 </app-dialog-layout>
