@@ -1,0 +1,26 @@
+<app-dialog-layout
+  (cancelEvent)="onCancel()"
+  [title]="'Update Module Batch'"
+  [description]="'Update the batch details of the module here!'"
+  [icon]="Users"
+  [loaderTitle]="'Updating Module Batch'"
+  [loaderDescription]="'Please wait while the module batch is being updated'"
+>
+  <div data-body>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="flex flex-col justify-center items-center gap-2">
+        <div class="w-full mb-2">
+          <label for="currentBatchName" class="form-label">Current Batch</label>
+          <input id="currentBatchName" type="text" [disabled]="true" class="form-input" [value]="originalBatchName">
+        </div>
+        <lucide-icon [img]="ArrowRightLeft" [size]="20" class="text-gray-400"></lucide-icon>
+        <app-select class="w-full" id="batchId" label="Batch" placeholder="Select batch for the module" [required]="true" [control]="form.get('batchId')" [options]="batchOptions"/>
+      </div>
+      <div class="flex justify-end my-3 gap-2">
+        <button type="button" class="btn-mini-secondary" (click)="onReset()">Cancel</button>
+        <button type="submit" class="btn-mini-primary">Update</button>
+      </div>
+    </form>
+  </div>
+
+</app-dialog-layout>
