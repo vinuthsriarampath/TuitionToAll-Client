@@ -1,4 +1,4 @@
-import {Component, input} from '@angular/core';
+import {Component, inject, input} from '@angular/core';
 import {CardShellComponent} from '../../../../../../../../../../../../../shared/ui/card-shell/card-shell.component';
 import {CardHeaderComponent} from '../../../../../../../../../../../../../shared/ui/card-header/card-header.component';
 import {Edit, LucideAngularModule} from 'lucide-angular';
@@ -6,6 +6,13 @@ import {InfoRowComponent} from '../../../../../../../../../../../../../shared/ui
 import {
   ModuleDetailedResponse
 } from '../../../../../../../../../../../../../core/dto/response-dto/module/ModuleDetailedResponse';
+import {MatDialog} from '@angular/material/dialog';
+import {AlertService} from '../../../../../../../../../../../../../core/services/alerts/alert.service';
+import {
+  ModuleUptTeacherComponent,
+  ModuleUptTeacherDialogData
+} from '../module-upt-teacher/module-upt-teacher.component';
+import {ModuleService} from '../../../../../../../../../../../../../core/services/module/module.service';
 
 @Component({
   selector: 'app-module-teacher-panel',
@@ -22,8 +29,44 @@ export class ModuleTeacherPanelComponent {
 
   module = input.required<ModuleDetailedResponse>();
 
+  private readonly dialog:MatDialog = inject(MatDialog);
+  private readonly alertService:AlertService = inject(AlertService);
+  private readonly moduleService:ModuleService = inject(ModuleService);
+
   protected openUpdateModuleTeacherDialog():void{
-    throw new Error('Method not implemented yet');
+    const dialogData:ModuleUptTeacherDialogData={
+      moduleId: this.module().id,
+      currentTeacherId: this.module().teacher.id,
+      currentTeacherName: this.module().teacher.firstName+" "+this.module().teacher.lastName
+    }
+    const dialogRef = this.dialog.open(ModuleUptTeacherComponent,{
+      width: ' 450px',
+      data: dialogData
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: (res)=>{
+        if(res){
+          this.fetchModuleDetails();
+        }
+      },
+      error: (err) =>{
+        this.alertService.triggerErrorAlert(err.error.message);
+      }
+    });
+  }
+
+  private fetchModuleDetails():void{
+    this.moduleService.getDetailedModuleById(this.module().id).subscribe({
+      next: (res)=>{
+        if(res.data){
+          this.module().teacher = res.data.teacher;
+        }
+      },
+      error: (err)=>{
+        this.alertService.triggerErrorAlert(err.error.message);
+      }
+    })
   }
 
   protected readonly Edit = Edit;

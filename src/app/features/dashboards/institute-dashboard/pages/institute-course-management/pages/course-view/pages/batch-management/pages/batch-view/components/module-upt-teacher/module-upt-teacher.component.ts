@@ -10,9 +10,6 @@ import {AlertService} from '../../../../../../../../../../../../../core/services
 import {ModuleService} from '../../../../../../../../../../../../../core/services/module/module.service';
 import {FormErrorHandler} from '../../../../../../../../../../../../../core/helpers/FormErrorHandler';
 import {
-  ModuleBatchUpdateRequest
-} from '../../../../../../../../../../../../../core/dto/request-dto/module/ModuleBatchUpdateRequest';
-import {
   InstituteTeacherService
 } from '../../../../../../../../../../../../../core/services/institute-teacher/institute-teacher.service';
 import {
