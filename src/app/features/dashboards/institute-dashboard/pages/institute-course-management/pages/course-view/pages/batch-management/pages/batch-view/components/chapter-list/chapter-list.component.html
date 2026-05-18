@@ -1,4 +1,4 @@
-<div class="chapter-boundry flex flex-col gap-3" cdkDropList (cdkDropListDropped)="drop($event)">
+<div class="chapter-boundry flex flex-col gap-3 p-3" cdkDropList (cdkDropListDropped)="drop($event)">
 
   @for (chapter of chapters; track chapter.id; let i = $index) {
 
@@ -29,15 +29,7 @@
               </h2>
 
               <!-- Status -->
-              <span class="batch"
-                [ngClass]="{
-                  'batch-success': chapter.status === 'PUBLISHED',
-                  'batch-warning': chapter.status === 'DRAFT',
-                  'batch-secondary': chapter.status === 'LOCKED'
-                }"
-              >
-                {{ chapter.status }}
-              </span>
+              <app-chapter-badge [status]="chapter.status"></app-chapter-badge>
 
             </div>
 
@@ -65,11 +57,11 @@
         <!-- Right Actions -->
         <div class="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">
 
-          <button class="w-9 h-9 rounded-lg hover:bg-blue-50 text-blue-600 transition flex items-center justify-center" matTooltip="Edit Chapter" matTooltipPosition="above">
+          <button class="w-9 h-9 cursor-pointer rounded-lg hover:bg-blue-50 text-blue-600 transition flex items-center justify-center" matTooltip="Edit Chapter" matTooltipPosition="above">
             <lucide-icon [img]="Pencil" [size]="16"/>
           </button>
 
-          <button class="w-9 h-9 rounded-lg hover:bg-red-50 text-red-600 transition flex items-center justify-center" matTooltip="Delete Chapter" matTooltipPosition="above">
+          <button class="w-9 h-9 cursor-pointer rounded-lg hover:bg-red-50 text-red-600 transition flex items-center justify-center" matTooltip="Delete Chapter" matTooltipPosition="above">
             <lucide-icon [img]="Trash2" [size]="16"/>
           </button>
 

@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {CardShellComponent} from '../../../../../../../../../../../../../shared/ui/card-shell/card-shell.component';
 import {CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray} from '@angular/cdk/drag-drop';
@@ -8,6 +8,7 @@ import {ChapterResponse} from '../../../../../../../../../../../../../core/dto/r
 import {ModuleService} from '../../../../../../../../../../../../../core/services/module/module.service';
 import {AlertService} from '../../../../../../../../../../../../../core/services/alerts/alert.service';
 import {DatePipe, NgClass} from '@angular/common';
+import {ChapterBadgeComponent} from '../chapter-badge/chapter-badge.component';
 
 @Component({
   selector: 'app-chapter-list',
@@ -19,12 +20,13 @@ import {DatePipe, NgClass} from '@angular/common';
     MatTooltip,
     DatePipe,
     NgClass,
-    CdkDragHandle
+    CdkDragHandle,
+    ChapterBadgeComponent
   ],
   templateUrl: './chapter-list.component.html',
   styleUrl: './chapter-list.component.css'
 })
-export class ChapterListComponent implements OnInit{
+export class ChapterListComponent implements OnInit, OnChanges {
 
   protected chapters:ChapterResponse[] = [];
 
@@ -32,6 +34,8 @@ export class ChapterListComponent implements OnInit{
   private readonly moduleService:ModuleService = inject(ModuleService);
   private readonly activatedRoute:ActivatedRoute = inject(ActivatedRoute);
   private readonly alertService = inject(AlertService);
+
+  triggerRefresh = input.required<number>();
 
   ngOnInit(): void {
       this.activatedRoute.paramMap.subscribe(params => {
@@ -43,6 +47,16 @@ export class ChapterListComponent implements OnInit{
           this.alertService.triggerErrorAlert("Invalid module id passed via route parameters")
         }
       })
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log("inside chapter list on changes")
+    const refreshChange = changes['triggerRefresh'];
+
+    if (refreshChange && !refreshChange.firstChange) {
+      console.log("inside load chapters by module if condition")
+      this.loadChaptersByModule();
+    }
   }
 
   private loadChaptersByModule():void{
