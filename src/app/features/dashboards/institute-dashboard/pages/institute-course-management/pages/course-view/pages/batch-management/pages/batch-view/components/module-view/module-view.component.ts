@@ -12,6 +12,7 @@ import {ArrowLeft, Edit, LucideAngularModule, Pen, Plus, Trash2} from 'lucide-an
 import {MatDialog} from '@angular/material/dialog';
 import {ModuleUpdateViewComponent} from '../module-update-view/module-update-view.component';
 import {ChapterListComponent} from '../chapter-list/chapter-list.component';
+import {ChapterCreateDialogComponent} from '../chapter-create-dialog/chapter-create-dialog.component';
 
 @Component({
   selector: 'app-module-view',
@@ -30,6 +31,7 @@ import {ChapterListComponent} from '../chapter-list/chapter-list.component';
 export class ModuleViewComponent implements OnInit{
 
   protected module!:ModuleDetailedResponse;
+  protected chapterRefreshTrigger:number = 0;
   protected readonly window = globalThis.window;
 
   private moduleId!:number;
@@ -76,6 +78,21 @@ export class ModuleViewComponent implements OnInit{
       },
       error:() => {
         this.alertService.triggerErrorAlert("Failed to update module");
+      }
+    })
+  }
+
+  protected openChapterCreateDialog():void{
+    const dialogRef = this.dialog.open(ChapterCreateDialogComponent,{
+      width:'450px',
+      data: this.moduleId
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next:(res)=>{
+        if(res){
+          this.chapterRefreshTrigger++;
+        }
       }
     })
   }
