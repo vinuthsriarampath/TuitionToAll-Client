@@ -90,33 +90,6 @@
       <button class="btn-mini-primary">Add Chapter</button>
     </div>
 
-    <div class="flex flex-col gap-2 chapter-boundry"
-         cdkDropList
-         (cdkDropListDropped)="drop($event)">
-
-      @for (chapter of chapters; track chapter) {
-        <app-card-shell
-          cdkDragLockAxis="y"
-          cdkDragBoundary=".chapter-boundry"
-          cdkDrag
-          class="mb-2"
-        >
-          <div class="flex justify-between items-center p-2 mb-2">
-            <h2 class="text-md font-medium">{{ chapter }}</h2>
-
-            <div class="flex gap-2">
-              <button matTooltip="Edit Chapter" matTooltipPosition="above">
-                <lucide-icon [img]="Edit" [size]="14"/>
-              </button>
-
-              <button matTooltip="Delete Chapter" matTooltipPosition="above">
-                <lucide-icon [img]="Trash2" [size]="14"/>
-              </button>
-            </div>
-          </div>
-        </app-card-shell>
-      }
-
-    </div>
+    <app-chapter-list></app-chapter-list>
   </div>
 </div>

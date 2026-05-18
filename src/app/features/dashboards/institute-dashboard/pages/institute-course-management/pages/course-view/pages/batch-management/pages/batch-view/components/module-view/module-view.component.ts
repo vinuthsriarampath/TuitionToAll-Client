@@ -7,26 +7,22 @@ import {
 } from '../../../../../../../../../../../../../core/dto/response-dto/module/ModuleDetailedResponse';
 import {DatePipe, NgOptimizedImage} from '@angular/common';
 import {ModuleBadgeComponent} from '../module-badge/module-badge.component';
-import {CardShellComponent} from '../../../../../../../../../../../../../shared/ui/card-shell/card-shell.component';
-import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray} from '@angular/cdk/drag-drop';
 import {MatTooltip} from '@angular/material/tooltip';
 import {ArrowLeft, Edit, LucideAngularModule, Pen, Plus, Trash2} from 'lucide-angular';
 import {MatDialog} from '@angular/material/dialog';
 import {ModuleUpdateViewComponent} from '../module-update-view/module-update-view.component';
-import {window} from 'rxjs';
+import {ChapterListComponent} from '../chapter-list/chapter-list.component';
 
 @Component({
   selector: 'app-module-view',
   imports: [
     DatePipe,
     ModuleBadgeComponent,
-    CardShellComponent,
-    CdkDropList,
     MatTooltip,
     LucideAngularModule,
-    CdkDrag,
     NgOptimizedImage,
-    RouterLink
+    RouterLink,
+    ChapterListComponent
   ],
   templateUrl: './module-view.component.html',
   styleUrl: './module-view.component.css'
@@ -37,19 +33,6 @@ export class ModuleViewComponent implements OnInit{
   protected readonly window = globalThis.window;
 
   private moduleId!:number;
-
-  chapters = [
-    'Episode I - The Phantom Menace',
-    'Episode II - Attack of the Clones',
-    'Episode III - Revenge of the Sith',
-    'Episode IV - A New Hope',
-    'Episode V - The Empire Strikes Back',
-    'Episode VI - Return of the Jedi',
-    'Episode VII - The Force Awakens',
-    'Episode VIII - The Last Jedi',
-    'Episode IX - The Rise of Skywalker',
-  ];
-
 
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly moduleService:ModuleService = inject(ModuleService);
@@ -97,13 +80,7 @@ export class ModuleViewComponent implements OnInit{
     })
   }
 
-
-  protected drop($event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.chapters, $event.previousIndex, $event.currentIndex);
-  }
-
   protected readonly Edit = Edit;
-  protected readonly Trash2 = Trash2;
   protected readonly Pen = Pen;
   protected readonly Plus = Plus;
   protected readonly ArrowLeft = ArrowLeft;
