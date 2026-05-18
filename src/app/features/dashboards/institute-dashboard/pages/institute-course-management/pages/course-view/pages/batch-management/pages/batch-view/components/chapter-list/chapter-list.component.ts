@@ -2,7 +2,7 @@ import {Component, inject, input, OnChanges, OnInit, SimpleChanges} from '@angul
 import {ActivatedRoute} from '@angular/router';
 import {CardShellComponent} from '../../../../../../../../../../../../../shared/ui/card-shell/card-shell.component';
 import {CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray} from '@angular/cdk/drag-drop';
-import {BookOpen, CalendarDays, Edit, GripVertical, LucideAngularModule, Pencil, Trash2} from 'lucide-angular';
+import {BookOpen, CalendarDays, Edit, GripVertical, LucideAngularModule, Pencil} from 'lucide-angular';
 import {MatTooltip} from '@angular/material/tooltip';
 import {ChapterResponse} from '../../../../../../../../../../../../../core/dto/response-dto/chapter/ChapterResponse';
 import {ModuleService} from '../../../../../../../../../../../../../core/services/module/module.service';
@@ -11,6 +11,10 @@ import {DatePipe} from '@angular/common';
 import {ChapterBadgeComponent} from '../chapter-badge/chapter-badge.component';
 import {MatDialog} from '@angular/material/dialog';
 import {ChapterUpdateDialogComponent} from '../chapter-update-dialog/chapter-update-dialog.component';
+import {
+  ChapterReorderRequest
+} from '../../../../../../../../../../../../../core/dto/request-dto/chapter/ChapterReorderRequest';
+import {ChapterService} from '../../../../../../../../../../../../../core/services/chapter/chapter.service';
 
 @Component({
   selector: 'app-chapter-list',
@@ -34,6 +38,7 @@ export class ChapterListComponent implements OnInit, OnChanges {
   private moduleId!:number;
   private readonly dialog:MatDialog = inject(MatDialog);
   private readonly moduleService:ModuleService = inject(ModuleService);
+  private readonly chapterService:ChapterService= inject(ChapterService);
   private readonly activatedRoute:ActivatedRoute = inject(ActivatedRoute);
   private readonly alertService = inject(AlertService);
 
@@ -85,11 +90,44 @@ export class ChapterListComponent implements OnInit, OnChanges {
   }
 
   protected drop($event: CdkDragDrop<string[]>) {
+    // prevent unnecessary request
+    if ($event.previousIndex === $event.currentIndex) {
+      return;
+    }
+
+    // update UI instantly
     moveItemInArray(this.chapters, $event.previousIndex, $event.currentIndex);
+
+    // build reorder request
+    const request: ChapterReorderRequest = {
+      chapters: this.chapters.map((chapter, index) => ({
+        chapterId: chapter.id,
+        chapterOrder: index + 1
+      }))
+    };
+
+    // send request
+    this.chapterService.reorderChapters(request).subscribe({
+      next: (res) => {
+
+        // optional -> refresh with backend data
+        if (res.data) {
+          this.chapters = res.data;
+        }
+
+        this.alertService.triggerSuccessAlert('Chapter order updated');
+      },
+      error: (err) => {
+        this.alertService.triggerErrorAlert(err.error.message);
+
+        // rollback UI if request fails
+        moveItemInArray(this.chapters, $event.currentIndex, $event.previousIndex);
+      }
+    });
+
   }
 
   protected readonly Edit = Edit;
-  protected readonly Trash2 = Trash2;
   protected readonly BookOpen = BookOpen;
   protected readonly Pencil = Pencil;
   protected readonly CalendarDays = CalendarDays;
