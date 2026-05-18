@@ -1,0 +1,12 @@
+<app-dialog-layout [title]="'Create Chapter'" [description]="'Create a new chapter for the course'" [icon]="BookOpen" (cancelEvent)="onCancel()" [loading]="loading" [loaderTitle]="'Creating Chapter'" [loaderDescription]="'Please wait while the chapter is being created'">
+  <div data-body>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+      <app-input id="title" label="Title" placeholder="Enter chapter title" [required]="true" [control]="form.get('title')" />
+      <app-select class="w-full" id="status" label="Status" placeholder="Select a status for the chapter" [required]="true" [control]="form.get('status')" [options]="chapterStatusOptions"/>
+      <div class="flex justify-end my-3 gap-2">
+        <button type="button" class="btn-mini-secondary" (click)="onReset()">Cancel</button>
+        <button type="submit" class="btn-mini-primary">Create</button>
+      </div>
+    </form>
+  </div>
+</app-dialog-layout>
