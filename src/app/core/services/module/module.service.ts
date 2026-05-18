@@ -11,6 +11,7 @@ import {environment} from '../../../environment/environment.development';
 import {ModuleTeacherUpdateRequest} from '../../dto/request-dto/module/ModuleTeacherUpdateRequest';
 import {ModuleBatchUpdateRequest} from '../../dto/request-dto/module/ModuleBatchUpdateRequest';
 import {ModuleDetailedResponse} from '../../dto/response-dto/module/ModuleDetailedResponse';
+import {ChapterResponse} from '../../dto/response-dto/chapter/ChapterResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -76,5 +77,9 @@ export class ModuleService {
     }
 
     return this.http.get<PaginatedApiResponse<ModuleResponse>>(`${this.baseUrl}`, {params});
+  }
+
+  getChaptersByModuleId(moduleId: number): Observable<ApiResponse<ChapterResponse[]>> {
+    return this.http.get<ApiResponse<ChapterResponse[]>>(`${this.baseUrl}/${moduleId}/chapters/all`);
   }
 }
