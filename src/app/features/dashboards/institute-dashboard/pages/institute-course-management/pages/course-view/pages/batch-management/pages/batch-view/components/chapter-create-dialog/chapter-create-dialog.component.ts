@@ -1,4 +1,4 @@
-import {Component, Inject, inject, OnInit} from '@angular/core';
+import {Component, Inject, inject} from '@angular/core';
 import {ChapterService} from '../../../../../../../../../../../../../core/services/chapter/chapter.service';
 import {AlertService} from '../../../../../../../../../../../../../core/services/alerts/alert.service';
 import {SelectComponent, SelectOption} from '../../../../../../../../../../../../../shared/ui/select/select.component';

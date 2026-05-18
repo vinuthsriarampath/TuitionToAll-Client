@@ -7,7 +7,7 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {ChapterResponse} from '../../../../../../../../../../../../../core/dto/response-dto/chapter/ChapterResponse';
 import {ModuleService} from '../../../../../../../../../../../../../core/services/module/module.service';
 import {AlertService} from '../../../../../../../../../../../../../core/services/alerts/alert.service';
-import {DatePipe, NgClass} from '@angular/common';
+import {DatePipe} from '@angular/common';
 import {ChapterBadgeComponent} from '../chapter-badge/chapter-badge.component';
 
 @Component({
@@ -19,7 +19,6 @@ import {ChapterBadgeComponent} from '../chapter-badge/chapter-badge.component';
     LucideAngularModule,
     MatTooltip,
     DatePipe,
-    NgClass,
     CdkDragHandle,
     ChapterBadgeComponent
   ],

@@ -8,7 +8,7 @@ import {
 import {DatePipe, NgOptimizedImage} from '@angular/common';
 import {ModuleBadgeComponent} from '../module-badge/module-badge.component';
 import {MatTooltip} from '@angular/material/tooltip';
-import {ArrowLeft, Edit, LucideAngularModule, Pen, Plus, Trash2} from 'lucide-angular';
+import {ArrowLeft, Edit, LucideAngularModule, Pen, Plus} from 'lucide-angular';
 import {MatDialog} from '@angular/material/dialog';
 import {ModuleUpdateViewComponent} from '../module-update-view/module-update-view.component';
 import {ChapterListComponent} from '../chapter-list/chapter-list.component';
