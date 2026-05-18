@@ -9,6 +9,8 @@ import {ModuleService} from '../../../../../../../../../../../../../core/service
 import {AlertService} from '../../../../../../../../../../../../../core/services/alerts/alert.service';
 import {DatePipe} from '@angular/common';
 import {ChapterBadgeComponent} from '../chapter-badge/chapter-badge.component';
+import {MatDialog} from '@angular/material/dialog';
+import {ChapterUpdateDialogComponent} from '../chapter-update-dialog/chapter-update-dialog.component';
 
 @Component({
   selector: 'app-chapter-list',
@@ -30,6 +32,7 @@ export class ChapterListComponent implements OnInit, OnChanges {
   protected chapters:ChapterResponse[] = [];
 
   private moduleId!:number;
+  private readonly dialog:MatDialog = inject(MatDialog);
   private readonly moduleService:ModuleService = inject(ModuleService);
   private readonly activatedRoute:ActivatedRoute = inject(ActivatedRoute);
   private readonly alertService = inject(AlertService);
@@ -65,6 +68,20 @@ export class ChapterListComponent implements OnInit, OnChanges {
         this.alertService.triggerErrorAlert(err.error.message)
       }
     })
+  }
+
+  protected openUpdateChapterDetailsDialog(chapter:ChapterResponse):void{
+    const dialogRef = this.dialog.open(ChapterUpdateDialogComponent,{
+      width:'450px',
+      data: chapter
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next:(res)=>{
+        if(res) this.loadChaptersByModule();
+      }
+    })
+
   }
 
   protected drop($event: CdkDragDrop<string[]>) {
