@@ -49,11 +49,9 @@ export class ChapterListComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("inside chapter list on changes")
     const refreshChange = changes['triggerRefresh'];
 
     if (refreshChange && !refreshChange.firstChange) {
-      console.log("inside load chapters by module if condition")
       this.loadChaptersByModule();
     }
   }
