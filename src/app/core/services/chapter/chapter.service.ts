@@ -7,6 +7,7 @@ import {ApiResponse} from '../../dto/response-dto/api-response';
 import {ChapterResponse} from '../../dto/response-dto/chapter/ChapterResponse';
 import {ChapterDetailsUpdateRequest} from '../../dto/request-dto/chapter/ChapterDetailsUpdateRequest';
 import {ChapterReorderRequest} from '../../dto/request-dto/chapter/ChapterReorderRequest';
+import {ChapterDetailedResponse} from '../../dto/response-dto/chapter/ChapterDetailedResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,10 @@ export class ChapterService {
 
   reorderChapters(request: ChapterReorderRequest): Observable<ApiResponse<ChapterResponse[]>> {
     return this.http.patch<ApiResponse<ChapterResponse[]>>(`${this.baseUrl}/reorder`, request);
+  }
+
+  getDetailedChapterById(id:number):Observable<ApiResponse<ChapterDetailedResponse>>{
+    return this.http.get<ApiResponse<ChapterDetailedResponse>>(`${this.baseUrl}/${id}/detailed`);
   }
 
 }
