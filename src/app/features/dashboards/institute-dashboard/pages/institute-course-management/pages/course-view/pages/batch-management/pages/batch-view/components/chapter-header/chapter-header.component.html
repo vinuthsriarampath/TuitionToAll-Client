@@ -1,0 +1,36 @@
+<div class="flex justify-between items-start">
+
+  <div>
+
+    <div class="flex items-center gap-2 mb-2">
+      <app-chapter-badge [status]="status()"></app-chapter-badge>
+      <span class="text-sm text-gray-500">
+            Chapter {{ chapterOrder()}}
+          </span>
+    </div>
+
+    <h1 class="text-3xl font-bold text-gray-800">
+      {{ title() }}
+    </h1>
+
+    <div class="flex gap-6 mt-4 text-sm text-gray-600">
+      <span>Created: {{ createdDate() | date: 'yyyy-MMM-dd'}}</span>
+      <span>Updated: {{ lastModifiedDate() | date: 'yyyy-MMM-dd'}}</span>
+      <span>Module: {{ moduleName() }}</span>
+    </div>
+
+  </div>
+
+  <div class="flex gap-2">
+
+    <button class="btn-mini-primary">
+      Edit Chapter
+    </button>
+
+    <button class="btn-mini-secondary">
+      Archive
+    </button>
+
+  </div>
+
+</div>
