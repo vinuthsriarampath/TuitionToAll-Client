@@ -5,8 +5,6 @@ import {
 import {ChapterService} from '../../../../../../../../../../../../../core/services/chapter/chapter.service';
 import {ActivatedRoute} from '@angular/router';
 import {AlertService} from '../../../../../../../../../../../../../core/services/alerts/alert.service';
-import {ChapterBadgeComponent} from '../chapter-badge/chapter-badge.component';
-import {DatePipe} from '@angular/common';
 import {ArrowLeft, LucideAngularModule} from 'lucide-angular';
 import {ChapterHeaderComponent} from '../chapter-header/chapter-header.component';
 import {CardShellComponent} from '../../../../../../../../../../../../../shared/ui/card-shell/card-shell.component';
@@ -19,8 +17,6 @@ import {ScheduledLecturesComponent} from '../scheduled-lectures/scheduled-lectur
 @Component({
   selector: 'app-chapter-view',
   imports: [
-    ChapterBadgeComponent,
-    DatePipe,
     LucideAngularModule,
     ChapterHeaderComponent,
     CardShellComponent,
