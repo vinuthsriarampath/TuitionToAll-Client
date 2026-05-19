@@ -1,0 +1,22 @@
+import {Component, input} from '@angular/core';
+import {ChapterStatus} from '../../../../../../../../../../../../../core/enums/ChapterStatus';
+import {ChapterBadgeComponent} from '../chapter-badge/chapter-badge.component';
+import {CardShellComponent} from '../../../../../../../../../../../../../shared/ui/card-shell/card-shell.component';
+import {InfoRowComponent} from '../../../../../../../../../../../../../shared/ui/info-row/info-row.component';
+
+@Component({
+  selector: 'app-chapter-overview',
+  imports: [
+    ChapterBadgeComponent,
+    CardShellComponent,
+    InfoRowComponent
+  ],
+  templateUrl: './chapter-overview.component.html',
+  styleUrl: './chapter-overview.component.css'
+})
+export class ChapterOverviewComponent {
+
+  chapterOrder = input.required<number>();
+  moduleName = input.required<string>();
+  status = input.required<ChapterStatus>();
+}
