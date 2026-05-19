@@ -1,0 +1,57 @@
+<div class="h-full overflow-y-auto bg-gray-100 p-4">
+
+  <button (click)="window.history.back()"
+          class="flex items-center gap-2 text-black/80 hover:text-black mb-3 w-fit cursor-pointer"
+  >
+    <lucide-icon [img]="ArrowLeft" [size]="18" />
+    <span class="text-sm">Back</span>
+  </button>
+  <!-- Chapter Header -->
+  <app-card-shell class="block mb-4">
+    <div class="p-5">
+      <app-chapter-header
+        [title]="chapter.title"
+        [chapterOrder]="chapter.chapterOrder"
+        [moduleName]="chapter.module.name"
+        [status]="chapter.status"
+        [createdDate]="chapter.createdDate"
+        [lastModifiedDate]="chapter.lastModifiedDate"
+      />
+    </div>
+  </app-card-shell>
+
+  <!-- Summary Cards -->
+  <app-chapter-stat-row/>
+
+  <!-- Main Layout -->
+  <div class="grid grid-cols-12 gap-4">
+
+    <!-- LEFT SIDE -->
+    <div class="col-span-8 flex flex-col gap-4">
+
+      <!-- Chapter Overview -->
+      <app-chapter-overview
+        [chapterOrder]="chapter.chapterOrder"
+        [moduleName]="chapter.module.name"
+        [status]="chapter.status"
+      />
+
+      <!-- Lecture Recordings -->
+      <app-lecture-recording/>
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="col-span-4 flex flex-col gap-4">
+
+      <!-- Resource Management -->
+      <app-resources/>
+
+      <!-- Scheduled Lectures -->
+      <app-scheduled-lectures/>
+
+    </div>
+
+  </div>
+
+</div>
