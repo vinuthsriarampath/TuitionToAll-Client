@@ -2,7 +2,7 @@
 
   @for (chapter of chapters; track chapter.id; let i = $index) {
 
-    <app-card-shell cdkDrag cdkDragLockAxis="y" cdkDragBoundary=".chapter-boundry" class="group transition-all duration-200 hover:-translate-y-[1px]">
+    <app-card-shell cdkDrag cdkDragLockAxis="y" cdkDragBoundary=".chapter-boundry" class="group transition-all duration-200 hover:-translate-y-[1px]" [routerLink]="['chapters',chapter.id]">
 
       <div class="flex items-center justify-between gap-3 p-3">
 
