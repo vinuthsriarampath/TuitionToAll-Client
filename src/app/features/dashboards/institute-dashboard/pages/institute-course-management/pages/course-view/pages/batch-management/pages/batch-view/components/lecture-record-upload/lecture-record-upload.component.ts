@@ -106,9 +106,9 @@ export class LectureRecordUploadComponent implements OnDestroy{
         await this.uploadChunk(uploadId, i, chunks[i], chunks.length);
       }
 
-      await lastValueFrom(this.lectureRecordService.completeUpload(uploadId));
+      const lectureRecord = await lastValueFrom(this.lectureRecordService.completeUpload(uploadId));
       this.alertService.triggerSuccessAlert('Lecture recording uploaded successfully');
-      this.dialogRef.close(true);
+      this.dialogRef.close(lectureRecord.data);
     } catch (error) {
       console.error(error);
       this.alertService.triggerErrorAlert('Error uploading lecture recording');
