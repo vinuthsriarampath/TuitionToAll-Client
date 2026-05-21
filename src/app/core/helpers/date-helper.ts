@@ -16,3 +16,16 @@ export const getDateTime = (years: number = 0, months: number = 0, dates: number
   return `${year}-${month}-${day}T${hour}:${minute}`;
 };
 
+export const getDate = (years: number = 0, months: number = 0, dates: number = 0): string => {
+  const now = new Date();
+
+  now.setFullYear(now.getFullYear() + years);
+  now.setMonth(now.getMonth() + months);
+  now.setDate(now.getDate() + dates);
+
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
+};
