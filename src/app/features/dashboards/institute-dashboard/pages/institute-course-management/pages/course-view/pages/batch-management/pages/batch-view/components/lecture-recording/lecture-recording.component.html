@@ -22,121 +22,33 @@
     <div class="flex flex-col gap-4">
 
       <!-- Recording Card -->
-      <div class="border rounded-xl p-4 hover:shadow-sm">
-
-        <div class="flex justify-between items-start">
-
-          <div>
-
-            <div class="flex items-center gap-2 mb-2">
-                  <span class="batch batch-danger">
-                    Video
-                  </span>
-
+      @for (lectureRecord of lectureRecords; track lectureRecord.id) {
+        <app-card-shell>
+          <div class="flex justify-between items-start p-5">
+            <div>
               <span class="text-sm text-gray-500">
-                    Recorded on 2026-05-15
-                  </span>
+                    Recorded on {{ lectureRecord.recordedDate | date: 'yyyy-MMM-dd' }}
+              </span>
+              <h3 class="font-semibold text-lg">
+                {{ lectureRecord.title }}
+              </h3>
             </div>
 
-            <h3 class="font-semibold text-lg">
-              Spring Security Filters
-            </h3>
+            <div class="flex gap-2">
 
-          </div>
+              <button class="btn-mini-primary">
+                Watch
+              </button>
 
-          <div class="flex gap-2">
+              <button class="btn-mini-secondary">
+                Edit
+              </button>
 
-            <button class="btn-mini-primary">
-              Watch
-            </button>
-
-            <button class="btn-mini-secondary">
-              Edit
-            </button>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      <!-- Recording Card -->
-      <div class="border rounded-xl p-4 hover:shadow-sm">
-
-        <div class="flex justify-between items-start">
-
-          <div>
-
-            <div class="flex items-center gap-2 mb-2">
-                  <span class="batch batch-danger">
-                    Video
-                  </span>
-
-              <span class="text-sm text-gray-500">
-                    Recorded on 2026-05-16
-                  </span>
             </div>
 
-            <h3 class="font-semibold text-lg">
-              JWT Deep Dive
-            </h3>
-
           </div>
-
-          <div class="flex gap-2">
-
-            <button class="btn-mini-primary">
-              Watch
-            </button>
-
-            <button class="btn-mini-secondary">
-              Edit
-            </button>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      <!-- Recording Card -->
-      <div class="border rounded-xl p-4 hover:shadow-sm">
-
-        <div class="flex justify-between items-start">
-
-          <div>
-
-            <div class="flex items-center gap-2 mb-2">
-                  <span class="batch batch-danger">
-                    Video
-                  </span>
-
-              <span class="text-sm text-gray-500">
-                    Recorded on 2026-05-18
-                  </span>
-            </div>
-
-            <h3 class="font-semibold text-lg">
-              Authentication Manager
-            </h3>
-
-          </div>
-
-          <div class="flex gap-2">
-
-            <button class="btn-mini-primary">
-              Watch
-            </button>
-
-            <button class="btn-mini-secondary">
-              Edit
-            </button>
-
-          </div>
-
-        </div>
-
-      </div>
+        </app-card-shell>
+      }
 
     </div>
 
