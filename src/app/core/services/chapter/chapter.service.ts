@@ -8,6 +8,7 @@ import {ChapterResponse} from '../../dto/response-dto/chapter/ChapterResponse';
 import {ChapterDetailsUpdateRequest} from '../../dto/request-dto/chapter/ChapterDetailsUpdateRequest';
 import {ChapterReorderRequest} from '../../dto/request-dto/chapter/ChapterReorderRequest';
 import {ChapterDetailedResponse} from '../../dto/response-dto/chapter/ChapterDetailedResponse';
+import {LectureRecordResponse} from '../../dto/response-dto/lecture-record/LectureRecordResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,10 @@ export class ChapterService {
 
   getDetailedChapterById(id:number):Observable<ApiResponse<ChapterDetailedResponse>>{
     return this.http.get<ApiResponse<ChapterDetailedResponse>>(`${this.baseUrl}/${id}/detailed`);
+  }
+
+  getAllLectureRecordsByChapterId(id:number):Observable<ApiResponse<LectureRecordResponse[]>>{
+    return this.http.get<ApiResponse<LectureRecordResponse[]>>(`${this.baseUrl}/${id}/lecture-records`)
   }
 
 }
