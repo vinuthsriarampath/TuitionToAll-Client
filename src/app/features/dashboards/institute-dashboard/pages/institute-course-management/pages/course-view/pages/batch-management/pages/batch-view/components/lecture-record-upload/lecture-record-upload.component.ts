@@ -28,6 +28,7 @@ import {HttpEventType} from '@angular/common/http';
 })
 export class LectureRecordUploadComponent implements OnDestroy{
   private readonly CHUNK_SIZE = 5 * 1024 * 1024;
+  private readonly MAX_CHUNK_RETRIES = 3;
   private readonly chapterId!:number;
 
   protected form!:FormGroup;
@@ -71,16 +72,11 @@ export class LectureRecordUploadComponent implements OnDestroy{
     }
 
     if (!this.selectedFile) {
-
-      this.alertService.triggerErrorAlert(
-        'Please select a video file'
-      );
-
+      this.alertService.triggerErrorAlert('Please select a video file');
       return;
     }
 
     try {
-
       this.isUploading = true;
       this.uploadProgress = 0;
 
@@ -107,94 +103,56 @@ export class LectureRecordUploadComponent implements OnDestroy{
       }
 
       for (let i = 0; i < chunks.length; i++) {
-
-        await this.uploadChunk(
-          uploadId,
-          i,
-          chunks[i],
-          chunks.length
-        );
+        await this.uploadChunk(uploadId, i, chunks[i], chunks.length);
       }
 
-      await lastValueFrom(
-        this.lectureRecordService.completeUpload(
-          uploadId
-        )
-      );
-
-      this.alertService.triggerSuccessAlert(
-        'Lecture recording uploaded successfully'
-      );
-
+      await lastValueFrom(this.lectureRecordService.completeUpload(uploadId));
+      this.alertService.triggerSuccessAlert('Lecture recording uploaded successfully');
       this.dialogRef.close(true);
-
     } catch (error) {
-
       console.error(error);
-
-      this.alertService.triggerErrorAlert(
-        'Error uploading lecture recording'
-      );
-
+      this.alertService.triggerErrorAlert('Error uploading lecture recording');
     } finally {
-
       this.isUploading = false;
     }
   }
 
-  private async uploadChunk(
-    uploadId: string,
-    chunkIndex: number,
-    chunk: Blob,
-    totalChunks: number
-  ): Promise<void> {
+  private async uploadChunk(uploadId: string, chunkIndex: number, chunk: Blob, totalChunks: number): Promise<void> {
 
-    await new Promise<void>((resolve, reject) => {
+    let retryCount = 0;
 
-      this.lectureRecordService.uploadChunk(
-        uploadId,
-        chunkIndex,
-        chunk
-      ).subscribe({
+    while (retryCount < this.MAX_CHUNK_RETRIES) {
+      try {
+        await new Promise<void>((resolve, reject) => {
+          this.lectureRecordService.uploadChunk(uploadId, chunkIndex, chunk).subscribe({
+            next: (event) => {
+              if (event.type === HttpEventType.UploadProgress) {
+                const chunkProgress = Math.round((event.loaded / (event.total || 1)) * 100);
+                const overallProgress = ((chunkIndex + (chunkProgress / 100)) / totalChunks) * 100;
+                this.uploadProgress = Math.round(overallProgress);
+              }
+              if (event.type === HttpEventType.Response) {
+                resolve();
+              }
+            },
+            error: (error) => {
+              reject(error);
+            }
+          });
+        });
 
-        next: (event) => {
+        return;
 
-          if (
-            event.type === HttpEventType.UploadProgress
-          ) {
-
-            const chunkProgress =
-              Math.round(
-                (event.loaded / (event.total || 1)) * 100
-              );
-
-            const overallProgress =
-              (
-                (
-                  chunkIndex
-                  + (chunkProgress / 100)
-                ) / totalChunks
-              ) * 100;
-
-            this.uploadProgress =
-              Math.round(overallProgress);
-          }
-
-          if (
-            event.type === HttpEventType.Response
-          ) {
-
-            resolve();
-          }
-        },
-
-        error: (error) => {
-
-          reject(error);
+      } catch (error) {
+        retryCount++;
+        console.warn(`Retrying chunk ${chunkIndex} (${retryCount})`);
+        if (retryCount >= this.MAX_CHUNK_RETRIES) {
+          throw error;
         }
-      });
-    });
+      }
+    }
   }
+
 
   selectVideo = (file: File)=> {
     this.videoUrl = URL.createObjectURL(file);
