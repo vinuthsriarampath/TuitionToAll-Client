@@ -11,7 +11,7 @@ import {
 import {Upload} from 'lucide-angular';
 import {InputComponent} from '../../../../../../../../../../../../../shared/ui/input/input.component';
 import {NgIf} from '@angular/common';
-import {getDate, getDateTime} from '../../../../../../../../../../../../../core/helpers/date-helper';
+import {getDate} from '../../../../../../../../../../../../../core/helpers/date-helper';
 import {lastValueFrom} from 'rxjs';
 import {HttpEventType} from '@angular/common/http';
 
