@@ -70,6 +70,9 @@ import {
 import {
   ChapterViewComponent
 } from './features/dashboards/institute-dashboard/pages/institute-course-management/pages/course-view/pages/batch-management/pages/batch-view/components/chapter-view/chapter-view.component';
+import {
+  LectureRecordWatchComponent
+} from './features/dashboards/institute-dashboard/pages/institute-course-management/pages/course-view/pages/batch-management/pages/batch-view/components/lecture-record-watch/lecture-record-watch.component';
 
 
 export const routes: Routes = [
@@ -184,7 +187,16 @@ export const routes: Routes = [
                               },
                               {
                                 path: 'chapters/:chapterId',
-                                component:ChapterViewComponent
+                                children:[
+                                  {
+                                    path:'',
+                                    component:ChapterViewComponent
+                                  },
+                                  {
+                                    path:'watch',
+                                    component:LectureRecordWatchComponent
+                                  }
+                                ]
                               }
                             ]
                           },
