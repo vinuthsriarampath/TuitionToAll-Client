@@ -36,7 +36,7 @@
 
             <div class="flex gap-2">
 
-              <button class="btn-mini-primary">
+              <button [routerLink]="['watch']" [queryParams]="{f:lectureRecord.url}" class="btn-mini-primary">
                 Watch
               </button>
 

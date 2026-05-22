@@ -2,7 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {CardShellComponent} from '../../../../../../../../../../../../../shared/ui/card-shell/card-shell.component';
 import {MatDialog} from '@angular/material/dialog';
 import {LectureRecordUploadComponent} from '../lecture-record-upload/lecture-record-upload.component';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, RouterLink} from '@angular/router';
 import {AlertService} from '../../../../../../../../../../../../../core/services/alerts/alert.service';
 import {
   LectureRecordResponse
@@ -14,7 +14,8 @@ import {DatePipe} from '@angular/common';
   selector: 'app-lecture-recording',
   imports: [
     CardShellComponent,
-    DatePipe
+    DatePipe,
+    RouterLink
   ],
   templateUrl: './lecture-recording.component.html',
   styleUrl: './lecture-recording.component.css'
@@ -34,7 +35,6 @@ export class LectureRecordingComponent implements  OnInit{
       const chapterIdParam = params.get('chapterId') ?? '';
       if(chapterIdParam && Number.isNaN(chapterIdParam)){
         this.alertService.triggerErrorAlert("Invalid chapter id passed via route parameters");
-        return;
       }else {
         this.chapterId = Number.parseInt(chapterIdParam);
         this.fetchAllLectureRecords();
