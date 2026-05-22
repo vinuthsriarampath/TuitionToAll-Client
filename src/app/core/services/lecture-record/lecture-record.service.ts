@@ -34,4 +34,8 @@ export class LectureRecordService {
   completeUpload( uploadId: string ): Observable<ApiResponse<LectureRecordResponse>> {
     return this.http.post<ApiResponse<LectureRecordResponse>>( `${this.baseUrl}/upload/complete/${uploadId}`, {} );
   }
+
+  getStreamToken(fileName:string): Observable<ApiResponse<string>>{
+    return this.http.get<ApiResponse<string>>(`${this.baseUrl}/stream-token/${fileName}`);
+  }
 }
