@@ -12,8 +12,11 @@ import {Upload} from 'lucide-angular';
 import {InputComponent} from '../../../../../../../../../../../../../shared/ui/input/input.component';
 import {NgIf} from '@angular/common';
 import {getDate} from '../../../../../../../../../../../../../core/helpers/date-helper';
-import {lastValueFrom} from 'rxjs';
 import {HttpEventType} from '@angular/common/http';
+import {
+  LectureRecordUploadInitRequest
+} from '../../../../../../../../../../../../../core/dto/request-dto/lecture-record/LectureRecordUploadInitRequest';
+import {lastValueFrom} from 'rxjs';
 
 @Component({
   selector: 'app-lecture-record-upload',
@@ -57,11 +60,22 @@ export class LectureRecordUploadComponent implements OnDestroy{
   }
 
   protected onCancel():void{
+    if(this.isUploading){
+      this.alertService.triggerErrorAlert('Upload in progress. Please wait for it to finish before closing.');
+      return;
+    }
     this.dialogRef.close();
   }
 
   protected onReset():void{
     this.form = this.initializeForm();
+    this.selectedFile = null;
+    if (this.videoUrl) {
+      URL.revokeObjectURL(this.videoUrl);
+    }
+    this.videoUrl = '';
+    this.isUploading = false;
+    this.uploadProgress = 0;
   }
 
   protected async onSubmit(): Promise<void> {
@@ -84,31 +98,38 @@ export class LectureRecordUploadComponent implements OnDestroy{
 
       const chunks = this.createChunks(file);
 
-      const initializeResponse =
-        await lastValueFrom(
-          this.lectureRecordService.initializeUpload({
-            title: this.form.value.title,
-            recordedDate: this.form.value.recordedDate,
-            chapterId: this.chapterId,
-            originalFileName: file.name,
-            totalSize: file.size,
-            totalChunks: chunks.length
-          })
-        );
+      const request: LectureRecordUploadInitRequest = {
+        title: this.form.value.title,
+        recordedDate: this.form.value.recordedDate,
+        chapterId: this.chapterId,
+        originalFileName: file.name,
+        totalSize: file.size,
+        totalChunks: chunks.length
+      };
 
-      const uploadId = initializeResponse.data?.uploadId;
-      if (!uploadId) {
+      const initResponse = await lastValueFrom(
+        this.lectureRecordService.initializeUpload(request)
+      );
+
+      if (!initResponse.data?.uploadId) {
         this.alertService.triggerErrorAlert('initializeUpload response missing uploadId');
         return;
       }
+
+      const uploadId = initResponse.data.uploadId;
 
       for (let i = 0; i < chunks.length; i++) {
         await this.uploadChunk(uploadId, i, chunks[i], chunks.length);
       }
 
-      const lectureRecord = await lastValueFrom(this.lectureRecordService.completeUpload(uploadId));
-      this.alertService.triggerSuccessAlert('Lecture recording uploaded successfully');
-      this.dialogRef.close(lectureRecord.data);
+      const completeResponse = await lastValueFrom(
+        this.lectureRecordService.completeUpload(uploadId)
+      );
+
+      if (completeResponse.data) {
+        this.alertService.triggerSuccessAlert('Lecture recording uploaded successfully');
+        this.dialogRef.close(completeResponse.data);
+      }
     } catch (error) {
       console.error(error);
       this.alertService.triggerErrorAlert('Error uploading lecture recording');
@@ -145,7 +166,7 @@ export class LectureRecordUploadComponent implements OnDestroy{
 
       } catch (error) {
         retryCount++;
-        console.warn(`Retrying chunk ${chunkIndex} (${retryCount})`);
+        console.warn('Retrying uploading..');
         if (retryCount >= this.MAX_CHUNK_RETRIES) {
           throw error;
         }
