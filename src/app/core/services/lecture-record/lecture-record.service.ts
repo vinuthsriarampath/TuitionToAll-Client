@@ -7,6 +7,9 @@ import {Observable} from 'rxjs';
 import {LectureRecordUploadInitRequest} from '../../dto/request-dto/lecture-record/LectureRecordUploadInitRequest';
 import {LectureRecordChunkUploadResponse} from '../../dto/response-dto/lecture-record/LectureRecordChunkUploadResponse';
 import {LectureRecordResponse} from '../../dto/response-dto/lecture-record/LectureRecordResponse';
+import {
+  LectureRecordDetailsUpdateRequest
+} from '../../dto/request-dto/lecture-record/LectureRecordDetailsUpdateRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +40,9 @@ export class LectureRecordService {
 
   getStreamToken(fileName:string): Observable<ApiResponse<string>>{
     return this.http.get<ApiResponse<string>>(`${this.baseUrl}/stream-token/${fileName}`);
+  }
+
+  updateLectureRecordDetails(lectureRecordId:number,request :LectureRecordDetailsUpdateRequest): Observable<ApiResponse<LectureRecordResponse>>{
+    return this.http.put<ApiResponse<LectureRecordResponse>>(`${this.baseUrl}/${lectureRecordId}/details`,request);
   }
 }
