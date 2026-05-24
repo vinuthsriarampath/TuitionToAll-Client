@@ -56,7 +56,8 @@ export class LectureRecordingComponent implements  OnInit{
   protected openLectureRecordingUploadDialog():void{
     const dialogRef = this.dialog.open(LectureRecordUploadComponent,{
       width:'650px',
-      data:this.chapterId
+      data:this.chapterId,
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe({
