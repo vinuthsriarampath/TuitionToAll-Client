@@ -1,0 +1,14 @@
+<app-dialog-layout title="Update Lecture Record" description="Update lecture record name and recorded date" (cancelEvent)="onCancel()" [icon]="SquarePen" [loading]="loading" loaderTitle='Updating Lecture Record'>
+  <div data-body>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+      <app-input id="title" label="Recording Title" [required]="true" placeholder="Enter recording title" [control]="form.get('title')" />
+      <app-input id="recordedDate" label="Recorded Date" [required]="true" type="date" placeholder="Select recorded date" [control]="form.get('recordedDate')" class="block border-none p-0" />
+      <div class="flex flex-row gap-2 justify-end items-center">
+        <button type="button" class="btn-mini-secondary " (click)="onReset()">Reset</button>
+        <button type="submit" class="btn-mini-primary" [disabled]="form.invalid || loading">Update</button>
+      </div>
+    </form>
+
+  </div>
+
+</app-dialog-layout>
