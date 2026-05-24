@@ -17,6 +17,7 @@ import {
   LectureRecordUploadInitRequest
 } from '../../../../../../../../../../../../../core/dto/request-dto/lecture-record/LectureRecordUploadInitRequest';
 import {lastValueFrom} from 'rxjs';
+import {FormErrorHandler} from '../../../../../../../../../../../../../core/helpers/FormErrorHandler';
 
 @Component({
   selector: 'app-lecture-record-upload',
@@ -45,6 +46,7 @@ export class LectureRecordUploadComponent implements OnDestroy{
   private readonly formBuilder:FormBuilder = inject(FormBuilder);
   private readonly lectureRecordService = inject(LectureRecordService);
   private readonly alertService:AlertService = inject(AlertService);
+  private readonly formErrorHandler:FormErrorHandler = inject(FormErrorHandler);
 
   constructor(@Inject(MAT_DIALOG_DATA) private readonly data:number) {
     this.chapterId = data;
@@ -131,8 +133,7 @@ export class LectureRecordUploadComponent implements OnDestroy{
         this.dialogRef.close(completeResponse.data);
       }
     } catch (error) {
-      console.error(error);
-      this.alertService.triggerErrorAlert('Error uploading lecture recording');
+      this.formErrorHandler.handle(error,this.form,()=>{});
     } finally {
       this.isUploading = false;
     }
