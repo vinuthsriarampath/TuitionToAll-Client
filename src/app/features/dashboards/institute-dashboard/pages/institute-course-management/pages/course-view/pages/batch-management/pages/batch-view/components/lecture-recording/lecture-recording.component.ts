@@ -9,6 +9,7 @@ import {
 } from '../../../../../../../../../../../../../core/dto/response-dto/lecture-record/LectureRecordResponse';
 import {ChapterService} from '../../../../../../../../../../../../../core/services/chapter/chapter.service';
 import {DatePipe} from '@angular/common';
+import {LectureRecordUpdateComponent} from '../lecture-record-update/lecture-record-update.component';
 
 @Component({
   selector: 'app-lecture-recording',
@@ -63,6 +64,22 @@ export class LectureRecordingComponent implements  OnInit{
     dialogRef.afterClosed().subscribe({
       next:(res)=>{
         if(res) this.lectureRecords.push(res);
+      },
+      error:(err)=>{
+        this.alertService.triggerErrorAlert(err.error.message);
+      }
+    })
+  }
+
+  protected openLectureRecordDetailsUpdateDialog(lectureRecord:LectureRecordResponse):void{
+    const dialogRef = this.dialog.open(LectureRecordUpdateComponent,{
+      width:'650px',
+      data:lectureRecord,
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next:(res)=>{
+        this.fetchAllLectureRecords();
       },
       error:(err)=>{
         this.alertService.triggerErrorAlert(err.error.message);
