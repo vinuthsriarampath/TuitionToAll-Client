@@ -97,7 +97,6 @@ export class ScheduleLecCreateComponent {
 
 
   saveScheduleLecture(request:ScheduleLectureCreateRequest):void{
-    console.log(request);
     this.triggerLoading();
     this.scheduleLectureService.scheduleLecture(request).subscribe({
       next:(res)=>{
