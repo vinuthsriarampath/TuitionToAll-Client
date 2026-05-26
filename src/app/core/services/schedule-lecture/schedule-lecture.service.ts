@@ -20,7 +20,7 @@ export class ScheduleLectureService {
     return this.http.post<ApiResponse<ScheduleLectureResponse>>(`${this.baseUrl}`, request);
   }
 
-  updateScheduleLecture(id: number, request: ScheduleLectureUpdateRequest): Observable<ApiResponse<ScheduleLectureResponse>> {
-    return this.http.put<ApiResponse<ScheduleLectureResponse>>(`${this.baseUrl}/{id}`, request);
+  updateScheduleLecture(scheduleLectureId: number, request: ScheduleLectureUpdateRequest): Observable<ApiResponse<ScheduleLectureResponse>> {
+    return this.http.put<ApiResponse<ScheduleLectureResponse>>(`${this.baseUrl}/${scheduleLectureId}`, request);
   }
 }
