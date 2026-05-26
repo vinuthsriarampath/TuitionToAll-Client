@@ -17,10 +17,10 @@ export class ScheduleLectureService {
   private readonly http: HttpClient = inject(HttpClient);
 
   scheduleLecture(request: ScheduleLectureCreateRequest): Observable<ApiResponse<ScheduleLectureResponse>> {
-    return this.http.post<ApiResponse<ScheduleLectureResponse>>(`${this.baseUrl}/api/v2/schedule-lectures`, request);
+    return this.http.post<ApiResponse<ScheduleLectureResponse>>(`${this.baseUrl}`, request);
   }
 
   updateScheduleLecture(id: number, request: ScheduleLectureUpdateRequest): Observable<ApiResponse<ScheduleLectureResponse>> {
-    return this.http.put<ApiResponse<ScheduleLectureResponse>>(`${this.baseUrl}/api/v2/schedule-lectures/${id}`, request);
+    return this.http.put<ApiResponse<ScheduleLectureResponse>>(`${this.baseUrl}/{id}`, request);
   }
 }
