@@ -52,8 +52,8 @@ export class ChapterService {
     );
 
     if (filters) {
-      if (filters.id !== undefined) {
-        params = params.set('id', filters.id);
+      if (filters.scheduleLectureId !== undefined) {
+        params = params.set('scheduleLectureId', filters.scheduleLectureId);
       }
 
       if (filters.status) {
@@ -77,6 +77,6 @@ export class ChapterService {
       }
     }
 
-    return this.http.get<PaginatedApiResponse<ScheduleLectureResponse>>(`${this.baseUrl}/api/v2/chapters/${chapterId}/schedule-lectures`, { params });
+    return this.http.get<PaginatedApiResponse<ScheduleLectureResponse>>(`${this.baseUrl}/${chapterId}/schedule-lectures`, { params });
   }
 }
