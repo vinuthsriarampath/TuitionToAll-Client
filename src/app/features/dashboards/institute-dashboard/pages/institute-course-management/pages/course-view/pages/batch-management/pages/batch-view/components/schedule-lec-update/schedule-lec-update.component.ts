@@ -6,16 +6,9 @@ import {FormErrorHandler} from '../../../../../../../../../../../../../core/help
 import {
   ScheduleLectureService
 } from '../../../../../../../../../../../../../core/services/schedule-lecture/schedule-lecture.service';
-import {getDate, getTime} from '../../../../../../../../../../../../../core/helpers/date-helper';
-import {
-  ScheduleLectureCreateStatus
-} from '../../../../../../../../../../../../../core/dto/request-dto/schedule-leactures/enums/ScheduleLectureStatus';
 import {
   ScheduleLectureResponse
 } from '../../../../../../../../../../../../../core/dto/response-dto/schedule-lectures/ScheduleLectureResponse';
-import {
-  ScheduleLectureCreateRequest
-} from '../../../../../../../../../../../../../core/dto/request-dto/schedule-leactures/ScheduleLectureCreateRequest';
 import {
   ScheduleLectureUpdateRequest
 } from '../../../../../../../../../../../../../core/dto/request-dto/schedule-leactures/ScheduleLectureUpdateRequest';
