@@ -4,13 +4,8 @@
     <div class="flex justify-between items-center mb-4">
 
       <div>
-        <h2 class="text-xl font-semibold">
-          Scheduled Lectures
-        </h2>
-
-        <p class="text-sm text-gray-500">
-          Upcoming lecture sessions
-        </p>
+        <h2 class="text-xl font-semibold"> Scheduled Lectures </h2>
+        <p class="text-sm text-gray-500"> Upcoming lecture sessions </p>
       </div>
 
       <button class="btn-mini-primary" (click)="openScheduleLecCreateDialog()">
@@ -21,83 +16,25 @@
 
     <div class="flex flex-col gap-3">
 
-      <!-- Lecture Card -->
-      <div class="border rounded-xl p-3">
-
-        <div class="flex justify-between items-start mb-2">
-
+      @for (scheduledLecture of scheduleLectures; track scheduledLecture.id){
+        <app-card-shell class="block m-0">
           <div>
-            <h3 class="font-semibold">
-              JWT Authentication
-            </h3>
+            <app-card-header [title]="scheduledLecture.topic" [description]="scheduledLecture.startDate | date: 'dd MMM yyyy'">
+            <span card-action class="batch batch-success">Scheduled</span>
+            </app-card-header>
+            <div class="flex flex-col gap-2 pl-4 p-2">
+            {{ formatTime(scheduledLecture.startTime) }} - {{ formatTime(scheduledLecture.endTime) }}
 
-            <p class="text-sm text-gray-500">
-              2026-05-20
-            </p>
+              <div class="flex gap-2">
+                <button class="btn-mini-secondary btn-success" (click)="onJoin(scheduledLecture.meetingUrl)">Join</button>
+                <button class="btn-mini-primary">Edit</button>
+              </div>
+            </div>
           </div>
 
-          <span class="batch batch-success">
-                Scheduled
-              </span>
+        </app-card-shell>
+      }
 
-        </div>
-
-        <p class="text-sm text-gray-600 mb-3">
-          7.00 PM - 9.00 PM
-        </p>
-
-        <div class="flex gap-2">
-
-          <button class="btn-mini-primary">
-            Edit
-          </button>
-
-          <button class="btn-mini-secondary">
-            Cancel
-          </button>
-
-        </div>
-
-      </div>
-
-      <!-- Lecture Card -->
-      <div class="border rounded-xl p-3">
-
-        <div class="flex justify-between items-start mb-2">
-
-          <div>
-            <h3 class="font-semibold">
-              Security Filters
-            </h3>
-
-            <p class="text-sm text-gray-500">
-              2026-05-22
-            </p>
-          </div>
-
-          <span class="batch batch-warning">
-                Pending
-              </span>
-
-        </div>
-
-        <p class="text-sm text-gray-600 mb-3">
-          8.00 PM - 10.00 PM
-        </p>
-
-        <div class="flex gap-2">
-
-          <button class="btn-mini-primary">
-            Edit
-          </button>
-
-          <button class="btn-mini-secondary">
-            Cancel
-          </button>
-
-        </div>
-
-      </div>
 
     </div>
 
