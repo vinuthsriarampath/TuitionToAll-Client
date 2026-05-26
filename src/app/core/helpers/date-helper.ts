@@ -29,3 +29,15 @@ export const getDate = (years: number = 0, months: number = 0, dates: number = 0
 
   return `${year}-${month}-${day}`;
 };
+
+export const getTime = (hours: number = 0, minutes: number = 0): string => {
+  const now = new Date();
+
+  now.setHours(now.getHours() + hours);
+  now.setMinutes(now.getMinutes() + minutes);
+
+  const hour = String(now.getHours()).padStart(2, '0');
+  const minute = String(now.getMinutes()).padStart(2, '0');
+
+  return `${hour}:${minute}`;
+};
