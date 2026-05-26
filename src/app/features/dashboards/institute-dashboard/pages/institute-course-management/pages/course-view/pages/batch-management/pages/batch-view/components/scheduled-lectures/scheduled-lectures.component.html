@@ -16,18 +16,18 @@
 
     <div class="flex flex-col gap-3">
 
-      @for (scheduledLecture of scheduleLectures; track scheduledLecture.id){
+      @for (scheduleLecture of scheduleLectures; track scheduleLecture.id){
         <app-card-shell class="block m-0">
           <div>
-            <app-card-header [title]="scheduledLecture.topic" [description]="scheduledLecture.startDate | date: 'dd MMM yyyy'">
+            <app-card-header [title]="scheduleLecture.topic" [description]="scheduleLecture.startDate | date: 'dd MMM yyyy'">
             <span card-action class="batch batch-success">Scheduled</span>
             </app-card-header>
             <div class="flex flex-col gap-2 pl-4 p-2">
-            {{ formatTime(scheduledLecture.startTime) }} - {{ formatTime(scheduledLecture.endTime) }}
+            {{ formatTime(scheduleLecture.startTime) }} - {{ formatTime(scheduleLecture.endTime) }}
 
               <div class="flex gap-2">
-                <button class="btn-mini-secondary btn-success" (click)="onJoin(scheduledLecture.meetingUrl)">Join</button>
-                <button class="btn-mini-primary">Edit</button>
+                <button class="btn-mini-secondary btn-success" (click)="onJoin(scheduleLecture.meetingUrl)">Join</button>
+                <button class="btn-mini-primary" (click)="openScheduleLecUpdateDialog(scheduleLecture)">Edit</button>
               </div>
             </div>
           </div>

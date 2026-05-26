@@ -10,6 +10,7 @@ import {
   ScheduleLectureResponse
 } from '../../../../../../../../../../../../../core/dto/response-dto/schedule-lectures/ScheduleLectureResponse';
 import {DatePipe} from '@angular/common';
+import {ScheduleLecUpdateComponent} from '../schedule-lec-update/schedule-lec-update.component';
 
 @Component({
   selector: 'app-scheduled-lectures',
@@ -71,6 +72,17 @@ export class ScheduledLecturesComponent implements OnInit{
     const dialogRef = this.dialog.open(ScheduleLecCreateComponent,{
       width:'650px',
       data: this.chapterId
+    });
+
+    dialogRef.afterClosed().subscribe((res)=>{
+      if(res) this.fetchAllScheduledLecturesByChapterId();
+    });
+  }
+
+  protected openScheduleLecUpdateDialog(scheduleLecture:ScheduleLectureResponse):void{
+    const dialogRef = this.dialog.open(ScheduleLecUpdateComponent,{
+      width:'650px',
+      data: scheduleLecture
     });
 
     dialogRef.afterClosed().subscribe((res)=>{
