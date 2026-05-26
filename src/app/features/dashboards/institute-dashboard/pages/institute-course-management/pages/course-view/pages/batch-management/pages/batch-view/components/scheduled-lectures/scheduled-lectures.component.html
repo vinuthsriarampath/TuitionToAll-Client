@@ -20,7 +20,7 @@
         <app-card-shell class="block m-0">
           <div>
             <app-card-header [title]="scheduleLecture.topic" [description]="scheduleLecture.startDate | date: 'dd MMM yyyy'">
-            <span card-action class="batch batch-success">Scheduled</span>
+            <app-schedule-lec-badge card-action [status]="scheduleLecture.status"/>
             </app-card-header>
             <div class="flex flex-col gap-2 pl-4 p-2">
             {{ formatTime(scheduleLecture.startTime) }} - {{ formatTime(scheduleLecture.endTime) }}

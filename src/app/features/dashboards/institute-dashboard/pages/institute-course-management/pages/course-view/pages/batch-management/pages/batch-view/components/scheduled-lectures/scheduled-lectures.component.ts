@@ -9,8 +9,10 @@ import {ChapterService} from '../../../../../../../../../../../../../core/servic
 import {
   ScheduleLectureResponse
 } from '../../../../../../../../../../../../../core/dto/response-dto/schedule-lectures/ScheduleLectureResponse';
-import {DatePipe} from '@angular/common';
+import {DatePipe, NgClass} from '@angular/common';
 import {ScheduleLecUpdateComponent} from '../schedule-lec-update/schedule-lec-update.component';
+import {ScheduleLectureStatus} from '../../../../../../../../../../../../../core/enums/ScheduleLectureStatus';
+import {ScheduleLecBadgeComponent} from '../schedule-lec-badge/schedule-lec-badge.component';
 
 @Component({
   selector: 'app-scheduled-lectures',
@@ -18,6 +20,8 @@ import {ScheduleLecUpdateComponent} from '../schedule-lec-update/schedule-lec-up
     CardShellComponent,
     CardHeaderComponent,
     DatePipe,
+    NgClass,
+    ScheduleLecBadgeComponent,
   ],
   templateUrl: './scheduled-lectures.component.html',
   styleUrl: './scheduled-lectures.component.css'
@@ -89,4 +93,6 @@ export class ScheduledLecturesComponent implements OnInit{
       if(res) this.fetchAllScheduledLecturesByChapterId();
     });
   }
+
+  protected readonly ScheduleLectureStatus = ScheduleLectureStatus;
 }
