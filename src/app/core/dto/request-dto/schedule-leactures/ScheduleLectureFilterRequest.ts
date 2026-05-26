@@ -1,5 +1,5 @@
 export class ScheduleLectureFilterRequest {
-  id?: number;
+  scheduleLectureId?: number;
   status?: string;
   startDate?: string;
   startTime?: string;
