@@ -66,7 +66,7 @@ export class ScheduleLecUpdateComponent {
       startDate: [this.originalScheduleLecture.startDate, Validators.required],
       startTime: [this.originalScheduleLecture.startTime,Validators.required],
       endTime:[this.originalScheduleLecture.endTime,Validators.required],
-      lateAttendance:[this.originalScheduleLecture.endTime ? true : null],
+      lateAttendance:[this.originalScheduleLecture.lateAttendance ? true : null],
       meetingUrl:[this.originalScheduleLecture.meetingUrl,Validators.required],
       status:[this.originalScheduleLecture.status,Validators.required]
     })
