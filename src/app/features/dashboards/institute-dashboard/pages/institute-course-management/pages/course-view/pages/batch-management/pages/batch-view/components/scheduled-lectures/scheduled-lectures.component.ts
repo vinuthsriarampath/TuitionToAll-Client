@@ -12,6 +12,9 @@ import {
 import {DatePipe} from '@angular/common';
 import {ScheduleLecUpdateComponent} from '../schedule-lec-update/schedule-lec-update.component';
 import {ScheduleLecBadgeComponent} from '../schedule-lec-badge/schedule-lec-badge.component';
+import {getDate, getTime} from '../../../../../../../../../../../../../core/helpers/date-helper';
+import {ScheduleLectureStatus} from '../../../../../../../../../../../../../core/enums/ScheduleLectureStatus';
+import {LucideAngularModule, RefreshCcw} from 'lucide-angular';
 
 @Component({
   selector: 'app-scheduled-lectures',
@@ -20,6 +23,7 @@ import {ScheduleLecBadgeComponent} from '../schedule-lec-badge/schedule-lec-badg
     CardHeaderComponent,
     DatePipe,
     ScheduleLecBadgeComponent,
+    LucideAngularModule,
   ],
   templateUrl: './scheduled-lectures.component.html',
   styleUrl: './scheduled-lectures.component.css'
@@ -67,8 +71,16 @@ export class ScheduledLecturesComponent implements OnInit{
     return `${hour12}:${String(minutes).padStart(2, '0')} ${period}`;
   }
 
-  onJoin(meetingUrl: string): void {
-    window.open(meetingUrl, '_blank');
+  onRefresh():void{
+    this.fetchAllScheduledLecturesByChapterId();
+  }
+
+  onJoin(scheduleLecture: ScheduleLectureResponse): void {
+    if (this.canJoinLecture(scheduleLecture)){
+      window.open(scheduleLecture.meetingUrl, '_blank');
+    }else{
+      this.alertService.triggerErrorAlert("Unable to join the meeting. Please ensure that the lecture is scheduled for today, has started but not yet ended, and that you are within the allowed attendance time (10 minutes with start time).");
+    }
   }
   protected openScheduleLecCreateDialog():void{
     const dialogRef = this.dialog.open(ScheduleLecCreateComponent,{
@@ -91,4 +103,35 @@ export class ScheduledLecturesComponent implements OnInit{
       if(res) this.fetchAllScheduledLecturesByChapterId();
     });
   }
+
+  protected canJoinLecture(scheduleLecture: ScheduleLectureResponse): boolean {
+
+    const currentDate = this.getDate(0, 0);
+    const currentTime = this.getTime(0, 0);
+
+    const isToday:boolean = scheduleLecture.startDate === currentDate;
+
+    const hasStarted:boolean = currentTime >= scheduleLecture.startTime;
+
+    const notEnded:boolean = currentTime <= scheduleLecture.endTime;
+
+    const validStatus:boolean = scheduleLecture.status === ScheduleLectureStatus.SCHEDULED || scheduleLecture.status === ScheduleLectureStatus.LIVE;
+
+    let validAttendance:boolean;
+
+    if (scheduleLecture.lateAttendance) {
+      validAttendance = true;
+    } else {
+      const startDateTime = new Date(`${scheduleLecture.startDate}T${scheduleLecture.startTime}`);
+      startDateTime.setMinutes(startDateTime.getMinutes() + 10);
+      const now = new Date();
+      validAttendance = now <= startDateTime;
+    }
+    return (isToday && hasStarted && notEnded && validStatus && validAttendance);
+  }
+
+  protected readonly getTime = getTime;
+  protected readonly Date = Date;
+  protected readonly getDate = getDate;
+  protected readonly RefreshCcw = RefreshCcw;
 }

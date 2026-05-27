@@ -8,9 +8,15 @@
         <p class="text-sm text-gray-500"> Upcoming lecture sessions </p>
       </div>
 
-      <button class="btn-mini-primary" (click)="openScheduleLecCreateDialog()">
-        Add
-      </button>
+      <div class="flex gap-2">
+        <button (click)="onRefresh()" class="btn-mini-light">
+          <lucide-icon [img]="RefreshCcw" [size]="20" class="filled-icon"/>
+        </button>
+
+        <button class="btn-mini-primary" (click)="openScheduleLecCreateDialog()">
+          Add
+        </button>
+      </div>
 
     </div>
 
@@ -26,7 +32,9 @@
             {{ formatTime(scheduleLecture.startTime) }} - {{ formatTime(scheduleLecture.endTime) }}
 
               <div class="flex gap-2">
-                <button class="btn-mini-secondary btn-success" (click)="onJoin(scheduleLecture.meetingUrl)">Join</button>
+                @if (canJoinLecture(scheduleLecture)) {
+                  <button class="btn-mini-secondary btn-success" (click)="onJoin(scheduleLecture)">Join</button>
+                }
                 <button class="btn-mini-primary" (click)="openScheduleLecUpdateDialog(scheduleLecture)">Edit</button>
               </div>
             </div>
