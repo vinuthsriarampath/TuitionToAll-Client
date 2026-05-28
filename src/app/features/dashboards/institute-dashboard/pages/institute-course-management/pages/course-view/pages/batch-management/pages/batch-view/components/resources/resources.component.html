@@ -13,87 +13,52 @@
         </p>
       </div>
 
-      <button class="btn-mini-primary">
-        Add
-      </button>
+      <div class="flex gap-2">
+        <button (click)="onRefresh()" class="btn-mini-light">
+          <lucide-icon [img]="RefreshCw" [size]="20" class="filled-icon"/>
+        </button>
+        <button class="btn-mini-primary">
+          Add
+        </button>
+      </div>
 
     </div>
 
     <div class="overflow-x-auto">
 
-      <table class="w-full border border-gray-200">
-
-        <thead class="bg-slate-800 text-white">
-        <tr>
-          <th class="p-2 border">Name</th>
-          <th class="p-2 border">Type</th>
-          <th class="p-2 border">Actions</th>
-        </tr>
-        </thead>
-
-        <tbody>
-
-        <tr class="hover:bg-gray-50">
-
-          <td class="p-2 border">
-            JWT Guide.pdf
-          </td>
-
-          <td class="p-2 border">
-            PDF
-          </td>
-
-          <td class="p-2 border">
-
-            <div class="flex justify-center gap-1">
-
-              <button class="btn-mini-primary">
-                View
+      <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="flex justify-center items-center gap-2">
+              <button (click)="onDownload(element.fileName)" class="btn-mini-primary">
+                <lucide-icon [img]="Download" [size]="18" class="filled-icon"/>
               </button>
-
-              <button class="btn-mini-secondary">
-                Edit
+              <button class="btn-mini-primary">
+                <lucide-icon [img]="ExternalLink" [size]="18"/>
               </button>
 
             </div>
-
           </td>
+        </ng-container>
 
-        </tr>
-
-        <tr class="hover:bg-gray-50">
-
-          <td class="p-2 border">
-            Security Diagram.png
-          </td>
-
-          <td class="p-2 border">
-            Image
-          </td>
-
-          <td class="p-2 border">
-
-            <div class="flex justify-center gap-1">
-
-              <button class="btn-mini-primary">
-                View
-              </button>
-
-              <button class="btn-mini-secondary">
-                Edit
-              </button>
-
-            </div>
-
-          </td>
-
-        </tr>
-
-        </tbody>
-
+        <tr mat-header-row *matHeaderRowDef="columns"></tr>
+        <tr mat-row *matRowDef="let row; columns: columns;"></tr>
       </table>
 
     </div>
+      <mat-paginator
+        [hidePageSize]="true"
+        [pageIndex]="pageIndex"
+        [pageSize]="pageSize"
+        showFirstLastButtons
+        aria-label="Select page of resources"
+        (page)="onPageChange($event)"
+      />
 
   </div>
 </app-card-shell>
