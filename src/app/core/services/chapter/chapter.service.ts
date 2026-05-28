@@ -82,7 +82,7 @@ export class ChapterService {
     return this.http.get<PaginatedApiResponse<ScheduleLectureResponse>>(`${this.baseUrl}/${chapterId}/schedule-lectures`, { params });
   }
 
-  getAllResourcesWithFilters(chapterId: number, page: number = 0, size: number = 10, direction: string = 'desc', sortBy: string[] = ['created_date'], filters?: ResourceFilterRequest): Observable<ApiResponse<PaginatedApiResponse<ResourceResponse>>> {
+  getAllResourcesWithFilters(chapterId: number, page: number = 0, size: number = 10, direction: string = 'desc', sortBy: string[] = ['created_date'], filters?: ResourceFilterRequest): Observable<PaginatedApiResponse<ResourceResponse>> {
 
     let params = new HttpParams()
       .set('page', page)
@@ -101,6 +101,6 @@ export class ChapterService {
       params = params.set('name', filters.name);
     }
 
-    return this.http.get<ApiResponse<PaginatedApiResponse<ResourceResponse>>>(`${this.baseUrl}/${chapterId}/resources`, { params });
+    return this.http.get<PaginatedApiResponse<ResourceResponse>>(`${this.baseUrl}/${chapterId}/resources`, { params });
   }
 }
