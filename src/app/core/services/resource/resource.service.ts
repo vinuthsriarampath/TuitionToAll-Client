@@ -17,7 +17,7 @@ export class ResourceService {
 
 
   initializeUpload(request: ResourceInitRequest): Observable<ApiResponse<ResourceInitResponse>> {
-    return this.http.post<ApiResponse<ResourceInitResponse>>(`${this.baseUrl}/api/v2/resources/upload/init`, request);
+    return this.http.post<ApiResponse<ResourceInitResponse>>(`${this.baseUrl}/upload/init`, request);
   }
 
   uploadChunk(uploadId: string, chunkIndex: number, file: File): Observable<ApiResponse<ResourceChunkUploadResponse>> {
@@ -27,11 +27,10 @@ export class ResourceService {
     formData.append('chunkIndex', chunkIndex.toString());
     formData.append('file', file);
 
-    return this.http.post<ApiResponse<ResourceChunkUploadResponse>>(`${this.baseUrl}/api/v2/resources/upload/chunk`, formData);
+    return this.http.post<ApiResponse<ResourceChunkUploadResponse>>(`${this.baseUrl}/upload/chunk`, formData);
   }
 
   completeUpload(uploadId: string): Observable<ApiResponse<ResourceResponse>> {
-    return this.http.post<ApiResponse<ResourceResponse>>(`${this.baseUrl}/api/v2/resources/upload/complete/${uploadId}`, {});
+    return this.http.post<ApiResponse<ResourceResponse>>(`${this.baseUrl}/upload/complete/${uploadId}`, {});
   }
-
 }
