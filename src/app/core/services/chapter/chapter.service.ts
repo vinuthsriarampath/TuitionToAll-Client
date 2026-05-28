@@ -12,6 +12,8 @@ import {LectureRecordResponse} from '../../dto/response-dto/lecture-record/Lectu
 import {ScheduleLectureFilterRequest} from '../../dto/request-dto/schedule-leactures/ScheduleLectureFilterRequest';
 import {PaginatedApiResponse} from '../../dto/response-dto/paginated-api-response';
 import {ScheduleLectureResponse} from '../../dto/response-dto/schedule-lectures/ScheduleLectureResponse';
+import {ResourceResponse} from '../../dto/response-dto/resource/ResourceResponse';
+import {ResourceFilterRequest} from '../../dto/request-dto/resource/ResourceFilterRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -78,5 +80,27 @@ export class ChapterService {
     }
 
     return this.http.get<PaginatedApiResponse<ScheduleLectureResponse>>(`${this.baseUrl}/${chapterId}/schedule-lectures`, { params });
+  }
+
+  getAllResourcesWithFilters(chapterId: number, page: number = 0, size: number = 10, direction: string = 'desc', sortBy: string[] = ['created_date'], filters?: ResourceFilterRequest): Observable<ApiResponse<PaginatedApiResponse<ResourceResponse>>> {
+
+    let params = new HttpParams()
+      .set('page', page)
+      .set('size', size)
+      .set('direction', direction);
+
+    sortBy.forEach(s => {
+      params = params.append('sortBy', s);
+    });
+
+    if (filters?.resourceId != null) {
+      params = params.set('resourceId', filters.resourceId);
+    }
+
+    if (filters?.name) {
+      params = params.set('name', filters.name);
+    }
+
+    return this.http.get<ApiResponse<PaginatedApiResponse<ResourceResponse>>>(`${this.baseUrl}/${chapterId}/resources`, { params });
   }
 }
