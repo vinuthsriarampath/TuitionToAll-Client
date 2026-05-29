@@ -2,7 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {CardShellComponent} from '../../../../../../../../../../../../../shared/ui/card-shell/card-shell.component';
 import {ChapterService} from '../../../../../../../../../../../../../core/services/chapter/chapter.service';
 import {AlertService} from '../../../../../../../../../../../../../core/services/alerts/alert.service';
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {
   MatCell,
@@ -18,6 +18,7 @@ import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {Download, ExternalLink, LucideAngularModule, RefreshCw} from 'lucide-angular';
 import {ResourceService} from '../../../../../../../../../../../../../core/services/resource/resource.service';
 import {environment} from '../../../../../../../../../../../../../environment/environment.development';
+import {ResourceCreateComponent} from '../resource-create/resource-create.component';
 
 @Component({
   selector: 'app-resources',
@@ -35,7 +36,6 @@ import {environment} from '../../../../../../../../../../../../../environment/en
     MatRow,
     MatPaginator,
     LucideAngularModule,
-    RouterLink
   ],
   templateUrl: './resources.component.html',
   styleUrl: './resources.component.css'
@@ -77,7 +77,6 @@ export class ResourcesComponent implements OnInit{
     this.chapterService.getAllResourcesWithFilters(this.chapterId,this.pageIndex,this.pageSize).subscribe({
       next:(res)=>{
         if(res.data){
-          console.log(res);
           this.dataSource.data = res.data ?? [];
           this.pageIndex = res.page ?? 0;
           this.pageSize = res.size ?? 5;
@@ -104,7 +103,21 @@ export class ResourcesComponent implements OnInit{
     link.click();
   }
 
+  protected openResourceCreateDialog(): void {
+    const dialogRef = this.dialog.open(ResourceCreateComponent,{
+      data: this.chapterId,
+      width: '650px'
+    })
 
+    dialogRef.afterClosed().subscribe({
+      next:(res)=>{
+        if(res) this.fetchResources();
+      },
+      error:(err)=>{
+        this.alertService.triggerErrorAlert(err.error.message);
+      }
+    });
+  }
   protected readonly Download = Download;
   protected readonly ExternalLink = ExternalLink;
   protected readonly RefreshCw = RefreshCw;
