@@ -15,7 +15,7 @@ import {
 } from '@angular/material/table';
 import {ResourceResponse} from '../../../../../../../../../../../../../core/dto/response-dto/resource/ResourceResponse';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
-import {Download, ExternalLink, LucideAngularModule, RefreshCw} from 'lucide-angular';
+import {Download, LucideAngularModule, Pencil, RefreshCw} from 'lucide-angular';
 import {ResourceService} from '../../../../../../../../../../../../../core/services/resource/resource.service';
 import {environment} from '../../../../../../../../../../../../../environment/environment.development';
 import {ResourceCreateComponent} from '../resource-create/resource-create.component';
@@ -106,7 +106,8 @@ export class ResourcesComponent implements OnInit{
   protected openResourceCreateDialog(): void {
     const dialogRef = this.dialog.open(ResourceCreateComponent,{
       data: this.chapterId,
-      width: '650px'
+      width: '650px',
+      disableClose: false
     })
 
     dialogRef.afterClosed().subscribe({
@@ -118,10 +119,11 @@ export class ResourcesComponent implements OnInit{
       }
     });
   }
+
   protected readonly Download = Download;
-  protected readonly ExternalLink = ExternalLink;
   protected readonly RefreshCw = RefreshCw;
 
 
   protected readonly environment = environment;
+  protected readonly Pencil = Pencil;
 }
