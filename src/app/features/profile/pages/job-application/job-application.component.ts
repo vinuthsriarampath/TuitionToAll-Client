@@ -1,8 +1,8 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {TeacherVacancy} from '../../../../core/models/teacher-vacancy';
+import {TeacherVacancy} from '../../../teacher-vacancy/dtos/response/teacher-vacancy';
 import {DatePipe} from '@angular/common';
-import {TeacherVacancyService} from '../../../../core/services/teacher-vacancy/teacher-vacancy.service';
+import {TeacherVacancyService} from '../../../teacher-vacancy/services/teacher-vacancy/teacher-vacancy.service';
 import {QuillEditorComponent} from 'ngx-quill';
 import {FormsModule} from '@angular/forms';
 import {PageTitleComponent} from '../../../../shared/components/page-title/page-title.component';
@@ -10,7 +10,7 @@ import {UserService} from '../../services/user/user.service';
 import {User} from '../../dtos/response/user';
 import {ApplicationService} from '../../../../core/services/application/application.service';
 import {AlertService} from '../../../../core/services/alerts/alert.service';
-import {TeacherVacancyStatus} from '../../../../core/enums/teacher-vacancy-status';
+import {TeacherVacancyStatus} from '../../../teacher-vacancy/enums/teacher-vacancy-status';
 
 @Component({
   selector: 'app-job-application',

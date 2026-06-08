@@ -1,6 +1,6 @@
 import {Component, inject, OnInit, ViewChild} from '@angular/core';
-import {TeacherVacancyService} from '../../../../../../../core/services/teacher-vacancy/teacher-vacancy.service';
-import {TeacherVacancy} from '../../../../../../../core/models/teacher-vacancy';
+import {TeacherVacancyService} from '../../services/teacher-vacancy/teacher-vacancy.service';
+import {TeacherVacancy} from '../../dtos/response/teacher-vacancy';
 import {
   MatCell,
   MatCellDef,
@@ -20,15 +20,15 @@ import {DatePipe, NgClass} from '@angular/common';
 import {MatDialog} from '@angular/material/dialog';
 import {
   ViewTeacherVacancySingleDialogComponent
-} from './model/view-teacher-vacancy-single-dialog/view-teacher-vacancy-single-dialog.component';
-import {TeacherVacancyStatus} from '../../../../../../../core/enums/teacher-vacancy-status';
+} from '../../dialogs/view-teacher-vacancy-single-dialog/view-teacher-vacancy-single-dialog.component';
+import {TeacherVacancyStatus} from '../../enums/teacher-vacancy-status';
 import {
   UpdateTeacherVacancyDialogComponent
-} from './model/update-teacher-vacancy-dialog/update-teacher-vacancy-dialog.component';
+} from '../../dialogs/update-teacher-vacancy-dialog/update-teacher-vacancy-dialog.component';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
-import {PaginatedApiResponse} from '../../../../../../../shared/utils/response/paginated-api-response';
+import {PaginatedApiResponse} from '../../../../shared/utils/response/paginated-api-response';
 import {RouterLink} from '@angular/router';
-import {PageLayoutComponent} from '../../../../../../../core/layouts/page-layout/page-layout.component';
+import {PageLayoutComponent} from '../../../../core/layouts/page-layout/page-layout.component';
 
 @Component({
   selector: 'app-view-teacher-vacancy',

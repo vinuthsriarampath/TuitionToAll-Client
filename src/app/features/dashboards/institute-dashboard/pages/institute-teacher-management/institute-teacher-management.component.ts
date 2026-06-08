@@ -4,7 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {PageTitleComponent} from '../../../../../shared/components/page-title/page-title.component';
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from '@angular/material/sidenav';
 import {MatDialog} from '@angular/material/dialog';
-import {CreateVacancyDialogComponent} from './models/create-vacancy-dialog/create-vacancy-dialog.component';
+import {CreateVacancyDialogComponent} from '../../../../teacher-vacancy/dialogs/create-vacancy-dialog/create-vacancy-dialog.component';
 import {RouterLink} from '@angular/router';
 import {
   MatCell,

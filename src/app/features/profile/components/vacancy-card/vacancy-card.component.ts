@@ -4,7 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {RouterLink} from '@angular/router';
 import {BadgeComponent} from '../../../../shared/ui/badge/badge.component';
 import {CardShellComponent} from '../../../../shared/ui/card-shell/card-shell.component';
-import {TeacherVacancy} from '../../../../core/models/teacher-vacancy';
+import {TeacherVacancy} from '../../../teacher-vacancy/dtos/response/teacher-vacancy';
 import {DatePipe} from '@angular/common';
 
 @Component({

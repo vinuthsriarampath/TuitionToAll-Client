@@ -1,11 +1,11 @@
 import {Component, Inject, inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {TeacherVacancy} from '../../../../../../../../../core/models/teacher-vacancy';
+import {TeacherVacancy} from '../../dtos/response/teacher-vacancy';
 import {DatePipe, NgClass} from '@angular/common';
-import {TeacherVacancyStatus} from '../../../../../../../../../core/enums/teacher-vacancy-status';
+import {TeacherVacancyStatus} from '../../enums/teacher-vacancy-status';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {QuillEditorComponent} from 'ngx-quill';
-import {DialogLayoutComponent} from '../../../../../../../../../core/layouts/dialog-layout/dialog-layout.component';
+import {DialogLayoutComponent} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
 import {InfoIcon, LucideIconData} from 'lucide-angular';
 
 @Component({

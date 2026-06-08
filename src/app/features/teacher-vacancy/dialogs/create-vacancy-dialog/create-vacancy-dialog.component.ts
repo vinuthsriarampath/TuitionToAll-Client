@@ -2,14 +2,14 @@ import {Component, inject} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
 import {QuillEditorComponent} from 'ngx-quill';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {getDateTime} from '../../../../../../../shared/utils/helpers/date-helper';
-import {isFutureDate} from '../../../../../../../shared/utils/validators/form-custom-validators';
-import {TeacherVacancyService} from '../../../../../../../core/services/teacher-vacancy/teacher-vacancy.service';
+import {getDateTime} from '../../../../shared/utils/helpers/date-helper';
+import {isFutureDate} from '../../../../shared/utils/validators/form-custom-validators';
+import {TeacherVacancyService} from '../../services/teacher-vacancy/teacher-vacancy.service';
 import {
   TeacherVacancyCreateRequest
-} from '../../../../../../../core/dto/request-dto/teacher-vacancy/teacher-vacancy-create-request';
-import {AlertService} from '../../../../../../../core/services/alerts/alert.service';
-import {DialogLayoutComponent} from '../../../../../../../core/layouts/dialog-layout/dialog-layout.component';
+} from '../../dtos/request/teacher-vacancy-create-request';
+import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {DialogLayoutComponent} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
 import {SquarePen} from 'lucide-angular';
 
 @Component({

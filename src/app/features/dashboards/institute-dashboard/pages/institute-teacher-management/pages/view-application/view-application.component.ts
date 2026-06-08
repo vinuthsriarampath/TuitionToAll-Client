@@ -1,11 +1,11 @@
 import {Component, inject, OnInit, ViewChild} from '@angular/core';
-import {ApplicationService} from '../../../../../../../../../core/services/application/application.service';
+import {ApplicationService} from '../../../../../../../core/services/application/application.service';
 import {ActivatedRoute} from '@angular/router';
 import {
   ApplicationDetailsResponse
-} from '../../../../../../../../../core/dto/response-dto/application-details-response';
-import {AlertService} from '../../../../../../../../../core/services/alerts/alert.service';
-import {PageTitleComponent} from '../../../../../../../../../shared/components/page-title/page-title.component';
+} from '../../../../../../../core/dto/response-dto/application-details-response';
+import {AlertService} from '../../../../../../../core/services/alerts/alert.service';
+import {PageTitleComponent} from '../../../../../../../shared/components/page-title/page-title.component';
 import {
   MatCell,
   MatCellDef,
@@ -22,15 +22,15 @@ import {
 import {DatePipe, NgClass, NgIf} from '@angular/common';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from '@angular/material/sidenav';
-import {environment} from '../../../../../../../../../environment/environment.development';
-import {ApplicationStatus} from '../../../../../../../../../core/enums/application-status';
+import {environment} from '../../../../../../../environment/environment.development';
+import {ApplicationStatus} from '../../../../../../../core/enums/application-status';
 import {SelectionModel} from '@angular/cdk/collections';
 import {
   InstituteTeacherService
-} from '../../../../../../../../../core/services/institute-teacher/institute-teacher.service';
-import {ApplicationSelectionRequest} from '../../../../../../../../../core/dto/request-dto/ApplicationSelectionRequest';
+} from '../../../../../../../core/services/institute-teacher/institute-teacher.service';
+import {ApplicationSelectionRequest} from '../../../../../../../core/dto/request-dto/ApplicationSelectionRequest';
 import {MatTooltip} from '@angular/material/tooltip';
-import {ApplicationRejectionRequest} from '../../../../../../../../../core/dto/request-dto/ApplicationRejectionRequest';
+import {ApplicationRejectionRequest} from '../../../../../../../core/dto/request-dto/ApplicationRejectionRequest';
 
 @Component({
   selector: 'app-view-application',

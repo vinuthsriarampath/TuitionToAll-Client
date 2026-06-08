@@ -1,4 +1,4 @@
-import {TeacherVacancyStatus} from '../enums/teacher-vacancy-status';
+import {TeacherVacancyStatus} from '../../enums/teacher-vacancy-status';
 
 export class TeacherVacancy {
   id!: number;

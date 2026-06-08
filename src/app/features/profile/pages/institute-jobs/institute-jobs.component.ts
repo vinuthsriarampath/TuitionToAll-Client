@@ -1,7 +1,7 @@
 import {Component, inject, input, OnInit} from '@angular/core';
 import {InstituteService} from '../../../../core/services/institute/institute.service';
-import {TeacherVacancyStatus} from '../../../../core/enums/teacher-vacancy-status';
-import {TeacherVacancy} from '../../../../core/models/teacher-vacancy';
+import {TeacherVacancyStatus} from '../../../teacher-vacancy/enums/teacher-vacancy-status';
+import {TeacherVacancy} from '../../../teacher-vacancy/dtos/response/teacher-vacancy';
 import {FormsModule} from '@angular/forms';
 import {VacancyCardComponent} from '../../components/vacancy-card/vacancy-card.component';
 

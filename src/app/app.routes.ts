@@ -50,11 +50,11 @@ import {
 } from './features/dashboards/institute-dashboard/pages/institute-teacher-management/institute-teacher-management.component';
 import {
   ViewTeacherVacancyComponent
-} from './features/dashboards/institute-dashboard/pages/institute-teacher-management/pages/view-teacher-vacancy/view-teacher-vacancy.component';
+} from './features/teacher-vacancy/pages/view-teacher-vacancy/view-teacher-vacancy.component';
 import {JobApplicationComponent} from './features/profile/pages/job-application/job-application.component';
 import {
   ViewApplicationComponent
-} from './features/dashboards/institute-dashboard/pages/institute-teacher-management/pages/view-teacher-vacancy/pages/view-application/view-application.component';
+} from './features/dashboards/institute-dashboard/pages/institute-teacher-management/pages/view-application/view-application.component';
 import {
   AnnouncementsManagementComponent
 } from './features/announcement/pages/announcements-management/announcements-management.component';
