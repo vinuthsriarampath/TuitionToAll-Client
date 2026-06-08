@@ -1,11 +1,11 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {ApiResponse} from '../../../shared/utils/response/api-response';
-import {Application} from '../../models/application';
-import {environment} from '../../../environment/environment.development';
-import {PaginatedApiResponse} from '../../../shared/utils/response/paginated-api-response';
-import {ApplicationDetailsResponse} from '../../dto/response-dto/application-details-response';
+import {ApiResponse} from '../../../../shared/utils/response/api-response';
+import {Application} from '../../dtos/response/application';
+import {environment} from '../../../../environment/environment.development';
+import {PaginatedApiResponse} from '../../../../shared/utils/response/paginated-api-response';
+import {ApplicationDetailsResponse} from '../../dtos/response/application-details-response';
 
 @Injectable({
   providedIn: 'root'

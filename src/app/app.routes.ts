@@ -54,7 +54,7 @@ import {
 import {JobApplicationComponent} from './features/profile/pages/job-application/job-application.component';
 import {
   ViewApplicationComponent
-} from './features/dashboards/institute-dashboard/pages/institute-teacher-management/pages/view-application/view-application.component';
+} from './features/applications/pages/view-application/view-application.component';
 import {
   AnnouncementsManagementComponent
 } from './features/announcement/pages/announcements-management/announcements-management.component';

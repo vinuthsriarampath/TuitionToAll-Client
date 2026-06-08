@@ -1,4 +1,4 @@
-import {ApplicationStatus} from '../enums/application-status';
+import {ApplicationStatus} from '../../enums/application-status';
 
 export class Application {
   id!: number;

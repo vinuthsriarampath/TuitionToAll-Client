@@ -24,7 +24,7 @@ import {InstituteTeacherService} from '../../../../../core/services/institute-te
 import {InstituteTeacherResponse} from '../../../../../core/dto/response-dto/InstituteTeacherResponse';
 import {AlertService} from '../../../../../core/services/alerts/alert.service';
 import {environment} from '../../../../../environment/environment.development';
-import {ApplicationStatus} from '../../../../../core/enums/application-status';
+import {ApplicationStatus} from '../../../../applications/enums/application-status';
 import {InstituteTeacherStatus} from '../../../../../core/enums/InstituteTeacherStatus';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {InstituteTeacherStatsResponse} from '../../../../../core/dto/response-dto/InstituteTeacherStatsResponse';

@@ -8,7 +8,7 @@ import {FormsModule} from '@angular/forms';
 import {PageTitleComponent} from '../../../../shared/components/page-title/page-title.component';
 import {UserService} from '../../services/user/user.service';
 import {User} from '../../dtos/response/user';
-import {ApplicationService} from '../../../../core/services/application/application.service';
+import {ApplicationService} from '../../../applications/services/application/application.service';
 import {AlertService} from '../../../../core/services/alerts/alert.service';
 import {TeacherVacancyStatus} from '../../../teacher-vacancy/enums/teacher-vacancy-status';
 
