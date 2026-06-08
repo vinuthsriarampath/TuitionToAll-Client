@@ -11,7 +11,7 @@ import {CardShellComponent} from '../../../../../../../../../../../../../shared/
 import {ChapterStatRowComponent} from '../chapter-stat-row/chapter-stat-row.component';
 import {ChapterOverviewComponent} from '../chapter-overview/chapter-overview.component';
 import {LectureRecordingComponent} from '../lecture-recording/lecture-recording.component';
-import {ResourcesComponent} from '../resources/resources.component';
+import {ResourcesComponent} from '../../../../../../../../../../../../resources/pages/resources/resources.component';
 import {ScheduledLecturesComponent} from '../../../../../../../../../../../../schedule-lectures/pages/scheduled-lectures/scheduled-lectures.component';
 
 @Component({

@@ -1,12 +1,12 @@
 import {inject, Injectable} from '@angular/core';
-import {environment} from '../../../environment/environment.development';
+import {environment} from '../../../../environment/environment.development';
 import {HttpClient, HttpEvent} from '@angular/common/http';
 import { Observable } from "rxjs";
-import {ResourceInitRequest} from '../../dto/request-dto/resource/ResourceInitRequest';
-import { ApiResponse } from "../../../shared/utils/response/api-response";
-import {ResourceInitResponse} from '../../dto/response-dto/resource/ResourceInitResponse';
-import {ResourceChunkUploadResponse} from '../../dto/response-dto/resource/ResourceChunkUploadResponse';
-import {ResourceResponse} from '../../dto/response-dto/resource/ResourceResponse';
+import {ResourceInitRequest} from '../../dtos/request/ResourceInitRequest';
+import { ApiResponse } from "../../../../shared/utils/response/api-response";
+import {ResourceInitResponse} from '../../dtos/response/ResourceInitResponse';
+import {ResourceChunkUploadResponse} from '../../dtos/response/ResourceChunkUploadResponse';
+import {ResourceResponse} from '../../dtos/response/ResourceResponse';
 
 @Injectable({
   providedIn: 'root'

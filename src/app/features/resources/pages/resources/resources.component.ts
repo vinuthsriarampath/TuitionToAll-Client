@@ -1,7 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {CardShellComponent} from '../../../../../../../../../../../../../shared/ui/card-shell/card-shell.component';
-import {ChapterService} from '../../../../../../../../../../../../../core/services/chapter/chapter.service';
-import {AlertService} from '../../../../../../../../../../../../../core/services/alerts/alert.service';
+import {CardShellComponent} from '../../../../shared/ui/card-shell/card-shell.component';
+import {ChapterService} from '../../../../core/services/chapter/chapter.service';
+import {AlertService} from '../../../../core/services/alerts/alert.service';
 import {ActivatedRoute} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {
@@ -13,12 +13,12 @@ import {
   MatTable,
   MatTableDataSource
 } from '@angular/material/table';
-import {ResourceResponse} from '../../../../../../../../../../../../../core/dto/response-dto/resource/ResourceResponse';
+import {ResourceResponse} from '../../dtos/response/ResourceResponse';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {Download, LucideAngularModule, Pencil, RefreshCw} from 'lucide-angular';
-import {ResourceService} from '../../../../../../../../../../../../../core/services/resource/resource.service';
-import {environment} from '../../../../../../../../../../../../../environment/environment.development';
-import {ResourceCreateComponent} from '../resource-create/resource-create.component';
+import {ResourceService} from '../../services/resource/resource.service';
+import {environment} from '../../../../environment/environment.development';
+import {ResourceCreateComponent} from '../../dialogs/resource-create/resource-create.component';
 
 @Component({
   selector: 'app-resources',

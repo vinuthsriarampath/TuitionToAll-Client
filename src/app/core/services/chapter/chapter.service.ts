@@ -12,8 +12,8 @@ import {LectureRecordResponse} from '../../dto/response-dto/lecture-record/Lectu
 import {ScheduleLectureFilterRequest} from '../../../features/schedule-lectures/dtos/request/ScheduleLectureFilterRequest';
 import {PaginatedApiResponse} from '../../../shared/utils/response/paginated-api-response';
 import {ScheduleLectureResponse} from '../../../features/schedule-lectures/dtos/response/ScheduleLectureResponse';
-import {ResourceResponse} from '../../dto/response-dto/resource/ResourceResponse';
-import {ResourceFilterRequest} from '../../dto/request-dto/resource/ResourceFilterRequest';
+import {ResourceResponse} from '../../../features/resources/dtos/response/ResourceResponse';
+import {ResourceFilterRequest} from '../../../features/resources/dtos/request/ResourceFilterRequest';
 
 @Injectable({
   providedIn: 'root'
