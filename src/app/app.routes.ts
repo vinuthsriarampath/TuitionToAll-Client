@@ -41,10 +41,10 @@ import {
 } from './features/dashboards/institute-dashboard/pages/institute-course-management/pages/course-update/course-update.component';
 import {
   BatchManagementComponent
-} from './features/dashboards/institute-dashboard/pages/institute-course-management/pages/course-view/pages/batch-management/batch-management.component';
+} from './features/batch/pages/batch-management/batch-management.component';
 import {
   BatchViewComponent
-} from './features/dashboards/institute-dashboard/pages/institute-course-management/pages/course-view/pages/batch-management/pages/batch-view/batch-view.component';
+} from './features/batch/pages/batch-view/batch-view.component';
 import {
   InstituteTeacherManagementComponent
 } from './features/dashboards/institute-dashboard/pages/institute-teacher-management/institute-teacher-management.component';

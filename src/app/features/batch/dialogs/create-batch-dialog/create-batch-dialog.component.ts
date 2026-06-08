@@ -1,39 +1,40 @@
 import {Component, inject, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {Batch} from '../../../../../../../../../../../core/models/batch';
+import {BatchStatus} from '../../enums/batch-status';
+import {BatchEnrollmentStatus} from '../../enums/batch-enrollment-status';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {BatchStatus} from '../../../../../../../../../../../core/enums/batch-status';
-import {BatchEnrollmentStatus} from '../../../../../../../../../../../core/enums/batch-enrollment-status';
-import {BatchService} from '../../../../../../../../../../../core/services/batch/batch.service';
+import {BatchService} from '../../../../core/services/batch/batch.service';
+import {Batch} from '../../../../core/models/batch';
 import {
   DialogLayoutComponent
-} from '../../../../../../../../../../../core/layouts/dialog-layout/dialog-layout.component';
-import {SquarePen} from 'lucide-angular';
+} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
+import {Plus} from 'lucide-angular';
 
 @Component({
-  selector: 'app-update-batch-dialog',
+  selector: 'app-create-batch-dialog',
   imports: [
     FormsModule,
     ReactiveFormsModule,
     DialogLayoutComponent
   ],
-  templateUrl: './update-batch-dialog.component.html',
-  styleUrl: './update-batch-dialog.component.css'
+  templateUrl: './create-batch-dialog.component.html',
+  styleUrl: './create-batch-dialog.component.css'
 })
-export class UpdateBatchDialogComponent implements OnInit{
+export class CreateBatchDialogComponent implements OnInit{
 
-  private readonly originalBatch!:Batch;
+  form!: FormGroup;
+  private readonly formBuilder = inject(FormBuilder);
   protected isLoading: boolean = false;
+
+  private readonly courseId:number;
+  private readonly batchService:BatchService = inject(BatchService);
+
   protected readonly batchStatuses = Object.values(BatchStatus);
   protected readonly batchEnrollmentStatuses = Object.values(BatchEnrollmentStatus);
-  protected form!:FormGroup;
 
-  private readonly formBuilder = inject(FormBuilder);
-  private readonly batchService = inject(BatchService);
-
-  constructor(private readonly dialogRef:MatDialogRef<UpdateBatchDialogComponent>,@Inject(MAT_DIALOG_DATA) public data:{batch:Batch,courseId:number}) {
-    this.originalBatch = data.batch;
-    this.form = this.initializeForm(data.batch);
+  constructor(public dialogRef : MatDialogRef<CreateBatchDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: number) {
+    this.courseId = data;
+    this.form = this.buildDefaultForm();
   }
 
   ngOnInit() {
@@ -51,29 +52,16 @@ export class UpdateBatchDialogComponent implements OnInit{
     });
   }
 
-  private initializeForm(batch:Batch):FormGroup{
-    return this.formBuilder.group({
-      name:[batch.name, Validators.required],
-      courseId:[batch.courseId,Validators.required],
-      start_date:[batch.start_date, Validators.required],
-      start_time:[batch.start_time, Validators.required],
-      is_seat_limited:[batch.is_seat_limited],
-      max_seat_limit:[batch.max_seat_limit],
-      batch_status:[batch.batch_status,Validators.required],
-      enrollment_status:[batch.enrollment_status,Validators.required]
-    })
-  }
-
   onCancel(){
     this.dialogRef.close();
   }
 
-  onReset(){
+  protected onReset():void{
     this.form.reset();
-    this.form = this.initializeForm(this.originalBatch);
+    this.form= this.buildDefaultForm();
   }
 
-  onSubmit(){
+  protected onSubmit():void{
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -81,16 +69,16 @@ export class UpdateBatchDialogComponent implements OnInit{
 
     this.triggerLoading();
 
-    const updateBatch = this.form.value;
 
-    this.batchService.updateBatch(this.originalBatch.id,updateBatch).subscribe({
+    this.batchService.createBatch(this.form.value).subscribe({
       next: res => {
-        this.dialogRef.close(res.data);
+        this.dialogRef.close(res.data as Batch);
+        this.triggerLoading();
       },
       error: err => {
         const errors = err.error?.errors;
 
-        if (errors.length > 0) {
+        if (errors) {
           errors.forEach((e: any) => {
             this.form.get(e.field)?.setErrors({
               server: e.message
@@ -98,12 +86,24 @@ export class UpdateBatchDialogComponent implements OnInit{
           });
           this.triggerLoading();
         }else{
-          this.triggerLoading(); // trigger loading to enable form before setting error because form.enable will clear out all form errors
-          this.form.setErrors({server: err.error.message});
+          this.triggerLoading();
+          this.form.setErrors({server: err.error.message()});
         }
       }
     });
+  }
 
+  buildDefaultForm():FormGroup{
+    return this.formBuilder.group({
+      name:['', Validators.required],
+      courseId:[this.courseId,Validators.required],
+      start_date:[new Date().toISOString().split('T')[0], Validators.required],
+      start_time:['09:00:00', Validators.required],
+      is_seat_limited:[false],
+      max_seat_limit:[0],
+      batch_status:[BatchStatus.PREPARATION,Validators.required],
+      enrollment_status:[BatchEnrollmentStatus.OPEN,Validators.required]
+    })
   }
 
   protected validateSeatsLimit(){
@@ -119,8 +119,7 @@ export class UpdateBatchDialogComponent implements OnInit{
 
   protected validateStartDate(){
     const startDate = new Date(this.form.value.start_date);
-    const originalStartDate = new Date(this.originalBatch.start_date);
-    const valid= startDate >=  new Date() || originalStartDate === startDate;
+    const valid= startDate >=  new Date();
     if (!valid){
       this.form.get('start_date')?.setErrors({
         custom: 'Start date cannot be in the past'
@@ -149,5 +148,5 @@ export class UpdateBatchDialogComponent implements OnInit{
     }
   }
 
-  protected readonly SquarePen = SquarePen;
+  protected readonly Plus = Plus;
 }

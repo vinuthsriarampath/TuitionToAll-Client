@@ -1,9 +1,9 @@
 import {AfterViewInit, Component, inject, OnInit, ViewChild} from '@angular/core';
 import {ArrowLeft, Edit, Eye, LucideAngularModule} from 'lucide-angular';
-import {BatchService} from '../../../../../../../../../core/services/batch/batch.service';
+import {BatchService} from '../../../../core/services/batch/batch.service';
 import {ActivatedRoute, RouterLink} from '@angular/router';
-import {AlertService} from '../../../../../../../../../core/services/alerts/alert.service';
-import {Batch} from '../../../../../../../../../core/models/batch';
+import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {Batch} from '../../../../core/models/batch';
 import {
   MatCell,
   MatCellDef,
@@ -18,15 +18,15 @@ import {
   MatTableDataSource
 } from '@angular/material/table';
 import {NgClass} from '@angular/common';
-import {BatchEnrollmentStatus} from '../../../../../../../../../core/enums/batch-enrollment-status';
-import {BatchStatus} from '../../../../../../../../../core/enums/batch-status';
+import {BatchEnrollmentStatus} from '../../enums/batch-enrollment-status';
+import {BatchStatus} from '../../enums/batch-status';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatPaginator} from '@angular/material/paginator';
-import {Course} from '../../../../../../../../../core/models/course';
-import {CreateBatchDialogComponent} from './models/create-batch-dialog/create-batch-dialog.component';
+import {Course} from '../../../../core/models/course';
+import {CreateBatchDialogComponent} from '../../dialogs/create-batch-dialog/create-batch-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
-import {UpdateBatchDialogComponent} from './models/update-batch-dialog/update-batch-dialog.component';
-import {PageLayoutComponent} from '../../../../../../../../../core/layouts/page-layout/page-layout.component';
+import {UpdateBatchDialogComponent} from '../../dialogs/update-batch-dialog/update-batch-dialog.component';
+import {PageLayoutComponent} from '../../../../core/layouts/page-layout/page-layout.component';
 
 @Component({
   selector: 'app-batch-management',

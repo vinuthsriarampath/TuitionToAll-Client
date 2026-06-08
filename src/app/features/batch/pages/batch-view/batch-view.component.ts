@@ -1,18 +1,18 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {ActivatedRoute} from '@angular/router';
-import {BatchService} from '../../../../../../../../../../../core/services/batch/batch.service';
-import {Batch} from '../../../../../../../../../../../core/models/batch';
-import {AlertService} from '../../../../../../../../../../../core/services/alerts/alert.service';
-import {ApiResponse} from '../../../../../../../../../../../shared/utils/response/api-response';
+import {BatchService} from '../../../../core/services/batch/batch.service';
+import {Batch} from '../../../../core/models/batch';
+import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {ApiResponse} from '../../../../shared/utils/response/api-response';
 import {MatDialog} from '@angular/material/dialog';
-import {UpdateBatchDialogComponent} from '../../models/update-batch-dialog/update-batch-dialog.component';
-import {PageLayoutComponent} from '../../../../../../../../../../../core/layouts/page-layout/page-layout.component';
-import {CardShellComponent} from '../../../../../../../../../../../shared/ui/card-shell/card-shell.component';
-import {CardHeaderComponent} from '../../../../../../../../../../../shared/ui/card-header/card-header.component';
+import {UpdateBatchDialogComponent} from '../../dialogs/update-batch-dialog/update-batch-dialog.component';
+import {PageLayoutComponent} from '../../../../core/layouts/page-layout/page-layout.component';
+import {CardShellComponent} from '../../../../shared/ui/card-shell/card-shell.component';
+import {CardHeaderComponent} from '../../../../shared/ui/card-header/card-header.component';
 import {MatTab, MatTabContent, MatTabGroup} from '@angular/material/tabs';
 import {LucideAngularModule} from 'lucide-angular';
-import {ModuleSectionComponent} from '../../../../../../../../../../module/components/module-section/module-section.component';
+import {ModuleSectionComponent} from '../../../module/components/module-section/module-section.component';
 
 @Component({
   selector: 'app-batch-view',
