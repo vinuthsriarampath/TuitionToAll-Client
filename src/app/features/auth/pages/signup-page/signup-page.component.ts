@@ -24,9 +24,9 @@ import {CommonModule, NgClass} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
 import {AuthenticationService} from '../../services/auth/authentication.service';
 import {ApiResponse} from '../../../../core/dto/response-dto/api-response';
-import {Teacher} from '../../../../core/models/user-models/teacher';
-import {Institute} from '../../../../core/models/user-models/institute';
-import {Student} from '../../../../core/models/user-models/student';
+import {Teacher} from '../../../profile/dtos/response/teacher';
+import {Institute} from '../../../profile/dtos/response/institute';
+import {Student} from '../../../profile/dtos/response/student';
 
 @Component({
   selector: 'app-signup-page',

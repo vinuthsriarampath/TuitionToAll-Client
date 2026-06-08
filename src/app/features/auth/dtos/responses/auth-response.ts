@@ -9,7 +9,7 @@
  * All rights reserved.
  */
 
-import {User} from "../../../../core/models/user-models/user";
+import {User} from "../../../profile/dtos/response/user";
 
 export interface AuthResponse {
     token?:string;

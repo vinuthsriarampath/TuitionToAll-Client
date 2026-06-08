@@ -2,14 +2,14 @@ import {Component, ElementRef, HostListener, inject, OnInit, ViewChild} from '@a
 import {RouterLink, RouterLinkActive} from '@angular/router';
 import {NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {Student} from '../../../core/models/user-models/student';
-import {Teacher} from '../../../core/models/user-models/teacher';
-import {Institute} from '../../../core/models/user-models/institute';
+import {Student} from '../../../features/profile/dtos/response/student';
+import {Teacher} from '../../../features/profile/dtos/response/teacher';
+import {Institute} from '../../../features/profile/dtos/response/institute';
 import {environment} from '../../../environment/environment.development';
 import {NavbarSearchComponent} from './navbar-search/navbar-search.component';
 import {Bell, House, LayoutDashboard, LucideAngularModule, MessageSquareText, Search, Users} from 'lucide-angular';
-import {User} from '../../../core/models/user-models/user';
-import {UserService} from '../../../core/services/user/user.service';
+import {User} from '../../../features/profile/dtos/response/user';
+import {UserService} from '../../../features/profile/services/user/user.service';
 
 @Component({
   selector: 'app-navbar',

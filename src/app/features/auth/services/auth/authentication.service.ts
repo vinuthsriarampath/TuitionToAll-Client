@@ -24,10 +24,10 @@ import {
   InstituteRegistrationRequest
 } from '../../dtos/request/registration/sub-registration-dto/institute-registration-request';
 import {ApiResponse} from '../../../../core/dto/response-dto/api-response';
-import {User} from '../../../../core/models/user-models/user';
-import {Institute} from '../../../../core/models/user-models/institute';
-import {Teacher} from '../../../../core/models/user-models/teacher';
-import {Student} from '../../../../core/models/user-models/student';
+import {User} from '../../../profile/dtos/response/user';
+import {Institute} from '../../../profile/dtos/response/institute';
+import {Teacher} from '../../../profile/dtos/response/teacher';
+import {Student} from '../../../profile/dtos/response/student';
 
 @Injectable({
   providedIn: 'root'

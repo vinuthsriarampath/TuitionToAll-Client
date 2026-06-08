@@ -1,22 +1,22 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {NavbarComponent} from '../../../shared/components/navbar/navbar.component';
+import {NavbarComponent} from '../../../../shared/components/navbar/navbar.component';
 import {NgIf, NgOptimizedImage, NgSwitch, NgSwitchCase, NgSwitchDefault} from '@angular/common';
-import {User} from '../../../core/models/user-models/user';
-import {UserService} from '../../../core/services/user/user.service';
+import {User} from '../../dtos/response/user';
+import {UserService} from '../../services/user/user.service';
 import {MatDialog} from '@angular/material/dialog';
 import {
   UpdateProfileDialogComponent
-} from '../../../shared/models/update-profile-dialog/update-profile-dialog.component';
-import {AlertService} from '../../../core/services/alerts/alert.service';
+} from '../../components/update-profile-dialog/update-profile-dialog.component';
+import {AlertService} from '../../../../core/services/alerts/alert.service';
 import {LucideAngularModule, Pen} from 'lucide-angular';
 import {
   UpdateUserProfilePicDialogComponent
-} from '../../../shared/models/update-user-profile-pic-dialog/update-user-profile-pic-dialog.component';
-import {environment} from '../../../environment/environment.development';
+} from '../../components/update-user-profile-pic-dialog/update-user-profile-pic-dialog.component';
+import {environment} from '../../../../environment/environment.development';
 import {
   UpdateProfileBannerDialogComponent
-} from '../../../shared/models/update-profile-banner-dialog/update-profile-banner-dialog.component';
+} from '../../components/update-profile-banner-dialog/update-profile-banner-dialog.component';
 import {MatTab, MatTabContent, MatTabGroup} from '@angular/material/tabs';
 import {UserPostsComponent} from '../user-posts/user-posts.component';
 import {UserCoursesComponent} from '../user-courses/user-courses.component';

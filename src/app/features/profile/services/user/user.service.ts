@@ -11,22 +11,22 @@
 
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ApiResponse} from '../../dto/response-dto/api-response';
-import {environment} from '../../../environment/environment.development';
+import {ApiResponse} from '../../../../core/dto/response-dto/api-response';
+import {environment} from '../../../../environment/environment.development';
 import {
   InstituteDetailsUpdateRequest
-} from '../../dto/request-dto/update-user-dto/sub-user-details-update-dto/InstituteDetailsUpdateRequest';
+} from '../../dtos/request/user-update/sub-user-details-update-dto/InstituteDetailsUpdateRequest';
 import {
   StudentDetailsUpdateRequest
-} from '../../dto/request-dto/update-user-dto/sub-user-details-update-dto/StudentDetailsUpdateRequest';
+} from '../../dtos/request/user-update/sub-user-details-update-dto/StudentDetailsUpdateRequest';
 import {
   TeacherDetailsUpdateRequest
-} from '../../dto/request-dto/update-user-dto/sub-user-details-update-dto/TeacherDetailsUpdateRequest';
-import {User} from '../../models/user-models/user';
+} from '../../dtos/request/user-update/sub-user-details-update-dto/TeacherDetailsUpdateRequest';
+import {User} from '../../dtos/response/user';
 import {BehaviorSubject} from 'rxjs';
-import {Institute} from '../../models/user-models/institute';
-import {Teacher} from '../../models/user-models/teacher';
-import {Student} from '../../models/user-models/student';
+import {Institute} from '../../dtos/response/institute';
+import {Teacher} from '../../dtos/response/teacher';
+import {Student} from '../../dtos/response/student';
 
 @Injectable({
   providedIn: 'root'

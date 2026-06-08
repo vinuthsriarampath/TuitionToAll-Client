@@ -19,8 +19,8 @@ import {AnnouncementService} from '../../../../../../../core/services/announceme
 import {getDateTime} from '../../../../../../../shared/utils/helpers/date-helper';
 import {CourseFilter} from '../../../../../../../core/dto/request-dto/course/course-filter';
 import {CourseStatus} from '../../../../../../../core/enums/course-status';
-import {UserService} from '../../../../../../../core/services/user/user.service';
-import {Institute} from '../../../../../../../core/models/user-models/institute';
+import {UserService} from '../../../../../../profile/services/user/user.service';
+import {Institute} from '../../../../../../profile/dtos/response/institute';
 import {DialogLayoutComponent} from '../../../../../../../core/layouts/dialog-layout/dialog-layout.component';
 
 @Component({

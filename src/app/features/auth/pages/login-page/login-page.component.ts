@@ -15,7 +15,7 @@ import {UserLoginRequest} from '../../dtos/request/user-login-request';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {AuthenticationService} from '../../services/auth/authentication.service';
-import {UserService} from '../../../../core/services/user/user.service';
+import {UserService} from '../../../profile/services/user/user.service';
 
 @Component({
   selector: 'app-login-dto-page',

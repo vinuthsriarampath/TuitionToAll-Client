@@ -9,8 +9,8 @@
  * All rights reserved.
  */
 
-import {User} from '../../models/user-models/user';
-import {Institute} from '../../models/user-models/institute';
+import {User} from '../../../features/profile/dtos/response/user';
+import {Institute} from '../../../features/profile/dtos/response/institute';
 
 export function isStudent(user: User): boolean{
   return user.role?.role === 'student';

@@ -1,22 +1,22 @@
 import {Component, inject, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {FormsModule} from '@angular/forms';
-import {Institute} from '../../../core/models/user-models/institute';
-import {Teacher} from '../../../core/models/user-models/teacher';
-import {Student} from '../../../core/models/user-models/student';
+import {Institute} from '../../dtos/response/institute';
+import {Teacher} from '../../dtos/response/teacher';
+import {Student} from '../../dtos/response/student';
 import {NgIf} from '@angular/common';
 import {
   InstituteDetailsUpdateRequest
-} from '../../../core/dto/request-dto/update-user-dto/sub-user-details-update-dto/InstituteDetailsUpdateRequest';
+} from '../../dtos/request/user-update/sub-user-details-update-dto/InstituteDetailsUpdateRequest';
 import {
   TeacherDetailsUpdateRequest
-} from '../../../core/dto/request-dto/update-user-dto/sub-user-details-update-dto/TeacherDetailsUpdateRequest';
+} from '../../dtos/request/user-update/sub-user-details-update-dto/TeacherDetailsUpdateRequest';
 import {
   StudentDetailsUpdateRequest
-} from '../../../core/dto/request-dto/update-user-dto/sub-user-details-update-dto/StudentDetailsUpdateRequest';
-import {UserService} from '../../../core/services/user/user.service';
-import {User} from '../../../core/models/user-models/user';
-import {DialogLayoutComponent} from '../../../core/layouts/dialog-layout/dialog-layout.component';
+} from '../../dtos/request/user-update/sub-user-details-update-dto/StudentDetailsUpdateRequest';
+import {UserService} from '../../services/user/user.service';
+import {User} from '../../dtos/response/user';
+import {DialogLayoutComponent} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
 import {SquarePen} from 'lucide-angular';
 
 @Component({

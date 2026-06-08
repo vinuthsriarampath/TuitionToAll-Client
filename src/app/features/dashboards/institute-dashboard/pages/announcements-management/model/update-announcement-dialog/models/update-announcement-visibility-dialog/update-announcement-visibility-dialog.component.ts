@@ -10,8 +10,8 @@ import {Course} from '../../../../../../../../../core/models/course';
 import {Batch} from '../../../../../../../../../core/models/batch';
 import {CourseFilter} from '../../../../../../../../../core/dto/request-dto/course/course-filter';
 import {CourseStatus} from '../../../../../../../../../core/enums/course-status';
-import {Institute} from '../../../../../../../../../core/models/user-models/institute';
-import {UserService} from '../../../../../../../../../core/services/user/user.service';
+import {Institute} from '../../../../../../../../profile/dtos/response/institute';
+import {UserService} from '../../../../../../../../profile/services/user/user.service';
 import {BatchService} from '../../../../../../../../../core/services/batch/batch.service';
 import {CourseService} from '../../../../../../../../../core/services/course/course.service';
 import {

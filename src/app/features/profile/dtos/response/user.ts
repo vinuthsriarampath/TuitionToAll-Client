@@ -10,8 +10,8 @@
  */
 
 
-import {Role} from '../Role';
-import {RoleDetails} from '../RoleDetails';
+import {Role} from './Role';
+import {RoleDetails} from './RoleDetails';
 
 export class User {
     id?: number;

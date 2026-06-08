@@ -1,11 +1,11 @@
 import {Component, inject, input, OnInit} from '@angular/core';
-import {CourseService} from '../../../core/services/course/course.service';
-import {Course} from '../../../core/models/course';
-import {environment} from '../../../environment/environment.development';
-import {AlertService} from '../../../core/services/alerts/alert.service';
+import {CourseService} from '../../../../core/services/course/course.service';
+import {Course} from '../../../../core/models/course';
+import {environment} from '../../../../environment/environment.development';
+import {AlertService} from '../../../../core/services/alerts/alert.service';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
-import {CourseFilter} from '../../../core/dto/request-dto/course/course-filter';
-import {CourseCardComponent} from './components/course-card/course-card.component';
+import {CourseFilter} from '../../../../core/dto/request-dto/course/course-filter';
+import {CourseCardComponent} from '../../components/course-card/course-card.component';
 
 @Component({
   selector: 'app-user-courses',

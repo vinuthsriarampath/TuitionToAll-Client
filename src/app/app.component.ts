@@ -15,7 +15,7 @@ import {RouterOutlet} from '@angular/router';
 import {initFlowbite} from 'flowbite';
 import {QuillModule} from 'ngx-quill';
 import {AuthenticationService} from './features/auth/services/auth/authentication.service';
-import {UserService} from './core/services/user/user.service';
+import {UserService} from './features/profile/services/user/user.service';
 
 @Component({
   selector: 'app-root',

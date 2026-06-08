@@ -13,9 +13,9 @@ import {
   Menu,
   User2
 } from 'lucide-angular';
-import {UserService} from '../../../core/services/user/user.service';
+import {UserService} from '../../profile/services/user/user.service';
 import {AlertService} from '../../../core/services/alerts/alert.service';
-import {User} from '../../../core/models/user-models/user';
+import {User} from '../../profile/dtos/response/user';
 import {NgClass, NgOptimizedImage} from '@angular/common';
 import {environment} from '../../../environment/environment.development';
 import {SidebarMenuItem} from '../../../core/helpers/sidebar-menu-item';

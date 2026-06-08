@@ -1,4 +1,4 @@
-import {User} from '../../models/user-models/user';
+import {User} from '../../../features/profile/dtos/response/user';
 
 export interface SearchResponse{
   students?:User[];

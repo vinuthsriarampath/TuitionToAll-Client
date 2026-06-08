@@ -16,7 +16,7 @@ import {tokenGuard} from './core/guards/token-guard/token.guard';
 import {SignupPageComponent} from './features/auth/pages/signup-page/signup-page.component';
 import {UnderDevelopmentPageComponent} from './shared/pages/under-development-page/under-development-page.component';
 import {authGuard} from './core/guards/auth-guard/auth.guard';
-import {UserProfileComponent} from './features/profile/user-profile/user-profile.component';
+import {UserProfileComponent} from './features/profile/pages/user-profile/user-profile.component';
 import {PageNotFoundComponent} from './shared/pages/page-not-found/page-not-found.component';
 import {
   ResetPasswordRequestPageComponent
@@ -51,7 +51,7 @@ import {
 import {
   ViewTeacherVacancyComponent
 } from './features/dashboards/institute-dashboard/pages/institute-teacher-management/pages/view-teacher-vacancy/view-teacher-vacancy.component';
-import {JobApplicationComponent} from './features/profile/institute-jobs/job-application/job-application.component';
+import {JobApplicationComponent} from './features/profile/pages/job-application/job-application.component';
 import {
   ViewApplicationComponent
 } from './features/dashboards/institute-dashboard/pages/institute-teacher-management/pages/view-teacher-vacancy/pages/view-application/view-application.component';
