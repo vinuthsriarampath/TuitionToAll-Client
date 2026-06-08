@@ -12,7 +12,7 @@ import {ModuleService} from '../../../../../../../../../../../../../core/service
 import {
   ConfirmationDialogComponent,
   ConfirmationDialogData
-} from '../../../../../../../../../announcements-management/model/update-announcement-dialog/models/confirmation-dialog/confirmation-dialog.component';
+} from '../../../../../../../../../../../../announcement/dialogs/confirmation-dialog/confirmation-dialog.component';
 import {ModuleBadgeComponent} from '../module-badge/module-badge.component';
 
 @Component({

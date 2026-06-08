@@ -1,11 +1,11 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {AnnouncementService} from '../../../../../../../../../core/services/announcements/announcement.service';
-import {AnnouncementResponse} from '../../../../../../../../../core/dto/response-dto/AnnouncementResponse';
+import {AnnouncementService} from '../../../../../../../../announcement/services/announcements/announcement.service';
+import {AnnouncementResponse} from '../../../../../../../../announcement/dtos/response/AnnouncementResponse';
 import {AlertService} from '../../../../../../../../../core/services/alerts/alert.service';
 import {Eye, LucideAngularModule} from 'lucide-angular';
 import {
   AnnouncementFilterRequest
-} from '../../../../../../../../../core/dto/request-dto/announcement/AnnouncementFilterRequest';
+} from '../../../../../../../../announcement/dtos/request/AnnouncementFilterRequest';
 import {DatePipe, NgClass} from '@angular/common';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {PageTitleComponent} from '../../../../../../../../../shared/components/page-title/page-title.component';

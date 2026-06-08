@@ -57,10 +57,10 @@ import {
 } from './features/dashboards/institute-dashboard/pages/institute-teacher-management/pages/view-teacher-vacancy/pages/view-application/view-application.component';
 import {
   AnnouncementsManagementComponent
-} from './features/dashboards/institute-dashboard/pages/announcements-management/announcements-management.component';
+} from './features/announcement/pages/announcements-management/announcements-management.component';
 import {
   ViewAnnouncementComponent
-} from './features/dashboards/institute-dashboard/pages/announcements-management/pages/view-announcement/view-announcement.component';
+} from './features/announcement/pages/view-announcement/view-announcement.component';
 import {
   CourseAnnouncementViewComponent
 } from './features/dashboards/institute-dashboard/pages/institute-course-management/pages/course-view/components/course-announcement-view/course-announcement-view.component';

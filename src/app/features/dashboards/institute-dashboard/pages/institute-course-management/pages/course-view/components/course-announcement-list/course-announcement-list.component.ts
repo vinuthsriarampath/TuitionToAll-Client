@@ -1,10 +1,10 @@
 import {Component, inject, input, OnInit} from '@angular/core';
-import {AnnouncementService} from '../../../../../../../../../core/services/announcements/announcement.service';
-import {AnnouncementResponse} from '../../../../../../../../../core/dto/response-dto/AnnouncementResponse';
+import {AnnouncementService} from '../../../../../../../../announcement/services/announcements/announcement.service';
+import {AnnouncementResponse} from '../../../../../../../../announcement/dtos/response/AnnouncementResponse';
 import {AlertService} from '../../../../../../../../../core/services/alerts/alert.service';
 import {
   AnnouncementFilterRequest
-} from '../../../../../../../../../core/dto/request-dto/announcement/AnnouncementFilterRequest';
+} from '../../../../../../../../announcement/dtos/request/AnnouncementFilterRequest';
 import {AnnouncementStatus} from '../../../../../../../../../core/enums/AnnouncementStatus';
 import {LucideAngularModule, Pin} from 'lucide-angular';
 import {NgClass} from '@angular/common';
