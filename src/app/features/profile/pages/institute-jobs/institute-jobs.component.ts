@@ -1,5 +1,5 @@
 import {Component, inject, input, OnInit} from '@angular/core';
-import {InstituteService} from '../../../../core/services/institute/institute.service';
+import {InstituteService} from '../../../institute/services/institute/institute.service';
 import {TeacherVacancyStatus} from '../../../teacher-vacancy/enums/teacher-vacancy-status';
 import {TeacherVacancy} from '../../../teacher-vacancy/dtos/response/teacher-vacancy';
 import {FormsModule} from '@angular/forms';

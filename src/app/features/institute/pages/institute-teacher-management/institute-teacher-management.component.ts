@@ -1,10 +1,10 @@
 import {Component, inject, OnInit, ViewChild} from '@angular/core';
 import {DatePipe, NgClass, NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {PageTitleComponent} from '../../../../../shared/components/page-title/page-title.component';
+import {PageTitleComponent} from '../../../../shared/components/page-title/page-title.component';
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from '@angular/material/sidenav';
 import {MatDialog} from '@angular/material/dialog';
-import {CreateVacancyDialogComponent} from '../../../../teacher-vacancy/dialogs/create-vacancy-dialog/create-vacancy-dialog.component';
+import {CreateVacancyDialogComponent} from '../../../teacher-vacancy/dialogs/create-vacancy-dialog/create-vacancy-dialog.component';
 import {RouterLink} from '@angular/router';
 import {
   MatCell,
@@ -20,14 +20,14 @@ import {
   MatTableDataSource
 } from '@angular/material/table';
 import {MatTooltip} from '@angular/material/tooltip';
-import {InstituteTeacherService} from '../../../../../core/services/institute-teacher/institute-teacher.service';
-import {InstituteTeacherResponse} from '../../../../../core/dto/response-dto/InstituteTeacherResponse';
-import {AlertService} from '../../../../../core/services/alerts/alert.service';
-import {environment} from '../../../../../environment/environment.development';
-import {ApplicationStatus} from '../../../../applications/enums/application-status';
-import {InstituteTeacherStatus} from '../../../../../core/enums/InstituteTeacherStatus';
+import {InstituteTeacherService} from '../../services/institute-teacher/institute-teacher.service';
+import {InstituteTeacherResponse} from '../../dtos/response/InstituteTeacherResponse';
+import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {environment} from '../../../../environment/environment.development';
+import {ApplicationStatus} from '../../../applications/enums/application-status';
+import {InstituteTeacherStatus} from '../../enums/InstituteTeacherStatus';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
-import {InstituteTeacherStatsResponse} from '../../../../../core/dto/response-dto/InstituteTeacherStatsResponse';
+import {InstituteTeacherStatsResponse} from '../../dtos/response/InstituteTeacherStatsResponse';
 
 @Component({
   selector: 'app-institute-teacher-management',

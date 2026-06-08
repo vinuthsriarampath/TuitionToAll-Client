@@ -11,7 +11,7 @@ import {ModuleService} from '../../services/module/module.service';
 import {FormErrorHandler} from '../../../../shared/utils/helpers/FormErrorHandler';
 import {
   InstituteTeacherService
-} from '../../../../core/services/institute-teacher/institute-teacher.service';
+} from '../../../institute/services/institute-teacher/institute-teacher.service';
 import {
   ModuleTeacherUpdateRequest
 } from '../../dtos/request/ModuleTeacherUpdateRequest';

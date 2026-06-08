@@ -8,7 +8,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {ModuleStatus} from '../../enums/ModuleStatus';
 import {
   InstituteTeacherService
-} from '../../../../core/services/institute-teacher/institute-teacher.service';
+} from '../../../institute/services/institute-teacher/institute-teacher.service';
 import {AlertService} from '../../../../core/services/alerts/alert.service';
 import {ModuleService} from '../../services/module/module.service';
 import {

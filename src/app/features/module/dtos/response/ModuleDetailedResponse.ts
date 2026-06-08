@@ -1,5 +1,5 @@
 import {BatchBasicResponse} from '../../../../core/dto/response-dto/batch/BatchBasicResponse';
-import {TeacherBasicResponse} from '../../../../core/dto/response-dto/TeacherBasicResponse';
+import {TeacherBasicResponse} from '../../../profile/dtos/response/TeacherBasicResponse';
 import {ModuleStatus} from '../../enums/ModuleStatus';
 
 export class ModuleDetailedResponse {

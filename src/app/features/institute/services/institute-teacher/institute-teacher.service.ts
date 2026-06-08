@@ -1,16 +1,16 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {ApiResponse} from '../../../shared/utils/response/api-response';
-import {environment} from '../../../environment/environment.development';
-import {ApplicationSelectionRequest} from '../../../features/applications/dtos/request/ApplicationSelectionRequest';
-import {ApplicationSelectionResponse} from '../../../features/applications/dtos/response/ApplicationSelectionResponse';
-import {ApplicationRejectionRequest} from '../../../features/applications/dtos/request/ApplicationRejectionRequest';
-import {ApplicationRejectionResponse} from '../../../features/applications/dtos/response/ApplicationRejectionResponse';
-import {PaginatedApiResponse} from '../../../shared/utils/response/paginated-api-response';
-import {InstituteTeacherResponse} from '../../dto/response-dto/InstituteTeacherResponse';
-import {InstituteTeacherStatsResponse} from '../../dto/response-dto/InstituteTeacherStatsResponse';
-import {TeacherBasicResponse} from '../../dto/response-dto/TeacherBasicResponse';
+import {ApiResponse} from '../../../../shared/utils/response/api-response';
+import {environment} from '../../../../environment/environment.development';
+import {ApplicationSelectionRequest} from '../../../applications/dtos/request/ApplicationSelectionRequest';
+import {ApplicationSelectionResponse} from '../../../applications/dtos/response/ApplicationSelectionResponse';
+import {ApplicationRejectionRequest} from '../../../applications/dtos/request/ApplicationRejectionRequest';
+import {ApplicationRejectionResponse} from '../../../applications/dtos/response/ApplicationRejectionResponse';
+import {PaginatedApiResponse} from '../../../../shared/utils/response/paginated-api-response';
+import {InstituteTeacherResponse} from '../../dtos/response/InstituteTeacherResponse';
+import {InstituteTeacherStatsResponse} from '../../dtos/response/InstituteTeacherStatsResponse';
+import {TeacherBasicResponse} from '../../../profile/dtos/response/TeacherBasicResponse';
 
 @Injectable({
   providedIn: 'root'

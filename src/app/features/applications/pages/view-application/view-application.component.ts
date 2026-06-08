@@ -27,7 +27,7 @@ import {ApplicationStatus} from '../../enums/application-status';
 import {SelectionModel} from '@angular/cdk/collections';
 import {
   InstituteTeacherService
-} from '../../../../core/services/institute-teacher/institute-teacher.service';
+} from '../../../institute/services/institute-teacher/institute-teacher.service';
 import {ApplicationSelectionRequest} from '../../dtos/request/ApplicationSelectionRequest';
 import {MatTooltip} from '@angular/material/tooltip';
 import {ApplicationRejectionRequest} from '../../dtos/request/ApplicationRejectionRequest';

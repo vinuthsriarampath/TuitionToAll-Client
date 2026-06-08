@@ -26,10 +26,10 @@ import {AppComponent} from './core/layouts/app/app.component';
 import {FeedComponent} from './features/feed/feed.component';
 import {InstituteDashboardComponent} from './features/dashboards/institute-dashboard/institute-dashboard.component';
 import {instituteRoleGuard} from './core/guards/institute-role-guard/institute-role.guard';
-import {DashboardComponent} from './features/dashboards/institute-dashboard/pages/dashboard/dashboard.component';
+import {DashboardComponent} from './features/institute/pages/dashboard/dashboard.component';
 import {
   InstituteCourseManagementComponent
-} from './features/dashboards/institute-dashboard/pages/institute-course-management/institute-course-management.component';
+} from './features/institute/pages/institute-course-management/institute-course-management.component';
 import {
   CourseCreateComponent
 } from './features/course/pages/course-create/course-create.component';
@@ -47,7 +47,7 @@ import {
 } from './features/batch/pages/batch-view/batch-view.component';
 import {
   InstituteTeacherManagementComponent
-} from './features/dashboards/institute-dashboard/pages/institute-teacher-management/institute-teacher-management.component';
+} from './features/institute/pages/institute-teacher-management/institute-teacher-management.component';
 import {
   ViewTeacherVacancyComponent
 } from './features/teacher-vacancy/pages/view-teacher-vacancy/view-teacher-vacancy.component';

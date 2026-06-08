@@ -1,7 +1,7 @@
 import {Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild} from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
-import {SearchResponse} from '../../../../core/dto/response-dto/search-response';
+import {SearchResponse} from '../../../utils/response/search-response';
 import {environment} from '../../../../environment/environment.development';
 import {RouterLink} from '@angular/router';
 

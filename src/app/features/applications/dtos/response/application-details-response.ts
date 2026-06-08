@@ -1,5 +1,5 @@
 import {ApplicationStatus} from '../../enums/application-status';
-import {TeacherUserResponse} from '../../../../core/dto/response-dto/teacher-user-response';
+import {TeacherUserResponse} from '../../../profile/dtos/response/teacher-user-response';
 
 export class ApplicationDetailsResponse {
   id!:number;
