@@ -22,7 +22,7 @@ import {
   ResetPasswordRequestPageComponent
 } from './features/auth/pages/reset-password-request-page/reset-password-request-page.component';
 import {PasswordResetPageComponent} from './features/auth/pages/password-reset-page/password-reset-page.component';
-import {AppComponent} from './features/app/app.component';
+import {AppComponent} from './core/layouts/app/app.component';
 import {FeedComponent} from './features/feed/feed.component';
 import {InstituteDashboardComponent} from './features/dashboards/institute-dashboard/institute-dashboard.component';
 import {instituteRoleGuard} from './core/guards/institute-role-guard/institute-role.guard';

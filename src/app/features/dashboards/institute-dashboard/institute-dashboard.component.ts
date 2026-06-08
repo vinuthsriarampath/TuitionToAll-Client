@@ -18,7 +18,7 @@ import {AlertService} from '../../../core/services/alerts/alert.service';
 import {User} from '../../profile/dtos/response/user';
 import {NgClass, NgOptimizedImage} from '@angular/common';
 import {environment} from '../../../environment/environment.development';
-import {SidebarMenuItem} from '../../../core/helpers/sidebar-menu-item';
+import {SidebarMenuItem} from '../types/sidebar-menu-item';
 
 @Component({
   selector: 'app-institute-dashboard',
