@@ -2,7 +2,7 @@ import {Component, inject, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
-import {ProfileFileServiceService} from '../../../../core/services/profile-files/profile-file-service.service';
+import {ProfileFileServiceService} from '../../services/profile-files/profile-file-service.service';
 import {User} from '../../dtos/response/user';
 import {DialogLayoutComponent} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
 import {ImageIcon} from 'lucide-angular';
