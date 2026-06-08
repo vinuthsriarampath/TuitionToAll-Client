@@ -3,10 +3,10 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {BatchStatus} from '../../enums/batch-status';
 import {BatchEnrollmentStatus} from '../../enums/batch-enrollment-status';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {BatchService} from '../../../../core/services/batch/batch.service';
-import {Batch} from '../../../../core/models/batch';
-import {DialogLayoutComponent} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
+import {DialogLayoutComponent} from '@core/layouts';
 import {Plus} from 'lucide-angular';
+import {BatchService} from '@features/batch/services/batch/batch.service';
+import {Batch} from '@features/batch/dtos/response/batch';
 
 @Component({
   selector: 'app-create-batch-dialog',

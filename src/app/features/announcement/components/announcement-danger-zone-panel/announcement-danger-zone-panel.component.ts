@@ -1,10 +1,10 @@
 import {Component, inject, input, output} from '@angular/core';
-import {CardHeaderComponent} from '../../../../shared/ui/card-header/card-header.component';
+import {CardHeaderComponent} from '@shared/ui';
 import {LucideAngularModule, Trash2} from 'lucide-angular';
 import {AnnouncementStatus} from '../../enums/AnnouncementStatus';
 import {AnnouncementResponse} from '../../dtos/response/AnnouncementResponse';
 import {AnnouncementService} from '../../services/announcements/announcement.service';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {AlertService} from '@core/services/alerts/alert.service';
 import {MatDialog} from '@angular/material/dialog';
 import {
   ConfirmationDialogComponent,

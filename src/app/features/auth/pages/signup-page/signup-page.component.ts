@@ -23,7 +23,7 @@ import {
 import {CommonModule, NgClass} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
 import {AuthenticationService} from '../../services/auth/authentication.service';
-import {ApiResponse} from '../../../../shared/utils/response/api-response';
+import {ApiResponse} from '@shared/utils/response/api-response';
 import {Teacher} from '../../../profile/dtos/response/teacher';
 import {Institute} from '../../../profile/dtos/response/institute';
 import {Student} from '../../../profile/dtos/response/student';

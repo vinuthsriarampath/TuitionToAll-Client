@@ -1,17 +1,17 @@
 import {Component, Inject, inject} from '@angular/core';
-import {DialogLayoutComponent} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
+import {DialogLayoutComponent} from '@core/layouts';
 import {Book} from 'lucide-angular';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {ModuleStatus} from '../../enums/ModuleStatus';
 import {InstituteTeacherService} from '../../../institute/services/institute-teacher/institute-teacher.service';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {AlertService} from '@core/services/alerts/alert.service';
 import {ModuleService} from '../../services/module/module.service';
 import {ModuleCreateRequest} from '../../dtos/request/ModuleCreateRequest';
 import {ModuleCreateStatus} from '../../dtos/request/enums/ModuleCreateStatus';
-import {FormErrorHandler} from '../../../../shared/utils/helpers/FormErrorHandler';
-import {InputComponent} from '../../../../shared/ui/input/input.component';
-import {SelectComponent, SelectOption} from '../../../../shared/ui/select/select.component';
+import {FormErrorHandler} from '@shared/utils/helpers/FormErrorHandler';
+import {InputComponent, SelectComponent, SelectOption} from '@shared/ui';
+
 
 @Component({
   selector: 'app-create-module-dialog',

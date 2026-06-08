@@ -5,8 +5,8 @@ import {QuillEditorComponent} from 'ngx-quill';
 import {LucideAngularModule, SquarePen} from 'lucide-angular';
 import {AnnouncementUpdateRequest} from '../../dtos/request/AnnouncementUpdateRequest';
 import {AnnouncementService} from '../../services/announcements/announcement.service';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
-import {DialogLayoutComponent} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
+import {AlertService} from '@core/services/alerts/alert.service';
+import {DialogLayoutComponent} from '@core/layouts';
 
 export interface UpdateAnnouncementContentDialogData {
   id: number;

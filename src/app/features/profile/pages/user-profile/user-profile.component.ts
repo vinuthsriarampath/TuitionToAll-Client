@@ -1,17 +1,17 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {NavbarComponent} from '../../../../shared/components/navbar/navbar.component';
+import {NavbarComponent} from '@shared/components/navbar/navbar.component';
 import {NgIf, NgOptimizedImage, NgSwitch, NgSwitchCase, NgSwitchDefault} from '@angular/common';
 import {User} from '../../dtos/response/user';
 import {UserService} from '../../services/user/user.service';
 import {MatDialog} from '@angular/material/dialog';
 import {UpdateProfileDialogComponent} from '../../components/update-profile-dialog/update-profile-dialog.component';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {AlertService} from '@core/services/alerts/alert.service';
 import {LucideAngularModule, Pen} from 'lucide-angular';
 import {
   UpdateUserProfilePicDialogComponent
 } from '../../components/update-user-profile-pic-dialog/update-user-profile-pic-dialog.component';
-import {environment} from '../../../../../environments/environment.development';
+import {environment} from '@env/environment.development';
 import {
   UpdateProfileBannerDialogComponent
 } from '../../components/update-profile-banner-dialog/update-profile-banner-dialog.component';

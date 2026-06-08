@@ -1,12 +1,12 @@
 import {Component, inject, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {Batch} from '../../../../core/models/batch';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {BatchStatus} from '../../enums/batch-status';
 import {BatchEnrollmentStatus} from '../../enums/batch-enrollment-status';
-import {BatchService} from '../../../../core/services/batch/batch.service';
-import {DialogLayoutComponent} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
+import {DialogLayoutComponent} from '@core/layouts';
 import {SquarePen} from 'lucide-angular';
+import {Batch} from '@features/batch/dtos/response/batch';
+import {BatchService} from '@features/batch/services/batch/batch.service';
 
 @Component({
   selector: 'app-update-batch-dialog',

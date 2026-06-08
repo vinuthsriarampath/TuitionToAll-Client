@@ -1,14 +1,12 @@
 import {Component, inject, input, output} from '@angular/core';
-import {InfoRowComponent} from '../../../../shared/ui/info-row/info-row.component';
 import {AnnouncementResponse} from '../../dtos/response/AnnouncementResponse';
-import {CardHeaderComponent} from '../../../../shared/ui/card-header/card-header.component';
-import {CardShellComponent} from '../../../../shared/ui/card-shell/card-shell.component';
 import {LucideAngularModule, SquarePen} from 'lucide-angular';
 import {
   UpdateAnnouncementContentDialogComponent,
   UpdateAnnouncementContentDialogData
 } from '../../dialogs/update-announcement-content-dialog/update-announcement-content-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
+import {CardHeaderComponent, CardShellComponent, InfoRowComponent} from '@shared/ui';
 
 @Component({
   selector: 'app-announcement-content-panel',

@@ -1,28 +1,25 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
-import {AnnouncementVisibility} from '../../../../../../../core/enums/AnnouncementVisibility';
-import {
-  AnnouncementCreateStatus
-} from '../../../../../../../core/dto/request-dto/announcement/enums/AnnouncementCreateStatus';
 import {QuillEditorComponent} from 'ngx-quill';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {LucideAngularModule, Megaphone} from 'lucide-angular';
-import {CourseService} from '../../../../../../../core/services/course/course.service';
-import {BatchService} from '../../../../../../../core/services/batch/batch.service';
-import {AlertService} from '../../../../../../../core/services/alerts/alert.service';
-import {Course} from '../../../../../../../core/models/course';
-import {Batch} from '../../../../../../../core/models/batch';
-import {
-  AnnouncementCreateRequest
-} from '../../../../../../../core/dto/request-dto/announcement/AnnouncementCreateRequest';
-import {AnnouncementService} from '../../../../../../../core/services/announcements/announcement.service';
-import {getDateTime} from '../../../../../../../shared/utils/helpers/date-helper';
-import {CourseFilter} from '../../../../../../../core/dto/request-dto/course/course-filter';
-import {CourseStatus} from '../../../../../../../core/enums/course-status';
-import {UserService} from '../../../../../../profile/services/user/user.service';
-import {Institute} from '../../../../../../profile/dtos/response/institute';
-import {DialogLayoutComponent} from '../../../../../../../core/layouts/dialog-layout/dialog-layout.component';
+import {DialogLayoutComponent} from '@core/layouts';
+import {CourseService} from '@features/course/services/course/course.service';
+import {AnnouncementService} from '@features/announcement/services/announcements/announcement.service';
+import {BatchService} from '@features/batch/services/batch/batch.service';
+import {AlertService} from '@core/services/alerts/alert.service';
+import {UserService} from '@features/profile/services/user/user.service';
+import {AnnouncementVisibility} from '@features/announcement/enums/AnnouncementVisibility';
+import {AnnouncementCreateStatus} from '@features/announcement/dtos/request/enums/AnnouncementCreateStatus';
+import {Course} from '@features/course/dtos/response/course';
+import {Batch} from '@features/batch/dtos/response/batch';
+import {Institute} from '@features/profile/dtos/response/institute';
+import {getDateTime} from '@shared/utils/helpers/date-helper';
+import {CourseFilter} from '@features/course/dtos/request/course-filter';
+import {CourseStatus} from '@features/course/enums/course-status';
+import {AnnouncementCreateRequest} from '@features/announcement/dtos/request/AnnouncementCreateRequest';
 
+// @ts-ignore
 @Component({
   selector: 'app-create-announcement-dialog',
   imports: [

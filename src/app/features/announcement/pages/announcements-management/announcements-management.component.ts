@@ -14,14 +14,11 @@ import {
   MatTableDataSource
 } from '@angular/material/table';
 import {AnnouncementResponse} from '../../dtos/response/AnnouncementResponse';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {AlertService} from '@core/services/alerts/alert.service';
 import {Edit, Eye, LucideAngularModule} from 'lucide-angular';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatDialog} from '@angular/material/dialog';
-import {
-  CreateAnnouncementDialogComponent
-} from './model/create-announcement-dialog/create-announcement-dialog.component';
 import {DatePipe, NgClass} from '@angular/common';
 import {AnnouncementStatus} from '../../enums/AnnouncementStatus';
 import {AnnouncementVisibility} from '../../enums/AnnouncementVisibility';
@@ -29,7 +26,10 @@ import {
   UpdateAnnouncementDialogComponent
 } from '../../dialogs/update-announcement-dialog/update-announcement-dialog.component';
 import {RouterLink} from '@angular/router';
-import {PageLayoutComponent} from '../../../../core/layouts/page-layout/page-layout.component';
+import {PageLayoutComponent} from '@core/layouts';
+import {
+  CreateAnnouncementDialogComponent
+} from '@features/announcement/dialogs/create-announcement-dialog/create-announcement-dialog.component';
 
 @Component({
   selector: 'app-announcements-management',

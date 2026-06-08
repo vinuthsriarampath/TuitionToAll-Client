@@ -10,51 +10,51 @@
  */
 
 import {Routes} from '@angular/router';
-import {LandingPageComponent} from './shared/pages/landing-page/landing-page.component';
-import {LoginPageComponent} from './features/auth/pages/login-page/login-page.component';
-import {tokenGuard} from './core/guards/token-guard/token.guard';
-import {SignupPageComponent} from './features/auth/pages/signup-page/signup-page.component';
-import {UnderDevelopmentPageComponent} from './shared/pages/under-development-page/under-development-page.component';
-import {authGuard} from './core/guards/auth-guard/auth.guard';
-import {UserProfileComponent} from './features/profile/pages/user-profile/user-profile.component';
-import {PageNotFoundComponent} from './shared/pages/page-not-found/page-not-found.component';
+import {LandingPageComponent} from '@shared/pages/landing-page/landing-page.component';
+import {LoginPageComponent} from '@features/auth/pages/login-page/login-page.component';
+import {tokenGuard} from '@core/guards/token-guard/token.guard';
+import {SignupPageComponent} from '@features/auth/pages/signup-page/signup-page.component';
+import {UnderDevelopmentPageComponent} from '@shared/pages/under-development-page/under-development-page.component';
+import {authGuard} from '@core/guards/auth-guard/auth.guard';
+import {UserProfileComponent} from '@features/profile/pages/user-profile/user-profile.component';
+import {PageNotFoundComponent} from '@shared/pages/page-not-found/page-not-found.component';
 import {
   ResetPasswordRequestPageComponent
-} from './features/auth/pages/reset-password-request-page/reset-password-request-page.component';
-import {PasswordResetPageComponent} from './features/auth/pages/password-reset-page/password-reset-page.component';
-import {AppComponent} from './core/layouts/app/app.component';
-import {FeedComponent} from './features/feed/feed.component';
-import {InstituteDashboardComponent} from './features/dashboards/institute-dashboard/institute-dashboard.component';
-import {instituteRoleGuard} from './core/guards/institute-role-guard/institute-role.guard';
-import {DashboardComponent} from './features/institute/pages/dashboard/dashboard.component';
+} from '@features/auth/pages/reset-password-request-page/reset-password-request-page.component';
+import {PasswordResetPageComponent} from '@features/auth/pages/password-reset-page/password-reset-page.component';
+import {AppComponent} from '@core/layouts/app/app.component';
+import {FeedComponent} from '@features/feed/feed.component';
+import {InstituteDashboardComponent} from '@features/dashboards/institute-dashboard/institute-dashboard.component';
+import {instituteRoleGuard} from '@core/guards/institute-role-guard/institute-role.guard';
+import {DashboardComponent} from '@features/institute/pages/dashboard/dashboard.component';
 import {
   InstituteCourseManagementComponent
-} from './features/institute/pages/institute-course-management/institute-course-management.component';
-import {CourseCreateComponent} from './features/course/pages/course-create/course-create.component';
-import {CourseViewComponent} from './features/course/pages/course-view/course-view.component';
-import {CourseUpdateComponent} from './features/course/pages/course-update/course-update.component';
-import {BatchManagementComponent} from './features/batch/pages/batch-management/batch-management.component';
-import {BatchViewComponent} from './features/batch/pages/batch-view/batch-view.component';
+} from '@features/institute/pages/institute-course-management/institute-course-management.component';
+import {CourseCreateComponent} from '@features/course/pages/course-create/course-create.component';
+import {CourseViewComponent} from '@features/course/pages/course-view/course-view.component';
+import {CourseUpdateComponent} from '@features/course/pages/course-update/course-update.component';
+import {BatchManagementComponent} from '@features/batch/pages/batch-management/batch-management.component';
+import {BatchViewComponent} from '@features/batch/pages/batch-view/batch-view.component';
 import {
   InstituteTeacherManagementComponent
-} from './features/institute/pages/institute-teacher-management/institute-teacher-management.component';
+} from '@features/institute/pages/institute-teacher-management/institute-teacher-management.component';
 import {
   ViewTeacherVacancyComponent
-} from './features/teacher-vacancy/pages/view-teacher-vacancy/view-teacher-vacancy.component';
-import {JobApplicationComponent} from './features/profile/pages/job-application/job-application.component';
-import {ViewApplicationComponent} from './features/applications/pages/view-application/view-application.component';
+} from '@features/teacher-vacancy/pages/view-teacher-vacancy/view-teacher-vacancy.component';
+import {JobApplicationComponent} from '@features/profile/pages/job-application/job-application.component';
+import {ViewApplicationComponent} from '@features/applications/pages/view-application/view-application.component';
 import {
   AnnouncementsManagementComponent
-} from './features/announcement/pages/announcements-management/announcements-management.component';
-import {ViewAnnouncementComponent} from './features/announcement/pages/view-announcement/view-announcement.component';
+} from '@features/announcement/pages/announcements-management/announcements-management.component';
+import {ViewAnnouncementComponent} from '@features/announcement/pages/view-announcement/view-announcement.component';
 import {
   CourseAnnouncementViewComponent
-} from './features/course/components/course-announcement-view/course-announcement-view.component';
-import {ModuleViewComponent} from './features/module/pages/module-view/module-view.component';
-import {ChapterViewComponent} from './features/chapter/pages/chapter-view/chapter-view.component';
+} from '@features/course/components/course-announcement-view/course-announcement-view.component';
+import {ModuleViewComponent} from '@features/module/pages/module-view/module-view.component';
+import {ChapterViewComponent} from '@features/chapter/pages/chapter-view/chapter-view.component';
 import {
   LectureRecordWatchComponent
-} from './features/lecture-record/pages/lecture-record-watch/lecture-record-watch.component';
+} from '@features/lecture-record/pages/lecture-record-watch/lecture-record-watch.component';
 
 
 export const routes: Routes = [

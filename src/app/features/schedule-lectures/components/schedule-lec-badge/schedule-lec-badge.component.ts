@@ -1,6 +1,6 @@
 import {Component, input} from '@angular/core';
 import {ScheduleLectureStatus} from '../../enums/ScheduleLectureStatus';
-import {BadgeComponent} from '../../../../shared/ui/badge/badge.component';
+import {BadgeComponent} from '@shared/ui';
 
 @Component({
   selector: 'app-schedule-lec-badge',

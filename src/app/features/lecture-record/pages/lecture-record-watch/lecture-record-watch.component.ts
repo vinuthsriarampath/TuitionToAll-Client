@@ -1,15 +1,14 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ArrowLeft, LucideAngularModule} from 'lucide-angular';
-import {CardShellComponent} from '../../../../shared/ui/card-shell/card-shell.component';
-import {CardHeaderComponent} from '../../../../shared/ui/card-header/card-header.component';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {AlertService} from '@core/services/alerts/alert.service';
 import {ChapterService} from '../../../chapter/services/chapter/chapter.service';
 import {LectureRecordResponse} from '../../dtos/response/LectureRecordResponse';
 import {DatePipe} from '@angular/common';
-import {environment} from '../../../../../environments/environment.development';
+import {environment} from '@env/environment.development';
 import {LectureRecordService} from '../../services/lecture-record/lecture-record.service';
 import {combineLatest} from 'rxjs';
+import {CardHeaderComponent, CardShellComponent} from '@shared/ui';
 
 @Component({
   selector: 'app-lecture-record-watch',

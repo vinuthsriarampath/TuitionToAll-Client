@@ -1,16 +1,16 @@
 import {Component, Inject, inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {AlertService} from '@core/services/alerts/alert.service';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {FormErrorHandler} from '../../../../shared/utils/helpers/FormErrorHandler';
+import {FormErrorHandler} from '@shared/utils/helpers/FormErrorHandler';
 import {ScheduleLectureService} from '../../services/schedule-lecture/schedule-lecture.service';
-import {getDate, getTime} from '../../../../shared/utils/helpers/date-helper';
+import {getDate, getTime} from '@shared/utils/helpers/date-helper';
 import {ScheduleLectureCreateStatus} from '../../dtos/request/enums/ScheduleLectureStatus';
 import {ScheduleLectureCreateRequest} from '../../dtos/request/ScheduleLectureCreateRequest';
-import {DialogLayoutComponent} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
+import {DialogLayoutComponent} from '@core/layouts/dialog-layout/dialog-layout.component';
 import {Paperclip} from 'lucide-angular';
-import {InputComponent} from '../../../../shared/ui/input/input.component';
-import {CheckboxComponent} from '../../../../shared/ui/checkbox/checkbox.component';
+import {CheckboxComponent, InputComponent} from '@shared/ui';
+
 
 @Component({
   selector: 'app-schedule-lec-create',

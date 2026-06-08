@@ -1,16 +1,14 @@
 import {Component, inject, input} from '@angular/core';
-import {CardShellComponent} from '../../../../shared/ui/card-shell/card-shell.component';
-import {CardHeaderComponent} from '../../../../shared/ui/card-header/card-header.component';
 import {Edit, LucideAngularModule} from 'lucide-angular';
-import {InfoRowComponent} from '../../../../shared/ui/info-row/info-row.component';
 import {ModuleDetailedResponse} from '../../dtos/response/ModuleDetailedResponse';
 import {MatDialog} from '@angular/material/dialog';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {AlertService} from '@core/services/alerts/alert.service';
 import {
   ModuleUptTeacherComponent,
   ModuleUptTeacherDialogData
 } from '../../dialogs/module-upt-teacher/module-upt-teacher.component';
 import {ModuleService} from '../../services/module/module.service';
+import {CardHeaderComponent, CardShellComponent, InfoRowComponent} from '@shared/ui';
 
 @Component({
   selector: 'app-module-teacher-panel',

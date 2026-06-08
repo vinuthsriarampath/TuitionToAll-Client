@@ -1,9 +1,6 @@
 import {Component, inject, input, output} from '@angular/core';
-import {CardShellComponent} from '../../../../shared/ui/card-shell/card-shell.component';
-import {CardHeaderComponent} from '../../../../shared/ui/card-header/card-header.component';
 import {AnnouncementResponse} from '../../dtos/response/AnnouncementResponse';
-import {BadgeComponent} from '../../../../shared/ui/badge/badge.component';
-import {InfoRowComponent} from '../../../../shared/ui/info-row/info-row.component';
+import {BadgeComponent, CardHeaderComponent, CardShellComponent, InfoRowComponent} from '@shared/ui';
 import {Eye, LucideAngularModule} from 'lucide-angular';
 import {AnnouncementVisibility} from '../../enums/AnnouncementVisibility';
 import {

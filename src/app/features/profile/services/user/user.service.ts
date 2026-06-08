@@ -11,8 +11,8 @@
 
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ApiResponse} from '../../../../shared/utils/response/api-response';
-import {environment} from '../../../../../environments/environment.development';
+import {ApiResponse} from '@shared/utils/response/api-response';
+import {environment} from '@env/environment.development';
 import {
   InstituteDetailsUpdateRequest
 } from '../../dtos/request/user-update/sub-user-details-update-dto/InstituteDetailsUpdateRequest';

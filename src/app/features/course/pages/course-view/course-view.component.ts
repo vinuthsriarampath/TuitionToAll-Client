@@ -1,13 +1,13 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute, RouterLink} from '@angular/router';
-import {CourseService} from '../../../../../../../core/services/course/course.service';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
-import {Course} from '../../../../../../../core/models/course';
+import {AlertService} from '@core/services/alerts/alert.service';
 import {CurrencyPipe, NgClass, NgOptimizedImage} from '@angular/common';
-import {environment} from '../../../../../environments/environment.development';
+import {environment} from '@env/environment.development';
 import {
   CourseAnnouncementListComponent
 } from '../../components/course-announcement-list/course-announcement-list.component';
+import {CourseService} from '@features/course/services/course/course.service';
+import {Course} from '@features/course/dtos/response/course';
 
 @Component({
   selector: 'app-course-view',

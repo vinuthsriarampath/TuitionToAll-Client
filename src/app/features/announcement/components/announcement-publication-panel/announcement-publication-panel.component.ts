@@ -1,16 +1,15 @@
 import {Component, inject, input, output} from '@angular/core';
 import {AnnouncementResponse} from '../../dtos/response/AnnouncementResponse';
-import {CardShellComponent} from '../../../../shared/ui/card-shell/card-shell.component';
-import {CardHeaderComponent} from '../../../../shared/ui/card-header/card-header.component';
 import {Archive, LucideAngularModule, Send} from 'lucide-angular';
 import {AnnouncementStatus} from '../../enums/AnnouncementStatus';
 import {MatDialog} from '@angular/material/dialog';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {AlertService} from '@core/services/alerts/alert.service';
 import {
   ConfirmationDialogComponent,
   ConfirmationDialogData
 } from '../../dialogs/confirmation-dialog/confirmation-dialog.component';
 import {AnnouncementService} from '../../services/announcements/announcement.service';
+import {CardHeaderComponent, CardShellComponent} from '@shared/ui';
 
 @Component({
   selector: 'app-announcement-publication-panel',

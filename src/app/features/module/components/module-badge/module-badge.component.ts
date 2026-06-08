@@ -1,6 +1,6 @@
 import {Component, input} from '@angular/core';
 import {ModuleStatus} from '../../enums/ModuleStatus';
-import {BadgeComponent} from '../../../../shared/ui/badge/badge.component';
+import {BadgeComponent} from '@shared/ui';
 
 @Component({
   selector: 'app-module-badge',

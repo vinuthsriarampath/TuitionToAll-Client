@@ -1,13 +1,13 @@
 import {Component, Inject, inject} from '@angular/core';
-import {DialogLayoutComponent} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
+import {DialogLayoutComponent} from '@core/layouts';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {AlertService} from '@core/services/alerts/alert.service';
 import {ModuleService} from '../../services/module/module.service';
 import {Edit} from 'lucide-angular';
-import {InputComponent} from '../../../../shared/ui/input/input.component';
+import {InputComponent} from '@shared/ui';
 import {ModuleNameUpdateRequest} from '../../dtos/request/ModuleNameUpdateRequest';
-import {FormErrorHandler} from '../../../../shared/utils/helpers/FormErrorHandler';
+import {FormErrorHandler} from '@shared/utils/helpers/FormErrorHandler';
 
 export type ModuleUptNameDialogData = {
   moduleId:number,

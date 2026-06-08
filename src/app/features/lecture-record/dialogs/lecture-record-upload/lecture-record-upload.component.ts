@@ -2,16 +2,16 @@ import {Component, Inject, inject, OnDestroy} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {LectureRecordService} from '../../services/lecture-record/lecture-record.service';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
-import {DialogLayoutComponent} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
+import {AlertService} from '@core/services/alerts/alert.service';
+import {DialogLayoutComponent} from '@core/layouts';
 import {Upload} from 'lucide-angular';
-import {InputComponent} from '../../../../shared/ui/input/input.component';
+import {InputComponent} from '@shared/ui';
 import {NgIf} from '@angular/common';
-import {getDate} from '../../../../shared/utils/helpers/date-helper';
+import {getDate} from '@shared/utils/helpers/date-helper';
 import {HttpEventType} from '@angular/common/http';
 import {LectureRecordUploadInitRequest} from '../../dtos/request/LectureRecordUploadInitRequest';
 import {lastValueFrom} from 'rxjs';
-import {FormErrorHandler} from '../../../../shared/utils/helpers/FormErrorHandler';
+import {FormErrorHandler} from '@shared/utils/helpers/FormErrorHandler';
 
 @Component({
   selector: 'app-lecture-record-upload',

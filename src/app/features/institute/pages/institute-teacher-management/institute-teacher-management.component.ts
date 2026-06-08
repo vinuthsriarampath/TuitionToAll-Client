@@ -1,7 +1,7 @@
 import {Component, inject, OnInit, ViewChild} from '@angular/core';
 import {DatePipe, NgClass, NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {PageTitleComponent} from '../../../../shared/components/page-title/page-title.component';
+import {PageTitleComponent} from '@shared/components/page-title/page-title.component';
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from '@angular/material/sidenav';
 import {MatDialog} from '@angular/material/dialog';
 import {
@@ -24,8 +24,8 @@ import {
 import {MatTooltip} from '@angular/material/tooltip';
 import {InstituteTeacherService} from '../../services/institute-teacher/institute-teacher.service';
 import {InstituteTeacherResponse} from '../../dtos/response/InstituteTeacherResponse';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
-import {environment} from '../../../../../environments/environment.development';
+import {AlertService} from '@core/services/alerts/alert.service';
+import {environment} from '@env/environment.development';
 import {ApplicationStatus} from '../../../applications/enums/application-status';
 import {InstituteTeacherStatus} from '../../enums/InstituteTeacherStatus';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';

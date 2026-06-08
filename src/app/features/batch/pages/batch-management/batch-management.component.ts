@@ -1,9 +1,7 @@
 import {AfterViewInit, Component, inject, OnInit, ViewChild} from '@angular/core';
 import {ArrowLeft, Edit, Eye, LucideAngularModule} from 'lucide-angular';
-import {BatchService} from '../../../../core/services/batch/batch.service';
 import {ActivatedRoute, RouterLink} from '@angular/router';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
-import {Batch} from '../../../../core/models/batch';
+import {AlertService} from '@core/services/alerts/alert.service';
 import {
   MatCell,
   MatCellDef,
@@ -22,11 +20,13 @@ import {BatchEnrollmentStatus} from '../../enums/batch-enrollment-status';
 import {BatchStatus} from '../../enums/batch-status';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatPaginator} from '@angular/material/paginator';
-import {Course} from '../../../../core/models/course';
 import {CreateBatchDialogComponent} from '../../dialogs/create-batch-dialog/create-batch-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {UpdateBatchDialogComponent} from '../../dialogs/update-batch-dialog/update-batch-dialog.component';
-import {PageLayoutComponent} from '../../../../core/layouts/page-layout/page-layout.component';
+import {PageLayoutComponent} from '@core/layouts';
+import {Batch} from '@features/batch/dtos/response/batch';
+import {Course} from '@features/course/dtos/response/course';
+import {BatchService} from '@features/batch/services/batch/batch.service';
 
 @Component({
   selector: 'app-batch-management',

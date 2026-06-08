@@ -26,9 +26,9 @@ import {
   UpdateTeacherVacancyDialogComponent
 } from '../../dialogs/update-teacher-vacancy-dialog/update-teacher-vacancy-dialog.component';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
-import {PaginatedApiResponse} from '../../../../shared/utils/response/paginated-api-response';
+import {PaginatedApiResponse} from '@shared/utils/response/paginated-api-response';
 import {RouterLink} from '@angular/router';
-import {PageLayoutComponent} from '../../../../core/layouts/page-layout/page-layout.component';
+import {PageLayoutComponent} from '@core/layouts/page-layout/page-layout.component';
 
 @Component({
   selector: 'app-view-teacher-vacancy',

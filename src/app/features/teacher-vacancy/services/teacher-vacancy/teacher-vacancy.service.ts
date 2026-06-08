@@ -2,10 +2,10 @@ import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {TeacherVacancyCreateRequest} from '../../dtos/request/teacher-vacancy-create-request';
 import {Observable} from 'rxjs';
-import {ApiResponse} from '../../../../shared/utils/response/api-response';
+import {ApiResponse} from '@shared/utils/response/api-response';
 import {TeacherVacancy} from '../../dtos/response/teacher-vacancy';
-import {environment} from '../../../../../environments/environment.development';
-import {PaginatedApiResponse} from '../../../../shared/utils/response/paginated-api-response';
+import {environment} from '@env/environment.development';
+import {PaginatedApiResponse} from '@shared/utils/response/paginated-api-response';
 import {TeacherVacancyStatus} from '../../enums/teacher-vacancy-status';
 
 @Injectable({

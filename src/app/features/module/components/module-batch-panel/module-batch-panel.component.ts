@@ -1,16 +1,14 @@
 import {Component, inject, input} from '@angular/core';
-import {CardShellComponent} from '../../../../shared/ui/card-shell/card-shell.component';
-import {CardHeaderComponent} from '../../../../shared/ui/card-header/card-header.component';
 import {ModuleDetailedResponse} from '../../dtos/response/ModuleDetailedResponse';
 import {Edit, LucideAngularModule} from 'lucide-angular';
-import {InfoRowComponent} from '../../../../shared/ui/info-row/info-row.component';
 import {MatDialog} from '@angular/material/dialog';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {AlertService} from '@core/services/alerts/alert.service';
 import {ModuleService} from '../../services/module/module.service';
 import {
   ModuleUptBatchComponent,
   ModuleUptBatchDialogData
 } from '../../dialogs/module-upt-batch/module-upt-batch.component';
+import {CardHeaderComponent, CardShellComponent, InfoRowComponent} from '@shared/ui';
 
 @Component({
   selector: 'app-module-batch-panel',

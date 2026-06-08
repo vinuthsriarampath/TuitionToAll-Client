@@ -1,12 +1,12 @@
 import {Component, inject, input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {ActivatedRoute, RouterLink} from '@angular/router';
-import {CardShellComponent} from '../../../../shared/ui/card-shell/card-shell.component';
+import {CardShellComponent} from '@shared/ui';
 import {CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray} from '@angular/cdk/drag-drop';
 import {BookOpen, CalendarDays, Edit, GripVertical, LucideAngularModule, Pencil} from 'lucide-angular';
 import {MatTooltip} from '@angular/material/tooltip';
 import {ChapterResponse} from '../../dtos/response/ChapterResponse';
 import {ModuleService} from '../../../module/services/module/module.service';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {AlertService} from '@core/services/alerts/alert.service';
 import {DatePipe} from '@angular/common';
 import {ChapterBadgeComponent} from '../chapter-badge/chapter-badge.component';
 import {MatDialog} from '@angular/material/dialog';

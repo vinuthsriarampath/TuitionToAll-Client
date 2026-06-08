@@ -4,9 +4,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
 import {ProfileFileServiceService} from '../../services/profile-files/profile-file-service.service';
 import {User} from '../../dtos/response/user';
-import {DialogLayoutComponent} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
+import {DialogLayoutComponent} from '@core/layouts';
 import {ImageIcon} from 'lucide-angular';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {AlertService} from '@core/services/alerts/alert.service';
 
 @Component({
   selector: 'app-update-profile-banner-dialog',

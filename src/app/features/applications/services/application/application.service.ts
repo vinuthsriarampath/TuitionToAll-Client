@@ -1,10 +1,10 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {ApiResponse} from '../../../../shared/utils/response/api-response';
+import {ApiResponse} from '@shared/utils/response/api-response';
 import {Application} from '../../dtos/response/application';
-import {environment} from '../../../../../environments/environment.development';
-import {PaginatedApiResponse} from '../../../../shared/utils/response/paginated-api-response';
+import {environment} from '@env/environment.development';
+import {PaginatedApiResponse} from '@shared/utils/response/paginated-api-response';
 import {ApplicationDetailsResponse} from '../../dtos/response/application-details-response';
 
 @Injectable({

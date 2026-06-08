@@ -3,10 +3,10 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
 import {
   SuccessConfirmationAlertComponent
-} from '../../../shared/components/success-confirmation-alert/success-confirmation-alert.component';
+} from '@shared/components/success-confirmation-alert/success-confirmation-alert.component';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {InformationAlertComponent} from '../../../shared/components/information-alert/information-alert.component';
+import {InformationAlertComponent} from '@shared/components/information-alert/information-alert.component';
 
 @Injectable({
   providedIn: 'root'

@@ -2,14 +2,14 @@ import {Component, inject, OnInit} from '@angular/core';
 import {AnnouncementService} from '../../services/announcements/announcement.service';
 import {ActivatedRoute} from '@angular/router';
 import {AnnouncementResponse} from '../../dtos/response/AnnouncementResponse';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {AlertService} from '@core/services/alerts/alert.service';
 import {AnnouncementVisibility} from '../../enums/AnnouncementVisibility';
 import {DatePipe, NgClass} from '@angular/common';
 import {BookOpen, CalendarClock, LucideAngularModule, Pin, Users} from 'lucide-angular';
 import {AnnouncementStatus} from '../../enums/AnnouncementStatus';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {QuillEditorComponent} from 'ngx-quill';
-import {PageLayoutComponent} from '../../../../core/layouts/page-layout/page-layout.component';
+import {PageLayoutComponent} from '@core/layouts';
 
 @Component({
   selector: 'app-view-announcement',

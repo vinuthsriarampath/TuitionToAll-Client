@@ -1,9 +1,8 @@
 import {Component, input} from '@angular/core';
-import {Course} from '../../../../core/models/course';
-import {CardShellComponent} from '../../../../shared/ui/card-shell/card-shell.component';
 import {CurrencyPipe, NgOptimizedImage} from '@angular/common';
-import {BadgeComponent} from '../../../../shared/ui/badge/badge.component';
-import {environment} from '../../../../../environments/environment.development';
+import {BadgeComponent, CardShellComponent} from '@shared/ui';
+import {environment} from '@env/environment.development';
+import {Course} from '@features/course/dtos/response/course';
 
 @Component({
   selector: 'app-course-card',

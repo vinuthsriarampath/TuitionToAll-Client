@@ -2,12 +2,11 @@ import {Component, input} from '@angular/core';
 import {AnnouncementResponse} from '../../dtos/response/AnnouncementResponse';
 import {QuillEditorComponent} from 'ngx-quill';
 import {DatePipe} from '@angular/common';
-import {BadgeComponent} from '../../../../shared/ui/badge/badge.component';
-import {CardShellComponent} from '../../../../shared/ui/card-shell/card-shell.component';
 import {FormsModule} from '@angular/forms';
 import {AnnouncementStatus} from '../../enums/AnnouncementStatus';
 import {AnnouncementVisibility} from '../../enums/AnnouncementVisibility';
 import {BookOpen, CalendarClock, LucideAngularModule, Pin, Users} from 'lucide-angular';
+import {BadgeComponent, CardShellComponent} from '@shared/ui';
 
 @Component({
   selector: 'app-announcement-card',

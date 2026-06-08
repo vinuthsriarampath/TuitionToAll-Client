@@ -5,17 +5,17 @@ import {NgClass} from '@angular/common';
 import {AnnouncementVisibility} from '../../enums/AnnouncementVisibility';
 import {AnnouncementService} from '../../services/announcements/announcement.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
-import {Course} from '../../../../core/models/course';
-import {Batch} from '../../../../core/models/batch';
+import {AlertService} from '@core/services/alerts/alert.service';
 import {CourseFilter} from '../../../course/dtos/request/course-filter';
-import {CourseStatus} from '../../../../core/enums/course-status';
 import {Institute} from '../../../profile/dtos/response/institute';
 import {UserService} from '../../../profile/services/user/user.service';
-import {BatchService} from '../../../../core/services/batch/batch.service';
-import {CourseService} from '../../../../core/services/course/course.service';
 import {AnnouncementVisibilityUpdateRequest} from '../../dtos/request/AnnouncementVisibilityUpdateRequest';
-import {DialogLayoutComponent} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
+import {DialogLayoutComponent} from '@core/layouts';
+import {Course} from '@features/course/dtos/response/course';
+import {Batch} from '@features/batch/dtos/response/batch';
+import {CourseService} from '@features/course/services/course/course.service';
+import {BatchService} from '@features/batch/services/batch/batch.service';
+import {CourseStatus} from '@features/course/enums/course-status';
 
 export interface UpdateAnnouncementVisibilityDialogData {
   id:number;

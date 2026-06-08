@@ -1,6 +1,6 @@
 import {Component, input} from '@angular/core';
 import {ChapterStatus} from '../../enums/ChapterStatus';
-import {BadgeComponent} from '../../../../shared/ui/badge/badge.component';
+import {BadgeComponent} from '@shared/ui';
 import {ModuleStatus} from '../../../module/enums/ModuleStatus';
 
 @Component({

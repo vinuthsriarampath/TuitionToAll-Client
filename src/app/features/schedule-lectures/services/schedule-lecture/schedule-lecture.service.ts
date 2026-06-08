@@ -1,10 +1,10 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {environment} from '../../../../../environments/environment.development';
+import {environment} from '@env/environment.development';
 import {ScheduleLectureCreateRequest} from '../../dtos/request/ScheduleLectureCreateRequest';
 import {Observable} from 'rxjs';
 import {ScheduleLectureResponse} from '../../dtos/response/ScheduleLectureResponse';
-import {ApiResponse} from "../../../../shared/utils/response/api-response";
+import {ApiResponse} from "@shared/utils/response/api-response";
 import {ScheduleLectureUpdateRequest} from '../../dtos/request/ScheduleLectureUpdateRequest';
 
 @Injectable({

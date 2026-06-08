@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {ApiResponse} from '../../../shared/utils/response/api-response';
-import {environment} from '../../../environments/environments.development';
-import {CourseCreate} from '../../dto/request-dto/course/course-create';
-import {Course} from '../../models/course';
-import {CourseFilter} from '../../dto/request-dto/course/course-filter';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {CourseUpdate} from '../../dto/request-dto/course/course-update';
+import { ApiResponse } from "@shared/utils/response/api-response";
+import {Course} from '@features/course/dtos/response/course';
+import {environment} from '@env/environment.development';
+import {CourseCreate} from '@features/course/dtos/request/course-create';
+import {CourseUpdate} from '@features/course/dtos/request/course-update';
+import {CourseFilter} from '@features/course/dtos/request/course-filter';
 
 @Injectable({
   providedIn: 'root'

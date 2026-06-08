@@ -1,6 +1,5 @@
 import {Component, inject, input, output} from '@angular/core';
-import {CardShellComponent} from '../../../../shared/ui/card-shell/card-shell.component';
-import {CardHeaderComponent} from '../../../../shared/ui/card-header/card-header.component';
+import {CardHeaderComponent, CardShellComponent} from '@shared/ui';
 import {AnnouncementResponse} from '../../dtos/response/AnnouncementResponse';
 import {LucideAngularModule, Pin, PinOff} from 'lucide-angular';
 import {AnnouncementStatus} from '../../enums/AnnouncementStatus';
@@ -9,7 +8,7 @@ import {
   ConfirmationDialogData
 } from '../../dialogs/confirmation-dialog/confirmation-dialog.component';
 import {AnnouncementService} from '../../services/announcements/announcement.service';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {AlertService} from '@core/services/alerts/alert.service';
 import {MatDialog} from '@angular/material/dialog';
 
 @Component({

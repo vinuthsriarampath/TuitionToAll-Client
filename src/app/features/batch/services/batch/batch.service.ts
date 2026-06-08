@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Batch} from '../../models/batch';
-import {environment} from '../../../environments/environments.development';
-import {ApiResponse} from '../../../shared/utils/response/api-response';
-import {BatchCreateRequest} from '../../dto/request-dto/batch/batch-create-request';
-import {BatchUpdateRequest} from '../../dto/request-dto/batch/batch-update-request';
-import {PaginatedApiResponse} from '../../../shared/utils/response/paginated-api-response';
-import {ModuleResponse} from '../../../features/module/dtos/response/ModuleResponse';
+import {environment} from '@env/environment.development';
+import {Batch} from '@features/batch/dtos/response/batch';
+import {ApiResponse} from '@shared/utils/response/api-response';
+import {BatchCreateRequest} from '@features/batch/dtos/request/batch-create-request';
+import {BatchUpdateRequest} from '@features/batch/dtos/request/batch-update-request';
+import {PaginatedApiResponse} from '@shared/utils/response/paginated-api-response';
+import {ModuleResponse} from '@features/module/dtos/response/ModuleResponse';
 
 @Injectable({
   providedIn: 'root'

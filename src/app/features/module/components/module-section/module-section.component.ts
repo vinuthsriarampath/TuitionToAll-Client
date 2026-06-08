@@ -1,5 +1,5 @@
 import {Component, inject, input, OnInit} from '@angular/core';
-import {PageLayoutComponent} from '../../../../core/layouts/page-layout/page-layout.component';
+import {PageLayoutComponent} from '@core/layouts';
 import {Edit, Eye, LucideAngularModule, Plus, View} from 'lucide-angular';
 import {
   MatCell,
@@ -14,9 +14,8 @@ import {
   MatTable,
   MatTableDataSource
 } from '@angular/material/table';
-import {BatchService} from '../../../../core/services/batch/batch.service';
 import {ModuleResponse} from '../../dtos/response/ModuleResponse';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {AlertService} from '@core/services/alerts/alert.service';
 import {ModuleBadgeComponent} from '../module-badge/module-badge.component';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {DatePipe} from '@angular/common';
@@ -25,6 +24,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {CreateModuleDialogComponent} from '../../dialogs/create-module-dialog/create-module-dialog.component';
 import {RouterLink} from '@angular/router';
 import {ModuleUpdateViewComponent} from '../../dialogs/module-update-view/module-update-view.component';
+import {BatchService} from '@features/batch/services/batch/batch.service';
 
 @Component({
   selector: 'app-module-section',

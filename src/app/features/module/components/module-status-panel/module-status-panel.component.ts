@@ -1,17 +1,16 @@
 import {Component, inject, input} from '@angular/core';
-import {CardShellComponent} from '../../../../shared/ui/card-shell/card-shell.component';
-import {CardHeaderComponent} from '../../../../shared/ui/card-header/card-header.component';
 import {ModuleDetailedResponse} from '../../dtos/response/ModuleDetailedResponse';
 import {ModuleStatus} from '../../enums/ModuleStatus';
 import {Archive, LucideAngularModule, UploadCloud} from 'lucide-angular';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {AlertService} from '@core/services/alerts/alert.service';
 import {ModuleService} from '../../services/module/module.service';
 import {
   ConfirmationDialogComponent,
   ConfirmationDialogData
 } from '../../../announcement/dialogs/confirmation-dialog/confirmation-dialog.component';
 import {ModuleBadgeComponent} from '../module-badge/module-badge.component';
+import {CardHeaderComponent, CardShellComponent} from '@shared/ui';
 
 @Component({
   selector: 'app-module-status-panel',

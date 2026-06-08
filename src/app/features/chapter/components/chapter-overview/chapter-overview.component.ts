@@ -1,7 +1,7 @@
 import {Component, input} from '@angular/core';
 import {ChapterStatus} from '../../enums/ChapterStatus';
-import {CardShellComponent} from '../../../../shared/ui/card-shell/card-shell.component';
-import {InfoRowComponent} from '../../../../shared/ui/info-row/info-row.component';
+import {CardShellComponent} from '@shared/ui';
+import {InfoRowComponent} from '@shared/ui';
 
 @Component({
   selector: 'app-chapter-overview',

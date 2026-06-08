@@ -1,7 +1,7 @@
 import {Component, Inject, inject} from '@angular/core';
 import {LucideAngularModule, LucideIconData} from 'lucide-angular';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {DialogLayoutComponent} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
+import {DialogLayoutComponent} from '@core/layouts';
 
 export interface ConfirmationDialogData {
   title: string;

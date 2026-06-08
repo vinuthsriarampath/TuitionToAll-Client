@@ -1,14 +1,14 @@
 import {Component, Inject, inject} from '@angular/core';
-import {DialogLayoutComponent} from "../../../../core/layouts/dialog-layout/dialog-layout.component";
+import {DialogLayoutComponent} from "@core/layouts";
 import {ArrowRightLeft, LucideAngularModule, Users} from "lucide-angular";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {SelectComponent, SelectOption} from "../../../../shared/ui/select/select.component";
+import {SelectComponent, SelectOption} from "@shared/ui";
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {AlertService} from '@core/services/alerts/alert.service';
 import {ModuleService} from '../../services/module/module.service';
-import {BatchService} from '../../../../core/services/batch/batch.service';
-import {FormErrorHandler} from '../../../../shared/utils/helpers/FormErrorHandler';
+import {FormErrorHandler} from '@shared/utils/helpers/FormErrorHandler';
 import {ModuleBatchUpdateRequest} from '../../dtos/request/ModuleBatchUpdateRequest';
+import {BatchService} from '@features/batch/services/batch/batch.service';
 
 export type ModuleUptBatchDialogData = {
   moduleId:number;

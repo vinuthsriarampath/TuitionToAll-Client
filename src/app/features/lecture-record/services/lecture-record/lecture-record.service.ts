@@ -1,8 +1,8 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient, HttpEvent} from '@angular/common/http';
-import {environment} from '../../../../../environments/environment.development';
+import {environment} from '@env/environment.development';
 import {LectureRecordUploadInitResponse} from '../../dtos/response/LectureRecordUploadInitResponse';
-import {ApiResponse} from '../../../../shared/utils/response/api-response';
+import {ApiResponse} from '@shared/utils/response/api-response';
 import {Observable} from 'rxjs';
 import {LectureRecordUploadInitRequest} from '../../dtos/request/LectureRecordUploadInitRequest';
 import {LectureRecordChunkUploadResponse} from '../../dtos/response/LectureRecordChunkUploadResponse';

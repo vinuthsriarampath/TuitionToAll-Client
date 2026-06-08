@@ -1,6 +1,6 @@
-import {BatchBasicResponse} from '../../../../core/dto/response-dto/batch/BatchBasicResponse';
 import {TeacherBasicResponse} from '../../../profile/dtos/response/TeacherBasicResponse';
 import {ModuleStatus} from '../../enums/ModuleStatus';
+import {BatchBasicResponse} from '@features/batch/dtos/response/BatchBasicResponse';
 
 export class ModuleDetailedResponse {
   id!:number;

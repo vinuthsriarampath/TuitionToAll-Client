@@ -5,9 +5,9 @@ import {AnnouncementStatus} from '../../enums/AnnouncementStatus';
 import {AnnouncementVisibility} from '../../enums/AnnouncementVisibility';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {AnnouncementService} from '../../services/announcements/announcement.service';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {AlertService} from '@core/services/alerts/alert.service';
 import {FormsModule} from '@angular/forms';
-import {DialogLayoutComponent} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
+import {DialogLayoutComponent} from '@core/layouts';
 import {AnnouncementCardComponent} from '../../components/announcement-card/announcement-card.component';
 import {
   AnnouncementContentPanelComponent

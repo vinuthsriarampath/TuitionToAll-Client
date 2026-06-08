@@ -1,16 +1,14 @@
 import {Component, Inject, inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {AlertService} from '@core/services/alerts/alert.service';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {FormErrorHandler} from '../../../../shared/utils/helpers/FormErrorHandler';
+import {FormErrorHandler} from '@shared/utils/helpers/FormErrorHandler';
 import {ScheduleLectureService} from '../../services/schedule-lecture/schedule-lecture.service';
 import {ScheduleLectureResponse} from '../../dtos/response/ScheduleLectureResponse';
 import {ScheduleLectureUpdateRequest} from '../../dtos/request/ScheduleLectureUpdateRequest';
 import {ScheduleLectureStatus} from '../../enums/ScheduleLectureStatus';
-import {SelectComponent, SelectOption} from '../../../../shared/ui/select/select.component';
-import {CheckboxComponent} from '../../../../shared/ui/checkbox/checkbox.component';
-import {DialogLayoutComponent} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
-import {InputComponent} from '../../../../shared/ui/input/input.component';
+import {CheckboxComponent, InputComponent, SelectComponent, SelectOption } from '@shared/ui';
+import {DialogLayoutComponent} from '@core/layouts/dialog-layout/dialog-layout.component';
 import {Pencil} from 'lucide-angular';
 
 @Component({

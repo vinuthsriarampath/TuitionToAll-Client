@@ -1,18 +1,18 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import {ArrowLeft, LucideAngularModule} from 'lucide-angular';
 import {FormsModule} from '@angular/forms';
-import {CourseLevel} from '../../../../../../../core/enums/course-level';
-import {CourseCategory} from '../../../../../../../core/enums/course-category';
-import {CourseStatus} from '../../../../../../../core/enums/course-status';
-import {CourseLanguage} from '../../../../../../../core/enums/course-language';
-import {CourseMode} from '../../../../../../../core/enums/course-mode';
 import {CourseCreate} from '../../dtos/request/course-create';
 import {NgForOf, NgIf, TitleCasePipe} from '@angular/common';
 import {MatButtonToggle, MatButtonToggleGroup} from '@angular/material/button-toggle';
-import {CourseService} from '../../../../../../../core/services/course/course.service';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {AlertService} from '@core/services/alerts/alert.service';
 import {Router} from '@angular/router';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
+import {CourseLevel} from '@features/course/enums/course-level';
+import {CourseStatus} from '@features/course/enums/course-status';
+import {CourseCategory} from '@features/course/enums/course-category';
+import {CourseLanguage} from '@features/course/enums/course-language';
+import {CourseMode} from '@features/course/enums/course-mode';
+import {CourseService} from '@features/course/services/course/course.service';
 
 @Component({
   selector: 'app-course-create',

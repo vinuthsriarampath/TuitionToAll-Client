@@ -12,7 +12,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {UserLoginRequest} from '../../dtos/request/user-login-request';
-import {environment} from '../../../../../environments/environment.development';
+import {environment} from '@env/environment.development';
 import {AuthResponse} from '../../dtos/responses/auth-response';
 import {
   StudentRegistrationRequest
@@ -23,7 +23,7 @@ import {
 import {
   InstituteRegistrationRequest
 } from '../../dtos/request/registration/sub-registration-dto/institute-registration-request';
-import {ApiResponse} from '../../../../shared/utils/response/api-response';
+import {ApiResponse} from '@shared/utils/response/api-response';
 import {User} from '../../../profile/dtos/response/user';
 import {Institute} from '../../../profile/dtos/response/institute';
 import {Teacher} from '../../../profile/dtos/response/teacher';

@@ -1,14 +1,14 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import {CourseService} from '../../../../../core/services/course/course.service';
-import {Course} from '../../../../../core/models/course';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {AlertService} from '@core/services/alerts/alert.service';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {CurrencyPipe, NgClass} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {Eye, LucideAngularModule} from 'lucide-angular';
 import {MatTooltip} from '@angular/material/tooltip';
-import {PageLayoutComponent} from '../../../../core/layouts/page-layout/page-layout.component';
+import {PageLayoutComponent} from '@core/layouts';
+import {Course} from '@features/course/dtos/response/course';
+import {CourseService} from '@features/course/services/course/course.service';
 
 @Component({
   selector: 'app-institute-course-management',

@@ -3,12 +3,12 @@ import {LectureRecordResponse} from '../../dtos/response/LectureRecordResponse';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {LectureRecordService} from '../../services/lecture-record/lecture-record.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
-import {FormErrorHandler} from '../../../../shared/utils/helpers/FormErrorHandler';
+import {AlertService} from '@core/services/alerts/alert.service';
+import {FormErrorHandler} from '@shared/utils/helpers/FormErrorHandler';
 import {LectureRecordDetailsUpdateRequest} from '../../dtos/request/LectureRecordDetailsUpdateRequest';
-import {DialogLayoutComponent} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
+import {DialogLayoutComponent} from '@core/layouts';
 import {SquarePen} from 'lucide-angular';
-import {InputComponent} from '../../../../shared/ui/input/input.component';
+import {InputComponent} from '@shared/ui';
 
 @Component({
   selector: 'app-lecture-record-update',

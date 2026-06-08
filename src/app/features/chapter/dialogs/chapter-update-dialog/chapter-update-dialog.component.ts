@@ -3,14 +3,13 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {ChapterResponse} from '../../dtos/response/ChapterResponse';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ChapterService} from '../../services/chapter/chapter.service';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
-import {InputComponent} from '../../../../shared/ui/input/input.component';
-import {SelectComponent, SelectOption} from '../../../../shared/ui/select/select.component';
+import {AlertService} from '@core/services/alerts/alert.service';
 import {ChapterStatus} from '../../enums/ChapterStatus';
 import {ChapterDetailsUpdateRequest} from '../../dtos/request/ChapterDetailsUpdateRequest';
-import {FormErrorHandler} from '../../../../shared/utils/helpers/FormErrorHandler';
+import {FormErrorHandler} from '@shared/utils/helpers/FormErrorHandler';
 import {BookOpen} from 'lucide-angular';
-import {DialogLayoutComponent} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
+import {DialogLayoutComponent} from '@core/layouts';
+import {InputComponent, SelectComponent, SelectOption} from '@shared/ui';
 
 @Component({
   selector: 'app-chapter-update-dialog',

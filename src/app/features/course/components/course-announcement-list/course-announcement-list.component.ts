@@ -1,7 +1,7 @@
 import {Component, inject, input, OnInit} from '@angular/core';
 import {AnnouncementService} from '../../../announcement/services/announcements/announcement.service';
 import {AnnouncementResponse} from '../../../announcement/dtos/response/AnnouncementResponse';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {AlertService} from '@core/services/alerts/alert.service';
 import {AnnouncementFilterRequest} from '../../../announcement/dtos/request/AnnouncementFilterRequest';
 import {AnnouncementStatus} from '../../../announcement/enums/AnnouncementStatus';
 import {LucideAngularModule, Pin} from 'lucide-angular';

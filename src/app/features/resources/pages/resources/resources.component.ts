@@ -1,7 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {CardShellComponent} from '../../../../shared/ui/card-shell/card-shell.component';
+import {CardShellComponent} from '@shared/ui';
 import {ChapterService} from '../../../chapter/services/chapter/chapter.service';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {AlertService} from '@core/services/alerts/alert.service';
 import {ActivatedRoute} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {
@@ -21,7 +21,7 @@ import {ResourceResponse} from '../../dtos/response/ResourceResponse';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {Download, LucideAngularModule, Pencil, RefreshCw} from 'lucide-angular';
 import {ResourceService} from '../../services/resource/resource.service';
-import {environment} from '../../../../../environments/environment.development';
+import {environment} from '@env/environment.development';
 import {ResourceCreateComponent} from '../../dialogs/resource-create/resource-create.component';
 
 @Component({

@@ -1,15 +1,14 @@
 import {Component, Inject, inject} from '@angular/core';
 import {ChapterService} from '../../services/chapter/chapter.service';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
-import {SelectComponent, SelectOption} from '../../../../shared/ui/select/select.component';
+import {AlertService} from '@core/services/alerts/alert.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {ChapterStatus} from '../../enums/ChapterStatus';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {DialogLayoutComponent} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
-import {InputComponent} from '../../../../shared/ui/input/input.component';
+import {DialogLayoutComponent} from '@core/layouts';
 import {BookOpen} from 'lucide-angular';
 import {ChapterCreateRequest} from '../../dtos/request/ChapterCreateRequest';
-import {FormErrorHandler} from '../../../../shared/utils/helpers/FormErrorHandler';
+import {FormErrorHandler} from '@shared/utils/helpers/FormErrorHandler';
+import {InputComponent, SelectComponent, SelectOption} from '@shared/ui';
 
 @Component({
   selector: 'app-chapter-create-dialog',

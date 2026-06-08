@@ -10,6 +10,6 @@
  */
 
 export interface UserLoginRequest {
-    email?:String;
-    password?:String;
+    email?:string;
+    password?:string;
 }

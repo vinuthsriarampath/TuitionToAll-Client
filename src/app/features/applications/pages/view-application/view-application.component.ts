@@ -2,8 +2,8 @@ import {Component, inject, OnInit, ViewChild} from '@angular/core';
 import {ApplicationService} from '../../services/application/application.service';
 import {ActivatedRoute} from '@angular/router';
 import {ApplicationDetailsResponse} from '../../dtos/response/application-details-response';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
-import {PageTitleComponent} from '../../../../shared/components/page-title/page-title.component';
+import {AlertService} from '@core/services/alerts/alert.service';
+import {PageTitleComponent} from '@shared/components/page-title/page-title.component';
 import {
   MatCell,
   MatCellDef,
@@ -20,7 +20,7 @@ import {
 import {DatePipe, NgClass, NgIf} from '@angular/common';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from '@angular/material/sidenav';
-import {environment} from '../../../../../environments/environment.development';
+import {environment} from '@env/environment.development';
 import {ApplicationStatus} from '../../enums/application-status';
 import {SelectionModel} from '@angular/cdk/collections';
 import {InstituteTeacherService} from '../../../institute/services/institute-teacher/institute-teacher.service';

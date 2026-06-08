@@ -1,9 +1,9 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {ApiResponse} from '../../../../shared/utils/response/api-response';
+import {ApiResponse} from '@shared/utils/response/api-response';
 import {TeacherVacancy} from '../../../teacher-vacancy/dtos/response/teacher-vacancy';
-import {environment} from '../../../../../environments/environment.development';
+import {environment} from '@env/environment.development';
 import {TeacherVacancyStatus} from '../../../teacher-vacancy/enums/teacher-vacancy-status';
 
 @Injectable({

@@ -1,7 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {ModuleService} from '../../services/module/module.service';
-import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {AlertService} from '@core/services/alerts/alert.service';
 import {ModuleDetailedResponse} from '../../dtos/response/ModuleDetailedResponse';
 import {DatePipe, NgOptimizedImage} from '@angular/common';
 import {ModuleBadgeComponent} from '../../components/module-badge/module-badge.component';
