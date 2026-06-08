@@ -17,7 +17,7 @@ import {
 import {
   ModuleCreateStatus
 } from '../../../../../../../../../../../../../core/dto/request-dto/module/enums/ModuleCreateStatus';
-import {FormErrorHandler} from '../../../../../../../../../../../../../core/helpers/FormErrorHandler';
+import {FormErrorHandler} from '../../../../../../../../../../../../../shared/utils/helpers/FormErrorHandler';
 import {InputComponent} from '../../../../../../../../../../../../../shared/ui/input/input.component';
 import {
   SelectComponent,

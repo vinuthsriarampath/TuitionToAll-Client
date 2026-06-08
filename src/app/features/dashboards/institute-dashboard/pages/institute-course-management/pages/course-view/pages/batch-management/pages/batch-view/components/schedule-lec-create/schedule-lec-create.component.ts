@@ -2,11 +2,11 @@ import {Component, Inject, inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {AlertService} from '../../../../../../../../../../../../../core/services/alerts/alert.service';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {FormErrorHandler} from '../../../../../../../../../../../../../core/helpers/FormErrorHandler';
+import {FormErrorHandler} from '../../../../../../../../../../../../../shared/utils/helpers/FormErrorHandler';
 import {
   ScheduleLectureService
 } from '../../../../../../../../../../../../../core/services/schedule-lecture/schedule-lecture.service';
-import {getDate, getDateTime, getTime} from '../../../../../../../../../../../../../core/helpers/date-helper';
+import {getDate, getDateTime, getTime} from '../../../../../../../../../../../../../shared/utils/helpers/date-helper';
 import {
   ScheduleLectureCreateStatus
 } from '../../../../../../../../../../../../../core/dto/request-dto/schedule-leactures/enums/ScheduleLectureStatus';

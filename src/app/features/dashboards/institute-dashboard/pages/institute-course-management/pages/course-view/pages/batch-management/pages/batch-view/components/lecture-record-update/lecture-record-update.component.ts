@@ -8,7 +8,7 @@ import {
 } from '../../../../../../../../../../../../../core/services/lecture-record/lecture-record.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {AlertService} from '../../../../../../../../../../../../../core/services/alerts/alert.service';
-import {FormErrorHandler} from '../../../../../../../../../../../../../core/helpers/FormErrorHandler';
+import {FormErrorHandler} from '../../../../../../../../../../../../../shared/utils/helpers/FormErrorHandler';
 import {
   LectureRecordDetailsUpdateRequest
 } from '../../../../../../../../../../../../../core/dto/request-dto/lecture-record/LectureRecordDetailsUpdateRequest';

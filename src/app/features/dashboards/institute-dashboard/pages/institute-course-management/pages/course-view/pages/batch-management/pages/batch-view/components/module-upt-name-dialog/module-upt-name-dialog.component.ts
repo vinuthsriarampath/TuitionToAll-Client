@@ -11,7 +11,7 @@ import {InputComponent} from '../../../../../../../../../../../../../shared/ui/i
 import {
   ModuleNameUpdateRequest
 } from '../../../../../../../../../../../../../core/dto/request-dto/module/ModuleNameUpdateRequest';
-import {FormErrorHandler} from '../../../../../../../../../../../../../core/helpers/FormErrorHandler';
+import {FormErrorHandler} from '../../../../../../../../../../../../../shared/utils/helpers/FormErrorHandler';
 
 export type ModuleUptNameDialogData = {
   moduleId:number,

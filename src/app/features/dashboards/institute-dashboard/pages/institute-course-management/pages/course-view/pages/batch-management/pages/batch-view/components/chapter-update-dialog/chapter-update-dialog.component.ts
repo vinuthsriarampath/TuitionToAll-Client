@@ -13,7 +13,7 @@ import {
 import {
   ChapterDetailsUpdateRequest
 } from '../../../../../../../../../../../../../core/dto/request-dto/chapter/ChapterDetailsUpdateRequest';
-import {FormErrorHandler} from '../../../../../../../../../../../../../core/helpers/FormErrorHandler';
+import {FormErrorHandler} from '../../../../../../../../../../../../../shared/utils/helpers/FormErrorHandler';
 import {BookOpen} from 'lucide-angular';
 import {
   DialogLayoutComponent

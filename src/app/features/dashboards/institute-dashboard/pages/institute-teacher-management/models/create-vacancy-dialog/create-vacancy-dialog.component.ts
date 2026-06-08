@@ -2,8 +2,8 @@ import {Component, inject} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
 import {QuillEditorComponent} from 'ngx-quill';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {getDateTime} from '../../../../../../../core/helpers/date-helper';
-import {isFutureDate} from '../../../../../../../core/helpers/form-custom-validators';
+import {getDateTime} from '../../../../../../../shared/utils/helpers/date-helper';
+import {isFutureDate} from '../../../../../../../shared/utils/validators/form-custom-validators';
 import {TeacherVacancyService} from '../../../../../../../core/services/teacher-vacancy/teacher-vacancy.service';
 import {
   TeacherVacancyCreateRequest

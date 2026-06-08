@@ -2,7 +2,7 @@ import {Component, Inject, inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {AlertService} from '../../../../../../../../../../../../../core/services/alerts/alert.service';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {FormErrorHandler} from '../../../../../../../../../../../../../core/helpers/FormErrorHandler';
+import {FormErrorHandler} from '../../../../../../../../../../../../../shared/utils/helpers/FormErrorHandler';
 import {
   ScheduleLectureService
 } from '../../../../../../../../../../../../../core/services/schedule-lecture/schedule-lecture.service';

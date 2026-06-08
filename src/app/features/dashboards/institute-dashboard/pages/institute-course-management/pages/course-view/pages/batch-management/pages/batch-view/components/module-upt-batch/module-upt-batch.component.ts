@@ -9,7 +9,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {AlertService} from '../../../../../../../../../../../../../core/services/alerts/alert.service';
 import {ModuleService} from '../../../../../../../../../../../../../core/services/module/module.service';
 import {BatchService} from '../../../../../../../../../../../../../core/services/batch/batch.service';
-import {FormErrorHandler} from '../../../../../../../../../../../../../core/helpers/FormErrorHandler';
+import {FormErrorHandler} from '../../../../../../../../../../../../../shared/utils/helpers/FormErrorHandler';
 import {
   ModuleBatchUpdateRequest
 } from '../../../../../../../../../../../../../core/dto/request-dto/module/ModuleBatchUpdateRequest';

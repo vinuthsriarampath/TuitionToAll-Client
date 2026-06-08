@@ -11,13 +11,13 @@ import {
 import {Upload} from 'lucide-angular';
 import {InputComponent} from '../../../../../../../../../../../../../shared/ui/input/input.component';
 import {NgIf} from '@angular/common';
-import {getDate} from '../../../../../../../../../../../../../core/helpers/date-helper';
+import {getDate} from '../../../../../../../../../../../../../shared/utils/helpers/date-helper';
 import {HttpEventType} from '@angular/common/http';
 import {
   LectureRecordUploadInitRequest
 } from '../../../../../../../../../../../../../core/dto/request-dto/lecture-record/LectureRecordUploadInitRequest';
 import {lastValueFrom} from 'rxjs';
-import {FormErrorHandler} from '../../../../../../../../../../../../../core/helpers/FormErrorHandler';
+import {FormErrorHandler} from '../../../../../../../../../../../../../shared/utils/helpers/FormErrorHandler';
 
 @Component({
   selector: 'app-lecture-record-upload',

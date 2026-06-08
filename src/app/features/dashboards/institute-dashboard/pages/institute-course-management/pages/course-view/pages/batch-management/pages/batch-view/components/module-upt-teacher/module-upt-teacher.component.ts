@@ -8,7 +8,7 @@ import {SelectComponent, SelectOption} from "../../../../../../../../../../../..
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {AlertService} from '../../../../../../../../../../../../../core/services/alerts/alert.service';
 import {ModuleService} from '../../../../../../../../../../../../../core/services/module/module.service';
-import {FormErrorHandler} from '../../../../../../../../../../../../../core/helpers/FormErrorHandler';
+import {FormErrorHandler} from '../../../../../../../../../../../../../shared/utils/helpers/FormErrorHandler';
 import {
   InstituteTeacherService
 } from '../../../../../../../../../../../../../core/services/institute-teacher/institute-teacher.service';

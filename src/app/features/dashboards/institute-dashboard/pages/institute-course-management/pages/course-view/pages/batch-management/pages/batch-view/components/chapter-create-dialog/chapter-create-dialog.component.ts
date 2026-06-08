@@ -13,7 +13,7 @@ import {BookOpen} from 'lucide-angular';
 import {
   ChapterCreateRequest
 } from '../../../../../../../../../../../../../core/dto/request-dto/chapter/ChapterCreateRequest';
-import {FormErrorHandler} from '../../../../../../../../../../../../../core/helpers/FormErrorHandler';
+import {FormErrorHandler} from '../../../../../../../../../../../../../shared/utils/helpers/FormErrorHandler';
 
 @Component({
   selector: 'app-chapter-create-dialog',

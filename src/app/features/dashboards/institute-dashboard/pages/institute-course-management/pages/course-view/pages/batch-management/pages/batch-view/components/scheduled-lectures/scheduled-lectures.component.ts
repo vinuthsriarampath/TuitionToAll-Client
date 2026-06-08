@@ -12,7 +12,7 @@ import {
 import {DatePipe} from '@angular/common';
 import {ScheduleLecUpdateComponent} from '../schedule-lec-update/schedule-lec-update.component';
 import {ScheduleLecBadgeComponent} from '../schedule-lec-badge/schedule-lec-badge.component';
-import {getDate, getTime} from '../../../../../../../../../../../../../core/helpers/date-helper';
+import {getDate, getTime} from '../../../../../../../../../../../../../shared/utils/helpers/date-helper';
 import {ScheduleLectureStatus} from '../../../../../../../../../../../../../core/enums/ScheduleLectureStatus';
 import {LucideAngularModule, RefreshCcw} from 'lucide-angular';
 

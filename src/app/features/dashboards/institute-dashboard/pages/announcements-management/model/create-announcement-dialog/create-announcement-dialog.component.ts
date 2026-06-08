@@ -16,7 +16,7 @@ import {
   AnnouncementCreateRequest
 } from '../../../../../../../core/dto/request-dto/announcement/AnnouncementCreateRequest';
 import {AnnouncementService} from '../../../../../../../core/services/announcements/announcement.service';
-import {getDateTime} from '../../../../../../../core/helpers/date-helper';
+import {getDateTime} from '../../../../../../../shared/utils/helpers/date-helper';
 import {CourseFilter} from '../../../../../../../core/dto/request-dto/course/course-filter';
 import {CourseStatus} from '../../../../../../../core/enums/course-status';
 import {UserService} from '../../../../../../../core/services/user/user.service';
