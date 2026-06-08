@@ -2,8 +2,8 @@ import {Component} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {NgClass, NgIf} from '@angular/common';
-import {AuthenticationService} from '../../../core/services/auth/authentication.service';
-import {AlertService} from '../../../core/services/alerts/alert.service';
+import {AuthenticationService} from '../../services/auth/authentication.service';
+import {AlertService} from '../../../../core/services/alerts/alert.service';
 
 @Component({
   selector: 'app-password-reset-page',

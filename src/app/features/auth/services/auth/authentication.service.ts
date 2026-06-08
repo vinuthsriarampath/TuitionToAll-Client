@@ -11,23 +11,23 @@
 
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {UserLoginRequest} from '../../dto/request-dto/login-dto/user-login-request';
-import {environment} from '../../../environment/environment.development';
-import {AuthResponse} from '../../dto/response-dto/auth-response';
+import {UserLoginRequest} from '../../dtos/request/user-login-request';
+import {environment} from '../../../../environment/environment.development';
+import {AuthResponse} from '../../dtos/responses/auth-response';
 import {
   StudentRegistrationRequest
-} from '../../dto/request-dto/registration-dto/sub-registration-dto/student-registration-request';
+} from '../../dtos/request/registration/sub-registration-dto/student-registration-request';
 import {
   TeacherRegistrationRequest
-} from '../../dto/request-dto/registration-dto/sub-registration-dto/teacher-registration-request';
+} from '../../dtos/request/registration/sub-registration-dto/teacher-registration-request';
 import {
   InstituteRegistrationRequest
-} from '../../dto/request-dto/registration-dto/sub-registration-dto/institute-registration-request';
-import {ApiResponse} from '../../dto/response-dto/api-response';
-import {User} from '../../models/user-models/user';
-import {Institute} from '../../models/user-models/institute';
-import {Teacher} from '../../models/user-models/teacher';
-import {Student} from '../../models/user-models/student';
+} from '../../dtos/request/registration/sub-registration-dto/institute-registration-request';
+import {ApiResponse} from '../../../../core/dto/response-dto/api-response';
+import {User} from '../../../../core/models/user-models/user';
+import {Institute} from '../../../../core/models/user-models/institute';
+import {Teacher} from '../../../../core/models/user-models/teacher';
+import {Student} from '../../../../core/models/user-models/student';
 
 @Injectable({
   providedIn: 'root'

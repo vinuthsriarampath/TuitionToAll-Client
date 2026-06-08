@@ -11,17 +11,17 @@
 
 import {Routes} from '@angular/router';
 import {LandingPageComponent} from './shared/pages/landing-page/landing-page.component';
-import {LoginPageComponent} from './features/auth/login-page/login-page.component';
+import {LoginPageComponent} from './features/auth/pages/login-page/login-page.component';
 import {tokenGuard} from './core/guards/token-guard/token.guard';
-import {SignupPageComponent} from './features/auth/signup-page/signup-page.component';
+import {SignupPageComponent} from './features/auth/pages/signup-page/signup-page.component';
 import {UnderDevelopmentPageComponent} from './shared/pages/under-development-page/under-development-page.component';
 import {authGuard} from './core/guards/auth-guard/auth.guard';
 import {UserProfileComponent} from './features/profile/user-profile/user-profile.component';
 import {PageNotFoundComponent} from './shared/pages/page-not-found/page-not-found.component';
 import {
   ResetPasswordRequestPageComponent
-} from './features/auth/reset-password-request-page/reset-password-request-page.component';
-import {PasswordResetPageComponent} from './features/auth/password-reset-page/password-reset-page.component';
+} from './features/auth/pages/reset-password-request-page/reset-password-request-page.component';
+import {PasswordResetPageComponent} from './features/auth/pages/password-reset-page/password-reset-page.component';
 import {AppComponent} from './features/app/app.component';
 import {FeedComponent} from './features/feed/feed.component';
 import {InstituteDashboardComponent} from './features/dashboards/institute-dashboard/institute-dashboard.component';

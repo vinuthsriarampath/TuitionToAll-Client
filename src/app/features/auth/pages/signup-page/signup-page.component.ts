@@ -13,20 +13,20 @@ import {Component} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {
   StudentRegistrationRequest
-} from '../../../core/dto/request-dto/registration-dto/sub-registration-dto/student-registration-request';
+} from '../../dtos/request/registration/sub-registration-dto/student-registration-request';
 import {
   InstituteRegistrationRequest
-} from '../../../core/dto/request-dto/registration-dto/sub-registration-dto/institute-registration-request';
+} from '../../dtos/request/registration/sub-registration-dto/institute-registration-request';
 import {
   TeacherRegistrationRequest
-} from '../../../core/dto/request-dto/registration-dto/sub-registration-dto/teacher-registration-request';
+} from '../../dtos/request/registration/sub-registration-dto/teacher-registration-request';
 import {CommonModule, NgClass} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
-import {AuthenticationService} from '../../../core/services/auth/authentication.service';
-import {ApiResponse} from '../../../core/dto/response-dto/api-response';
-import {Teacher} from '../../../core/models/user-models/teacher';
-import {Institute} from '../../../core/models/user-models/institute';
-import {Student} from '../../../core/models/user-models/student';
+import {AuthenticationService} from '../../services/auth/authentication.service';
+import {ApiResponse} from '../../../../core/dto/response-dto/api-response';
+import {Teacher} from '../../../../core/models/user-models/teacher';
+import {Institute} from '../../../../core/models/user-models/institute';
+import {Student} from '../../../../core/models/user-models/student';
 
 @Component({
   selector: 'app-signup-page',

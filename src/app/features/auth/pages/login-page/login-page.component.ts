@@ -11,11 +11,11 @@
 
 import {Component, inject} from '@angular/core';
 import {Router, RouterLink, RouterLinkActive} from '@angular/router';
-import {UserLoginRequest} from '../../../core/dto/request-dto/login-dto/user-login-request';
+import {UserLoginRequest} from '../../dtos/request/user-login-request';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {AuthenticationService} from '../../../core/services/auth/authentication.service';
-import {UserService} from '../../../core/services/user/user.service';
+import {AuthenticationService} from '../../services/auth/authentication.service';
+import {UserService} from '../../../../core/services/user/user.service';
 
 @Component({
   selector: 'app-login-dto-page',
