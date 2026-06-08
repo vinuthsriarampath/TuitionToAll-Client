@@ -3,10 +3,10 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Batch} from '../../models/batch';
 import {environment} from '../../../environment/environment.development';
-import {ApiResponse} from '../../dto/response-dto/api-response';
+import {ApiResponse} from '../../../shared/utils/response/api-response';
 import {BatchCreateRequest} from '../../dto/request-dto/batch/batch-create-request';
 import {BatchUpdateRequest} from '../../dto/request-dto/batch/batch-update-request';
-import {PaginatedApiResponse} from '../../dto/response-dto/paginated-api-response';
+import {PaginatedApiResponse} from '../../../shared/utils/response/paginated-api-response';
 import {ModuleResponse} from '../../dto/response-dto/module/ModuleResponse';
 
 @Injectable({

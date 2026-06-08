@@ -4,7 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {BatchService} from '../../../../../../../../../../../core/services/batch/batch.service';
 import {Batch} from '../../../../../../../../../../../core/models/batch';
 import {AlertService} from '../../../../../../../../../../../core/services/alerts/alert.service';
-import {ApiResponse} from '../../../../../../../../../../../core/dto/response-dto/api-response';
+import {ApiResponse} from '../../../../../../../../../../../shared/utils/response/api-response';
 import {MatDialog} from '@angular/material/dialog';
 import {UpdateBatchDialogComponent} from '../../models/update-batch-dialog/update-batch-dialog.component';
 import {PageLayoutComponent} from '../../../../../../../../../../../core/layouts/page-layout/page-layout.component';

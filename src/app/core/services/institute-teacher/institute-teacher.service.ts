@@ -1,13 +1,13 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {ApiResponse} from '../../dto/response-dto/api-response';
+import {ApiResponse} from '../../../shared/utils/response/api-response';
 import {environment} from '../../../environment/environment.development';
 import {ApplicationSelectionRequest} from '../../dto/request-dto/ApplicationSelectionRequest';
 import {ApplicationSelectionResponse} from '../../dto/response-dto/ApplicationSelectionResponse';
 import {ApplicationRejectionRequest} from '../../dto/request-dto/ApplicationRejectionRequest';
 import {ApplicationRejectionResponse} from '../../dto/response-dto/ApplicationRejectionResponse';
-import {PaginatedApiResponse} from '../../dto/response-dto/paginated-api-response';
+import {PaginatedApiResponse} from '../../../shared/utils/response/paginated-api-response';
 import {InstituteTeacherResponse} from '../../dto/response-dto/InstituteTeacherResponse';
 import {InstituteTeacherStatsResponse} from '../../dto/response-dto/InstituteTeacherStatsResponse';
 import {TeacherBasicResponse} from '../../dto/response-dto/TeacherBasicResponse';

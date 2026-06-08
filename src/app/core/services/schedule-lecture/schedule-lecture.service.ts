@@ -4,7 +4,7 @@ import {environment} from '../../../environment/environment.development';
 import {ScheduleLectureCreateRequest} from '../../dto/request-dto/schedule-leactures/ScheduleLectureCreateRequest';
 import {Observable} from 'rxjs';
 import {ScheduleLectureResponse} from '../../dto/response-dto/schedule-lectures/ScheduleLectureResponse';
-import { ApiResponse } from "../../dto/response-dto/api-response";
+import { ApiResponse } from "../../../shared/utils/response/api-response";
 import {ScheduleLectureUpdateRequest} from '../../dto/request-dto/schedule-leactures/ScheduleLectureUpdateRequest';
 
 @Injectable({

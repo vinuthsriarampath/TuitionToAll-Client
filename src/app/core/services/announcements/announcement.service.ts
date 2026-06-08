@@ -2,7 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment} from '../../../environment/environment.development';
 import {AnnouncementCreateRequest} from "../../dto/request-dto/announcement/AnnouncementCreateRequest";
-import {ApiResponse} from '../../dto/response-dto/api-response';
+import {ApiResponse} from '../../../shared/utils/response/api-response';
 import {Observable} from "rxjs";
 import {AnnouncementResponse} from '../../dto/response-dto/AnnouncementResponse';
 import {
@@ -10,7 +10,7 @@ import {
 } from '../../dto/request-dto/announcement/AnnouncementVisibilityUpdateRequest';
 import {AnnouncementUpdateRequest} from '../../dto/request-dto/announcement/AnnouncementUpdateRequest';
 import {AnnouncementFilterRequest} from '../../dto/request-dto/announcement/AnnouncementFilterRequest';
-import {PaginatedApiResponse} from '../../dto/response-dto/paginated-api-response';
+import {PaginatedApiResponse} from '../../../shared/utils/response/paginated-api-response';
 
 @Injectable({
   providedIn: 'root'

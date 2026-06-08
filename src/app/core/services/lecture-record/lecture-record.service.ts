@@ -2,7 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import {HttpClient, HttpEvent} from '@angular/common/http';
 import {environment} from '../../../environment/environment.development';
 import {LectureRecordUploadInitResponse} from '../../dto/response-dto/lecture-record/LectureRecordUploadInitResponse';
-import {ApiResponse} from '../../dto/response-dto/api-response';
+import {ApiResponse} from '../../../shared/utils/response/api-response';
 import {Observable} from 'rxjs';
 import {LectureRecordUploadInitRequest} from '../../dto/request-dto/lecture-record/LectureRecordUploadInitRequest';
 import {LectureRecordChunkUploadResponse} from '../../dto/response-dto/lecture-record/LectureRecordChunkUploadResponse';

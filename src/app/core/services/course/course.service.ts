@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {ApiResponse} from '../../dto/response-dto/api-response';
+import {ApiResponse} from '../../../shared/utils/response/api-response';
 import {environment} from '../../../environment/environment.development';
 import {CourseCreate} from '../../dto/request-dto/course/course-create';
 import {Course} from '../../models/course';

@@ -1,10 +1,10 @@
 import {inject, Injectable} from '@angular/core';
 import { Observable } from "rxjs";
-import { PaginatedApiResponse } from "../../dto/response-dto/paginated-api-response";
+import { PaginatedApiResponse } from "../../../shared/utils/response/paginated-api-response";
 import {ModuleResponse} from '../../dto/response-dto/module/ModuleResponse';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {ModuleFilterRequest} from '../../dto/request-dto/module/ModuleFilterRequest';
-import {ApiResponse} from '../../dto/response-dto/api-response';
+import {ApiResponse} from '../../../shared/utils/response/api-response';
 import {ModuleNameUpdateRequest} from '../../dto/request-dto/module/ModuleNameUpdateRequest';
 import {ModuleCreateRequest} from '../../dto/request-dto/module/ModuleCreateRequest';
 import {environment} from '../../../environment/environment.development';

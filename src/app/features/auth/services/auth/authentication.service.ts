@@ -23,7 +23,7 @@ import {
 import {
   InstituteRegistrationRequest
 } from '../../dtos/request/registration/sub-registration-dto/institute-registration-request';
-import {ApiResponse} from '../../../../core/dto/response-dto/api-response';
+import {ApiResponse} from '../../../../shared/utils/response/api-response';
 import {User} from '../../../profile/dtos/response/user';
 import {Institute} from '../../../profile/dtos/response/institute';
 import {Teacher} from '../../../profile/dtos/response/teacher';
