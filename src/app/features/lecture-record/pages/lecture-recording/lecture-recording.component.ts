@@ -1,15 +1,15 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {CardShellComponent} from '../../../../../../../../../../../../../shared/ui/card-shell/card-shell.component';
+import {CardShellComponent} from '../../../../shared/ui/card-shell/card-shell.component';
 import {MatDialog} from '@angular/material/dialog';
-import {LectureRecordUploadComponent} from '../lecture-record-upload/lecture-record-upload.component';
+import {LectureRecordUploadComponent} from '../../dialogs/lecture-record-upload/lecture-record-upload.component';
 import {ActivatedRoute, RouterLink} from '@angular/router';
-import {AlertService} from '../../../../../../../../../../../../../core/services/alerts/alert.service';
+import {AlertService} from '../../../../core/services/alerts/alert.service';
 import {
   LectureRecordResponse
-} from '../../../../../../../../../../../../../core/dto/response-dto/lecture-record/LectureRecordResponse';
-import {ChapterService} from '../../../../../../../../../../../../../core/services/chapter/chapter.service';
+} from '../../dtos/response/LectureRecordResponse';
+import {ChapterService} from '../../../../core/services/chapter/chapter.service';
 import {DatePipe} from '@angular/common';
-import {LectureRecordUpdateComponent} from '../lecture-record-update/lecture-record-update.component';
+import {LectureRecordUpdateComponent} from '../../dialogs/lecture-record-update/lecture-record-update.component';
 
 @Component({
   selector: 'app-lecture-recording',

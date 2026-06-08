@@ -10,7 +10,7 @@ import {ChapterHeaderComponent} from '../chapter-header/chapter-header.component
 import {CardShellComponent} from '../../../../../../../../../../../../../shared/ui/card-shell/card-shell.component';
 import {ChapterStatRowComponent} from '../chapter-stat-row/chapter-stat-row.component';
 import {ChapterOverviewComponent} from '../chapter-overview/chapter-overview.component';
-import {LectureRecordingComponent} from '../lecture-recording/lecture-recording.component';
+import {LectureRecordingComponent} from '../../../../../../../../../../../../lecture-record/pages/lecture-recording/lecture-recording.component';
 import {ResourcesComponent} from '../../../../../../../../../../../../resources/pages/resources/resources.component';
 import {ScheduledLecturesComponent} from '../../../../../../../../../../../../schedule-lectures/pages/scheduled-lectures/scheduled-lectures.component';
 

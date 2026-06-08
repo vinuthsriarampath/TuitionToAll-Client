@@ -72,7 +72,7 @@ import {
 } from './features/dashboards/institute-dashboard/pages/institute-course-management/pages/course-view/pages/batch-management/pages/batch-view/components/chapter-view/chapter-view.component';
 import {
   LectureRecordWatchComponent
-} from './features/dashboards/institute-dashboard/pages/institute-course-management/pages/course-view/pages/batch-management/pages/batch-view/components/lecture-record-watch/lecture-record-watch.component';
+} from './features/lecture-record/pages/lecture-record-watch/lecture-record-watch.component';
 
 
 export const routes: Routes = [

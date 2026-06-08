@@ -1,18 +1,18 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ArrowLeft, LucideAngularModule} from 'lucide-angular';
-import {CardShellComponent} from '../../../../../../../../../../../../../shared/ui/card-shell/card-shell.component';
-import {CardHeaderComponent} from '../../../../../../../../../../../../../shared/ui/card-header/card-header.component';
-import {AlertService} from '../../../../../../../../../../../../../core/services/alerts/alert.service';
-import {ChapterService} from '../../../../../../../../../../../../../core/services/chapter/chapter.service';
+import {CardShellComponent} from '../../../../shared/ui/card-shell/card-shell.component';
+import {CardHeaderComponent} from '../../../../shared/ui/card-header/card-header.component';
+import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {ChapterService} from '../../../../core/services/chapter/chapter.service';
 import {
   LectureRecordResponse
-} from '../../../../../../../../../../../../../core/dto/response-dto/lecture-record/LectureRecordResponse';
+} from '../../dtos/response/LectureRecordResponse';
 import {DatePipe} from '@angular/common';
-import {environment} from '../../../../../../../../../../../../../environment/environment.development';
+import {environment} from '../../../../environment/environment.development';
 import {
   LectureRecordService
-} from '../../../../../../../../../../../../../core/services/lecture-record/lecture-record.service';
+} from '../../services/lecture-record/lecture-record.service';
 import {combineLatest} from 'rxjs';
 
 @Component({

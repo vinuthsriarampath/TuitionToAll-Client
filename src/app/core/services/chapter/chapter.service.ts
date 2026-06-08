@@ -8,7 +8,7 @@ import {ChapterResponse} from '../../dto/response-dto/chapter/ChapterResponse';
 import {ChapterDetailsUpdateRequest} from '../../dto/request-dto/chapter/ChapterDetailsUpdateRequest';
 import {ChapterReorderRequest} from '../../dto/request-dto/chapter/ChapterReorderRequest';
 import {ChapterDetailedResponse} from '../../dto/response-dto/chapter/ChapterDetailedResponse';
-import {LectureRecordResponse} from '../../dto/response-dto/lecture-record/LectureRecordResponse';
+import {LectureRecordResponse} from '../../../features/lecture-record/dtos/response/LectureRecordResponse';
 import {ScheduleLectureFilterRequest} from '../../../features/schedule-lectures/dtos/request/ScheduleLectureFilterRequest';
 import {PaginatedApiResponse} from '../../../shared/utils/response/paginated-api-response';
 import {ScheduleLectureResponse} from '../../../features/schedule-lectures/dtos/response/ScheduleLectureResponse';
