@@ -1,8 +1,9 @@
-import {CourseLevel} from '../../../enums/course-level';
-import {CourseCategory} from '../../../enums/course-category';
-import {CourseStatus} from '../../../enums/course-status';
-import {CourseLanguage} from '../../../enums/course-language';
-import {CourseMode} from '../../../enums/course-mode';
+import { CourseLevel } from "@features/course/enums/course-level";
+import {CourseCategory} from '@features/course/enums/course-category';
+import {CourseStatus} from '@features/course/enums/course-status';
+import {CourseLanguage} from '@features/course/enums/course-language';
+import {CourseMode} from '@features/course/enums/course-mode';
+
 
 export class CourseUpdate{
   title?:string;
