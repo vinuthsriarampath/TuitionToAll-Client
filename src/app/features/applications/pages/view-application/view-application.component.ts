@@ -22,7 +22,7 @@ import {
 import {DatePipe, NgClass, NgIf} from '@angular/common';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from '@angular/material/sidenav';
-import {environment} from '../../../../environment/environment.development';
+import {environment} from '../../../../../environment/environment.development';
 import {ApplicationStatus} from '../../enums/application-status';
 import {SelectionModel} from '@angular/cdk/collections';
 import {

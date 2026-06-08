@@ -4,7 +4,7 @@ import {TeacherVacancyCreateRequest} from '../../dtos/request/teacher-vacancy-cr
 import {Observable} from 'rxjs';
 import {ApiResponse} from '../../../../shared/utils/response/api-response';
 import {TeacherVacancy} from '../../dtos/response/teacher-vacancy';
-import {environment} from '../../../../environment/environment.development';
+import {environment} from '../../../../../environment/environment.development';
 import {PaginatedApiResponse} from '../../../../shared/utils/response/paginated-api-response';
 import {TeacherVacancyStatus} from '../../enums/teacher-vacancy-status';
 

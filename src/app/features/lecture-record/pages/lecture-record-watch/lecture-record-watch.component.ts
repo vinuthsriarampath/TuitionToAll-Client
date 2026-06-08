@@ -9,7 +9,7 @@ import {
   LectureRecordResponse
 } from '../../dtos/response/LectureRecordResponse';
 import {DatePipe} from '@angular/common';
-import {environment} from '../../../../environment/environment.development';
+import {environment} from '../../../../../environment/environment.development';
 import {
   LectureRecordService
 } from '../../services/lecture-record/lecture-record.service';

@@ -17,7 +17,7 @@ import {ResourceResponse} from '../../dtos/response/ResourceResponse';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {Download, LucideAngularModule, Pencil, RefreshCw} from 'lucide-angular';
 import {ResourceService} from '../../services/resource/resource.service';
-import {environment} from '../../../../environment/environment.development';
+import {environment} from '../../../../../environment/environment.development';
 import {ResourceCreateComponent} from '../../dialogs/resource-create/resource-create.component';
 
 @Component({

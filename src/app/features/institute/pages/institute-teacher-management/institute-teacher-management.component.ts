@@ -23,7 +23,7 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {InstituteTeacherService} from '../../services/institute-teacher/institute-teacher.service';
 import {InstituteTeacherResponse} from '../../dtos/response/InstituteTeacherResponse';
 import {AlertService} from '../../../../core/services/alerts/alert.service';
-import {environment} from '../../../../environment/environment.development';
+import {environment} from '../../../../../environment/environment.development';
 import {ApplicationStatus} from '../../../applications/enums/application-status';
 import {InstituteTeacherStatus} from '../../enums/InstituteTeacherStatus';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';

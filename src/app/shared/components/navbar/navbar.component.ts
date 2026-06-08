@@ -5,7 +5,7 @@ import {FormsModule} from '@angular/forms';
 import {Student} from '../../../features/profile/dtos/response/student';
 import {Teacher} from '../../../features/profile/dtos/response/teacher';
 import {Institute} from '../../../features/profile/dtos/response/institute';
-import {environment} from '../../../environment/environment.development';
+import {environment} from '../../../../environment/environment.development';
 import {NavbarSearchComponent} from './navbar-search/navbar-search.component';
 import {Bell, House, LayoutDashboard, LucideAngularModule, MessageSquareText, Search, Users} from 'lucide-angular';
 import {User} from '../../../features/profile/dtos/response/user';

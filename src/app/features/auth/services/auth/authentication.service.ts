@@ -12,7 +12,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {UserLoginRequest} from '../../dtos/request/user-login-request';
-import {environment} from '../../../../environment/environment.development';
+import {environment} from '../../../../../environment/environment.development';
 import {AuthResponse} from '../../dtos/responses/auth-response';
 import {
   StudentRegistrationRequest

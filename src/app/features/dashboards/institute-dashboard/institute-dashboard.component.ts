@@ -17,7 +17,7 @@ import {UserService} from '../../profile/services/user/user.service';
 import {AlertService} from '../../../core/services/alerts/alert.service';
 import {User} from '../../profile/dtos/response/user';
 import {NgClass, NgOptimizedImage} from '@angular/common';
-import {environment} from '../../../environment/environment.development';
+import {environment} from '../../../../environment/environment.development';
 import {SidebarMenuItem} from '../types/sidebar-menu-item';
 
 @Component({

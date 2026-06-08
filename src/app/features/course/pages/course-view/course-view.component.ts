@@ -4,7 +4,7 @@ import {CourseService} from '../../../../../../../core/services/course/course.se
 import {AlertService} from '../../../../core/services/alerts/alert.service';
 import {Course} from '../../../../../../../core/models/course';
 import {CurrencyPipe, NgClass, NgOptimizedImage} from '@angular/common';
-import {environment} from '../../../../environment/environment.development';
+import {environment} from '../../../../../environment/environment.development';
 import {
   CourseAnnouncementListComponent
 } from '../../components/course-announcement-list/course-announcement-list.component';

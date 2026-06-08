@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {environment} from '../../../../environment/environment.development';
+import {environment} from '../../../../../environment/environment.development';
 import {ScheduleLectureCreateRequest} from '../../dtos/request/ScheduleLectureCreateRequest';
 import {Observable} from 'rxjs';
 import {ScheduleLectureResponse} from '../../dtos/response/ScheduleLectureResponse';

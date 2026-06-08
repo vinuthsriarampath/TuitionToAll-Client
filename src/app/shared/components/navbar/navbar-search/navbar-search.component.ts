@@ -2,7 +2,7 @@ import {Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewCh
 import {NgForOf, NgIf} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 import {SearchResponse} from '../../../utils/response/search-response';
-import {environment} from '../../../../environment/environment.development';
+import {environment} from '../../../../../environment/environment.development';
 import {RouterLink} from '@angular/router';
 
 @Component({
