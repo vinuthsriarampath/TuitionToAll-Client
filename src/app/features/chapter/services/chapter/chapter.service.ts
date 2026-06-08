@@ -1,19 +1,19 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {environment} from '../../../environment/environment.development';
-import { ChapterCreateRequest } from "../../dto/request-dto/chapter/ChapterCreateRequest";
+import {environment} from '../../../../environment/environment.development';
+import { ChapterCreateRequest } from "../../dtos/request/ChapterCreateRequest";
 import {Observable} from 'rxjs';
-import {ApiResponse} from '../../../shared/utils/response/api-response';
-import {ChapterResponse} from '../../dto/response-dto/chapter/ChapterResponse';
-import {ChapterDetailsUpdateRequest} from '../../dto/request-dto/chapter/ChapterDetailsUpdateRequest';
-import {ChapterReorderRequest} from '../../dto/request-dto/chapter/ChapterReorderRequest';
-import {ChapterDetailedResponse} from '../../dto/response-dto/chapter/ChapterDetailedResponse';
-import {LectureRecordResponse} from '../../../features/lecture-record/dtos/response/LectureRecordResponse';
-import {ScheduleLectureFilterRequest} from '../../../features/schedule-lectures/dtos/request/ScheduleLectureFilterRequest';
-import {PaginatedApiResponse} from '../../../shared/utils/response/paginated-api-response';
-import {ScheduleLectureResponse} from '../../../features/schedule-lectures/dtos/response/ScheduleLectureResponse';
-import {ResourceResponse} from '../../../features/resources/dtos/response/ResourceResponse';
-import {ResourceFilterRequest} from '../../../features/resources/dtos/request/ResourceFilterRequest';
+import {ApiResponse} from '../../../../shared/utils/response/api-response';
+import {ChapterResponse} from '../../dtos/response/ChapterResponse';
+import {ChapterDetailsUpdateRequest} from '../../dtos/request/ChapterDetailsUpdateRequest';
+import {ChapterReorderRequest} from '../../dtos/request/ChapterReorderRequest';
+import {ChapterDetailedResponse} from '../../dtos/response/ChapterDetailedResponse';
+import {LectureRecordResponse} from '../../../lecture-record/dtos/response/LectureRecordResponse';
+import {ScheduleLectureFilterRequest} from '../../../schedule-lectures/dtos/request/ScheduleLectureFilterRequest';
+import {PaginatedApiResponse} from '../../../../shared/utils/response/paginated-api-response';
+import {ScheduleLectureResponse} from '../../../schedule-lectures/dtos/response/ScheduleLectureResponse';
+import {ResourceResponse} from '../../../resources/dtos/response/ResourceResponse';
+import {ResourceFilterRequest} from '../../../resources/dtos/request/ResourceFilterRequest';
 
 @Injectable({
   providedIn: 'root'

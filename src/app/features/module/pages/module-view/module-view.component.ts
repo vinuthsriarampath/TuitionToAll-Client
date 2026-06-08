@@ -11,8 +11,8 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {ArrowLeft, Edit, LucideAngularModule, Pen, Plus} from 'lucide-angular';
 import {MatDialog} from '@angular/material/dialog';
 import {ModuleUpdateViewComponent} from '../../dialogs/module-update-view/module-update-view.component';
-import {ChapterListComponent} from '../../../dashboards/institute-dashboard/pages/institute-course-management/pages/course-view/pages/batch-management/pages/batch-view/components/chapter-list/chapter-list.component';
-import {ChapterCreateDialogComponent} from '../../../dashboards/institute-dashboard/pages/institute-course-management/pages/course-view/pages/batch-management/pages/batch-view/components/chapter-create-dialog/chapter-create-dialog.component';
+import {ChapterListComponent} from '../../../chapter/components/chapter-list/chapter-list.component';
+import {ChapterCreateDialogComponent} from '../../../chapter/dialogs/chapter-create-dialog/chapter-create-dialog.component';
 
 @Component({
   selector: 'app-module-view',

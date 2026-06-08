@@ -5,7 +5,7 @@ import {ScheduleLecCreateComponent} from '../../dialogs/schedule-lec-create/sche
 import {ActivatedRoute} from '@angular/router';
 import {AlertService} from '../../../../core/services/alerts/alert.service';
 import {CardHeaderComponent} from '../../../../shared/ui/card-header/card-header.component';
-import {ChapterService} from '../../../../core/services/chapter/chapter.service';
+import {ChapterService} from '../../../chapter/services/chapter/chapter.service';
 import {
   ScheduleLectureResponse
 } from '../../dtos/response/ScheduleLectureResponse';

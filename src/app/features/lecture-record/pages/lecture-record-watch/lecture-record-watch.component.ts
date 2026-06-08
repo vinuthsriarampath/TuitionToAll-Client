@@ -4,7 +4,7 @@ import {ArrowLeft, LucideAngularModule} from 'lucide-angular';
 import {CardShellComponent} from '../../../../shared/ui/card-shell/card-shell.component';
 import {CardHeaderComponent} from '../../../../shared/ui/card-header/card-header.component';
 import {AlertService} from '../../../../core/services/alerts/alert.service';
-import {ChapterService} from '../../../../core/services/chapter/chapter.service';
+import {ChapterService} from '../../../chapter/services/chapter/chapter.service';
 import {
   LectureRecordResponse
 } from '../../dtos/response/LectureRecordResponse';

@@ -1,5 +1,5 @@
-import {ChapterStatus} from '../../../enums/ChapterStatus';
-import {ModuleResponse} from '../../../../features/module/dtos/response/ModuleResponse';
+import {ChapterStatus} from '../../enums/ChapterStatus';
+import {ModuleResponse} from '../../../module/dtos/response/ModuleResponse';
 
 export class ChapterDetailedResponse{
   id!: number;

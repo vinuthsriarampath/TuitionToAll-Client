@@ -69,7 +69,7 @@ import {
 } from './features/module/pages/module-view/module-view.component';
 import {
   ChapterViewComponent
-} from './features/dashboards/institute-dashboard/pages/institute-course-management/pages/course-view/pages/batch-management/pages/batch-view/components/chapter-view/chapter-view.component';
+} from './features/chapter/pages/chapter-view/chapter-view.component';
 import {
   LectureRecordWatchComponent
 } from './features/lecture-record/pages/lecture-record-watch/lecture-record-watch.component';

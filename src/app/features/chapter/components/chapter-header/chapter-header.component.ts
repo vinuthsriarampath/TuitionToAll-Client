@@ -1,7 +1,7 @@
 import {Component, input} from '@angular/core';
 import {ChapterBadgeComponent} from "../chapter-badge/chapter-badge.component";
 import {DatePipe} from "@angular/common";
-import {ChapterStatus} from '../../../../../../../../../../../../../core/enums/ChapterStatus';
+import {ChapterStatus} from '../../enums/ChapterStatus';
 
 @Component({
   selector: 'app-chapter-header',

@@ -1,18 +1,18 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {
   ChapterDetailedResponse
-} from '../../../../../../../../../../../../../core/dto/response-dto/chapter/ChapterDetailedResponse';
-import {ChapterService} from '../../../../../../../../../../../../../core/services/chapter/chapter.service';
+} from '../../dtos/response/ChapterDetailedResponse';
+import {ChapterService} from '../../services/chapter/chapter.service';
 import {ActivatedRoute} from '@angular/router';
-import {AlertService} from '../../../../../../../../../../../../../core/services/alerts/alert.service';
+import {AlertService} from '../../../../core/services/alerts/alert.service';
 import {ArrowLeft, LucideAngularModule} from 'lucide-angular';
-import {ChapterHeaderComponent} from '../chapter-header/chapter-header.component';
-import {CardShellComponent} from '../../../../../../../../../../../../../shared/ui/card-shell/card-shell.component';
-import {ChapterStatRowComponent} from '../chapter-stat-row/chapter-stat-row.component';
-import {ChapterOverviewComponent} from '../chapter-overview/chapter-overview.component';
-import {LectureRecordingComponent} from '../../../../../../../../../../../../lecture-record/pages/lecture-recording/lecture-recording.component';
-import {ResourcesComponent} from '../../../../../../../../../../../../resources/pages/resources/resources.component';
-import {ScheduledLecturesComponent} from '../../../../../../../../../../../../schedule-lectures/pages/scheduled-lectures/scheduled-lectures.component';
+import {ChapterHeaderComponent} from '../../components/chapter-header/chapter-header.component';
+import {CardShellComponent} from '../../../../shared/ui/card-shell/card-shell.component';
+import {ChapterStatRowComponent} from '../../components/chapter-stat-row/chapter-stat-row.component';
+import {ChapterOverviewComponent} from '../../components/chapter-overview/chapter-overview.component';
+import {LectureRecordingComponent} from '../../../lecture-record/pages/lecture-recording/lecture-recording.component';
+import {ResourcesComponent} from '../../../resources/pages/resources/resources.component';
+import {ScheduledLecturesComponent} from '../../../schedule-lectures/pages/scheduled-lectures/scheduled-lectures.component';
 
 @Component({
   selector: 'app-chapter-view',

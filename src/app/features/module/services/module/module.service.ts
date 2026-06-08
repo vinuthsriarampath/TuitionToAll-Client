@@ -11,7 +11,7 @@ import {environment} from '../../../../environment/environment.development';
 import {ModuleTeacherUpdateRequest} from '../../dtos/request/ModuleTeacherUpdateRequest';
 import {ModuleBatchUpdateRequest} from '../../dtos/request/ModuleBatchUpdateRequest';
 import {ModuleDetailedResponse} from '../../dtos/response/ModuleDetailedResponse';
-import {ChapterResponse} from '../../../../core/dto/response-dto/chapter/ChapterResponse';
+import {ChapterResponse} from '../../../chapter/dtos/response/ChapterResponse';
 
 @Injectable({
   providedIn: 'root'

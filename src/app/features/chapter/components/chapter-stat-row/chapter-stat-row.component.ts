@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {StatCardComponent} from '../../../../../../../../../../../../../shared/ui/stat-card/stat-card.component';
+import {StatCardComponent} from '../../../../shared/ui/stat-card/stat-card.component';
 
 @Component({
   selector: 'app-chapter-stat-row',

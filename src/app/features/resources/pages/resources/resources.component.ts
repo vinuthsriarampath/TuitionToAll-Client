@@ -1,6 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {CardShellComponent} from '../../../../shared/ui/card-shell/card-shell.component';
-import {ChapterService} from '../../../../core/services/chapter/chapter.service';
+import {ChapterService} from '../../../chapter/services/chapter/chapter.service';
 import {AlertService} from '../../../../core/services/alerts/alert.service';
 import {ActivatedRoute} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';

@@ -1,23 +1,23 @@
 import {Component, inject, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {ChapterResponse} from '../../../../../../../../../../../../../core/dto/response-dto/chapter/ChapterResponse';
+import {ChapterResponse} from '../../dtos/response/ChapterResponse';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {ChapterService} from '../../../../../../../../../../../../../core/services/chapter/chapter.service';
-import {AlertService} from '../../../../../../../../../../../../../core/services/alerts/alert.service';
-import {InputComponent} from '../../../../../../../../../../../../../shared/ui/input/input.component';
-import {SelectComponent, SelectOption} from '../../../../../../../../../../../../../shared/ui/select/select.component';
-import {ChapterStatus} from '../../../../../../../../../../../../../core/enums/ChapterStatus';
+import {ChapterService} from '../../services/chapter/chapter.service';
+import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {InputComponent} from '../../../../shared/ui/input/input.component';
+import {SelectComponent, SelectOption} from '../../../../shared/ui/select/select.component';
+import {ChapterStatus} from '../../enums/ChapterStatus';
 import {
   ChapterCreateRequest
-} from '../../../../../../../../../../../../../core/dto/request-dto/chapter/ChapterCreateRequest';
+} from '../../dtos/request/ChapterCreateRequest';
 import {
   ChapterDetailsUpdateRequest
-} from '../../../../../../../../../../../../../core/dto/request-dto/chapter/ChapterDetailsUpdateRequest';
-import {FormErrorHandler} from '../../../../../../../../../../../../../shared/utils/helpers/FormErrorHandler';
+} from '../../dtos/request/ChapterDetailsUpdateRequest';
+import {FormErrorHandler} from '../../../../shared/utils/helpers/FormErrorHandler';
 import {BookOpen} from 'lucide-angular';
 import {
   DialogLayoutComponent
-} from '../../../../../../../../../../../../../core/layouts/dialog-layout/dialog-layout.component';
+} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
 
 @Component({
   selector: 'app-chapter-update-dialog',

@@ -1,7 +1,7 @@
 import {Component, input} from '@angular/core';
-import {ChapterStatus} from '../../../../../../../../../../../../../core/enums/ChapterStatus';
-import {BadgeComponent} from '../../../../../../../../../../../../../shared/ui/badge/badge.component';
-import {ModuleStatus} from '../../../../../../../../../../../../module/enums/ModuleStatus';
+import {ChapterStatus} from '../../enums/ChapterStatus';
+import {BadgeComponent} from '../../../../shared/ui/badge/badge.component';
+import {ModuleStatus} from '../../../module/enums/ModuleStatus';
 
 @Component({
   selector: 'app-chapter-badge',

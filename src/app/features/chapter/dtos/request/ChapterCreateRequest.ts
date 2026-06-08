@@ -1,4 +1,4 @@
-import {ChapterStatus} from '../../../enums/ChapterStatus';
+import {ChapterStatus} from '../../enums/ChapterStatus';
 
 export class ChapterCreateRequest {
   moduleId!: number;
