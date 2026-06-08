@@ -19,7 +19,7 @@ import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {DatePipe} from '@angular/common';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatDialog} from '@angular/material/dialog';
-import {CreateModuleDialogComponent} from '../../../dashboards/institute-dashboard/pages/institute-course-management/pages/course-view/pages/batch-management/pages/batch-view/components/create-module-dialog/create-module-dialog.component';
+import {CreateModuleDialogComponent} from '../../dialogs/create-module-dialog/create-module-dialog.component';
 import {RouterLink} from '@angular/router';
 import {ModuleUpdateViewComponent} from '../../dialogs/module-update-view/module-update-view.component';
 
