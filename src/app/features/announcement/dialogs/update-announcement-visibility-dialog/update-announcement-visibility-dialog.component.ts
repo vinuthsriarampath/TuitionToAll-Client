@@ -2,7 +2,7 @@ import {Component, Inject, inject, OnInit} from '@angular/core';
 import {Eye, LucideAngularModule} from 'lucide-angular';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {NgClass} from '@angular/common';
-import {AnnouncementVisibility} from '../../../../core/enums/AnnouncementVisibility';
+import {AnnouncementVisibility} from '../../enums/AnnouncementVisibility';
 import {AnnouncementService} from '../../services/announcements/announcement.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {AlertService} from '../../../../core/services/alerts/alert.service';

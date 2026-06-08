@@ -3,10 +3,10 @@ import {AnnouncementService} from '../../services/announcements/announcement.ser
 import {ActivatedRoute} from '@angular/router';
 import {AnnouncementResponse} from '../../dtos/response/AnnouncementResponse';
 import {AlertService} from '../../../../core/services/alerts/alert.service';
-import {AnnouncementVisibility} from '../../../../core/enums/AnnouncementVisibility';
+import {AnnouncementVisibility} from '../../enums/AnnouncementVisibility';
 import {DatePipe, NgClass} from '@angular/common';
 import {BookOpen, CalendarClock, LucideAngularModule, Pin, Users} from 'lucide-angular';
-import {AnnouncementStatus} from '../../../../core/enums/AnnouncementStatus';
+import {AnnouncementStatus} from '../../enums/AnnouncementStatus';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {QuillEditorComponent} from 'ngx-quill';
 import {PageLayoutComponent} from '../../../../core/layouts/page-layout/page-layout.component';

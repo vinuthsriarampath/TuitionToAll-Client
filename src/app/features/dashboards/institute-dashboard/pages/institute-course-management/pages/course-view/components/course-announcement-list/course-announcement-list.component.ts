@@ -5,7 +5,7 @@ import {AlertService} from '../../../../../../../../../core/services/alerts/aler
 import {
   AnnouncementFilterRequest
 } from '../../../../../../../../announcement/dtos/request/AnnouncementFilterRequest';
-import {AnnouncementStatus} from '../../../../../../../../../core/enums/AnnouncementStatus';
+import {AnnouncementStatus} from '../../../../../../../../announcement/enums/AnnouncementStatus';
 import {LucideAngularModule, Pin} from 'lucide-angular';
 import {NgClass} from '@angular/common';
 import {RouterLink} from '@angular/router';

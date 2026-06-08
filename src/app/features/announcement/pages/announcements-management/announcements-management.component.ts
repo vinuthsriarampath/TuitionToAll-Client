@@ -23,8 +23,8 @@ import {
   CreateAnnouncementDialogComponent
 } from './model/create-announcement-dialog/create-announcement-dialog.component';
 import {DatePipe, NgClass} from '@angular/common';
-import {AnnouncementStatus} from '../../../../core/enums/AnnouncementStatus';
-import {AnnouncementVisibility} from '../../../../core/enums/AnnouncementVisibility';
+import {AnnouncementStatus} from '../../enums/AnnouncementStatus';
+import {AnnouncementVisibility} from '../../enums/AnnouncementVisibility';
 import {
   UpdateAnnouncementDialogComponent
 } from '../../dialogs/update-announcement-dialog/update-announcement-dialog.component';

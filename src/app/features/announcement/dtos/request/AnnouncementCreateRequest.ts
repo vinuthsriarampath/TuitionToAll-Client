@@ -1,4 +1,4 @@
-import {AnnouncementVisibility} from '../../../../core/enums/AnnouncementVisibility';
+import {AnnouncementVisibility} from '../../enums/AnnouncementVisibility';
 import {AnnouncementCreateStatus} from './enums/AnnouncementCreateStatus';
 
 export class AnnouncementCreateRequest {

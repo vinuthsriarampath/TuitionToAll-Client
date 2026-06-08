@@ -5,8 +5,8 @@ import {DatePipe} from '@angular/common';
 import {BadgeComponent} from '../../../../shared/ui/badge/badge.component';
 import {CardShellComponent} from '../../../../shared/ui/card-shell/card-shell.component';
 import {FormsModule} from '@angular/forms';
-import {AnnouncementStatus} from '../../../../core/enums/AnnouncementStatus';
-import {AnnouncementVisibility} from '../../../../core/enums/AnnouncementVisibility';
+import {AnnouncementStatus} from '../../enums/AnnouncementStatus';
+import {AnnouncementVisibility} from '../../enums/AnnouncementVisibility';
 import {BookOpen, CalendarClock, LucideAngularModule, Pin, Users} from 'lucide-angular';
 
 @Component({

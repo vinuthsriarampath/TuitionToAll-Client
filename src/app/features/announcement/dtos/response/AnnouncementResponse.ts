@@ -1,5 +1,5 @@
-import {AnnouncementStatus} from '../../../../core/enums/AnnouncementStatus';
-import {AnnouncementVisibility} from '../../../../core/enums/AnnouncementVisibility';
+import {AnnouncementStatus} from '../../enums/AnnouncementStatus';
+import {AnnouncementVisibility} from '../../enums/AnnouncementVisibility';
 
 export class AnnouncementResponse {
   id!: number;

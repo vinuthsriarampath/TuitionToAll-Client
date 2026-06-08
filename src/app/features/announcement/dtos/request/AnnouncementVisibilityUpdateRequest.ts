@@ -1,4 +1,4 @@
-import {AnnouncementVisibility} from '../../../../core/enums/AnnouncementVisibility';
+import {AnnouncementVisibility} from '../../enums/AnnouncementVisibility';
 
 export class AnnouncementVisibilityUpdateRequest {
   visibility!: AnnouncementVisibility;

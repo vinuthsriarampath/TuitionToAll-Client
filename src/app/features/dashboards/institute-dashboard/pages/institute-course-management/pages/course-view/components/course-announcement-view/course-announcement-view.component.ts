@@ -22,8 +22,8 @@ import {
   MatTable,
   MatTableDataSource
 } from '@angular/material/table';
-import {AnnouncementStatus} from '../../../../../../../../../core/enums/AnnouncementStatus';
-import {AnnouncementVisibility} from '../../../../../../../../../core/enums/AnnouncementVisibility';
+import {AnnouncementStatus} from '../../../../../../../../announcement/enums/AnnouncementStatus';
+import {AnnouncementVisibility} from '../../../../../../../../announcement/enums/AnnouncementVisibility';
 
 @Component({
   selector: 'app-course-announcement-view',

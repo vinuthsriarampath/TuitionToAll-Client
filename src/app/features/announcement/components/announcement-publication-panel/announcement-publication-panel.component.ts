@@ -3,7 +3,7 @@ import {AnnouncementResponse} from '../../dtos/response/AnnouncementResponse';
 import {CardShellComponent} from '../../../../shared/ui/card-shell/card-shell.component';
 import {CardHeaderComponent} from '../../../../shared/ui/card-header/card-header.component';
 import {Archive, LucideAngularModule, Send} from 'lucide-angular';
-import {AnnouncementStatus} from '../../../../core/enums/AnnouncementStatus';
+import {AnnouncementStatus} from '../../enums/AnnouncementStatus';
 import {MatDialog} from '@angular/material/dialog';
 import {AlertService} from '../../../../core/services/alerts/alert.service';
 import {

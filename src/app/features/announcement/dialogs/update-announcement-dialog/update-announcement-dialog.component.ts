@@ -1,8 +1,8 @@
 import {Component, Inject, inject} from '@angular/core';
 import {Eye, LucideAngularModule, Megaphone, SquarePen} from 'lucide-angular';
 import {AnnouncementResponse} from '../../dtos/response/AnnouncementResponse';
-import {AnnouncementStatus} from '../../../../core/enums/AnnouncementStatus';
-import {AnnouncementVisibility} from '../../../../core/enums/AnnouncementVisibility';
+import {AnnouncementStatus} from '../../enums/AnnouncementStatus';
+import {AnnouncementVisibility} from '../../enums/AnnouncementVisibility';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {AnnouncementService} from '../../services/announcements/announcement.service';
 import {AlertService} from '../../../../core/services/alerts/alert.service';

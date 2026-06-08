@@ -3,7 +3,7 @@ import {CardShellComponent} from '../../../../shared/ui/card-shell/card-shell.co
 import {CardHeaderComponent} from '../../../../shared/ui/card-header/card-header.component';
 import {AnnouncementResponse} from '../../dtos/response/AnnouncementResponse';
 import {LucideAngularModule, Pin, PinOff} from 'lucide-angular';
-import {AnnouncementStatus} from '../../../../core/enums/AnnouncementStatus';
+import {AnnouncementStatus} from '../../enums/AnnouncementStatus';
 import {
   ConfirmationDialogComponent,
   ConfirmationDialogData

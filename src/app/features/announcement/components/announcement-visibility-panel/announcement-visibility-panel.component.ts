@@ -5,7 +5,7 @@ import {AnnouncementResponse} from '../../dtos/response/AnnouncementResponse';
 import {BadgeComponent} from '../../../../shared/ui/badge/badge.component';
 import {InfoRowComponent} from '../../../../shared/ui/info-row/info-row.component';
 import {Eye, LucideAngularModule} from 'lucide-angular';
-import {AnnouncementVisibility} from '../../../../core/enums/AnnouncementVisibility';
+import {AnnouncementVisibility} from '../../enums/AnnouncementVisibility';
 import {
   UpdateAnnouncementVisibilityDialogComponent,
   UpdateAnnouncementVisibilityDialogData
