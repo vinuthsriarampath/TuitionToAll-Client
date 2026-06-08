@@ -7,17 +7,10 @@ import {AlertService} from '../../../../core/services/alerts/alert.service';
 import {InputComponent} from '../../../../shared/ui/input/input.component';
 import {SelectComponent, SelectOption} from '../../../../shared/ui/select/select.component';
 import {ChapterStatus} from '../../enums/ChapterStatus';
-import {
-  ChapterCreateRequest
-} from '../../dtos/request/ChapterCreateRequest';
-import {
-  ChapterDetailsUpdateRequest
-} from '../../dtos/request/ChapterDetailsUpdateRequest';
+import {ChapterDetailsUpdateRequest} from '../../dtos/request/ChapterDetailsUpdateRequest';
 import {FormErrorHandler} from '../../../../shared/utils/helpers/FormErrorHandler';
 import {BookOpen} from 'lucide-angular';
-import {
-  DialogLayoutComponent
-} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
+import {DialogLayoutComponent} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
 
 @Component({
   selector: 'app-chapter-update-dialog',

@@ -4,12 +4,8 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {AlertService} from '../../../../core/services/alerts/alert.service';
 import {FormErrorHandler} from '../../../../shared/utils/helpers/FormErrorHandler';
 import {ResourceService} from '../../services/resource/resource.service';
-import {
-  ResourceInitRequest
-} from '../../dtos/request/ResourceInitRequest';
-import {
-  DialogLayoutComponent
-} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
+import {ResourceInitRequest} from '../../dtos/request/ResourceInitRequest';
+import {DialogLayoutComponent} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
 import {BookCopy} from 'lucide-angular';
 import {InputComponent} from '../../../../shared/ui/input/input.component';
 import {FileInputComponent} from '../../../../shared/ui/file-input/file-input.component';

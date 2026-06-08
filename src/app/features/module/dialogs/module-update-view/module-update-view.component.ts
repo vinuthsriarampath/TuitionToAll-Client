@@ -1,12 +1,8 @@
 import {Component, Inject, inject} from '@angular/core';
-import {
-  DialogLayoutComponent
-} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
+import {DialogLayoutComponent} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Book} from 'lucide-angular';
-import {
-  ModuleDetailedResponse
-} from '../../dtos/response/ModuleDetailedResponse';
+import {ModuleDetailedResponse} from '../../dtos/response/ModuleDetailedResponse';
 import {ModuleDangerPanelComponent} from '../../components/module-danger-panel/module-danger-panel.component';
 import {ModuleNamePanelComponent} from '../../components/module-name-panel/module-name-panel.component';
 import {ModuleBatchPanelComponent} from '../../components/module-batch-panel/module-batch-panel.component';

@@ -1,9 +1,7 @@
 import {Component, inject, input, output} from '@angular/core';
 import {CardHeaderComponent} from "../../../../shared/ui/card-header/card-header.component";
 import {Lock, LucideAngularModule} from "lucide-angular";
-import {
-  ModuleDetailedResponse
-} from '../../dtos/response/ModuleDetailedResponse';
+import {ModuleDetailedResponse} from '../../dtos/response/ModuleDetailedResponse';
 import {MatDialog} from '@angular/material/dialog';
 import {ModuleService} from '../../services/module/module.service';
 import {AlertService} from '../../../../core/services/alerts/alert.service';

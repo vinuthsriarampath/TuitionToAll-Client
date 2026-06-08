@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ModuleUptTeacherComponent } from './module-upt-teacher.component';
+import {ModuleUptTeacherComponent} from './module-upt-teacher.component';
 
 describe('ModuleUptTeacherComponent', () => {
   let component: ModuleUptTeacherComponent;

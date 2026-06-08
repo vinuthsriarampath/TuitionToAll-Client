@@ -5,9 +5,7 @@ import {BatchEnrollmentStatus} from '../../enums/batch-enrollment-status';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {BatchService} from '../../../../core/services/batch/batch.service';
 import {Batch} from '../../../../core/models/batch';
-import {
-  DialogLayoutComponent
-} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
+import {DialogLayoutComponent} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
 import {Plus} from 'lucide-angular';
 
 @Component({

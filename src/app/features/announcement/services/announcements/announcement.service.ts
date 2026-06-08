@@ -5,9 +5,7 @@ import {AnnouncementCreateRequest} from "../../dtos/request/AnnouncementCreateRe
 import {ApiResponse} from '../../../../shared/utils/response/api-response';
 import {Observable} from "rxjs";
 import {AnnouncementResponse} from '../../dtos/response/AnnouncementResponse';
-import {
-  AnnouncementVisibilityUpdateRequest
-} from '../../dtos/request/AnnouncementVisibilityUpdateRequest';
+import {AnnouncementVisibilityUpdateRequest} from '../../dtos/request/AnnouncementVisibilityUpdateRequest';
 import {AnnouncementUpdateRequest} from '../../dtos/request/AnnouncementUpdateRequest';
 import {AnnouncementFilterRequest} from '../../dtos/request/AnnouncementFilterRequest';
 import {PaginatedApiResponse} from '../../../../shared/utils/response/paginated-api-response';

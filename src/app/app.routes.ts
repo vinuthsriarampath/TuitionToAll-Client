@@ -30,21 +30,11 @@ import {DashboardComponent} from './features/institute/pages/dashboard/dashboard
 import {
   InstituteCourseManagementComponent
 } from './features/institute/pages/institute-course-management/institute-course-management.component';
-import {
-  CourseCreateComponent
-} from './features/course/pages/course-create/course-create.component';
-import {
-  CourseViewComponent
-} from './features/course/pages/course-view/course-view.component';
-import {
-  CourseUpdateComponent
-} from './features/course/pages/course-update/course-update.component';
-import {
-  BatchManagementComponent
-} from './features/batch/pages/batch-management/batch-management.component';
-import {
-  BatchViewComponent
-} from './features/batch/pages/batch-view/batch-view.component';
+import {CourseCreateComponent} from './features/course/pages/course-create/course-create.component';
+import {CourseViewComponent} from './features/course/pages/course-view/course-view.component';
+import {CourseUpdateComponent} from './features/course/pages/course-update/course-update.component';
+import {BatchManagementComponent} from './features/batch/pages/batch-management/batch-management.component';
+import {BatchViewComponent} from './features/batch/pages/batch-view/batch-view.component';
 import {
   InstituteTeacherManagementComponent
 } from './features/institute/pages/institute-teacher-management/institute-teacher-management.component';
@@ -52,24 +42,16 @@ import {
   ViewTeacherVacancyComponent
 } from './features/teacher-vacancy/pages/view-teacher-vacancy/view-teacher-vacancy.component';
 import {JobApplicationComponent} from './features/profile/pages/job-application/job-application.component';
-import {
-  ViewApplicationComponent
-} from './features/applications/pages/view-application/view-application.component';
+import {ViewApplicationComponent} from './features/applications/pages/view-application/view-application.component';
 import {
   AnnouncementsManagementComponent
 } from './features/announcement/pages/announcements-management/announcements-management.component';
-import {
-  ViewAnnouncementComponent
-} from './features/announcement/pages/view-announcement/view-announcement.component';
+import {ViewAnnouncementComponent} from './features/announcement/pages/view-announcement/view-announcement.component';
 import {
   CourseAnnouncementViewComponent
 } from './features/course/components/course-announcement-view/course-announcement-view.component';
-import {
-  ModuleViewComponent
-} from './features/module/pages/module-view/module-view.component';
-import {
-  ChapterViewComponent
-} from './features/chapter/pages/chapter-view/chapter-view.component';
+import {ModuleViewComponent} from './features/module/pages/module-view/module-view.component';
+import {ChapterViewComponent} from './features/chapter/pages/chapter-view/chapter-view.component';
 import {
   LectureRecordWatchComponent
 } from './features/lecture-record/pages/lecture-record-watch/lecture-record-watch.component';

@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ScheduleLecBadgeComponent } from './schedule-lec-badge.component';
+import {ScheduleLecBadgeComponent} from './schedule-lec-badge.component';
 
 describe('ScheduleLecBadgeComponent', () => {
   let component: ScheduleLecBadgeComponent;

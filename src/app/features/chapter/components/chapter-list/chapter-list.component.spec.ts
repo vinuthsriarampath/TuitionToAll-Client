@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ChapterListComponent } from './chapter-list.component';
+import {ChapterListComponent} from './chapter-list.component';
 
 describe('ChapterListComponent', () => {
   let component: ChapterListComponent;

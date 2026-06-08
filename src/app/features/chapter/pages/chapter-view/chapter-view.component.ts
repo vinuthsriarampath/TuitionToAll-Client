@@ -1,7 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {
-  ChapterDetailedResponse
-} from '../../dtos/response/ChapterDetailedResponse';
+import {ChapterDetailedResponse} from '../../dtos/response/ChapterDetailedResponse';
 import {ChapterService} from '../../services/chapter/chapter.service';
 import {ActivatedRoute} from '@angular/router';
 import {AlertService} from '../../../../core/services/alerts/alert.service';
@@ -12,7 +10,9 @@ import {ChapterStatRowComponent} from '../../components/chapter-stat-row/chapter
 import {ChapterOverviewComponent} from '../../components/chapter-overview/chapter-overview.component';
 import {LectureRecordingComponent} from '../../../lecture-record/pages/lecture-recording/lecture-recording.component';
 import {ResourcesComponent} from '../../../resources/pages/resources/resources.component';
-import {ScheduledLecturesComponent} from '../../../schedule-lectures/pages/scheduled-lectures/scheduled-lectures.component';
+import {
+  ScheduledLecturesComponent
+} from '../../../schedule-lectures/pages/scheduled-lectures/scheduled-lectures.component';
 
 @Component({
   selector: 'app-chapter-view',

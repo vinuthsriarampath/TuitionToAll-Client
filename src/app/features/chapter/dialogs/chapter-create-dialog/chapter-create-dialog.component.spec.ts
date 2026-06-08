@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ChapterCreateDialogComponent } from './chapter-create-dialog.component';
+import {ChapterCreateDialogComponent} from './chapter-create-dialog.component';
 
 describe('ChapterCreateDialogComponent', () => {
   let component: ChapterCreateDialogComponent;

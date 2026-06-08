@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ScheduleLecCreateComponent } from './schedule-lec-create.component';
+import {ScheduleLecCreateComponent} from './schedule-lec-create.component';
 
 describe('ScheduleLecCreateComponent', () => {
   let component: ScheduleLecCreateComponent;

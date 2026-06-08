@@ -2,9 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {ModuleService} from '../../services/module/module.service';
 import {AlertService} from '../../../../core/services/alerts/alert.service';
-import {
-  ModuleDetailedResponse
-} from '../../dtos/response/ModuleDetailedResponse';
+import {ModuleDetailedResponse} from '../../dtos/response/ModuleDetailedResponse';
 import {DatePipe, NgOptimizedImage} from '@angular/common';
 import {ModuleBadgeComponent} from '../../components/module-badge/module-badge.component';
 import {MatTooltip} from '@angular/material/tooltip';
@@ -12,7 +10,9 @@ import {ArrowLeft, Edit, LucideAngularModule, Pen, Plus} from 'lucide-angular';
 import {MatDialog} from '@angular/material/dialog';
 import {ModuleUpdateViewComponent} from '../../dialogs/module-update-view/module-update-view.component';
 import {ChapterListComponent} from '../../../chapter/components/chapter-list/chapter-list.component';
-import {ChapterCreateDialogComponent} from '../../../chapter/dialogs/chapter-create-dialog/chapter-create-dialog.component';
+import {
+  ChapterCreateDialogComponent
+} from '../../../chapter/dialogs/chapter-create-dialog/chapter-create-dialog.component';
 
 @Component({
   selector: 'app-module-view',

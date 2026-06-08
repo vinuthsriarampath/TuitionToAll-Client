@@ -3,9 +3,7 @@ import {CardShellComponent} from '../../../../shared/ui/card-shell/card-shell.co
 import {CardHeaderComponent} from '../../../../shared/ui/card-header/card-header.component';
 import {Edit, LucideAngularModule} from 'lucide-angular';
 import {InfoRowComponent} from '../../../../shared/ui/info-row/info-row.component';
-import {
-  ModuleDetailedResponse
-} from '../../dtos/response/ModuleDetailedResponse';
+import {ModuleDetailedResponse} from '../../dtos/response/ModuleDetailedResponse';
 import {MatDialog} from '@angular/material/dialog';
 import {AlertService} from '../../../../core/services/alerts/alert.service';
 import {

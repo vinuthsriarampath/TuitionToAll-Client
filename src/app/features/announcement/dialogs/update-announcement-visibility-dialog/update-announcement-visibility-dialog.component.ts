@@ -14,9 +14,7 @@ import {Institute} from '../../../profile/dtos/response/institute';
 import {UserService} from '../../../profile/services/user/user.service';
 import {BatchService} from '../../../../core/services/batch/batch.service';
 import {CourseService} from '../../../../core/services/course/course.service';
-import {
-  AnnouncementVisibilityUpdateRequest
-} from '../../dtos/request/AnnouncementVisibilityUpdateRequest';
+import {AnnouncementVisibilityUpdateRequest} from '../../dtos/request/AnnouncementVisibilityUpdateRequest';
 import {DialogLayoutComponent} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
 
 export interface UpdateAnnouncementVisibilityDialogData {

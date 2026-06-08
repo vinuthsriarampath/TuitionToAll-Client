@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ModuleUpdateViewComponent } from './module-update-view.component';
+import {ModuleUpdateViewComponent} from './module-update-view.component';
 
 describe('ModuleUpdateViewComponent', () => {
   let component: ModuleUpdateViewComponent;

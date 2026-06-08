@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ModuleNamePanelComponent } from './module-name-panel.component';
+import {ModuleNamePanelComponent} from './module-name-panel.component';
 
 describe('ModuleNamePanelComponent', () => {
   let component: ModuleNamePanelComponent;

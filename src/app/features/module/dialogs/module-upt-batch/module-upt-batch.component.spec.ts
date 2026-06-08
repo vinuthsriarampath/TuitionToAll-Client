@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ModuleUptBatchComponent } from './module-upt-batch.component';
+import {ModuleUptBatchComponent} from './module-upt-batch.component';
 
 describe('ModuleUptBatchComponent', () => {
   let component: ModuleUptBatchComponent;

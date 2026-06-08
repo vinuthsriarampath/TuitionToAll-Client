@@ -5,14 +5,10 @@ import {CardShellComponent} from '../../../../shared/ui/card-shell/card-shell.co
 import {CardHeaderComponent} from '../../../../shared/ui/card-header/card-header.component';
 import {AlertService} from '../../../../core/services/alerts/alert.service';
 import {ChapterService} from '../../../chapter/services/chapter/chapter.service';
-import {
-  LectureRecordResponse
-} from '../../dtos/response/LectureRecordResponse';
+import {LectureRecordResponse} from '../../dtos/response/LectureRecordResponse';
 import {DatePipe} from '@angular/common';
 import {environment} from '../../../../../environment/environment.development';
-import {
-  LectureRecordService
-} from '../../services/lecture-record/lecture-record.service';
+import {LectureRecordService} from '../../services/lecture-record/lecture-record.service';
 import {combineLatest} from 'rxjs';
 
 @Component({

@@ -5,9 +5,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {TeacherVacancy} from '../../dtos/response/teacher-vacancy';
 import {TeacherVacancyService} from '../../services/teacher-vacancy/teacher-vacancy.service';
 import {TeacherVacancyStatus} from '../../enums/teacher-vacancy-status';
-import {
-  TeacherVacancyUpdateRequest
-} from '../../dtos/request/teacher-vacancy-update-request';
+import {TeacherVacancyUpdateRequest} from '../../dtos/request/teacher-vacancy-update-request';
 import {AlertService} from '../../../../core/services/alerts/alert.service';
 import {DialogLayoutComponent} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
 import {SquarePen} from 'lucide-angular';

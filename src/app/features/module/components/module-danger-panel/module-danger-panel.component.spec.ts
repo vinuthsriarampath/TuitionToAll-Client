@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ModuleDangerPanelComponent } from './module-danger-panel.component';
+import {ModuleDangerPanelComponent} from './module-danger-panel.component';
 
 describe('ModuleDangerPanelComponent', () => {
   let component: ModuleDangerPanelComponent;

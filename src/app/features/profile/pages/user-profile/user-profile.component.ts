@@ -5,9 +5,7 @@ import {NgIf, NgOptimizedImage, NgSwitch, NgSwitchCase, NgSwitchDefault} from '@
 import {User} from '../../dtos/response/user';
 import {UserService} from '../../services/user/user.service';
 import {MatDialog} from '@angular/material/dialog';
-import {
-  UpdateProfileDialogComponent
-} from '../../components/update-profile-dialog/update-profile-dialog.component';
+import {UpdateProfileDialogComponent} from '../../components/update-profile-dialog/update-profile-dialog.component';
 import {AlertService} from '../../../../core/services/alerts/alert.service';
 import {LucideAngularModule, Pen} from 'lucide-angular';
 import {

@@ -1,9 +1,7 @@
 import {Component, inject, OnInit, ViewChild} from '@angular/core';
 import {ApplicationService} from '../../services/application/application.service';
 import {ActivatedRoute} from '@angular/router';
-import {
-  ApplicationDetailsResponse
-} from '../../dtos/response/application-details-response';
+import {ApplicationDetailsResponse} from '../../dtos/response/application-details-response';
 import {AlertService} from '../../../../core/services/alerts/alert.service';
 import {PageTitleComponent} from '../../../../shared/components/page-title/page-title.component';
 import {
@@ -25,9 +23,7 @@ import {MatSidenav, MatSidenavContainer, MatSidenavContent} from '@angular/mater
 import {environment} from '../../../../../environment/environment.development';
 import {ApplicationStatus} from '../../enums/application-status';
 import {SelectionModel} from '@angular/cdk/collections';
-import {
-  InstituteTeacherService
-} from '../../../institute/services/institute-teacher/institute-teacher.service';
+import {InstituteTeacherService} from '../../../institute/services/institute-teacher/institute-teacher.service';
 import {ApplicationSelectionRequest} from '../../dtos/request/ApplicationSelectionRequest';
 import {MatTooltip} from '@angular/material/tooltip';
 import {ApplicationRejectionRequest} from '../../dtos/request/ApplicationRejectionRequest';

@@ -11,9 +11,7 @@ import {DatePipe} from '@angular/common';
 import {ChapterBadgeComponent} from '../chapter-badge/chapter-badge.component';
 import {MatDialog} from '@angular/material/dialog';
 import {ChapterUpdateDialogComponent} from '../../dialogs/chapter-update-dialog/chapter-update-dialog.component';
-import {
-  ChapterReorderRequest
-} from '../../dtos/request/ChapterReorderRequest';
+import {ChapterReorderRequest} from '../../dtos/request/ChapterReorderRequest';
 import {ChapterService} from '../../services/chapter/chapter.service';
 
 @Component({

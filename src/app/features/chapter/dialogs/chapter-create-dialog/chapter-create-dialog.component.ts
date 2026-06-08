@@ -5,14 +5,10 @@ import {SelectComponent, SelectOption} from '../../../../shared/ui/select/select
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {ChapterStatus} from '../../enums/ChapterStatus';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {
-  DialogLayoutComponent
-} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
+import {DialogLayoutComponent} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
 import {InputComponent} from '../../../../shared/ui/input/input.component';
 import {BookOpen} from 'lucide-angular';
-import {
-  ChapterCreateRequest
-} from '../../dtos/request/ChapterCreateRequest';
+import {ChapterCreateRequest} from '../../dtos/request/ChapterCreateRequest';
 import {FormErrorHandler} from '../../../../shared/utils/helpers/FormErrorHandler';
 
 @Component({

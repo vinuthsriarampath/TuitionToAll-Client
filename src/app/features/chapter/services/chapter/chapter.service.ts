@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment} from '../../../../../environment/environment.development';
-import { ChapterCreateRequest } from "../../dtos/request/ChapterCreateRequest";
+import {ChapterCreateRequest} from "../../dtos/request/ChapterCreateRequest";
 import {Observable} from 'rxjs';
 import {ApiResponse} from '../../../../shared/utils/response/api-response';
 import {ChapterResponse} from '../../dtos/response/ChapterResponse';

@@ -1,13 +1,16 @@
 import {Component, inject, input, OnInit} from '@angular/core';
-import {
-  PageLayoutComponent
-} from '../../../../core/layouts/page-layout/page-layout.component';
+import {PageLayoutComponent} from '../../../../core/layouts/page-layout/page-layout.component';
 import {Edit, Eye, LucideAngularModule, Plus, View} from 'lucide-angular';
 import {
-  MatCell, MatCellDef,
+  MatCell,
+  MatCellDef,
   MatColumnDef,
   MatHeaderCell,
-  MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
   MatTable,
   MatTableDataSource
 } from '@angular/material/table';

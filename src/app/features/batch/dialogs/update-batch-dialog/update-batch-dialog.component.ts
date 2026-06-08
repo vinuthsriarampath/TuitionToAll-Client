@@ -5,9 +5,7 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {BatchStatus} from '../../enums/batch-status';
 import {BatchEnrollmentStatus} from '../../enums/batch-enrollment-status';
 import {BatchService} from '../../../../core/services/batch/batch.service';
-import {
-  DialogLayoutComponent
-} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
+import {DialogLayoutComponent} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
 import {SquarePen} from 'lucide-angular';
 
 @Component({

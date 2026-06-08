@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ModuleUptNameDialogComponent } from './module-upt-name-dialog.component';
+import {ModuleUptNameDialogComponent} from './module-upt-name-dialog.component';
 
 describe('ModuleUptNameDialogComponent', () => {
   let component: ModuleUptNameDialogComponent;

@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LectureRecordWatchComponent } from './lecture-record-watch.component';
+import {LectureRecordWatchComponent} from './lecture-record-watch.component';
 
 describe('LectureRecordWatchComponent', () => {
   let component: LectureRecordWatchComponent;

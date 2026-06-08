@@ -2,9 +2,7 @@ import {Component, inject, input} from '@angular/core';
 import {CardShellComponent} from '../../../../shared/ui/card-shell/card-shell.component';
 import {CardHeaderComponent} from '../../../../shared/ui/card-header/card-header.component';
 import {Edit, LucideAngularModule} from 'lucide-angular';
-import {
-  ModuleDetailedResponse
-} from '../../dtos/response/ModuleDetailedResponse';
+import {ModuleDetailedResponse} from '../../dtos/response/ModuleDetailedResponse';
 import {InfoRowComponent} from '../../../../shared/ui/info-row/info-row.component';
 import {MatDialog} from '@angular/material/dialog';
 import {

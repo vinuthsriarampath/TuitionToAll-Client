@@ -1,9 +1,7 @@
 import {Component, inject, input} from '@angular/core';
 import {CardShellComponent} from '../../../../shared/ui/card-shell/card-shell.component';
 import {CardHeaderComponent} from '../../../../shared/ui/card-header/card-header.component';
-import {
-  ModuleDetailedResponse
-} from '../../dtos/response/ModuleDetailedResponse';
+import {ModuleDetailedResponse} from '../../dtos/response/ModuleDetailedResponse';
 import {ModuleStatus} from '../../enums/ModuleStatus';
 import {Archive, LucideAngularModule, UploadCloud} from 'lucide-angular';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';

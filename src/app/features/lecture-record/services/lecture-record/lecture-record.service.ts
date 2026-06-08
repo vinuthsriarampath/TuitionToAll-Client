@@ -7,9 +7,7 @@ import {Observable} from 'rxjs';
 import {LectureRecordUploadInitRequest} from '../../dtos/request/LectureRecordUploadInitRequest';
 import {LectureRecordChunkUploadResponse} from '../../dtos/response/LectureRecordChunkUploadResponse';
 import {LectureRecordResponse} from '../../dtos/response/LectureRecordResponse';
-import {
-  LectureRecordDetailsUpdateRequest
-} from '../../dtos/request/LectureRecordDetailsUpdateRequest';
+import {LectureRecordDetailsUpdateRequest} from '../../dtos/request/LectureRecordDetailsUpdateRequest';
 
 @Injectable({
   providedIn: 'root'

@@ -6,9 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import {AlertService} from '../../../../core/services/alerts/alert.service';
 import {CardHeaderComponent} from '../../../../shared/ui/card-header/card-header.component';
 import {ChapterService} from '../../../chapter/services/chapter/chapter.service';
-import {
-  ScheduleLectureResponse
-} from '../../dtos/response/ScheduleLectureResponse';
+import {ScheduleLectureResponse} from '../../dtos/response/ScheduleLectureResponse';
 import {DatePipe} from '@angular/common';
 import {ScheduleLecUpdateComponent} from '../../dialogs/schedule-lec-update/schedule-lec-update.component';
 import {ScheduleLecBadgeComponent} from '../../components/schedule-lec-badge/schedule-lec-badge.component';

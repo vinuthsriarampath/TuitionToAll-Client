@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ChapterViewComponent } from './chapter-view.component';
+import {ChapterViewComponent} from './chapter-view.component';
 
 describe('ChapterViewComponent', () => {
   let component: ChapterViewComponent;

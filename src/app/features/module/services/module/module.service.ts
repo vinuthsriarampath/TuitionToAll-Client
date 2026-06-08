@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
-import { Observable } from "rxjs";
-import { PaginatedApiResponse } from "../../../../shared/utils/response/paginated-api-response";
+import {Observable} from "rxjs";
+import {PaginatedApiResponse} from "../../../../shared/utils/response/paginated-api-response";
 import {ModuleResponse} from '../../dtos/response/ModuleResponse';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {ModuleFilterRequest} from '../../dtos/request/ModuleFilterRequest';

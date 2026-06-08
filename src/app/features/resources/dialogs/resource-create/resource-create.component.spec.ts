@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ResourceCreateComponent } from './resource-create.component';
+import {ResourceCreateComponent} from './resource-create.component';
 
 describe('ResourceCreateComponent', () => {
   let component: ResourceCreateComponent;

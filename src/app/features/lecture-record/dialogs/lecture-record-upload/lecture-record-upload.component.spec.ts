@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LectureRecordUploadComponent } from './lecture-record-upload.component';
+import {LectureRecordUploadComponent} from './lecture-record-upload.component';
 
 describe('LectureRecordUploadComponent', () => {
   let component: LectureRecordUploadComponent;

@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ChapterStatRowComponent } from './chapter-stat-row.component';
+import {ChapterStatRowComponent} from './chapter-stat-row.component';
 
 describe('ChapterStatRowComponent', () => {
   let component: ChapterStatRowComponent;
