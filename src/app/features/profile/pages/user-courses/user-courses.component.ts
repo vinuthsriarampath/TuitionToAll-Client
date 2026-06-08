@@ -1,7 +1,7 @@
 import {Component, inject, input, OnInit} from '@angular/core';
 import {CourseService} from '../../../../core/services/course/course.service';
 import {Course} from '../../../../core/models/course';
-import {environment} from '../../../../../environment/environment.development';
+import {environment} from '../../../../../environments/environment.development';
 import {AlertService} from '../../../../core/services/alerts/alert.service';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {CourseFilter} from '../../../course/dtos/request/course-filter';

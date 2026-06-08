@@ -7,7 +7,7 @@ import {ModuleFilterRequest} from '../../dtos/request/ModuleFilterRequest';
 import {ApiResponse} from '../../../../shared/utils/response/api-response';
 import {ModuleNameUpdateRequest} from '../../dtos/request/ModuleNameUpdateRequest';
 import {ModuleCreateRequest} from '../../dtos/request/ModuleCreateRequest';
-import {environment} from '../../../../../environment/environment.development';
+import {environment} from '../../../../../environments/environment.development';
 import {ModuleTeacherUpdateRequest} from '../../dtos/request/ModuleTeacherUpdateRequest';
 import {ModuleBatchUpdateRequest} from '../../dtos/request/ModuleBatchUpdateRequest';
 import {ModuleDetailedResponse} from '../../dtos/response/ModuleDetailedResponse';

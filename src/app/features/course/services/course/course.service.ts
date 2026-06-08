@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {ApiResponse} from '../../../shared/utils/response/api-response';
-import {environment} from '../../../environment/environment.development';
+import {environment} from '../../../environments/environments.development';
 import {CourseCreate} from '../../dto/request-dto/course/course-create';
 import {Course} from '../../models/course';
 import {CourseFilter} from '../../dto/request-dto/course/course-filter';

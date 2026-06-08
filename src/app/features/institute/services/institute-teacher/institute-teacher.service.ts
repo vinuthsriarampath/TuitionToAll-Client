@@ -2,7 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ApiResponse} from '../../../../shared/utils/response/api-response';
-import {environment} from '../../../../../environment/environment.development';
+import {environment} from '../../../../../environments/environment.development';
 import {ApplicationSelectionRequest} from '../../../applications/dtos/request/ApplicationSelectionRequest';
 import {ApplicationSelectionResponse} from '../../../applications/dtos/response/ApplicationSelectionResponse';
 import {ApplicationRejectionRequest} from '../../../applications/dtos/request/ApplicationRejectionRequest';

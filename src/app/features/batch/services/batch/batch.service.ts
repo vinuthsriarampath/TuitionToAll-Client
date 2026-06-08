@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Batch} from '../../models/batch';
-import {environment} from '../../../environment/environment.development';
+import {environment} from '../../../environments/environments.development';
 import {ApiResponse} from '../../../shared/utils/response/api-response';
 import {BatchCreateRequest} from '../../dto/request-dto/batch/batch-create-request';
 import {BatchUpdateRequest} from '../../dto/request-dto/batch/batch-update-request';

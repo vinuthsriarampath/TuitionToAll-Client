@@ -11,7 +11,7 @@ import {LucideAngularModule, Pen} from 'lucide-angular';
 import {
   UpdateUserProfilePicDialogComponent
 } from '../../components/update-user-profile-pic-dialog/update-user-profile-pic-dialog.component';
-import {environment} from '../../../../../environment/environment.development';
+import {environment} from '../../../../../environments/environment.development';
 import {
   UpdateProfileBannerDialogComponent
 } from '../../components/update-profile-banner-dialog/update-profile-banner-dialog.component';

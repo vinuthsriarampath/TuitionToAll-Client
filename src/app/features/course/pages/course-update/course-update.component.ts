@@ -13,7 +13,7 @@ import {CourseMode} from '../../../../../../../core/enums/course-mode';
 import {CourseStatus} from '../../../../../../../core/enums/course-status';
 import {CourseCategory} from '../../../../../../../core/enums/course-category';
 import {CourseLanguage} from '../../../../../../../core/enums/course-language';
-import {environment} from '../../../../../environment/environment.development';
+import {environment} from '../../../../../environments/environment.development';
 import {CourseUpdate} from '../../dtos/request/course-update';
 
 @Component({
