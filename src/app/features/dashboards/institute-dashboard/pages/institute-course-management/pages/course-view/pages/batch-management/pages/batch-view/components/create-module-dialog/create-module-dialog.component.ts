@@ -5,18 +5,18 @@ import {
 import {Book} from 'lucide-angular';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {ModuleStatus} from '../../../../../../../../../../../../../core/enums/ModuleStatus';
+import {ModuleStatus} from '../../../../../../../../../../../../module/enums/ModuleStatus';
 import {
   InstituteTeacherService
 } from '../../../../../../../../../../../../../core/services/institute-teacher/institute-teacher.service';
 import {AlertService} from '../../../../../../../../../../../../../core/services/alerts/alert.service';
-import {ModuleService} from '../../../../../../../../../../../../../core/services/module/module.service';
+import {ModuleService} from '../../../../../../../../../../../../module/services/module/module.service';
 import {
   ModuleCreateRequest
-} from '../../../../../../../../../../../../../core/dto/request-dto/module/ModuleCreateRequest';
+} from '../../../../../../../../../../../../module/dtos/request/ModuleCreateRequest';
 import {
   ModuleCreateStatus
-} from '../../../../../../../../../../../../../core/dto/request-dto/module/enums/ModuleCreateStatus';
+} from '../../../../../../../../../../../../module/dtos/request/enums/ModuleCreateStatus';
 import {FormErrorHandler} from '../../../../../../../../../../../../../shared/utils/helpers/FormErrorHandler';
 import {InputComponent} from '../../../../../../../../../../../../../shared/ui/input/input.component';
 import {

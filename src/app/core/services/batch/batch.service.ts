@@ -7,7 +7,7 @@ import {ApiResponse} from '../../../shared/utils/response/api-response';
 import {BatchCreateRequest} from '../../dto/request-dto/batch/batch-create-request';
 import {BatchUpdateRequest} from '../../dto/request-dto/batch/batch-update-request';
 import {PaginatedApiResponse} from '../../../shared/utils/response/paginated-api-response';
-import {ModuleResponse} from '../../dto/response-dto/module/ModuleResponse';
+import {ModuleResponse} from '../../../features/module/dtos/response/ModuleResponse';
 
 @Injectable({
   providedIn: 'root'

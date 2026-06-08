@@ -5,7 +5,7 @@ import {CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray} from 
 import {BookOpen, CalendarDays, Edit, GripVertical, LucideAngularModule, Pencil} from 'lucide-angular';
 import {MatTooltip} from '@angular/material/tooltip';
 import {ChapterResponse} from '../../../../../../../../../../../../../core/dto/response-dto/chapter/ChapterResponse';
-import {ModuleService} from '../../../../../../../../../../../../../core/services/module/module.service';
+import {ModuleService} from '../../../../../../../../../../../../module/services/module/module.service';
 import {AlertService} from '../../../../../../../../../../../../../core/services/alerts/alert.service';
 import {DatePipe} from '@angular/common';
 import {ChapterBadgeComponent} from '../chapter-badge/chapter-badge.component';

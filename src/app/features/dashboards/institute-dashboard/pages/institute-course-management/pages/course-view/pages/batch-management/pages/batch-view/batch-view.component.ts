@@ -12,7 +12,7 @@ import {CardShellComponent} from '../../../../../../../../../../../shared/ui/car
 import {CardHeaderComponent} from '../../../../../../../../../../../shared/ui/card-header/card-header.component';
 import {MatTab, MatTabContent, MatTabGroup} from '@angular/material/tabs';
 import {LucideAngularModule} from 'lucide-angular';
-import {ModuleSectionComponent} from './components/module-section/module-section.component';
+import {ModuleSectionComponent} from '../../../../../../../../../../module/components/module-section/module-section.component';
 
 @Component({
   selector: 'app-batch-view',
