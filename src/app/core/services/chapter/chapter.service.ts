@@ -9,9 +9,9 @@ import {ChapterDetailsUpdateRequest} from '../../dto/request-dto/chapter/Chapter
 import {ChapterReorderRequest} from '../../dto/request-dto/chapter/ChapterReorderRequest';
 import {ChapterDetailedResponse} from '../../dto/response-dto/chapter/ChapterDetailedResponse';
 import {LectureRecordResponse} from '../../dto/response-dto/lecture-record/LectureRecordResponse';
-import {ScheduleLectureFilterRequest} from '../../dto/request-dto/schedule-leactures/ScheduleLectureFilterRequest';
+import {ScheduleLectureFilterRequest} from '../../../features/schedule-lectures/dtos/request/ScheduleLectureFilterRequest';
 import {PaginatedApiResponse} from '../../../shared/utils/response/paginated-api-response';
-import {ScheduleLectureResponse} from '../../dto/response-dto/schedule-lectures/ScheduleLectureResponse';
+import {ScheduleLectureResponse} from '../../../features/schedule-lectures/dtos/response/ScheduleLectureResponse';
 import {ResourceResponse} from '../../dto/response-dto/resource/ResourceResponse';
 import {ResourceFilterRequest} from '../../dto/request-dto/resource/ResourceFilterRequest';
 

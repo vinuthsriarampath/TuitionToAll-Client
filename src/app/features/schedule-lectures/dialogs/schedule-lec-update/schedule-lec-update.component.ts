@@ -1,24 +1,24 @@
 import {Component, Inject, inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {AlertService} from '../../../../../../../../../../../../../core/services/alerts/alert.service';
+import {AlertService} from '../../../../core/services/alerts/alert.service';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {FormErrorHandler} from '../../../../../../../../../../../../../shared/utils/helpers/FormErrorHandler';
+import {FormErrorHandler} from '../../../../shared/utils/helpers/FormErrorHandler';
 import {
   ScheduleLectureService
-} from '../../../../../../../../../../../../../core/services/schedule-lecture/schedule-lecture.service';
+} from '../../services/schedule-lecture/schedule-lecture.service';
 import {
   ScheduleLectureResponse
-} from '../../../../../../../../../../../../../core/dto/response-dto/schedule-lectures/ScheduleLectureResponse';
+} from '../../dtos/response/ScheduleLectureResponse';
 import {
   ScheduleLectureUpdateRequest
-} from '../../../../../../../../../../../../../core/dto/request-dto/schedule-leactures/ScheduleLectureUpdateRequest';
-import {ScheduleLectureStatus} from '../../../../../../../../../../../../../core/enums/ScheduleLectureStatus';
-import {SelectComponent, SelectOption} from '../../../../../../../../../../../../../shared/ui/select/select.component';
-import {CheckboxComponent} from '../../../../../../../../../../../../../shared/ui/checkbox/checkbox.component';
+} from '../../dtos/request/ScheduleLectureUpdateRequest';
+import {ScheduleLectureStatus} from '../../enums/ScheduleLectureStatus';
+import {SelectComponent, SelectOption} from '../../../../shared/ui/select/select.component';
+import {CheckboxComponent} from '../../../../shared/ui/checkbox/checkbox.component';
 import {
   DialogLayoutComponent
-} from '../../../../../../../../../../../../../core/layouts/dialog-layout/dialog-layout.component';
-import {InputComponent} from '../../../../../../../../../../../../../shared/ui/input/input.component';
+} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
+import {InputComponent} from '../../../../shared/ui/input/input.component';
 import {Pencil} from 'lucide-angular';
 
 @Component({

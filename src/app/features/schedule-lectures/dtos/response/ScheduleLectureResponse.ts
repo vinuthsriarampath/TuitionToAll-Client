@@ -1,4 +1,4 @@
-import {ScheduleLectureStatus} from '../../../enums/ScheduleLectureStatus';
+import {ScheduleLectureStatus} from '../../enums/ScheduleLectureStatus';
 
 export class ScheduleLectureResponse {
   id!: number;

@@ -12,7 +12,7 @@ import {ChapterStatRowComponent} from '../chapter-stat-row/chapter-stat-row.comp
 import {ChapterOverviewComponent} from '../chapter-overview/chapter-overview.component';
 import {LectureRecordingComponent} from '../lecture-recording/lecture-recording.component';
 import {ResourcesComponent} from '../resources/resources.component';
-import {ScheduledLecturesComponent} from '../scheduled-lectures/scheduled-lectures.component';
+import {ScheduledLecturesComponent} from '../../../../../../../../../../../../schedule-lectures/pages/scheduled-lectures/scheduled-lectures.component';
 
 @Component({
   selector: 'app-chapter-view',

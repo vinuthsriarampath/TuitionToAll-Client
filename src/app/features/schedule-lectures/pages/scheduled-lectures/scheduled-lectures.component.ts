@@ -1,19 +1,19 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {CardShellComponent} from '../../../../../../../../../../../../../shared/ui/card-shell/card-shell.component';
+import {CardShellComponent} from '../../../../shared/ui/card-shell/card-shell.component';
 import {MatDialog} from '@angular/material/dialog';
-import {ScheduleLecCreateComponent} from '../schedule-lec-create/schedule-lec-create.component';
+import {ScheduleLecCreateComponent} from '../../dialogs/schedule-lec-create/schedule-lec-create.component';
 import {ActivatedRoute} from '@angular/router';
-import {AlertService} from '../../../../../../../../../../../../../core/services/alerts/alert.service';
-import {CardHeaderComponent} from '../../../../../../../../../../../../../shared/ui/card-header/card-header.component';
-import {ChapterService} from '../../../../../../../../../../../../../core/services/chapter/chapter.service';
+import {AlertService} from '../../../../core/services/alerts/alert.service';
+import {CardHeaderComponent} from '../../../../shared/ui/card-header/card-header.component';
+import {ChapterService} from '../../../../core/services/chapter/chapter.service';
 import {
   ScheduleLectureResponse
-} from '../../../../../../../../../../../../../core/dto/response-dto/schedule-lectures/ScheduleLectureResponse';
+} from '../../dtos/response/ScheduleLectureResponse';
 import {DatePipe} from '@angular/common';
-import {ScheduleLecUpdateComponent} from '../schedule-lec-update/schedule-lec-update.component';
-import {ScheduleLecBadgeComponent} from '../schedule-lec-badge/schedule-lec-badge.component';
-import {getDate, getTime} from '../../../../../../../../../../../../../shared/utils/helpers/date-helper';
-import {ScheduleLectureStatus} from '../../../../../../../../../../../../../core/enums/ScheduleLectureStatus';
+import {ScheduleLecUpdateComponent} from '../../dialogs/schedule-lec-update/schedule-lec-update.component';
+import {ScheduleLecBadgeComponent} from '../../components/schedule-lec-badge/schedule-lec-badge.component';
+import {getDate, getTime} from '../../../../shared/utils/helpers/date-helper';
+import {ScheduleLectureStatus} from '../../enums/ScheduleLectureStatus';
 import {LucideAngularModule, RefreshCcw} from 'lucide-angular';
 
 @Component({

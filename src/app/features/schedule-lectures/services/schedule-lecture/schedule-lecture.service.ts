@@ -1,11 +1,11 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {environment} from '../../../environment/environment.development';
-import {ScheduleLectureCreateRequest} from '../../dto/request-dto/schedule-leactures/ScheduleLectureCreateRequest';
+import {environment} from '../../../../environment/environment.development';
+import {ScheduleLectureCreateRequest} from '../../dtos/request/ScheduleLectureCreateRequest';
 import {Observable} from 'rxjs';
-import {ScheduleLectureResponse} from '../../dto/response-dto/schedule-lectures/ScheduleLectureResponse';
-import { ApiResponse } from "../../../shared/utils/response/api-response";
-import {ScheduleLectureUpdateRequest} from '../../dto/request-dto/schedule-leactures/ScheduleLectureUpdateRequest';
+import {ScheduleLectureResponse} from '../../dtos/response/ScheduleLectureResponse';
+import { ApiResponse } from "../../../../shared/utils/response/api-response";
+import {ScheduleLectureUpdateRequest} from '../../dtos/request/ScheduleLectureUpdateRequest';
 
 @Injectable({
   providedIn: 'root'
