@@ -32,13 +32,13 @@ import {
 } from './features/dashboards/institute-dashboard/pages/institute-course-management/institute-course-management.component';
 import {
   CourseCreateComponent
-} from './features/dashboards/institute-dashboard/pages/institute-course-management/pages/course-create/course-create.component';
+} from './features/course/pages/course-create/course-create.component';
 import {
   CourseViewComponent
-} from './features/dashboards/institute-dashboard/pages/institute-course-management/pages/course-view/course-view.component';
+} from './features/course/pages/course-view/course-view.component';
 import {
   CourseUpdateComponent
-} from './features/dashboards/institute-dashboard/pages/institute-course-management/pages/course-update/course-update.component';
+} from './features/course/pages/course-update/course-update.component';
 import {
   BatchManagementComponent
 } from './features/batch/pages/batch-management/batch-management.component';
@@ -63,7 +63,7 @@ import {
 } from './features/announcement/pages/view-announcement/view-announcement.component';
 import {
   CourseAnnouncementViewComponent
-} from './features/dashboards/institute-dashboard/pages/institute-course-management/pages/course-view/components/course-announcement-view/course-announcement-view.component';
+} from './features/course/components/course-announcement-view/course-announcement-view.component';
 import {
   ModuleViewComponent
 } from './features/module/pages/module-view/module-view.component';

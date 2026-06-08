@@ -2,7 +2,7 @@ import {Component, ElementRef, inject, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Course} from '../../../../../../../core/models/course';
 import {CourseService} from '../../../../../../../core/services/course/course.service';
-import {AlertService} from '../../../../../../../core/services/alerts/alert.service';
+import {AlertService} from '../../../../core/services/alerts/alert.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ArrowLeft, LucideAngularModule} from 'lucide-angular';
 import {MatButtonToggle, MatButtonToggleGroup} from '@angular/material/button-toggle';
@@ -13,8 +13,8 @@ import {CourseMode} from '../../../../../../../core/enums/course-mode';
 import {CourseStatus} from '../../../../../../../core/enums/course-status';
 import {CourseCategory} from '../../../../../../../core/enums/course-category';
 import {CourseLanguage} from '../../../../../../../core/enums/course-language';
-import {environment} from '../../../../../../../environment/environment.development';
-import {CourseUpdate} from '../../../../../../../core/dto/request-dto/course/course-update';
+import {environment} from '../../../../environment/environment.development';
+import {CourseUpdate} from '../../dtos/request/course-update';
 
 @Component({
   selector: 'app-course-update',

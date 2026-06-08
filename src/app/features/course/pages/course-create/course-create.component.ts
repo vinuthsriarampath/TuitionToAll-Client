@@ -6,11 +6,11 @@ import {CourseCategory} from '../../../../../../../core/enums/course-category';
 import {CourseStatus} from '../../../../../../../core/enums/course-status';
 import {CourseLanguage} from '../../../../../../../core/enums/course-language';
 import {CourseMode} from '../../../../../../../core/enums/course-mode';
-import {CourseCreate} from '../../../../../../../core/dto/request-dto/course/course-create';
+import {CourseCreate} from '../../dtos/request/course-create';
 import {NgForOf, NgIf, TitleCasePipe} from '@angular/common';
 import {MatButtonToggle, MatButtonToggleGroup} from '@angular/material/button-toggle';
 import {CourseService} from '../../../../../../../core/services/course/course.service';
-import {AlertService} from '../../../../../../../core/services/alerts/alert.service';
+import {AlertService} from '../../../../core/services/alerts/alert.service';
 import {Router} from '@angular/router';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
 

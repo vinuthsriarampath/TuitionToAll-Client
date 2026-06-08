@@ -1,14 +1,14 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {AnnouncementService} from '../../../../../../../../announcement/services/announcements/announcement.service';
-import {AnnouncementResponse} from '../../../../../../../../announcement/dtos/response/AnnouncementResponse';
-import {AlertService} from '../../../../../../../../../core/services/alerts/alert.service';
+import {AnnouncementService} from '../../../announcement/services/announcements/announcement.service';
+import {AnnouncementResponse} from '../../../announcement/dtos/response/AnnouncementResponse';
+import {AlertService} from '../../../../core/services/alerts/alert.service';
 import {Eye, LucideAngularModule} from 'lucide-angular';
 import {
   AnnouncementFilterRequest
-} from '../../../../../../../../announcement/dtos/request/AnnouncementFilterRequest';
+} from '../../../announcement/dtos/request/AnnouncementFilterRequest';
 import {DatePipe, NgClass} from '@angular/common';
 import {ActivatedRoute, RouterLink} from '@angular/router';
-import {PageTitleComponent} from '../../../../../../../../../shared/components/page-title/page-title.component';
+import {PageTitleComponent} from '../../../../shared/components/page-title/page-title.component';
 import {
   MatCell,
   MatCellDef,
@@ -22,8 +22,8 @@ import {
   MatTable,
   MatTableDataSource
 } from '@angular/material/table';
-import {AnnouncementStatus} from '../../../../../../../../announcement/enums/AnnouncementStatus';
-import {AnnouncementVisibility} from '../../../../../../../../announcement/enums/AnnouncementVisibility';
+import {AnnouncementStatus} from '../../../announcement/enums/AnnouncementStatus';
+import {AnnouncementVisibility} from '../../../announcement/enums/AnnouncementVisibility';
 
 @Component({
   selector: 'app-course-announcement-view',
