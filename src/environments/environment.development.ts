@@ -26,6 +26,9 @@ interface Environment {
   LECTURE_RECORD_API?:string;
   SCHEDULE_LECTURE_API?:string;
   RESOURCE_API?:string;
+  ASSIGNMENT_API?:string;
+  MODULE_ASSIGNMENT_API?:string;
+  CHAPTER_ASSIGNMENT_API?:string;
 }
 
 const BASE_URL = 'http://localhost:8080/api/v2';
@@ -47,5 +50,8 @@ export const environment: Environment = {
   LECTURE_RECORD_API: `${BASE_URL}/lecture-records`,
   SCHEDULE_LECTURE_API: `${BASE_URL}/schedule-lectures`,
   RESOURCE_API: `${BASE_URL}/resources`,
+  ASSIGNMENT_API: `${BASE_URL}/assignments`,
+  MODULE_ASSIGNMENT_API: `${BASE_URL}/module-assignments`,
+  CHAPTER_ASSIGNMENT_API: `${BASE_URL}/chapter-assignments`,
 };
 
