@@ -1,5 +1,5 @@
 import {CanActivateChildFn, Router} from '@angular/router';
-import {AuthenticationService} from '../../services/auth/authentication.service';
+import {AuthenticationService} from '@features/auth/services/auth/authentication.service';
 import {inject} from '@angular/core';
 import {catchError, map} from 'rxjs/operators';
 import {of} from 'rxjs';

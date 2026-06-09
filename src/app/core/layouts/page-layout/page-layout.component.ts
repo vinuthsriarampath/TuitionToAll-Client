@@ -1,6 +1,6 @@
 import {Component, input} from '@angular/core';
 import {LucideAngularModule} from 'lucide-angular';
-import {PageTitleComponent} from '../../../shared/components/page-title/page-title.component';
+import {PageTitleComponent} from '@shared/components/page-title/page-title.component';
 
 @Component({
   selector: 'app-page-layout',

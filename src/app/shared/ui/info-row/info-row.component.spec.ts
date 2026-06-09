@@ -1,6 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {InfoRowComponent} from './info-row.component';
+import {InfoRowComponent} from '@shared/ui';
 
 describe('InfoRowComponent', () => {
   let component: InfoRowComponent;

@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {FlowbiteService} from '../../../core/services/flowbite/flowbite.service';
+import {FlowbiteService} from '@core/services/flowbite/flowbite.service';
 import {initFlowbite} from 'flowbite';
 import {Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {
@@ -13,12 +13,12 @@ import {
   Menu,
   User2
 } from 'lucide-angular';
-import {UserService} from '../../../core/services/user/user.service';
-import {AlertService} from '../../../core/services/alerts/alert.service';
-import {User} from '../../../core/models/user-models/user';
+import {UserService} from '../../profile/services/user/user.service';
+import {AlertService} from '@core/services/alerts/alert.service';
+import {User} from '../../profile/dtos/response/user';
 import {NgClass, NgOptimizedImage} from '@angular/common';
-import {environment} from '../../../environment/environment.development';
-import {SidebarMenuItem} from '../../../core/helpers/sidebar-menu-item';
+import {environment} from '@env/environment.development';
+import {SidebarMenuItem} from '../types/sidebar-menu-item';
 
 @Component({
   selector: 'app-institute-dashboard',

@@ -1,6 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {CardShellComponent} from './card-shell.component';
+import {CardShellComponent} from '@shared/ui';
 
 describe('CardShellComponent', () => {
   let component: CardShellComponent;
