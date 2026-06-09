@@ -14,6 +14,12 @@ import {PaginatedApiResponse} from '@shared/utils/response/paginated-api-respons
 import {ScheduleLectureResponse} from '../../../schedule-lectures/dtos/response/ScheduleLectureResponse';
 import {ResourceResponse} from '../../../resources/dtos/response/ResourceResponse';
 import {ResourceFilterRequest} from '../../../resources/dtos/request/ResourceFilterRequest';
+import {
+  ChapterAssignmentFilterRequest
+} from '@features/assignments/dtos/request/chapter-assignment/chapter-assignment-filter-request';
+import {
+  ChapterAssignmentResponse
+} from '@features/assignments/dtos/response/chapter-assignment/chapter-assignment-response';
 
 @Injectable({
   providedIn: 'root'
@@ -102,5 +108,30 @@ export class ChapterService {
     }
 
     return this.http.get<PaginatedApiResponse<ResourceResponse>>(`${this.baseUrl}/${chapterId}/resources`, { params });
+  }
+
+  getAllChapterAssignmentsWithFilters(chapterId: number, page: number = 0, size: number = 10, direction: string = 'desc', sortBy: string[] = ['created_date'], filters?: ChapterAssignmentFilterRequest): Observable<PaginatedApiResponse<ChapterAssignmentResponse>> {
+
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString())
+      .set('direction', direction);
+
+    // Append individual sortBy items for List<String> binding
+    sortBy.forEach(field => {
+      params = params.append('sortBy', field);
+    });
+
+    // Dynamically map non-null filters into query parameters
+    if (filters) {
+      Object.keys(filters).forEach(key => {
+        const value = (filters as any)[key];
+        if (value !== undefined && value !== null) {
+          params = params.set(key, value.toString());
+        }
+      });
+    }
+
+    return this.http.get<PaginatedApiResponse<ChapterAssignmentResponse>>(`${this.baseUrl}/${chapterId}/assignments`, {params});
   }
 }

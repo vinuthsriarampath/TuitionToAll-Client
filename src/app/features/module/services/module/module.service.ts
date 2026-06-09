@@ -12,6 +12,12 @@ import {ModuleTeacherUpdateRequest} from '../../dtos/request/ModuleTeacherUpdate
 import {ModuleBatchUpdateRequest} from '../../dtos/request/ModuleBatchUpdateRequest';
 import {ModuleDetailedResponse} from '../../dtos/response/ModuleDetailedResponse';
 import {ChapterResponse} from '../../../chapter/dtos/response/ChapterResponse';
+import {
+  ModuleAssignmentFilterRequest
+} from '@features/assignments/dtos/request/module-assignment/module-assignment-filter-request';
+import {
+  ModuleAssignmentResponse
+} from '@features/assignments/dtos/response/module-assignment/module-assignment-response';
 
 @Injectable({
   providedIn: 'root'
@@ -81,5 +87,30 @@ export class ModuleService {
 
   getChaptersByModuleId(moduleId: number): Observable<ApiResponse<ChapterResponse[]>> {
     return this.http.get<ApiResponse<ChapterResponse[]>>(`${this.baseUrl}/${moduleId}/chapters/all`);
+  }
+
+  getAssignmentsByModule(id: number, page: number = 0, size: number = 10, direction: string = 'desc', sortBy: string[] = ['created_date'], filters?: ModuleAssignmentFilterRequest): Observable<PaginatedApiResponse<ModuleAssignmentResponse>> {
+
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString())
+      .set('direction', direction);
+
+    // Append individual sortBy items for List<String> binding
+    sortBy.forEach(field => {
+      params = params.append('sortBy', field);
+    });
+
+    // Dynamically map non-null filters into query parameters
+    if (filters) {
+      Object.keys(filters).forEach(key => {
+        const value = (filters as any)[key];
+        if (value !== undefined && value !== null) {
+          params = params.set(key, value.toString());
+        }
+      });
+    }
+
+    return this.http.get<PaginatedApiResponse<ModuleAssignmentResponse>>(`${this.baseUrl}/${id}/assignments`, { params });
   }
 }
