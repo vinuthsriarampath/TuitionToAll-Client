@@ -1,0 +1,58 @@
+<div>
+  <div class="flex justify-between items-center mb-5">
+    <h1 class="text-2xl font-bold">Assignments</h1>
+    <button class="btn-mini-primary">Add Assignment</button>
+  </div>
+
+  <div>
+    <div class="overflow-x-auto w-full">
+      <table [dataSource]="dataSource" mat-table>
+        <ng-container matColumnDef="id">
+          <th *matHeaderCellDef mat-header-cell>#</th>
+          <td *matCellDef="let element" mat-cell>{{ element.id }}</td>
+        </ng-container>
+        <ng-container matColumnDef="topic">
+          <th *matHeaderCellDef mat-header-cell>Topic</th>
+          <td *matCellDef="let element" mat-cell>{{ element.topic }}</td>
+        </ng-container>
+        <ng-container matColumnDef="availableDate">
+          <th *matHeaderCellDef mat-header-cell>Available Date</th>
+          <td *matCellDef="let element" mat-cell>{{ element.availableOn | date: 'medium' }}</td>
+        </ng-container>
+        <ng-container matColumnDef="dueDate">
+          <th *matHeaderCellDef mat-header-cell>Due Date</th>
+          <td *matCellDef="let element" mat-cell>{{ element.dueDate | date: 'medium' }}</td>
+        </ng-container>
+        <ng-container matColumnDef="createdDate">
+          <th *matHeaderCellDef mat-header-cell>Created Date</th>
+          <td *matCellDef="let element" mat-cell>{{ element.createdDate | date: 'medium' }}</td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th *matHeaderCellDef mat-header-cell>Actions</th>
+          <td *matCellDef="let element" mat-cell>
+            <div class="flex gap-2">
+              <button class="cursor-pointer" matTooltip="View Assignment" matTooltipPosition="above">
+                <lucide-icon [img]="Eye" [size]="16"></lucide-icon>
+              </button>
+              <button class="cursor-pointer" matTooltip="Edit Assignment" matTooltipPosition="above">
+                <lucide-icon [img]="Pencil" [size]="16"></lucide-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr *matHeaderRowDef="columns" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: columns;" mat-row></tr>
+      </table>
+    </div>
+    <mat-paginator
+      [length]="totalElements"
+      [pageIndex]="0"
+      [pageSizeOptions]="[5, 10, 20]"
+      [pageSize]="10"
+      (page)="onPageChange($event)"
+      aria-label="Select page of assignments"
+      showFirstLastButtons
+    />
+  </div>
+</div>
