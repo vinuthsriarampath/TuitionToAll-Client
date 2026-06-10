@@ -18,6 +18,7 @@ import {
 import {
   ModuleAssignmentResponse
 } from '@features/assignments/dtos/response/module-assignment/module-assignment-response';
+import {Assignment} from '@features/assignments/dtos/response/assignment';
 
 @Injectable({
   providedIn: 'root'
@@ -89,7 +90,7 @@ export class ModuleService {
     return this.http.get<ApiResponse<ChapterResponse[]>>(`${this.baseUrl}/${moduleId}/chapters/all`);
   }
 
-  getAssignmentsByModule(id: number, page: number = 0, size: number = 10, direction: string = 'desc', sortBy: string[] = ['created_date'], filters?: ModuleAssignmentFilterRequest): Observable<PaginatedApiResponse<ModuleAssignmentResponse>> {
+  getAssignmentsByModule(id: number, page: number = 0, size: number = 10, direction: string = 'desc', sortBy: string[] = ['created_date'], filters?: ModuleAssignmentFilterRequest): Observable<PaginatedApiResponse<Assignment>> {
 
     let params = new HttpParams()
       .set('page', page.toString())

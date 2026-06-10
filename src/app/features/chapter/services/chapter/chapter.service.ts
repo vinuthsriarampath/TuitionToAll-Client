@@ -20,6 +20,7 @@ import {
 import {
   ChapterAssignmentResponse
 } from '@features/assignments/dtos/response/chapter-assignment/chapter-assignment-response';
+import {Assignment} from '@features/assignments/dtos/response/assignment';
 
 @Injectable({
   providedIn: 'root'
@@ -110,7 +111,7 @@ export class ChapterService {
     return this.http.get<PaginatedApiResponse<ResourceResponse>>(`${this.baseUrl}/${chapterId}/resources`, { params });
   }
 
-  getAllChapterAssignmentsWithFilters(chapterId: number, page: number = 0, size: number = 10, direction: string = 'desc', sortBy: string[] = ['created_date'], filters?: ChapterAssignmentFilterRequest): Observable<PaginatedApiResponse<ChapterAssignmentResponse>> {
+  getAllChapterAssignmentsWithFilters(chapterId: number, page: number = 0, size: number = 10, direction: string = 'desc', sortBy: string[] = ['created_date'], filters?: ChapterAssignmentFilterRequest): Observable<PaginatedApiResponse<Assignment>> {
 
     let params = new HttpParams()
       .set('page', page.toString())

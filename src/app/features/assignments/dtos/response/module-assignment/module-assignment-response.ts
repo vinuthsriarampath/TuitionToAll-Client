@@ -1,4 +1,6 @@
-export class ModuleAssignmentResponse {
+import {Assignment} from '@features/assignments/dtos/response/assignment';
+
+export class ModuleAssignmentResponse implements Assignment{
   id!: number;
   assignmentId!: number;
   moduleId!: number;

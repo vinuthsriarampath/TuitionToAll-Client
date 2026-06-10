@@ -1,4 +1,6 @@
-export class ChapterAssignmentResponse {
+import {Assignment} from '@features/assignments/dtos/response/assignment';
+
+export class ChapterAssignmentResponse implements Assignment{
   id!: number;
   assignmentId!: number;
   chapterId!: number;
