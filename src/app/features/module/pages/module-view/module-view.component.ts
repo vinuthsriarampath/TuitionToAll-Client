@@ -13,6 +13,8 @@ import {ChapterListComponent} from '../../../chapter/components/chapter-list/cha
 import {
   ChapterCreateDialogComponent
 } from '../../../chapter/dialogs/chapter-create-dialog/chapter-create-dialog.component';
+import {MatTab, MatTabContent, MatTabGroup} from '@angular/material/tabs';
+import {AssignmentListComponent} from '@features/assignments/pages/assignment-list/assignment-list.component';
 
 @Component({
   selector: 'app-module-view',
@@ -23,7 +25,11 @@ import {
     LucideAngularModule,
     NgOptimizedImage,
     RouterLink,
-    ChapterListComponent
+    ChapterListComponent,
+    MatTabGroup,
+    MatTab,
+    MatTabContent,
+    AssignmentListComponent
   ],
   templateUrl: './module-view.component.html',
   styleUrl: './module-view.component.css'

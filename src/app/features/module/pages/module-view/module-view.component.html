@@ -84,12 +84,18 @@
 
   <!-- Right Side -->
   <div class="flex-1 shadow-lg rounded-2xl bg-gray-50 border border-gray-200 overflow-y-auto flex flex-col">
+    <mat-tab-group class="custom-tabs w-full" mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="500ms">
+      <mat-tab label="Chapters" >
+        <ng-template matTabContent>
+          <app-chapter-list [triggerRefresh]="chapterRefreshTrigger" class="flex-1 overflow-y-auto"></app-chapter-list>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="Module Assignments">
+        <ng-template matTabContent>
+          <app-assignment-list [config]="{type: 'module',moduleId: module.id}" class="flex-1 overflow-y-auto"/>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
 
-    <div class="sticky top-0 z-10 flex justify-between items-center bg-white h-14 px-4 border-b border-gray-200">
-      <h1 class="text-xl font-semibold">Chapters</h1>
-      <button class="btn-mini-primary">Add Chapter</button>
-    </div>
-
-    <app-chapter-list [triggerRefresh]="chapterRefreshTrigger" class="flex-1 overflow-y-auto"></app-chapter-list>
   </div>
 </div>

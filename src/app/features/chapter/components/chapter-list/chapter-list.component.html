@@ -1,4 +1,4 @@
-<div class="chapter-boundry flex flex-col gap-3 p-3" cdkDropList (cdkDropListDropped)="drop($event)">
+<div class="chapter-boundry flex flex-col gap-3" cdkDropList (cdkDropListDropped)="drop($event)">
 
   @for (chapter of chapters; track chapter.id; let i = $index) {
 
