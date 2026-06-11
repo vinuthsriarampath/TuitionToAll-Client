@@ -19,11 +19,16 @@ import {Assignment} from '@features/assignments/dtos/response/assignment';
 import {ModuleService} from '@features/module/services/module/module.service';
 import {ChapterService} from '@features/chapter/services/chapter/chapter.service';
 import {AlertService} from '@core/services/alerts/alert.service';
-import {Eye, LucideAngularModule, Pencil} from 'lucide-angular';
+import {Eye, LucideAngularModule, Pencil, RefreshCw} from 'lucide-angular';
 
 export type AssignmentListConfig =
   | { type: 'module'; moduleId: number; chapterId?: never }
   | { type: 'chapter'; chapterId: number; moduleId?: never };
+
+export type Header = {
+  title: string,
+  description: string
+}
 
 @Component({
   selector: 'app-assignment-list',
@@ -47,6 +52,8 @@ export type AssignmentListConfig =
   styleUrl: './assignment-list.component.css'
 })
 export class AssignmentListComponent implements OnInit {
+
+  header= input.required<Header>();
   config = input.required<AssignmentListConfig>();
 
   protected columns: string[] = ['id', 'topic', 'availableDate', 'dueDate', 'createdDate', 'actions'];
@@ -93,4 +100,10 @@ export class AssignmentListComponent implements OnInit {
     this.pageSize = $event.pageSize;
     this.loadAssignments();
   }
+
+  protected onRefresh():void{
+    this.loadAssignments();
+  }
+
+  protected readonly RefreshCw = RefreshCw;
 }

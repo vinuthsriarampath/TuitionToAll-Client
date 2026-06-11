@@ -50,6 +50,13 @@
       <!-- Scheduled Lectures -->
       <app-scheduled-lectures/>
 
+      <!-- Chapter Assignments-->
+      <app-card-shell>
+        <div class="p-5">
+          <app-assignment-list [config]="{ type:'chapter', chapterId:this.chapter.id}" [header]="{ title: 'Assignments', description: 'Manage assignments for this chapter'}" />
+        </div>
+      </app-card-shell>
+
     </div>
 
   </div>

@@ -13,6 +13,7 @@ import {ResourcesComponent} from '../../../resources/pages/resources/resources.c
 import {
   ScheduledLecturesComponent
 } from '../../../schedule-lectures/pages/scheduled-lectures/scheduled-lectures.component';
+import {AssignmentListComponent} from '@features/assignments/pages/assignment-list/assignment-list.component';
 
 @Component({
   selector: 'app-chapter-view',
@@ -24,7 +25,8 @@ import {
     ChapterOverviewComponent,
     LectureRecordingComponent,
     ResourcesComponent,
-    ScheduledLecturesComponent
+    ScheduledLecturesComponent,
+    AssignmentListComponent
   ],
   templateUrl: './chapter-view.component.html',
   styleUrl: './chapter-view.component.css'

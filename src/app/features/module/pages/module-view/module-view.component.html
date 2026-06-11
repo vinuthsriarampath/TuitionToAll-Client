@@ -92,7 +92,7 @@
       </mat-tab>
       <mat-tab label="Module Assignments">
         <ng-template matTabContent>
-          <app-assignment-list [config]="{type: 'module',moduleId: module.id}" class="flex-1 overflow-y-auto"/>
+          <app-assignment-list [config]="{type: 'module',moduleId: module.id}" [header]="{ title: 'Assignments', description:'Manage all module assignments'}" class="flex-1 overflow-y-auto"/>
         </ng-template>
       </mat-tab>
     </mat-tab-group>
