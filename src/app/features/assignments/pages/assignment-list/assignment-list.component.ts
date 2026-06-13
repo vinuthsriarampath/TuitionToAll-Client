@@ -20,8 +20,9 @@ import {ModuleService} from '@features/module/services/module/module.service';
 import {ChapterService} from '@features/chapter/services/chapter/chapter.service';
 import {AlertService} from '@core/services/alerts/alert.service';
 import {Eye, LucideAngularModule, Pencil, RefreshCw} from 'lucide-angular';
+import {ActivatedRoute, Router} from '@angular/router';
 
-export type AssignmentListConfig =
+export type AssignmentConfig =
   | { type: 'module'; moduleId: number; chapterId?: never }
   | { type: 'chapter'; chapterId: number; moduleId?: never };
 
@@ -54,7 +55,7 @@ export type Header = {
 export class AssignmentListComponent implements OnInit {
 
   header= input.required<Header>();
-  config = input.required<AssignmentListConfig>();
+  config = input.required<AssignmentConfig>();
 
   protected columns: string[] = ['id', 'topic', 'availableDate', 'dueDate', 'createdDate', 'actions'];
   protected dataSource: MatTableDataSource<Assignment> = new MatTableDataSource<Assignment>();
@@ -62,11 +63,12 @@ export class AssignmentListComponent implements OnInit {
   protected pageIndex = 0;
   protected pageSize = 10;
   protected totalElements = 0;
-  protected readonly Eye = Eye;
-  protected readonly Pencil = Pencil;
+
   private readonly moduleService: ModuleService = inject(ModuleService);
   private readonly chapterService: ChapterService = inject(ChapterService);
   private readonly alertService: AlertService = inject(AlertService);
+  private readonly router: Router = inject(Router);
+  private readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
 
   ngOnInit(): void {
     this.loadAssignments();
@@ -105,5 +107,13 @@ export class AssignmentListComponent implements OnInit {
     this.loadAssignments();
   }
 
+  protected navigateToAssignmentCreate():void{
+    this.router.navigate(
+      ['assignments','create'],
+      { relativeTo: this.activatedRoute ,queryParams: this.config() }
+    );
+  }
   protected readonly RefreshCw = RefreshCw;
+  protected readonly Eye = Eye;
+  protected readonly Pencil = Pencil;
 }
