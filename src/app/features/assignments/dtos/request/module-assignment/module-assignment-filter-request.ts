@@ -1,7 +1,7 @@
 export class ModuleAssignmentFilterRequest {
   assignmentId!: number;
   topic!: string;
-  reSubmission!: boolean;
+  resubmission!: boolean;
   lateSubmission!: boolean;
   totalMarks!: number;
   maxAttempts!: number;

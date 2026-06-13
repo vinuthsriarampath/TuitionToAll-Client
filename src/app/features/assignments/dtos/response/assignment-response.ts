@@ -7,7 +7,7 @@ export class AssignmentResponse {
   availableOn!: string | Date;
   dueDate!: string | Date;
   lateSubmission!: boolean;
-  reSubmission!: boolean;
+  resubmission!: boolean;
   maxAttempts!: number;
   createdDate!: string | Date;
   lastModifiedDate!: string | Date;
