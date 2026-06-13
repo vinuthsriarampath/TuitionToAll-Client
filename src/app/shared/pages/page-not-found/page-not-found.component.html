@@ -8,10 +8,59 @@
   ~ Portions of this code may be generated with AI and modified by vinuth sri arampath
   ~ All rights reserved.
   -->
-<div class="min-h-screen min-w-screen flex justify-center items-center bg-gradient-to-br from-background to-blue-900/80 dark:from-black">
-  <div class="sm:p-10 sm:m-5 m-3 p-3 max-w-96 bg-gray-200/50 dark:bg-gray-800 text-center dark:text-white rounded-2xl shadow-2xl dark:shadow-blue-300 shadow-blue-900">
-    <h3 class="sm:text-1xl font-bold">OOPS! PAGE NOT FOUND</h3>
-    <p class="sm:text-9xl text-7xl">404</p>
-    <p>WE ARE SORRY, BUT THE PAGE YOU REQUESTED WAS NOT FOUND</p>
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-sky-100 via-sky-50 to-white px-6 relative overflow-hidden">
+
+  <!-- Decorative floating circles -->
+  <div class="absolute w-72 h-72 bg-sky-300/30 rounded-full blur-3xl top-10 left-10 animate-float"></div>
+  <div class="absolute w-96 h-96 bg-sky-200/30 rounded-full blur-3xl bottom-10 right-10 animate-float-slow"></div>
+
+  <div class="text-center max-w-2xl z-10">
+
+    <!-- Sky themed 404 illustration -->
+    <div class="relative flex justify-center mb-6">
+
+      <!-- cloud -->
+      <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-32 h-10 bg-white rounded-full shadow-md animate-float"></div>
+
+      <!-- 404 text -->
+      <div class="text-7xl md:text-8xl font-extrabold text-sky-600 drop-shadow-sm animate-bounce-slow">
+        404
+      </div>
+
+    </div>
+
+    <!-- Title -->
+    <h1 class="text-3xl md:text-4xl font-bold text-sky-800 mb-3">
+      Page Drifted Away 🌤️
+    </h1>
+
+    <!-- Subtitle -->
+    <p class="text-sky-600 mb-8 leading-relaxed">
+      The page you are looking for might have floated away like a cloud,<br />
+      or never existed in the first place.
+    </p>
+
+    <!-- Buttons -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+
+      <button
+        (click)="goHome()"
+        class="px-6 py-3 rounded-xl bg-sky-600 text-white font-semibold shadow-lg hover:bg-sky-700 transition transform hover:scale-105">
+        🏠 Back to Home
+      </button>
+
+      <button
+        (click)="goBack()"
+        class="px-6 py-3 rounded-xl bg-white text-sky-700 font-semibold shadow-md border border-sky-200 hover:bg-sky-50 transition transform hover:scale-105">
+        ← Go Back
+      </button>
+
+    </div>
+
+    <!-- Footer -->
+    <p class="mt-10 text-sm text-sky-400 animate-fade-in">
+      TuitionToAll • Learning continues above the clouds ☁️
+    </p>
+
   </div>
 </div>

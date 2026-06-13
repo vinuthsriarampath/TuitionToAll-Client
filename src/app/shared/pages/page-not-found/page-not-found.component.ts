@@ -9,7 +9,8 @@
  * All rights reserved.
  */
 
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-page-not-found',
@@ -18,5 +19,14 @@ import {Component} from '@angular/core';
   styleUrl: './page-not-found.component.css'
 })
 export class PageNotFoundComponent {
+  private readonly window = globalThis.window
+  private readonly router:Router = inject(Router);
 
+  goHome() {
+    this.router.navigate(['/']);
+  }
+
+  goBack() {
+    window.history.back();
+  }
 }
