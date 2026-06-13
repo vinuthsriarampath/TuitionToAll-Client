@@ -1,0 +1,190 @@
+<app-page-layout
+  [headerTitle]="config.type === 'module' ? 'Module Assignment View' : 'Chapter Assignment View'"
+  [headerDescription]="'View assignment details and configuration'"
+  [showBackButton]="true"
+  [isLoading]="loading"
+  loaderTitle="Loading Assignment"
+  loaderDescription="Please wait while we load the assignment..."
+>
+
+  <div data-body class="max-w-4xl mx-auto space-y-10">
+
+    @if (isLoaded && assignment) {
+
+      <!-- ================= TYPE BADGE ================= -->
+      <div class="flex justify-end">
+        <span class="px-3 py-1 rounded-full text-xs font-semibold"
+              [ngClass]="config.type === 'module'
+                ? 'bg-sky-100 text-sky-700'
+                : 'bg-indigo-100 text-indigo-700'">
+
+          {{ config.type === 'module' ? 'Module Assignment' : 'Chapter Assignment' }}
+
+        </span>
+      </div>
+
+      <!-- ================= DETAILS ================= -->
+      <div class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
+
+        <div class="px-6 py-4 bg-sky-50 border-b border-sky-100">
+          <h2 class="text-lg font-semibold text-gray-800">Assignment Details</h2>
+          <p class="text-xs text-gray-500 mt-1">
+            Read-only view of assignment configuration
+          </p>
+        </div>
+
+        <div class="p-6 space-y-8">
+
+          <!-- BASIC INFO -->
+          <div class="space-y-4">
+            <h3 class="text-sm font-semibold text-gray-700">Basic Information</h3>
+
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <p class="text-xs text-gray-400">Topic</p>
+              <p class="text-sm font-medium text-gray-800">
+                {{ assignment.topic }}
+              </p>
+            </div>
+
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <p class="text-xs text-gray-400">Description</p>
+              <div class="text-sm text-gray-700 prose max-w-none"
+                   [innerHTML]="assignment.description">
+              </div>
+            </div>
+          </div>
+
+          <!-- SCHEDULE -->
+          <div class="space-y-4">
+            <h3 class="text-sm font-semibold text-gray-700">Schedule</h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+              <div class="bg-gray-50 p-4 rounded-lg">
+                <p class="text-xs text-gray-400">Available From</p>
+                <p class="text-sm font-medium text-gray-800">
+                  {{ assignment.availableOn | date:'medium' }}
+                </p>
+              </div>
+
+              <div class="bg-gray-50 p-4 rounded-lg">
+                <p class="text-xs text-gray-400">Due Date</p>
+                <p class="text-sm font-medium text-gray-800">
+                  {{ assignment.dueDate | date:'medium' }}
+                </p>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- RULES -->
+          <div class="space-y-4">
+            <h3 class="text-sm font-semibold text-gray-700">Submission Rules</h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+              <div class="bg-gray-50 p-4 rounded-lg">
+                <p class="text-xs text-gray-400">Late Submission</p>
+                <p class="text-sm font-medium">
+                  {{ assignment.lateSubmission ? 'Allowed' : 'Not Allowed' }}
+                </p>
+              </div>
+
+              <div class="bg-gray-50 p-4 rounded-lg">
+                <p class="text-xs text-gray-400">Re-submission</p>
+                <p class="text-sm font-medium">
+                  {{ assignment.resubmission ? 'Allowed' : 'Not Allowed' }}
+                </p>
+              </div>
+
+              <div class="bg-gray-50 p-4 rounded-lg md:col-span-2">
+                <p class="text-xs text-gray-400">Max Attempts</p>
+                <p class="text-sm font-medium">
+                  {{ assignment.maxAttempts }}
+                </p>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- GRADING -->
+          <div class="space-y-4">
+            <h3 class="text-sm font-semibold text-gray-700">Grading Scheme</h3>
+
+            <div class="space-y-2">
+              @for (range of assignment.gradingRangers; track $index) {
+
+                <div class="grid grid-cols-4 gap-3 bg-gray-50 p-3 rounded-lg text-sm">
+
+                  <div>
+                    <p class="text-xs text-gray-400">Min</p>
+                    <p class="font-medium">{{ range.minMarks }}</p>
+                  </div>
+
+                  <div>
+                    <p class="text-xs text-gray-400">Max</p>
+                    <p class="font-medium">{{ range.maxMarks }}</p>
+                  </div>
+
+                  <div>
+                    <p class="text-xs text-gray-400">Grade</p>
+                    <p class="font-medium">{{ range.desiredGrade }}</p>
+                  </div>
+
+                  <div>
+                    <p class="text-xs text-gray-400">Note</p>
+                    <p class="font-medium">{{ range.description || '-' }}</p>
+                  </div>
+
+                </div>
+
+              }
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ================= FILE ================= -->
+      <div class="bg-white rounded-2xl shadow-md border border-sky-100 overflow-hidden">
+
+        <div class="px-6 py-4 bg-sky-100 border-b border-sky-200">
+          <h2 class="text-lg font-semibold text-gray-800">
+            Attachment
+          </h2>
+        </div>
+
+        <div class="p-6 flex items-center justify-between bg-gray-50">
+
+          <div class="text-sm text-gray-600">
+            File:
+            <span class="font-medium text-gray-800">
+              {{ assignment.fileName }}
+            </span>
+          </div>
+
+          <a
+            class="btn-mini-primary"
+            [href]="environment.ASSIGNMENT_API + '/download/' + assignment.fileName"
+            target="_blank"
+            download
+          >
+            Download
+          </a>
+
+        </div>
+
+      </div>
+
+    }
+
+    @else {
+      <div class="bg-white rounded-xl shadow-sm p-6 text-center text-gray-500">
+        Loading assignment...
+      </div>
+    }
+
+  </div>
+
+</app-page-layout>
