@@ -15,3 +15,19 @@ export function isFutureDate(): ValidatorFn {
       };
   };
 }
+
+export function isPresentFutureDate(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    if (!control.value) return null;
+
+    const selectedDate = new Date(control.value);
+    const now = new Date();
+    return selectedDate >= now
+      ? null
+      : {
+        isPresentFutureDate: {
+          message: 'Date must be in the present or future'
+        }
+      };
+  };
+}
