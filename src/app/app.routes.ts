@@ -56,6 +56,7 @@ import {
   LectureRecordWatchComponent
 } from '@features/lecture-record/pages/lecture-record-watch/lecture-record-watch.component';
 import {AssignmentCreateComponent} from '@features/assignments/pages/assignment-create/assignment-create.component';
+import {AssignmentUpdateComponent} from '@features/assignments/pages/assignment-update/assignment-update.component';
 
 
 export const routes: Routes = [
@@ -174,6 +175,10 @@ export const routes: Routes = [
                                   {
                                     path: 'create',
                                     component: AssignmentCreateComponent
+                                  },
+                                  {
+                                    path: ':assignmentId/update',
+                                    component: AssignmentUpdateComponent
                                   }
                                 ]
                               },
@@ -194,6 +199,10 @@ export const routes: Routes = [
                                       {
                                         path: 'create',
                                         component: AssignmentCreateComponent
+                                      },
+                                      {
+                                        path: ':assignmentId/update',
+                                        component: AssignmentUpdateComponent
                                       }
                                     ]
                                   }
