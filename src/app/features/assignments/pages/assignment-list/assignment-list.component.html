@@ -47,7 +47,7 @@
           <th *matHeaderCellDef mat-header-cell>Actions</th>
           <td *matCellDef="let element" mat-cell>
             <div class="flex gap-2">
-              <button class="cursor-pointer" matTooltip="View Assignment" matTooltipPosition="above">
+              <button class="cursor-pointer" matTooltip="View Assignment" matTooltipPosition="above" (click)="navigateToAssignmentView(element.assignmentId)">
                 <lucide-icon [img]="Eye" [size]="16"></lucide-icon>
               </button>
               <button class="cursor-pointer" matTooltip="Edit Assignment" matTooltipPosition="above" (click)="navigateToAssignmentUpdate(element.assignmentId)">
