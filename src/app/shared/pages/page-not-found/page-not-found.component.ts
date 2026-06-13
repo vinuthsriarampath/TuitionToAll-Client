@@ -27,6 +27,6 @@ export class PageNotFoundComponent {
   }
 
   goBack() {
-    window.history.back();
+    this.window.history.back();
   }
 }
