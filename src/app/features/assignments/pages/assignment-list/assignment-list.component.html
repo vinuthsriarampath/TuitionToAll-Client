@@ -50,7 +50,7 @@
               <button class="cursor-pointer" matTooltip="View Assignment" matTooltipPosition="above">
                 <lucide-icon [img]="Eye" [size]="16"></lucide-icon>
               </button>
-              <button class="cursor-pointer" matTooltip="Edit Assignment" matTooltipPosition="above">
+              <button class="cursor-pointer" matTooltip="Edit Assignment" matTooltipPosition="above" (click)="navigateToAssignmentUpdate(element.assignmentId)">
                 <lucide-icon [img]="Pencil" [size]="16"></lucide-icon>
               </button>
             </div>

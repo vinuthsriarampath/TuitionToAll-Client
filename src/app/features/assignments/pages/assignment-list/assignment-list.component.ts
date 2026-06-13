@@ -113,6 +113,13 @@ export class AssignmentListComponent implements OnInit {
       { relativeTo: this.activatedRoute ,queryParams: this.config() }
     );
   }
+
+  protected navigateToAssignmentUpdate(id:number):void{
+    this.router.navigate(
+      ['assignments',id,'update'],
+      {relativeTo: this.activatedRoute,queryParams: this.config()}
+    )
+  }
   protected readonly RefreshCw = RefreshCw;
   protected readonly Eye = Eye;
   protected readonly Pencil = Pencil;
