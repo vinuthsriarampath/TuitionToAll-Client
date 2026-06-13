@@ -11,7 +11,7 @@ import {AssignmentDetailedResponse} from '@features/assignments/dtos/response/as
 })
 export class AssignmentService {
   private readonly http:HttpClient = inject(HttpClient);
-  private readonly baseUrl: string = environment.CHAPTER_ASSIGNMENT_API ?? '';
+  private readonly baseUrl: string = environment.ASSIGNMENT_API ?? '';
 
   updateAssignment(id: number, request: AssignmentUpdateRequest): Observable<ApiResponse<AssignmentDetailedResponse>> {
     return this.http.patch<ApiResponse<AssignmentDetailedResponse>>(`${this.baseUrl}/${id}`, request);
