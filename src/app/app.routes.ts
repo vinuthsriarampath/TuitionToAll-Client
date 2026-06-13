@@ -55,6 +55,7 @@ import {ChapterViewComponent} from '@features/chapter/pages/chapter-view/chapter
 import {
   LectureRecordWatchComponent
 } from '@features/lecture-record/pages/lecture-record-watch/lecture-record-watch.component';
+import {AssignmentCreateComponent} from '@features/assignments/pages/assignment-create/assignment-create.component';
 
 
 export const routes: Routes = [
@@ -168,6 +169,15 @@ export const routes: Routes = [
                                 component: ModuleViewComponent
                               },
                               {
+                                path:'assignments',
+                                children:[
+                                  {
+                                    path: 'create',
+                                    component: AssignmentCreateComponent
+                                  }
+                                ]
+                              },
+                              {
                                 path: 'chapters/:chapterId',
                                 children:[
                                   {
@@ -177,6 +187,15 @@ export const routes: Routes = [
                                   {
                                     path:'watch',
                                     component:LectureRecordWatchComponent
+                                  },
+                                  {
+                                    path:'assignments',
+                                    children:[
+                                      {
+                                        path: 'create',
+                                        component: AssignmentCreateComponent
+                                      }
+                                    ]
                                   }
                                 ]
                               }
