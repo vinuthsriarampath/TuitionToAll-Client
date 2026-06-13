@@ -26,4 +26,13 @@ export class FormErrorHandler {
       form.setErrors({server: "An unexpected error occurred"});
     }
   }
+
+  public normalizeErrors(err: any): void {
+    if (!err.error?.errors) return;
+
+    err.error.errors = err.error.errors.map((e: any) => ({
+      ...e,
+      field: e.field.replaceAll(/\[(\d+)]/g, '.$1')
+    }));
+  }
 }
