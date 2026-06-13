@@ -80,7 +80,7 @@ export class AssignmentCreateComponent implements OnInit{
       availableOn: [ getDateTime(),[Validators.required, isPresentFutureDate()]],
       dueDate: [getDateTime(0,0,1,0,0),[Validators.required, isFutureDate()]],
       lateSubmission: [false],
-      reSubmission: [false],
+      resubmission: [false],
       maxAttempts: [1,Validators.required],
       file: [],
       gradingRanges: this.formBuilder.array([],Validators.required),
@@ -156,7 +156,7 @@ export class AssignmentCreateComponent implements OnInit{
             availableOn: this.mainForm.get('availableOn')?.value,
             dueDate: this.mainForm.get('dueDate')?.value,
             lateSubmission: this.mainForm.get('lateSubmission')?.value,
-            resubmission: this.mainForm.get('reSubmission')?.value,
+            resubmission: this.mainForm.get('resubmission')?.value,
             maxAttempts: this.mainForm.get('maxAttempts')?.value,
             gradingRanges: this.mainForm.get('gradingRanges')?.value
           }
@@ -170,7 +170,7 @@ export class AssignmentCreateComponent implements OnInit{
             availableOn: this.mainForm.get('availableOn')?.value,
             dueDate: this.mainForm.get('dueDate')?.value,
             lateSubmission: this.mainForm.get('lateSubmission')?.value,
-            resubmission: this.mainForm.get('reSubmission')?.value,
+            resubmission: this.mainForm.get('resubmission')?.value,
             maxAttempts: this.mainForm.get('maxAttempts')?.value,
             gradingRanges: this.mainForm.get('gradingRanges')?.value
           }
