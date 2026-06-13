@@ -20,6 +20,28 @@
     * {{ label() }} is Mandatory!
   </p>
 }
+@if (control()?.errors?.['min'] && control()?.touched) {
+  <p class="form-error">
+    * {{ control()?.errors?.['min'].message }}
+  </p>
+}
+@if (control()?.errors?.['max'] && control()?.touched) {
+  <p class="form-error">
+    * {{ control()?.errors?.['max'].message }}
+  </p>
+}
+@if (type() === 'date' || type() === 'time' || type() === 'datetime-local'){
+  @if (control()?.errors?.['isFutureDate'] && control()?.touched){
+    <p class="form-error">
+      * {{ control()?.errors?.['isFutureDate'].message }}
+    </p>
+  }
+  @if (control()?.errors?.['isPresentFutureDate'] && control()?.touched){
+    <p class="form-error">
+      * {{ control()?.errors?.['isPresentFutureDate'].message }}
+    </p>
+  }
+}
 
 @if (control()?.errors?.['server']) {
   <p class="form-error">
