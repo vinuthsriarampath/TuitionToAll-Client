@@ -187,6 +187,7 @@ export class AssignmentCreateComponent implements OnInit{
         if(res.data){
           this.alertService.triggerSuccessAlert("Module assignment created successfully");
           this.triggerLoading();
+          this.window.history.back();
         }
       },
       error: (err) => {
@@ -204,6 +205,7 @@ export class AssignmentCreateComponent implements OnInit{
         if(res.data){
           this.alertService.triggerSuccessAlert("Chapter assignment created successfully");
           this.triggerLoading();
+          this.window.history.back();
         }
       },
       error: (err) =>{
