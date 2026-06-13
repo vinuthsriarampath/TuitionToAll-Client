@@ -12,6 +12,7 @@ import {AssignmentService} from '@features/assignments/services/assignment/assig
 import {AssignmentDetailedResponse} from '@features/assignments/dtos/response/assignment-detailed-response';
 import {combineLatest} from 'rxjs';
 import {AssignmentUpdateRequest} from '@features/assignments/dtos/request/assignment-update-request';
+import {environment} from '@env/environment.development';
 
 @Component({
   selector: 'app-assignment-update',
@@ -30,6 +31,7 @@ import {AssignmentUpdateRequest} from '@features/assignments/dtos/request/assign
 export class AssignmentUpdateComponent implements OnInit {
   protected originalAssignment!:AssignmentDetailedResponse;
   protected mainForm!: FormGroup;
+  protected fileForm!:FormGroup;
   protected config!: AssignmentConfig;
   protected isFormReady:boolean = false;
   protected loading:boolean = false;
@@ -97,12 +99,19 @@ export class AssignmentUpdateComponent implements OnInit {
 
   }
 
+  initializeFileForm():FormGroup{
+    return this.formBuilder.group({
+      file: [null,Validators.required]
+    })
+  }
+
   private loadAssignmentById(id:number){
     this.assignmentService.getDetailedAssignmentById(id).subscribe({
       next: (res) => {
         if (res.data) {
           this.originalAssignment = res.data;
           this.mainForm = this.initializeForm();
+          this.fileForm = this.initializeFileForm();
           this.setupFormListeners();
           this.isFormReady = true;
         }
@@ -176,6 +185,7 @@ export class AssignmentUpdateComponent implements OnInit {
       next: (res) => {
         if (res.data) {
           this.triggerLoading();
+          this.alertService.triggerSuccessAlert("Assignment Details Update Successfully!");
           this.window.history.back();
         }
       },
@@ -187,6 +197,29 @@ export class AssignmentUpdateComponent implements OnInit {
 
   }
 
+  onFileSubmit():void{
+    if(this.fileForm.invalid){
+      return;
+    }
+    let file:File | null = this.fileForm.get('file')?.value ?? null;
+    if (file === null || !(file instanceof File)) {
+      this.alertService.triggerErrorAlert("File is missing or invalid!");
+      return;
+    }
+    this.assignmentService.updateAssignmentFile(this.originalAssignment.id,file).subscribe({
+      next: (res) => {
+        if (res.data) {
+          this.alertService.triggerSuccessAlert("File updated successfully!");
+          this.originalAssignment.fileName = res.data
+          this.fileForm.reset();
+        }
+      },
+      error: (err) => {
+        this.alertService.triggerErrorAlert(err.error?.message || "Failed to update file!");
+      }
+    });
+  }
+
   protected onReset() {
     this.mainForm = this.initializeForm();
   }
@@ -196,10 +229,13 @@ export class AssignmentUpdateComponent implements OnInit {
 
     if(this.loading){
       this.mainForm.disable({ emitEvent :true})
+      this.fileForm.disable({ emitEvent :true})
     }else {
       this.mainForm.enable();
+      this.fileForm.enable();
     }
   }
 
   protected readonly Trash2 = Trash2;
+  protected readonly environment = environment;
 }

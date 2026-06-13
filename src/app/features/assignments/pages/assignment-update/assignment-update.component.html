@@ -95,14 +95,7 @@
           </div>
         </div>
 
-        <!-- ================= ATTACHMENT ================= -->
-<!--        <div class="bg-white rounded-xl shadow-sm p-5">-->
-<!--          <h2 class="text-base font-semibold text-gray-800 mb-3">Attachment</h2>-->
-
-<!--          <app-file-input id="file" label="Upload PDF" [required]="true" [accept]="'.pdf'" [control]="mainForm.get('file')"/>-->
-<!--        </div>-->
-
-        <!-- ================= ACTIONS ================= -->
+        <!-- ACTIONS -->
         <div class="flex justify-end gap-3 pt-2">
           <button type="reset" (click)="onReset()" class="btn-mini-secondary">
             Reset
@@ -114,6 +107,40 @@
         </div>
 
       </form>
+
+      <!-- ================= ATTACHMENT SECTION (SEPARATE FORM) ================= -->
+      <form [formGroup]="fileForm" (ngSubmit)="onFileSubmit()"  class="mt-6">
+
+        <div class="bg-white rounded-xl shadow-sm p-5 space-y-4">
+
+          <h2 class="text-base font-semibold text-gray-800">Attachment</h2>
+
+          <!-- DOWNLOAD EXISTING FILE -->
+          <div class="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
+            <div class="text-sm text-gray-600">
+              Current file:
+              <span class="font-medium text-gray-800">
+                {{ originalAssignment.fileName }}
+              </span>
+            </div>
+
+            <a class="btn-mini-primary" [href]="environment.ASSIGNMENT_API + '/download/' + originalAssignment.fileName" target="_blank" download>Download</a>
+          </div>
+
+          <!-- UPLOAD NEW FILE -->
+          <app-file-input id="file" label="Replace PDF" [required]="false" [accept]="'.pdf'" [control]="fileForm.get('file')" />
+
+          <!-- SUBMIT FILE -->
+          <div class="flex justify-end mt-2">
+            <button type="submit" class="btn-mini-primary px-6" [disabled]="fileForm.invalid">
+              Update File
+            </button>
+          </div>
+
+        </div>
+
+      </form>
+
     }
     @else {
       <div class="bg-white rounded-xl shadow-sm p-6 text-center text-gray-500">
