@@ -57,6 +57,7 @@ import {
 } from '@features/lecture-record/pages/lecture-record-watch/lecture-record-watch.component';
 import {AssignmentCreateComponent} from '@features/assignments/pages/assignment-create/assignment-create.component';
 import {AssignmentUpdateComponent} from '@features/assignments/pages/assignment-update/assignment-update.component';
+import {AssignmentViewComponent} from '@features/assignments/pages/assignment-view/assignment-view.component';
 
 
 export const routes: Routes = [
@@ -179,6 +180,10 @@ export const routes: Routes = [
                                   {
                                     path: ':assignmentId/update',
                                     component: AssignmentUpdateComponent
+                                  },
+                                  {
+                                    path:':assignmentId/view',
+                                    component: AssignmentViewComponent
                                   }
                                 ]
                               },
@@ -203,6 +208,10 @@ export const routes: Routes = [
                                       {
                                         path: ':assignmentId/update',
                                         component: AssignmentUpdateComponent
+                                      },
+                                      {
+                                        path:':assignmentId/view',
+                                        component: AssignmentViewComponent
                                       }
                                     ]
                                   }
