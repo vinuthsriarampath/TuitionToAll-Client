@@ -1,6 +1,6 @@
 <div class="grid grid-cols-4 gap-4 mb-4">
-  <app-stat-card title="Resources" [value]="12"/>
-  <app-stat-card title="Lecture Recordings" [value]="8"/>
-  <app-stat-card title="Scheduled Lectures" [value]="3"/>
-  <app-stat-card title="Assignments" [value]="2"/>
+  <app-stat-card title="Resources" [value]="chapterStats.resourceCount"/>
+  <app-stat-card title="Lecture Recordings" [value]="chapterStats.lectureRecordingCount"/>
+  <app-stat-card title="Upcoming Scheduled Lectures" [value]="chapterStats.upcomingScheduleLectureCount"/>
+  <app-stat-card title="Active Chapter Assignments" [value]="chapterStats.activeAssignmentsCount"/>
 </div>
