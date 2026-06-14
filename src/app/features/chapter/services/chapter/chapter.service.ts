@@ -21,6 +21,8 @@ import {
   ChapterAssignmentResponse
 } from '@features/assignments/dtos/response/chapter-assignment/chapter-assignment-response';
 import {Assignment} from '@features/assignments/dtos/response/assignment';
+import {ChapterStatCountResponse} from '@features/chapter/dtos/response/chapter-stats-response';
+
 
 @Injectable({
   providedIn: 'root'
@@ -134,5 +136,9 @@ export class ChapterService {
     }
 
     return this.http.get<PaginatedApiResponse<ChapterAssignmentResponse>>(`${this.baseUrl}/${chapterId}/assignments`, {params});
+  }
+
+  getChapterStats(id:number):Observable<ApiResponse<ChapterStatCountResponse>>{
+    return this.http.get<ApiResponse<ChapterStatCountResponse>>(`${this.baseUrl}/${id}/stats`);
   }
 }
