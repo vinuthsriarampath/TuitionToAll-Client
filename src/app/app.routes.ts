@@ -58,6 +58,20 @@ import {
 import {AssignmentCreateComponent} from '@features/assignments/pages/assignment-create/assignment-create.component';
 import {AssignmentUpdateComponent} from '@features/assignments/pages/assignment-update/assignment-update.component';
 import {AssignmentViewComponent} from '@features/assignments/pages/assignment-view/assignment-view.component';
+import {courseResolver} from '@features/course/resolvers/course.resolver';
+import {announcementResolver} from '@features/announcement/resolvers/announcement.resolver';
+import {batchResolver} from '@features/batch/resolvers/batch.resolver';
+import {modulesResolver} from '@features/module/resolvers/modules.resolver';
+import {assignmentResolver} from '@features/assignments/resolvers/assignment.resolver';
+import {chapterResolver} from '@features/chapter/resolvers/chapter.resolver';
+import {teacherVacancyResolver} from '@features/teacher-vacancy/resolvers/teacher-vacancy.resolver';
+import {CourseResolverData} from '@features/course/resolvers/course-resolver-data';
+import {ModuleResolverData} from '@features/module/resolvers/module-resolver-data';
+import {BatchResolverData} from '@features/batch/resolvers/batch-resolver-data';
+import {AssignmentResolverData} from '@features/assignments/resolvers/assignment-resolver-data';
+import {AnnouncementResolverData} from '@features/announcement/resolvers/announcement-resolver-data';
+import {ChapterResolverData} from '@features/chapter/resolvers/chapter-resolver-data';
+import {TeacherVacancyResolverData} from '@features/teacher-vacancy/resolvers/teacher-vacancy-resolver-data';
 
 
 export const routes: Routes = [
@@ -106,112 +120,244 @@ export const routes: Routes = [
     component:InstituteDashboardComponent,
     canActivate: [authGuard,tokenGuard],
     canActivateChild: [instituteRoleGuard],
+    data : {
+      breadcrumb: 'Home',
+    },
     children:[
       {
         path: '',
-        component: DashboardComponent
+        component: DashboardComponent,
+        data : {
+          breadcrumb: 'Dashboard',
+        },
       },
       {
         path: 'course-mgt',
+        data:{
+          breadcrumb:'Courses'
+        },
         children:[
           {
             path: '',
             component: InstituteCourseManagementComponent,
+            data : {
+              breadcrumb: null,
+            },
           },
           {
             path: 'create',
-            component: CourseCreateComponent
+            component: CourseCreateComponent,
+            data:{
+              breadcrumb:'Create'
+            }
           },
           {
             path: ':courseId',
+            resolve: {
+              course: courseResolver
+            },
+            data: {
+              breadcrumb: (data:CourseResolverData)=>data.course.title
+            },
             children:[
               {
                 path: '',
                 component: CourseViewComponent,
+                data: {
+                  breadcrumb: null
+                },
+              },
+              {
+                path: 'update',
+                component: CourseUpdateComponent,
+                data: {
+                  breadcrumb: 'Update'
+                }
               },
               {
                 path: 'announcements',
+                data: {
+                  breadcrumb: 'Announcements'
+                },
                 children:[
                   {
                     path:'',
-                    component: CourseAnnouncementViewComponent
+                    component: CourseAnnouncementViewComponent,
+                    data: {
+                      breadcrumb: null
+                    },
                   },
                   {
                     path: ':announcementId',
-                    component: ViewAnnouncementComponent
+                    component: ViewAnnouncementComponent,
+                    resolve: {
+                      announcement: announcementResolver
+                    },
+                    data:{
+                      breadcrumb: (data:AnnouncementResolverData)=> data.announcement.title
+                    }
                   }
                 ]
               },
               {
-                path: 'update',
-                component: CourseUpdateComponent
-              },
-              {
                 path: 'batch-mgt',
+                data:{
+                  breadcrumb: 'Batches'
+                },
                 children:[
                   {
                     path: '',
-                    component: BatchManagementComponent
+                    component: BatchManagementComponent,
+                    data:{
+                      breadcrumb: null
+                    },
                   },
                   {
                     path: ':batchId',
+                    resolve: {
+                      batch: batchResolver
+                    },
+                    data: {
+                      breadcrumb: (data:BatchResolverData)=>data.batch.name
+                    },
                     children:[
                       {
                         path: '',
-                        component: BatchViewComponent
+                        component: BatchViewComponent,
+                        data:{
+                          breadcrumb: null
+                        },
                       },
                       {
                         path: 'modules',
+                        data:{
+                          breadcrumb: null
+                        },
                         children:[
                           {
                             path: ':moduleId',
+                            resolve: {
+                              module: modulesResolver
+                            },
+                            data: {
+                              breadcrumb: (data:ModuleResolverData) => data.module.name
+                            },
                             children:[
                               {
                                 path: '',
-                                component: ModuleViewComponent
+                                component: ModuleViewComponent,
+                                data:{
+                                  breadcrumb: null
+                                }
                               },
                               {
                                 path:'assignments',
+                                data:{
+                                  breadcrumb: 'Assignments'
+                                },
                                 children:[
                                   {
                                     path: 'create',
-                                    component: AssignmentCreateComponent
+                                    component: AssignmentCreateComponent,
+                                    data:{
+                                      breadcrumb: 'Create'
+                                    }
                                   },
                                   {
-                                    path: ':assignmentId/update',
-                                    component: AssignmentUpdateComponent
+                                    path: ':assignmentId',
+                                    resolve: {
+                                      assignment: assignmentResolver
+                                    },
+                                    data:{
+                                      breadcrumb: (data:AssignmentResolverData)=>data.assignment.topic
+                                    },
+                                    children:[
+                                      {
+                                        path: 'update',
+                                        component: AssignmentUpdateComponent,
+                                        data:{
+                                          breadcrumb: "Update"
+                                        },
+                                      },
+                                      {
+                                        path:'view',
+                                        component: AssignmentViewComponent,
+                                        data:{
+                                          breadcrumb: "View"
+                                        }
+                                      }
+                                    ]
                                   },
-                                  {
-                                    path:':assignmentId/view',
-                                    component: AssignmentViewComponent
-                                  }
                                 ]
                               },
                               {
-                                path: 'chapters/:chapterId',
-                                children:[
+                                path:'chapters',
+                                data: {
+                                  breadcrumb: null
+                                },
+                                children: [
                                   {
-                                    path:'',
-                                    component:ChapterViewComponent
-                                  },
-                                  {
-                                    path:'watch',
-                                    component:LectureRecordWatchComponent
-                                  },
-                                  {
-                                    path:'assignments',
-                                    children:[
+                                    path: ':chapterId',
+                                    resolve: {
+                                      chapter: chapterResolver
+                                    },
+                                    data: {
+                                      breadcrumb: (data: ChapterResolverData) => data.chapter.title
+                                    },
+                                    children: [
                                       {
-                                        path: 'create',
-                                        component: AssignmentCreateComponent
+                                        path: '',
+                                        component: ChapterViewComponent,
+                                        data: {
+                                          breadcrumb: null
+                                        }
                                       },
                                       {
-                                        path: ':assignmentId/update',
-                                        component: AssignmentUpdateComponent
+                                        path: 'watch',
+                                        component: LectureRecordWatchComponent,
+                                        data: {
+                                          breadcrumb: 'Watch'
+                                        }
                                       },
                                       {
-                                        path:':assignmentId/view',
-                                        component: AssignmentViewComponent
+                                        path: 'assignments',
+                                        data: {
+                                          breadcrumb: 'Assignments'
+                                        },
+                                        children: [
+                                          {
+                                            path: 'create',
+                                            component: AssignmentCreateComponent,
+                                            data:{
+                                              breadcrumb: 'Create'
+                                            }
+                                          },
+                                          {
+                                            path: ':assignmentId',
+                                            resolve: {
+                                              assignment: assignmentResolver
+                                            },
+                                            data:{
+                                              breadcrumb: (data:AssignmentResolverData)=>data.assignment.topic
+                                            },
+                                            children:[
+                                              {
+                                                path: 'update',
+                                                component: AssignmentUpdateComponent,
+                                                data:{
+                                                  breadcrumb: "Update"
+                                                },
+                                              },
+                                              {
+                                                path:'view',
+                                                component: AssignmentViewComponent,
+                                                data:{
+                                                  breadcrumb: "View"
+                                                }
+                                              }
+                                            ]
+                                          },
+                                        ]
                                       }
                                     ]
                                   }
@@ -231,21 +377,39 @@ export const routes: Routes = [
       },
       {
         path: "teacher-mgt",
+        data: {
+          breadcrumb: 'Teachers'
+        },
         children:[
           {
             path: '',
-            component: InstituteTeacherManagementComponent
+            component: InstituteTeacherManagementComponent,
+            data:{
+              breadcrumb: null
+            }
           },
           {
             path: 'vacancies',
+            data : {
+              breadcrumb: 'Vacancies'
+            },
             children: [
               {
                 path: '',
-                component: ViewTeacherVacancyComponent
+                component: ViewTeacherVacancyComponent,
+                data: {
+                  breadcrumb: null
+                }
               },
               {
                 path: ':vacancyId/applications',
-                component: ViewApplicationComponent
+                component: ViewApplicationComponent,
+                resolve: {
+                  vacancy: teacherVacancyResolver
+                },
+                data: {
+                  breadcrumb: (data:TeacherVacancyResolverData) => data.vacancy.title + "- Applications"
+                }
               }
             ]
           }
@@ -253,14 +417,26 @@ export const routes: Routes = [
       },
       {
         path: "announcements-mgt",
+        data: {
+          breadcrumb: 'Announcements'
+        },
         children:[
           {
             path: '',
-            component: AnnouncementsManagementComponent
+            component: AnnouncementsManagementComponent,
+            data: {
+              breadcrumb: null
+            },
           },
           {
             path: ':announcementId',
-            component: ViewAnnouncementComponent
+            component: ViewAnnouncementComponent,
+            resolve: {
+              announcement: announcementResolver
+            },
+            data:{
+              breadcrumb: (data:AnnouncementResolverData)=> data.announcement.title
+            }
           }
         ]
       }
