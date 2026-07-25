@@ -19,6 +19,7 @@ import {User} from '../../profile/dtos/response/user';
 import {NgClass, NgOptimizedImage} from '@angular/common';
 import {environment} from '@env/environment.development';
 import {SidebarMenuItem} from '../types/sidebar-menu-item';
+import {BreadcrumbComponent} from '@shared/components/breadcrumb/breadcrumb.component';
 
 @Component({
   selector: 'app-institute-dashboard',
@@ -28,7 +29,8 @@ import {SidebarMenuItem} from '../types/sidebar-menu-item';
     RouterOutlet,
     NgOptimizedImage,
     NgClass,
-    RouterLinkActive
+    RouterLinkActive,
+    BreadcrumbComponent
   ],
   templateUrl: './institute-dashboard.component.html',
   styleUrl: './institute-dashboard.component.css'
@@ -68,7 +70,7 @@ export class InstituteDashboardComponent implements OnInit{
   protected readonly menu = Menu;
 
   // Sidebar functionality state variables
-  protected sidebarOpen: boolean = true;
+  protected sidebarOpen: boolean = false;
   protected subMenuOpen: boolean = false;
   protected profileMenuOpen: boolean = false;
 
