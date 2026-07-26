@@ -1,9 +1,12 @@
 import {Component, inject, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {Info, LucideAngularModule} from 'lucide-angular';
 
 @Component({
   selector: 'app-information-alert',
-  imports: [],
+  imports: [
+    LucideAngularModule
+  ],
   templateUrl: './information-alert.component.html',
   styleUrl: './information-alert.component.css'
 })
@@ -23,4 +26,5 @@ export class InformationAlertComponent {
     this.dialogRef.close();
   }
 
+  protected readonly Info = Info;
 }
