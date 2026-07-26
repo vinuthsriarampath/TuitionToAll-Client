@@ -1,9 +1,20 @@
 import {Component} from '@angular/core';
-import {RouterLink} from '@angular/router';
+import {RouterLink, RouterLinkActive} from '@angular/router';
 import {NgClass, NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {AuthenticationService} from '../../services/auth/authentication.service';
 import {AlertService} from '@core/services/alerts/alert.service';
+import {
+  ArrowLeft,
+  CheckCircle2,
+  GraduationCap,
+  KeyRound,
+  Loader2,
+  LucideAngularModule,
+  Mail,
+  Send,
+  X
+} from 'lucide-angular';
 
 @Component({
   selector: 'app-reset-password-request-page',
@@ -11,7 +22,9 @@ import {AlertService} from '@core/services/alerts/alert.service';
     RouterLink,
     NgIf,
     FormsModule,
-    NgClass
+    NgClass,
+    LucideAngularModule,
+    RouterLinkActive
   ],
   templateUrl: './reset-password-request-page.component.html',
   styleUrl: './reset-password-request-page.component.css'
@@ -50,4 +63,13 @@ export class ResetPasswordRequestPageComponent {
   triggerSuccess(){
     this.success = !this.success;
   }
+
+  protected readonly ArrowLeft = ArrowLeft;
+  protected readonly CheckCircle2 = CheckCircle2;
+  protected readonly Loader2 = Loader2;
+  protected readonly Send = Send;
+  protected readonly Mail = Mail;
+  protected readonly X = X;
+  protected readonly KeyRound = KeyRound;
+  protected readonly GraduationCap = GraduationCap;
 }

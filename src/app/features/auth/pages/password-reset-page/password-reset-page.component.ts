@@ -1,9 +1,10 @@
 import {Component} from '@angular/core';
-import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink, RouterLinkActive} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {NgClass, NgIf} from '@angular/common';
 import {AuthenticationService} from '../../services/auth/authentication.service';
 import {AlertService} from '@core/services/alerts/alert.service';
+import {ArrowLeft, Check, GraduationCap, Loader2, Lock, LucideAngularModule, X} from 'lucide-angular';
 
 @Component({
   selector: 'app-password-reset-page',
@@ -11,7 +12,9 @@ import {AlertService} from '@core/services/alerts/alert.service';
     FormsModule,
     NgIf,
     NgClass,
-    RouterLink
+    RouterLink,
+    LucideAngularModule,
+    RouterLinkActive
   ],
   templateUrl: './password-reset-page.component.html',
   styleUrl: './password-reset-page.component.css'
@@ -58,4 +61,11 @@ export class PasswordResetPageComponent {
   triggerLoading(){
     this.loading = !this.loading;
   }
+
+  protected readonly Loader2 = Loader2;
+  protected readonly Check = Check;
+  protected readonly X = X;
+  protected readonly Lock = Lock;
+  protected readonly ArrowLeft = ArrowLeft;
+  protected readonly GraduationCap = GraduationCap;
 }
