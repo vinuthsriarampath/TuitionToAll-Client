@@ -1,18 +1,20 @@
-<div class="absolute inset-0 z-50 bg-white/70 backdrop-blur-[2px] flex items-center justify-center">
+<div class="absolute inset-0 z-50 bg-slate-950/75 backdrop-blur-md flex items-center justify-center animate-in fade-in duration-200">
 
-  <div
-    class="bg-white px-6 py-5 rounded-2xl shadow-xl border border-gray-200 flex flex-col items-center gap-3 min-w-[180px]">
+  <div class="bg-sky-950/90 backdrop-blur-md px-7 py-6 rounded-2xl shadow-2xl border border-sky-800/50 flex flex-col items-center gap-4 min-w-[200px] animate-in zoom-in-95 duration-200">
 
     <!-- Spinner -->
-    <div class="w-10 h-10 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
+    <div class="relative flex items-center justify-center w-10 h-10">
+      <div class="absolute inset-0 rounded-full bg-sky-500/20 blur-sm"></div>
+      <div class="w-10 h-10 border-3 border-sky-900/60 border-t-sky-400 rounded-full animate-spin"></div>
+    </div>
 
     <!-- Text -->
     <div class="text-center">
-      <p class="text-sm font-semibold text-gray-700">
+      <p class="text-base font-semibold tracking-wide text-sky-50 drop-shadow-sm">
         {{ title() }}
       </p>
 
-      <p class="text-xs text-gray-500 mt-1">
+      <p class="text-xs text-sky-200/80 mt-1 font-medium">
         {{ description() }}
       </p>
     </div>
@@ -20,3 +22,4 @@
   </div>
 
 </div>
+
