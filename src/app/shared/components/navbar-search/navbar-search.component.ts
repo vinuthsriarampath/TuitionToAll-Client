@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {SearchResponse} from '../../utils/response/search-response';
 import {environment} from '@env/environment.development';
 import {RouterLink} from '@angular/router';
+import {ArrowLeft, LucideAngularModule, Search} from 'lucide-angular';
 
 @Component({
   selector: 'app-navbar-search',
@@ -11,6 +12,7 @@ import {RouterLink} from '@angular/router';
     NgIf,
     NgForOf,
     RouterLink,
+    LucideAngularModule,
   ],
   templateUrl: './navbar-search.component.html',
   styleUrl: './navbar-search.component.css'
@@ -70,4 +72,6 @@ export class NavbarSearchComponent {
   }
 
   protected readonly environment = environment;
+  protected readonly Search = Search;
+  protected readonly ArrowLeft = ArrowLeft;
 }

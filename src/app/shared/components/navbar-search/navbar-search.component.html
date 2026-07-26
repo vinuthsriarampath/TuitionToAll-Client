@@ -1,79 +1,442 @@
+<!--&lt;!&ndash; Desktop Search &ndash;&gt;-->
+<!--<div class="lg:relative hidden lg:block">-->
+<!--  <div class="relative">-->
+<!--    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"-->
+<!--         stroke="currentColor" class="size-5 absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-600">-->
+<!--      <path stroke-linecap="round" stroke-linejoin="round"-->
+<!--            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607z"/>-->
+<!--    </svg>-->
+<!--    <input type="search" (keydown)="onEscapeKey()" name="search"-->
+<!--           class="search_field bg-white h-8 pl-10 pr-2 sm:w-md placeholder-gray-600 text-gray-600 outline-blue-500 rounded-md"-->
+<!--           placeholder="Search"-->
+<!--           (focus)="toggleSearchDropdown()"-->
+<!--           autocomplete="off"-->
+<!--           (input)="onSearchChange($event)"/>-->
+<!--  </div>-->
+
+<!--  <div *ngIf="isSearchDropdownOpen"-->
+<!--       class="search_menu absolute right-2 mt-2 p-5 w-md h-auto rounded-md shadow-md shadow-gray-400 bg-white flex flex-col gap-2 overflow-y-scroll">-->
+<!--    <p class="text-foreground" *ngIf="!searchResults || (searchResults?.institutes?.length === 0 && searchResults?.students?.length === 0 && searchResults?.teachers?.length === 0)">No Search Results.</p>-->
+<!--    <a *ngFor="let results of searchResults?.students" [routerLink]="['/profile', results.userSlug]"-->
+<!--       class="flex gap-2 justify-center items-center">-->
+<!--      <img-->
+<!--        src="{{ results?.dp ? `${environment.USER_PROFILE_API}${results?.dp}` : 'profile_logo.png' }}"-->
+<!--        alt="Student Avatar" class="h-10 w-10 rounded-full col-span-1 justify-center items-center">-->
+<!--      <span class="flex-2/3">{{ $any(results.details).firstName }} {{ $any(results.details).lastName }}</span>-->
+<!--    </a>-->
+<!--    <a *ngFor="let results of searchResults?.teachers" [routerLink]="['/profile', results.userSlug]"-->
+<!--       class="flex gap-2 justify-center items-center">-->
+<!--      <img-->
+<!--        src="{{ results?.dp ? `${environment.USER_PROFILE_API}${results?.dp}` : 'profile_logo.png' }}"-->
+<!--        alt="Student Avatar" class="h-10 w-10 rounded-full col-span-1 justify-center items-center">-->
+<!--      <span class="flex-2/3">{{ $any(results.details).firstName }} {{ $any(results.details).lastName }}</span>-->
+<!--    </a>-->
+<!--    <a *ngFor="let results of searchResults?.institutes" [routerLink]="['/profile', results.userSlug]"-->
+<!--       class="flex gap-2 justify-center items-center">-->
+<!--      <img-->
+<!--        src="{{ results?.dp ? `${environment.USER_PROFILE_API}${results?.dp}` : 'profile_logo.png' }}"-->
+<!--        alt="Student Avatar" class="h-10 w-10 rounded-full col-span-1 justify-center items-center">-->
+<!--      <span class="flex-2/3">{{ $any(results.details).instituteName }}</span>-->
+<!--    </a>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Mobile Search &ndash;&gt;-->
+<!--<div class="relative flex items-center h-14 lg:hidden" *ngIf="isMobileSearchActive">-->
+<!--  <div class="absolute inset-0 backdrop-blur-sm" (keydown)="onEscapeKey()" (click)="deactivateMobileSearch()"></div>-->
+
+<!--  <div class="flex items-center w-full gap-2 z-20 relative">-->
+<!--    <button class="p-2" (click)="deactivateMobileSearch()">-->
+<!--      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"-->
+<!--           stroke="currentColor" class="size-5 text-gray-700">-->
+<!--        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/>-->
+<!--      </svg>-->
+<!--    </button>-->
+
+<!--    <div class="relative flex-1">-->
+<!--      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"-->
+<!--           stroke="currentColor" class="size-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600">-->
+<!--        <path stroke-linecap="round" stroke-linejoin="round"-->
+<!--              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607z"/>-->
+<!--      </svg>-->
+<!--      <input type="search" name="mobileSearch" id="mobileSearch"-->
+<!--             class="search_field bg-white h-10 my-2 pl-10 pr-3 w-full placeholder-gray-600 text-gray-600 outline-blue-500 rounded-md"-->
+<!--             placeholder="Search" autocomplete="off"-->
+<!--             (input)="onSearchChange($event)" #mobileSearchInput/>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div-->
+<!--    class="search_menu absolute left-0 right-0 top-14 mx-4 p-5 w-auto rounded-md shadow-md shadow-gray-400 bg-white flex flex-col gap-2 z-20">-->
+<!--    <p class="text-foreground" *ngIf="!searchResults">No Search Results.</p>-->
+<!--    <a *ngFor="let results of searchResults?.institutes" [href]="'profile/' + results.userSlug"-->
+<!--       class="break-words">{{ $any(results.details).instituteName }}</a>-->
+<!--    <a *ngFor="let results of searchResults?.teachers" [href]="'profile/' + results.userSlug"-->
+<!--       class="break-words">{{ $any(results.details).firstName }}</a>-->
+<!--    <a *ngFor="let results of searchResults?.students" [href]="'profile/' + results.userSlug"-->
+<!--       class="break-words">{{ $any(results.details).firstName }}</a>-->
+<!--  </div>-->
+<!--</div>-->
+
+
 <!-- Desktop Search -->
-<div class="lg:relative hidden lg:block">
+<!--<div class="lg:relative hidden lg:block">-->
+<!--  <div class="relative">-->
+<!--    <lucide-icon [img]="Search" class="w-5 h-5 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400/70 pointer-events-none"></lucide-icon>-->
+<!--    <input type="search" (keydown)="onEscapeKey()" name="search"-->
+<!--           class="bg-sky-900/40 border border-sky-700/50 focus:border-sky-400 focus:bg-sky-950/80 text-sky-50 placeholder-sky-300/60 h-9 pl-10 pr-3 sm:w-80 outline-none rounded-lg text-sm transition-all shadow-inner"-->
+<!--           placeholder="Search..."-->
+<!--           (focus)="toggleSearchDropdown()"-->
+<!--           autocomplete="off"-->
+<!--           (input)="onSearchChange($event)"/>-->
+<!--  </div>-->
+
+<!--  @if (isSearchDropdownOpen) {-->
+<!--    <div class="search_menu absolute right-0 mt-2 p-4 w-96 max-h-[30rem] rounded-xl border border-sky-800/60 shadow-xl shadow-slate-950/40 bg-sky-950/95 backdrop-blur-md flex flex-col gap-2 overflow-y-auto scrollbar-thin animate-in fade-in zoom-in-95 slide-in-from-top-2 z-50">-->
+<!--      @if (!searchResults || (searchResults?.institutes?.length === 0 && searchResults?.students?.length === 0 && searchResults?.teachers?.length === 0)) {-->
+<!--        <p class="text-xs text-sky-200/80 p-2 text-center">No Search Results.</p>-->
+<!--      }-->
+
+<!--      @for (results of searchResults?.students; track results.userSlug) {-->
+<!--        <a [routerLink]="['/profile', results.userSlug]"-->
+<!--           class="flex items-center gap-3 p-2 rounded-lg hover:bg-sky-900/50 transition-colors active:scale-95 cursor-pointer group">-->
+<!--          <img-->
+<!--            [src]="results?.dp ? (environment.USER_PROFILE_API + results?.dp) : 'profile_logo.png'"-->
+<!--            alt="Student Avatar" class="h-9 w-9 rounded-full object-cover ring-1 ring-sky-700/50 group-hover:ring-sky-400 transition-all">-->
+<!--          <div class="flex flex-col min-w-0 flex-1">-->
+<!--            <span class="text-sm font-medium text-sky-100 group-hover:text-sky-300 truncate transition-colors">{{ $any(results.details).firstName }} {{ $any(results.details).lastName }}</span>-->
+<!--            <span class="text-[10px] text-sky-300/60 uppercase tracking-wider font-semibold">Student</span>-->
+<!--          </div>-->
+<!--        </a>-->
+<!--      }-->
+
+<!--      @for (results of searchResults?.teachers; track results.userSlug) {-->
+<!--        <a [routerLink]="['/profile', results.userSlug]"-->
+<!--           class="flex items-center gap-3 p-2 rounded-lg hover:bg-sky-900/50 transition-colors active:scale-95 cursor-pointer group">-->
+<!--          <img-->
+<!--            [src]="results?.dp ? (environment.USER_PROFILE_API + results?.dp) : 'profile_logo.png'"-->
+<!--            alt="Teacher Avatar" class="h-9 w-9 rounded-full object-cover ring-1 ring-sky-700/50 group-hover:ring-sky-400 transition-all">-->
+<!--          <div class="flex flex-col min-w-0 flex-1">-->
+<!--            <span class="text-sm font-medium text-sky-100 group-hover:text-sky-300 truncate transition-colors">{{ $any(results.details).firstName }} {{ $any(results.details).lastName }}</span>-->
+<!--            <span class="text-[10px] text-sky-300/60 uppercase tracking-wider font-semibold">Teacher</span>-->
+<!--          </div>-->
+<!--        </a>-->
+<!--      }-->
+
+<!--      @for (results of searchResults?.institutes; track results.userSlug) {-->
+<!--        <a [routerLink]="['/profile', results.userSlug]"-->
+<!--           class="flex items-center gap-3 p-2 rounded-lg hover:bg-sky-900/50 transition-colors active:scale-95 cursor-pointer group">-->
+<!--          <img-->
+<!--            [src]="results?.dp ? (environment.USER_PROFILE_API + results?.dp) : 'profile_logo.png'"-->
+<!--            alt="Institute Avatar" class="h-9 w-9 rounded-full object-cover ring-1 ring-sky-700/50 group-hover:ring-sky-400 transition-all">-->
+<!--          <div class="flex flex-col min-w-0 flex-1">-->
+<!--            <span class="text-sm font-medium text-sky-100 group-hover:text-sky-300 truncate transition-colors">{{ $any(results.details).instituteName }}</span>-->
+<!--            <span class="text-[10px] text-sky-300/60 uppercase tracking-wider font-semibold">Institute</span>-->
+<!--          </div>-->
+<!--        </a>-->
+<!--      }-->
+<!--    </div>-->
+<!--  }-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Mobile Search &ndash;&gt;-->
+<!--@if (isMobileSearchActive) {-->
+<!--  <div class="relative flex items-center h-14 lg:hidden w-full">-->
+<!--    <div class="fixed inset-0 backdrop-blur-md bg-slate-950/60 z-10 transition-opacity" (keydown)="onEscapeKey()" (click)="deactivateMobileSearch()"></div>-->
+
+<!--    <div class="flex items-center w-full gap-2 z-20 relative px-2">-->
+<!--      <button class="btn-mini-light flex items-center justify-center p-2 rounded-lg" (click)="deactivateMobileSearch()">-->
+<!--        <lucide-icon [img]="ArrowLeft" class="w-5 h-5 text-sky-200"></lucide-icon>-->
+<!--      </button>-->
+
+<!--      <div class="relative flex-1">-->
+<!--        <lucide-icon [img]="Search" class="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-sky-400/70 pointer-events-none"></lucide-icon>-->
+
+<!--        <input type="search" name="mobileSearch" id="mobileSearch"-->
+<!--               class="bg-sky-950/90 border border-sky-700/60 text-sky-50 placeholder-sky-300/60 h-10 pl-10 pr-3 w-full outline-none focus:border-sky-400 rounded-lg text-sm transition-all shadow-inner"-->
+<!--               placeholder="Search..." autocomplete="off"-->
+<!--               (input)="onSearchChange($event)" #mobileSearchInput/>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    @if (isSearchDropdownOpen) {-->
+<!--      <div class="search_menu absolute left-2 right-2 top-16 p-4 rounded-xl border border-sky-800/60 shadow-2xl bg-sky-950/95 backdrop-blur-md flex flex-col gap-2 max-h-[70vh] overflow-y-auto scrollbar-thin animate-in fade-in zoom-in-95 z-30">-->
+<!--        @if (!searchResults || (searchResults?.institutes?.length === 0 && searchResults?.students?.length === 0 && searchResults?.teachers?.length === 0)) {-->
+<!--          <p class="text-xs text-sky-200/80 p-2 text-center">No Search Results.</p>-->
+<!--        }-->
+
+<!--        @for (results of searchResults?.institutes; track results.userSlug) {-->
+<!--          <a [href]="'profile/' + results.userSlug"-->
+<!--             class="p-2.5 rounded-lg bg-sky-900/30 hover:bg-sky-900/60 border border-sky-800/40 text-sm font-medium text-sky-100 hover:text-sky-300 break-words transition-colors active:scale-95 flex items-center justify-between">-->
+<!--            <span class="truncate">{{ $any(results.details).instituteName }}</span>-->
+<!--            <span class="batch batch-secondary text-[10px] ml-2 shrink-0">Institute</span>-->
+<!--          </a>-->
+<!--        }-->
+
+<!--        @for (results of searchResults?.teachers; track results.userSlug) {-->
+<!--          <a [href]="'profile/' + results.userSlug"-->
+<!--             class="p-2.5 rounded-lg bg-sky-900/30 hover:bg-sky-900/60 border border-sky-800/40 text-sm font-medium text-sky-100 hover:text-sky-300 break-words transition-colors active:scale-95 flex items-center justify-between">-->
+<!--            <span class="truncate">{{ $any(results.details).firstName }}</span>-->
+<!--            <span class="batch batch-info text-[10px] ml-2 shrink-0">Teacher</span>-->
+<!--          </a>-->
+<!--        }-->
+
+<!--        @for (results of searchResults?.students; track results.userSlug) {-->
+<!--          <a [href]="'profile/' + results.userSlug"-->
+<!--             class="p-2.5 rounded-lg bg-sky-900/30 hover:bg-sky-900/60 border border-sky-800/40 text-sm font-medium text-sky-100 hover:text-sky-300 break-words transition-colors active:scale-95 flex items-center justify-between">-->
+<!--            <span class="truncate">{{ $any(results.details).firstName }}</span>-->
+<!--            <span class="batch batch-primary text-[10px] ml-2 shrink-0">Student</span>-->
+<!--          </a>-->
+<!--        }-->
+<!--      </div>-->
+<!--    }-->
+<!--  </div>-->
+<!--}-->
+
+
+<!--&lt;!&ndash; Desktop Search &ndash;&gt;-->
+<!--<div class="lg:relative hidden lg:block w-full">-->
+<!--  <div class="relative">-->
+<!--    <lucide-icon [img]="Search" class="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-sky-400/80 pointer-events-none"></lucide-icon>-->
+<!--    <input type="search" (keydown)="onEscapeKey()" name="search"-->
+<!--           class="bg-sky-950/80 border border-sky-800/60 focus:border-sky-400 focus:bg-sky-950 text-sky-50 placeholder-sky-300/60 h-9 pl-9 pr-3 w-full outline-none rounded-lg text-sm transition-all shadow-inner"-->
+<!--           placeholder="Search students, teachers, institutes..."-->
+<!--           (focus)="toggleSearchDropdown()"-->
+<!--           autocomplete="off"-->
+<!--           (input)="onSearchChange($event)"/>-->
+<!--  </div>-->
+
+<!--  @if (isSearchDropdownOpen) {-->
+<!--    <div class="search_menu absolute right-0 mt-2 p-3 w-96 max-h-[28rem] rounded-xl border border-sky-800/60 shadow-2xl bg-sky-950/95 backdrop-blur-md flex flex-col gap-1 overflow-y-auto scrollbar-thin animate-in fade-in zoom-in-95 slide-in-from-top-2 z-50">-->
+
+<!--      @if (!searchResults || (searchResults?.institutes?.length === 0 && searchResults?.students?.length === 0 && searchResults?.teachers?.length === 0)) {-->
+<!--        <div class="p-4 text-center">-->
+<!--          <p class="text-xs text-sky-200/80 font-medium">No Search Results Found.</p>-->
+<!--        </div>-->
+<!--      }-->
+
+<!--      &lt;!&ndash; Students &ndash;&gt;-->
+<!--      @for (results of searchResults?.students; track results.userSlug) {-->
+<!--        <a [routerLink]="['/profile', results.userSlug]"-->
+<!--           class="flex items-center gap-3 p-2 rounded-lg hover:bg-sky-900/50 border border-transparent hover:border-sky-800/40 transition-all active:scale-95 cursor-pointer group">-->
+<!--          <img-->
+<!--            [src]="results?.dp ? (environment.USER_PROFILE_API + results?.dp) : 'profile_logo.png'"-->
+<!--            alt="Student Avatar" class="h-9 w-9 rounded-full object-cover ring-1 ring-sky-700/50 group-hover:ring-sky-400 transition-all">-->
+<!--          <div class="flex flex-col min-w-0 flex-1">-->
+<!--            <span class="text-sm font-medium text-sky-100 group-hover:text-sky-300 truncate transition-colors">{{ $any(results.details).firstName }} {{ $any(results.details).lastName }}</span>-->
+<!--            <span class="batch batch-primary text-[9px] w-fit">Student</span>-->
+<!--          </div>-->
+<!--        </a>-->
+<!--      }-->
+
+<!--      &lt;!&ndash; Teachers &ndash;&gt;-->
+<!--      @for (results of searchResults?.teachers; track results.userSlug) {-->
+<!--        <a [routerLink]="['/profile', results.userSlug]"-->
+<!--           class="flex items-center gap-3 p-2 rounded-lg hover:bg-sky-900/50 border border-transparent hover:border-sky-800/40 transition-all active:scale-95 cursor-pointer group">-->
+<!--          <img-->
+<!--            [src]="results?.dp ? (environment.USER_PROFILE_API + results?.dp) : 'profile_logo.png'"-->
+<!--            alt="Teacher Avatar" class="h-9 w-9 rounded-full object-cover ring-1 ring-sky-700/50 group-hover:ring-sky-400 transition-all">-->
+<!--          <div class="flex flex-col min-w-0 flex-1">-->
+<!--            <span class="text-sm font-medium text-sky-100 group-hover:text-sky-300 truncate transition-colors">{{ $any(results.details).firstName }} {{ $any(results.details).lastName }}</span>-->
+<!--            <span class="batch batch-info text-[9px] w-fit">Teacher</span>-->
+<!--          </div>-->
+<!--        </a>-->
+<!--      }-->
+
+<!--      &lt;!&ndash; Institutes &ndash;&gt;-->
+<!--      @for (results of searchResults?.institutes; track results.userSlug) {-->
+<!--        <a [routerLink]="['/profile', results.userSlug]"-->
+<!--           class="flex items-center gap-3 p-2 rounded-lg hover:bg-sky-900/50 border border-transparent hover:border-sky-800/40 transition-all active:scale-95 cursor-pointer group">-->
+<!--          <img-->
+<!--            [src]="results?.dp ? (environment.USER_PROFILE_API + results?.dp) : 'profile_logo.png'"-->
+<!--            alt="Institute Avatar" class="h-9 w-9 rounded-full object-cover ring-1 ring-sky-700/50 group-hover:ring-sky-400 transition-all">-->
+<!--          <div class="flex flex-col min-w-0 flex-1">-->
+<!--            <span class="text-sm font-medium text-sky-100 group-hover:text-sky-300 truncate transition-colors">{{ $any(results.details).instituteName }}</span>-->
+<!--            <span class="batch batch-secondary text-[9px] w-fit">Institute</span>-->
+<!--          </div>-->
+<!--        </a>-->
+<!--      }-->
+
+<!--    </div>-->
+<!--  }-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Mobile Search &ndash;&gt;-->
+<!--@if (isMobileSearchActive) {-->
+<!--  <div class="relative flex items-center h-14 lg:hidden w-full">-->
+<!--    &lt;!&ndash; Backdrop &ndash;&gt;-->
+<!--    <div class="fixed inset-0 backdrop-blur-md bg-slate-950/70 z-10 transition-opacity" (keydown)="onEscapeKey()" (click)="deactivateMobileSearch()"></div>-->
+
+<!--    &lt;!&ndash; Search Bar Bar Container &ndash;&gt;-->
+<!--    <div class="flex items-center w-full gap-2 z-20 relative px-1">-->
+<!--      <button class="btn-mini-light flex items-center justify-center p-2 rounded-lg text-sky-200" (click)="deactivateMobileSearch()">-->
+<!--        <lucide-icon [img]="ArrowLeft" class="w-5 h-5 text-sky-200"></lucide-icon>-->
+<!--      </button>-->
+
+<!--      <div class="relative flex-1">-->
+<!--        <lucide-icon [img]="Search" class="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-sky-400/80 pointer-events-none"></lucide-icon>-->
+
+<!--        <input type="search" name="mobileSearch" id="mobileSearch"-->
+<!--               class="bg-sky-950/90 border border-sky-700/70 text-sky-50 placeholder-sky-300/60 h-10 pl-9 pr-3 w-full outline-none focus:border-sky-400 rounded-lg text-sm transition-all shadow-inner"-->
+<!--               placeholder="Search..." autocomplete="off"-->
+<!--               (input)="onSearchChange($event)" #mobileSearchInput/>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Mobile Dropdown Results &ndash;&gt;-->
+<!--    @if (isSearchDropdownOpen) {-->
+<!--      <div class="search_menu absolute left-1 right-1 top-16 p-3 rounded-xl border border-sky-800/60 shadow-2xl bg-sky-950/95 backdrop-blur-md flex flex-col gap-2 max-h-[70vh] overflow-y-auto scrollbar-thin animate-in fade-in zoom-in-95 z-30">-->
+
+<!--        @if (!searchResults || (searchResults?.institutes?.length === 0 && searchResults?.students?.length === 0 && searchResults?.teachers?.length === 0)) {-->
+<!--          <p class="text-xs text-sky-200/80 p-3 text-center font-medium">No Search Results Found.</p>-->
+<!--        }-->
+
+<!--        @for (results of searchResults?.institutes; track results.userSlug) {-->
+<!--          <a [href]="'profile/' + results.userSlug"-->
+<!--             class="p-2.5 rounded-lg bg-sky-900/40 hover:bg-sky-900/70 border border-sky-800/50 text-sm font-medium text-sky-100 hover:text-sky-300 break-words transition-colors active:scale-95 flex items-center justify-between">-->
+<!--            <span class="truncate">{{ $any(results.details).instituteName }}</span>-->
+<!--            <span class="batch batch-secondary text-[10px] ml-2 shrink-0">Institute</span>-->
+<!--          </a>-->
+<!--        }-->
+
+<!--        @for (results of searchResults?.teachers; track results.userSlug) {-->
+<!--          <a [href]="'profile/' + results.userSlug"-->
+<!--             class="p-2.5 rounded-lg bg-sky-900/40 hover:bg-sky-900/70 border border-sky-800/50 text-sm font-medium text-sky-100 hover:text-sky-300 break-words transition-colors active:scale-95 flex items-center justify-between">-->
+<!--            <span class="truncate">{{ $any(results.details).firstName }}</span>-->
+<!--            <span class="batch batch-info text-[10px] ml-2 shrink-0">Teacher</span>-->
+<!--          </a>-->
+<!--        }-->
+
+<!--        @for (results of searchResults?.students; track results.userSlug) {-->
+<!--          <a [href]="'profile/' + results.userSlug"-->
+<!--             class="p-2.5 rounded-lg bg-sky-900/40 hover:bg-sky-900/70 border border-sky-800/50 text-sm font-medium text-sky-100 hover:text-sky-300 break-words transition-colors active:scale-95 flex items-center justify-between">-->
+<!--            <span class="truncate">{{ $any(results.details).firstName }}</span>-->
+<!--            <span class="batch batch-primary text-[10px] ml-2 shrink-0">Student</span>-->
+<!--          </a>-->
+<!--        }-->
+
+<!--      </div>-->
+<!--    }-->
+<!--  </div>-->
+<!--}-->
+
+<!-- Desktop Search -->
+<div class="lg:relative hidden lg:block w-full">
   <div class="relative">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-         stroke="currentColor" class="size-5 absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-600">
-      <path stroke-linecap="round" stroke-linejoin="round"
-            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607z"/>
-    </svg>
+    <lucide-icon [img]="Search" class="w-4 h-4 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400 pointer-events-none"></lucide-icon>
     <input type="search" (keydown)="onEscapeKey()" name="search"
-           class="search_field bg-white h-8 pl-10 pr-2 sm:w-md placeholder-gray-600 text-gray-600 outline-blue-500 rounded-md"
-           placeholder="Search"
+           class="bg-sky-900/40 border border-sky-700/50 focus:border-sky-400 focus:bg-sky-950/80 text-sky-50 placeholder-sky-300/60 h-9 pl-9 pr-3 w-full outline-none rounded-lg text-sm transition-all shadow-inner focus:ring-2 focus:ring-sky-400/30"
+           placeholder="Search..."
            (focus)="toggleSearchDropdown()"
            autocomplete="off"
            (input)="onSearchChange($event)"/>
   </div>
 
-  <div *ngIf="isSearchDropdownOpen"
-       class="search_menu absolute right-2 mt-2 p-5 w-md h-auto rounded-md shadow-md shadow-gray-400 bg-white flex flex-col gap-2 overflow-y-scroll">
-    <p class="text-foreground" *ngIf="!searchResults || (searchResults?.institutes?.length === 0 && searchResults?.students?.length === 0 && searchResults?.teachers?.length === 0)">No Search Results.</p>
-    <a *ngFor="let results of searchResults?.students" [routerLink]="['/profile', results.userSlug]"
-       class="flex gap-2 justify-center items-center">
-      <img
-        src="{{ results?.dp ? `${environment.USER_PROFILE_API}${results?.dp}` : 'profile_logo.png' }}"
-        alt="Student Avatar" class="h-10 w-10 rounded-full col-span-1 justify-center items-center">
-      <span class="flex-2/3">{{ $any(results.details).firstName }} {{ $any(results.details).lastName }}</span>
-    </a>
-    <a *ngFor="let results of searchResults?.teachers" [routerLink]="['/profile', results.userSlug]"
-       class="flex gap-2 justify-center items-center">
-      <img
-        src="{{ results?.dp ? `${environment.USER_PROFILE_API}${results?.dp}` : 'profile_logo.png' }}"
-        alt="Student Avatar" class="h-10 w-10 rounded-full col-span-1 justify-center items-center">
-      <span class="flex-2/3">{{ $any(results.details).firstName }} {{ $any(results.details).lastName }}</span>
-    </a>
-    <a *ngFor="let results of searchResults?.institutes" [routerLink]="['/profile', results.userSlug]"
-       class="flex gap-2 justify-center items-center">
-      <img
-        src="{{ results?.dp ? `${environment.USER_PROFILE_API}${results?.dp}` : 'profile_logo.png' }}"
-        alt="Student Avatar" class="h-10 w-10 rounded-full col-span-1 justify-center items-center">
-      <span class="flex-2/3">{{ $any(results.details).instituteName }}</span>
-    </a>
-  </div>
-</div>
+  @if (isSearchDropdownOpen) {
+    <div class="search_menu absolute left-0 right-0 mt-2 p-3 w-96 max-h-[30rem] rounded-xl border border-sky-700/50 shadow-2xl bg-sky-900/95 backdrop-blur-md flex flex-col gap-1.5 overflow-y-auto scrollbar-thin scrollbar-thumb-sky-800/50 animate-in fade-in zoom-in-95 duration-150 z-50">
 
-<!-- Mobile Search -->
-<div class="relative flex items-center h-14 lg:hidden" *ngIf="isMobileSearchActive">
-  <div class="absolute inset-0 backdrop-blur-sm" (keydown)="onEscapeKey()" (click)="deactivateMobileSearch()"></div>
+      @if (!searchResults || (searchResults?.institutes?.length === 0 && searchResults?.students?.length === 0 && searchResults?.teachers?.length === 0)) {
+        <p class="text-xs text-sky-200/80 p-3 text-center font-medium">No Search Results.</p>
+      }
 
-  <div class="flex items-center w-full gap-2 z-20 relative">
-    <button class="p-2" (click)="deactivateMobileSearch()">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-           stroke="currentColor" class="size-5 text-gray-700">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/>
-      </svg>
-    </button>
+      <!-- Students -->
+      @for (results of searchResults?.students; track results.userSlug) {
+        <a [routerLink]="['/profile', results.userSlug]"
+           class="flex items-center gap-3 p-2 rounded-lg hover:bg-sky-800/60 transition-all active:scale-[0.98] cursor-pointer group">
+          <img
+            [src]="results?.dp ? (environment.USER_PROFILE_API + results?.dp) : 'profile_logo.png'"
+            alt="Student Avatar" class="h-8 w-8 rounded-full object-cover ring-1 ring-sky-500/20 group-hover:ring-sky-400 transition-all">
+          <div class="flex flex-col min-w-0 flex-1">
+            <span class="text-sm font-medium text-sky-100 group-hover:text-white truncate transition-colors">{{ $any(results.details).firstName }} {{ $any(results.details).lastName }}</span>
+            <span class="batch batch-primary text-[10px] w-fit mt-0.5">Student</span>
+          </div>
+        </a>
+      }
 
-    <div class="relative flex-1">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-           stroke="currentColor" class="size-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600">
-        <path stroke-linecap="round" stroke-linejoin="round"
-              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607z"/>
-      </svg>
-      <input type="search" name="mobileSearch" id="mobileSearch"
-             class="search_field bg-white h-10 my-2 pl-10 pr-3 w-full placeholder-gray-600 text-gray-600 outline-blue-500 rounded-md"
-             placeholder="Search" autocomplete="off"
-             (input)="onSearchChange($event)" #mobileSearchInput/>
+      <!-- Teachers -->
+      @for (results of searchResults?.teachers; track results.userSlug) {
+        <a [routerLink]="['/profile', results.userSlug]"
+           class="flex items-center gap-3 p-2 rounded-lg hover:bg-sky-800/60 transition-all active:scale-[0.98] cursor-pointer group">
+          <img
+            [src]="results?.dp ? (environment.USER_PROFILE_API + results?.dp) : 'profile_logo.png'"
+            alt="Teacher Avatar" class="h-8 w-8 rounded-full object-cover ring-1 ring-sky-500/20 group-hover:ring-sky-400 transition-all">
+          <div class="flex flex-col min-w-0 flex-1">
+            <span class="text-sm font-medium text-sky-100 group-hover:text-white truncate transition-colors">{{ $any(results.details).firstName }} {{ $any(results.details).lastName }}</span>
+            <span class="batch batch-info text-[10px] w-fit mt-0.5">Teacher</span>
+          </div>
+        </a>
+      }
+
+      <!-- Institutes -->
+      @for (results of searchResults?.institutes; track results.userSlug) {
+        <a [routerLink]="['/profile', results.userSlug]"
+           class="flex items-center gap-3 p-2 rounded-lg hover:bg-sky-800/60 transition-all active:scale-[0.98] cursor-pointer group">
+          <img
+            [src]="results?.dp ? (environment.USER_PROFILE_API + results?.dp) : 'profile_logo.png'"
+            alt="Institute Avatar" class="h-8 w-8 rounded-full object-cover ring-1 ring-sky-500/20 group-hover:ring-sky-400 transition-all">
+          <div class="flex flex-col min-w-0 flex-1">
+            <span class="text-sm font-medium text-sky-100 group-hover:text-white truncate transition-colors">{{ $any(results.details).instituteName }}</span>
+            <span class="batch batch-secondary text-[10px] w-fit mt-0.5">Institute</span>
+          </div>
+        </a>
+      }
     </div>
-  </div>
-
-  <div
-    class="search_menu absolute left-0 right-0 top-14 mx-4 p-5 w-auto rounded-md shadow-md shadow-gray-400 bg-white flex flex-col gap-2 z-20">
-    <p class="text-foreground" *ngIf="!searchResults">No Search Results.</p>
-    <a *ngFor="let results of searchResults?.institutes" [href]="'profile/' + results.userSlug"
-       class="break-words">{{ $any(results.details).instituteName }}</a>
-    <a *ngFor="let results of searchResults?.teachers" [href]="'profile/' + results.userSlug"
-       class="break-words">{{ $any(results.details).firstName }}</a>
-    <a *ngFor="let results of searchResults?.students" [href]="'profile/' + results.userSlug"
-       class="break-words">{{ $any(results.details).firstName }}</a>
-  </div>
+  }
 </div>
+
+<!-- Mobile Search Overlay -->
+@if (isMobileSearchActive) {
+  <div class="relative flex items-center h-14 lg:hidden w-full">
+    <!-- Backdrop Blur Overlay -->
+    <div class="fixed inset-0 bg-black/40 backdrop-blur-xs z-40 transition-opacity duration-300" (keydown)="onEscapeKey()" (click)="deactivateMobileSearch()"></div>
+
+    <!-- Active Input Bar -->
+    <div class="flex items-center w-full gap-2 z-50 relative px-1">
+      <button class="p-2 bg-sky-800/50 hover:bg-sky-800 text-sky-200 hover:text-white rounded-lg transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-sky-400/50" (click)="deactivateMobileSearch()">
+        <lucide-icon [img]="ArrowLeft" class="w-5 h-5 text-sky-200"></lucide-icon>
+      </button>
+
+      <div class="relative flex-1">
+        <lucide-icon [img]="Search" class="w-4 h-4 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400 pointer-events-none"></lucide-icon>
+
+        <input type="search" name="mobileSearch" id="mobileSearch"
+               class="bg-sky-950/90 border border-sky-700/60 text-sky-50 placeholder-sky-300/60 h-10 pl-9 pr-3 w-full outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-400/30 rounded-lg text-sm transition-all shadow-inner"
+               placeholder="Search..." autocomplete="off"
+               (input)="onSearchChange($event)" #mobileSearchInput/>
+      </div>
+    </div>
+
+    <!-- Dropdown Menu Results -->
+    @if (isSearchDropdownOpen) {
+      <div class="search_menu absolute left-1 right-1 top-16 p-3 rounded-xl border border-sky-700/50 shadow-2xl bg-sky-900/95 backdrop-blur-md flex flex-col gap-2 max-h-[70vh] overflow-y-auto scrollbar-thin scrollbar-thumb-sky-800/50 animate-in fade-in zoom-in-95 duration-150 z-50">
+        @if (!searchResults || (searchResults?.institutes?.length === 0 && searchResults?.students?.length === 0 && searchResults?.teachers?.length === 0)) {
+          <p class="text-xs text-sky-200/80 p-3 text-center font-medium">No Search Results.</p>
+        }
+
+        @for (results of searchResults?.institutes; track results.userSlug) {
+          <a [href]="'profile/' + results.userSlug"
+             class="p-2.5 rounded-lg bg-sky-800/40 hover:bg-sky-800/80 border border-sky-700/40 text-sm font-medium text-sky-100 hover:text-white break-words transition-colors active:scale-[0.98] flex items-center justify-between">
+            <span class="truncate">{{ $any(results.details).instituteName }}</span>
+            <span class="batch batch-secondary text-[10px] ml-2 shrink-0">Institute</span>
+          </a>
+        }
+
+        @for (results of searchResults?.teachers; track results.userSlug) {
+          <a [href]="'profile/' + results.userSlug"
+             class="p-2.5 rounded-lg bg-sky-800/40 hover:bg-sky-800/80 border border-sky-700/40 text-sm font-medium text-sky-100 hover:text-white break-words transition-colors active:scale-[0.98] flex items-center justify-between">
+            <span class="truncate">{{ $any(results.details).firstName }}</span>
+            <span class="batch batch-info text-[10px] ml-2 shrink-0">Teacher</span>
+          </a>
+        }
+
+        @for (results of searchResults?.students; track results.userSlug) {
+          <a [href]="'profile/' + results.userSlug"
+             class="p-2.5 rounded-lg bg-sky-800/40 hover:bg-sky-800/80 border border-sky-700/40 text-sm font-medium text-sky-100 hover:text-white break-words transition-colors active:scale-[0.98] flex items-center justify-between">
+            <span class="truncate">{{ $any(results.details).firstName }}</span>
+            <span class="batch batch-primary text-[10px] ml-2 shrink-0">Student</span>
+          </a>
+        }
+      </div>
+    }
+  </div>
+}

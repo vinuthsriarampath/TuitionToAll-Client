@@ -1,86 +1,515 @@
-<nav class="bg-blue-100 shadow-md">
+<!--<nav class="bg-blue-100 shadow-md">-->
+<!--  <div class="px-2 w-full">-->
+<!--    <div class="w-full max-w-screen-xl mx-auto px-2">-->
+<!--      <div class="relative flex items-center justify-between h-14" >-->
+
+<!--        <a [routerLink]="['/app']" *ngIf="!isMobileSearchActive">-->
+<!--          <img [src]="'tuitiontoall_logo.png'" alt="Logo" class="sm:h-10 h-8 w-auto"/>-->
+<!--        </a>-->
+
+<!--        &lt;!&ndash;          mobile search button&ndash;&gt;-->
+<!--        <button class="block lg:hidden" (click)="activateMobileSearch()" *ngIf="!isMobileSearchActive">-->
+<!--          <lucide-icon [img]="Search" [strokeWidth]="1.35"></lucide-icon>-->
+<!--        </button>-->
+
+<!--        <app-navbar-search-->
+<!--          [isMobileSearchActive]="isMobileSearchActive"-->
+<!--          (isMobileSearchActiveChange)="isMobileSearchActive = $event">-->
+<!--        >-->
+<!--        </app-navbar-search>-->
+
+<!--        <a [routerLink]="['/app']" [routerLinkActive]="'font-bold'"-->
+<!--           class="flex flex-col justify-center items-center cursor-pointer hover:font-bold" *ngIf="!isMobileSearchActive">-->
+<!--          <lucide-icon [img]="House" [strokeWidth]="1.35"></lucide-icon>-->
+<!--          <p class="text-[0.9rem] hidden lg:block">Feed</p>-->
+<!--        </a>-->
+<!--        <a [routerLink]="['/maintenance']"-->
+<!--           class="flex flex-col justify-center items-center cursor-pointer hover:font-bold" *ngIf="!isMobileSearchActive">-->
+<!--          <lucide-icon [img]="Users" [strokeWidth]="1.35"></lucide-icon>-->
+<!--          <p class="text-[0.9rem] hidden lg:block">Connections</p>-->
+<!--        </a>-->
+<!--        <a class="flex flex-col justify-center items-center cursor-pointer hover:font-bold" *ngIf="!isMobileSearchActive">-->
+<!--          <lucide-icon [img]="Bell" [strokeWidth]="1.35"></lucide-icon>-->
+<!--          <p class="text-[0.9rem] hidden lg:block">Notifications</p>-->
+<!--        </a>-->
+<!--        <a [routerLink]="['/maintenance']"-->
+<!--           class="flex flex-col justify-center items-center cursor-pointer hover:font-bold" *ngIf="!isMobileSearchActive">-->
+<!--          <lucide-icon [img]="MessageSquareText" [strokeWidth]="1.35"></lucide-icon>-->
+<!--          <p class="text-[0.9rem] hidden lg:block">Message</p>-->
+<!--        </a>-->
+<!--        <a [routerLink]="user?.role?.role == 'institute' ? ['/ins/dashboard'] : user?.role?.role == 'student' ? ['/std/dashboard'] : user?.role?.role == 'teacher' ? ['/tch/dashboard'] : ['/dashboard']"-->
+<!--           class="flex flex-col justify-center items-center cursor-pointer hover:font-bold" *ngIf="!isMobileSearchActive">-->
+<!--          <lucide-icon [img]="LayoutDashboard" [strokeWidth]="1.35"></lucide-icon>-->
+<!--          <p class="text-[0.9rem] hidden lg:block">Dashboard</p>-->
+<!--        </a>-->
+
+<!--        <div class="flex items-center gap-x-5 ml-2" *ngIf="!isMobileSearchActive">-->
+<!--          <div class="relative">-->
+<!--            <button class="profile_button sm:h-10 sm:w-10 h-8 w-8 rounded-full cursor-pointer border-0"-->
+<!--                    (click)="toggleProfileDropdown()">-->
+<!--              <img-->
+<!--                src="{{ user?.dp ? `${environment.USER_PROFILE_API}${user?.dp}` : 'profile_logo.png' }}"-->
+<!--                alt="User Avatar" class="h-full w-full rounded-full">-->
+<!--            </button>-->
+<!--            <div *ngIf="isProfileDropdownOpen"-->
+<!--                 class="profile_menu absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded shadow-md z-20">-->
+<!--              <ul>-->
+<!--                <li [routerLink]="['/profile/'+user?.userSlug]"-->
+<!--                    class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-gray-800 dark:text-gray-200">-->
+<!--                  Profile-->
+<!--                </li>-->
+<!--                <li-->
+<!--                  class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-gray-800 dark:text-gray-200">-->
+<!--                  Settings-->
+<!--                </li>-->
+<!--                <li-->
+<!--                  class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-gray-800 dark:text-gray-200"-->
+<!--                  (click)="logout()">Logout-->
+<!--                </li>-->
+<!--              </ul>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="lg:block hidden">-->
+<!--            <p class="text-md truncate max-w-xs" title="displayName">-->
+<!--              {{ displayName }}-->
+<!--            </p>-->
+<!--            <p class="font-semibold text-sm text-muted-foreground truncate max-w-xs" [title]="user?.email">-->
+<!--              {{ user?.email }}-->
+<!--            </p>-->
+<!--          </div>-->
+
+
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</nav>-->
+
+<!--<nav class="bg-sky-950/90 border-b border-sky-800/50 shadow-lg backdrop-blur-md sticky top-0 z-40">-->
+<!--  <div class="px-3 sm:px-4 w-full">-->
+<!--    <div class="w-full max-w-screen-xl mx-auto">-->
+<!--      <div class="relative flex items-center justify-between h-16 gap-2 sm:gap-4">-->
+
+<!--        &lt;!&ndash; Logo &ndash;&gt;-->
+<!--        @if (!isMobileSearchActive) {-->
+<!--          <a [routerLink]="['/app']" class="flex items-center shrink-0 active:scale-95 transition-all">-->
+<!--            <img [src]="'tuitiontoall_logo.png'" alt="Logo" class="sm:h-10 h-8 w-auto object-contain drop-shadow-sm"/>-->
+<!--          </a>-->
+<!--        }-->
+
+<!--        &lt;!&ndash; Mobile Search Button &ndash;&gt;-->
+<!--        @if (!isMobileSearchActive) {-->
+<!--          <button class="block lg:hidden btn-mini-light p-2 text-sky-200 hover:text-sky-50 focus:outline-none"-->
+<!--                  (click)="activateMobileSearch()">-->
+<!--            <lucide-icon [img]="Search" [strokeWidth]="1.5" class="w-5 h-5"></lucide-icon>-->
+<!--          </button>-->
+<!--        }-->
+
+<!--        &lt;!&ndash; Search Component Integration &ndash;&gt;-->
+<!--        <app-navbar-search-->
+<!--          [isMobileSearchActive]="isMobileSearchActive"-->
+<!--          (isMobileSearchActiveChange)="isMobileSearchActive = $event"-->
+<!--          class="flex-1 max-w-md">-->
+<!--        </app-navbar-search>-->
+
+<!--        &lt;!&ndash; Navigation Links &ndash;&gt;-->
+<!--        @if (!isMobileSearchActive) {-->
+<!--          <div class="hidden lg:flex items-center space-x-1 xl:space-x-2">-->
+
+<!--            &lt;!&ndash; Feed &ndash;&gt;-->
+<!--            <a [routerLink]="['/app']"-->
+<!--               [routerLinkActive]="'bg-sky-900/60 text-sky-300 font-semibold border-sky-500/50'"-->
+<!--               class="flex flex-col items-center justify-center px-3 py-1.5 rounded-lg text-sky-200/80 hover:text-sky-100 hover:bg-sky-900/40 border border-transparent transition-all active:scale-95 group">-->
+<!--              <lucide-icon [img]="House" [strokeWidth]="1.5" class="w-5 h-5 group-hover:scale-110 transition-transform"></lucide-icon>-->
+<!--              <p class="text-xs mt-1 tracking-wide">Feed</p>-->
+<!--            </a>-->
+
+<!--            &lt;!&ndash; Connections &ndash;&gt;-->
+<!--            <a [routerLink]="['/maintenance']"-->
+<!--               [routerLinkActive]="'bg-sky-900/60 text-sky-300 font-semibold border-sky-500/50'"-->
+<!--               class="flex flex-col items-center justify-center px-3 py-1.5 rounded-lg text-sky-200/80 hover:text-sky-100 hover:bg-sky-900/40 border border-transparent transition-all active:scale-95 group">-->
+<!--              <lucide-icon [img]="Users" [strokeWidth]="1.5" class="w-5 h-5 group-hover:scale-110 transition-transform"></lucide-icon>-->
+<!--              <p class="text-xs mt-1 tracking-wide">Connections</p>-->
+<!--            </a>-->
+
+<!--            &lt;!&ndash; Notifications &ndash;&gt;-->
+<!--            <a class="flex flex-col items-center justify-center px-3 py-1.5 rounded-lg text-sky-200/80 hover:text-sky-100 hover:bg-sky-900/40 border border-transparent transition-all active:scale-95 group cursor-pointer">-->
+<!--              <lucide-icon [img]="Bell" [strokeWidth]="1.5" class="w-5 h-5 group-hover:scale-110 transition-transform"></lucide-icon>-->
+<!--              <p class="text-xs mt-1 tracking-wide">Notifications</p>-->
+<!--            </a>-->
+
+<!--            &lt;!&ndash; Messages &ndash;&gt;-->
+<!--            <a [routerLink]="['/maintenance']"-->
+<!--               [routerLinkActive]="'bg-sky-900/60 text-sky-300 font-semibold border-sky-500/50'"-->
+<!--               class="flex flex-col items-center justify-center px-3 py-1.5 rounded-lg text-sky-200/80 hover:text-sky-100 hover:bg-sky-900/40 border border-transparent transition-all active:scale-95 group">-->
+<!--              <lucide-icon [img]="MessageSquareText" [strokeWidth]="1.5" class="w-5 h-5 group-hover:scale-110 transition-transform"></lucide-icon>-->
+<!--              <p class="text-xs mt-1 tracking-wide">Messages</p>-->
+<!--            </a>-->
+
+<!--            &lt;!&ndash; Dashboard &ndash;&gt;-->
+<!--            <a [routerLink]="user?.role?.role == 'institute' ? ['/ins/dashboard'] : user?.role?.role == 'student' ? ['/std/dashboard'] : user?.role?.role == 'teacher' ? ['/tch/dashboard'] : ['/dashboard']"-->
+<!--               [routerLinkActive]="'bg-sky-900/60 text-sky-300 font-semibold border-sky-500/50'"-->
+<!--               class="flex flex-col items-center justify-center px-3 py-1.5 rounded-lg text-sky-200/80 hover:text-sky-100 hover:bg-sky-900/40 border border-transparent transition-all active:scale-95 group">-->
+<!--              <lucide-icon [img]="LayoutDashboard" [strokeWidth]="1.5" class="w-5 h-5 group-hover:scale-110 transition-transform"></lucide-icon>-->
+<!--              <p class="text-xs mt-1 tracking-wide">Dashboard</p>-->
+<!--            </a>-->
+
+<!--          </div>-->
+<!--        }-->
+
+<!--        &lt;!&ndash; Profile Section &ndash;&gt;-->
+<!--        @if (!isMobileSearchActive) {-->
+<!--          <div class="flex items-center gap-x-3 sm:gap-x-4 pl-2 border-l border-sky-800/40 shrink-0">-->
+<!--            <div class="relative">-->
+<!--              <button class="profile_button sm:h-10 sm:w-10 h-8 w-8 rounded-full border-2 border-sky-500/40 hover:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400/50 overflow-hidden transition-all active:scale-95 cursor-pointer"-->
+<!--                      (click)="toggleProfileDropdown()">-->
+<!--                <img-->
+<!--                  src="{{ user?.dp ? `${environment.USER_PROFILE_API}${user?.dp}` : 'profile_logo.png' }}"-->
+<!--                  alt="User Avatar" class="h-full w-full object-cover">-->
+<!--              </button>-->
+
+<!--              &lt;!&ndash; Profile Dropdown &ndash;&gt;-->
+<!--              @if (isProfileDropdownOpen) {-->
+<!--                <div class="profile_menu absolute right-0 mt-2 w-52 rounded-xl border border-sky-800/60 shadow-2xl bg-sky-950/95 backdrop-blur-md overflow-hidden animate-in fade-in zoom-in-95 slide-in-from-top-2 z-50">-->
+<!--                  <ul class="py-1 text-sm text-sky-100">-->
+<!--                    <li [routerLink]="['/profile/'+user?.userSlug]"-->
+<!--                        class="px-4 py-2.5 hover:bg-sky-900/60 flex items-center gap-2 cursor-pointer transition-colors border-b border-sky-900/40">-->
+<!--                      <span>Profile</span>-->
+<!--                    </li>-->
+<!--                    <li class="px-4 py-2.5 hover:bg-sky-900/60 flex items-center gap-2 cursor-pointer transition-colors border-b border-sky-900/40">-->
+<!--                      <span>Settings</span>-->
+<!--                    </li>-->
+<!--                    <li (click)="logout()"-->
+<!--                        class="px-4 py-2.5 hover:bg-rose-950/40 text-rose-300 hover:text-rose-200 flex items-center gap-2 cursor-pointer transition-colors">-->
+<!--                      <span>Logout</span>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--                </div>-->
+<!--              }-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; User Text Information &ndash;&gt;-->
+<!--            <div class="hidden lg:block leading-tight max-w-[140px] xl:max-w-[180px]">-->
+<!--              <p class="text-sm font-semibold tracking-wide text-sky-50 truncate" [title]="displayName">-->
+<!--                {{ displayName }}-->
+<!--              </p>-->
+<!--              <p class="text-xs font-medium text-sky-200/80 truncate" [title]="user?.email">-->
+<!--                {{ user?.email }}-->
+<!--              </p>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        }-->
+
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</nav>-->
+
+
+<!--<nav class="bg-gradient-to-br from-sky-950 via-slate-900 to-gray-800 border-b border-sky-900/50 shadow-md sticky top-0 z-30">-->
+<!--  <div class="px-2 w-full">-->
+<!--    <div class="w-full max-w-screen-xl mx-auto px-2">-->
+<!--      <div class="relative flex items-center justify-between h-14 gap-x-3">-->
+
+<!--        &lt;!&ndash; Logo &ndash;&gt;-->
+<!--        @if (!isMobileSearchActive) {-->
+<!--          <a [routerLink]="['/app']" class="flex items-center gap-x-2 shrink-0 active:scale-95 transition-all">-->
+<!--            <div class="p-1 bg-sky-900/40 rounded-lg ring-1 ring-sky-500/20">-->
+<!--              <img [src]="'tuitiontoall_logo.png'" alt="Logo" class="sm:h-8 h-7 w-auto object-contain cursor-pointer"/>-->
+<!--            </div>-->
+<!--            <span class="text-base font-semibold tracking-wide text-sky-50 drop-shadow-sm hidden sm:inline-block">TuitionToAll</span>-->
+<!--          </a>-->
+<!--        }-->
+
+<!--        &lt;!&ndash; Mobile Search Button &ndash;&gt;-->
+<!--        @if (!isMobileSearchActive) {-->
+<!--          <button class="block lg:hidden p-2 bg-sky-800/40 hover:bg-sky-800 text-sky-200 hover:text-white rounded-lg transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-sky-400/50 active:scale-95"-->
+<!--                  (click)="activateMobileSearch()">-->
+<!--            <lucide-icon [img]="Search" [strokeWidth]="1.35" class="w-5 h-5"></lucide-icon>-->
+<!--          </button>-->
+<!--        }-->
+
+<!--        &lt;!&ndash; Embedded Search Component &ndash;&gt;-->
+<!--        <app-navbar-search-->
+<!--          [isMobileSearchActive]="isMobileSearchActive"-->
+<!--          (isMobileSearchActiveChange)="isMobileSearchActive = $event"-->
+<!--          class="flex-1 max-w-md">-->
+<!--        </app-navbar-search>-->
+
+<!--        &lt;!&ndash; Main Navigation Links &ndash;&gt;-->
+<!--        @if (!isMobileSearchActive) {-->
+<!--          <div class="hidden lg:flex items-center gap-x-1">-->
+
+<!--            &lt;!&ndash; Feed &ndash;&gt;-->
+<!--            <a [routerLink]="['/app']"-->
+<!--               [routerLinkActive]="'bg-sky-800 text-white font-medium shadow-sm ring-1 ring-sky-500/30'"-->
+<!--               class="group text-sky-100 flex flex-col items-center justify-center cursor-pointer hover:bg-sky-800/60 rounded-lg px-3 py-1.5 transition-all duration-150 ease-in-out active:scale-[0.98]">-->
+<!--              <lucide-icon [img]="House" [strokeWidth]="1.35" class="w-5 h-5 text-sky-300 group-hover:text-white transition-colors"></lucide-icon>-->
+<!--              <p class="text-[0.8rem] font-medium tracking-wide mt-0.5">Feed</p>-->
+<!--            </a>-->
+
+<!--            &lt;!&ndash; Connections &ndash;&gt;-->
+<!--            <a [routerLink]="['/maintenance']"-->
+<!--               [routerLinkActive]="'bg-sky-800 text-white font-medium shadow-sm ring-1 ring-sky-500/30'"-->
+<!--               class="group text-sky-100 flex flex-col items-center justify-center cursor-pointer hover:bg-sky-800/60 rounded-lg px-3 py-1.5 transition-all duration-150 ease-in-out active:scale-[0.98]">-->
+<!--              <lucide-icon [img]="Users" [strokeWidth]="1.35" class="w-5 h-5 text-sky-300 group-hover:text-white transition-colors"></lucide-icon>-->
+<!--              <p class="text-[0.8rem] font-medium tracking-wide mt-0.5">Connections</p>-->
+<!--            </a>-->
+
+<!--            &lt;!&ndash; Notifications &ndash;&gt;-->
+<!--            <a class="group text-sky-100 flex flex-col items-center justify-center cursor-pointer hover:bg-sky-800/60 rounded-lg px-3 py-1.5 transition-all duration-150 ease-in-out active:scale-[0.98]">-->
+<!--              <lucide-icon [img]="Bell" [strokeWidth]="1.35" class="w-5 h-5 text-sky-300 group-hover:text-white transition-colors"></lucide-icon>-->
+<!--              <p class="text-[0.8rem] font-medium tracking-wide mt-0.5">Notifications</p>-->
+<!--            </a>-->
+
+<!--            &lt;!&ndash; Message &ndash;&gt;-->
+<!--            <a [routerLink]="['/maintenance']"-->
+<!--               [routerLinkActive]="'bg-sky-800 text-white font-medium shadow-sm ring-1 ring-sky-500/30'"-->
+<!--               class="group text-sky-100 flex flex-col items-center justify-center cursor-pointer hover:bg-sky-800/60 rounded-lg px-3 py-1.5 transition-all duration-150 ease-in-out active:scale-[0.98]">-->
+<!--              <lucide-icon [img]="MessageSquareText" [strokeWidth]="1.35" class="w-5 h-5 text-sky-300 group-hover:text-white transition-colors"></lucide-icon>-->
+<!--              <p class="text-[0.8rem] font-medium tracking-wide mt-0.5">Message</p>-->
+<!--            </a>-->
+
+<!--            &lt;!&ndash; Dashboard &ndash;&gt;-->
+<!--            <a [routerLink]="user?.role?.role == 'institute' ? ['/ins/dashboard'] : user?.role?.role == 'student' ? ['/std/dashboard'] : user?.role?.role == 'teacher' ? ['/tch/dashboard'] : ['/dashboard']"-->
+<!--               [routerLinkActive]="'bg-sky-800 text-white font-medium shadow-sm ring-1 ring-sky-500/30'"-->
+<!--               class="group text-sky-100 flex flex-col items-center justify-center cursor-pointer hover:bg-sky-800/60 rounded-lg px-3 py-1.5 transition-all duration-150 ease-in-out active:scale-[0.98]">-->
+<!--              <lucide-icon [img]="LayoutDashboard" [strokeWidth]="1.35" class="w-5 h-5 text-sky-300 group-hover:text-white transition-colors"></lucide-icon>-->
+<!--              <p class="text-[0.8rem] font-medium tracking-wide mt-0.5">Dashboard</p>-->
+<!--            </a>-->
+
+<!--          </div>-->
+<!--        }-->
+
+<!--        &lt;!&ndash; Profile & Account Section &ndash;&gt;-->
+<!--        @if (!isMobileSearchActive) {-->
+<!--          <div class="flex items-center gap-x-3 ml-2 border-l border-sky-800/40 pl-3">-->
+
+<!--            <div class="relative">-->
+<!--              <button class="profile_button flex items-center p-0.5 bg-sky-800/40 hover:bg-sky-800/80 ring-1 ring-sky-500/20 rounded-full transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-sky-400"-->
+<!--                      (click)="toggleProfileDropdown()">-->
+<!--                <img-->
+<!--                  src="{{ user?.dp ? `${environment.USER_PROFILE_API}${user?.dp}` : 'profile_logo.png' }}"-->
+<!--                  alt="User Avatar" class="sm:h-9 sm:w-9 h-8 w-8 rounded-full object-cover shadow-sm ring-1 ring-white/10">-->
+<!--              </button>-->
+
+<!--              &lt;!&ndash; Profile Dropdown Menu &ndash;&gt;-->
+<!--              @if (isProfileDropdownOpen) {-->
+<!--                <div class="profile_menu absolute right-0 mt-2 w-56 bg-sky-900/95 backdrop-blur-md border border-sky-700/50 shadow-2xl rounded-xl p-2 z-50 animate-in fade-in zoom-in-95 duration-150">-->
+<!--                  <div class="px-3 py-2 border-b border-sky-700/40 mb-1">-->
+<!--                    <p class="text-xs text-sky-300 font-medium uppercase tracking-wider">Account</p>-->
+<!--                    <p class="text-sky-50 text-sm font-semibold truncate mt-0.5" [title]="displayName">{{ displayName }}</p>-->
+<!--                    <p class="text-xs text-sky-200/80 truncate mt-0.5" [title]="user?.email">{{ user?.email }}</p>-->
+<!--                  </div>-->
+
+<!--                  <ul class="space-y-1">-->
+<!--                    <li [routerLink]="['/profile/'+user?.userSlug]"-->
+<!--                        class="flex items-center gap-x-2 text-sky-100 hover:text-white hover:bg-sky-700/60 rounded-lg p-2 transition-colors cursor-pointer text-sm font-medium">-->
+<!--                      Profile-->
+<!--                    </li>-->
+<!--                    <li class="flex items-center gap-x-2 text-sky-100 hover:text-white hover:bg-sky-700/60 rounded-lg p-2 transition-colors cursor-pointer text-sm font-medium">-->
+<!--                      Settings-->
+<!--                    </li>-->
+<!--                    <li (click)="logout()"-->
+<!--                        class="flex items-center gap-x-2 text-rose-300 hover:text-rose-100 hover:bg-rose-900/40 rounded-lg p-2 transition-colors cursor-pointer text-sm font-medium border-t border-sky-700/30 mt-1">-->
+<!--                      Logout-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--                </div>-->
+<!--              }-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; User Text Details (Desktop) &ndash;&gt;-->
+<!--            <div class="lg:block hidden leading-tight">-->
+<!--              <p class="text-sm font-semibold tracking-wide text-sky-50 drop-shadow-sm truncate max-w-[150px]" [title]="displayName">-->
+<!--                {{ displayName }}-->
+<!--              </p>-->
+<!--              <p class="text-xs font-medium text-sky-200/80 truncate max-w-[150px]" [title]="user?.email">-->
+<!--                {{ user?.email }}-->
+<!--              </p>-->
+<!--            </div>-->
+
+<!--          </div>-->
+<!--        }-->
+
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</nav>-->
+
+
+<nav class="bg-gradient-to-br from-sky-950 via-slate-900 to-gray-800 border-b border-sky-900/50 shadow-md sticky top-0 z-30">
   <div class="px-2 w-full">
     <div class="w-full max-w-screen-xl mx-auto px-2">
-      <div class="relative flex items-center justify-between h-14" >
+      <div class="relative flex items-center justify-between h-14 gap-x-3">
 
-        <a [routerLink]="['/app']" *ngIf="!isMobileSearchActive">
-          <img [src]="'tuitiontoall_logo.png'" alt="Logo" class="sm:h-10 h-8 w-auto"/>
-        </a>
+        <!-- Logo -->
+        @if (!isMobileSearchActive) {
+          <a [routerLink]="['/app']" class="flex items-center gap-x-2 shrink-0 active:scale-95 transition-all">
+            <div class="p-1 bg-sky-900/40 rounded-lg ring-1 ring-sky-500/20">
+              <img [src]="'tuitiontoall_logo.png'" alt="Logo" class="sm:h-8 h-7 w-auto object-contain cursor-pointer"/>
+            </div>
+            <span class="text-base font-semibold tracking-wide text-sky-50 drop-shadow-sm hidden sm:inline-block">TuitionToAll</span>
+          </a>
+        }
 
-        <!--          mobile search button-->
-        <button class="block lg:hidden" (click)="activateMobileSearch()" *ngIf="!isMobileSearchActive">
-          <lucide-icon [img]="Search" [strokeWidth]="1.35"></lucide-icon>
-        </button>
+        <!-- Mobile Search Button -->
+        @if (!isMobileSearchActive) {
+          <button class="block lg:hidden p-2 bg-sky-800/40 hover:bg-sky-800 text-sky-200 hover:text-white rounded-lg transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-sky-400/50 active:scale-95"
+                  (click)="activateMobileSearch()">
+            <lucide-icon [img]="Search" [strokeWidth]="1.35" class="w-5 h-5"></lucide-icon>
+          </button>
+        }
 
+        <!-- Embedded Search Component -->
         <app-navbar-search
           [isMobileSearchActive]="isMobileSearchActive"
-          (isMobileSearchActiveChange)="isMobileSearchActive = $event">
-        >
+          (isMobileSearchActiveChange)="isMobileSearchActive = $event"
+          class="flex-1 max-w-md">
         </app-navbar-search>
 
-        <a [routerLink]="['/app']" [routerLinkActive]="'font-bold'"
-           class="flex flex-col justify-center items-center cursor-pointer hover:font-bold" *ngIf="!isMobileSearchActive">
-          <lucide-icon [img]="House" [strokeWidth]="1.35"></lucide-icon>
-          <p class="text-[0.9rem] hidden lg:block">Feed</p>
-        </a>
-        <a [routerLink]="['/maintenance']"
-           class="flex flex-col justify-center items-center cursor-pointer hover:font-bold" *ngIf="!isMobileSearchActive">
-          <lucide-icon [img]="Users" [strokeWidth]="1.35"></lucide-icon>
-          <p class="text-[0.9rem] hidden lg:block">Connections</p>
-        </a>
-        <a class="flex flex-col justify-center items-center cursor-pointer hover:font-bold" *ngIf="!isMobileSearchActive">
-          <lucide-icon [img]="Bell" [strokeWidth]="1.35"></lucide-icon>
-          <p class="text-[0.9rem] hidden lg:block">Notifications</p>
-        </a>
-        <a [routerLink]="['/maintenance']"
-           class="flex flex-col justify-center items-center cursor-pointer hover:font-bold" *ngIf="!isMobileSearchActive">
-          <lucide-icon [img]="MessageSquareText" [strokeWidth]="1.35"></lucide-icon>
-          <p class="text-[0.9rem] hidden lg:block">Message</p>
-        </a>
-        <a [routerLink]="user?.role?.role == 'institute' ? ['/ins/dashboard'] : user?.role?.role == 'student' ? ['/std/dashboard'] : user?.role?.role == 'teacher' ? ['/tch/dashboard'] : ['/dashboard']"
-           class="flex flex-col justify-center items-center cursor-pointer hover:font-bold" *ngIf="!isMobileSearchActive">
-          <lucide-icon [img]="LayoutDashboard" [strokeWidth]="1.35"></lucide-icon>
-          <p class="text-[0.9rem] hidden lg:block">Dashboard</p>
-        </a>
+        <!-- Desktop Navigation Links -->
+        @if (!isMobileSearchActive) {
+          <div class="hidden lg:flex items-center gap-x-1">
 
-        <div class="flex items-center gap-x-5 ml-2" *ngIf="!isMobileSearchActive">
-          <div class="relative">
-            <button class="profile_button sm:h-10 sm:w-10 h-8 w-8 rounded-full cursor-pointer border-0"
-                    (click)="toggleProfileDropdown()">
-              <img
-                src="{{ user?.dp ? `${environment.USER_PROFILE_API}${user?.dp}` : 'profile_logo.png' }}"
-                alt="User Avatar" class="h-full w-full rounded-full">
-            </button>
-            <div *ngIf="isProfileDropdownOpen"
-                 class="profile_menu absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded shadow-md z-20">
-              <ul>
-                <li [routerLink]="['/profile/'+user?.userSlug]"
-                    class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-gray-800 dark:text-gray-200">
-                  Profile
-                </li>
-                <li
-                  class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-gray-800 dark:text-gray-200">
-                  Settings
-                </li>
-                <li
-                  class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-gray-800 dark:text-gray-200"
-                  (click)="logout()">Logout
-                </li>
-              </ul>
+            <!-- Feed -->
+            <a [routerLink]="['/app']"
+               [routerLinkActive]="'bg-sky-800 text-white font-medium shadow-sm ring-1 ring-sky-500/30'"
+               class="group text-sky-100 flex flex-col items-center justify-center cursor-pointer hover:bg-sky-800/60 rounded-lg px-3 py-1.5 transition-all duration-150 ease-in-out active:scale-[0.98]">
+              <lucide-icon [img]="House" [strokeWidth]="1.35" class="w-5 h-5 text-sky-300 group-hover:text-white transition-colors"></lucide-icon>
+              <p class="text-[0.8rem] font-medium tracking-wide mt-0.5">Feed</p>
+            </a>
+
+            <!-- Connections -->
+            <a [routerLink]="['/maintenance']"
+               [routerLinkActive]="'bg-sky-800 text-white font-medium shadow-sm ring-1 ring-sky-500/30'"
+               class="group text-sky-100 flex flex-col items-center justify-center cursor-pointer hover:bg-sky-800/60 rounded-lg px-3 py-1.5 transition-all duration-150 ease-in-out active:scale-[0.98]">
+              <lucide-icon [img]="Users" [strokeWidth]="1.35" class="w-5 h-5 text-sky-300 group-hover:text-white transition-colors"></lucide-icon>
+              <p class="text-[0.8rem] font-medium tracking-wide mt-0.5">Connections</p>
+            </a>
+
+            <!-- Notifications -->
+            <a class="group text-sky-100 flex flex-col items-center justify-center cursor-pointer hover:bg-sky-800/60 rounded-lg px-3 py-1.5 transition-all duration-150 ease-in-out active:scale-[0.98]">
+              <lucide-icon [img]="Bell" [strokeWidth]="1.35" class="w-5 h-5 text-sky-300 group-hover:text-white transition-colors"></lucide-icon>
+              <p class="text-[0.8rem] font-medium tracking-wide mt-0.5">Notifications</p>
+            </a>
+
+            <!-- Message -->
+            <a [routerLink]="['/maintenance']"
+               [routerLinkActive]="'bg-sky-800 text-white font-medium shadow-sm ring-1 ring-sky-500/30'"
+               class="group text-sky-100 flex flex-col items-center justify-center cursor-pointer hover:bg-sky-800/60 rounded-lg px-3 py-1.5 transition-all duration-150 ease-in-out active:scale-[0.98]">
+              <lucide-icon [img]="MessageSquareText" [strokeWidth]="1.35" class="w-5 h-5 text-sky-300 group-hover:text-white transition-colors"></lucide-icon>
+              <p class="text-[0.8rem] font-medium tracking-wide mt-0.5">Message</p>
+            </a>
+
+            <!-- Dashboard -->
+            <a [routerLink]="user?.role?.role == 'institute' ? ['/ins/dashboard'] : user?.role?.role == 'student' ? ['/std/dashboard'] : user?.role?.role == 'teacher' ? ['/tch/dashboard'] : ['/dashboard']"
+               [routerLinkActive]="'bg-sky-800 text-white font-medium shadow-sm ring-1 ring-sky-500/30'"
+               class="group text-sky-100 flex flex-col items-center justify-center cursor-pointer hover:bg-sky-800/60 rounded-lg px-3 py-1.5 transition-all duration-150 ease-in-out active:scale-[0.98]">
+              <lucide-icon [img]="LayoutDashboard" [strokeWidth]="1.35" class="w-5 h-5 text-sky-300 group-hover:text-white transition-colors"></lucide-icon>
+              <p class="text-[0.8rem] font-medium tracking-wide mt-0.5">Dashboard</p>
+            </a>
+
+          </div>
+        }
+
+        <!-- Profile & Account Section -->
+        @if (!isMobileSearchActive) {
+          <div class="flex items-center gap-x-3 ml-2 border-l border-sky-800/40 pl-3">
+
+            <div class="relative">
+              <button class="profile_button flex items-center p-0.5 bg-sky-800/40 hover:bg-sky-800/80 ring-1 ring-sky-500/20 rounded-full transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-sky-400"
+                      (click)="toggleProfileDropdown()">
+                <img
+                  src="{{ user?.dp ? `${environment.USER_PROFILE_API}${user?.dp}` : 'profile_logo.png' }}"
+                  alt="User Avatar" class="sm:h-9 sm:w-9 h-8 w-8 rounded-full object-cover shadow-sm ring-1 ring-white/10">
+              </button>
+
+              <!-- Profile Dropdown Menu -->
+              @if (isProfileDropdownOpen) {
+                <div class="profile_menu absolute right-0 mt-2 w-56 bg-sky-900/95 backdrop-blur-md border border-sky-700/50 shadow-2xl rounded-xl p-2 z-50 animate-in fade-in zoom-in-95 duration-150">
+                  <div class="px-3 py-2 border-b border-sky-700/40 mb-1">
+                    <p class="text-xs text-sky-300 font-medium uppercase tracking-wider">Account</p>
+                    <p class="text-sky-50 text-sm font-semibold truncate mt-0.5" [title]="displayName">{{ displayName }}</p>
+                    <p class="text-xs text-sky-200/80 truncate mt-0.5" [title]="user?.email">{{ user?.email }}</p>
+                  </div>
+
+                  <ul class="space-y-1">
+                    <li [routerLink]="['/profile/'+user?.userSlug]"
+                        class="flex items-center gap-x-2 text-sky-100 hover:text-white hover:bg-sky-700/60 rounded-lg p-2 transition-colors cursor-pointer text-sm font-medium">
+                      Profile
+                    </li>
+                    <li class="flex items-center gap-x-2 text-sky-100 hover:text-white hover:bg-sky-700/60 rounded-lg p-2 transition-colors cursor-pointer text-sm font-medium">
+                      Settings
+                    </li>
+                    <li (click)="logout()"
+                        class="flex items-center gap-x-2 text-rose-300 hover:text-rose-100 hover:bg-rose-900/40 rounded-lg p-2 transition-colors cursor-pointer text-sm font-medium border-t border-sky-700/30 mt-1">
+                      Logout
+                    </li>
+                  </ul>
+                </div>
+              }
             </div>
-          </div>
-          <div class="lg:block hidden">
-            <p class="text-md truncate max-w-xs" title="displayName">
-              {{ displayName }}
-            </p>
-            <p class="font-semibold text-sm text-muted-foreground truncate max-w-xs" [title]="user?.email">
-              {{ user?.email }}
-            </p>
-          </div>
 
+            <!-- User Text Details (Desktop) -->
+            <div class="lg:block hidden leading-tight">
+              <p class="text-sm font-semibold tracking-wide text-sky-50 drop-shadow-sm truncate max-w-[150px]" [title]="displayName">
+                {{ displayName }}
+              </p>
+              <p class="text-xs font-medium text-sky-200/80 truncate max-w-[150px]" [title]="user?.email">
+                {{ user?.email }}
+              </p>
+            </div>
 
-        </div>
+          </div>
+        }
+
       </div>
     </div>
   </div>
 </nav>
+
+<!-- Mobile Bottom Navigation Bar (Visible only on mobile / screens < lg) -->
+<div class="lg:hidden fixed bottom-0 inset-x-0 bg-gradient-to-br from-sky-950 via-slate-900 to-gray-800 border-t border-sky-900/50 shadow-2xl z-40 px-2 py-1">
+  <div class="flex justify-around items-center h-12 max-w-md mx-auto">
+
+    <!-- Feed -->
+    <a [routerLink]="['/app']"
+       [routerLinkActive]="'text-sky-300 font-semibold'"
+       class="flex flex-col items-center justify-center text-sky-200/80 hover:text-sky-100 transition-colors py-1 px-2">
+      <lucide-icon [img]="House" [strokeWidth]="1.35" class="w-5 h-5"></lucide-icon>
+      <span class="text-[0.65rem] tracking-tight mt-0.5">Feed</span>
+    </a>
+
+    <!-- Connections -->
+    <a [routerLink]="['/maintenance']"
+       [routerLinkActive]="'text-sky-300 font-semibold'"
+       class="flex flex-col items-center justify-center text-sky-200/80 hover:text-sky-100 transition-colors py-1 px-2">
+      <lucide-icon [img]="Users" [strokeWidth]="1.35" class="w-5 h-5"></lucide-icon>
+      <span class="text-[0.65rem] tracking-tight mt-0.5">Connections</span>
+    </a>
+
+    <!-- Notifications -->
+    <a class="flex flex-col items-center justify-center text-sky-200/80 hover:text-sky-100 transition-colors py-1 px-2 cursor-pointer">
+      <lucide-icon [img]="Bell" [strokeWidth]="1.35" class="w-5 h-5"></lucide-icon>
+      <span class="text-[0.65rem] tracking-tight mt-0.5">Notifications</span>
+    </a>
+
+    <!-- Message -->
+    <a [routerLink]="['/maintenance']"
+       [routerLinkActive]="'text-sky-300 font-semibold'"
+       class="flex flex-col items-center justify-center text-sky-200/80 hover:text-sky-100 transition-colors py-1 px-2">
+      <lucide-icon [img]="MessageSquareText" [strokeWidth]="1.35" class="w-5 h-5"></lucide-icon>
+      <span class="text-[0.65rem] tracking-tight mt-0.5">Message</span>
+    </a>
+
+    <!-- Dashboard -->
+    <a [routerLink]="user?.role?.role == 'institute' ? ['/ins/dashboard'] : user?.role?.role == 'student' ? ['/std/dashboard'] : user?.role?.role == 'teacher' ? ['/tch/dashboard'] : ['/dashboard']"
+       [routerLinkActive]="'text-sky-300 font-semibold'"
+       class="flex flex-col items-center justify-center text-sky-200/80 hover:text-sky-100 transition-colors py-1 px-2">
+      <lucide-icon [img]="LayoutDashboard" [strokeWidth]="1.35" class="w-5 h-5"></lucide-icon>
+      <span class="text-[0.65rem] tracking-tight mt-0.5">Dashboard</span>
+    </a>
+
+  </div>
+</div>
