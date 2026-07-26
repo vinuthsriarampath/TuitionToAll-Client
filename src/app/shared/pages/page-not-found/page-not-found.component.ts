@@ -11,10 +11,13 @@
 
 import {Component, inject} from '@angular/core';
 import {Router} from '@angular/router';
+import {ArrowLeft, Cloud, CloudSun, House, LucideAngularModule} from 'lucide-angular';
 
 @Component({
   selector: 'app-page-not-found',
-  imports: [],
+  imports: [
+    LucideAngularModule
+  ],
   templateUrl: './page-not-found.component.html',
   styleUrl: './page-not-found.component.css'
 })
@@ -29,4 +32,9 @@ export class PageNotFoundComponent {
   goBack() {
     this.window.history.back();
   }
+
+  protected readonly Cloud = Cloud;
+  protected readonly House = House;
+  protected readonly ArrowLeft = ArrowLeft;
+  protected readonly CloudSun = CloudSun;
 }

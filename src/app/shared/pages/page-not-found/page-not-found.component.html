@@ -1,65 +1,64 @@
-<!--
-  ~ Copyright (c) 2025 vinuth sri arampath
-  ~
-  ~ This code is the intellectual property of vinuth sri arampath and is protected under copyright law.
-  ~ Unauthorized copying, modification, distribution, or use of this code, in whole or in part,
-  ~ without prior written permission is strictly prohibited.
-  ~
-  ~ Portions of this code may be generated with AI and modified by vinuth sri arampath
-  ~ All rights reserved.
-  -->
-<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-sky-100 via-sky-50 to-white px-6 relative overflow-hidden">
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-sky-950 via-slate-900 to-gray-800 px-6 relative overflow-hidden">
 
-  <!-- Decorative floating circles -->
-  <div class="absolute w-72 h-72 bg-sky-300/30 rounded-full blur-3xl top-10 left-10 animate-float"></div>
-  <div class="absolute w-96 h-96 bg-sky-200/30 rounded-full blur-3xl bottom-10 right-10 animate-float-slow"></div>
+  <!-- Decorative floating glowing circles -->
+  <div class="absolute w-72 h-72 bg-sky-500/20 rounded-full blur-3xl top-10 left-10 animate-float pointer-events-none"></div>
+  <div class="absolute w-96 h-96 bg-sky-400/15 rounded-full blur-3xl bottom-10 right-10 animate-float-slow pointer-events-none"></div>
 
-  <div class="text-center max-w-2xl z-10">
+  <!-- Central Glassmorphism Card Container -->
+  <div class="text-center max-w-2xl w-full z-10 bg-sky-950/80 backdrop-blur-md border border-sky-800/50 rounded-2xl p-8 md:p-12 shadow-2xl animate-in fade-in zoom-in-95 duration-500">
 
     <!-- Sky themed 404 illustration -->
     <div class="relative flex justify-center mb-6">
 
-      <!-- cloud -->
-      <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-32 h-10 bg-white rounded-full shadow-md animate-float"></div>
+      <!-- Floating cloud backdrop badge -->
+      <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-36 h-12 bg-sky-900/60 backdrop-blur-sm border border-sky-700/40 rounded-full shadow-lg flex items-center justify-center gap-2 px-3 animate-float">
+        <lucide-icon [img]="Cloud" class="w-5 h-5 font-medium text-sky-300"></lucide-icon>
+        <span class="text-xs font-semibold tracking-wider uppercase text-sky-200">Lost Sky</span>
+      </div>
 
       <!-- 404 text -->
-      <div class="text-7xl md:text-8xl font-extrabold text-sky-600 drop-shadow-sm animate-bounce-slow">
+      <div class="text-7xl md:text-8xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-sky-200 to-white drop-shadow-sm animate-bounce-slow tracking-wider pt-4">
         404
       </div>
 
     </div>
 
     <!-- Title -->
-    <h1 class="text-3xl md:text-4xl font-bold text-sky-800 mb-3">
+    <h1 class="text-2xl md:text-4xl font-bold tracking-wide text-sky-50 drop-shadow-sm mb-3 flex items-center justify-center gap-2">
       Page Drifted Away 🌤️
     </h1>
 
     <!-- Subtitle -->
-    <p class="text-sky-600 mb-8 leading-relaxed">
-      The page you are looking for might have floated away like a cloud,<br />
+    <p class="text-sm font-medium tracking-wide text-sky-100/90 mb-8 leading-relaxed max-w-lg mx-auto">
+      The page you are looking for might have floated away like a cloud,<br class="hidden sm:inline" />
       or never existed in the first place.
     </p>
 
-    <!-- Buttons -->
-    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+    <!-- Action Buttons -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
 
       <button
         (click)="goHome()"
-        class="px-6 py-3 rounded-xl bg-sky-600 text-white font-semibold shadow-lg hover:bg-sky-700 transition transform hover:scale-105">
-        🏠 Back to Home
+        class="btn-primary w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold tracking-wide shadow-lg active:scale-95 transition-all cursor-pointer">
+        <lucide-icon [img]="House" class="w-4 h-4 text-sky-100"></lucide-icon>
+        Back to Home
       </button>
 
       <button
         (click)="goBack()"
-        class="px-6 py-3 rounded-xl bg-white text-sky-700 font-semibold shadow-md border border-sky-200 hover:bg-sky-50 transition transform hover:scale-105">
-        ← Go Back
+        class="btn-secondary w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold tracking-wide shadow-md active:scale-95 transition-all cursor-pointer">
+        <lucide-icon [img]="ArrowLeft" class="w-4 h-4 text-sky-300"></lucide-icon>
+        Go Back
       </button>
 
     </div>
 
-    <!-- Footer -->
-    <p class="mt-10 text-sm text-sky-400 animate-fade-in">
-      TuitionToAll • Learning continues above the clouds ☁️
+    <!-- Footer Subtext -->
+    <p class="mt-10 text-xs text-sky-200/80 animate-fade-in flex items-center justify-center gap-1.5">
+      <span>TuitionToAll</span>
+      <span class="text-sky-500">•</span>
+      <span>Learning continues above the clouds</span>
+      <lucide-icon [img]="CloudSun" class="w-4 h-4 text-sky-300 inline-block ml-0.5"></lucide-icon>
     </p>
 
   </div>
