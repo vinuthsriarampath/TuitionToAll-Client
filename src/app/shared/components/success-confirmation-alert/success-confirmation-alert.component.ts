@@ -1,9 +1,12 @@
 import {Component, Inject, inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {CheckCircle, LucideAngularModule} from 'lucide-angular';
 
 @Component({
   selector: 'app-success-confirmation-alert',
-  imports: [],
+  imports: [
+    LucideAngularModule
+  ],
   templateUrl: './success-confirmation-alert.component.html',
   styleUrl: './success-confirmation-alert.component.css'
 })
@@ -26,4 +29,5 @@ export class SuccessConfirmationAlertComponent {
     this.dialogRef.close(false);
   }
 
+  protected readonly CheckCircle = CheckCircle;
 }
