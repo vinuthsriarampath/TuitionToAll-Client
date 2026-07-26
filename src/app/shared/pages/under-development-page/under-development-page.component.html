@@ -9,64 +9,78 @@
   ~ All rights reserved.
   -->
 
-<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-sky-100 via-sky-50 to-white px-6 relative overflow-hidden">
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-sky-950 via-slate-900 to-gray-800 px-6 relative overflow-hidden">
 
-  <!-- Floating sky blobs -->
-  <div class="absolute w-80 h-80 bg-sky-300/30 rounded-full blur-3xl top-10 left-10 animate-float"></div>
-  <div class="absolute w-96 h-96 bg-sky-200/30 rounded-full blur-3xl bottom-10 right-10 animate-float-slow"></div>
+  <!-- Floating background glowing blobs -->
+  <div class="absolute w-80 h-80 bg-sky-500/10 rounded-full blur-3xl top-10 left-10 animate-float"></div>
+  <div class="absolute w-96 h-96 bg-sky-400/10 rounded-full blur-3xl bottom-10 right-10 animate-float-slow"></div>
 
-  <div class="text-center max-w-2xl z-10">
+  <!-- Content Card -->
+  <div class="text-center max-w-2xl z-10 bg-sky-950/60 backdrop-blur-md border border-sky-800/40 rounded-2xl p-8 md:p-12 shadow-2xl animate-fade-in w-full">
 
-    <!-- Construction icon animation -->
-    <div class="flex justify-center mb-6">
-      <div class="relative">
+    <!-- Construction / Maintenance Animated Icon Header -->
+    <div class="flex justify-center mb-8">
+      <div class="relative p-5 rounded-2xl bg-sky-900/40 border border-sky-700/30 shadow-inner">
 
-        <!-- spinning gear -->
-        <div class="text-6xl animate-spin-slow text-sky-600">⚙️</div>
+        <!-- Spinning main gear -->
+        <lucide-icon [img]="Cog" class="w-16 h-16 text-sky-400 animate-spin-slow drop-shadow-[0_0_12px_rgba(56,189,248,0.4)]">
+        </lucide-icon>
 
-        <!-- small cloud -->
-        <div class="absolute -top-6 -right-10 text-3xl animate-float">☁️</div>
+        <!-- Floating Cloud Accent -->
+        <div class="absolute -top-3 -right-4 bg-sky-900/80 p-1.5 rounded-full border border-sky-600/40 animate-float shadow-md">
+          <lucide-icon [img]="Cloud" class="w-6 h-6 text-sky-300"></lucide-icon>
+        </div>
+
+        <!-- Mini Wrench Badge -->
+        <div class="absolute -bottom-2 -left-3 bg-sky-950 p-1.5 rounded-full border border-sky-700/50 shadow-md">
+          <lucide-icon [img]="Wrench" class="w-5 h-5 text-sky-400"></lucide-icon>
+        </div>
 
       </div>
     </div>
 
     <!-- Title -->
-    <h1 class="text-3xl md:text-4xl font-bold text-sky-800 mb-3">
+    <h1 class="text-2xl md:text-4xl font-bold tracking-wide text-sky-50 drop-shadow-sm mb-3">
       Page Under Development
     </h1>
 
     <!-- Subtitle -->
-    <p class="text-sky-600 mb-8 leading-relaxed">
-      This feature is under development.<br />
-      Translation: it works on our machine… not here yet 😭
+    <p class="text-sm md:text-base font-medium text-sky-200/80 mb-8 leading-relaxed max-w-md mx-auto">
+      This feature is currently under active development.<br />
+      <span class="text-xs text-sky-300/70 italic">Translation: it works on our machine… not here yet! 😅</span>
     </p>
 
     <!-- Progress bar -->
-    <div class="w-full bg-sky-100 rounded-full h-3 mb-6 overflow-hidden shadow-inner">
-      <div class="h-3 bg-sky-500 animate-loading-bar"></div>
+    <div class="w-full bg-sky-950/80 rounded-full h-3 mb-8 overflow-hidden border border-sky-800/50 p-0.5 shadow-inner">
+      <div class="h-full bg-gradient-to-r from-sky-500 to-sky-400 rounded-full animate-loading-bar shadow-[0_0_10px_rgba(56,189,248,0.5)]"></div>
     </div>
 
     <!-- Buttons -->
-    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
 
       <button
         (click)="goHome()"
-        class="px-6 py-3 rounded-xl bg-sky-600 text-white font-semibold shadow-lg hover:bg-sky-700 transition transform hover:scale-105">
-        🏠 Go Home
+        class="btn-primary inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold rounded-xl active:scale-95 transition-all cursor-pointer w-full sm:w-auto">
+        <lucide-icon [img]="Home" class="w-4 h-4"></lucide-icon>
+        <span>Go Home</span>
       </button>
 
       <button
         (click)="goBack()"
-        class="px-6 py-3 rounded-xl bg-white text-sky-700 font-semibold shadow-md border border-sky-200 hover:bg-sky-50 transition transform hover:scale-105">
-        ← Go Back
+        class="btn-secondary inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold rounded-xl active:scale-95 transition-all cursor-pointer w-full sm:w-auto">
+        <lucide-icon [img]="ArrowLeft" class="w-4 h-4"></lucide-icon>
+        <span>Go Back</span>
       </button>
 
     </div>
 
     <!-- Footer -->
-    <p class="mt-10 text-sm text-sky-400 animate-fade-in">
-      TuitionToAll • Building the future of learning ☁️
-    </p>
+    <div class="mt-10 pt-6 border-t border-sky-800/30 flex items-center justify-center gap-2 text-xs text-sky-300/70">
+      <span>TuitionToAll</span>
+      <span>•</span>
+      <span>Building the future of learning</span>
+      <lucide-icon [img]="Cloud" class="w-3.5 h-3.5 text-sky-400 inline-block"></lucide-icon>
+    </div>
 
   </div>
 </div>
