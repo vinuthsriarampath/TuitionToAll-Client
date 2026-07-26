@@ -1,232 +1,3 @@
-/*!**/
-/* * Copyright (c) 2025 vinuth sri arampath*/
-/* **/
-/* * This code is the intellectual property of vinuth sri arampath and is protected under copyright law.*/
-/* * Unauthorized copying, modification, distribution, or use of this code, in whole or in part,*/
-/* * without prior written permission is strictly prohibited.*/
-/* **/
-/* * Portions of this code may be generated with AI and modified by vinuth sri arampath*/
-/* * All rights reserved.*/
-/* *!*/
-
-/*!* You can add global styles to this file, and also import other style files *!*/
-/*@import "tailwindcss";*/
-/*@import "flowbite/src/themes/default.css";*/
-/*@import '../node_modules/quill/dist/quill.snow.css';*/
-/*@plugin "flowbite/plugin";*/
-/*@source "../node_modules/flowbite";*/
-
-/*.success-snackbar .mat-mdc-snackbar-surface {*/
-/*  background-color: #20c55b !important;*/
-/*  color: white !important;*/
-/*  font-weight: 600;*/
-/*  font-size: 14px;*/
-/*  padding: 2px 10px;*/
-/*  border-radius: 8px;*/
-/*  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);*/
-/*}*/
-
-/*.error-snackbar .mat-mdc-snackbar-surface {*/
-/*  background-color: #ef4444 !important;*/
-/*  color: white !important;*/
-/*  font-weight: 600;*/
-/*  font-size: 14px;*/
-/*  padding: 2px 10px;*/
-/*  border-radius: 8px;*/
-/*  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);*/
-/*}*/
-
-
-/*.btn-primary {*/
-/*  @apply bg-blue-600 text-white font-semibold px-4 py-2 rounded-md shadow hover:bg-blue-700 cursor-pointer disabled:bg-gray-400;*/
-/*}*/
-
-/*.btn-secondary {*/
-/*  @apply bg-gray-500 text-white font-semibold px-4 py-2 rounded-md shadow hover:bg-gray-600 cursor-pointer;*/
-/*}*/
-
-/*.btn-light {*/
-/*  @apply bg-gray-200 text-gray-700 px-4 py-2 rounded-md shadow hover:bg-gray-300 cursor-pointer;*/
-/*}*/
-
-/*.btn-mini-primary {*/
-/*  @apply bg-blue-600 text-white text-sm px-3 py-1 rounded-md hover:bg-blue-700 cursor-pointer disabled:bg-gray-400;*/
-/*}*/
-
-/*.btn-mini-secondary {*/
-/*  @apply bg-gray-400 text-white text-sm px-3 py-1 rounded-md hover:bg-gray-500 cursor-pointer;*/
-/*}*/
-
-/*.btn-mini-light {*/
-/*  @apply bg-gray-200 text-gray-700 px-3 py-1 rounded-md shadow hover:bg-gray-300 cursor-pointer;*/
-/*}*/
-
-/*.btn-danger {*/
-/*  @apply bg-red-600 hover:bg-red-700;*/
-/*}*/
-
-/*.btn-success {*/
-/*  @apply bg-green-600 hover:bg-green-700;*/
-/*}*/
-
-/*.btn-warning {*/
-/*  @apply bg-yellow-600 hover:bg-yellow-700;*/
-/*}*/
-
-/*.form-label {*/
-/*  @apply text-sm text-gray-700 block mb-1;*/
-/*}*/
-
-/*.form-input {*/
-/*  @apply w-full p-1 ps-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500;*/
-/*}*/
-
-/*.form-error {*/
-/*  @apply text-xs text-red-500 mt-1;*/
-/*}*/
-
-/*.form-input-error{*/
-/*  @apply border border-red-500;*/
-/*}*/
-
-/*.batch{*/
-/*  @apply px-2 py-1 rounded-full text-xs font-medium*/
-/*}*/
-
-/*.batch-success{*/
-/*  @apply bg-green-100 text-green-700*/
-/*}*/
-
-/*.batch-warning{*/
-/*  @apply bg-yellow-100 text-yellow-700*/
-/*}*/
-
-/*.batch-danger{*/
-/*  @apply bg-red-100 text-red-700*/
-/*}*/
-
-/*.batch-primary{*/
-/*  @apply bg-blue-100 text-blue-700*/
-/*}*/
-
-/*.batch-secondary{*/
-/*  @apply bg-gray-100 text-gray-700*/
-/*}*/
-
-/*.batch-info{*/
-/*  @apply bg-sky-100 text-sky-700*/
-/*}*/
-
-/*.batch-dark{*/
-/*  @apply bg-gray-700 text-white*/
-/*}*/
-
-/*.batch-violet{*/
-/*  @apply bg-violet-100 text-violet-700*/
-/*}*/
-
-/*.batch-light{*/
-/*  @apply bg-gray-200 text-gray-700 border border-gray-300*/
-/*}*/
-/*!*cards*!*/
-
-/*.full-w-card{*/
-/* @apply w-full mb-3 rounded-xl shadow-sm hover:shadow-md transition p-3 flex gap-3 cursor-pointer*/
-/*}*/
-
-/*!*common table style*!*/
-
-/*.mat-mdc-table {*/
-/*  width: 100% !important;*/
-/*  background-color: #ffffff !important;*/
-/*  border: 1px solid #8BC6EFFF !important; !* light *!*/
-/*}*/
-
-/*.mat-mdc-header-row {*/
-/*  background-color: #083b5d !important; !* dark *!*/
-/*  height: 40px !important;*/
-/*}*/
-
-/*.mat-mdc-header-cell {*/
-/*  color: #ffffff !important;*/
-/*  text-align: center !important;*/
-/*  border: 1px solid #8BC6EFFF !important; !* light *!*/
-/*}*/
-
-/*.mat-mdc-row {*/
-/*  height: 40px !important;*/
-/*}*/
-
-/*.mat-mdc-cell{*/
-/*  text-align: center !important;*/
-/*  border: 1px solid #8BC6EFFF !important; !* light *!*/
-/*}*/
-
-/*.mat-mdc-row:hover{*/
-/*  background-color: #a3cfee !important;*/
-/*}*/
-
-/*.mat-column-actions .flex {*/
-/*  justify-content: center; !* 🔥 this is the key *!*/
-/*  align-items: center;*/
-/*}*/
-
-/*.mat-mdc-paginator {*/
-/*  background-color: #e0f3ff !important;*/
-/*}*/
-
-/*.mat-mdc-cell,.mat-mdc-header-cell {*/
-/*  white-space: nowrap;*/
-/*}*/
-
-/*!*Custom tab styles*!*/
-/*.custom-tabs {*/
-/*  border-radius: 12px;*/
-/*  overflow: hidden;*/
-/*}*/
-
-/*!* Header background gradient *!*/
-/*.custom-tabs .mat-mdc-tab-header {*/
-/*  background: linear-gradient(*/
-/*    to bottom right,*/
-/*    #0b4064 30%,*/
-/*    #1f2937 90%*/
-/*  );*/
-/*}*/
-
-/*!* Individual tab *!*/
-/*.custom-tabs .mdc-tab {*/
-/*  min-width: 140px;*/
-/*  padding: 0 20px;*/
-/*}*/
-
-/*!* Tab text *!*/
-/*.custom-tabs .mdc-tab__text-label {*/
-/*  color: rgba(255, 255, 255, 0.75) !important;*/
-/*  font-weight: 500;*/
-/*  transition: 0.3s;*/
-/*}*/
-
-/*!* Active tab *!*/
-/*.custom-tabs .mdc-tab--active .mdc-tab__text-label {*/
-/*  color: white !important;*/
-/*  font-weight: 600;*/
-/*}*/
-
-/*!* Active underline *!*/
-/*.custom-tabs .mdc-tab-indicator__content--underline {*/
-/*  border-color: #38bdf8 !important;*/
-/*  border-width: 3px;*/
-/*}*/
-
-/*!* Content area *!*/
-/*.custom-tabs .mat-mdc-tab-body-wrapper {*/
-/*  background: white;*/
-/*  border-radius: 0 0 12px 12px;*/
-/*  padding: 20px;*/
-/*}*/
-
-
 /*
  * Copyright (c) 2025 vinuth sri arampath
  *
@@ -238,7 +9,6 @@
  * All rights reserved.
  */
 
-/* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
 @import "flowbite/src/themes/default.css";
 @import '../node_modules/quill/dist/quill.snow.css';
@@ -246,7 +16,7 @@
 @source "../node_modules/flowbite";
 
 /* ==========================================================================
-   UI/UX Animations & Transition Utilities (For Dynamic Sidebars & Dropdowns)
+   UI/UX Animations & Transition Utilities
    ========================================================================== */
 
 @keyframes fadeIn {
@@ -282,7 +52,7 @@
   animation-name: slideInFromTop2;
 }
 
-/* Custom Scrollbar styling for sidebar menu */
+/* Custom Scrollbar Styling */
 .scrollbar-thin::-webkit-scrollbar {
   width: 4px;
 }
@@ -297,218 +67,256 @@
   background: rgba(14, 116, 144, 0.8);
 }
 
-
 /* ==========================================================================
-   Existing Application Styles
+   Angular Material Theme Overrides
    ========================================================================== */
 
+/* Snackbars / Toast Alerts */
 .success-snackbar .mat-mdc-snackbar-surface {
-  background-color: #20c55b !important;
-  color: white !important;
+  background-color: rgba(12, 74, 110, 0.95) !important; /* sky-900/95 */
+  border: 1px solid rgba(14, 165, 233, 0.4) !important; /* sky-500/40 */
+  color: #38bdf8 !important; /* sky-400 */
   font-weight: 600;
   font-size: 14px;
-  padding: 2px 10px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 4px 12px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
 }
 
 .error-snackbar .mat-mdc-snackbar-surface {
-  background-color: #ef4444 !important;
-  color: white !important;
+  background-color: rgba(15, 23, 42, 0.95) !important; /* slate-900/95 */
+  border: 1px solid rgba(244, 63, 94, 0.4) !important; /* rose-500/40 */
+  color: #fb7185 !important; /* rose-400 */
   font-weight: 600;
   font-size: 14px;
-  padding: 2px 10px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 4px 12px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
 }
 
-
-.btn-primary {
-  @apply bg-blue-600 text-white font-semibold px-4 py-2 rounded-md shadow hover:bg-blue-700 cursor-pointer disabled:bg-gray-400;
+/* Angular Material Dialog / Modals Overrides */
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  background-color: rgba(12, 74, 110, 0.95) !important; /* sky-950/95 */
+  border: 1px solid rgba(14, 116, 144, 0.5) !important; /* sky-700/50 */
+  border-radius: 16px !important;
+  backdrop-filter: blur(12px) !important;
+  color: #f0f9ff !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7) !important;
 }
 
-.btn-secondary {
-  @apply bg-gray-500 text-white font-semibold px-4 py-2 rounded-md shadow hover:bg-gray-600 cursor-pointer;
+.mat-mdc-dialog-title {
+  color: #f0f9ff !important; /* sky-50 */
+  font-size: 1.125rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.025em !important;
+  border-bottom: 1px solid rgba(7, 89, 133, 0.4) !important;
+  padding-bottom: 0.75rem !important;
 }
 
-.btn-light {
-  @apply bg-gray-200 text-gray-700 px-4 py-2 rounded-md shadow hover:bg-gray-300 cursor-pointer;
-}
-
-.btn-mini-primary {
-  @apply bg-blue-600 text-white text-sm px-3 py-1 rounded-md hover:bg-blue-700 cursor-pointer disabled:bg-gray-400;
-}
-
-.btn-mini-secondary {
-  @apply bg-gray-400 text-white text-sm px-3 py-1 rounded-md hover:bg-gray-500 cursor-pointer;
-}
-
-.btn-mini-light {
-  @apply bg-gray-200 text-gray-700 px-3 py-1 rounded-md shadow hover:bg-gray-300 cursor-pointer;
-}
-
-.btn-danger {
-  @apply bg-red-600 hover:bg-red-700;
-}
-
-.btn-success {
-  @apply bg-green-600 hover:bg-green-700;
-}
-
-.btn-warning {
-  @apply bg-yellow-600 hover:bg-yellow-700;
-}
-
-.form-label {
-  @apply text-sm text-gray-700 block mb-1;
-}
-
-.form-input {
-  @apply w-full p-1 ps-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500;
-}
-
-.form-error {
-  @apply text-xs text-red-500 mt-1;
-}
-
-.form-input-error{
-  @apply border border-red-500;
-}
-
-.batch{
-  @apply px-2 py-1 rounded-full text-xs font-medium
-}
-
-.batch-success{
-  @apply bg-green-100 text-green-700
-}
-
-.batch-warning{
-  @apply bg-yellow-100 text-yellow-700
-}
-
-.batch-danger{
-  @apply bg-red-100 text-red-700
-}
-
-.batch-primary{
-  @apply bg-blue-100 text-blue-700
-}
-
-.batch-secondary{
-  @apply bg-gray-100 text-gray-700
-}
-
-.batch-info{
-  @apply bg-sky-100 text-sky-700
-}
-
-.batch-dark{
-  @apply bg-gray-700 text-white
-}
-
-.batch-violet{
-  @apply bg-violet-100 text-violet-700
-}
-
-.batch-light{
-  @apply bg-gray-200 text-gray-700 border border-gray-300
-}
-/*cards*/
-
-.full-w-card{
-  @apply w-full mb-3 rounded-xl shadow-sm hover:shadow-md transition p-3 flex gap-3 cursor-pointer
-}
-
-/*common table style*/
-
+/* Common Angular Material Table Styles */
 .mat-mdc-table {
   width: 100% !important;
-  background-color: #ffffff !important;
-  border: 1px solid #8BC6EFFF !important; /* light */
+  background-color: rgba(15, 23, 42, 0.9) !important; /* slate-900/90 */
+  border: 1px solid rgba(7, 89, 133, 0.5) !important; /* sky-800/50 */
+  border-radius: 12px !important;
+  overflow: hidden !important;
 }
 
 .mat-mdc-header-row {
-  background-color: #083b5d !important; /* dark */
-  height: 40px !important;
+  background-color: rgba(8, 47, 73, 0.9) !important; /* sky-950/90 */
+  height: 44px !important;
+  border-bottom: 1px solid rgba(7, 89, 133, 0.5) !important;
 }
 
 .mat-mdc-header-cell {
-  color: #ffffff !important;
+  color: #7dd3fc !important; /* sky-300 */
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
   text-align: center !important;
-  border: 1px solid #8BC6EFFF !important; /* light */
+  border-bottom: 1px solid rgba(7, 89, 133, 0.4) !important;
   z-index: 10 !important;
 }
 
 .mat-mdc-row {
-  height: 40px !important;
+  height: 44px !important;
+  transition: background-color 150ms ease-in-out;
+  border-bottom: 1px solid rgba(7, 89, 133, 0.3) !important;
 }
 
-.mat-mdc-cell{
+.mat-mdc-cell {
+  color: #e0f2fe !important; /* sky-100 */
+  font-size: 0.875rem !important;
   text-align: center !important;
-  border: 1px solid #8BC6EFFF !important; /* light */
+  border-bottom: 1px solid rgba(7, 89, 133, 0.2) !important;
 }
 
-.mat-mdc-row:hover{
-  background-color: #a3cfee !important;
+.mat-mdc-row:hover {
+  background-color: rgba(7, 89, 133, 0.3) !important; /* hover:bg-sky-800/30 */
 }
 
 .mat-column-actions .flex {
-  justify-content: center; /* 🔥 this is the key */
+  justify-content: center;
   align-items: center;
 }
 
 .mat-mdc-paginator {
-  background-color: #e0f3ff !important;
+  background-color: rgba(8, 47, 73, 0.8) !important; /* sky-950/80 */
+  color: #bae6fd !important; /* sky-200 */
+  border-top: 1px solid rgba(7, 89, 133, 0.4) !important;
 }
 
-.mat-mdc-cell,.mat-mdc-header-cell {
+.mat-mdc-paginator .mat-mdc-select-value,
+.mat-mdc-paginator .mat-mdc-paginator-range-label {
+  color: #bae6fd !important;
+}
+
+.mat-mdc-cell, .mat-mdc-header-cell {
   white-space: nowrap;
 }
 
-/*Custom tab styles*/
+/* Custom Angular Material Tab Styles */
 .custom-tabs {
   border-radius: 12px;
   overflow: hidden;
+  border: 1px solid rgba(7, 89, 133, 0.5);
 }
 
-/* Header background gradient */
 .custom-tabs .mat-mdc-tab-header {
-  background: linear-gradient(
-    to bottom right,
-    #0b4064 30%,
-    #1f2937 90%
-  );
+  background: linear-gradient(to bottom right, #082f49 30%, #0f172a 90%);
+  border-bottom: 1px solid rgba(7, 89, 133, 0.4);
 }
 
-/* Individual tab */
 .custom-tabs .mdc-tab {
   min-width: 140px;
   padding: 0 20px;
 }
 
-/* Tab text */
 .custom-tabs .mdc-tab__text-label {
-  color: rgba(255, 255, 255, 0.75) !important;
+  color: rgba(186, 230, 253, 0.7) !important; /* sky-200/70 */
   font-weight: 500;
-  transition: 0.3s;
+  transition: all 0.2s ease-in-out;
 }
 
-/* Active tab */
 .custom-tabs .mdc-tab--active .mdc-tab__text-label {
-  color: white !important;
+  color: #f0f9ff !important; /* sky-50 */
   font-weight: 600;
 }
 
-/* Active underline */
 .custom-tabs .mdc-tab-indicator__content--underline {
-  border-color: #38bdf8 !important;
+  border-color: #38bdf8 !important; /* sky-400 */
   border-width: 3px;
 }
 
-/* Content area */
 .custom-tabs .mat-mdc-tab-body-wrapper {
-  background: white;
+  background-color: rgba(15, 23, 42, 0.8); /* slate-900/80 */
   border-radius: 0 0 12px 12px;
   padding: 20px;
+}
+
+/* ==========================================================================
+   Design System Utility Classes (Buttons, Forms, Badges, Cards)
+   ========================================================================== */
+
+/* Buttons */
+.btn-primary {
+  @apply bg-sky-800 hover:bg-sky-700 text-white font-medium px-4 py-2 rounded-lg shadow-sm ring-1 ring-sky-500/30 transition-all duration-150 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-sky-400/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100;
+}
+
+.btn-secondary {
+  @apply bg-sky-900/40 hover:bg-sky-800/60 text-sky-200 hover:text-white border border-sky-700/40 font-medium px-4 py-2 rounded-lg transition-all duration-150 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-sky-400/50 disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.btn-light {
+  @apply bg-slate-800 hover:bg-slate-700 text-sky-100 font-medium px-4 py-2 rounded-lg border border-slate-700/60 transition-all duration-150 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-sky-400/50;
+}
+
+.btn-mini-primary {
+  @apply bg-sky-800 hover:bg-sky-700 text-white text-xs font-medium px-3 py-1.5 rounded-md shadow-sm ring-1 ring-sky-500/30 transition-all duration-150 active:scale-95 cursor-pointer disabled:opacity-50;
+}
+
+.btn-mini-secondary {
+  @apply bg-sky-900/40 hover:bg-sky-800/60 text-sky-200 hover:text-white border border-sky-700/40 text-xs font-medium px-3 py-1.5 rounded-md transition-all duration-150 active:scale-95 cursor-pointer;
+}
+
+.btn-mini-light {
+  @apply bg-slate-800 hover:bg-slate-700 text-sky-100 text-xs font-medium px-3 py-1.5 rounded-md border border-slate-700/60 transition-all duration-150 active:scale-95 cursor-pointer;
+}
+
+.btn-danger {
+  @apply bg-rose-900/80 hover:bg-rose-800 text-rose-100 border border-rose-700/50 transition-all duration-150 active:scale-95;
+}
+
+.btn-success {
+  @apply bg-emerald-900/80 hover:bg-emerald-800 text-emerald-100 border border-emerald-700/50 transition-all duration-150 active:scale-95;
+}
+
+.btn-warning {
+  @apply bg-amber-900/80 hover:bg-amber-800 text-amber-100 border border-amber-700/50 transition-all duration-150 active:scale-95;
+}
+
+/* Reactive Form Controls */
+.form-label {
+  @apply block text-xs uppercase tracking-wider text-sky-300 font-semibold mb-1.5;
+}
+
+.form-input {
+  @apply w-full px-3.5 py-2 text-sm bg-slate-900/80 text-sky-50 placeholder-sky-400/40 border border-sky-800/60 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400/50 focus:border-sky-500 transition-all duration-150;
+}
+
+.form-error {
+  @apply text-xs text-rose-400 mt-1 font-medium;
+}
+
+.form-input-error {
+  @apply border-rose-500/80 focus:ring-rose-500/40 focus:border-rose-500;
+}
+
+/* Badges / Pill Tags */
+.batch {
+  @apply px-2.5 py-1 rounded-full text-xs font-medium border backdrop-blur-md shadow-inner inline-flex items-center gap-1;
+}
+
+.batch-success {
+  @apply bg-emerald-950/80 text-emerald-300 border-emerald-800/50;
+}
+
+.batch-warning {
+  @apply bg-amber-950/80 text-amber-300 border-amber-800/50;
+}
+
+.batch-danger {
+  @apply bg-rose-950/80 text-rose-300 border-rose-800/50;
+}
+
+.batch-primary {
+  @apply bg-sky-900/60 text-sky-300 border-sky-700/50;
+}
+
+.batch-secondary {
+  @apply bg-slate-800/80 text-slate-300 border-slate-700/50;
+}
+
+.batch-info {
+  @apply bg-cyan-950/80 text-cyan-300 border-cyan-800/50;
+}
+
+.batch-dark {
+  @apply bg-slate-950 text-sky-100 border-slate-800;
+}
+
+.batch-violet {
+  @apply bg-violet-950/80 text-violet-300 border-violet-800/50;
+}
+
+.batch-light {
+  @apply bg-sky-900/40 text-sky-200 border-sky-700/30;
+}
+
+/* Dynamic Cards */
+.full-w-card {
+  @apply w-full mb-3 bg-sky-950/80 backdrop-blur-md border border-sky-800/50 rounded-xl p-4 shadow-lg hover:border-sky-700/70 hover:bg-sky-900/60 transition-all duration-200 flex gap-3 cursor-pointer active:scale-[0.99];
 }
