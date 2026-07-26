@@ -1,13 +1,40 @@
-<div class="flex justify-between items-center mb-4">
-  <div>
-    <h1 class="text-2xl font-bold">{{title()}}</h1>
+<!--<div class="flex justify-between items-center mb-4">-->
+<!--  <div>-->
+<!--    <h1 class="text-2xl font-bold">{{title()}}</h1>-->
+<!--    @if (description()){-->
+<!--      <p>{{description()}}</p>-->
+<!--    }-->
+<!--  </div>-->
+<!--  <div class="flex gap-2">-->
+<!--    @if (backButton()){-->
+<!--      <button class="btn-primary flex gap-2" (click)="window.history.back()"><lucide-icon [img]="ArrowLeft" /> Go Back</button>-->
+<!--    }-->
+<!--    <ng-content select="[data-actions]"></ng-content>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 p-4 rounded-xl bg-gradient-to-br from-sky-950 via-slate-900 to-gray-800 border border-sky-800/40 shadow-lg backdrop-blur-md">
+  <div class="space-y-1">
+    <h1 class="text-base md:text-lg font-semibold tracking-wide text-sky-50 drop-shadow-sm flex items-center gap-2">
+      {{title()}}
+    </h1>
     @if (description()){
-      <p>{{description()}}</p>
+      <p class="text-xs md:text-sm text-sky-200/80 leading-relaxed max-w-2xl">
+        {{description()}}
+      </p>
     }
   </div>
-  <div class="flex gap-2">
+
+  <div class="flex items-center gap-2.5 shrink-0 self-end sm:self-auto">
     @if (backButton()){
-      <button class="btn-primary flex gap-2" (click)="window.history.back()"><lucide-icon [img]="ArrowLeft" /> Go Back</button>
+      <button
+        type="button"
+        class="btn-secondary flex items-center gap-2 active:scale-95 transition-all cursor-pointer"
+        (click)="window.history.back()">
+        <lucide-icon [img]="ArrowLeft" class="w-4 h-4 text-sky-300" />
+        <span>Go Back</span>
+      </button>
     }
     <ng-content select="[data-actions]"></ng-content>
   </div>
