@@ -1,5 +1,4 @@
 import {Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild} from '@angular/core';
-import {NgForOf, NgIf} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 import {SearchResponse} from '../../utils/response/search-response';
 import {environment} from '@env/environment.development';
@@ -9,8 +8,6 @@ import {ArrowLeft, LucideAngularModule, Search} from 'lucide-angular';
 @Component({
   selector: 'app-navbar-search',
   imports: [
-    NgIf,
-    NgForOf,
     RouterLink,
     LucideAngularModule,
   ],

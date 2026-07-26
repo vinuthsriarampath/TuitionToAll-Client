@@ -12,6 +12,18 @@
 import {CommonModule, NgClass} from '@angular/common';
 import {Component} from '@angular/core';
 import {RouterLink, RouterLinkActive} from '@angular/router';
+import {
+  ArrowRight,
+  BookOpenCheck,
+  Building2,
+  Check, ChevronDown, ChevronUp,
+  GraduationCap,
+  Layers, LogIn,
+  LucideAngularModule, Menu,
+  Sliders, Sparkles,
+  UserCheck, UserPlus,
+  Users, X
+} from 'lucide-angular';
 
 @Component({
   selector: 'app-landing-page',
@@ -19,7 +31,8 @@ import {RouterLink, RouterLinkActive} from '@angular/router';
     NgClass,
     CommonModule,
     RouterLink,
-    RouterLinkActive
+    RouterLinkActive,
+    LucideAngularModule
   ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css'
@@ -35,4 +48,21 @@ export class LandingPageComponent {
   toggleReadMore() {
     this.showMore = !this.showMore;
   }
+
+  protected readonly GraduationCap = GraduationCap;
+  protected readonly Check = Check;
+  protected readonly UserCheck = UserCheck;
+  protected readonly Sliders = Sliders;
+  protected readonly Layers = Layers;
+  protected readonly Building2 = Building2;
+  protected readonly Users = Users;
+  protected readonly BookOpenCheck = BookOpenCheck;
+  protected readonly ChevronUp = ChevronUp;
+  protected readonly ChevronDown = ChevronDown;
+  protected readonly Sparkles = Sparkles;
+  protected readonly ArrowRight = ArrowRight;
+  protected readonly Menu = Menu;
+  protected readonly X = X;
+  protected readonly LogIn = LogIn;
+  protected readonly UserPlus = UserPlus;
 }

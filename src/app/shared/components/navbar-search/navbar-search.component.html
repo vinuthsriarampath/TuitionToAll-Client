@@ -335,7 +335,7 @@
   @if (isSearchDropdownOpen) {
     <div class="search_menu absolute left-0 right-0 mt-2 p-3 w-96 max-h-[30rem] rounded-xl border border-sky-700/50 shadow-2xl bg-sky-900/95 backdrop-blur-md flex flex-col gap-1.5 overflow-y-auto scrollbar-thin scrollbar-thumb-sky-800/50 animate-in fade-in zoom-in-95 duration-150 z-50">
 
-      @if (!searchResults || (searchResults?.institutes?.length === 0 && searchResults?.students?.length === 0 && searchResults?.teachers?.length === 0)) {
+      @if (!searchResults || (searchResults.institutes?.length === 0 && searchResults.students?.length === 0 && searchResults.teachers?.length === 0)) {
         <p class="text-xs text-sky-200/80 p-3 text-center font-medium">No Search Results.</p>
       }
 
@@ -409,7 +409,7 @@
     <!-- Dropdown Menu Results -->
     @if (isSearchDropdownOpen) {
       <div class="search_menu absolute left-1 right-1 top-16 p-3 rounded-xl border border-sky-700/50 shadow-2xl bg-sky-900/95 backdrop-blur-md flex flex-col gap-2 max-h-[70vh] overflow-y-auto scrollbar-thin scrollbar-thumb-sky-800/50 animate-in fade-in zoom-in-95 duration-150 z-50">
-        @if (!searchResults || (searchResults?.institutes?.length === 0 && searchResults?.students?.length === 0 && searchResults?.teachers?.length === 0)) {
+        @if (!searchResults || (searchResults.institutes?.length === 0 && searchResults.students?.length === 0 && searchResults.teachers?.length === 0)) {
           <p class="text-xs text-sky-200/80 p-3 text-center font-medium">No Search Results.</p>
         }
 

@@ -1,6 +1,5 @@
 import {Component, ElementRef, HostListener, inject, OnInit, ViewChild} from '@angular/core';
 import {RouterLink, RouterLinkActive} from '@angular/router';
-import {NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {Student} from '@features/profile/dtos/response/student';
 import {Teacher} from '@features/profile/dtos/response/teacher';
@@ -17,7 +16,6 @@ import {UserService} from '@features/profile/services/user/user.service';
   imports: [
     RouterLink,
     FormsModule,
-    NgIf,
     NavbarSearchComponent,
     LucideAngularModule,
     RouterLinkActive,
