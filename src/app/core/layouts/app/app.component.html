@@ -1,8 +1,11 @@
-<div class="flex flex-col max-w-screen">
-  <div class="col-span-12 sticky top-0">
+<div class="flex min-h-screen flex-col bg-gradient-to-br from-sky-950 via-slate-900 to-gray-800 antialiased scrollbar-thin">
+  <!-- Sticky Navigation Header Zone -->
+  <header class="col-span-12 sticky top-0 z-50 w-full border-b border-sky-800/50 bg-sky-950/80 backdrop-blur-md shadow-lg transition-all">
     <app-navbar></app-navbar>
-  </div>
-  <div class="col-span-12 bg-blue-50">
+  </header>
+
+  <!-- Main Viewport / Content Zone -->
+  <main class="col-span-12 flex-1 w-full bg-slate-900/40 fade-in animate-in duration-200">
     <router-outlet></router-outlet>
-  </div>
+  </main>
 </div>
