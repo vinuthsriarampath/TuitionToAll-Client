@@ -16,6 +16,17 @@ import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {AuthenticationService} from '../../services/auth/authentication.service';
 import {UserService} from '../../../profile/services/user/user.service';
+import {
+  AlertCircle,
+  ArrowRight,
+  GraduationCap, Loader2,
+  Lock, LogIn,
+  LucideAngularModule,
+  Mail,
+  ShieldCheck,
+  UserPlus,
+  X
+} from 'lucide-angular';
 
 @Component({
   selector: 'app-login-dto-page',
@@ -23,7 +34,8 @@ import {UserService} from '../../../profile/services/user/user.service';
     RouterLink,
     CommonModule,
     FormsModule,
-    RouterLinkActive
+    RouterLinkActive,
+    LucideAngularModule
   ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css'
@@ -80,4 +92,15 @@ export class LoginPageComponent {
       this.errorMessage = '';
     }, 3000);
   }
+
+  protected readonly AlertCircle = AlertCircle;
+  protected readonly Mail = Mail;
+  protected readonly ShieldCheck = ShieldCheck;
+  protected readonly UserPlus = UserPlus;
+  protected readonly Lock = Lock;
+  protected readonly X = X;
+  protected readonly ArrowRight = ArrowRight;
+  protected readonly GraduationCap = GraduationCap;
+  protected readonly LogIn = LogIn;
+  protected readonly Loader2 = Loader2;
 }
