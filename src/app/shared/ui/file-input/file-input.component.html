@@ -1,35 +1,37 @@
-<label class="form-label" [for]="id()">
-  {{ label() }}
+<div class="space-y-1.5">
+  <!-- Label Section -->
+  <label class="form-label flex items-center gap-1 text-sky-50 font-medium text-sm" [for]="id()">
+    <span>{{ label() }}</span>
 
-  @if (required()) {
-    <span class="text-red-500">*</span>
+    @if (required()) {
+      <span class="text-rose-500 font-bold" aria-hidden="true">*</span>
+    }
+  </label>
+
+  <!-- Input Wrapper -->
+  <div class="relative flex items-center">
+    <input #fileInput type="file" [id]="id()" (change)="onFileSelected($event)" [formControl]="$any(control())" [accept]="accept()" [placeholder]="placeholder()" [ngClass]="{'form-input-error': control()?.touched && control()?.invalid}" class="form-input block w-full text-sm text-sky-200/80 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-sky-800/50 file:text-sky-100 hover:file:bg-sky-700/60 file:transition-all file:cursor-pointer bg-sky-950/40 border border-sky-800/50 rounded-lg p-2 focus:outline-none focus:border-sky-500 transition-colors"/>
+  </div>
+
+  <!-- Validation Messages -->
+  @if (control()?.errors?.['required'] && control()?.touched) {
+    <p class="form-error flex items-center gap-1 text-xs text-rose-400 mt-1">
+      <lucide-icon [img]="AlertCircle" class="w-3.5 h-3.5 text-rose-400 shrink-0"></lucide-icon>
+      <span>* {{ label() }} is Mandatory!</span>
+    </p>
   }
-</label>
-<input #fileInput type="file"
-       [id]="id()"
-       (change)="onFileSelected($event)"
-       [formControl]="$any(control())"
-       [accept]="accept()"
-       [placeholder]="placeholder()"
-       class="block form-input text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 "
-/>
 
-@if (control()?.errors?.['required'] && control()?.touched) {
-  <p class="form-error">
-    * {{ label() }} is Mandatory!
-  </p>
-}
+  @if (control()?.errors?.['invalidFileType']) {
+    <p class="form-error flex items-center gap-1 text-xs text-rose-400 mt-1">
+      <lucide-icon [img]="FileX2" class="w-3.5 h-3.5 text-rose-400 shrink-0"></lucide-icon>
+      <span>* {{ control()?.errors?.['invalidFileType'] }}</span>
+    </p>
+  }
 
-@if (control()?.errors?.['invalidFileType']) {
-  <p class="form-error">
-    * {{ control()?.errors?.['invalidFileType'] }}
-  </p>
-}
-
-@if (control()?.errors?.['server']) {
-  <p class="form-error">
-    * {{ control()?.errors?.['server'] }}
-  </p>
-}
-
-
+  @if (control()?.errors?.['server']) {
+    <p class="form-error flex items-center gap-1 text-xs text-rose-400 mt-1">
+      <lucide-icon [img]="ServerCrash" class="w-3.5 h-3.5 text-rose-400 shrink-0"></lucide-icon>
+      <span>* {{ control()?.errors?.['server'] }}</span>
+    </p>
+  }
+</div>

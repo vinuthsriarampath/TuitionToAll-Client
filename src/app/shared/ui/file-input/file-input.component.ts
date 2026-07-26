@@ -1,11 +1,15 @@
 import {Component, ElementRef, input, ViewChild} from '@angular/core';
 import {AbstractControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AlertCircle, FileX2, LucideAngularModule, ServerCrash} from 'lucide-angular';
+import {NgClass} from '@angular/common';
 
 @Component({
   selector: 'app-file-input',
   imports: [
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LucideAngularModule,
+    NgClass
   ],
   templateUrl: './file-input.component.html',
   styleUrl: './file-input.component.css'
@@ -48,4 +52,8 @@ export class FileInputComponent {
     this.control()?.setErrors(null);
     this.control()?.setValue(file);
   }
+
+  protected readonly ServerCrash = ServerCrash;
+  protected readonly FileX2 = FileX2;
+  protected readonly AlertCircle = AlertCircle;
 }

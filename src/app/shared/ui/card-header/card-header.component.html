@@ -1,18 +1,18 @@
-<div class="px-5 py-4 border-b border-gray-100 flex justify-between items-center gap-4">
+<div class="px-5 py-4 border-b border-sky-800/50 bg-sky-950/40 backdrop-blur-md flex justify-between items-center gap-4 transition-all">
 
-  <div>
-    <h2 class="text-sm font-semibold text-gray-800">
+  <div class="min-w-0 flex-1">
+    <h2 class="text-base md:text-lg font-semibold tracking-wide text-sky-50 drop-shadow-sm truncate">
       {{ title() }}
     </h2>
 
     @if (description()) {
-      <p class="text-xs text-gray-500 mt-1">
+      <p class="text-xs text-sky-200/80 mt-1 leading-relaxed">
         {{ description() }}
       </p>
     }
   </div>
 
-  <div>
+  <div class="flex items-center gap-2 shrink-0">
     <ng-content select="[card-action]"></ng-content>
   </div>
 

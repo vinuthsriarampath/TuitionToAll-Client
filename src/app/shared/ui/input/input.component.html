@@ -1,50 +1,84 @@
-<label class="form-label" [for]="id()">
-  {{ label() }}
+<div class="flex flex-col gap-1.5 w-full">
+  <!-- Label Section -->
+  <label class="form-label flex items-center justify-between text-sky-50 font-medium text-sm" [for]="id()">
+    <span class="flex items-center gap-1">
+      {{ label() }}
+      @if (required()) {
+        <span class="text-red-400 font-semibold text-xs animate-pulse" aria-hidden="true">*</span>
+      }
+    </span>
+  </label>
 
-  @if (required()) {
-    <span class="text-red-500">*</span>
-  }
-</label>
+  <!-- Input Wrapper with Dynamic Icon Support -->
+  <div class="relative flex items-center w-full">
+    <input
+      [id]="id()"
+      class="form-input w-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
+      [type]="type()"
+      [formControl]="$any(control())"
+      [placeholder]="placeholder()"
+      [class.form-input-error]="control()?.invalid && control()?.touched"
+    />
 
-<input
-  [id]="id()"
-  class="form-input"
-  [type]="type()"
-  [formControl]="$any(control())"
-  [placeholder]="placeholder()"
-  [class.form-input-error]="control()?.invalid && control()?.touched"
-/>
+    <!-- Input Type Context Icon (Visual Polish) -->
+    <div class="absolute right-3 pointer-events-none text-sky-400/60 flex items-center">
+      @switch (type()) {
+        @case ('date') {
+          <lucide-icon name="calendar" class="w-4 h-4"></lucide-icon>
+        }
+        @case ('time') {
+          <lucide-icon name="clock" class="w-4 h-4"></lucide-icon>
+        }
+        @case ('datetime-local') {
+          <lucide-icon name="calendar-clock" class="w-4 h-4"></lucide-icon>
+        }
+      }
+    </div>
+  </div>
 
-@if (control()?.errors?.['required'] && control()?.touched) {
-  <p class="form-error">
-    * {{ label() }} is Mandatory!
-  </p>
-}
-@if (control()?.errors?.['min'] && control()?.touched) {
-  <p class="form-error">
-    * {{ control()?.errors?.['min'].message }}
-  </p>
-}
-@if (control()?.errors?.['max'] && control()?.touched) {
-  <p class="form-error">
-    * {{ control()?.errors?.['max'].message }}
-  </p>
-}
-@if (type() === 'date' || type() === 'time' || type() === 'datetime-local'){
-  @if (control()?.errors?.['isFutureDate'] && control()?.touched){
-    <p class="form-error">
-      * {{ control()?.errors?.['isFutureDate'].message }}
-    </p>
-  }
-  @if (control()?.errors?.['isPresentFutureDate'] && control()?.touched){
-    <p class="form-error">
-      * {{ control()?.errors?.['isPresentFutureDate'].message }}
-    </p>
-  }
-}
+  <!-- Error Messages Container with Entry Animations -->
+  <div class="flex flex-col gap-1 mt-0.5">
+    @if (control()?.errors?.['required'] && control()?.touched) {
+      <p class="form-error animate-in fade-in slide-in-from-top-2 duration-150 flex items-center gap-1 text-xs">
+        <lucide-icon [img]="AlertCircle" class="w-3.5 h-3.5 text-red-400 shrink-0"></lucide-icon>
+        <span>* {{ label() }} is Mandatory!</span>
+      </p>
+    }
 
-@if (control()?.errors?.['server']) {
-  <p class="form-error">
-    * {{ control()?.errors?.['server'] }}
-  </p>
-}
+    @if (control()?.errors?.['min'] && control()?.touched) {
+      <p class="form-error animate-in fade-in slide-in-from-top-2 duration-150 flex items-center gap-1 text-xs">
+        <lucide-icon [img]="AlertCircle" class="w-3.5 h-3.5 text-red-400 shrink-0"></lucide-icon>
+        <span>* {{ control()?.errors?.['min'].message }}</span>
+      </p>
+    }
+
+    @if (control()?.errors?.['max'] && control()?.touched) {
+      <p class="form-error animate-in fade-in slide-in-from-top-2 duration-150 flex items-center gap-1 text-xs">
+        <lucide-icon [img]="AlertCircle" class="w-3.5 h-3.5 text-red-400 shrink-0"></lucide-icon>
+        <span>* {{ control()?.errors?.['max'].message }}</span>
+      </p>
+    }
+
+    @if (type() === 'date' || type() === 'time' || type() === 'datetime-local') {
+      @if (control()?.errors?.['isFutureDate'] && control()?.touched) {
+        <p class="form-error animate-in fade-in slide-in-from-top-2 duration-150 flex items-center gap-1 text-xs">
+          <lucide-icon [img]="CalendarX" class="w-3.5 h-3.5 text-red-400 shrink-0"></lucide-icon>
+          <span>* {{ control()?.errors?.['isFutureDate'].message }}</span>
+        </p>
+      }
+      @if (control()?.errors?.['isPresentFutureDate'] && control()?.touched) {
+        <p class="form-error animate-in fade-in slide-in-from-top-2 duration-150 flex items-center gap-1 text-xs">
+          <lucide-icon [img]="CalendarX" class="w-3.5 h-3.5 text-red-400 shrink-0"></lucide-icon>
+          <span>* {{ control()?.errors?.['isPresentFutureDate'].message }}</span>
+        </p>
+      }
+    }
+
+    @if (control()?.errors?.['server']) {
+      <p class="form-error animate-in fade-in slide-in-from-top-2 duration-150 flex items-center gap-1 text-xs">
+        <lucide-icon [img]="ServerCrash" class="w-3.5 h-3.5 text-red-400 shrink-0"></lucide-icon>
+        <span>* {{ control()?.errors?.['server'] }}</span>
+      </p>
+    }
+  </div>
+</div>

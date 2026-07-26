@@ -1,12 +1,14 @@
 import {Component, input} from '@angular/core';
 import {AbstractControl, ReactiveFormsModule} from '@angular/forms';
+import {AlertCircle, ChevronDown, LucideAngularModule} from 'lucide-angular';
 
 export type SelectOption = { label: string; value: any };
 
 @Component({
   selector: 'app-select',
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LucideAngularModule
   ],
   templateUrl: './select.component.html',
   styleUrl: './select.component.css'
@@ -33,4 +35,7 @@ export class SelectComponent {
   getValue(opt: SelectOption) {
     return typeof opt === 'object' ? opt.value : opt;
   }
+
+  protected readonly AlertCircle = AlertCircle;
+  protected readonly ChevronDown = ChevronDown;
 }

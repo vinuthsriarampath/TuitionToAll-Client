@@ -1,10 +1,12 @@
 import {Component, input} from '@angular/core';
 import {AbstractControl, ReactiveFormsModule} from '@angular/forms';
+import {AlertCircle, CalendarX, LucideAngularModule, ServerCrash} from 'lucide-angular';
 
 @Component({
   selector: 'app-input',
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LucideAngularModule
   ],
   templateUrl: './input.component.html',
   styleUrl: './input.component.css'
@@ -22,4 +24,7 @@ export class InputComponent {
   required = input<boolean>(false);
 
   type = input<string>('text');
+  protected readonly ServerCrash = ServerCrash;
+  protected readonly CalendarX = CalendarX;
+  protected readonly AlertCircle = AlertCircle;
 }
