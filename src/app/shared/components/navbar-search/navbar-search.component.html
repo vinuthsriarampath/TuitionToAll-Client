@@ -79,7 +79,7 @@
         <lucide-icon [img]="Search" class="w-4 h-4 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400 pointer-events-none"></lucide-icon>
 
         <label for="mobileSearch" class="sr-only">Search</label>
-        <input id="mobileSearch" type="search" name="mobileSearch" id="mobileSearch"
+        <input type="search" name="mobileSearch" id="mobileSearch"
                class="bg-sky-950/90 border border-sky-700/60 text-sky-50 placeholder-sky-300/60 h-10 pl-9 pr-3 w-full outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-400/30 rounded-lg text-sm transition-all shadow-inner"
                placeholder="Search..." autocomplete="off"
                (input)="onSearchChange($event)" #mobileSearchInput/>
