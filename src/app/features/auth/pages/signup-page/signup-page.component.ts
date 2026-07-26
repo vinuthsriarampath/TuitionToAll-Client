@@ -21,12 +21,25 @@ import {
   TeacherRegistrationRequest
 } from '../../dtos/request/registration/sub-registration-dto/teacher-registration-request';
 import {CommonModule, NgClass} from '@angular/common';
-import {Router, RouterLink} from '@angular/router';
+import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 import {AuthenticationService} from '../../services/auth/authentication.service';
 import {ApiResponse} from '@shared/utils/response/api-response';
 import {Teacher} from '../../../profile/dtos/response/teacher';
 import {Institute} from '../../../profile/dtos/response/institute';
 import {Student} from '../../../profile/dtos/response/student';
+import {
+  AlertCircle,
+  ArrowRight, Briefcase,
+  Building2,
+  Calendar, Check, CheckCircle2, GraduationCap,
+  Loader2,
+  Lock,
+  LucideAngularModule,
+  Mail,
+  MapPin,
+  Phone, User, UserPlus,
+  X
+} from 'lucide-angular';
 
 @Component({
   selector: 'app-signup-page',
@@ -35,7 +48,9 @@ import {Student} from '../../../profile/dtos/response/student';
     FormsModule,
     NgClass,
     CommonModule,
-    RouterLink
+    RouterLink,
+    RouterLinkActive,
+    LucideAngularModule
   ],
   templateUrl: './signup-page.component.html'
 })
@@ -233,4 +248,21 @@ export class SignupPageComponent {
     }, 5000);
     })
   }
+
+  protected readonly Loader2 = Loader2;
+  protected readonly ArrowRight = ArrowRight;
+  protected readonly X = X;
+  protected readonly Lock = Lock;
+  protected readonly Mail = Mail;
+  protected readonly Phone = Phone;
+  protected readonly MapPin = MapPin;
+  protected readonly Building2 = Building2;
+  protected readonly Calendar = Calendar;
+  protected readonly User = User;
+  protected readonly Briefcase = Briefcase;
+  protected readonly CheckCircle2 = CheckCircle2;
+  protected readonly AlertCircle = AlertCircle;
+  protected readonly Check = Check;
+  protected readonly UserPlus = UserPlus;
+  protected readonly GraduationCap = GraduationCap;
 }
