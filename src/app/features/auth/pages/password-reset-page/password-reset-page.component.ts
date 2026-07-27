@@ -5,6 +5,7 @@ import {NgClass} from '@angular/common';
 import {AuthenticationService} from '../../services/auth/authentication.service';
 import {AlertService} from '@core/services/alerts/alert.service';
 import {ArrowLeft, Check, GraduationCap, Loader2, Lock, LucideAngularModule, X} from 'lucide-angular';
+import {CardShellComponent} from '@shared/ui';
 
 @Component({
   selector: 'app-password-reset-page',
@@ -13,7 +14,8 @@ import {ArrowLeft, Check, GraduationCap, Loader2, Lock, LucideAngularModule, X} 
     NgClass,
     RouterLink,
     LucideAngularModule,
-    RouterLinkActive
+    RouterLinkActive,
+    CardShellComponent
   ],
   templateUrl: './password-reset-page.component.html',
   styleUrl: './password-reset-page.component.css'
