@@ -1,4 +1,4 @@
-import { ResolveFn } from '@angular/router';
+import {ResolveFn} from '@angular/router';
 import {AssignmentDetailedResponse} from '@features/assignments/dtos/response/assignment-detailed-response';
 import {inject} from '@angular/core';
 import {AssignmentService} from '@features/assignments/services/assignment/assignment.service';

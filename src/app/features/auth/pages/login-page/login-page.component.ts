@@ -19,8 +19,10 @@ import {UserService} from '../../../profile/services/user/user.service';
 import {
   AlertCircle,
   ArrowRight,
-  GraduationCap, Loader2,
-  Lock, LogIn,
+  GraduationCap,
+  Loader2,
+  Lock,
+  LogIn,
   LucideAngularModule,
   Mail,
   ShieldCheck,

@@ -1,7 +1,9 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '@env/environment.development';
-import { ModuleAssignmentCreateRequest } from "@features/assignments/dtos/request/module-assignment/module-assignment-create-request";
+import {
+  ModuleAssignmentCreateRequest
+} from "@features/assignments/dtos/request/module-assignment/module-assignment-create-request";
 import {
   ModuleAssignmentResponse
 } from '@features/assignments/dtos/response/module-assignment/module-assignment-response';

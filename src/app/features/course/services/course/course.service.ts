@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import { ApiResponse } from "@shared/utils/response/api-response";
+import {ApiResponse} from "@shared/utils/response/api-response";
 import {Course} from '@features/course/dtos/response/course';
 import {environment} from '@env/environment.development';
 import {CourseCreate} from '@features/course/dtos/request/course-create';

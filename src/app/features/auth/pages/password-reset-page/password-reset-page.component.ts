@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink, RouterLinkActive} from '@angular/router';
 import {FormsModule} from '@angular/forms';
-import {NgClass, NgIf} from '@angular/common';
+import {NgClass} from '@angular/common';
 import {AuthenticationService} from '../../services/auth/authentication.service';
 import {AlertService} from '@core/services/alerts/alert.service';
 import {ArrowLeft, Check, GraduationCap, Loader2, Lock, LucideAngularModule, X} from 'lucide-angular';
@@ -10,7 +10,6 @@ import {ArrowLeft, Check, GraduationCap, Loader2, Lock, LucideAngularModule, X} 
   selector: 'app-password-reset-page',
   imports: [
     FormsModule,
-    NgIf,
     NgClass,
     RouterLink,
     LucideAngularModule,

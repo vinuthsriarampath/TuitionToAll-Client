@@ -1,4 +1,4 @@
-import { CourseLevel } from "@features/course/enums/course-level";
+import {CourseLevel} from "@features/course/enums/course-level";
 import {CourseCategory} from '@features/course/enums/course-category';
 import {CourseStatus} from '@features/course/enums/course-status';
 import {CourseLanguage} from '@features/course/enums/course-language';

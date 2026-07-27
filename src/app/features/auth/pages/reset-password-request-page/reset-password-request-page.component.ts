@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {RouterLink, RouterLinkActive} from '@angular/router';
-import {NgClass, NgIf} from '@angular/common';
+import {NgClass} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {AuthenticationService} from '../../services/auth/authentication.service';
 import {AlertService} from '@core/services/alerts/alert.service';
@@ -20,7 +20,6 @@ import {
   selector: 'app-reset-password-request-page',
   imports: [
     RouterLink,
-    NgIf,
     FormsModule,
     NgClass,
     LucideAngularModule,

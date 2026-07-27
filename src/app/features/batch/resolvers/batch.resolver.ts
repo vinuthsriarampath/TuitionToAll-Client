@@ -1,4 +1,4 @@
-import { ResolveFn } from '@angular/router';
+import {ResolveFn} from '@angular/router';
 import {inject} from '@angular/core';
 import {BatchService} from '@features/batch/services/batch/batch.service';
 import {map} from 'rxjs/operators';

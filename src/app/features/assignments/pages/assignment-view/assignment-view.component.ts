@@ -2,7 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AssignmentService} from '@features/assignments/services/assignment/assignment.service';
 import {AlertService} from '@core/services/alerts/alert.service';
-import { environment } from "@env/environment.development";
+import {environment} from "@env/environment.development";
 import {AssignmentConfig} from '@features/assignments/pages/assignment-list/assignment-list.component';
 import {AssignmentDetailedResponse} from '@features/assignments/dtos/response/assignment-detailed-response';
 import {DatePipe, NgClass} from '@angular/common';

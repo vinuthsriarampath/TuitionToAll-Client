@@ -1,10 +1,9 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {CardShellComponent} from '@shared/ui';
+import {CardHeaderComponent, CardShellComponent} from '@shared/ui';
 import {MatDialog} from '@angular/material/dialog';
 import {ScheduleLecCreateComponent} from '../../dialogs/schedule-lec-create/schedule-lec-create.component';
 import {ActivatedRoute} from '@angular/router';
 import {AlertService} from '@core/services/alerts/alert.service';
-import {CardHeaderComponent} from '@shared/ui';
 import {ChapterService} from '../../../chapter/services/chapter/chapter.service';
 import {ScheduleLectureResponse} from '../../dtos/response/ScheduleLectureResponse';
 import {DatePipe} from '@angular/common';

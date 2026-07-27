@@ -1,4 +1,4 @@
-import { ResolveFn } from '@angular/router';
+import {ResolveFn} from '@angular/router';
 import {inject} from '@angular/core';
 import {ModuleService} from '@features/module/services/module/module.service';
 import {map} from 'rxjs/operators';

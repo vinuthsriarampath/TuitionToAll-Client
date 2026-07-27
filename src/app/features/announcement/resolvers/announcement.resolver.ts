@@ -1,4 +1,4 @@
-import { ResolveFn } from '@angular/router';
+import {ResolveFn} from '@angular/router';
 import {AnnouncementResponse} from '@features/announcement/dtos/response/AnnouncementResponse';
 import {inject} from '@angular/core';
 import {AnnouncementService} from '@features/announcement/services/announcements/announcement.service';

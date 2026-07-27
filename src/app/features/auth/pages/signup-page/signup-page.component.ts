@@ -21,7 +21,7 @@ import {
   TeacherRegistrationRequest
 } from '../../dtos/request/registration/sub-registration-dto/teacher-registration-request';
 import {CommonModule, NgClass} from '@angular/common';
-import {Router, RouterLink, RouterLinkActive} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {AuthenticationService} from '../../services/auth/authentication.service';
 import {ApiResponse} from '@shared/utils/response/api-response';
 import {Teacher} from '../../../profile/dtos/response/teacher';
@@ -29,15 +29,21 @@ import {Institute} from '../../../profile/dtos/response/institute';
 import {Student} from '../../../profile/dtos/response/student';
 import {
   AlertCircle,
-  ArrowRight, Briefcase,
+  ArrowRight,
+  Briefcase,
   Building2,
-  Calendar, Check, CheckCircle2, GraduationCap,
+  Calendar,
+  Check,
+  CheckCircle2,
+  GraduationCap,
   Loader2,
   Lock,
   LucideAngularModule,
   Mail,
   MapPin,
-  Phone, User, UserPlus,
+  Phone,
+  User,
+  UserPlus,
   X
 } from 'lucide-angular';
 
@@ -49,7 +55,6 @@ import {
     NgClass,
     CommonModule,
     RouterLink,
-    RouterLinkActive,
     LucideAngularModule
   ],
   templateUrl: './signup-page.component.html'

@@ -16,13 +16,20 @@ import {
   ArrowRight,
   BookOpenCheck,
   Building2,
-  Check, ChevronDown, ChevronUp,
+  Check,
+  ChevronDown,
+  ChevronUp,
   GraduationCap,
-  Layers, LogIn,
-  LucideAngularModule, Menu,
-  Sliders, Sparkles,
-  UserCheck, UserPlus,
-  Users, X
+  Layers,
+  LogIn,
+  LucideAngularModule,
+  Menu,
+  Sliders,
+  Sparkles,
+  UserCheck,
+  UserPlus,
+  Users,
+  X
 } from 'lucide-angular';
 
 @Component({

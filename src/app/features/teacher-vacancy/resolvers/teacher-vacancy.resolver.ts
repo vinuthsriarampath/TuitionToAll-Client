@@ -1,4 +1,4 @@
-import { ResolveFn } from '@angular/router';
+import {ResolveFn} from '@angular/router';
 import {TeacherVacancy} from '@features/teacher-vacancy/dtos/response/teacher-vacancy';
 import {inject} from '@angular/core';
 import {TeacherVacancyService} from '@features/teacher-vacancy/services/teacher-vacancy/teacher-vacancy.service';

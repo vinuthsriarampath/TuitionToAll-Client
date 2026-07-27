@@ -1,7 +1,7 @@
-import { ResolveFn } from '@angular/router';
+import {ResolveFn} from '@angular/router';
 import {ChapterDetailedResponse} from '@features/chapter/dtos/response/ChapterDetailedResponse';
 import {inject} from '@angular/core';
-import { ChapterService } from "../services/chapter/chapter.service";
+import {ChapterService} from "../services/chapter/chapter.service";
 import {map} from 'rxjs/operators';
 
 export const chapterResolver: ResolveFn<ChapterDetailedResponse> = (route, state) => {

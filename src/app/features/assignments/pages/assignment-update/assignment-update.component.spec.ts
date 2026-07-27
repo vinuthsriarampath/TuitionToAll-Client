@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AssignmentUpdateComponent } from './assignment-update.component';
+import {AssignmentUpdateComponent} from './assignment-update.component';
 
 describe('AssignmentUpdateComponent', () => {
   let component: AssignmentUpdateComponent;
