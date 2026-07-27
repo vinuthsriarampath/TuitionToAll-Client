@@ -31,6 +31,7 @@ import {
   Users,
   X
 } from 'lucide-angular';
+import {CardShellComponent} from '@shared/ui';
 
 @Component({
   selector: 'app-landing-page',
@@ -39,7 +40,8 @@ import {
     CommonModule,
     RouterLink,
     RouterLinkActive,
-    LucideAngularModule
+    LucideAngularModule,
+    CardShellComponent
   ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css'
