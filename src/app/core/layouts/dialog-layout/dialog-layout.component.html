@@ -1,4 +1,4 @@
-<div class=" reactive bg-white rounded-md shadow-lg border border-gray-200 overflow-hidden">
+<div class=" bg-sky-950/80 backdrop-blur-md border border-sky-800/50 shadow-md overflow-hidden">
 
   @if (loading()) {
     <app-loader-overlay
@@ -8,7 +8,7 @@
   }
 
   <!-- Header -->
-  <div class="flex justify-between items-center px-5 py-4 border-b border-gray-200 bg-gray-50">
+  <div class="flex justify-between items-center px-5 py-4 border-b border-sky-800/50 shadow-md">
     <div class="flex items-center gap-2">
       <div class="p-2 rounded-xl "
            [ngClass]="{
@@ -35,7 +35,7 @@
   </div>
 
   <!-- Body -->
-  <div class="max-h-[80vh] overflow-y-auto p-5">
+  <div class="max-h-[80vh] overflow-y-auto p-5 bg-gradient-to-br from-slate-900 via-sky-950 to-gray-900 font-sans">
 
     <ng-content select="[data-body]"></ng-content>
 
