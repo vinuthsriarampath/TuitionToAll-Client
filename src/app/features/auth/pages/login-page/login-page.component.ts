@@ -29,6 +29,7 @@ import {
   UserPlus,
   X
 } from 'lucide-angular';
+import {CardShellComponent} from '@shared/ui';
 
 @Component({
   selector: 'app-login-dto-page',
@@ -37,7 +38,8 @@ import {
     CommonModule,
     FormsModule,
     RouterLinkActive,
-    LucideAngularModule
+    LucideAngularModule,
+    CardShellComponent
   ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css'
