@@ -4,7 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {Institute} from '../../dtos/response/institute';
 import {Teacher} from '../../dtos/response/teacher';
 import {Student} from '../../dtos/response/student';
-import {NgIf} from '@angular/common';
+import {NgClass, NgIf} from '@angular/common';
 import {
   InstituteDetailsUpdateRequest
 } from '../../dtos/request/user-update/sub-user-details-update-dto/InstituteDetailsUpdateRequest';
@@ -25,6 +25,7 @@ import {SquarePen} from 'lucide-angular';
     FormsModule,
     NgIf,
     DialogLayoutComponent,
+    NgClass,
   ],
   templateUrl: './update-profile-dialog.component.html',
   styleUrl: './update-profile-dialog.component.css'
