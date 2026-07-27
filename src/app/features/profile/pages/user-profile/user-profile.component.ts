@@ -7,7 +7,7 @@ import {UserService} from '../../services/user/user.service';
 import {MatDialog} from '@angular/material/dialog';
 import {UpdateProfileDialogComponent} from '../../components/update-profile-dialog/update-profile-dialog.component';
 import {AlertService} from '@core/services/alerts/alert.service';
-import {LucideAngularModule, Pen} from 'lucide-angular';
+import {Calendar, LucideAngularModule, MapPin, Pen, Phone} from 'lucide-angular';
 import {
   UpdateUserProfilePicDialogComponent
 } from '../../components/update-user-profile-pic-dialog/update-user-profile-pic-dialog.component';
@@ -19,6 +19,7 @@ import {MatTab, MatTabContent, MatTabGroup} from '@angular/material/tabs';
 import {UserPostsComponent} from '../user-posts/user-posts.component';
 import {UserCoursesComponent} from '../user-courses/user-courses.component';
 import {InstituteJobsComponent} from '../institute-jobs/institute-jobs.component';
+import {CardShellComponent} from '@shared/ui';
 
 @Component({
   selector: 'app-user-profile',
@@ -36,6 +37,7 @@ import {InstituteJobsComponent} from '../institute-jobs/institute-jobs.component
     UserPostsComponent,
     UserCoursesComponent,
     InstituteJobsComponent,
+    CardShellComponent,
   ],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css'
@@ -173,4 +175,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   protected readonly environment = environment;
+  protected readonly Phone = Phone;
+  protected readonly Calendar = Calendar;
+  protected readonly MapPin = MapPin;
 }
