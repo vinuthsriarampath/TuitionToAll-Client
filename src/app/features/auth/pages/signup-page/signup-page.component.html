@@ -23,7 +23,7 @@
 
       <div class="flex items-center gap-2">
         <span class="text-sm text-sky-200/80 hidden sm:inline">Already have an account?</span>
-        <a [routerLink]="['/auth/login']" class="btn-mini-secondary text-xs sm:text-sm px-4 py-2 flex items-center gap-2 rounded-lg border border-sky-400/30 text-sky-100 hover:bg-sky-800/50 transition-all">
+        <a [routerLink]="['/auth/login']" class="btn-mini-secondary flex items-center gap-2">
           <span>Log in</span>
           <lucide-icon [img]="ArrowRight" class="w-4 h-4"></lucide-icon>
         </a>
@@ -37,341 +37,344 @@
 
       <!-- Left Column: Interactive Signup Form Panel -->
       <section class="col-span-1 lg:col-span-6 xl:col-span-5 w-full">
-        <div class="bg-sky-950/80 backdrop-blur-md border border-sky-800/50 rounded-2xl p-6 sm:p-8 lg:p-10 shadow-2xl animate-in fade-in zoom-in-95 duration-300">
+        <app-card-shell>
 
-          <!-- Card Header Titles -->
-          <div class="mb-6 text-center sm:text-left">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-900/60 border border-sky-700/40 mb-3 text-xs text-sky-300">
-              <lucide-icon [img]="UserPlus" class="w-3.5 h-3.5 text-sky-400"></lucide-icon>
-              <span>Get Started</span>
-            </div>
-            <h2 class="text-2xl sm:text-3xl font-bold text-sky-50 tracking-tight">Create your account</h2>
-            <p class="text-sm text-sky-200/80 mt-1">Join students, tutors, and institutes on TuitionToAll.</p>
-          </div>
+          <div class="p-6 sm:p-8 lg:p-10">
 
-          <!-- Glassmorphic Stepper -->
-          <div class="py-3 mb-6">
-            <div class="flex items-center justify-between relative">
-              <!-- Step 1 Marker -->
-              <div class="flex flex-col items-center  ">
-                <span class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300"
-                      [ngClass]="step >= 1 ? 'bg-sky-500 text-white shadow-lg shadow-sky-500/30 ring-2 ring-sky-300/50' : 'bg-slate-800 text-sky-200/50 border border-sky-800/60'">
-                  @if (step > 1) {
-                    <lucide-icon [img]="Check" class="w-4 h-4"></lucide-icon>
-                  } @else {
-                    1
-                  }
-                </span>
-                <span class="text-xs font-medium mt-1.5" [ngClass]="step >= 1 ? 'text-sky-300 font-semibold' : 'text-sky-200/50'">Role</span>
+            <!-- Card Header Titles -->
+            <div class="mb-6 text-center sm:text-left">
+              <div class="batch batch-primary mb-1">
+                <lucide-icon [img]="UserPlus" class="w-3.5 h-3.5 text-sky-400"></lucide-icon>
+                <span>Get Started</span>
               </div>
-
-              <!-- Step 2 Marker -->
-              <div class="flex flex-col items-center ">
-                <span class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300"
-                      [ngClass]="step >= 2 ? 'bg-sky-500 text-white shadow-lg shadow-sky-500/30 ring-2 ring-sky-300/50' : 'bg-slate-800 text-sky-200/50 border border-sky-800/60'">
-                  @if (step > 2) {
-                    <lucide-icon [img]="Check" class="w-4 h-4"></lucide-icon>
-                  } @else {
-                    2
-                  }
-                </span>
-                <span class="text-xs font-medium mt-1.5" [ngClass]="step >= 2 ? 'text-sky-300 font-semibold' : 'text-sky-200/50'">Profile</span>
-              </div>
-
-              <!-- Step 3 Marker -->
-              <div class="flex flex-col items-center ">
-                <span class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300"
-                      [ngClass]="step >= 3 ? 'bg-sky-500 text-white shadow-lg shadow-sky-500/30 ring-2 ring-sky-300/50' : 'bg-slate-800 text-sky-200/50 border border-sky-800/60'">
-                  3
-                </span>
-                <span class="text-xs font-medium mt-1.5" [ngClass]="step >= 3 ? 'text-sky-300 font-semibold' : 'text-sky-200/50'">Credentials</span>
-              </div>
+              <h2 class="text-2xl sm:text-3xl font-bold text-sky-50 tracking-tight">Create your account</h2>
+              <p class="mt-1">Join students, tutors, and institutes on TuitionToAll.</p>
             </div>
-          </div>
 
-          <!-- Alert Notification Banners -->
-          @if (errorMessage) {
-            <div class="w-full bg-red-500/10 border border-red-500/30 text-red-200 rounded-xl p-4 mb-6 flex items-start gap-3 animate-in fade-in slide-in-from-top-2 duration-200">
-              <lucide-icon [img]="AlertCircle" class="w-5 h-5 text-red-400 shrink-0 mt-0.5"></lucide-icon>
-              <p class="text-sm font-medium flex-1">{{ errorMessage }}</p>
-            </div>
-          }
-
-          @if (successMessage) {
-            <div class="w-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-200 rounded-xl p-4 mb-6 flex items-start gap-3 animate-in fade-in slide-in-from-top-2 duration-200">
-              <lucide-icon [img]="CheckCircle2" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"></lucide-icon>
-              <p class="text-sm font-medium flex-1">{{ successMessage }}</p>
-            </div>
-          }
-
-          <!-- Form Area -->
-          <form #signupForm="ngForm" (ngSubmit)="nextStep()" class="space-y-5">
-
-            <!-- STEP 1: Select User Role Cards -->
-            @if (step === 1) {
-              <div class="space-y-3.5">
-                <label for="role" class="block text-xs font-semibold uppercase tracking-wider text-sky-200/70">Select Role</label>
-
-                <!-- Student Card -->
-                <div (click)="setUserType('student')"
-                     [ngClass]="userType === 'student' ? 'border-sky-400 bg-sky-900/50 ring-2 ring-sky-400/30' : 'border-sky-800/60 hover:border-sky-700 bg-slate-900/80'"
-                     class="flex items-center justify-between p-4 rounded-xl border cursor-pointer transition-all active:scale-[0.99]">
-                  <div class="flex items-center gap-3.5">
-                    <div [ngClass]="userType === 'student' ? 'bg-sky-500 text-white' : 'bg-slate-800 text-sky-400/70'" class="p-2.5 rounded-lg transition-colors">
-                      <lucide-icon [img]="User" class="w-5 h-5"></lucide-icon>
-                    </div>
-                    <div>
-                      <p class="font-semibold text-sky-50 text-sm">Student</p>
-                      <p class="text-xs text-sky-200/70">Find classes & learn from tutors</p>
-                    </div>
-                  </div>
-                  <div [ngClass]="userType === 'student' ? 'border-sky-400 bg-sky-500' : 'border-sky-800/80'" class="w-5 h-5 rounded-full border-2 flex items-center justify-center">
-                    @if (userType === 'student') {
-                      <div class="w-2 h-2 rounded-full bg-white"></div>
+            <!-- Glassmorphic Stepper -->
+            <div class="py-3 mb-6">
+              <div class="flex items-center justify-between relative">
+                <!-- Step 1 Marker -->
+                <div class="flex flex-col items-center  ">
+                  <span class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300"
+                        [ngClass]="step >= 1 ? 'bg-sky-500 text-white shadow-lg shadow-sky-500/30 ring-2 ring-sky-300/50' : 'bg-slate-800 text-sky-200/50 border border-sky-800/60'">
+                    @if (step > 1) {
+                      <lucide-icon [img]="Check" class="w-4 h-4"></lucide-icon>
+                    } @else {
+                      1
                     }
-                  </div>
+                  </span>
+                  <span class="text-xs font-medium mt-1.5" [ngClass]="step >= 1 ? 'text-sky-300 font-semibold' : 'text-sky-200/50'">Role</span>
                 </div>
 
-                <!-- Teacher Card -->
-                <div (click)="setUserType('teacher')"
-                     [ngClass]="userType === 'teacher' ? 'border-sky-400 bg-sky-900/50 ring-2 ring-sky-400/30' : 'border-sky-800/60 hover:border-sky-700 bg-slate-900/80'"
-                     class="flex items-center justify-between p-4 rounded-xl border cursor-pointer transition-all active:scale-[0.99]">
-                  <div class="flex items-center gap-3.5">
-                    <div [ngClass]="userType === 'teacher' ? 'bg-sky-500 text-white' : 'bg-slate-800 text-sky-400/70'" class="p-2.5 rounded-lg transition-colors">
-                      <lucide-icon [img]="Briefcase" class="w-5 h-5"></lucide-icon>
-                    </div>
-                    <div>
-                      <p class="font-semibold text-sky-50 text-sm">Teacher / Tutor</p>
-                      <p class="text-xs text-sky-200/70">Teach students & offer tuition</p>
-                    </div>
-                  </div>
-                  <div [ngClass]="userType === 'teacher' ? 'border-sky-400 bg-sky-500' : 'border-sky-800/80'" class="w-5 h-5 rounded-full border-2 flex items-center justify-center">
-                    @if (userType === 'teacher') {
-                      <div class="w-2 h-2 rounded-full bg-white"></div>
+                <!-- Step 2 Marker -->
+                <div class="flex flex-col items-center ">
+                  <span class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300"
+                        [ngClass]="step >= 2 ? 'bg-sky-500 text-white shadow-lg shadow-sky-500/30 ring-2 ring-sky-300/50' : 'bg-slate-800 text-sky-200/50 border border-sky-800/60'">
+                    @if (step > 2) {
+                      <lucide-icon [img]="Check" class="w-4 h-4"></lucide-icon>
+                    } @else {
+                      2
                     }
-                  </div>
+                  </span>
+                  <span class="text-xs font-medium mt-1.5" [ngClass]="step >= 2 ? 'text-sky-300 font-semibold' : 'text-sky-200/50'">Profile</span>
                 </div>
 
-                <!-- Institute Card -->
-                <div (click)="setUserType('institute')"
-                     [ngClass]="userType === 'institute' ? 'border-sky-400 bg-sky-900/50 ring-2 ring-sky-400/30' : 'border-sky-800/60 hover:border-sky-700 bg-slate-900/80'"
-                     class="flex items-center justify-between p-4 rounded-xl border cursor-pointer transition-all active:scale-[0.99]">
-                  <div class="flex items-center gap-3.5">
-                    <div [ngClass]="userType === 'institute' ? 'bg-sky-500 text-white' : 'bg-slate-800 text-sky-400/70'" class="p-2.5 rounded-lg transition-colors">
-                      <lucide-icon [img]="Building2" class="w-5 h-5"></lucide-icon>
-                    </div>
-                    <div>
-                      <p class="font-semibold text-sky-50 text-sm">Educational Institute</p>
-                      <p class="text-xs text-sky-200/70">Manage courses & academic classes</p>
-                    </div>
-                  </div>
-                  <div [ngClass]="userType === 'institute' ? 'border-sky-400 bg-sky-500' : 'border-sky-800/80'" class="w-5 h-5 rounded-full border-2 flex items-center justify-center">
-                    @if (userType === 'institute') {
-                      <div class="w-2 h-2 rounded-full bg-white"></div>
-                    }
-                  </div>
+                <!-- Step 3 Marker -->
+                <div class="flex flex-col items-center ">
+                  <span class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300"
+                        [ngClass]="step >= 3 ? 'bg-sky-500 text-white shadow-lg shadow-sky-500/30 ring-2 ring-sky-300/50' : 'bg-slate-800 text-sky-200/50 border border-sky-800/60'">
+                    3
+                  </span>
+                  <span class="text-xs font-medium mt-1.5" [ngClass]="step >= 3 ? 'text-sky-300 font-semibold' : 'text-sky-200/50'">Credentials</span>
                 </div>
+              </div>
+            </div>
+
+            <!-- Alert Notification Banners -->
+            @if (errorMessage) {
+              <div class="w-full bg-red-500/10 border border-red-500/30 text-red-200 rounded-xl p-4 mb-6 flex items-start gap-3 animate-in fade-in slide-in-from-top-2 duration-200">
+                <lucide-icon [img]="AlertCircle" class="w-5 h-5 text-red-400 shrink-0 mt-0.5"></lucide-icon>
+                <p class="text-sm font-medium flex-1">{{ errorMessage }}</p>
               </div>
             }
 
-            <!-- STEP 2: Profile Information Inputs -->
-            @if (step === 2) {
-              <div class="space-y-4">
+            @if (successMessage) {
+              <div class="w-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-200 rounded-xl p-4 mb-6 flex items-start gap-3 animate-in fade-in slide-in-from-top-2 duration-200">
+                <lucide-icon [img]="CheckCircle2" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"></lucide-icon>
+                <p class="text-sm font-medium flex-1">{{ successMessage }}</p>
+              </div>
+            }
 
-                @if (userType === 'student' || userType === 'teacher') {
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div>
-                      <label for="firstName" class="text-sky-100 text-xs font-medium mb-1.5 block">First Name</label>
-                      <div class="relative">
-                        <lucide-icon [img]="User" class="w-4 h-4 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400/70 pointer-events-none"></lucide-icon>
-                        <input id="firstName" type="text" [(ngModel)]="signupRequest.firstName" name="firstName" placeholder="John"
-                               class="w-full bg-slate-900/80 border border-sky-800/60 rounded-xl py-2.5 pl-9 pr-3 text-sky-50 placeholder-sky-200/40 text-sm focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20 focus:outline-none transition-all"
-                               [ngClass]="{'border-red-500/80 ring-2 ring-red-500/20': firstName.invalid && firstName.touched}"
-                               required #firstName="ngModel">
+            <!-- Form Area -->
+            <form #signupForm="ngForm" (ngSubmit)="nextStep()" class="space-y-5">
+
+              <!-- STEP 1: Select User Role Cards -->
+              @if (step === 1) {
+                <div class="space-y-3.5">
+                  <label for="role" class="block text-xs font-semibold uppercase tracking-wider text-sky-200/70">Select Role</label>
+
+                  <!-- Student Card -->
+                  <div (click)="setUserType('student')"
+                       [ngClass]="userType === 'student' ? 'border-sky-400 bg-sky-900/50 ring-2 ring-sky-400/30' : 'border-sky-800/60 hover:border-sky-700 bg-slate-900/80'"
+                       class="flex items-center justify-between p-4 rounded-xl border cursor-pointer transition-all active:scale-[0.99]">
+                    <div class="flex items-center gap-3.5">
+                      <div [ngClass]="userType === 'student' ? 'bg-sky-500 text-white' : 'bg-slate-800 text-sky-400/70'" class="p-2.5 rounded-lg transition-colors">
+                        <lucide-icon [img]="User" class="w-5 h-5"></lucide-icon>
                       </div>
-                      @if (firstName.invalid && firstName.touched) {
-                        <p class="text-xs text-red-400 mt-1 flex items-center gap-1">
-                          <lucide-icon [img]="X" class="w-3 h-3"></lucide-icon> First name is required
-                        </p>
-                      }
+                      <div>
+                        <p class="font-semibold text-sky-50 text-sm">Student</p>
+                        <p class="text-xs text-sky-200/70">Find classes & learn from tutors</p>
+                      </div>
                     </div>
-
-                    <div>
-                      <label for="lastName" class="text-sky-100 text-xs font-medium mb-1.5 block">Last Name</label>
-                      <div class="relative">
-                        <lucide-icon [img]="User" class="w-4 h-4 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400/70 pointer-events-none"></lucide-icon>
-                        <input id="lastName" type="text" [(ngModel)]="signupRequest.lastName" name="lastName" placeholder="Doe"
-                               class="w-full bg-slate-900/80 border border-sky-800/60 rounded-xl py-2.5 pl-9 pr-3 text-sky-50 placeholder-sky-200/40 text-sm focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20 focus:outline-none transition-all"
-                               [ngClass]="{'border-red-500/80 ring-2 ring-red-500/20': lastName.invalid && lastName.touched}"
-                               required #lastName="ngModel">
-                      </div>
-                      @if (lastName.invalid && lastName.touched) {
-                        <p class="text-xs text-red-400 mt-1 flex items-center gap-1">
-                          <lucide-icon [img]="X" class="w-3 h-3"></lucide-icon> Last name is required
-                        </p>
+                    <div [ngClass]="userType === 'student' ? 'border-sky-400 bg-sky-500' : 'border-sky-800/80'" class="w-5 h-5 rounded-full border-2 flex items-center justify-center">
+                      @if (userType === 'student') {
+                        <div class="w-2 h-2 rounded-full bg-white"></div>
                       }
                     </div>
                   </div>
 
-                  <div>
-                    <label for="dateOfBirth" class="text-sky-100 text-xs font-medium mb-1.5 block">Date of Birth</label>
-                    <div class="relative">
-                      <lucide-icon [img]="Calendar" class="w-4 h-4 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400/70 pointer-events-none"></lucide-icon>
-                      <input id="dateOfBirth" type="date" [(ngModel)]="signupRequest.dateOfBirth" name="dateOfBirth"
-                             class="w-full bg-slate-900/80 border border-sky-800/60 rounded-xl py-2.5 pl-9 pr-3 text-sky-50 placeholder-sky-200/40 text-sm focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20 focus:outline-none transition-all [color-scheme:dark]"
-                             [ngClass]="{'border-red-500/80 ring-2 ring-red-500/20': dateOfBirth.invalid && dateOfBirth.touched}"
-                             required #dateOfBirth="ngModel">
+                  <!-- Teacher Card -->
+                  <div (click)="setUserType('teacher')"
+                       [ngClass]="userType === 'teacher' ? 'border-sky-400 bg-sky-900/50 ring-2 ring-sky-400/30' : 'border-sky-800/60 hover:border-sky-700 bg-slate-900/80'"
+                       class="flex items-center justify-between p-4 rounded-xl border cursor-pointer transition-all active:scale-[0.99]">
+                    <div class="flex items-center gap-3.5">
+                      <div [ngClass]="userType === 'teacher' ? 'bg-sky-500 text-white' : 'bg-slate-800 text-sky-400/70'" class="p-2.5 rounded-lg transition-colors">
+                        <lucide-icon [img]="Briefcase" class="w-5 h-5"></lucide-icon>
+                      </div>
+                      <div>
+                        <p class="font-semibold text-sky-50 text-sm">Teacher / Tutor</p>
+                        <p class="text-xs text-sky-200/70">Teach students & offer tuition</p>
+                      </div>
                     </div>
-                    @if (dateOfBirth.invalid && dateOfBirth.touched) {
-                      <p class="text-xs text-red-400 mt-1 flex items-center gap-1">
-                        <lucide-icon [img]="X" class="w-3 h-3"></lucide-icon> Date of birth is required
-                      </p>
-                    }
-                  </div>
-                }
-
-                @if (userType === 'institute') {
-                  <div>
-                    <label for="instituteName" class="text-sky-100 text-xs font-medium mb-1.5 block">Institute Name</label>
-                    <div class="relative">
-                      <lucide-icon [img]="Building2" class="w-4 h-4 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400/70 pointer-events-none"></lucide-icon>
-                      <input id="instituteName" type="text" [(ngModel)]="signupRequest.instituteName" name="instituteName" placeholder="Apex Academy"
-                             class="w-full bg-slate-900/80 border border-sky-800/60 rounded-xl py-2.5 pl-9 pr-3 text-sky-50 placeholder-sky-200/40 text-sm focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20 focus:outline-none transition-all"
-                             [ngClass]="{'border-red-500/80 ring-2 ring-red-500/20': instituteName.invalid && instituteName.touched}"
-                             required #instituteName="ngModel">
+                    <div [ngClass]="userType === 'teacher' ? 'border-sky-400 bg-sky-500' : 'border-sky-800/80'" class="w-5 h-5 rounded-full border-2 flex items-center justify-center">
+                      @if (userType === 'teacher') {
+                        <div class="w-2 h-2 rounded-full bg-white"></div>
+                      }
                     </div>
-                    @if (instituteName.invalid && instituteName.touched) {
-                      <p class="text-xs text-red-400 mt-1 flex items-center gap-1">
-                        <lucide-icon [img]="X" class="w-3 h-3"></lucide-icon> Institute name is required
-                      </p>
-                    }
                   </div>
-                }
 
-                <div>
-                  <label for="address" class="text-sky-100 text-xs font-medium mb-1.5 block">Address</label>
-                  <div class="relative">
-                    <lucide-icon [img]="MapPin" class="w-4 h-4 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400/70 pointer-events-none"></lucide-icon>
-                    <input id="address" type="text" [(ngModel)]="signupRequest.address" name="address" placeholder="123 Education Lane"
-                           class="w-full bg-slate-900/80 border border-sky-800/60 rounded-xl py-2.5 pl-9 pr-3 text-sky-50 placeholder-sky-200/40 text-sm focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20 focus:outline-none transition-all"
-                           [ngClass]="{'border-red-500/80 ring-2 ring-red-500/20': address.invalid && address.touched}"
-                           required #address="ngModel">
+                  <!-- Institute Card -->
+                  <div (click)="setUserType('institute')"
+                       [ngClass]="userType === 'institute' ? 'border-sky-400 bg-sky-900/50 ring-2 ring-sky-400/30' : 'border-sky-800/60 hover:border-sky-700 bg-slate-900/80'"
+                       class="flex items-center justify-between p-4 rounded-xl border cursor-pointer transition-all active:scale-[0.99]">
+                    <div class="flex items-center gap-3.5">
+                      <div [ngClass]="userType === 'institute' ? 'bg-sky-500 text-white' : 'bg-slate-800 text-sky-400/70'" class="p-2.5 rounded-lg transition-colors">
+                        <lucide-icon [img]="Building2" class="w-5 h-5"></lucide-icon>
+                      </div>
+                      <div>
+                        <p class="font-semibold text-sky-50 text-sm">Educational Institute</p>
+                        <p class="text-xs text-sky-200/70">Manage courses & academic classes</p>
+                      </div>
+                    </div>
+                    <div [ngClass]="userType === 'institute' ? 'border-sky-400 bg-sky-500' : 'border-sky-800/80'" class="w-5 h-5 rounded-full border-2 flex items-center justify-center">
+                      @if (userType === 'institute') {
+                        <div class="w-2 h-2 rounded-full bg-white"></div>
+                      }
+                    </div>
                   </div>
-                  @if (address.invalid && address.touched) {
-                    <p class="text-xs text-red-400 mt-1 flex items-center gap-1">
-                      <lucide-icon [img]="X" class="w-3 h-3"></lucide-icon> Address is required
-                    </p>
-                  }
                 </div>
-
-                <div>
-                  <label for="contactNo" class="text-sky-100 text-xs font-medium mb-1.5 block">Contact Number</label>
-                  <div class="relative">
-                    <lucide-icon [img]="Phone" class="w-4 h-4 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400/70 pointer-events-none"></lucide-icon>
-                    <input id="contactNo" type="tel" [(ngModel)]="signupRequest.contactNo" name="contactNo" placeholder="1234567890"
-                           class="w-full bg-slate-900/80 border border-sky-800/60 rounded-xl py-2.5 pl-9 pr-3 text-sky-50 placeholder-sky-200/40 text-sm focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20 focus:outline-none transition-all"
-                           [ngClass]="{'border-red-500/80 ring-2 ring-red-500/20': contactNo.invalid && contactNo.touched}"
-                           required pattern="[0-9]{10}" #contactNo="ngModel">
-                  </div>
-                  @if (contactNo.invalid && contactNo.touched) {
-                    <p class="text-xs text-red-400 mt-1 flex items-center gap-1">
-                      <lucide-icon [img]="X" class="w-3 h-3"></lucide-icon> Valid 10-digit phone number is required
-                    </p>
-                  }
-                </div>
-
-              </div>
-            }
-
-            <!-- STEP 3: Security & Credentials -->
-            @if (step === 3) {
-              <div class="space-y-4">
-
-                <div>
-                  <label for="email" class="text-sky-100 text-xs font-medium mb-1.5 block">Email Address</label>
-                  <div class="relative">
-                    <lucide-icon [img]="Mail" class="w-4 h-4 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400/70 pointer-events-none"></lucide-icon>
-                    <input id="email" type="email" [(ngModel)]="signupRequest.email" name="email" placeholder="john@example.com"
-                           class="w-full bg-slate-900/80 border border-sky-800/60 rounded-xl py-2.5 pl-9 pr-3 text-sky-50 placeholder-sky-200/40 text-sm focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20 focus:outline-none transition-all"
-                           [ngClass]="{'border-red-500/80 ring-2 ring-red-500/20': email.invalid && email.touched}"
-                           required email #email="ngModel">
-                  </div>
-                  @if (email.invalid && email.touched) {
-                    <p class="text-xs text-red-400 mt-1 flex items-center gap-1">
-                      <lucide-icon [img]="X" class="w-3 h-3"></lucide-icon> Valid email address is required
-                    </p>
-                  }
-                </div>
-
-                <div>
-                  <label for="password" class="text-sky-100 text-xs font-medium mb-1.5 block">Password</label>
-                  <div class="relative">
-                    <lucide-icon [img]="Lock" class="w-4 h-4 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400/70 pointer-events-none"></lucide-icon>
-                    <input id="password" type="password" [(ngModel)]="signupRequest.password" name="password" placeholder="••••••••"
-                           class="w-full bg-slate-900/80 border border-sky-800/60 rounded-xl py-2.5 pl-9 pr-3 text-sky-50 placeholder-sky-200/40 text-sm focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20 focus:outline-none transition-all"
-                           [ngClass]="{'border-red-500/80 ring-2 ring-red-500/20': password.invalid && password.touched}"
-                           required minlength="8" #password="ngModel">
-                  </div>
-                  @if (password.invalid && password.touched) {
-                    <p class="text-xs text-red-400 mt-1 flex items-center gap-1">
-                      <lucide-icon [img]="X" class="w-3 h-3"></lucide-icon> Password must be at least 8 characters
-                    </p>
-                  }
-                </div>
-
-                <div>
-                  <label for="confirmPassword" class="text-sky-100 text-xs font-medium mb-1.5 block">Confirm Password</label>
-                  <div class="relative">
-                    <lucide-icon [img]="Lock" class="w-4 h-4 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400/70 pointer-events-none"></lucide-icon>
-                    <input id="confirmPassword" type="password" [(ngModel)]="confirmPassword" name="confirmPassword" placeholder="••••••••"
-                           class="w-full bg-slate-900/80 border border-sky-800/60 rounded-xl py-2.5 pl-9 pr-3 text-sky-50 placeholder-sky-200/40 text-sm focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20 focus:outline-none transition-all"
-                           [ngClass]="{'border-red-500/80 ring-2 ring-red-500/20': signupRequest.password !== confirmPassword && cPassword.touched}"
-                           required minlength="8" #cPassword="ngModel">
-                  </div>
-                  @if (signupRequest.password !== confirmPassword && cPassword.touched) {
-                    <p class="text-xs text-red-400 mt-1 flex items-center gap-1">
-                      <lucide-icon [img]="X" class="w-3 h-3"></lucide-icon> Passwords do not match
-                    </p>
-                  }
-                </div>
-
-              </div>
-            }
-
-            <!-- Navigation Controls -->
-            <div class="flex items-center gap-3 pt-2">
-              @if (step > 1) {
-                <button type="button" (click)="prevStep()"
-                        class="w-1/3 py-3 px-4 rounded-xl border border-sky-700/50 bg-slate-900/60 text-sky-200 font-semibold text-sm hover:bg-slate-800/80 active:scale-95 transition-all">
-                  Back
-                </button>
               }
-              <button type="submit"
-                      [ngClass]="step > 1 ? 'w-2/3' : 'w-full'"
-                      [disabled]="(signupForm.invalid && step !== 1) || isLoading"
-                      class="btn-primary bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-semibold rounded-xl py-3 px-4 shadow-lg shadow-sky-600/30 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 disabled:shadow-none">
-                @if (!isLoading) {
-                  <span class="flex items-center gap-2">
-                    <span>{{ step < 3 ? 'Continue' : 'Register' }}</span>
-                    <lucide-icon [img]="ArrowRight" class="w-4 h-4"></lucide-icon>
-                  </span>
-                } @else {
-                  <span class="flex items-center gap-2">
-                    <lucide-icon [img]="Loader2" class="w-4 h-4 animate-spin"></lucide-icon>
-                    <span>Processing...</span>
-                  </span>
+
+              <!-- STEP 2: Profile Information Inputs -->
+              @if (step === 2) {
+                <div class="space-y-4">
+
+                  @if (userType === 'student' || userType === 'teacher') {
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label for="firstName" class="form-label">First Name</label>
+                        <div class="relative">
+                          <lucide-icon [img]="User" class="w-4 h-4 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400/70 pointer-events-none"></lucide-icon>
+                          <input id="firstName" type="text" [(ngModel)]="signupRequest.firstName" name="firstName" placeholder="John"
+                                 class="form-input input-special w-full"
+                                 [ngClass]="{'border-red-500/80 ring-2 ring-red-500/20': firstName.invalid && firstName.touched}"
+                                 required #firstName="ngModel">
+                        </div>
+                        @if (firstName.invalid && firstName.touched) {
+                          <p class="form-error flex items-center gap-1">
+                            <lucide-icon [img]="X" class="w-3 h-3"></lucide-icon> First name is required
+                          </p>
+                        }
+                      </div>
+
+                      <div>
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <div class="relative">
+                          <lucide-icon [img]="User" class="w-4 h-4 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400/70 pointer-events-none"></lucide-icon>
+                          <input id="lastName" type="text" [(ngModel)]="signupRequest.lastName" name="lastName" placeholder="Doe"
+                                 class="form-input input-special w-full"
+                                 [ngClass]="{'border-red-500/80 ring-2 ring-red-500/20': lastName.invalid && lastName.touched}"
+                                 required #lastName="ngModel">
+                        </div>
+                        @if (lastName.invalid && lastName.touched) {
+                          <p class="form-error flex items-center gap-1">
+                            <lucide-icon [img]="X" class="w-3 h-3"></lucide-icon> Last name is required
+                          </p>
+                        }
+                      </div>
+                    </div>
+
+                    <div>
+                      <label for="dateOfBirth" class="form-label">Date of Birth</label>
+                      <div class="relative">
+                        <lucide-icon [img]="Calendar" class="w-4 h-4 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400/70 pointer-events-none"></lucide-icon>
+                        <input id="dateOfBirth" type="date" [(ngModel)]="signupRequest.dateOfBirth" name="dateOfBirth"
+                               class="form-input input-special w-full"
+                               [ngClass]="{'border-red-500/80 ring-2 ring-red-500/20': dateOfBirth.invalid && dateOfBirth.touched}"
+                               required #dateOfBirth="ngModel">
+                      </div>
+                      @if (dateOfBirth.invalid && dateOfBirth.touched) {
+                        <p class="form-error flex items-center gap-1">
+                          <lucide-icon [img]="X" class="w-3 h-3"></lucide-icon> Date of birth is required
+                        </p>
+                      }
+                    </div>
+                  }
+
+                  @if (userType === 'institute') {
+                    <div>
+                      <label for="instituteName" class="form-label">Institute Name</label>
+                      <div class="relative">
+                        <lucide-icon [img]="Building2" class="w-4 h-4 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400/70 pointer-events-none"></lucide-icon>
+                        <input id="instituteName" type="text" [(ngModel)]="signupRequest.instituteName" name="instituteName" placeholder="Apex Academy"
+                               class="form-input input-special w-full"
+                               [ngClass]="{'border-red-500/80 ring-2 ring-red-500/20': instituteName.invalid && instituteName.touched}"
+                               required #instituteName="ngModel">
+                      </div>
+                      @if (instituteName.invalid && instituteName.touched) {
+                        <p class="form-error flex items-center gap-1">
+                          <lucide-icon [img]="X" class="w-3 h-3"></lucide-icon> Institute name is required
+                        </p>
+                      }
+                    </div>
+                  }
+
+                  <div>
+                    <label for="address" class="form-label">Address</label>
+                    <div class="relative">
+                      <lucide-icon [img]="MapPin" class="w-4 h-4 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400/70 pointer-events-none"></lucide-icon>
+                      <input id="address" type="text" [(ngModel)]="signupRequest.address" name="address" placeholder="123 Education Lane"
+                             class="form-input input-special w-full"
+                             [ngClass]="{'border-red-500/80 ring-2 ring-red-500/20': address.invalid && address.touched}"
+                             required #address="ngModel">
+                    </div>
+                    @if (address.invalid && address.touched) {
+                      <p class="form-error flex items-center gap-1">
+                        <lucide-icon [img]="X" class="w-3 h-3"></lucide-icon> Address is required
+                      </p>
+                    }
+                  </div>
+
+                  <div>
+                    <label for="contactNo" class="form-label">Contact Number</label>
+                    <div class="relative">
+                      <lucide-icon [img]="Phone" class="w-4 h-4 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400/70 pointer-events-none"></lucide-icon>
+                      <input id="contactNo" type="tel" [(ngModel)]="signupRequest.contactNo" name="contactNo" placeholder="1234567890"
+                             class="form-input input-special w-full"
+                             [ngClass]="{'border-red-500/80 ring-2 ring-red-500/20': contactNo.invalid && contactNo.touched}"
+                             required pattern="[0-9]{10}" #contactNo="ngModel">
+                    </div>
+                    @if (contactNo.invalid && contactNo.touched) {
+                      <p class="form-error flex items-center gap-1">
+                        <lucide-icon [img]="X" class="w-3 h-3"></lucide-icon> Valid 10-digit phone number is required
+                      </p>
+                    }
+                  </div>
+
+                </div>
+              }
+
+              <!-- STEP 3: Security & Credentials -->
+              @if (step === 3) {
+                <div class="space-y-4">
+
+                  <div>
+                    <label for="email" class="form-label">Email Address</label>
+                    <div class="relative">
+                      <lucide-icon [img]="Mail" class="w-4 h-4 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400/70 pointer-events-none"></lucide-icon>
+                      <input id="email" type="email" [(ngModel)]="signupRequest.email" name="email" placeholder="john@example.com"
+                             class="form-input input-special w-full"
+                             [ngClass]="{'border-red-500/80 ring-2 ring-red-500/20': email.invalid && email.touched}"
+                             required email #email="ngModel">
+                    </div>
+                    @if (email.invalid && email.touched) {
+                      <p class="form-error flex items-center gap-1">
+                        <lucide-icon [img]="X" class="w-3 h-3"></lucide-icon> Valid email address is required
+                      </p>
+                    }
+                  </div>
+
+                  <div>
+                    <label for="password" class="form-label">Password</label>
+                    <div class="relative">
+                      <lucide-icon [img]="Lock" class="w-4 h-4 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400/70 pointer-events-none"></lucide-icon>
+                      <input id="password" type="password" [(ngModel)]="signupRequest.password" name="password" placeholder="••••••••"
+                             class="form-input input-special w-full"
+                             [ngClass]="{'border-red-500/80 ring-2 ring-red-500/20': password.invalid && password.touched}"
+                             required minlength="8" #password="ngModel">
+                    </div>
+                    @if (password.invalid && password.touched) {
+                      <p class="form-error flex items-center gap-1">
+                        <lucide-icon [img]="X" class="w-3 h-3"></lucide-icon> Password must be at least 8 characters
+                      </p>
+                    }
+                  </div>
+
+                  <div>
+                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                    <div class="relative">
+                      <lucide-icon [img]="Lock" class="w-4 h-4 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400/70 pointer-events-none"></lucide-icon>
+                      <input id="confirmPassword" type="password" [(ngModel)]="confirmPassword" name="confirmPassword" placeholder="••••••••"
+                             class="form-input input-special w-full"
+                             [ngClass]="{'border-red-500/80 ring-2 ring-red-500/20': signupRequest.password !== confirmPassword && cPassword.touched}"
+                             required minlength="8" #cPassword="ngModel">
+                    </div>
+                    @if (signupRequest.password !== confirmPassword && cPassword.touched) {
+                      <p class="form-error flex items-center gap-1">
+                        <lucide-icon [img]="X" class="w-3 h-3"></lucide-icon> Passwords do not match
+                      </p>
+                    }
+                  </div>
+
+                </div>
+              }
+
+              <!-- Navigation Controls -->
+              <div class="flex items-center gap-3 pt-2">
+                @if (step > 1) {
+                  <button type="button" (click)="prevStep()"
+                          class="w-1/3 btn-light">
+                    Back
+                  </button>
                 }
-              </button>
-            </div>
+                <button type="submit"
+                        [ngClass]="step > 1 ? 'w-2/3' : 'w-full'"
+                        [disabled]="(signupForm.invalid && step !== 1) || isLoading"
+                        class="btn-primary bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-semibold rounded-xl py-3 px-4 shadow-lg shadow-sky-600/30 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 disabled:shadow-none">
+                  @if (!isLoading) {
+                    <span class="flex items-center gap-2">
+                      <span>{{ step < 3 ? 'Continue' : 'Register' }}</span>
+                      <lucide-icon [img]="ArrowRight" class="w-4 h-4"></lucide-icon>
+                    </span>
+                  } @else {
+                    <span class="flex items-center gap-2">
+                      <lucide-icon [img]="Loader2" class="w-4 h-4 animate-spin"></lucide-icon>
+                      <span>Processing...</span>
+                    </span>
+                  }
+                </button>
+              </div>
 
-          </form>
+            </form>
 
-          <p class="text-center text-xs text-sky-200/60 mt-6 sm:hidden">
-            Already registered?
-            <a [routerLink]="['/auth/login']" class="font-semibold text-sky-400 underline">Log in here</a>
-          </p>
+            <p class="text-center text-xs text-sky-200/60 mt-6 sm:hidden">
+              Already registered?
+              <a [routerLink]="['/auth/login']" class="link">Log in here</a>
+            </p>
 
-        </div>
+          </div>
+        </app-card-shell>
       </section>
 
       <!-- Right Column: Marketing / Hero Area (Hidden on Mobile) -->
@@ -380,7 +383,7 @@
           <img src="signup-page-team.jpg" alt="Team Learning" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
           <div class="absolute inset-0 bg-gradient-to-t from-sky-950 via-sky-950/40 to-transparent"></div>
           <div class="absolute bottom-6 left-6 right-6">
-            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-sky-900/80 border border-sky-700/50 text-sky-300 text-xs font-semibold backdrop-blur-md mb-3">
+            <span class="batch batch-primary">
               <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span> Centralized Learning Platform
             </span>
             <h3 class="text-2xl xl:text-3xl font-bold text-white mb-2 drop-shadow-md leading-tight">
@@ -393,18 +396,27 @@
         </div>
 
         <div class="grid grid-cols-3 gap-4">
-          <div class="bg-sky-950/40 backdrop-blur-md border border-sky-800/30 rounded-xl p-4 text-center">
-            <p class="text-2xl font-bold text-sky-300">10k+</p>
-            <p class="text-xs text-sky-200/80 mt-1">Active Tutors</p>
-          </div>
-          <div class="bg-sky-950/40 backdrop-blur-md border border-sky-800/30 rounded-xl p-4 text-center">
-            <p class="text-2xl font-bold text-sky-300">50k+</p>
-            <p class="text-xs text-sky-200/80 mt-1">Students</p>
-          </div>
-          <div class="bg-sky-950/40 backdrop-blur-md border border-sky-800/30 rounded-xl p-4 text-center">
-            <p class="text-2xl font-bold text-sky-300">99%</p>
-            <p class="text-xs text-sky-200/80 mt-1">Satisfaction</p>
-          </div>
+          <app-card-shell>
+            <div class="p-4 text-center">
+              <p class="text-2xl font-bold text-sky-300">10k+</p>
+              <p class="text-xs text-sky-200/80 mt-1">Active Tutors</p>
+            </div>
+          </app-card-shell>
+          <app-card-shell>
+            <div class="p-4 text-center">
+              <p class="text-2xl font-bold text-sky-300">50k+</p>
+              <p class="text-xs text-sky-200/80 mt-1">Students</p>
+            </div>
+          </app-card-shell>
+          <app-card-shell>
+            <div class="p-4 text-center">
+              <p class="text-2xl font-bold text-sky-300">99%</p>
+              <p class="text-xs text-sky-200/80 mt-1">Satisfaction</p>
+            </div>
+          </app-card-shell>
+
+
+
         </div>
       </section>
 

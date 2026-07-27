@@ -46,6 +46,7 @@ import {
   UserPlus,
   X
 } from 'lucide-angular';
+import {CardShellComponent} from '@shared/ui';
 
 @Component({
   selector: 'app-signup-page',
@@ -55,7 +56,8 @@ import {
     NgClass,
     CommonModule,
     RouterLink,
-    LucideAngularModule
+    LucideAngularModule,
+    CardShellComponent
   ],
   templateUrl: './signup-page.component.html'
 })
