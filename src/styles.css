@@ -337,7 +337,7 @@ h1{
 }
 
 p {
-  @apply text-sm text-sky-200/80 mt-1 xl:text-base line-clamp-2;
+  @apply text-sm text-sky-200/80 mt-1;
 }
 
 
