@@ -1,40 +1,6 @@
   @if (!loading){
     <div class="p-4">
       @for (course of courses; track course.id) {
-<!--        <div class="w-full mb-3 bg-white rounded-xl shadow-sm hover:shadow-md transition p-3 flex gap-3 cursor-pointer">-->
-
-<!--          <div class="w-1/3 h-auto relative">-->
-<!--            <img [ngSrc]="course.thumbnail ? environments.COURSE_API + course.thumbnail : 'no_image_provided.png'" alt="thumbnail" class="object-cover rounded-lg" loading="lazy" fill (error)="$any($event.target).src = 'no_image_provided.png'"/>-->
-<!--          </div>-->
-
-<!--          <div class="flex flex-col justify-between flex-1">-->
-<!--            <div>-->
-<!--              <p class="font-semibold text-sm">{{ course.title }}</p>-->
-<!--              <p class="text-xs text-gray-600 line-clamp-1 mt-1">{{ course.description }}</p>-->
-<!--              <div class="flex flex-wrap gap-1 mt-2">-->
-<!--                <span class="px-2 py-0.5 text-[10px] rounded-full bg-indigo-100 text-indigo-700">-->
-<!--                  {{ course.category }}-->
-<!--                </span>-->
-<!--                <span class="px-2 py-0.5 text-[10px] rounded-full bg-violet-100 text-violet-700">-->
-<!--                  {{ course.language }}-->
-<!--                </span>-->
-<!--                <span class="px-2 py-0.5 text-[10px] rounded-full" [ngClass]="{'bg-green-100 text-green-700': course.level === 'BEGINNER','bg-yellow-100 text-yellow-700': course.level === 'INTERMEDIATE','bg-rose-100 text-rose-700': course.level === 'ADVANCED'}">-->
-<!--                  {{ course.level }}-->
-<!--                </span>-->
-<!--              </div>-->
-<!--            </div>-->
-
-<!--            <div class="flex items-center justify-between mt-3">-->
-<!--              <p class="font-semibold text-emerald-700 text-sm">-->
-<!--                {{ course.price && course.price > 0 ? ('Rs. ' + (course.price | currency:'':'':'1.0-2') + ' /=') : 'Free' }}-->
-<!--              </p>-->
-
-<!--              <button class="text-xs bg-blue-600 text-white px-3 py-1 rounded-md hover:bg-blue-700 hover:cursor-pointer">-->
-<!--                View Details-->
-<!--              </button>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
         <app-course-card [course]="course"></app-course-card>
       }
     </div>
