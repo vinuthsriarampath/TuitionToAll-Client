@@ -1,8 +1,8 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
-import {ArrowLeft, LucideAngularModule} from 'lucide-angular';
+import {ArrowLeft, CloudUpload, LucideAngularModule} from 'lucide-angular';
 import {FormsModule} from '@angular/forms';
 import {CourseCreate} from '../../dtos/request/course-create';
-import {NgForOf, NgIf, TitleCasePipe} from '@angular/common';
+import {NgClass, NgForOf, NgIf, TitleCasePipe} from '@angular/common';
 import {MatButtonToggle, MatButtonToggleGroup} from '@angular/material/button-toggle';
 import {AlertService} from '@core/services/alerts/alert.service';
 import {Router} from '@angular/router';
@@ -13,6 +13,8 @@ import {CourseCategory} from '@features/course/enums/course-category';
 import {CourseLanguage} from '@features/course/enums/course-language';
 import {CourseMode} from '@features/course/enums/course-mode';
 import {CourseService} from '@features/course/services/course/course.service';
+import {PageLayoutComponent} from '@core/layouts';
+import {CardShellComponent} from '@shared/ui';
 
 @Component({
   selector: 'app-course-create',
@@ -25,6 +27,9 @@ import {CourseService} from '@features/course/services/course/course.service';
     MatButtonToggle,
     NgIf,
     MatProgressSpinner,
+    PageLayoutComponent,
+    CardShellComponent,
+    NgClass,
   ],
   templateUrl: './course-create.component.html',
   styleUrl: './course-create.component.css'
@@ -136,4 +141,5 @@ export class CourseCreateComponent {
     this.loading = !this.loading;
   }
 
+  protected readonly CloudUpload = CloudUpload;
 }
