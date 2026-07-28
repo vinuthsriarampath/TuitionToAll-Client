@@ -9,7 +9,8 @@ type BadgeVariant =
   | 'danger'
   | 'warning'
   | 'info'
-  | 'violet';
+  | 'violet'
+  | 'indigo';
 
 @Component({
   selector: 'app-badge',
@@ -22,7 +23,7 @@ type BadgeVariant =
 })
 export class BadgeComponent {
 
-  text = input.required<string>();
+  text = input.required<string | number>();
 
   variant = input<BadgeVariant>('primary');
 
@@ -37,6 +38,7 @@ export class BadgeComponent {
       'batch-warning': this.variant() === 'warning',
       'batch-info': this.variant() === 'info',
       'batch-violet': this.variant() === 'violet',
+      'batch-indigo': this.variant() === 'indigo',
     };
   });
 }

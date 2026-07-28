@@ -431,6 +431,10 @@
   @apply bg-violet-950/80 text-violet-300 border-violet-800/50;
 }
 
+.batch-indigo {
+  @apply bg-indigo-950/80 text-indigo-300 border-indigo-800/50;
+}
+
 .batch-light {
   @apply bg-sky-900/40 text-sky-200 border-sky-700/30;
 }
