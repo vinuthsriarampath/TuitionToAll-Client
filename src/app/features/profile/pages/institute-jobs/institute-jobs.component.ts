@@ -4,12 +4,14 @@ import {TeacherVacancyStatus} from '../../../teacher-vacancy/enums/teacher-vacan
 import {TeacherVacancy} from '../../../teacher-vacancy/dtos/response/teacher-vacancy';
 import {FormsModule} from '@angular/forms';
 import {VacancyCardComponent} from '../../components/vacancy-card/vacancy-card.component';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-institute-jobs',
   imports: [
     FormsModule,
-    VacancyCardComponent
+    VacancyCardComponent,
+    MatProgressSpinner
   ],
   templateUrl: './institute-jobs.component.html',
   styleUrl: './institute-jobs.component.css'
