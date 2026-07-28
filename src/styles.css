@@ -218,6 +218,116 @@
   padding: 20px;
 }
 
+/* ======================================================================
+   Angular Material Button Toggle Overrides
+   ====================================================================== */
+
+.mat-button-toggle-group {
+  background: rgba(15, 23, 42, 0.8) !important; /* slate-900/80 */
+  border: 1px solid rgba(7, 89, 133, 0.6) !important; /* sky-800/60 */
+  border-radius: 8px !important;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+  transition: all 150ms ease-in-out;
+}
+
+/* Individual Toggle */
+.mat-button-toggle {
+  background: transparent !important;
+  color: #e0f2fe !important; /* sky-100 */
+  border: none !important;
+  transition: all 150ms ease-in-out;
+}
+
+/* Divider */
+.mat-button-toggle + .mat-button-toggle {
+  border-left: 1px solid rgba(7, 89, 133, 0.4) !important;
+}
+
+/* Toggle Content */
+.mat-button-toggle .mat-button-toggle-label-content {
+  height: 40px;
+  padding: 0 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+}
+
+/* Hover */
+.mat-button-toggle:hover:not(.mat-button-toggle-checked) {
+  background: rgba(7, 89, 133, 0.3) !important; /* sky-800/30 */
+  color: #f0f9ff !important; /* sky-50 */
+}
+
+/* Selected Toggle */
+.mat-button-toggle-checked {
+  background: #075985 !important; /* sky-800 */
+  color: #ffffff !important;
+}
+
+/* Selected Hover */
+.mat-button-toggle-checked:hover {
+  background: #0369a1 !important; /* sky-700 */
+}
+
+/* Selected Text */
+.mat-button-toggle-checked .mat-button-toggle-label-content {
+  font-weight: 600;
+}
+
+
+/* ======================================================================
+   Selected Tick Icon
+   ====================================================================== */
+
+/* Keep Material checkbox visible */
+.mat-button-toggle-appearance-standard .mat-pseudo-checkbox {
+  display: inline-flex !important;
+}
+
+/* Tick color */
+.mat-button-toggle-checked .mat-pseudo-checkbox {
+  --mat-pseudo-checkbox-selected-checkmark-color: #7dd3fc !important; /* sky-300 */
+  color: #7dd3fc !important;
+}
+
+/* Tick border */
+.mat-button-toggle-checked .mat-pseudo-checkbox::after {
+  border-color: #7dd3fc !important; /* sky-300 */
+}
+
+
+/* ======================================================================
+   Material Effects Cleanup
+   ====================================================================== */
+
+/* Remove ripple overlay */
+.mat-button-toggle-focus-overlay {
+  display: none !important;
+}
+
+/* Remove default Material shadow */
+.mat-button-toggle-standalone,
+.mat-button-toggle-group {
+  box-shadow: none !important;
+}
+
+
+/* ======================================================================
+   Disabled State
+   ====================================================================== */
+
+.mat-button-toggle-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 /* ==========================================================================
    Design System Utility Classes (Buttons, Forms, Badges, Cards)
    ========================================================================== */
