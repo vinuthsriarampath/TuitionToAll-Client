@@ -20,6 +20,7 @@ import {UserPostsComponent} from '../user-posts/user-posts.component';
 import {UserCoursesComponent} from '../user-courses/user-courses.component';
 import {InstituteJobsComponent} from '../institute-jobs/institute-jobs.component';
 import {CardShellComponent} from '@shared/ui';
+import {PhonePipePipe} from '@shared/utils/pipes/phone-pipe/phone-pipe.pipe';
 
 @Component({
   selector: 'app-user-profile',
@@ -38,6 +39,7 @@ import {CardShellComponent} from '@shared/ui';
     UserCoursesComponent,
     InstituteJobsComponent,
     CardShellComponent,
+    PhonePipePipe,
   ],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css'

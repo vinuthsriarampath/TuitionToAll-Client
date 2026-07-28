@@ -6,8 +6,8 @@
   <div class="min-h-screen">
     <div class="w-full max-w-screen-xl mx-auto px-2 sm:px-4 md:px-6">
 
-      <div class="h-96 bg-blue-50/50 shadow-md">
-        <div class="relative w-full md:h-60 h-72 bg-gray-600">
+      <div class="h-96 bg-sky-950/80 backdrop-blur-md border-b border-sky-800/50 shadow-md rounded-b-2xl">
+        <div class="relative w-full md:h-60 h-72">
           <div [ngSwitch]="profileUser.role?.role">
             <ng-container *ngSwitchCase="'institute'">
               <img [ngSrc]="profileUser.banner ? `${environment.USER_PROFILE_API}${profileUser.banner}` : 'beach.jpg'" loading="lazy" alt="thumbnail" class="w-full h-full object-cover" fill>
@@ -39,8 +39,8 @@
                   <img ngSrc="/profile_logo.png" loading="lazy" alt="avatar" class="w-full h-full rounded-full object-cover" fill>
                 </ng-container>
               </div>
-              <button class="absolute flex items-center gap-2 bottom-1 right-1 bg-white text-gray-700 px-2 rounded-full shadow hover:bg-gray-100 cursor-pointer" title="Edit Profile Picture" (click)="openProfilePicUpdateDialog()" *ngIf="isSameUser">
-                <lucide-angular [img]="Pen" class="my-icon" size=12></lucide-angular>
+              <button class="absolute flex items-center gap-2 bottom-1 right-1 btn-mini-secondary" title="Edit Profile Picture" (click)="openProfilePicUpdateDialog()" *ngIf="isSameUser">
+                <lucide-angular [img]="Pen" class="my-icon text-sky-300" size=12></lucide-angular>
                 Edit
               </button>
             </div>
@@ -48,26 +48,26 @@
             <div class="px-1.5 md:px-3 py-2 md:py-4 text-center md:text-left">
               <div [ngSwitch]="profileUser.role?.role">
                 <ng-container *ngSwitchCase="'institute'">
-                  <p class="text-base sm:text-lg md:text-2xl font-semibold">{{ $any(profileUser.details)?.instituteName }}</p>
+                  <h2 class=" sm:text-lg md:text-2xl font-semibold tracking-tighter">{{ $any(profileUser.details)?.instituteName }}</h2>
                   <p class="text-gray-800">{{ profileUser.email || 'N/A' }}</p>
                 </ng-container>
                 <ng-container *ngSwitchCase="'teacher'">
-                  <p class="text-base sm:text-lg md:text-2xl font-semibold">{{ $any(profileUser.details)?.firstName+' '+$any(profileUser.details)?.lastName}}</p>
+                  <h2 class="text-base sm:text-lg md:text-2xl font-semibold">{{ $any(profileUser.details)?.firstName+' '+$any(profileUser.details)?.lastName}}</h2>
                   <p class="text-gray-800">{{ profileUser.email || 'N/A' }}</p>
                 </ng-container>
                 <ng-container *ngSwitchCase="'student'">
-                  <p class="text-base sm:text-lg md:text-2xl font-semibold">{{ $any(profileUser.details)?.firstName+' '+ $any(profileUser.details)?.lastName}}</p>
+                  <h2 class="text-base sm:text-lg md:text-2xl font-semibold">{{ $any(profileUser.details)?.firstName+' '+ $any(profileUser.details)?.lastName}}</h2>
                   <p class="text-gray-800">{{ profileUser.email || 'N/A' }}</p>
                 </ng-container>
                 <ng-container *ngSwitchDefault>
-                  <p class="text-base sm:text-lg md:text-2xl font-semibold">User Name</p>
+                  <h2 class="text-base sm:text-lg md:text-2xl font-semibold">User Name</h2>
                   <p class="text-gray-800">User Email</p>
                 </ng-container>
               </div>
             </div>
           </div>
-          <button class="absolute flex items-center gap-2 bottom-1 right-1 bg-white text-gray-700 px-2 rounded-lg shadow hover:bg-gray-100 cursor-pointer" title="Edit Profile Picture" (click)="openProfileBannerUpdateDialog()" *ngIf="isSameUser">
-            <lucide-angular [img]="Pen" class="my-icon" size=12></lucide-angular>
+          <button class="absolute flex items-center gap-2 bottom-1 right-1 btn-mini-secondary" title="Edit Profile Picture" (click)="openProfileBannerUpdateDialog()" *ngIf="isSameUser">
+            <lucide-angular [img]="Pen" class="my-icon text-sky-300" size=12></lucide-angular>
             Edit
           </button>
         </div>
@@ -83,9 +83,9 @@
               <div [ngSwitch]="profileUser.role?.role">
 
                 <ng-container *ngSwitchCase="'institute'">
-                  <div class="flex flex-row mt-2 gap-2">
+                  <div class="flex flex-row items-center mt-2 gap-2">
                     <lucide-icon [img]="Phone" class="w-3.5 h-3.5 text-sky-400"></lucide-icon>
-                    <p class="text-sm">{{profileUser.contact || 'N/A'}}</p>
+                    <p class="text-sm">{{ (profileUser.contact | phone )|| 'N/A'}}</p>
                   </div>
                   <div class="flex gap-2 mt-2">
                     <div class="flex items-center">
@@ -96,11 +96,11 @@
                 </ng-container>
 
                 <ng-container *ngSwitchCase="'teacher'">
-                  <div class="flex flex-row mt-2 gap-2">
+                  <div class="flex flex-row items-center mt-2 gap-2">
                     <lucide-icon [img]="Phone" class="w-3.5 h-3.5 text-sky-400"></lucide-icon>
                     <p class="text-sm">{{profileUser.contact || 'N/A'}}</p>
                   </div>
-                  <div class="flex flex-row mt-2 gap-2">
+                  <div class="flex flex-row items-center mt-2 gap-2">
                     <lucide-icon [img]="Calendar" class="w-3.5 h-3.5 text-sky-400"></lucide-icon>
                     <p class="text-sm">{{$any(profileUser.details)?.dob || 'N/A'}}</p>
                   </div>
@@ -113,11 +113,11 @@
                 </ng-container>
 
                 <ng-container *ngSwitchCase="'student'">
-                  <div class="flex flex-row mt-2 gap-2">
+                  <div class="flex flex-row items-center mt-2 gap-2">
                     <lucide-icon [img]="Phone" class="w-3.5 h-3.5 text-sky-400"></lucide-icon>
                     <p class="text-sm">{{profileUser.contact || 'N/A'}}</p>
                   </div>
-                  <div class="flex flex-row mt-2 gap-2">
+                  <div class="flex flex-row items-center mt-2 gap-2">
                     <lucide-icon [img]="Calendar" class="w-3.5 h-3.5 text-sky-400"></lucide-icon>
                     <p class="text-sm">{{$any(profileUser.details)?.dob || 'N/A'}}</p>
                   </div>
@@ -130,11 +130,11 @@
                 </ng-container>
 
                 <ng-container *ngSwitchDefault>
-                  <div class="flex flex-row mt-2 gap-2">
+                  <div class="flex flex-row items-center mt-2 gap-2">
                     <lucide-icon [img]="Phone" class="w-3.5 h-3.5 text-sky-400"></lucide-icon>
                     <p class="text-sm">xxxxxxxxx</p>
                   </div>
-                  <div class="flex flex-row mt-2 gap-2">
+                  <div class="flex flex-row items-center mt-2 gap-2">
                     <lucide-icon [img]="Calendar" class="w-3.5 h-3.5 text-sky-400"></lucide-icon>
                     <p class="text-sm">xxxx/xx/xx</p>
                   </div>
