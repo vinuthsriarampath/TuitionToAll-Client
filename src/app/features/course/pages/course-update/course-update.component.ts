@@ -2,10 +2,10 @@ import {Component, ElementRef, inject, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {AlertService} from '@core/services/alerts/alert.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {ArrowLeft, LucideAngularModule} from 'lucide-angular';
+import {ArrowLeft, CloudUpload, LucideAngularModule} from 'lucide-angular';
 import {MatButtonToggle, MatButtonToggleGroup} from '@angular/material/button-toggle';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
-import {NgForOf, NgIf, TitleCasePipe} from '@angular/common';
+import {NgClass, NgForOf, NgIf, TitleCasePipe} from '@angular/common';
 import {environment} from '@env/environment.development';
 import {CourseUpdate} from '../../dtos/request/course-update';
 import {Course} from '@features/course/dtos/response/course';
@@ -15,6 +15,8 @@ import {CourseStatus} from '@features/course/enums/course-status';
 import {CourseCategory} from '@features/course/enums/course-category';
 import {CourseLanguage} from '@features/course/enums/course-language';
 import {CourseService} from '@features/course/services/course/course.service';
+import {CardShellComponent} from '@shared/ui';
+import {PageLayoutComponent} from '@core/layouts';
 
 @Component({
   selector: 'app-course-update',
@@ -27,7 +29,10 @@ import {CourseService} from '@features/course/services/course/course.service';
     NgForOf,
     NgIf,
     ReactiveFormsModule,
-    TitleCasePipe
+    TitleCasePipe,
+    NgClass,
+    CardShellComponent,
+    PageLayoutComponent
   ],
   templateUrl: './course-update.component.html',
   styleUrl: './course-update.component.css'
@@ -147,4 +152,6 @@ export class CourseUpdateComponent implements OnInit{
   private triggerLoading(){
     this.loading = !this.loading;
   }
+
+  protected readonly CloudUpload = CloudUpload;
 }
