@@ -50,7 +50,7 @@
 
   <!-- Hero Section -->
   <section class="relative overflow-hidden min-h-[500px] flex items-center justify-center">
-    <img src="online_meeting.jpg" class="absolute w-full h-full object-cover opacity-20 filter brightness-75 scale-105" alt="Background Image">
+    <img ngSrc="/online_meeting.jpg" class="absolute w-full h-full object-cover opacity-20 filter brightness-75 scale-105" alt="Background" fill>
     <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent"></div>
     <div class="relative z-10 container mx-auto px-4 py-24 sm:py-32 text-center">
       <span class="batch batch-info mb-6 inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold tracking-wider uppercase">
@@ -125,7 +125,7 @@
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Institutes Card -->
-        <app-card-shell>
+        <app-card-shell class="transition-all duration-300 hover:-translate-y-1">
           <div class="p-8 flex flex-col items-center text-center">
             <div class="w-16 h-16 rounded-2xl bg-sky-900/50 border border-sky-700/50 flex items-center justify-center mb-6 text-sky-400 shadow-inner">
               <lucide-icon [img]="Building2" class="w-8 h-8"></lucide-icon>
@@ -138,7 +138,7 @@
         </app-card-shell>
 
         <!-- Teachers Card -->
-        <app-card-shell>
+        <app-card-shell class="transition-all duration-300 hover:-translate-y-1">
           <div class="p-8 flex flex-col items-center text-center">
             <div class="w-16 h-16 rounded-2xl bg-sky-900/50 border border-sky-700/50 flex items-center justify-center mb-6 text-sky-400 shadow-inner">
               <lucide-icon [img]="Users" class="w-8 h-8"></lucide-icon>
@@ -151,7 +151,7 @@
         </app-card-shell>
 
         <!-- Students Card -->
-        <app-card-shell>
+        <app-card-shell class="transition-all duration-300 hover:-translate-y-1">
           <div class="p-8 flex flex-col items-center text-center">
             <div class="w-16 h-16 rounded-2xl bg-sky-900/50 border border-sky-700/50 flex items-center justify-center mb-6 text-sky-400 shadow-inner">
               <lucide-icon [img]="BookOpenCheck" class="w-8 h-8"></lucide-icon>
@@ -176,7 +176,7 @@
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Step 1 -->
-        <app-card-shell>
+        <app-card-shell class="transition-all duration-300 hover:-translate-y-1">
           <div class="p-8 flex flex-col items-center text-center relative group">
             <div class="w-14 h-14 rounded-full bg-sky-900/60 border border-sky-600/50 flex items-center justify-center mb-6 text-sky-300 font-bold text-lg shadow-md group-hover:scale-110 transition-transform">
               <lucide-icon [img]="UserCheck" class="w-7 h-7 text-sky-400"></lucide-icon>
@@ -189,7 +189,7 @@
         </app-card-shell>
 
         <!-- Step 2 -->
-        <app-card-shell>
+        <app-card-shell class="transition-all duration-300 hover:-translate-y-1">
           <div class="p-8 flex flex-col items-center text-center relative group">
             <div class="w-14 h-14 rounded-full bg-sky-900/60 border border-sky-600/50 flex items-center justify-center mb-6 text-sky-300 font-bold text-lg shadow-md group-hover:scale-110 transition-transform">
               <lucide-icon [img]="Sliders" class="w-7 h-7 text-sky-400"></lucide-icon>
@@ -202,7 +202,7 @@
         </app-card-shell>
 
         <!-- Step 3 -->
-        <app-card-shell>
+        <app-card-shell class="transition-all duration-300 hover:-translate-y-1">
           <div class="p-8 flex flex-col items-center text-center relative group">
             <div class="w-14 h-14 rounded-full bg-sky-900/60 border border-sky-600/50 flex items-center justify-center mb-6 text-sky-300 font-bold text-lg shadow-md group-hover:scale-110 transition-transform">
               <lucide-icon [img]="Layers" class="w-7 h-7 text-sky-400"></lucide-icon>

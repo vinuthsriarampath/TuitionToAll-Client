@@ -9,7 +9,7 @@
  * All rights reserved.
  */
 
-import {CommonModule, NgClass} from '@angular/common';
+import {CommonModule, NgClass, NgOptimizedImage} from '@angular/common';
 import {Component} from '@angular/core';
 import {RouterLink, RouterLinkActive} from '@angular/router';
 import {
@@ -41,7 +41,8 @@ import {CardShellComponent} from '@shared/ui';
     RouterLink,
     RouterLinkActive,
     LucideAngularModule,
-    CardShellComponent
+    CardShellComponent,
+    NgOptimizedImage
   ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css'
