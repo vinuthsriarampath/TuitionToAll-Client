@@ -15,6 +15,7 @@ import {
 } from '../../../chapter/dialogs/chapter-create-dialog/chapter-create-dialog.component';
 import {MatTab, MatTabContent, MatTabGroup} from '@angular/material/tabs';
 import {AssignmentListComponent} from '@features/assignments/pages/assignment-list/assignment-list.component';
+import {PageLayoutComponent} from '@core/layouts';
 
 @Component({
   selector: 'app-module-view',
@@ -29,7 +30,8 @@ import {AssignmentListComponent} from '@features/assignments/pages/assignment-li
     MatTabGroup,
     MatTab,
     MatTabContent,
-    AssignmentListComponent
+    AssignmentListComponent,
+    PageLayoutComponent
   ],
   templateUrl: './module-view.component.html',
   styleUrl: './module-view.component.css'
