@@ -4,13 +4,8 @@
     <div class="flex justify-between items-center mb-4">
 
       <div>
-        <h2 class="text-xl font-semibold">
-          Lecture Recordings
-        </h2>
-
-        <p class="text-sm text-gray-500">
-          Uploaded chapter recordings
-        </p>
+        <h2>Lecture Recordings</h2>
+        <p class="para-primary">Uploaded chapter recordings</p>
       </div>
 
       <button (click)="openLectureRecordingUploadDialog()" class="btn-mini-primary">
@@ -26,9 +21,7 @@
         <app-card-shell>
           <div class="flex justify-between items-start p-5">
             <div>
-              <span class="text-sm text-gray-500">
-                    Recorded on {{ lectureRecord.recordedDate | date: 'yyyy-MMM-dd' }}
-              </span>
+              <app-badge [text]="`Recorded on ${ lectureRecord.recordedDate | date: 'yyyy-MMM-dd' }`" [variant]="'indigo'"></app-badge>
               <h3 class="font-semibold text-lg">
                 {{ lectureRecord.title }}
               </h3>

@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {CardShellComponent} from '@shared/ui';
+import {BadgeComponent, CardShellComponent} from '@shared/ui';
 import {MatDialog} from '@angular/material/dialog';
 import {LectureRecordUploadComponent} from '../../dialogs/lecture-record-upload/lecture-record-upload.component';
 import {ActivatedRoute, RouterLink} from '@angular/router';
@@ -14,7 +14,8 @@ import {LectureRecordUpdateComponent} from '../../dialogs/lecture-record-update/
   imports: [
     CardShellComponent,
     DatePipe,
-    RouterLink
+    RouterLink,
+    BadgeComponent
   ],
   templateUrl: './lecture-recording.component.html',
   styleUrl: './lecture-recording.component.css'
