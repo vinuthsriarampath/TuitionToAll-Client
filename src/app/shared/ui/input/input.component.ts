@@ -1,6 +1,6 @@
 import {Component, input} from '@angular/core';
 import {AbstractControl, ReactiveFormsModule} from '@angular/forms';
-import {AlertCircle, CalendarX, LucideAngularModule, ServerCrash} from 'lucide-angular';
+import {AlertCircle, CalendarClock, CalendarX, Clock, LucideAngularModule, ServerCrash} from 'lucide-angular';
 
 @Component({
   selector: 'app-input',
@@ -27,4 +27,6 @@ export class InputComponent {
   protected readonly ServerCrash = ServerCrash;
   protected readonly CalendarX = CalendarX;
   protected readonly AlertCircle = AlertCircle;
+  protected readonly CalendarClock = CalendarClock;
+  protected readonly Clock = Clock;
 }
