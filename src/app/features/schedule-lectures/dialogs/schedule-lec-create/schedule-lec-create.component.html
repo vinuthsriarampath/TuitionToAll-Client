@@ -2,26 +2,37 @@
 
   <div data-body>
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-      <div class="full-w-card bg-yellow-100 border-l-4 flex flex-col border-l-yellow-600 p-4 rounded-2xl shadow-md">
-        <h1 class="text-md font-bold text-yellow-800">Warning!</h1>
-        <p class="text-sm text-yellow-600">Sharing a meeting URL through the TuitionToAll platform does not guarantee that only students from your institute can join the meeting. Please avoid sharing meeting links with outsiders.</p>
-        <p class="text-sm text-yellow-600">If supported by the meeting provider (Zoom, Google Meet, Microsoft Teams, etc.), disable participant invite link sharing and allow only the host to manage invitations.</p>
-        <p class="text-sm text-yellow-600">Always verify attendance and participants through the meeting provider to ensure that learning content is accessed only by authorized students and staff.</p>
-      </div>
+
+      <app-card-shell>
+        <div class="p-4">
+          <p class="para-md para-warning">Warning!</p>
+          <p class="para-warning">Sharing a meeting URL through the <span class="para-danger underline">TuitionToAll platform does not guarantee </span> that only students from your institute can join the meeting. Please avoid sharing meeting links with outsiders.</p>
+          <p class="para-warning">If supported by the meeting provider (Zoom, Google Meet, Microsoft Teams, etc.), <span class="para-danger underline">disable participant invite link sharing </span> and allow only the host to manage invitations.</p>
+          <p class="para-warning">Always verify attendance and participants through the meeting provider to ensure that learning content is accessed only by authorized students and staff.</p>
+        </div>
+      </app-card-shell>
+
       <app-input id="topic" label="Lecture Topic" placeholder="Enter lecture topic" [required]="true" [control]="form.get('topic')" />
       <app-input id="startDate" label="Lecture Start Date" placeholder="Enter lecture start date" type="date" [required]="true" [control]="form.get('startDate')" class="block border-none p-0" />
+
       <div class="flex flex-row gap-2 justify-center items-center">
         <app-input id="startTime" label="Start Time" placeholder="Enter lecture start time" type="time" [required]="true" [control]="form.get('startTime')" class="block border-none p-0 w-full" />
         <app-input id="endTime" label="End Time" placeholder="Enter lecture end time" type="time" [required]="true" [control]="form.get('endTime')" class="block border-none p-0 w-full" />
       </div>
+
       <app-input id="meetingUrl" label="Meeting URL" placeholder="Enter meeting url" [required]="true" [control]="form.get('meetingUrl')" />
-      <div class="full-w-card bg-yellow-100 border-l-4 flex flex-col border-l-yellow-600 p-4 rounded-2xl shadow-md">
-        <h1 class="text-md font-bold text-yellow-800">Warning!</h1>
-        <p class="text-sm text-yellow-600">Disabling the “late attendance” option will automatically disable the join button 10 minutes after the scheduled start time of the meeting.</p>
-        <p class="text-sm text-yellow-600">After this 10-minute window, students who were disconnected or left the meeting will not be able to rejoin.</p>
-        <p class="text-sm text-yellow-600">However, if the meeting URL is shared or leaked externally, unauthorized users or late students may still be able to access the meeting through that link. Please ensure the meeting link is kept secure and shared only with intended participants.</p>
-      </div>
+
+      <app-card-shell>
+        <div class="p-4">
+          <p class="para-md para-warning">Warning!</p>
+          <p class="para-warning">Disabling the <span class="font-bold uppercase">late attendance</span> option will automatically disable the join button 10 minutes after the scheduled start time of the meeting.</p>
+          <p class="para-warning">After this 10-minute window, students who were disconnected or left the meeting will not be able to rejoin.</p>
+          <p class="para-warning">However, if the meeting URL is shared or leaked externally, unauthorized users or late students may still be able to access the meeting through that link. Please ensure the meeting link is kept secure and shared only with intended participants.</p>
+        </div>
+      </app-card-shell>
+
       <app-checkbox [control]="form.get('lateAttendance')" id="lateAttendance" label="Late Attendance" [required]="true" [multiple]="false" [options]="[{ label: 'Allow late attendance', value: true }]"/>
+
       <div class="flex justify-end my-3 gap-2">
         <button type="button" class="btn-mini-secondary" (click)="onReset()">Reset</button>
         <button type="button" (click)="onDraftSave()" class="btn-mini-secondary" [disabled]="form.invalid || loading">Save as Draft</button>

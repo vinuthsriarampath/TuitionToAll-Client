@@ -9,7 +9,7 @@ import {ScheduleLectureCreateStatus} from '../../dtos/request/enums/ScheduleLect
 import {ScheduleLectureCreateRequest} from '../../dtos/request/ScheduleLectureCreateRequest';
 import {DialogLayoutComponent} from '@core/layouts/dialog-layout/dialog-layout.component';
 import {Paperclip} from 'lucide-angular';
-import {CheckboxComponent, InputComponent} from '@shared/ui';
+import {CardShellComponent, CheckboxComponent, InputComponent} from '@shared/ui';
 
 
 @Component({
@@ -18,7 +18,8 @@ import {CheckboxComponent, InputComponent} from '@shared/ui';
     DialogLayoutComponent,
     ReactiveFormsModule,
     InputComponent,
-    CheckboxComponent
+    CheckboxComponent,
+    CardShellComponent
   ],
   templateUrl: './schedule-lec-create.component.html',
   styleUrl: './schedule-lec-create.component.css'
