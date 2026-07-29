@@ -1,29 +1,118 @@
-<div class="bg-white rounded-xl shadow">
+<!--<div class="bg-white rounded-xl shadow">-->
 
-  <div class="flex justify-between items-center p-4 border-b border-gray-200">
-    <h3 class="font-semibold">Announcements</h3>
-    <button class="btn-mini-primary" [routerLink]="'/ins/dashboard/announcements-mgt'">Manage</button>
-  </div>
+<!--  <div class="flex justify-between items-center p-4 border-b border-gray-200">-->
+<!--    <h3 class="font-semibold">Announcements</h3>-->
+<!--    <button class="btn-mini-primary" [routerLink]="'/ins/dashboard/announcements-mgt'">Manage</button>-->
+<!--  </div>-->
 
-  <div class="max-h-96 overflow-y-auto p-4 space-y-3 bg-gray-50">
+<!--  <div class="max-h-96 overflow-y-auto p-4 space-y-3 bg-gray-50">-->
 
-    @for (announcement of announcements; track announcement.id) {
-      <div [routerLink]="`announcements/${announcement.id}`" class="full-w-card flex flex-col grid grid-cols-2"
-           [ngClass]=" isPinnedAndActive(announcement.expireAt, announcement.pinned) ? 'bg-yellow-50 border-l-4 border-amber-500' : 'bg-white'">
-        <div class="flex justify-between items-center gap-2 grid-cols-2">
-          <p class="font-medium text-sm ">{{ announcement.title }}</p>
-          @if (announcement.pinned) {
-            <lucide-icon [img]="Pin" [size]="18" class="rotate-[20deg] text-amber-600"></lucide-icon>
-          }
-        </div>
-        <p class="text-xs text-gray-500 cols-span-2">{{calculatePublishedDate(announcement.publishedDate)}}</p>
+<!--    @for (announcement of announcements; track announcement.id) {-->
+<!--      <div [routerLink]="`announcements/${announcement.id}`" class="full-w-card flex flex-col grid grid-cols-2"-->
+<!--           [ngClass]=" isPinnedAndActive(announcement.expireAt, announcement.pinned) ? 'bg-yellow-50 border-l-4 border-amber-500' : 'bg-white'">-->
+<!--        <div class="flex justify-between items-center gap-2 grid-cols-2">-->
+<!--          <p class="font-medium text-sm ">{{ announcement.title }}</p>-->
+<!--          @if (announcement.pinned) {-->
+<!--            <lucide-icon [img]="Pin" [size]="18" class="rotate-[20deg] text-amber-600"></lucide-icon>-->
+<!--          }-->
+<!--        </div>-->
+<!--        <p class="text-xs text-gray-500 cols-span-2">{{calculatePublishedDate(announcement.publishedDate)}}</p>-->
+<!--      </div>-->
+<!--    }-->
+
+<!--  </div>-->
+
+<!--  <div class="flex flex-col justify-between items-center py-2 border-t border-gray-200 font-medium">-->
+<!--    <a [routerLink]="'announcements'" class="text-sm text-blue-600 hover:text-blue-800 hover:underline">View More</a>-->
+<!--  </div>-->
+
+<!--</div>-->
+
+
+<app-card-shell>
+
+  <div class="p-4">
+
+    <!-- Header -->
+    <div class="flex items-center justify-between gap-3 mb-4">
+      <div>
+        <h2 class="font-semibold text-lg text-sky-50">Announcements</h2>
+        <p class="text-xs text-sky-200/60 mt-0.5">Latest course updates and notices</p>
       </div>
-    }
+
+      <a [routerLink]="'/ins/dashboard/announcements-mgt'">
+        <button class="btn-mini-primary">Manage</button>
+      </a>
+    </div>
+
+    <!-- Announcement List -->
+    <div class="max-h-96 overflow-y-auto space-y-3 pr-1">
+
+      @for (announcement of announcements; track announcement.id) {
+        <a
+          [routerLink]="['announcements', announcement.id]"
+          class="block rounded-xl border border-sky-800/40 bg-slate-900/50 hover:bg-slate-900/70 hover:border-sky-700/60 transition-all duration-200 active:scale-[0.99]"
+          [ngClass]="isPinnedAndActive(announcement.expireAt, announcement.pinned)
+            ? 'border-amber-500/60 bg-amber-950/20 ring-1 ring-amber-500/20'
+            : ''"
+        >
+
+          <div class="p-4">
+
+            <div class="flex items-start justify-between gap-3">
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center gap-2 mb-1">
+
+                  @if (isPinnedAndActive(announcement.expireAt, announcement.pinned)) {
+                    <span class="batch batch-warning">Pinned</span>
+                  }
+
+                  <h3 class="font-medium text-sm text-sky-50 truncate">
+                    {{ announcement.title }}
+                  </h3>
+                </div>
+
+                <p class="text-xs text-sky-200/60">
+                  {{ calculatePublishedDate(announcement.publishedDate) }}
+                </p>
+              </div>
+
+              @if (announcement.pinned) {
+                <lucide-icon
+                  [img]="Pin"
+                  [size]="16"
+                  class="shrink-0 rotate-[20deg] text-amber-400 mt-0.5">
+                </lucide-icon>
+              }
+            </div>
+
+          </div>
+        </a>
+      }
+
+      @if (announcements.length === 0) {
+        <div class="rounded-xl border border-dashed border-sky-800/40 bg-slate-900/30 p-6 text-center">
+          <div class="flex flex-col items-center gap-2">
+            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-sky-900/40 border border-sky-800/40">
+              <lucide-icon [size]="18" class="text-sky-300"></lucide-icon>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-sky-100">No announcements yet</p>
+              <p class="text-xs text-sky-200/60 mt-1">New course announcements will appear here once published.</p>
+            </div>
+          </div>
+        </div>
+      }
+
+    </div>
+
+    <!-- Footer -->
+    <div class="mt-4 pt-4 border-t border-sky-800/40 text-center">
+      <a [routerLink]="'announcements'" class="link text-sm">
+        View all announcements
+      </a>
+    </div>
 
   </div>
 
-  <div class="flex flex-col justify-between items-center py-2 border-t border-gray-200 font-medium">
-    <a [routerLink]="'announcements'" class="text-sm text-blue-600 hover:text-blue-800 hover:underline">View More</a>
-  </div>
-
-</div>
+</app-card-shell>

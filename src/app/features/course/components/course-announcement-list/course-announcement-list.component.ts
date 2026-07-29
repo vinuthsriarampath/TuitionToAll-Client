@@ -7,13 +7,15 @@ import {AnnouncementStatus} from '../../../announcement/enums/AnnouncementStatus
 import {LucideAngularModule, Pin} from 'lucide-angular';
 import {NgClass} from '@angular/common';
 import {RouterLink} from '@angular/router';
+import {CardShellComponent} from '@shared/ui';
 
 @Component({
   selector: 'app-course-announcement-list',
   imports: [
     LucideAngularModule,
     NgClass,
-    RouterLink
+    RouterLink,
+    CardShellComponent
   ],
   templateUrl: './course-announcement-list.component.html',
   styleUrl: './course-announcement-list.component.css'
