@@ -16,7 +16,7 @@
       <app-info-row label="Email" value="{{ module().teacher.email }}"></app-info-row>
     </div>
     <div class="col-span-1">
-      <app-info-row label="Contact" value="{{ module().teacher.contact }}"></app-info-row>
+      <app-info-row label="Contact" value="{{ module().teacher.contact | phone }}"></app-info-row>
     </div>
 
   </div>

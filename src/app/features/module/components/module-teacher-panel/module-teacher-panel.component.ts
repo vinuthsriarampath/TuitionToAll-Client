@@ -9,6 +9,7 @@ import {
 } from '../../dialogs/module-upt-teacher/module-upt-teacher.component';
 import {ModuleService} from '../../services/module/module.service';
 import {CardHeaderComponent, CardShellComponent, InfoRowComponent} from '@shared/ui';
+import {PhonePipePipe} from '@shared/utils/pipes/phone-pipe/phone-pipe.pipe';
 
 @Component({
   selector: 'app-module-teacher-panel',
@@ -16,7 +17,8 @@ import {CardHeaderComponent, CardShellComponent, InfoRowComponent} from '@shared
     CardShellComponent,
     CardHeaderComponent,
     LucideAngularModule,
-    InfoRowComponent
+    InfoRowComponent,
+    PhonePipePipe
   ],
   templateUrl: './module-teacher-panel.component.html',
   styleUrl: './module-teacher-panel.component.css'
