@@ -459,5 +459,17 @@ p {
 /* link */
 
 .link {
-  @apply text-xs text-sky-400 hover:text-sky-300 hover:underline transition-colors;
+  @apply text-xs  hover:underline transition-colors;
+}
+
+.link-sm{
+  @apply text-sm
+}
+
+.link-primary {
+  @apply text-sky-400 hover:text-sky-300;
+}
+
+.link-light {
+  @apply text-gray-300 hover:text-gray-200;
 }
