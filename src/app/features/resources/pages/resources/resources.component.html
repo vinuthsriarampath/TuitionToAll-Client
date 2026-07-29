@@ -4,18 +4,13 @@
     <div class="flex justify-between items-center mb-4">
 
       <div>
-        <h2 class="text-xl font-semibold">
-          Resources
-        </h2>
-
-        <p class="text-sm text-gray-500">
-          Chapter learning materials
-        </p>
+        <h2>Resources</h2>
+        <p class="para-primary">Chapter learning materials</p>
       </div>
 
       <div class="flex gap-2">
         <button (click)="onRefresh()" class="btn-mini-light">
-          <lucide-icon [img]="RefreshCw" [size]="20" class="filled-icon"/>
+          <lucide-icon [img]="RefreshCw" [size]="20" class="filled-icon"></lucide-icon>
         </button>
         <button (click)="openResourceCreateDialog()" class="btn-mini-primary">
           Add
@@ -36,10 +31,10 @@
           <td mat-cell *matCellDef="let element">
             <div class="flex justify-center items-center gap-2">
               <button (click)="onDownload(element.fileName)" class="btn-mini-primary">
-                <lucide-icon [img]="Download" [size]="18" class="filled-icon"/>
+                <lucide-icon [img]="Download" [size]="18" class="filled-icon"></lucide-icon>
               </button>
               <button class="btn-mini-primary">
-                <lucide-icon [img]="Pencil" [size]="18"/>
+                <lucide-icon [img]="Pencil" [size]="18" class="filled-icon"></lucide-icon>
               </button>
 
             </div>
