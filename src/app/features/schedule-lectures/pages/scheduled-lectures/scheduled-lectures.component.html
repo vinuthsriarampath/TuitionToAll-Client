@@ -5,12 +5,12 @@
 
       <div>
         <h2 class="text-xl font-semibold"> Scheduled Lectures </h2>
-        <p class="text-sm text-gray-500"> Upcoming lecture sessions </p>
+        <p class="para-primary"> Upcoming lecture sessions </p>
       </div>
 
       <div class="flex gap-2">
         <button (click)="onRefresh()" class="btn-mini-light">
-          <lucide-icon [img]="RefreshCcw" [size]="20" class="filled-icon"/>
+          <lucide-icon [img]="RefreshCcw" [size]="20" class="filled-icon"></lucide-icon>
         </button>
 
         <button class="btn-mini-primary" (click)="openScheduleLecCreateDialog()">
