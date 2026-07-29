@@ -10,10 +10,7 @@
  */
 
 @import "tailwindcss";
-@import "flowbite/src/themes/default.css";
 @import '../node_modules/quill/dist/quill.snow.css';
-@plugin "flowbite/plugin";
-@source "../node_modules/flowbite";
 
 /* ==========================================================================
    UI/UX Animations & Transition Utilities
@@ -458,7 +455,11 @@ h3 {
 }
 
 p {
-  @apply text-sm text-sky-200/80 leading-relaxed tracking-tight;
+  @apply text-sm  leading-relaxed tracking-tight;
+}
+
+.para-primary {
+  @apply text-sky-200/80;
 }
 
 .para-light {
@@ -467,6 +468,10 @@ p {
 
 .para-danger {
   @apply text-rose-400;
+}
+
+.para-warning {
+  @apply text-amber-300;
 }
 
 .para-xs {
@@ -495,4 +500,9 @@ p {
 
 .link-light {
   @apply text-gray-300 hover:text-gray-200;
+}
+
+.ql-background{
+  background-color: whitesmoke;
+  color: black;
 }
