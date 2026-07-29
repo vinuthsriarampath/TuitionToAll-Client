@@ -7,7 +7,7 @@ import {ScheduleLectureService} from '../../services/schedule-lecture/schedule-l
 import {ScheduleLectureResponse} from '../../dtos/response/ScheduleLectureResponse';
 import {ScheduleLectureUpdateRequest} from '../../dtos/request/ScheduleLectureUpdateRequest';
 import {ScheduleLectureStatus} from '../../enums/ScheduleLectureStatus';
-import {CheckboxComponent, InputComponent, SelectComponent, SelectOption} from '@shared/ui';
+import {CardShellComponent, CheckboxComponent, InputComponent, SelectComponent, SelectOption} from '@shared/ui';
 import {DialogLayoutComponent} from '@core/layouts/dialog-layout/dialog-layout.component';
 import {Pencil} from 'lucide-angular';
 
@@ -18,7 +18,8 @@ import {Pencil} from 'lucide-angular';
     DialogLayoutComponent,
     InputComponent,
     ReactiveFormsModule,
-    SelectComponent
+    SelectComponent,
+    CardShellComponent
   ],
   templateUrl: './schedule-lec-update.component.html',
   styleUrl: './schedule-lec-update.component.css'
