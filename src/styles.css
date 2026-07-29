@@ -450,10 +450,33 @@
 h1{
   @apply text-2xl sm:text-3xl font-bold text-sky-50 tracking-tight;
 }
+h2 {
+  @apply text-xl sm:text-2xl font-bold text-sky-50 tracking-tight;
+}
+h3 {
+  @apply text-lg sm:text-xl font-bold text-sky-50 tracking-tight;
+}
 
 p {
-  @apply text-sm text-sky-200/80 mt-1;
+  @apply text-sm text-sky-200/80 leading-relaxed tracking-tight;
 }
+
+.para-light {
+  @apply text-sky-50;
+}
+
+.para-danger {
+  @apply text-rose-400;
+}
+
+.para-xs {
+  @apply text-xs;
+}
+
+.para-md{
+  @apply text-base;
+}
+
 
 
 /* link */
