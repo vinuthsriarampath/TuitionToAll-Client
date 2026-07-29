@@ -8,7 +8,8 @@ import {DatePipe} from '@angular/common';
 import {environment} from '@env/environment.development';
 import {LectureRecordService} from '../../services/lecture-record/lecture-record.service';
 import {combineLatest} from 'rxjs';
-import {CardHeaderComponent, CardShellComponent} from '@shared/ui';
+import {BadgeComponent, CardHeaderComponent, CardShellComponent} from '@shared/ui';
+import {PageLayoutComponent} from '@core/layouts';
 
 @Component({
   selector: 'app-lecture-record-watch',
@@ -16,7 +17,9 @@ import {CardHeaderComponent, CardShellComponent} from '@shared/ui';
     LucideAngularModule,
     CardShellComponent,
     CardHeaderComponent,
-    DatePipe
+    DatePipe,
+    PageLayoutComponent,
+    BadgeComponent
   ],
   templateUrl: './lecture-record-watch.component.html',
   styleUrl: './lecture-record-watch.component.css'
