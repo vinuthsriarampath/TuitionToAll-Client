@@ -1,4 +1,4 @@
-<p class="form-label mb-2 flex items-center gap-1 font-semibold text-sky-100">
+<p class="form-label mb-2 flex items-center gap-1">
   {{ label() }}
 
   @if (required()) {
@@ -11,12 +11,12 @@
   [class.border]="showContainer()"
   [class.rounded-xl]="showContainer()"
   [class.p-4]="showContainer()"
-  [class.bg-sky-950\40]="showContainer()"
-[class.backdrop-blur-md]="showContainer()"
-[class.border-sky-800\50]="showContainer() && !hasError()"
-[class.form-input-error]="hasError()"
-[class.border-rose-500\80]="hasError()"
-[class.bg-rose-950\10]="hasError() && showContainer()">
+  [class.bg-sky-950\80]="showContainer()"
+  [class.backdrop-blur-md]="showContainer()"
+  [class.border-sky-950\80]="showContainer() && !hasError()"
+  [class.form-input-error]="hasError()"
+  [class.border-rose-500\80]="hasError()"
+  [class.bg-rose-950\10]="hasError() && showContainer()">
 
 @for (opt of options(); track getValue(opt)) {
   <label
