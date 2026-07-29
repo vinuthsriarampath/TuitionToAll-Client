@@ -11,165 +11,165 @@
     @if (isFormReady && mainForm) {
 
       <!-- ================= FORM 1: ASSIGNMENT DETAILS ================= -->
-      <div class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
+      <app-card-shell>
 
-        <!-- SECTION HEADER -->
-        <div class="px-6 py-4 bg-sky-50 border-b border-sky-100">
-          <h2 class="text-lg font-semibold text-gray-800">Assignment Details</h2>
-          <p class="text-xs text-gray-500 mt-1">
-            Configure topic, schedule, rules, and grading scheme
-          </p>
-        </div>
 
-        <form [formGroup]="mainForm" (ngSubmit)="onSubmit()" class="space-y-8 p-6">
-
-          <!-- BASIC INFO -->
-          <div class="space-y-4">
-            <h3 class="text-sm font-semibold text-gray-700">Basic Information</h3>
-
-            <app-input id="topic" label="Assignment Topic" placeholder="Enter assignment topic" [required]="true" [control]="mainForm.get('topic')"/>
-
-            <div>
-              <label for="description" class="form-label">Description</label>
-              <p class="text-xs text-gray-400 mb-2">
-                Provide instructions or context for students
-              </p>
-
-              <quill-editor id="description" formControlName="description" [modules]="modules" class="w-full border rounded-lg overflow-hidden"/>
-            </div>
+          <!-- SECTION HEADER -->
+          <div class="px-6 py-4 border-b border-sky-900/80">
+            <h2>Assignment Details</h2>
+            <p class="para-primary">Configure topic, schedule, rules, and grading scheme</p>
           </div>
 
-        <!-- ================= SCHEDULING ================= -->
-        <div class="bg-white rounded-xl shadow-sm p-5 space-y-4">
-          <h2 class="text-base font-semibold text-gray-800">Schedule</h2>
+          <form [formGroup]="mainForm" (ngSubmit)="onSubmit()" class="space-y-8 p-6">
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <app-input id="availableOn" type="datetime-local" label="Available From" [required]="true" [control]="mainForm.get('availableOn')" class="block border-none p-0"/>
+            <!-- BASIC INFO -->
+            <div class="space-y-4">
+              <h3>Basic Information</h3>
 
-            <app-input id="dueDate" type="datetime-local" label="Due Date" [required]="true" [control]="mainForm.get('dueDate')" class="block border-none p-0"/>
-          </div>
-        </div>
+              <app-input id="topic" label="Assignment Topic" placeholder="Enter assignment topic" [required]="true" [control]="mainForm.get('topic')"/>
 
-          <!-- RULES -->
-          <div class="space-y-4">
-            <h3 class="text-sm font-semibold text-gray-700">Submission Rules</h3>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-              <app-checkbox
-                id="lateSubmission"
-                label="Late Submission Policy"
-                [required]="true"
-                [showContainer]="true"
-                [multiple]="false"
-                [options]="[
-                  { label: 'Allow Late Submission', value: true },
-                  { label: 'Do Not Allow', value: false }
-                ]"
-                [control]="mainForm.get('lateSubmission')"
-              />
-
-            <app-checkbox id="reSubmission" label="Re-submission Policy" [required]="true" [showContainer]="true" [multiple]="false" [options]="[{ label: 'Allowed', value: true },{ label: 'Not Allowed', value: false }]" [control]="mainForm.get('resubmission')"/>
-
-            </div>
-
-          @if (mainForm.get('resubmission')?.value) {
-            <app-input id="maxAttempts" type="number" label="Maximum Attempts" placeholder="e.g. 3" [required]="true" [control]="mainForm.get('maxAttempts')" class="block border-none p-0"/>
-          }
-        </div>
-
-          <!-- GRADING -->
-          <div class="space-y-4">
-            <div class="flex justify-between items-center">
               <div>
-                <h3 class="text-sm font-semibold text-gray-700">Grading Scheme</h3>
-                <p class="text-xs text-gray-400">
-                  Define mark ranges and corresponding grades
-                </p>
+                <label for="description" class="form-label">Description</label>
+                <p class="para-primary">Provide instructions or context for students</p>
+
+                <quill-editor id="description" formControlName="description" [modules]="modules" class="w-full border rounded-lg overflow-hidden ql-background"/>
               </div>
+            </div>
 
-            <button type="button" (click)="addRow()" class="btn-mini-primary">
-              + Add Range
-            </button>
-          </div>
+          <!-- ================= SCHEDULING ================= -->
+            <app-card-shell>
+              <div class="p-5 space-y-4">
+                <h2 class="text-base font-semibold text-gray-800">Schedule</h2>
 
-          <div formArrayName="gradingRanges" class="space-y-3">
-            @for (gradingRange of gradingRangesFormArray.controls; track i; let i = $index) {
-              <div [formGroupName]="i" class="grid grid-cols-1 md:grid-cols-4 gap-3 bg-gray-50 p-3 rounded-lg items-start">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <app-input id="availableOn" type="datetime-local" label="Available From" [required]="true" [control]="mainForm.get('availableOn')" class="block border-none p-0"/>
 
-                  <app-input type="number" [id]="'minMarks-' + i" label="Min" [control]="gradingRange.get('minMarks')" class="block border-none p-0 bg-gray-50"/>
-
-                  <app-input type="number" [id]="'maxMarks-' + i" label="Max" [control]="gradingRange.get('maxMarks')" class="block border-none p-0 bg-gray-50"/>
-
-                  <app-input [id]="'grade-' + i" label="Grade" [control]="gradingRange.get('desiredGrade')"/>
-
-                <div class="flex items-end justify-between gap-2">
-                  <app-input [id]="'desc-' + i" label="Note" [control]="gradingRange.get('description')"/>
-
-                  @if (gradingRangesFormArray.length > 1){
-                    <button type="button" (click)="removeRow(i)" class="btn-mini-primary btn-danger">
-                      <lucide-icon [img]="Trash2" [size]="16"></lucide-icon>
-                    </button>
-                  }
+                  <app-input id="dueDate" type="datetime-local" label="Due Date" [required]="true" [control]="mainForm.get('dueDate')" class="block border-none p-0"/>
                 </div>
               </div>
+            </app-card-shell>
+
+            <!-- RULES -->
+            <div class="space-y-4 mt-4 p-4">
+              <h3>Submission Rules</h3>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                  <app-checkbox
+                    id="lateSubmission"
+                    label="Late Submission Policy"
+                    [required]="true"
+                    [showContainer]="true"
+                    [multiple]="false"
+                    [options]="[
+                      { label: 'Allow Late Submission', value: true },
+                      { label: 'Do Not Allow', value: false }
+                    ]"
+                    [control]="mainForm.get('lateSubmission')"
+                  />
+
+                <app-checkbox id="reSubmission" label="Re-submission Policy" [required]="true" [showContainer]="true" [multiple]="false" [options]="[{ label: 'Allowed', value: true },{ label: 'Not Allowed', value: false }]" [control]="mainForm.get('resubmission')"/>
+
+                </div>
+
+            @if (mainForm.get('resubmission')?.value) {
+              <app-input id="maxAttempts" type="number" label="Maximum Attempts" placeholder="e.g. 3" [required]="true" [control]="mainForm.get('maxAttempts')" class="block border-none p-0"/>
             }
           </div>
-        </div>
 
-          <!-- ACTIONS -->
-          <div class="flex justify-end gap-3 pt-4 border-t border-gray-100">
-            <button type="reset" (click)="onReset()" class="btn-mini-secondary">
-              Reset
-            </button>
+            <!-- GRADING -->
+            <div class="space-y-4">
+              <div class="flex justify-between items-center">
+                <div>
+                  <h3 class="text-sm font-semibold text-gray-700">Grading Scheme</h3>
+                  <p class="para-primary">
+                    Define mark ranges and corresponding grades
+                  </p>
+                </div>
 
-          <button type="submit" [disabled]="mainForm.invalid" class="btn-mini-primary px-6">
-            Save Assignment
-          </button>
-        </div>
-
-        </form>
-      </div>
-
-      <!-- ================= FORM 2: ATTACHMENT ================= -->
-      <div class="bg-white rounded-2xl shadow-md border border-sky-100 overflow-hidden">
-
-        <!-- SECTION HEADER -->
-        <div class="px-6 py-4 bg-sky-100 border-b border-sky-200">
-          <h2 class="text-lg font-semibold text-gray-800">
-            Attachment Management
-          </h2>
-          <p class="text-xs text-gray-500 mt-1">
-            Upload or replace assignment file (PDF only)
-          </p>
-        </div>
-
-        <form [formGroup]="fileForm" (ngSubmit)="onFileSubmit()" class="p-6 space-y-5">
-
-          <!-- CURRENT FILE -->
-          <div class="flex items-center justify-between bg-gray-50 p-4 rounded-lg border border-gray-100">
-            <div class="text-sm text-gray-600">
-              Current file:
-              <span class="font-medium text-gray-800">
-                {{ originalAssignment.fileName }}
-              </span>
+              <button type="button" (click)="addRow()" class="btn-mini-primary">
+                + Add Range
+              </button>
             </div>
 
-            <a class="btn-mini-primary" [href]="environment.ASSIGNMENT_API + '/download/' + originalAssignment.fileName" target="_blank" download>Download</a>
+            <div formArrayName="gradingRanges" class=" flex flex-col gap-2">
+              @for (gradingRange of gradingRangesFormArray.controls; track i; let i = $index) {
+                <app-card-shell>
+                  <div [formGroupName]="i" class="grid grid-cols-1 md:grid-cols-4 gap-3 p-3 items-start">
+
+                      <app-input type="number" [id]="'minMarks-' + i" label="Min" [control]="gradingRange.get('minMarks')" class="block border-none p-0"/>
+
+                      <app-input type="number" [id]="'maxMarks-' + i" label="Max" [control]="gradingRange.get('maxMarks')" class="block border-none p-0"/>
+
+                      <app-input [id]="'grade-' + i" label="Grade" [control]="gradingRange.get('desiredGrade')"/>
+
+                    <div class="flex items-end justify-between gap-2">
+                      <app-input [id]="'desc-' + i" label="Note" [control]="gradingRange.get('description')"/>
+
+                      @if (gradingRangesFormArray.length > 1){
+                        <button type="button" (click)="removeRow(i)" class="btn-mini-primary btn-danger">
+                          <lucide-icon [img]="Trash2" [size]="16"></lucide-icon>
+                        </button>
+                      }
+                    </div>
+                  </div>
+                </app-card-shell>
+              }
+            </div>
           </div>
 
-          <!-- UPLOAD NEW FILE -->
-          <app-file-input id="file" label="Replace PDF" [required]="false" [accept]="'.pdf'" [control]="fileForm.get('file')" />
+            <!-- ACTIONS -->
+            <div class="flex justify-end gap-3 pt-4 border-t border-sky-900/80">
+              <button type="reset" (click)="onReset()" class="btn-mini-secondary">
+                Reset
+              </button>
 
-          <!-- ACTION -->
-          <div class="flex justify-end pt-2 border-t border-gray-100">
-            <button type="submit" class="btn-mini-primary px-6" [disabled]="fileForm.invalid">
-              Update File
+            <button type="submit" [disabled]="mainForm.invalid" class="btn-mini-primary px-6">
+              Save Assignment
             </button>
           </div>
 
-        </form>
-      </div>
+          </form>
+    </app-card-shell>
+
+      <!-- ================= FORM 2: ATTACHMENT ================= -->
+      <app-card-shell class="block mt-4">
+
+
+          <!-- SECTION HEADER -->
+          <div class="px-6 py-4 border-b border-sky-900/80">
+            <h2>Attachment Management</h2>
+            <p class="para-primary">Upload or replace assignment file (PDF only)</p>
+          </div>
+
+          <form [formGroup]="fileForm" (ngSubmit)="onFileSubmit()" class="p-6 flex flex-col gap-4">
+
+            <!-- CURRENT FILE -->
+            <app-card-shell>
+              <div class="flex items-center justify-between p-4">
+                <p class="para-light">
+                  Current file:
+                  <span class="para-primary">
+                    {{ originalAssignment.fileName }}
+                  </span>
+                </p>
+
+                <a class="btn-mini-primary" [href]="environment.ASSIGNMENT_API + '/download/' + originalAssignment.fileName" target="_blank" download>Download</a>
+              </div>
+            </app-card-shell>
+
+            <!-- UPLOAD NEW FILE -->
+            <app-file-input id="file" label="Replace PDF" [required]="false" [accept]="'.pdf'" [control]="fileForm.get('file')" />
+
+            <!-- ACTION -->
+            <div class="flex justify-end py-2 border-t border-sky-900/80">
+              <button type="submit" class="btn-mini-primary px-6" [disabled]="fileForm.invalid">
+                Update File
+              </button>
+            </div>
+
+          </form>
+    </app-card-shell>
 
     }
 

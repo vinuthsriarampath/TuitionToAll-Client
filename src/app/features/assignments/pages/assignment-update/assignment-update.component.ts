@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {CheckboxComponent, FileInputComponent, InputComponent} from '@shared/ui';
+import {CardShellComponent, CheckboxComponent, FileInputComponent, InputComponent} from '@shared/ui';
 import {LucideAngularModule, Trash2} from 'lucide-angular';
 import {PageLayoutComponent} from '@core/layouts';
 import {QuillEditorComponent} from 'ngx-quill';
@@ -23,7 +23,8 @@ import {environment} from '@env/environment.development';
     LucideAngularModule,
     PageLayoutComponent,
     QuillEditorComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CardShellComponent
   ],
   templateUrl: './assignment-update.component.html',
   styleUrl: './assignment-update.component.css'
