@@ -2,18 +2,14 @@
   <div class="flex justify-between items-center mb-4">
 
     <div>
-      <h2 class="text-xl font-semibold">
-        Assignments
-      </h2>
+      <h2>Assignments</h2>
 
-      <p class="text-sm text-gray-500">
-        Chapter learning materials
-      </p>
+      <p class="para-primary">Chapter learning materials</p>
     </div>
 
     <div class="flex gap-2">
       <button (click)="onRefresh()" class="btn-mini-light">
-        <lucide-icon [img]="RefreshCw" [size]="20" class="filled-icon"/>
+        <lucide-icon [img]="RefreshCw" [size]="20" class="filled-icon"></lucide-icon>
       </button>
       <button class="btn-mini-primary" (click)="navigateToAssignmentCreate()">Add Assignment</button>
     </div>
