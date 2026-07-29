@@ -1,6 +1,6 @@
 import {Component, inject, input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {ActivatedRoute, RouterLink} from '@angular/router';
-import {CardShellComponent} from '@shared/ui';
+import {BadgeComponent, CardShellComponent} from '@shared/ui';
 import {CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray} from '@angular/cdk/drag-drop';
 import {BookOpen, CalendarDays, Edit, GripVertical, LucideAngularModule, Pencil} from 'lucide-angular';
 import {MatTooltip} from '@angular/material/tooltip';
@@ -25,7 +25,8 @@ import {ChapterService} from '../../services/chapter/chapter.service';
     DatePipe,
     CdkDragHandle,
     ChapterBadgeComponent,
-    RouterLink
+    RouterLink,
+    BadgeComponent
   ],
   templateUrl: './chapter-list.component.html',
   styleUrl: './chapter-list.component.css'

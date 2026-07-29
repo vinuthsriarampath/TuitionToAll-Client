@@ -10,23 +10,23 @@
         <div class="flex items-center gap-3 flex-1 min-w-0">
 
           <!-- Drag Handle -->
-          <div cdkDragHandle class="cursor-grab active:cursor-grabbing text-gray-400 hover:text-gray-600 transition">
-            <lucide-icon [img]="GripVertical" [size]="18"/>
+          <div cdkDragHandle class="cursor-grab active:cursor-grabbing text-sky-400 hover:text-sky-600 transition">
+            <lucide-icon [img]="GripVertical" [size]="18"></lucide-icon>
           </div>
 
           <!-- Order -->
-          <div class="w-9 h-9 rounded-xl bg-blue-100 text-blue-70 flex items-center justify-center text-sm font-semibold shrink-0">
-            {{ i + 1 }}
-          </div>
+          <app-card-shell>
+            <div class="w-9 h-9 flex items-center justify-center shrink-0">
+              <p>{{ i + 1 }}</p>
+            </div>
+          </app-card-shell>
 
           <!-- Chapter Info -->
           <div class="flex flex-col min-w-0 flex-1">
 
             <div class="flex items-center gap-2 flex-wrap">
 
-              <h2 class="text-sm md:text-base font-semibold text-gray-800 truncate">
-                {{ chapter.title }}
-              </h2>
+              <h2>{{ chapter.title }}</h2>
 
               <!-- Status -->
               <app-chapter-badge [status]="chapter.status"></app-chapter-badge>
@@ -36,16 +36,10 @@
             <!-- Meta -->
             <div class="flex items-center gap-3 mt-1 text-xs text-gray-500">
 
-              <span class="flex items-center gap-1">
-                <lucide-icon [img]="BookOpen" [size]="14"/>
-                Chapter {{ i + 1 }}
-              </span>
+              <app-badge [icon]="BookOpen" [text]="`Chapter ${ i + 1 }`" [variant]="'info'"></app-badge>
 
               @if (chapter.createdDate) {
-                <span class="hidden md:flex items-center gap-1">
-                  <lucide-icon [img]="CalendarDays" [size]="14"/>
-                  {{ chapter.createdDate | date:'MMM d, y' }}
-                </span>
+                <app-badge [icon]="CalendarDays" [text]="`${ chapter.createdDate | date:'MMM d, y' }`" [variant]="'primary'"></app-badge>
               }
 
             </div>
@@ -57,8 +51,8 @@
         <!-- Right Actions -->
         <div class="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">
 
-          <button (click)="openUpdateChapterDetailsDialog(chapter)" class="w-9 h-9 cursor-pointer rounded-lg hover:bg-blue-50 text-blue-600 transition flex items-center justify-center" matTooltip="Edit Chapter" matTooltipPosition="above">
-            <lucide-icon [img]="Pencil" [size]="16"/>
+          <button (click)="openUpdateChapterDetailsDialog(chapter)" class="w-9 h-9 cursor-pointer rounded-lg btn-primary transition flex items-center justify-center" matTooltip="Edit Chapter" matTooltipPosition="above">
+            <lucide-icon [img]="Pencil" [size]="16"></lucide-icon>
           </button>
 
         </div>
