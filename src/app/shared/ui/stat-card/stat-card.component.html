@@ -1,9 +1,9 @@
-<div class="full-w-card bg-sky-950/80 backdrop-blur-md border border-sky-800/50 rounded-xl p-5 shadow-lg transition-all duration-200 hover:border-sky-700/60">
-  <p class="text-xs text-sky-200/80 font-medium tracking-wide uppercase">
-    {{ title() }}
-  </p>
+<app-card-shell>
+  <div class="p-5 flex flex-col justify-center items-center gap-1">
+    <p class="para-light para-md font-medium">{{ title() }}</p>
 
-  <h2 class="text-xl md:text-2xl font-semibold tracking-wide text-sky-50 drop-shadow-sm mt-1">
-    {{ value() }}
-  </h2>
-</div>
+    <p class="font-extrabold">
+      {{ value() }}
+    </p>
+  </div>
+</app-card-shell>
