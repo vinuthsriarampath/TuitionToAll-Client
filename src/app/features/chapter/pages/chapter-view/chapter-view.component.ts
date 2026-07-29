@@ -14,6 +14,7 @@ import {
   ScheduledLecturesComponent
 } from '../../../schedule-lectures/pages/scheduled-lectures/scheduled-lectures.component';
 import {AssignmentListComponent} from '@features/assignments/pages/assignment-list/assignment-list.component';
+import {PageLayoutComponent} from '@core/layouts';
 
 @Component({
   selector: 'app-chapter-view',
@@ -26,7 +27,8 @@ import {AssignmentListComponent} from '@features/assignments/pages/assignment-li
     LectureRecordingComponent,
     ResourcesComponent,
     ScheduledLecturesComponent,
-    AssignmentListComponent
+    AssignmentListComponent,
+    PageLayoutComponent
   ],
   templateUrl: './chapter-view.component.html',
   styleUrl: './chapter-view.component.css'

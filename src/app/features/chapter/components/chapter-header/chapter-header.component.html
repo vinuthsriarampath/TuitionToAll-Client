@@ -4,32 +4,24 @@
 
     <div class="flex items-center gap-2 mb-2">
       <app-chapter-badge [status]="status()"></app-chapter-badge>
-      <span class="text-sm text-gray-500">
-            Chapter {{ chapterOrder()}}
-          </span>
+      <app-badge [text]="`Chapter: ${ chapterOrder() }`" [variant]="'secondary'"></app-badge>
     </div>
 
-    <h1 class="text-3xl font-bold text-gray-800">
-      {{ title() }}
-    </h1>
+    <h1>{{ title() }}</h1>
 
-    <div class="flex gap-6 mt-4 text-sm text-gray-600">
-      <span>Created: {{ createdDate() | date: 'yyyy-MMM-dd'}}</span>
-      <span>Updated: {{ lastModifiedDate() | date: 'yyyy-MMM-dd'}}</span>
-      <span>Module: {{ moduleName() }}</span>
+    <div class="flex gap-2 mt-4">
+      <app-badge [text]="`Created: ${ createdDate() | date: 'yyyy-MMM-dd' }`" [variant]="'info'"></app-badge>
+      <app-badge [text]="`Updated: ${ lastModifiedDate() | date: 'yyyy-MMM-dd' }`" [variant]="'warning'"></app-badge>
+      <app-badge [text]="`Module: ${ moduleName() }`" [variant]="'success'"></app-badge>
     </div>
 
   </div>
 
   <div class="flex gap-2">
 
-    <button class="btn-mini-primary">
-      Edit Chapter
-    </button>
+    <button class="btn-mini-primary" >Edit Chapter</button>
 
-    <button class="btn-mini-secondary">
-      Archive
-    </button>
+    <button class="btn-mini-secondary btn-warning">Archive</button>
 
   </div>
 

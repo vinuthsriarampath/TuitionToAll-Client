@@ -1,64 +1,63 @@
-<div class="h-full overflow-y-auto bg-gray-100 p-4">
+<app-page-layout
+  [headerTitle]="'Chapter Management'"
+  [headerDescription]="'Manage chapter content here!'"
+  [showBackButton]="true"
+>
+  <div data-body>
+    <!-- Chapter Header -->
+    <app-card-shell class="block mb-4">
+      <div class="p-5">
+        <app-chapter-header
+          [title]="chapter.title"
+          [chapterOrder]="chapter.chapterOrder"
+          [moduleName]="chapter.module.name"
+          [status]="chapter.status"
+          [createdDate]="chapter.createdDate"
+          [lastModifiedDate]="chapter.lastModifiedDate"
+        />
+      </div>
+    </app-card-shell>
 
-  <button (click)="window.history.back()"
-          class="flex items-center gap-2 text-black/80 hover:text-black mb-3 w-fit cursor-pointer"
-  >
-    <lucide-icon [img]="ArrowLeft" [size]="18" />
-    <span class="text-sm">Back</span>
-  </button>
-  <!-- Chapter Header -->
-  <app-card-shell class="block mb-4">
-    <div class="p-5">
-      <app-chapter-header
-        [title]="chapter.title"
-        [chapterOrder]="chapter.chapterOrder"
-        [moduleName]="chapter.module.name"
-        [status]="chapter.status"
-        [createdDate]="chapter.createdDate"
-        [lastModifiedDate]="chapter.lastModifiedDate"
-      />
-    </div>
-  </app-card-shell>
+    <!-- Summary Cards -->
+    <app-chapter-stat-row/>
 
-  <!-- Summary Cards -->
-  <app-chapter-stat-row/>
+    <!-- Main Layout -->
+    <div class="grid grid-cols-12 gap-4">
 
-  <!-- Main Layout -->
-  <div class="grid grid-cols-12 gap-4">
+      <!-- LEFT SIDE -->
+      <div class="col-span-7 flex flex-col gap-4">
 
-    <!-- LEFT SIDE -->
-    <div class="col-span-8 flex flex-col gap-4">
+        <!-- Chapter Overview -->
+        <app-chapter-overview
+          [chapterOrder]="chapter.chapterOrder"
+          [moduleName]="chapter.module.name"
+          [status]="chapter.status"
+        />
 
-      <!-- Chapter Overview -->
-      <app-chapter-overview
-        [chapterOrder]="chapter.chapterOrder"
-        [moduleName]="chapter.module.name"
-        [status]="chapter.status"
-      />
+        <!-- Lecture Recordings -->
+        <app-lecture-recording/>
 
-      <!-- Lecture Recordings -->
-      <app-lecture-recording/>
+      </div>
 
-    </div>
+      <!-- RIGHT SIDE -->
+      <div class="col-span-5 flex flex-col gap-4">
 
-    <!-- RIGHT SIDE -->
-    <div class="col-span-4 flex flex-col gap-4">
+        <!-- Resource Management -->
+        <app-resources/>
 
-      <!-- Resource Management -->
-      <app-resources/>
+        <!-- Scheduled Lectures -->
+        <app-scheduled-lectures/>
 
-      <!-- Scheduled Lectures -->
-      <app-scheduled-lectures/>
+        <!-- Chapter Assignments-->
+        <app-card-shell>
+          <div class="p-5">
+            <app-assignment-list [config]="{ type:'chapter', chapterId:this.chapter.id}" [header]="{ title: 'Assignments', description: 'Manage assignments for this chapter'}" />
+          </div>
+        </app-card-shell>
 
-      <!-- Chapter Assignments-->
-      <app-card-shell>
-        <div class="p-5">
-          <app-assignment-list [config]="{ type:'chapter', chapterId:this.chapter.id}" [header]="{ title: 'Assignments', description: 'Manage assignments for this chapter'}" />
-        </div>
-      </app-card-shell>
+      </div>
 
     </div>
 
   </div>
-
-</div>
+</app-page-layout>
