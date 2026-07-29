@@ -7,13 +7,15 @@ import {AssignmentConfig} from '@features/assignments/pages/assignment-list/assi
 import {AssignmentDetailedResponse} from '@features/assignments/dtos/response/assignment-detailed-response';
 import {DatePipe, NgClass} from '@angular/common';
 import {PageLayoutComponent} from '@core/layouts';
+import {CardShellComponent} from '@shared/ui';
 
 @Component({
   selector: 'app-assignment-view',
   imports: [
     DatePipe,
     NgClass,
-    PageLayoutComponent
+    PageLayoutComponent,
+    CardShellComponent
   ],
   templateUrl: './assignment-view.component.html',
   styleUrl: './assignment-view.component.css'

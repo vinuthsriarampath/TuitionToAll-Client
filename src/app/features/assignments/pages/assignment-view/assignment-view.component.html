@@ -24,119 +24,137 @@
       </div>
 
       <!-- ================= DETAILS ================= -->
-      <div class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
+      <app-card-shell>
 
-        <div class="px-6 py-4 bg-sky-50 border-b border-sky-100">
-          <h2 class="text-lg font-semibold text-gray-800">Assignment Details</h2>
-          <p class="text-xs text-gray-500 mt-1">
-            Read-only view of assignment configuration
-          </p>
+
+        <div class="px-6 py-4 border-b border-sky-900/80">
+          <h2>Assignment Details</h2>
+          <p class="para-primary">Read-only view of assignment configuration</p>
         </div>
 
         <div class="p-6 space-y-8">
 
           <!-- BASIC INFO -->
-          <div class="space-y-4">
+          <div class="flex flex-col gap-4">
             <h3 class="text-sm font-semibold text-gray-700">Basic Information</h3>
 
-            <div class="bg-gray-50 p-4 rounded-lg">
-              <p class="text-xs text-gray-400">Topic</p>
-              <p class="text-sm font-medium text-gray-800">
-                {{ assignment.topic }}
-              </p>
-            </div>
-
-            <div class="bg-gray-50 p-4 rounded-lg">
-              <p class="text-xs text-gray-400">Description</p>
-              <div class="text-sm text-gray-700 prose max-w-none"
-                   [innerHTML]="assignment.description">
+            <app-card-shell>
+              <div class="p-4">
+                <p class="para-primary">Topic</p>
+                <p class="para-light">
+                  {{ assignment.topic }}
+                </p>
               </div>
-            </div>
+            </app-card-shell>
+
+            <app-card-shell>
+              <div class="p-4">
+                <p class="para-primary">Description</p>
+                <div class="para-light prose max-w-none"
+                     [innerHTML]="assignment.description">
+                </div>
+              </div>
+            </app-card-shell>
           </div>
 
           <!-- SCHEDULE -->
-          <div class="space-y-4">
-            <h3 class="text-sm font-semibold text-gray-700">Schedule</h3>
+          <div class="flex flex-col gap-4">
+            <h3>Schedule</h3>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-              <div class="bg-gray-50 p-4 rounded-lg">
-                <p class="text-xs text-gray-400">Available From</p>
-                <p class="text-sm font-medium text-gray-800">
-                  {{ assignment.availableOn | date:'medium' }}
-                </p>
-              </div>
+              <app-card-shell>
+                <div class="p-4">
+                  <p class="para-primary">Available From</p>
+                  <p class="para-light">
+                    {{ assignment.availableOn | date:'medium' }}
+                  </p>
+                </div>
+              </app-card-shell>
 
-              <div class="bg-gray-50 p-4 rounded-lg">
-                <p class="text-xs text-gray-400">Due Date</p>
-                <p class="text-sm font-medium text-gray-800">
-                  {{ assignment.dueDate | date:'medium' }}
-                </p>
-              </div>
+              <app-card-shell>
+                <div class="p-4">
+                  <p class="para-primary">Due Date</p>
+                  <p class="para-light">
+                    {{ assignment.dueDate | date:'medium' }}
+                  </p>
+                </div>
+              </app-card-shell>
 
             </div>
           </div>
 
           <!-- RULES -->
-          <div class="space-y-4">
+          <div class="flex flex-col gap-4">
             <h3 class="text-sm font-semibold text-gray-700">Submission Rules</h3>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-              <div class="bg-gray-50 p-4 rounded-lg">
-                <p class="text-xs text-gray-400">Late Submission</p>
-                <p class="text-sm font-medium">
-                  {{ assignment.lateSubmission ? 'Allowed' : 'Not Allowed' }}
-                </p>
-              </div>
+              <app-card-shell>
+                <div class="p-4">
+                  <p class="para-primary">Late Submission</p>
+                  <p class="para-light">
+                    {{ assignment.lateSubmission ? 'Allowed' : 'Not Allowed' }}
+                  </p>
+                </div>
+              </app-card-shell>
 
-              <div class="bg-gray-50 p-4 rounded-lg">
-                <p class="text-xs text-gray-400">Re-submission</p>
-                <p class="text-sm font-medium">
-                  {{ assignment.resubmission ? 'Allowed' : 'Not Allowed' }}
-                </p>
-              </div>
+              <app-card-shell>
+                <div class="p-4">
+                  <p class="para-primary">Re-submission</p>
+                  <p class="para-light">
+                    {{ assignment.resubmission ? 'Allowed' : 'Not Allowed' }}
+                  </p>
+                </div>
+              </app-card-shell>
 
-              <div class="bg-gray-50 p-4 rounded-lg md:col-span-2">
-                <p class="text-xs text-gray-400">Max Attempts</p>
-                <p class="text-sm font-medium">
-                  {{ assignment.maxAttempts }}
-                </p>
-              </div>
+
+              <app-card-shell>
+                <div class="p-4 md:col-span-2">
+                  <p class="para-primary">Max Attempts</p>
+                  <p class="para-light">
+                    {{ assignment.maxAttempts }}
+                  </p>
+                </div>
+              </app-card-shell>
+
 
             </div>
           </div>
 
           <!-- GRADING -->
-          <div class="space-y-4">
-            <h3 class="text-sm font-semibold text-gray-700">Grading Scheme</h3>
+          <div class="flex flex-col gap-4">
+            <h3>Grading Scheme</h3>
 
-            <div class="space-y-2">
+            <div class="flex flex-col gap-4">
               @for (range of assignment.gradingRangers; track $index) {
 
-                <div class="grid grid-cols-4 gap-3 bg-gray-50 p-3 rounded-lg text-sm">
+                <app-card-shell>
 
-                  <div>
-                    <p class="text-xs text-gray-400">Min</p>
-                    <p class="font-medium">{{ range.minMarks }}</p>
+                  <div class="grid grid-cols-4 gap-3 p-3">
+
+                    <div>
+                      <p class="para-primary">Min</p>
+                      <p class="para-light font-medium">{{ range.minMarks }}</p>
+                    </div>
+
+                    <div>
+                      <p class="para-primary">Max</p>
+                      <p class="para-light font-medium">{{ range.maxMarks }}</p>
+                    </div>
+
+                    <div>
+                      <p class="para-primary">Grade</p>
+                      <p class="para-light font-medium">{{ range.desiredGrade }}</p>
+                    </div>
+
+                    <div>
+                      <p class="para-primary">Note</p>
+                      <p class="para-light font-medium">{{ range.description || '-' }}</p>
+                    </div>
+
                   </div>
-
-                  <div>
-                    <p class="text-xs text-gray-400">Max</p>
-                    <p class="font-medium">{{ range.maxMarks }}</p>
-                  </div>
-
-                  <div>
-                    <p class="text-xs text-gray-400">Grade</p>
-                    <p class="font-medium">{{ range.desiredGrade }}</p>
-                  </div>
-
-                  <div>
-                    <p class="text-xs text-gray-400">Note</p>
-                    <p class="font-medium">{{ range.description || '-' }}</p>
-                  </div>
-
-                </div>
+                </app-card-shell>
 
               }
             </div>
@@ -144,38 +162,34 @@
           </div>
 
         </div>
-      </div>
+    </app-card-shell>
 
       <!-- ================= FILE ================= -->
-      <div class="bg-white rounded-2xl shadow-md border border-sky-100 overflow-hidden">
-
-        <div class="px-6 py-4 bg-sky-100 border-b border-sky-200">
-          <h2 class="text-lg font-semibold text-gray-800">
-            Attachment
-          </h2>
-        </div>
-
-        <div class="p-6 flex items-center justify-between bg-gray-50">
-
-          <div class="text-sm text-gray-600">
-            File:
-            <span class="font-medium text-gray-800">
-              {{ assignment.fileName }}
-            </span>
+      <app-card-shell class="block mt-4">
+          <div class="px-6 py-4 border-b border-sky-900/80">
+            <h2>Attachment</h2>
           </div>
 
-          <a
-            class="btn-mini-primary"
-            [href]="environment.ASSIGNMENT_API + '/download/' + assignment.fileName"
-            target="_blank"
-            download
-          >
-            Download
-          </a>
+          <div class="p-6 flex items-center justify-between">
 
-        </div>
+            <p class="para-primary">
+              File:
+              <span class="para-light">
+                {{ assignment.fileName }}
+              </span>
+            </p>
 
-      </div>
+            <a
+              class="btn-mini-primary"
+              [href]="environment.ASSIGNMENT_API + '/download/' + assignment.fileName"
+              target="_blank"
+              download
+            >
+              Download
+            </a>
+
+          </div>
+      </app-card-shell>
 
     }
 
