@@ -1,22 +1,26 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {AlertService} from '@core/services/alerts/alert.service';
-import {CurrencyPipe, NgClass, NgOptimizedImage} from '@angular/common';
+import {CurrencyPipe, NgOptimizedImage} from '@angular/common';
 import {environment} from '@env/environment.development';
 import {
   CourseAnnouncementListComponent
 } from '../../components/course-announcement-list/course-announcement-list.component';
 import {CourseService} from '@features/course/services/course/course.service';
 import {Course} from '@features/course/dtos/response/course';
+import {BadgeComponent, CardShellComponent} from '@shared/ui';
+import {LucideAngularModule, Star} from 'lucide-angular';
 
 @Component({
   selector: 'app-course-view',
   imports: [
     NgOptimizedImage,
     RouterLink,
-    NgClass,
     CurrencyPipe,
-    CourseAnnouncementListComponent
+    CourseAnnouncementListComponent,
+    BadgeComponent,
+    CardShellComponent,
+    LucideAngularModule
   ],
   templateUrl: './course-view.component.html',
   styleUrl: './course-view.component.css'
@@ -54,4 +58,5 @@ export class CourseViewComponent implements OnInit {
   }
 
   protected readonly environment = environment;
+  protected readonly Star = Star;
 }

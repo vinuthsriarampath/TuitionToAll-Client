@@ -15,20 +15,10 @@
 
     <!-- Status Badge -->
     <div class="absolute top-4 left-4 flex gap-2">
-      <button (click)="window.history.back()"
-        class="btn-mini-primary">
+      <button (click)="window.history.back()" class="btn-mini-primary">
         Go Back
       </button>
-      <span
-        class="px-3 py-1 rounded-full text-white text-sm font-semibold"
-        [ngClass]="{
-          'bg-yellow-500': course.status === 'DRAFT',
-          'bg-gray-500': course.status === 'ARCHIVED',
-          'bg-green-600': course.status === 'PUBLISHED'
-        }"
-      >
-        {{ course.status }}
-      </span>
+      <app-badge [text]="course.status? course.status : 'N/A'" [variant]="course.status === 'DRAFT' ? 'warning' : course.status === 'ARCHIVED' ? 'secondary' : 'success'"></app-badge>
     </div>
 
     <!-- Edit Button -->
@@ -58,66 +48,56 @@
 
     <!-- Meta Badges -->
     <div class="flex flex-wrap gap-2 mt-4">
-      <span class="px-2 py-0.5 text-sm font-semibold rounded-full bg-indigo-100 text-indigo-700">
-        {{ course.category }}
-      </span>
-      <span class="px-2 py-0.5 text-sm rounded-full font-semibold bg-violet-100 text-violet-700">
-        {{ course.language }}
-      </span>
-      <span class="px-2 py-0.5 text-sm font-semibold rounded-full"
-            [ngClass]="{
-              'bg-green-100 text-green-700': course.level === 'BEGINNER',
-              'bg-yellow-100 text-yellow-700': course.level === 'INTERMEDIATE',
-              'bg-rose-100 text-rose-700': course.level === 'ADVANCED'
-            }">
-        {{ course.level }}
-      </span>
-      <span class="px-2 py-0.5 text-sm font-semibold rounded-full"
-            [ngClass]="{
-              'bg-red-100 text-red-700': course.mode === 'ONLINE',
-              'bg-blue-100 text-blue-700': course.mode === 'OFFLINE',
-              'bg-rose-100 text-rose-700': course.mode === 'HYBRID'
-            }">
-        {{ course.mode }}
-      </span>
-      <span class="px-2 py-0.5 text-sm bg-emerald-200 rounded-full font-semibold">
-        {{ course.durationInHours }} Hours
-      </span>
+      <app-badge [text]="course.category? course.category : 'N/A'" variant="indigo"></app-badge>
+      <app-badge [text]="course.language? course.language : 'N/A'" variant="violet"></app-badge>
+      <app-badge [text]="course.level? course.level : 'N/A'" [variant]="course.level === 'BEGINNER' ? 'success' : course.level === 'INTERMEDIATE' ? 'warning' : 'danger'"></app-badge>
+      <app-badge [text]="course.mode? course.mode : 'N/A'" variant="secondary"></app-badge>
+      <app-badge [text]="course.durationInHours? course.durationInHours + ' Hours' : 'N/A'" variant="success"></app-badge>
     </div>
   </div>
 
   <!-- QUICK STATS -->
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
 
-    <div class="bg-white rounded-xl p-4 shadow text-center">
-      <p class="text-gray-500 text-sm">Students</p>
-      <p class="text-2xl font-bold">128</p>
-    </div>
-
-    <div class="bg-white rounded-xl p-4 shadow text-center">
-      <p class="text-gray-500 text-sm">Batches</p>
-      <p class="text-2xl font-bold">4</p>
-    </div>
-
-    <div class="bg-white rounded-xl p-4 shadow text-center">
-      <p class="text-gray-500 text-sm">Modules</p>
-      <p class="text-2xl font-bold">12</p>
-    </div>
-
-    <div class="bg-white rounded-xl p-4 shadow text-center">
-      <p class="text-gray-500 text-sm">Rating</p>
-      <p class="text-2xl font-bold">4.8 ★</p>
-    </div>
-
+    <app-card-shell>
+      <div class="p-4 text-center">
+        <h3 class="font-semibold">Students</h3>
+        <span>128</span>
+      </div>
+    </app-card-shell>
+    <app-card-shell>
+      <div class="p-4 text-center">
+        <h3 class="font-semibold">Batches</h3>
+        <span>4</span>
+      </div>
+    </app-card-shell>
+    <app-card-shell>
+      <div class="p-4 text-center">
+        <h3 class="font-semibold">Modules</h3>
+        <span>12</span>
+      </div>
+    </app-card-shell>
+    <app-card-shell>
+      <div class="p-4 text-center">
+        <h3 class="font-semibold">Rating</h3>
+        <div class="flex flex-row items-center justify-center gap-1">
+          <span>4.8</span>
+          <lucide-icon [img]="Star" class="w-3 h-3 fill-yellow-400 text-yellow-400"></lucide-icon>
+        </div>
+      </div>
+    </app-card-shell>
   </div>
 
   <!-- DESCRIPTION -->
-  <div class="mt-6 bg-gray-50 shadow p-4 rounded-xl">
-    <h2 class="font-semibold mb-2 text-lg">Description</h2>
-    <p class="text-gray-700">
-      {{ course.description }}
-    </p>
-  </div>
+  <app-card-shell>
+    <div class="p-4">
+      <h2 class="font-semibold mb-2 text-lg">Description</h2>
+      <p class="text-gray-700">
+        {{ course.description }}
+      </p>
+    </div>
+  </app-card-shell>
+
 
   <!-- ACTION TOOLBAR -->
   <div class="mt-8 flex flex-wrap gap-3">
@@ -133,83 +113,79 @@
   </div>
 
   <!-- MAIN GRID -->
-  <div class="grid lg:grid-cols-3 gap-6 mt-6">
+  <div class="grid lg:grid-cols-3 gap-6 mt-6 items-start">
 
     <!-- LEFT SIDE -->
     <div class="lg:col-span-2 space-y-6">
 
       <!-- COURSE MANAGEMENT -->
-      <div class="bg-white rounded-xl p-6 shadow">
+      <app-card-shell>
 
-        <h2 class="font-semibold text-lg mb-4">Course Management</h2>
+        <div class="p-6">
 
-        <div class="grid sm:grid-cols-2 gap-4">
+          <h2 class="font-semibold text-lg mb-4">Course Management</h2>
 
-          <div class="bg-white rounded-xl p-4 shadow hover:shadow-lg transition cursor-pointer">
-            <h3 class="font-semibold">Student Management</h3>
-            <p class="text-sm text-gray-600">
-              View and manage enrolled students.
-            </p>
-            <button class="mt-3 btn-mini-primary">
-              Manage Students
-            </button>
-          </div>
+          <div class="grid sm:grid-cols-2 gap-4">
 
-          <div class="bg-white rounded-xl p-4 shadow hover:shadow-lg transition cursor-pointer">
-            <h3 class="font-semibold">Batch Management</h3>
-            <p class="text-sm text-gray-600">
-              Manage batches and schedules.
-            </p>
-            <a [routerLink]="['batch-mgt']">
-              <button  class="mt-3 btn-mini-primary">
-                Manage Batches
-              </button>
-            </a>
-          </div>
-
-          <div class="bg-white rounded-xl p-4 shadow hover:shadow-lg transition cursor-pointer">
-            <h3 class="font-semibold">Course Content</h3>
-            <p class="text-sm text-gray-600">
-              Manage modules and chapters.
-            </p>
-            <button class="mt-3 btn-mini-primary">
-              Manage Modules
-            </button>
-          </div>
-
-          <div class="bg-white rounded-xl p-4 shadow hover:shadow-lg transition cursor-pointer">
-            <h3 class="font-semibold">Assignments</h3>
-            <p class="text-sm text-gray-600">
-              Manage assignments and grading.
-            </p>
-            <button class="mt-3 btn-mini-primary">
-              Manage Assignments
-            </button>
-          </div>
-
-          <div class="bg-white rounded-xl p-4 shadow hover:shadow-lg transition cursor-pointer">
-            <h3 class="font-semibold">Reviews & Feedback</h3>
-            <p class="text-sm text-gray-600">
-              View student feedback and ratings.
-            </p>
-            <button class="mt-3 btn-mini-secondary btn-success">
-              View Reviews
-            </button>
+            <app-card-shell>
+              <div class="p-4 cursor-pointer">
+                <h3 class="font-semibold">Student Management</h3>
+                <p>View and manage enrolled students.</p>
+                <button class="mt-3 btn-mini-primary">
+                  Manage Students
+                </button>
+              </div>
+            </app-card-shell>
+            <app-card-shell>
+              <div class="p-4 cursor-pointer">
+                <h3 class="font-semibold">Batch Management</h3>
+                <p>Manage batches and schedules.</p>
+                <a [routerLink]="['batch-mgt']">
+                  <button  class="mt-3 btn-mini-primary">
+                    Manage Batches
+                  </button>
+                </a>
+              </div>
+            </app-card-shell>
+            <app-card-shell>
+              <div class="p-4 cursor-pointer">
+                <h3 class="font-semibold">Course Content</h3>
+                <p>Manage modules and chapters.</p>
+                <button class="mt-3 btn-mini-primary">
+                  Manage Modules
+                </button>
+              </div>
+            </app-card-shell>
+            <app-card-shell>
+              <div class="p-4 cursor-pointer">
+                <h3 class="font-semibold">Assignments</h3>
+                <p>Manage assignments and grading.</p>
+                <button class="mt-3 btn-mini-primary">
+                  Manage Assignments
+                </button>
+              </div>
+            </app-card-shell>
+            <app-card-shell>
+              <div class="p-4 cursor-pointer">
+                <h3 class="font-semibold">Reviews & Feedback</h3>
+                <p>View student feedback and ratings.</p>
+                <button class="mt-3 btn-mini-secondary btn-success">
+                  View Reviews
+                </button>
+              </div>
+            </app-card-shell>
           </div>
 
         </div>
-
-      </div>
+      </app-card-shell>
 
     </div>
 
 
     <!-- RIGHT SIDE -->
     <div class="space-y-6">
-
       <!-- ANNOUNCEMENTS -->
       <app-course-announcement-list [courseId]="courseId" [recentAnnouncements]="true"></app-course-announcement-list>
-
     </div>
   </div>
 </div>
