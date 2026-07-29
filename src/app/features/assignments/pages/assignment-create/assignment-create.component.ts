@@ -2,7 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {AssignmentConfig} from '@features/assignments/pages/assignment-list/assignment-list.component';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {CheckboxComponent, FileInputComponent, InputComponent} from '@shared/ui';
+import {CardShellComponent, CheckboxComponent, FileInputComponent, InputComponent} from '@shared/ui';
 import {QuillEditorComponent} from 'ngx-quill';
 import {getDateTime} from '@shared/utils/helpers/date-helper';
 import {isFutureDate, isPresentFutureDate} from '@shared/utils/validators/form-custom-validators';
@@ -29,6 +29,7 @@ import {LucideAngularModule, Trash2} from 'lucide-angular';
     PageLayoutComponent,
     FileInputComponent,
     LucideAngularModule,
+    CardShellComponent,
   ],
   templateUrl: './assignment-create.component.html',
   styleUrl: './assignment-create.component.css'
