@@ -6,7 +6,7 @@ import {AnnouncementStatus} from '../../enums/AnnouncementStatus';
 import {
   ConfirmationDialogComponent,
   ConfirmationDialogData
-} from '../../dialogs/confirmation-dialog/confirmation-dialog.component';
+} from '@shared/dialogs/confirmation-dialog/confirmation-dialog.component';
 import {AnnouncementService} from '../../services/announcements/announcement.service';
 import {AlertService} from '@core/services/alerts/alert.service';
 import {MatDialog} from '@angular/material/dialog';
