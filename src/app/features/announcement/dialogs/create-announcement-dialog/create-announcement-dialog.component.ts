@@ -18,6 +18,7 @@ import {getDateTime} from '@shared/utils/helpers/date-helper';
 import {CourseFilter} from '@features/course/dtos/request/course-filter';
 import {CourseStatus} from '@features/course/enums/course-status';
 import {AnnouncementCreateRequest} from '@features/announcement/dtos/request/AnnouncementCreateRequest';
+import {CardShellComponent} from '@shared/ui';
 
 // @ts-ignore
 @Component({
@@ -27,6 +28,7 @@ import {AnnouncementCreateRequest} from '@features/announcement/dtos/request/Ann
     ReactiveFormsModule,
     LucideAngularModule,
     DialogLayoutComponent,
+    CardShellComponent,
   ],
   templateUrl: './create-announcement-dialog.component.html',
   styleUrl: './create-announcement-dialog.component.css'

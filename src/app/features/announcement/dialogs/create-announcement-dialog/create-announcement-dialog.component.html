@@ -34,7 +34,7 @@
 
         <quill-editor
           id="description"
-          class="w-full h-55"
+          class="w-full ql-background"
           [modules]="modules"
           formControlName="description"
           placeholder="Enter your announcement description here...">
@@ -105,109 +105,121 @@
       <!-- COURSE -->
       @if (form.value.visibility === 'COURSE' || form.value.visibility === 'BATCH') {
 
-        <div class="col-span-2 p-4 rounded-2xl border border-blue-100 bg-blue-50">
+        <app-card-shell class="col-span-2">
+          <div class="p-4">
 
-          <div class="flex items-center gap-2 mb-3">
-            <div class="w-2 h-2 rounded-full bg-blue-500"></div>
-            <h2 class="text-sm font-semibold text-blue-700">
-              Course Selection
-            </h2>
-          </div>
+            <div class="flex items-center gap-2 mb-3">
+              <div class="w-2 h-2 rounded-full bg-sky-500"></div>
+              <h2 class="text-sm font-semibold text-blue-700">
+                Course Selection
+              </h2>
+            </div>
 
-          <label for="course" class="form-label">
-            Course <span class="text-red-500">*</span>
-          </label>
+            <label for="course" class="form-label">
+              Course <span class="text-red-500">*</span>
+            </label>
 
-          <select id="course" class="form-input" formControlName="courseId"
-                  [class.form-input-error]="form.get('courseId')?.invalid && form.get('courseId')?.touched">
+            <select id="course" class="form-input" formControlName="courseId"
+                    [class.form-input-error]="form.get('courseId')?.invalid && form.get('courseId')?.touched">
 
-            @if (courses.length == 0) {
-              <option [ngValue]="null" disabled selected>
-                No courses available
-              </option>
-            } @else {
-              <option [ngValue]="null" disabled>
-                -- Select Course --
-              </option>
-
-              @for (c of courses; track c.id) {
-                <option [ngValue]="c.id">
-                  {{ c.title }}
+              @if (courses.length == 0) {
+                <option [ngValue]="null" disabled selected>
+                  No courses available
                 </option>
+              } @else {
+                <option [ngValue]="null" disabled>
+                  -- Select Course --
+                </option>
+
+                @for (c of courses; track c.id) {
+                  <option [ngValue]="c.id">
+                    {{ c.title }}
+                  </option>
+                }
               }
+
+            </select>
+            @if (form.get('courseId')?.errors?.['server']) {
+              <p class="form-error"> * {{ form.get('courseId')?.errors?.['server'] }}</p>
             }
 
-          </select>
-          @if (form.get('courseId')?.errors?.['server']) {
-            <p class="form-error"> * {{ form.get('courseId')?.errors?.['server'] }}</p>
-          }
+            <!-- Selected Course Preview -->
+            @if (selectedCourseTitle) {
+              <app-card-shell class="block mt-3">
+                <div class="p-3">
+                  <p class="para-primary">
+                    Selected Course
+                  </p>
 
-          <!-- Selected Course Preview -->
-          @if (selectedCourseTitle) {
-            <div class="mt-3 p-3 bg-white border border-blue-200 rounded-xl">
-              <p class="text-xs text-gray-500 mb-1">
-                Selected Course
-              </p>
-
-              <p class="text-sm font-medium text-gray-700 break-words leading-relaxed">
-                {{ selectedCourseTitle }}
-              </p>
-            </div>
-          }
-        </div>
+                  <p class="para-light">
+                    {{ selectedCourseTitle }}
+                  </p>
+                </div>
+              </app-card-shell>
+            }
+          </div>
+        </app-card-shell>
       }
 
       <!-- BATCH -->
       @if (form.value.visibility === 'BATCH') {
 
-        <div class="col-span-2 p-4 rounded-2xl border border-purple-100 bg-purple-50">
+        <app-card-shell class="col-span-2">
 
-          <div class="flex items-center gap-2 mb-3">
-            <div class="w-2 h-2 rounded-full bg-purple-500"></div>
-            <h2 class="text-sm font-semibold text-purple-700">
-              Batch Selection
-            </h2>
-          </div>
+          <div class="p-4">
 
-          <label for="batch" class="form-label">Batch <span class="text-red-500">*</span></label>
-
-          <select id="batch" class="form-input" formControlName="batchId"
-                  [class.form-input-error]="(form.get('batchId')?.invalid || form.get('expireAt')?.errors?.['server']) && form.get('batchId')?.touched">
-
-            @if (!form.get('courseId')?.value) {
-              <option [ngValue]="null" disabled selected>
-                -- Select a Course First --
-              </option>
-            } @else if (batches.length == 0) {
-              <option [ngValue]="null" disabled selected>
-                No batches available for the selected course
-              </option>
-            } @else {
-              @for (b of batches; track b.id) {
-                <option [ngValue]="b.id">
-                  {{ b.name }}
-                </option>
-              }
-            }
-          </select>
-
-          @if (form.get('batchId')?.errors?.['server']) {
-            <p class="form-error"> * {{ form.get('batchId')?.errors?.['server'] }}</p>
-          }
-
-          <!-- Selected Batch Preview -->
-          @if (selectedBatchName) {
-            <div class="mt-3 p-3 bg-white border border-purple-200 rounded-xl">
-              <p class="text-xs text-gray-500 mb-1">
-                Selected Batch
-              </p>
-
-              <p class="text-sm font-medium text-gray-700 break-words leading-relaxed">
-                {{ selectedBatchName }}
-              </p>
+            <div class="flex items-center gap-2 mb-3">
+              <div class="w-2 h-2 rounded-full bg-purple-500"></div>
+              <h2>
+                Batch Selection
+              </h2>
             </div>
-          }
-        </div>
+
+            <label for="batch" class="form-label">Batch <span class="text-red-500">*</span></label>
+
+            <select id="batch" class="form-input" formControlName="batchId"
+                    [class.form-input-error]="(form.get('batchId')?.invalid || form.get('expireAt')?.errors?.['server']) && form.get('batchId')?.touched">
+
+              @if (!form.get('courseId')?.value) {
+                <option [ngValue]="null" disabled selected>
+                  -- Select a Course First --
+                </option>
+              } @else if (batches.length == 0) {
+                <option [ngValue]="null" disabled selected>
+                  No batches available for the selected course
+                </option>
+              } @else {
+                <option [ngValue]="null" disabled selected>
+                  -- Select a Batch --
+                </option>
+                @for (b of batches; track b.id) {
+                  <option [ngValue]="b.id">
+                    {{ b.name }}
+                  </option>
+                }
+              }
+            </select>
+
+            @if (form.get('batchId')?.errors?.['server']) {
+              <p class="form-error"> * {{ form.get('batchId')?.errors?.['server'] }}</p>
+            }
+
+            <!-- Selected Batch Preview -->
+            @if (selectedBatchName) {
+              <app-card-shell class="block mt-3">
+                <div class="p-3">
+                  <p class="para-primary">
+                    Selected Batch
+                  </p>
+
+                  <p class="para-light">
+                    {{ selectedBatchName }}
+                  </p>
+                </div>
+              </app-card-shell>
+            }
+          </div>
+        </app-card-shell>
       }
 
       <!-- Expire Date -->
