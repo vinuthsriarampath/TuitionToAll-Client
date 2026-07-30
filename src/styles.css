@@ -502,7 +502,12 @@ p {
   @apply text-gray-300 hover:text-gray-200;
 }
 
-.ql-background{
+.ql-background {
   background-color: whitesmoke;
   color: black;
 }
+
+.ql-background * {
+  color: black;
+}
+
