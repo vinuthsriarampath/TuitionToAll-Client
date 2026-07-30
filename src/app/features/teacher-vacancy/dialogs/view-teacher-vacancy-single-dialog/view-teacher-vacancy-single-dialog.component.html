@@ -5,31 +5,30 @@
   (cancelEvent)="onCancel()"
 >
   <div data-body>
-    <div class="p-4 border-2 border-gray-200 bg-gray-100 rounded-lg">
-      <h1 class="text-2xl font-black"> {{ vacancy.title }}</h1>
-      <div class="flex justify-between gap-2 mt-2 mx-2">
-        <div class="text-sm flex flex-col gap-y-2">
-          <h3 class="font-medium">Status:</h3>
-          <span class="batch" [ngClass]="{
-          'batch-success':vacancy.status == TeacherVacancyStatus.OPEN,
-          'batch-warning': vacancy.status == TeacherVacancyStatus.FILLED,
-          'batch-danger': vacancy.status == TeacherVacancyStatus.CLOSED}">
-          {{ vacancy.status}}
-        </span>
-        </div>
-        <div class="text-sm flex flex-col gap-y-2 ">
-          <h3 class="font-medium">Years of Experience (YoE) Required :</h3>
-          <span>{{ vacancy.requiredExperienceYears}}</span>
-        </div>
-        <div class="text-sm flex flex-col gap-y-2 ">
-          <h3 class="font-medium">Closing Date:</h3>
-          <span>{{ vacancy.vacancyClosingDate | date : "medium" }}</span>
+    <app-card-shell>
+      <div class="p-4">
+        <h1> {{ vacancy.title }}</h1>
+        <div class="flex justify-between gap-2 mt-2 mx-2">
+          <div class="text-sm flex flex-col gap-y-2">
+            <p class="para-md para-primary">Status:</p>
+            <app-badge [text]="vacancy.status" [variant]="vacancy.status == TeacherVacancyStatus.OPEN ? 'success' : vacancy.status == TeacherVacancyStatus.FILLED ? 'warning' : 'danger'"></app-badge>
+          </div>
+          <div class="text-sm flex flex-col gap-y-2 ">
+            <p class="para-md para-primary">Years of Experience (YoE) Required :</p>
+            <p class="para-light">{{ vacancy.requiredExperienceYears}}</p>
+          </div>
+          <div class="text-sm flex flex-col gap-y-2 ">
+            <p class="para-md para-primary">Closing Date:</p>
+            <app-badge [text]="`${vacancy.vacancyClosingDate | date : 'medium'}`" [variant]="'info'"></app-badge>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="mt-4 p-4 border-2 border-gray-200 rounded-lg h-80 flex flex-col">
-      <h2 class="text-md font-medium">Job Description</h2>
-      <quill-editor class="w-full flex-1 min-h-0 " id="jobDescription" [modules]="{toolbar:false}" [ngModel]="vacancy.jobDescription" [readOnly]="true" [styles]="{ border: 'none'}"></quill-editor>
-    </div>
+    </app-card-shell>
+    <app-card-shell class="block mt-4">
+      <div class="p-4 h-80 flex flex-col">
+        <h3>Job Description</h3>
+        <quill-editor class="w-full flex-1 min-h-0 " id="jobDescription" [modules]="{toolbar:false}" [ngModel]="vacancy.jobDescription" [readOnly]="true" [styles]="{ border: 'none'}"></quill-editor>
+      </div>
+    </app-card-shell>
   </div>
 </app-dialog-layout>

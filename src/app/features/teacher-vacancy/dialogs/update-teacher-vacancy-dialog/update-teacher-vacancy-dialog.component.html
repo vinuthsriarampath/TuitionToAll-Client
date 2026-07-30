@@ -50,7 +50,7 @@
       </div>
       <div class="col-span-2">
         <label for="jobDescription" class="form-label">Job Description <span class="text-red-500">*</span></label>
-        <quill-editor class="w-full h-56" id="jobDescription" [modules]="modules" formControlName="jobDescription"
+        <quill-editor class="w-full ql-background" id="jobDescription" [modules]="modules" formControlName="jobDescription"
                       placeholder="Enter Your Job Description Here...">
         </quill-editor>
         @if (form.get('jobDescription')?.errors?.['required'] && form.get('jobDescription')?.touched) {

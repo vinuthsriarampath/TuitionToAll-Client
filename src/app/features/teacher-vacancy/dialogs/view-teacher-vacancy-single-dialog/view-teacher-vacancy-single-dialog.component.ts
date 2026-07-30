@@ -1,22 +1,24 @@
 import {Component, Inject, inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {TeacherVacancy} from '../../dtos/response/teacher-vacancy';
-import {DatePipe, NgClass} from '@angular/common';
+import {DatePipe} from '@angular/common';
 import {TeacherVacancyStatus} from '../../enums/teacher-vacancy-status';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {QuillEditorComponent} from 'ngx-quill';
 import {DialogLayoutComponent} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
 import {InfoIcon, LucideIconData} from 'lucide-angular';
+import {BadgeComponent, CardShellComponent} from '@shared/ui';
 
 @Component({
   selector: 'app-view-teacher-vacancy-single-dialog',
   imports: [
     DatePipe,
-    NgClass,
     FormsModule,
     QuillEditorComponent,
     ReactiveFormsModule,
-    DialogLayoutComponent
+    DialogLayoutComponent,
+    CardShellComponent,
+    BadgeComponent
   ],
   templateUrl: './view-teacher-vacancy-single-dialog.component.html',
   styleUrl: './view-teacher-vacancy-single-dialog.component.css'
