@@ -8,7 +8,7 @@ import {AlertService} from '@core/services/alerts/alert.service';
 import {
   ConfirmationDialogComponent,
   ConfirmationDialogData
-} from '../../../announcement/dialogs/confirmation-dialog/confirmation-dialog.component';
+} from '@shared/dialogs/confirmation-dialog/confirmation-dialog.component';
 import {ModuleStatus} from '../../enums/ModuleStatus';
 
 @Component({

@@ -8,7 +8,7 @@ import {ModuleService} from '../../services/module/module.service';
 import {
   ConfirmationDialogComponent,
   ConfirmationDialogData
-} from '../../../announcement/dialogs/confirmation-dialog/confirmation-dialog.component';
+} from '@shared/dialogs/confirmation-dialog/confirmation-dialog.component';
 import {ModuleBadgeComponent} from '../module-badge/module-badge.component';
 import {CardHeaderComponent, CardShellComponent} from '@shared/ui';
 
