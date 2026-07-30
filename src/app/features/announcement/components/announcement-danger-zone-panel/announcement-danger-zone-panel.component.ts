@@ -9,7 +9,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {
   ConfirmationDialogComponent,
   ConfirmationDialogData
-} from '../../dialogs/confirmation-dialog/confirmation-dialog.component';
+} from '@shared/dialogs/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-announcement-danger-zone-panel',
