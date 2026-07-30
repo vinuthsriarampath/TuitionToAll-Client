@@ -54,7 +54,8 @@ export class ChapterViewComponent implements OnInit{
         })
     }
 
-    private loadChapterDetails():void{
+    protected loadChapterDetails():void{
+      console.info("working")
       this.chapterService.getDetailedChapterById(this.chapterId).subscribe({
         next: (res)=>{
           if(res.data) this.chapter = res.data;
