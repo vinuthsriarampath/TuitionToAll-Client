@@ -1,10 +1,10 @@
 <mat-sidenav-container class="h-full ">
 
   <!-- 🔹 DRAWER -->
-  <mat-sidenav #drawer mode="over" position="end" class="h-full bg-white shadow-xl flex flex-col"
+  <mat-sidenav #drawer mode="over" position="end" class="h-full flex flex-col"
                style="width: 23vw; min-width: 320px;">
-    <div class="flex items-center justify-between border-b pb-3 px-4 pt-4">
-      <h2 class="text-lg font-semibold text-gray-800">Teacher Details</h2>
+    <div class="flex items-center justify-between border-b border-sky-900/80 pb-3 px-4 pt-4">
+      <h2>Teacher Details</h2>
       <button class="btn-mini-secondary" (click)="drawer.close()">Close</button>
     </div>
 
@@ -20,53 +20,50 @@
           alt="profile"
         />
 
-        <h3 class="mt-3 text-lg font-semibold text-gray-800">
+        <h3>
           {{ data.teacher.firstName }} {{ data.teacher.lastName }}
         </h3>
 
-        <p class="text-sm text-gray-500">{{ data.teacher.email }}</p>
+        <p class="para-primary">{{ data.teacher.email }}</p>
       </div>
 
       <!-- INFO CARD -->
-      <div class="bg-gray-50 rounded-xl p-4 space-y-3 shadow-sm">
+      <app-card-shell>
 
-        <div class="flex justify-between">
-          <span class="text-gray-500 text-sm">Contact</span>
-          <span class="text-gray-800 text-sm font-medium">
-          {{ data.teacher.contact }}
-        </span>
-        </div>
+        <div class="p-4 space-y-3">
 
-        <div class="flex justify-between">
-          <span class="text-gray-500 text-sm">Date of Birth</span>
-          <span class="text-gray-800 text-sm font-medium">
-          {{ data.teacher.dob | date }}
-        </span>
-        </div>
+          <div class="flex justify-between">
+            <p class="para-primary">Contact</p>
+            <p class="para-light font-medium">
+            {{ data.teacher.contact }}
+          </p>
+          </div>
 
-        <div class="flex flex-col">
-          <span class="text-gray-500 text-sm">Address</span>
-          <span class="text-gray-800 text-sm font-medium break-words">
-          {{ data.teacher.address }}
-        </span>
-        </div>
+          <div class="flex justify-between">
+            <p class="para-primary">Date of Birth</p>
+            <p class="para-light font-medium">
+            {{ data.teacher.dob | date }}
+          </p>
+          </div>
 
-        <div class="flex justify-between">
-          <span class="text-gray-500 text-sm">Status between institute</span>
-          <span class="batch" [ngClass]="{
-                'batch-success': data.status === InstituteTeacherStatus.ACTIVE,
-                'batch-warning':data.status === InstituteTeacherStatus.SUSPENDED,
-                'batch-danger':data.status === InstituteTeacherStatus.INACTIVE,
-                }">
-                  {{ data.status }}
-          </span>
+          <div class="flex flex-col">
+            <p class="para-primary">Address</p>
+            <p class="para-light font-medium">
+            {{ data.teacher.address }}
+          </p>
+          </div>
+
+          <div class="flex justify-between">
+            <p class="para-primary">Status between institute</p>
+            <app-badge [text]="data.status" [variant]="data.status === InstituteTeacherStatus.ACTIVE ? 'success' : data.status === InstituteTeacherStatus.SUSPENDED ? 'warning' : 'danger'"></app-badge>
+          </div>
         </div>
-      </div>
+      </app-card-shell>
     </div>
   </mat-sidenav>
 
   <!-- 🔹 MAIN CONTENT -->
-  <mat-sidenav-content class="h-full flex flex-col bg-white">
+  <mat-sidenav-content class="h-full flex flex-col">
 
     <!-- HEADER -->
     <app-page-title
@@ -91,22 +88,34 @@
 
       <!-- STATS -->
       <div class="grid grid-cols-4 gap-4 mb-4 shrink-0">
-        <div class="p-4 bg-blue-50 rounded-lg">
-          <p class="text-sm text-gray-500">Total Teachers</p>
-          <h2 class="text-xl font-semibold">{{ stats.totalTeachers }}</h2>
-        </div>
-        <div class="p-4 bg-green-50 rounded-lg">
-          <p class="text-sm text-gray-500">Active</p>
-          <h2 class="text-xl font-semibold">{{ stats.activeTeachers }}</h2>
-        </div>
-        <div class="p-4 bg-yellow-50 rounded-lg">
-          <p class="text-sm text-gray-500">Active</p>
-          <h2 class="text-xl font-semibold">{{ stats.suspendedTeachers }}</h2>
-        </div>
-        <div class="p-4 bg-red-50 rounded-lg">
-          <p class="text-sm text-gray-500">Inactive</p>
-          <h2 class="text-xl font-semibold">{{ stats.inactiveTeachers }}</h2>
-        </div>
+        <app-card-shell>
+          <div class="p-4">
+            <p class="para-primary">Total Teachers</p>
+            <h2 class="para-light">{{ stats.totalTeachers }}</h2>
+          </div>
+        </app-card-shell>
+        <app-card-shell>
+          <div class="p-4">
+            <p class="para-primary">Active</p>
+            <h2 class="para-light">{{ stats.activeTeachers }}</h2>
+          </div>
+        </app-card-shell>
+        <app-card-shell>
+          <div class="p-4">
+            <p class="para-primary">Active</p>
+            <h2 class="para-light">{{ stats.suspendedTeachers }}</h2>
+          </div>
+        </app-card-shell>
+        <app-card-shell>
+          <div class="p-4">
+            <p class="para-primary">Inactive</p>
+            <h2 class="para-light">{{ stats.inactiveTeachers }}</h2>
+          </div>
+        </app-card-shell>
+
+
+
+
       </div>
       <!-- Scrollable container -->
       <div class="flex-1 overflow-auto">

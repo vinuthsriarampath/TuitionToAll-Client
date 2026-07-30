@@ -30,6 +30,7 @@ import {ApplicationStatus} from '../../../applications/enums/application-status'
 import {InstituteTeacherStatus} from '../../enums/InstituteTeacherStatus';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {InstituteTeacherStatsResponse} from '../../dtos/response/InstituteTeacherStatsResponse';
+import {BadgeComponent, CardShellComponent} from '@shared/ui';
 
 @Component({
   selector: 'app-institute-teacher-management',
@@ -54,7 +55,9 @@ import {InstituteTeacherStatsResponse} from '../../dtos/response/InstituteTeache
     MatRowDef,
     MatRow,
     NgClass,
-    MatPaginator
+    MatPaginator,
+    CardShellComponent,
+    BadgeComponent
   ],
   templateUrl: './institute-teacher-management.component.html',
   styleUrl: './institute-teacher-management.component.css'
