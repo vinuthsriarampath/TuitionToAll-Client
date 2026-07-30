@@ -16,6 +16,7 @@ import {Batch} from '@features/batch/dtos/response/batch';
 import {CourseService} from '@features/course/services/course/course.service';
 import {BatchService} from '@features/batch/services/batch/batch.service';
 import {CourseStatus} from '@features/course/enums/course-status';
+import {CardShellComponent} from '@shared/ui';
 
 export interface UpdateAnnouncementVisibilityDialogData {
   id:number;
@@ -30,7 +31,8 @@ export interface UpdateAnnouncementVisibilityDialogData {
     LucideAngularModule,
     ReactiveFormsModule,
     NgClass,
-    DialogLayoutComponent
+    DialogLayoutComponent,
+    CardShellComponent
   ],
   templateUrl: './update-announcement-visibility-dialog.component.html',
   styleUrl: './update-announcement-visibility-dialog.component.css'

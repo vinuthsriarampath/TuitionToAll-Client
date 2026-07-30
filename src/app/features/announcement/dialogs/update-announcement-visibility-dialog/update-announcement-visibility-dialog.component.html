@@ -8,147 +8,155 @@
   <div data-body>
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="grid grid-cols-2 gap-5">
 
-      <!-- Current Visibility -->
-      <div class="col-span-2 p-4 rounded-2xl border border-gray-200 bg-gray-50">
+      <app-card-shell class="col-span-2">
 
-        <p class="text-xs text-gray-500 mb-2">
-          Current Visibility
-        </p>
+        <!-- Current Visibility -->
+        <div class="p-4">
 
-        <span class="batch" [ngClass]="{
-          'batch-info': originalData.visibility == AnnouncementVisibility.PRIVATE,
-          'batch-secondary': originalData.visibility == AnnouncementVisibility.ALL_TEACHERS,
-          'batch-violet': originalData.visibility == AnnouncementVisibility.COURSE,
-          'batch-primary': originalData.visibility == AnnouncementVisibility.BATCH
-        }">
-          {{ originalData.visibility }}
-        </span>
-
-      </div>
-
-      <!-- Visibility -->
-      <div class="col-span-2">
-
-        <label for="visibility" class="form-label">
-          Visibility <span class="text-red-500">*</span>
-        </label>
-
-        <select id="visibility" class="form-input" formControlName="visibility"
-                [class.form-input-error]="form.get('visibility')?.invalid && form.get('visibility')?.touched">
-
-          <option [ngValue]="null" disabled>
-            -- Select Visibility --
-          </option>
-
-          @for (v of visibilities; track v) {
-            <option [value]="v">
-              {{ v }}
-            </option>
-          }
-
-        </select>
-
-        @if (this.form.get('visibility')?.errors?.['required'] && this.form.get('visibility')?.touched) {
-          <p class="form-error">
-            * Visibility is required
+          <p class="form-label">
+            Current Visibility
           </p>
-        }
 
-        @if (this.form.get('visibility')?.errors?.['server']) {
-          <p class="form-error">
-            * {{ this.form.get('visibility')?.errors?.['server'] }}
-          </p>
-        }
+          <span class="batch" [ngClass]="{
+            'batch-info': originalData.visibility == AnnouncementVisibility.PRIVATE,
+            'batch-secondary': originalData.visibility == AnnouncementVisibility.ALL_TEACHERS,
+            'batch-violet': originalData.visibility == AnnouncementVisibility.COURSE,
+            'batch-primary': originalData.visibility == AnnouncementVisibility.BATCH
+          }">
+            {{ originalData.visibility }}
+          </span>
 
-      </div>
+        </div>
 
-      <!-- Course -->
-      @if (form.value.visibility === 'COURSE' || form.value.visibility === 'BATCH') {
+        <!-- Visibility -->
+        <div class="col-span-2 mx-4 mb-4">
 
-        <div class="col-span-2 p-4 rounded-2xl border border-blue-100 bg-blue-50">
-
-          <div class="flex items-center gap-2 mb-3">
-            <div class="w-2 h-2 rounded-full bg-blue-500"></div>
-
-            <h2 class="text-sm font-semibold text-blue-700">
-              Course Selection
-            </h2>
-          </div>
-
-          <label for="courseId" class="form-label">
-            Course <span class="text-red-500">*</span>
+          <label for="visibility" class="form-label">
+            Visibility <span class="text-red-500">*</span>
           </label>
 
-          <select id="courseId" class="form-input" formControlName="courseId">
+          <select id="visibility" class="form-input" formControlName="visibility"
+                  [class.form-input-error]="form.get('visibility')?.invalid && form.get('visibility')?.touched">
 
             <option [ngValue]="null" disabled>
-              -- Select Course --
+              -- Select Visibility --
             </option>
 
-            @for (c of courses; track c.id) {
-              <option [ngValue]="c.id">
-                {{ c.title }}
+            @for (v of visibilities; track v) {
+              <option [value]="v">
+                {{ v }}
               </option>
             }
 
           </select>
-          @if (this.form.get('courseId')?.errors?.['server']) {
+
+          @if (this.form.get('visibility')?.errors?.['required'] && this.form.get('visibility')?.touched) {
             <p class="form-error">
-              * {{ this.form.get('courseId')?.errors?.['server'] }}
+              * Visibility is required
             </p>
           }
+
+          @if (this.form.get('visibility')?.errors?.['server']) {
+            <p class="form-error">
+              * {{ this.form.get('visibility')?.errors?.['server'] }}
+            </p>
+          }
+
         </div>
+      </app-card-shell>
+
+      <!-- Course -->
+      @if (form.value.visibility === 'COURSE' || form.value.visibility === 'BATCH') {
+
+        <app-card-shell class="col-span-2">
+
+          <div class="p-4">
+
+            <div class="flex items-center gap-2 mb-3">
+              <div class="w-2 h-2 rounded-full bg-blue-500"></div>
+              <h2>Course Selection</h2>
+            </div>
+
+            <label for="courseId" class="form-label">
+              Course <span class="text-red-500">*</span>
+            </label>
+
+            <select id="courseId" class="form-input" formControlName="courseId">
+
+              <option [ngValue]="null" disabled>
+                -- Select Course --
+              </option>
+
+              @for (c of courses; track c.id) {
+                <option [ngValue]="c.id">
+                  {{ c.title }}
+                </option>
+              }
+
+            </select>
+            @if (this.form.get('courseId')?.errors?.['server']) {
+              <p class="form-error">
+                * {{ this.form.get('courseId')?.errors?.['server'] }}
+              </p>
+            }
+          </div>
+        </app-card-shell>
 
       }
 
       <!-- Batch -->
       @if (form.value.visibility === 'BATCH') {
 
-        <div class="col-span-2 p-4 rounded-2xl border border-purple-100 bg-purple-50">
+        <app-card-shell class="col-span-2">
 
-          <div class="flex items-center gap-2 mb-3">
-            <div class="w-2 h-2 rounded-full bg-purple-500"></div>
+          <div class="p-4">
 
-            <h2 class="text-sm font-semibold text-purple-700">
-              Batch Selection
-            </h2>
-          </div>
+            <div class="flex items-center gap-2 mb-3">
+              <div class="w-2 h-2 rounded-full bg-purple-500"></div>
 
-          <label for="batchId" class="form-label">
-            Batch <span class="text-red-500">*</span>
-          </label>
+              <h2>Batch Selection</h2>
+            </div>
 
-          <select id="batchId" class="form-input" formControlName="batchId">
+            <label for="batchId" class="form-label">
+              Batch <span class="text-red-500">*</span>
+            </label>
 
-            @if (!form.get('courseId')?.value) {
-              <option [ngValue]="null" disabled selected>
-                -- Select a Course First --
-              </option>
-            } @else if (batches.length == 0) {
-              <option [ngValue]="null" disabled selected>
-                No batches available for the selected course
-              </option>
-            } @else {
-              @for (b of batches; track b.id) {
-                <option [ngValue]="b.id">
-                  {{ b.name }}
+            <select id="batchId" class="form-input" formControlName="batchId">
+
+              @if (!form.get('courseId')?.value) {
+                <option [ngValue]="null" disabled selected>
+                  -- Select a Course First --
                 </option>
+              } @else if (batches.length == 0) {
+                <option [ngValue]="null" disabled selected>
+                  No batches available for the selected course
+                </option>
+              } @else {
+                <option [ngValue]="null" disabled selected>
+                  -- Select a Batch --
+                </option>
+                @for (b of batches; track b.id) {
+                  <option [ngValue]="b.id">
+                    {{ b.name }}
+                  </option>
+                }
               }
+
+            </select>
+
+            @if (this.form.get('batchId')?.errors?.['server']) {
+              <p class="form-error">
+                * {{ this.form.get('batchId')?.errors?.['server'] }}
+              </p>
             }
+          </div>
+        </app-card-shell>
 
-          </select>
-
-          @if (this.form.get('batchId')?.errors?.['server']) {
-            <p class="form-error">
-              * {{ this.form.get('batchId')?.errors?.['server'] }}
-            </p>
-          }
-        </div>
 
       }
 
       <!-- Footer -->
-      <div class="col-span-2 flex justify-end gap-3 pt-3 border-t border-gray-200">
+      <div class="col-span-2 flex justify-end gap-3 pt-3 border-t border-sky-900/80">
 
         <button type="button" class="btn-mini-secondary" (click)="onCancel()">
           Cancel
