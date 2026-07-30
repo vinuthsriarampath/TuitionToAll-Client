@@ -30,7 +30,7 @@
 
         <label for="description" class="form-label">Description <span class="text-red-500">*</span></label>
 
-        <quill-editor id="description" class="w-full h-55" [modules]="modules" formControlName="description"
+        <quill-editor id="description" class="w-full ql-background" [modules]="modules" formControlName="description"
                       placeholder="Update announcement description"></quill-editor>
 
         @if (form.get('description')?.errors?.['required'] && form.get('description')?.touched) {
@@ -59,7 +59,7 @@
       </div>
 
       <!-- Footer -->
-      <div class="col-span-2 flex justify-end gap-3 pt-3 border-t border-gray-200">
+      <div class="col-span-2 flex justify-end gap-3 pt-3 border-t border-sky-900/80">
 
         <button type="button" class="btn-mini-secondary" (click)="onCancel()">Cancel</button>
 
