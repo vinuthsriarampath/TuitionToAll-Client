@@ -1,6 +1,6 @@
 <app-card-shell>
 
-  <div class="p-5 border-b border-gray-100">
+  <div class="p-5 border-b border-sky-900/80">
 
     <div class="flex gap-2 flex-wrap mb-2">
 
@@ -34,21 +34,21 @@
 
       @if (announcement().courseId) {
         <div class="flex items-center gap-1">
-          <lucide-icon [img]="BookOpen" [size]="14"></lucide-icon>
-          {{ announcement().courseId }}
+          <lucide-icon [img]="BookOpen" [size]="14" class="text-sky-400"></lucide-icon>
+          <p class="para-primary">{{ announcement().courseId }}</p>
         </div>
       }
 
       @if (announcement().batchId) {
         <div class="flex items-center gap-1">
-          <lucide-icon [img]="Users" [size]="14"></lucide-icon>
-          {{ announcement().batchId }}
+          <lucide-icon [img]="Users" [size]="14" class="text-sky-400"></lucide-icon>
+          <p class="para-primary">{{ announcement().batchId }}</p>
         </div>
       }
 
       <div class="flex items-center gap-1">
-        <lucide-icon [img]="CalendarClock" [size]="14"></lucide-icon>
-        Expires {{ announcement().expireAt | date:'medium' }}
+        <lucide-icon [img]="CalendarClock" [size]="14" class="text-sky-400"></lucide-icon>
+        <p class="para-primary">Expires {{ announcement().expireAt | date:'medium' }}</p>
       </div>
 
     </div>
