@@ -7,7 +7,7 @@ import {AlertService} from '@core/services/alerts/alert.service';
 import {
   ConfirmationDialogComponent,
   ConfirmationDialogData
-} from '../../dialogs/confirmation-dialog/confirmation-dialog.component';
+} from '@shared/dialogs/confirmation-dialog/confirmation-dialog.component';
 import {AnnouncementService} from '../../services/announcements/announcement.service';
 import {CardHeaderComponent, CardShellComponent} from '@shared/ui';
 
