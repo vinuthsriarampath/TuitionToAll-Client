@@ -1,6 +1,6 @@
 <mat-sidenav-container class="h-full flex flex-col">
 
-  <mat-sidenav #drawer mode="over" position="end" class="h-full bg-white shadow-xl flex flex-col"
+  <mat-sidenav #drawer mode="over" position="end" class="h-full shadow-xl flex flex-col"
                style="width: 23vw; min-width: 320px;">
     <div class="flex items-center justify-between border-b pb-3 px-4 pt-4">
       <h2 class="text-lg font-semibold text-gray-800">Teacher Details</h2>
@@ -20,71 +20,65 @@
           alt="profile"
         />
 
-        <h3 class="mt-3 text-lg font-semibold text-gray-800">
-          {{ data.teacher.firstName }} {{ data.teacher.lastName }}
-        </h3>
-
-        <p class="text-sm text-gray-500">{{ data.teacher.email }}</p>
+        <h3>{{ data.teacher.firstName }} {{ data.teacher.lastName }}</h3>
+        <p class="para-primary">{{ data.teacher.email }}</p>
       </div>
 
       <!-- INFO CARD -->
-      <div class="bg-gray-50 rounded-xl p-4 space-y-3 shadow-sm">
+      <app-card-shell class="block mb-4">
+        <div class="p-4">
 
-        <div class="flex justify-between">
-          <span class="text-gray-500 text-sm">Contact</span>
-          <span class="text-gray-800 text-sm font-medium">
-          {{ data.teacher.contact }}
-        </span>
-        </div>
+          <div class="flex justify-between">
+            <p class="para-primary">Contact</p>
+            <p class="para-light font-medium">
+              {{ data.teacher.contact | phone }}
+            </p>
+          </div>
 
-        <div class="flex justify-between">
-          <span class="text-gray-500 text-sm">Date of Birth</span>
-          <span class="text-gray-800 text-sm font-medium">
-          {{ data.teacher.dob | date }}
-        </span>
-        </div>
+          <div class="flex justify-between">
+            <p class="para-primary">Date of Birth</p>
+            <p class="para-light font-medium">
+              {{ data.teacher.dob | date }}
+            </p>
+          </div>
 
-        <div class="flex flex-col">
-          <span class="text-gray-500 text-sm">Address</span>
-          <span class="text-gray-800 text-sm font-medium break-words">
-          {{ data.teacher.address }}
-        </span>
+          <div class="flex flex-col">
+            <p class="para-primary">Address</p>
+            <p class="para-light">
+              {{ data.teacher.address }}
+            </p>
+          </div>
         </div>
-      </div>
+      </app-card-shell>
 
       <!-- APPLICATION INFO -->
-      <div class="bg-blue-50 rounded-xl p-4 space-y-2 shadow-sm">
+      <app-card-shell class="block mb-4">
 
-        <div class="flex justify-between">
-          <span class="text-gray-500 text-sm">Application ID</span>
-          <span class="text-gray-800 text-sm font-medium">
-          #{{ data.id }}
-        </span>
-        </div>
+        <div class="p-4">
 
-        <div class="flex justify-between">
-          <span class="text-gray-500 text-sm">Status</span>
-          <span
-            class="batch"
-            [ngClass]="{
-            'batch-success': data.status === ApplicationStatus.SELECTED,
-            'batch-warning': data.status === ApplicationStatus.PENDING,
-            'batch-danger': data.status === ApplicationStatus.REJECTED || data.status === ApplicationStatus.CANCELED
-          }"
-          >
-          {{ data.status }}
-        </span>
-        </div>
+          <div class="flex justify-between">
+            <p class="para-primary">Application ID</p>
+            <p class="para-light">
+              #{{ data.id }}
+            </p>
+          </div>
 
-        <div class="flex justify-between">
-          <span class="text-gray-500 text-sm">Applied Date</span>
-          <span class="text-gray-800 text-sm font-medium">
-          {{ data.appliedDate | date }}
-        </span>
+          <div class="flex justify-between">
+            <p class="para-primary">Status</p>
+            <app-badge [text]="data.status" [variant]="  data.status === ApplicationStatus.SELECTED? 'success' : data.status === ApplicationStatus.PENDING ? 'warning' : 'danger' "></app-badge>
+
+          </div>
+
+          <div class="flex justify-between">
+            <p class="para-primary">Applied Date</p>
+            <p class="para-light">
+              {{ data.appliedDate | date }}
+            </p>
+          </div>
         </div>
-      </div>
+      </app-card-shell>
       @if (data.status === ApplicationStatus.PENDING){
-        <div class="border-t p-4 flex flex-col gap-2">
+        <div class="border-t border-sky-900/80 p-4 flex flex-col gap-2">
           <button (click)="onSingleSelect(data.id)" class="btn-primary w-full">
             Select
           </button>
@@ -120,27 +114,30 @@
     <app-page-title [title]="'Job Applications'" [description]="'View all your job applications for the vacancy here!'"
                     [backButton]="true"></app-page-title>
 
-    <div *ngIf="hasSelection"
-         class="flex items-center justify-between bg-blue-50 border border-blue-200 rounded-lg px-4 py-2 mb-3">
+    <app-card-shell class="block mb-4">
 
-    <span class="text-sm text-gray-700 font-medium">
-      {{ selection.selected.length }} selected
-    </span>
+      <div *ngIf="hasSelection"
+           class="flex items-center justify-between px-4 py-2">
 
-      <div class="flex gap-2">
-        <button (click)="resetSelection()" class="btn-mini-secondary">
-          Reset
-        </button>
+      <p class="para-primary">
+        {{ selection.selected.length }} selected
+      </p>
 
-        <button (click)="onBulkSelect()" class="btn-mini-primary">
-          Select
-        </button>
+        <div class="flex gap-2">
+          <button (click)="resetSelection()" class="btn-mini-secondary">
+            Reset
+          </button>
 
-        <button (click)="onBulkReject()" class="btn-mini-primary btn-danger">
-          Reject
-        </button>
+          <button (click)="onBulkSelect()" class="btn-mini-primary">
+            Select
+          </button>
+
+          <button (click)="onBulkReject()" class="btn-mini-primary btn-danger">
+            Reject
+          </button>
+        </div>
       </div>
-    </div>
+    </app-card-shell>
 
     <div class="flex-1 overflow-auto">
       <table mat-table [dataSource]="dataSource">

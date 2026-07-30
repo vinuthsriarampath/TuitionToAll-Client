@@ -27,6 +27,8 @@ import {InstituteTeacherService} from '../../../institute/services/institute-tea
 import {ApplicationSelectionRequest} from '../../dtos/request/ApplicationSelectionRequest';
 import {MatTooltip} from '@angular/material/tooltip';
 import {ApplicationRejectionRequest} from '../../dtos/request/ApplicationRejectionRequest';
+import {BadgeComponent, CardShellComponent} from '@shared/ui';
+import {PhonePipePipe} from '@shared/utils/pipes/phone-pipe/phone-pipe.pipe';
 
 @Component({
   selector: 'app-view-application',
@@ -49,7 +51,10 @@ import {ApplicationRejectionRequest} from '../../dtos/request/ApplicationRejecti
     MatSidenavContent,
     NgClass,
     NgIf,
-    MatTooltip
+    MatTooltip,
+    CardShellComponent,
+    BadgeComponent,
+    PhonePipePipe
   ],
   templateUrl: './view-application.component.html',
   styleUrl: './view-application.component.css'
