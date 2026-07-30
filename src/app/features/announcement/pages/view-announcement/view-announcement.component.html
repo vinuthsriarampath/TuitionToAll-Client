@@ -40,30 +40,32 @@
 
           @if (announcement.courseId) {
             <div class="flex items-center gap-1">
-              <lucide-icon [img]="BookOpen" [size]="14"></lucide-icon>
-              {{ announcement.courseId }}
+              <lucide-icon [img]="BookOpen" [size]="14" class="text-sky-400"></lucide-icon>
+              <p class="para-primary">{{ announcement.courseId }}</p>
             </div>
           }
 
           @if (announcement.batchId) {
             <div class="flex items-center gap-1">
-              <lucide-icon [img]="Users" [size]="14"></lucide-icon>
-              {{ announcement.batchId }}
+              <lucide-icon [img]="Users" [size]="14" class="text-sky-400"></lucide-icon>
+              <p class="para-primary">{{ announcement.batchId }}</p>
             </div>
           }
 
           <div class="flex items-center gap-1">
-            <lucide-icon [img]="CalendarClock" [size]="14"></lucide-icon>
-            Expires {{ announcement.expireAt | date:'medium' }}
+            <lucide-icon [img]="CalendarClock" [size]="14" class="text-sky-400"></lucide-icon>
+            <p class="para-primary">Expires {{ announcement.expireAt | date:'medium' }}</p>
           </div>
 
         </div>
 
       </div>
 
-      <div class="flex-1 overflow-y-auto">
-        <quill-editor id="description" class="w-full h-full px-25 mt-4" [modules]="{toolbar:false}" [readOnly]="true" [ngModel]="announcement.description"></quill-editor>
-      </div>
+      <app-card-shell class="block mt-3">
+        <div class="flex-1 overflow-y-auto">
+          <quill-editor id="description" class="w-full h-full px-25 mt-4" [modules]="{toolbar:false}" [readOnly]="true" [ngModel]="announcement.description" [styles]="{ border: 'none'}"></quill-editor>
+        </div>
+      </app-card-shell>
 
 
     </div>

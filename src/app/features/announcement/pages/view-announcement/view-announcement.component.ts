@@ -10,6 +10,7 @@ import {AnnouncementStatus} from '../../enums/AnnouncementStatus';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {QuillEditorComponent} from 'ngx-quill';
 import {PageLayoutComponent} from '@core/layouts';
+import {CardShellComponent} from '@shared/ui';
 
 @Component({
   selector: 'app-view-announcement',
@@ -20,7 +21,8 @@ import {PageLayoutComponent} from '@core/layouts';
     FormsModule,
     QuillEditorComponent,
     ReactiveFormsModule,
-    PageLayoutComponent
+    PageLayoutComponent,
+    CardShellComponent
   ],
   templateUrl: './view-announcement.component.html',
   styleUrl: './view-announcement.component.css'
