@@ -127,6 +127,11 @@ export class ChapterListComponent implements OnInit, OnChanges {
 
   }
 
+  onEditClick(event: MouseEvent, chapter: ChapterResponse): void {
+    event.stopPropagation(); // Prevent routerLink
+    this.openUpdateChapterDetailsDialog(chapter);
+  }
+
   protected readonly Edit = Edit;
   protected readonly BookOpen = BookOpen;
   protected readonly Pencil = Pencil;

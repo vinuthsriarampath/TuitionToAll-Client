@@ -51,7 +51,7 @@
         <!-- Right Actions -->
         <div class="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">
 
-          <button (click)="openUpdateChapterDetailsDialog(chapter)" class="w-9 h-9 cursor-pointer rounded-lg btn-primary transition flex items-center justify-center" matTooltip="Edit Chapter" matTooltipPosition="above">
+          <button (click)="onEditClick($event,chapter)" class="w-9 h-9 cursor-pointer rounded-lg btn-primary transition flex items-center justify-center" matTooltip="Edit Chapter" matTooltipPosition="above">
             <lucide-icon [img]="Pencil" [size]="16"></lucide-icon>
           </button>
 
