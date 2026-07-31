@@ -25,7 +25,7 @@ export class CourseTreeService{
     this.treeSubject.next([parentBatchesNode]);
   }
 
-  loadBatches(batchFolder: CourseTreeNode,courseId: number): void {
+  public loadBatches(batchFolder: CourseTreeNode,courseId: number): void {
     if (this.batchesLoaded) return;
 
     batchFolder.loading = true;
@@ -34,9 +34,12 @@ export class CourseTreeService{
       next: (response) => {
         const batches = response.data ?? [];
 
-        batchFolder.children = batches.map(batch => (
-          CourseTreeNodeFactory.create(batch.id, batch.name, 'batch', 1, true)
-        ));
+        batchFolder.children = batches.map(batch => {
+          const batchNode: CourseTreeNode = CourseTreeNodeFactory.create(batch.id, batch.name, 'batch', 1, true, batchFolder.id);
+          const parentModuleNode: CourseTreeNode = CourseTreeNodeFactory.create(-2, 'Modules', 'modules-folder', batchNode.level + 1, true,batch.id);
+          batchNode.children = [parentModuleNode];
+          return batchNode;
+        });
 
         batchFolder.page = 0;
         batchFolder.hasMore = false;
@@ -51,105 +54,105 @@ export class CourseTreeService{
   }
 
   // Called when expanding a Batch node for the first time
-  loadModulesForBatch(batchNode: CourseTreeNode): void {
-    if (batchNode.loaded || batchNode.loading) return;
+  public loadModulesForBatch(moduleFolder: CourseTreeNode): void {
+    if (moduleFolder.loaded || moduleFolder.loading) return;
 
-    batchNode.loading = true;
-    this.fetchModules(batchNode, 0);
+    moduleFolder.loading = true;
+    this.fetchModules(moduleFolder, 0);
   }
 
   // Called when clicking "Load More" under a batch
-  loadNextModulePage(batchNode: CourseTreeNode): void {
-    if (batchNode.loading || !batchNode.hasMore) return;
+  public loadNextModulePage(moduleFolder: CourseTreeNode): void {
+    if (moduleFolder.loading || !moduleFolder.hasMore) return;
 
-    batchNode.loading = true;
-    this.fetchModules(batchNode, batchNode.page + 1);
+    moduleFolder.loading = true;
+    this.fetchModules(moduleFolder, moduleFolder.page + 1);
   }
 
-  private fetchModules(batchNode: CourseTreeNode, page: number): void {
-    this.batchService.getAllModulesByBatch(batchNode.id, page).subscribe({
-      next: (res) => {
-        const modules = res.data ?? [];
-        const isLastPage = res.last ?? true;
+  private fetchModules(moduleFolder: CourseTreeNode, page: number): void {
+    if (moduleFolder.parentId != null) {
+      this.batchService.getAllModulesByBatch(moduleFolder.parentId, page).subscribe({
+        next: (res) => {
+          const modules = res.data ?? [];
+          const isLastPage = res.last ?? true;
 
-        // Convert ModuleResponse array into tree nodes
-        const moduleNodes: CourseTreeNode[] = modules.map(m => (
-          CourseTreeNodeFactory.create(m.id,m.name,'module',batchNode.level+2,true,batchNode.id)
-        ));
+          // Convert ModuleResponse array into tree nodes along with its default folders
+          const moduleNodes: CourseTreeNode[] = modules.map(module => {
+            const moduleNode:CourseTreeNode = CourseTreeNodeFactory.create(module.id, module.name, 'module', moduleFolder.level + 2, true, moduleFolder.id);
+            const parentChapterNode: CourseTreeNode = CourseTreeNodeFactory.create(-3,'Chapters','chapters-folder',moduleNode.level+1,true,module.id);
+            moduleNode.children = [parentChapterNode];
+            return moduleNode;
+          });
 
-        // Remove previous "load-more" node if appending new pages
-        let currentChildren = this.filterLoadMoreNode(batchNode);
-        currentChildren = [...currentChildren, ...moduleNodes];
+          // Remove previous "load-more" node if appending new pages
+          let currentChildren = this.filterLoadMoreNode(moduleFolder);
+          currentChildren = [...currentChildren, ...moduleNodes];
 
-        batchNode.page = page;
-        batchNode.hasMore = !isLastPage;
-        batchNode.loaded = true;
-        batchNode.loading = false;
+          moduleFolder.page = page;
+          moduleFolder.hasMore = !isLastPage;
+          moduleFolder.loaded = true;
+          moduleFolder.loading = false;
 
-        // Append 'load-more' node if more pages exist
-        if (batchNode.hasMore) {
-          currentChildren.push(
-            CourseTreeNodeFactory.create(-batchNode.id,'Load More Modules...','load-more',batchNode.level+2,false,batchNode.id,page+1)
-          );
+          // Append 'load-more' node if more pages exist
+          if (moduleFolder.hasMore) {
+            currentChildren.push(
+              CourseTreeNodeFactory.create(-moduleFolder.id, 'Load More Modules...', 'load-more', moduleFolder.level + 2, false, moduleFolder.id, page + 1)
+            );
+          }
+
+          moduleFolder.children = currentChildren;
+
+          this.refreshTree();
+        },
+        error: (err) => {
+          console.error('Failed to load modules', err);
+          moduleFolder.loading = false;
         }
-
-        const parentModuleNode: CourseTreeNode = CourseTreeNodeFactory.create(-2,'Modules','modules-folder',batchNode.level+1,true);
-        parentModuleNode.children = currentChildren;
-
-        batchNode.children = [parentModuleNode];
-
-        this.refreshTree();
-      },
-      error: (err) => {
-        console.error('Failed to load modules', err);
-        batchNode.loading = false;
-      }
-    });
+      });
+    }
   }
 
-  loadChaptersForModule(moduleNode: CourseTreeNode): void {
-    if (moduleNode.loaded || moduleNode.loading) return;
-    moduleNode.loading = true;
-    this.fetchChapters(moduleNode,0);
+  public loadChaptersForModule(chapterFolder: CourseTreeNode): void {
+    if (chapterFolder.loaded || chapterFolder.loading) return;
+    chapterFolder.loading = true;
+    this.fetchChapters(chapterFolder,0);
   }
 
-  fetchChapters(moduleNode:CourseTreeNode, page:number):void {
-    this.moduleService.getChaptersByModuleId(moduleNode.id).subscribe({
-      next: (res) => {
-        const chapter = res.data ?? [];
+  private fetchChapters(chapterFolder:CourseTreeNode, page:number):void {
+    if(chapterFolder.parentId){
+      this.moduleService.getChaptersByModuleId(chapterFolder.parentId).subscribe({
+        next: (res) => {
+          const chapter = res.data ?? [];
 
-        const chapterNodes:CourseTreeNode[] = chapter.map(c =>(
-          CourseTreeNodeFactory.create(c.id,c.title,'chapter',moduleNode.level+2,false, moduleNode.id)
-        ));
+          const chapterNodes:CourseTreeNode[] = chapter.map(c =>(
+            CourseTreeNodeFactory.create(c.id,c.title,'chapter',chapterFolder.level+2,false, chapterFolder.id)
+          ));
 
 
-        let currentChildren = this.filterLoadMoreNode(moduleNode);
-        currentChildren = [...currentChildren, ...chapterNodes];
+          let currentChildren = this.filterLoadMoreNode(chapterFolder);
+          currentChildren = [...currentChildren, ...chapterNodes];
 
-        moduleNode.page = 0;
-        moduleNode.hasMore = false;
-        moduleNode.loaded = true;
-        moduleNode.loading = false;
+          chapterFolder.page = 0;
+          chapterFolder.hasMore = false;
+          chapterFolder.loaded = true;
+          chapterFolder.loading = false;
 
-        if(moduleNode.hasMore){
-          currentChildren.push(
-            CourseTreeNodeFactory.create(-moduleNode.id,'Load More Chapters...','load-more',moduleNode.level+2,false, moduleNode.id,page+1)
-          );
+          if(chapterFolder.hasMore){
+            currentChildren.push(
+              CourseTreeNodeFactory.create(-chapterFolder.id,'Load More Chapters...','load-more',chapterFolder.level+2,false, chapterFolder.id,page+1)
+            );
+          }
+
+          chapterFolder.children = currentChildren;
+
+          this.refreshTree();
+        },
+        error: (err) => {
+          console.error('Failed to load chapters', err);
+          chapterFolder.loading = false;
         }
-
-        const parentChapterNode: CourseTreeNode = CourseTreeNodeFactory.create(-3,'Chapters','chapters-folder',moduleNode.level+1,currentChildren.length > 0);
-        parentChapterNode.loaded = true;
-        parentChapterNode.children = currentChildren;
-
-        moduleNode.children = [parentChapterNode];
-
-        this.refreshTree();
-      },
-      error: (err) => {
-        console.error('Failed to load chapters', err);
-        moduleNode.loading = true;
-      }
-    });
+      });
+    }
   }
 
   filterLoadMoreNode(node:CourseTreeNode): CourseTreeNode[] {

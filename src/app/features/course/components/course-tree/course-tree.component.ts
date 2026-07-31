@@ -46,11 +46,11 @@ export class CourseTreeComponent implements OnInit{
       this.treeService.loadBatches(node, Number.parseInt(this.route.snapshot.params['courseId']));
     }
 
-    if (node.type === 'batch' && !node.loaded) {
+    if (node.type === 'modules-folder' && !node.loaded) {
       this.treeService.loadModulesForBatch(node);
     }
 
-    if (node.type === 'module' && !node.loaded) {
+    if (node.type === 'chapters-folder' && !node.loaded) {
       this.treeService.loadChaptersForModule(node);
     }
 
