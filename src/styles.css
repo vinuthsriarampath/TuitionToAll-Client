@@ -380,6 +380,44 @@
 }
 
 /* ==========================================================================
+   Angular Material Tree Overrides
+   ========================================================================== */
+
+/* Main Tree Container */
+.mat-tree,
+mat-tree {
+  background-color: transparent !important;
+  color: #e0f2fe !important; /* sky-100 */
+}
+
+/* Tree Nodes */
+.mat-tree-node,
+mat-tree-node {
+  background-color: transparent !important;
+  color: #e0f2fe !important; /* sky-100 */
+  min-height: 40px !important;
+  border-bottom: 1px solid rgba(7, 89, 133, 0.3) !important; /* sky-800/30 */
+  transition: background-color 150ms ease-in-out;
+}
+
+/* Node Hover Effect */
+.mat-tree-node:hover,
+mat-tree-node:hover {
+  background-color: rgba(7, 89, 133, 0.25) !important; /* hover:bg-sky-800/25 */
+}
+
+/* Remove bottom border on the last node */
+.mat-tree-node:last-child,
+mat-tree-node:last-child {
+  border-bottom: none !important;
+}
+
+/* Icon Buttons inside Tree Nodes */
+mat-tree-node .mat-mdc-icon-button {
+  color: #38bdf8 !important; /* sky-400 */
+}
+
+/* ==========================================================================
    Design System Utility Classes (Buttons, Forms, Badges, Cards)
    ========================================================================== */
 
