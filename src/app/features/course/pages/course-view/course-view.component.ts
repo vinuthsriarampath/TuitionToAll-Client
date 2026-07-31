@@ -10,6 +10,7 @@ import {CourseService} from '@features/course/services/course/course.service';
 import {Course} from '@features/course/dtos/response/course';
 import {BadgeComponent, CardShellComponent} from '@shared/ui';
 import {LucideAngularModule, Star} from 'lucide-angular';
+import {CourseTreeComponent} from '@features/course/components/course-tree/course-tree.component';
 
 @Component({
   selector: 'app-course-view',
@@ -20,7 +21,8 @@ import {LucideAngularModule, Star} from 'lucide-angular';
     CourseAnnouncementListComponent,
     BadgeComponent,
     CardShellComponent,
-    LucideAngularModule
+    LucideAngularModule,
+    CourseTreeComponent
   ],
   templateUrl: './course-view.component.html',
   styleUrl: './course-view.component.css'
