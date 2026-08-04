@@ -33,4 +33,8 @@ export class ResourceService {
   completeUpload(uploadId: string): Observable<ApiResponse<ResourceResponse>> {
     return this.http.post<ApiResponse<ResourceResponse>>(`${this.baseUrl}/upload/complete/${uploadId}`, {});
   }
+
+  deleteResource(resourceId:number): Observable<ApiResponse<null>> {
+    return this.http.delete<ApiResponse<null>>(`${this.baseUrl}/${resourceId}`)
+  }
 }
