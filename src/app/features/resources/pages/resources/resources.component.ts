@@ -19,10 +19,11 @@ import {
 } from '@angular/material/table';
 import {ResourceResponse} from '../../dtos/response/ResourceResponse';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
-import {Download, LucideAngularModule, Pencil, RefreshCw} from 'lucide-angular';
+import {Download, LucideAngularModule, RefreshCw, Trash2} from 'lucide-angular';
 import {ResourceService} from '../../services/resource/resource.service';
 import {environment} from '@env/environment.development';
 import {ResourceCreateComponent} from '../../dialogs/resource-create/resource-create.component';
+import {ConfirmationDialogData} from '@shared/dialogs/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-resources',
@@ -124,10 +125,44 @@ export class ResourcesComponent implements OnInit{
     });
   }
 
+  protected onDeleteConfirmation(resourceId: string): void {
+    const dialogData:ConfirmationDialogData = {
+      title: "Confirm Deletion",
+      message: "Are you sure you want to delete this resource?",
+      confirmText:"Delete",
+      confirmButtonClass: "btn-mini-secondary btn-danger",
+      cancelText: "Cancel",
+      type: "danger",
+      icon: Trash2
+    }
+    this.alertService.triggerSuccessConfirmationAlert(dialogData).subscribe({
+      next:(res)=>{
+        if (res){
+          this.onDelete(Number.parseInt(resourceId));
+        }
+      }
+    })
+
+  }
+
+  private onDelete(resourceId: number): void {
+    this.resourceService.deleteResource(resourceId).subscribe({
+      next: (res) => {
+        if(res) {
+          this.alertService.triggerSuccessAlert("Resource deleted successfully");
+          this.fetchResources();
+        }
+      },
+      error:(err)=>{
+        this.alertService.triggerErrorAlert(err.error.message);
+      }
+    });
+  }
+
   protected readonly Download = Download;
   protected readonly RefreshCw = RefreshCw;
 
 
   protected readonly environment = environment;
-  protected readonly Pencil = Pencil;
+  protected readonly Trash2 = Trash2;
 }

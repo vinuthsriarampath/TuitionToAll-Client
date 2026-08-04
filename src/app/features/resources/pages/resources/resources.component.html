@@ -33,10 +33,9 @@
               <button (click)="onDownload(element.fileName)" class="btn-mini-primary">
                 <lucide-icon [img]="Download" [size]="18" class="filled-icon"></lucide-icon>
               </button>
-              <button class="btn-mini-primary">
-                <lucide-icon [img]="Pencil" [size]="18" class="filled-icon"></lucide-icon>
+              <button (click)="onDeleteConfirmation(element.id)" class="btn-mini-secondary btn-danger">
+                <lucide-icon [img]="Trash2" [size]="18" class="filled-icon"></lucide-icon>
               </button>
-
             </div>
           </td>
         </ng-container>
