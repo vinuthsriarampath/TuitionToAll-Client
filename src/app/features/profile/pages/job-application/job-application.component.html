@@ -1,107 +1,114 @@
-<div class="min-h-screen bg-blue-50 p-4 md:p-6">
-  <div class="mb-6 py-1 px-4 bg-blue-100 rounded-2xl">
-    <app-page-title [backButton]="true" [title]="'Application for '+vacancy.title" [description]="'you can apply for the vacancy here!'"></app-page-title>
-  </div>
+<app-page-layout
+  [headerTitle]="'Application for '+vacancy.title"
+  [headerDescription]="'you can apply for the vacancy here!'"
+  [showBackButton]="true"
+>
+  <div data-body>
 
-  <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-md p-5 md:p-8 flex flex-col gap-6">
+    <div  class="max-w-4xl mx-auto p-5 md:p-8 flex flex-col gap-6">
 
-    <!-- 🔹 HEADER -->
-    <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
+      <!-- 🔹 HEADER -->
+      <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
 
-      <div>
-        <h1 class="text-2xl md:text-3xl font-bold text-gray-800">
-          {{ vacancy.title }}
-        </h1>
+        <div>
+          <h1>{{ vacancy.title }}</h1>
 
-        <div class="flex flex-wrap gap-2 mt-3 text-sm text-gray-600">
+          <div class="flex flex-wrap gap-2 mt-3 text-sm text-gray-600">
 
-          <span class="batch batch-warning">
-            {{ vacancy.requiredExperienceYears }}+ Years Experience
-          </span>
+            <span class="batch batch-warning">
+              {{ vacancy.requiredExperienceYears }}+ Years Experience
+            </span>
 
-          <span class="batch batch-danger">
-            Closes: {{ vacancy.vacancyClosingDate | date:'mediumDate' }}
-          </span>
+            <span class="batch batch-danger">
+              Closes: {{ vacancy.vacancyClosingDate | date:'mediumDate' }}
+            </span>
 
-          <span class="batch batch-success">
-            {{ vacancy.status }}
-          </span>
+            <span class="batch batch-success">
+              {{ vacancy.status }}
+            </span>
 
+          </div>
         </div>
+
+        <!-- 🔹 APPLY BUTTON (Desktop) -->
+        <div class="hidden md:block">
+          @if (currentUser && currentUser.role?.role === 'teacher'){
+            <button
+              class="btn-primary"
+              (click)="applyForVacancy()"
+              [disabled]="isApplied">
+              {{ isApplied ? 'Already Applied' : 'Apply Now' }}
+            </button>
+          } @else {
+            <p class=" para-light text-center">
+              Only teachers can apply for this vacancy.
+            </p>
+          }
+        </div>
+
       </div>
 
-      <!-- 🔹 APPLY BUTTON (Desktop) -->
-      <div class="hidden md:block">
-        @if (currentUser && currentUser.role?.role === 'teacher'){
-          <button
-            class="btn-primary"
-            (click)="applyForVacancy()"
-            [disabled]="isApplied">
-            {{ isApplied ? 'Already Applied' : 'Apply Now' }}
-          </button>
-        } @else {
-          <p class="text-sm text-gray-500">
-            Only teachers can apply for this vacancy.
-          </p>
-        }
+      <!-- 🔹 DIVIDER -->
+      <hr class="border-sky-900/50">
+
+      <!-- 🔹 JOB DESCRIPTION -->
+      <h2>Job Description</h2>
+      <app-card-shell class="block mt-3">
+        <div class="flex-1 overflow-y-auto">
+          <quill-editor id="description" class="w-full h-full px-25 mt-4" [modules]="{toolbar:false}" [readOnly]="true" [ngModel]="vacancy.jobDescription" [styles]="{ border: 'none'}"></quill-editor>
+        </div>
+      </app-card-shell>
+
+      <!-- 🔹 DETAILS SECTION -->
+      <h2>Other Details</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+        <app-card-shell>
+          <div class="p-4">
+            <p class="para-primary">Required Experience</p>
+            <p class="para-light">{{ vacancy.requiredExperienceYears }} Years</p>
+          </div>
+        </app-card-shell>
+
+        <app-card-shell>
+          <div class="p-4">
+            <p class="para-primary">Closing Date</p>
+            <p class="para-light">
+              {{ vacancy.vacancyClosingDate | date:'fullDate' }}
+            </p>
+          </div>
+        </app-card-shell>
+
+        <app-card-shell>
+          <div class="p-4">
+            <p class="para-primary">Status</p>
+            <p class="para-light">{{ vacancy.status }}</p>
+          </div>
+        </app-card-shell>
+
       </div>
 
     </div>
 
-    <!-- 🔹 DIVIDER -->
-    <hr>
-
-    <!-- 🔹 JOB DESCRIPTION -->
-    <div>
-      <h2 class="text-lg font-semibold text-gray-800 mb-2">
-        Job Description
-      </h2>
-
-      <quill-editor [readOnly]="true" [modules]="{toolbar:false}" [ngModel]="vacancy.jobDescription"></quill-editor>
+    <!-- 🔹 MOBILE APPLY BAR -->
+    <div class="fixed bottom-0 left-0 w-full bg-sky-950 border-t border-t-sky-900/80 p-3 md:hidden shadow-md">
+      @if (currentUser && currentUser.role?.role === 'teacher'){
+      <button
+        class="btn-primary w-full"
+        (click)="applyForVacancy()"
+        [disabled]="isApplied">
+        {{ isApplied ? 'Already Applied' : 'Apply Now' }}
+      </button>
+      } @else {
+      <p class=" para-light text-center">
+        Only teachers can apply for this vacancy.
+      </p>
+      }
     </div>
-
-    <!-- 🔹 DETAILS SECTION -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-      <div class="bg-gray-50 p-4 rounded-lg">
-        <p class="text-sm text-gray-500">Required Experience</p>
-        <p class="font-semibold text-gray-800">
-          {{ vacancy.requiredExperienceYears }} Years
-        </p>
-      </div>
-
-      <div class="bg-gray-50 p-4 rounded-lg">
-        <p class="text-sm text-gray-500">Closing Date</p>
-        <p class="font-semibold text-gray-800">
-          {{ vacancy.vacancyClosingDate | date:'fullDate' }}
-        </p>
-      </div>
-
-      <div class="bg-gray-50 p-4 rounded-lg">
-        <p class="text-sm text-gray-500">Status</p>
-        <p class="font-semibold text-gray-800">
-          {{ vacancy.status }}
-        </p>
-      </div>
-
-    </div>
-
   </div>
 
-  <!-- 🔹 MOBILE APPLY BAR -->
-  <div class="fixed bottom-0 left-0 w-full bg-white border-t p-3 md:hidden shadow-md">
-    @if (currentUser && currentUser.role?.role === 'teacher'){
-    <button
-      class="btn-primary w-full"
-      (click)="applyForVacancy()"
-      [disabled]="isApplied">
-      {{ isApplied ? 'Already Applied' : 'Apply Now' }}
-    </button>
-    } @else {
-    <p class="text-center text-sm text-gray-500">
-      Only teachers can apply for this vacancy.
-    </p>
-    }
-  </div>
+</app-page-layout>
 
-</div>
+
+
+

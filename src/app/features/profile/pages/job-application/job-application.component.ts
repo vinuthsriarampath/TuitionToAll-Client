@@ -13,6 +13,8 @@ import {AlertService} from '@core/services/alerts/alert.service';
 import {TeacherVacancyStatus} from '../../../teacher-vacancy/enums/teacher-vacancy-status';
 import {ConfirmationDialogData} from '@shared/dialogs/confirmation-dialog/confirmation-dialog.component';
 import {Check} from 'lucide-angular';
+import {PageLayoutComponent} from '@core/layouts';
+import {CardShellComponent} from '@shared/ui';
 
 @Component({
   selector: 'app-job-application',
@@ -20,7 +22,9 @@ import {Check} from 'lucide-angular';
     DatePipe,
     QuillEditorComponent,
     FormsModule,
-    PageTitleComponent
+    PageTitleComponent,
+    PageLayoutComponent,
+    CardShellComponent
   ],
   templateUrl: './job-application.component.html',
   styleUrl: './job-application.component.css'
