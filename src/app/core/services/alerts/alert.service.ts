@@ -7,6 +7,10 @@ import {
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {InformationAlertComponent} from '@shared/components/information-alert/information-alert.component';
+import {
+  ConfirmationDialogComponent,
+  ConfirmationDialogData
+} from '@shared/dialogs/confirmation-dialog/confirmation-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -43,15 +47,12 @@ export class AlertService {
     }
   }
 
-  triggerSuccessConfirmationAlert(message?:string, description?:string):Observable<boolean>{
-    const dialogRef= this.dialog.open(SuccessConfirmationAlertComponent,{
-      maxWidth:'40vw',
-      width:'100%',
-      panelClass:'success-confirmation-alert',
-      data:{
-        message:message ?? 'Are you sure you want to do this ?',
-        description:description ?? 'This action cannot be undone'
-      }
+  triggerSuccessConfirmationAlert(dialogData:ConfirmationDialogData):Observable<boolean>{
+    const dialogRef= this.dialog.open(ConfirmationDialogComponent,{
+      width: '450px',
+      disableClose: true,
+      panelClass:'confirmation-dialog',
+      data: dialogData
     });
 
     return dialogRef.afterClosed().pipe(
