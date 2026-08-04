@@ -4,10 +4,11 @@ import {AnnouncementResponse} from '../../../announcement/dtos/response/Announce
 import {AlertService} from '@core/services/alerts/alert.service';
 import {AnnouncementFilterRequest} from '../../../announcement/dtos/request/AnnouncementFilterRequest';
 import {AnnouncementStatus} from '../../../announcement/enums/AnnouncementStatus';
-import {LucideAngularModule, Pin} from 'lucide-angular';
+import {CircleSlash, LucideAngularModule, Pin} from 'lucide-angular';
 import {NgClass} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {CardShellComponent} from '@shared/ui';
+import {NoContentComponent} from '@shared/components/no-content/no-content.component';
 
 @Component({
   selector: 'app-course-announcement-list',
@@ -15,7 +16,8 @@ import {CardShellComponent} from '@shared/ui';
     LucideAngularModule,
     NgClass,
     RouterLink,
-    CardShellComponent
+    CardShellComponent,
+    NoContentComponent
   ],
   templateUrl: './course-announcement-list.component.html',
   styleUrl: './course-announcement-list.component.css'
@@ -103,4 +105,5 @@ export class CourseAnnouncementListComponent implements OnInit{
 
   protected readonly Pin = Pin;
   protected readonly Number = Number;
+  protected readonly CircleSlash = CircleSlash;
 }
