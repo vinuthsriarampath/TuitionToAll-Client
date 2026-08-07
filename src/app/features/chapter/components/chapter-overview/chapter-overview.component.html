@@ -8,9 +8,9 @@
     </div>
 
     <div class="grid grid-cols-2 gap-4">
-      <app-info-row label="Chapter Order" [value]="chapterOrder()"/>
-      <app-info-row label="Module" [value]="moduleName()"/>
-      <app-info-row label="Status" [value]="status()"/>
+      <app-info-row label="Chapter Order" [value]="chapterOrder()" [loading]="loading()"/>
+      <app-info-row label="Module" [value]="moduleName()" [loading]="loading()"/>
+      <app-info-row label="Status" [value]="status()" [loading]="loading()"/>
     </div>
   </div>
 

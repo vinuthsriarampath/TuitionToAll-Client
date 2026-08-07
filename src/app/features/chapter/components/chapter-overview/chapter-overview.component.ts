@@ -16,4 +16,5 @@ export class ChapterOverviewComponent {
   chapterOrder = input.required<number>();
   moduleName = input.required<string>();
   status = input.required<ChapterStatus>();
+  loading = input<boolean>(false);
 }
