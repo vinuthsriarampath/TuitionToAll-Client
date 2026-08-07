@@ -2,6 +2,9 @@
   [headerTitle]="'Batch Management'"
   [headerDescription]="'Manage All your Batched related the course'"
   [showBackButton]="true"
+  [isLoading]="loading"
+  [loaderTitle]="'Loading Batches'"
+  [loaderDescription]="'Fetch all your batches from the server.'"
 >
   <button data-actions (click)="openCreateBatchDialog()" class="btn-primary">
     Create Batch
@@ -72,6 +75,25 @@
 
       <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
       <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+
+      <!-- No Data Row -->
+      <tr *matNoDataRow>
+        <td class="mat-cell text-center p-4" [attr.colspan]="columnsToDisplay.length">
+          @if (loading) {
+            <ng-container>
+              Loading all Batches...
+            </ng-container>
+          } @else {
+            <ng-container>
+              <app-no-content
+                [title]="'No Batches Found!'"
+                [description]="'You can create your first batch by clicking the Add Batch button above.'"
+              ></app-no-content>
+            </ng-container>
+          }
+        </td>
+      </tr>
+
     </table>
     <mat-paginator
       [pageSizeOptions]="[10, 20, 50]"

@@ -9,7 +9,7 @@ import {
   MatHeaderCell,
   MatHeaderCellDef,
   MatHeaderRow,
-  MatHeaderRowDef,
+  MatHeaderRowDef, MatNoDataRow,
   MatRow,
   MatRowDef,
   MatTable,
@@ -27,6 +27,7 @@ import {PageLayoutComponent} from '@core/layouts';
 import {Batch} from '@features/batch/dtos/response/batch';
 import {Course} from '@features/course/dtos/response/course';
 import {BatchService} from '@features/batch/services/batch/batch.service';
+import {NoContentComponent} from '@shared/components/no-content/no-content.component';
 
 @Component({
   selector: 'app-batch-management',
@@ -46,27 +47,28 @@ import {BatchService} from '@features/batch/services/batch/batch.service';
     MatTooltip,
     RouterLink,
     MatPaginator,
-    PageLayoutComponent
+    PageLayoutComponent,
+    NoContentComponent,
+    MatNoDataRow
   ],
   templateUrl: './batch-management.component.html',
   styleUrl: './batch-management.component.css'
 })
 export class BatchManagementComponent implements OnInit, AfterViewInit{
 
-  protected readonly ArrowLeft = ArrowLeft;
   protected readonly window = globalThis.window;
+  protected loading:boolean = false;
 
   private courseId:number = -1;
   protected batches:Batch[] = [];
   protected readonly columnsToDisplay: string[] = ['id','name','start_date','start_time','max_seat_limit','batch_status','batch_enrollment_status','actions'];
-  dataSource = new MatTableDataSource<Course>();
+  dataSource = new MatTableDataSource<Batch>();
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
   private readonly batchService: BatchService =  inject(BatchService);
   private readonly activatedRoute =  inject(ActivatedRoute);
   private readonly alertService =  inject(AlertService);
-
-  constructor(private readonly dialog:MatDialog) {}
+  private readonly dialog: MatDialog = inject(MatDialog);
 
   protected openCreateBatchDialog(){
 
@@ -136,19 +138,27 @@ export class BatchManagementComponent implements OnInit, AfterViewInit{
   }
 
   private readonly fetchBatches = (courseId:number) => {
+    this.triggerLoading();
     this.dataSource.data = [{} as Batch];
     this.batchService.getAllBatchesByCourseId(courseId).subscribe({
       next: (res) => {
         this.batches= Array.isArray(res.data) ? res.data : []
         this.dataSource.data = this.batches;
+        this.triggerLoading();
       },
       error: (err) => {
         this.alertService.triggerErrorAlert(err.error.message);
+        this.triggerLoading();
       }
     })
+  }
+
+  private triggerLoading():void{
+    this.loading = !this.loading
   }
   protected readonly BatchEnrollmentStatus = BatchEnrollmentStatus;
   protected readonly BatchStatus = BatchStatus;
   protected readonly Eye = Eye;
   protected readonly Edit = Edit;
+  protected readonly ArrowLeft = ArrowLeft;
 }
