@@ -1,0 +1,23 @@
+<app-card-shell>
+  <div class="flex justify-between items-start p-5">
+    <div>
+      <app-badge [text]="`Recorded on ${ lectureRecord().recordedDate | date: 'yyyy-MMM-dd' }`" [variant]="'indigo'"></app-badge>
+      <h3 class="font-semibold text-lg">
+        {{ lectureRecord().title }}
+      </h3>
+    </div>
+
+    <div class="flex gap-2">
+
+      <button [routerLink]="['watch']" [queryParams]="{f:lectureRecord().url}" class="btn-mini-primary" [disabled]="loading()">
+        Watch
+      </button>
+
+      <button (click)="openLectureRecordDetailsUpdateDialog(lectureRecord())" class="btn-mini-secondary" [disabled]="loading()">
+        Edit
+      </button>
+
+    </div>
+
+  </div>
+</app-card-shell>
