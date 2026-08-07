@@ -9,11 +9,11 @@
       </div>
 
       <div class="flex gap-2">
-        <button (click)="onRefresh()" class="btn-mini-light">
+        <button (click)="onRefresh()" class="btn-mini-light" [disabled]="loading">
           <lucide-icon [img]="RefreshCcw" [size]="20" class="filled-icon"></lucide-icon>
         </button>
 
-        <button class="btn-mini-primary" (click)="openScheduleLecCreateDialog()">
+        <button class="btn-mini-primary" (click)="openScheduleLecCreateDialog()" [disabled]="loading">
           Add
         </button>
       </div>
@@ -21,28 +21,19 @@
     </div>
 
     <div class="flex flex-col gap-3">
-
-      @for (scheduleLecture of scheduleLectures; track scheduleLecture.id){
-        <app-card-shell class="block m-0">
-          <div>
-            <app-card-header [title]="scheduleLecture.topic" [description]="scheduleLecture.startDate | date: 'dd MMM yyyy'">
-            <app-schedule-lec-badge card-action [status]="scheduleLecture.status"/>
-            </app-card-header>
-            <div class="flex flex-col gap-2 pl-4 p-2">
-            {{ formatTime(scheduleLecture.startTime) }} - {{ formatTime(scheduleLecture.endTime) }}
-
-              <div class="flex gap-2">
-                @if (canJoinLecture(scheduleLecture)) {
-                  <button class="btn-mini-secondary btn-success" (click)="onJoin(scheduleLecture)">Join</button>
-                }
-                <button class="btn-mini-primary" (click)="openScheduleLecUpdateDialog(scheduleLecture)">Edit</button>
-              </div>
-            </div>
-          </div>
-
-        </app-card-shell>
+      @if (loading){
+        @for (i of [0,1] ; track i) {
+          <app-schedule-lecture-card-skeleton></app-schedule-lecture-card-skeleton>
+        }
+      } @else {
+        @if (scheduleLectures.length == 0){
+          <app-no-content [title]="'No scheduled lectures found'" [description]="'You can schedule your first lecture by clicking the Add button above.'"></app-no-content>
+        } @else {
+          @for (scheduleLecture of scheduleLectures; track scheduleLecture.id){
+            <app-schedule-lecture-card [scheduleLecture]="scheduleLecture" (fetchScheduledLectures)="fetchAllScheduledLecturesByChapterId()"></app-schedule-lecture-card>
+          }
+        }
       }
-
 
     </div>
 
