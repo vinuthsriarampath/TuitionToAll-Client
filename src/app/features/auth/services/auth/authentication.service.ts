@@ -72,4 +72,13 @@ export class AuthenticationService {
   validateInstitute(){
     return this.http.get<ApiResponse<null>>(` ${environment.USER_API}/validate/institute-role`);
   }
+
+  logout() {
+    const token: string|null = localStorage.getItem("token");
+
+    if(token){
+      localStorage.removeItem("token");
+      window.location.replace("/auth/login");
+    }
+  }
 }
