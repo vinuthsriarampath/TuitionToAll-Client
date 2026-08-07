@@ -7,7 +7,7 @@ import {
   MatHeaderCell,
   MatHeaderCellDef,
   MatHeaderRow,
-  MatHeaderRowDef,
+  MatHeaderRowDef, MatNoDataRow,
   MatRow,
   MatRowDef,
   MatTable,
@@ -30,6 +30,7 @@ import {PageLayoutComponent} from '@core/layouts';
 import {
   CreateAnnouncementDialogComponent
 } from '@features/announcement/dialogs/create-announcement-dialog/create-announcement-dialog.component';
+import {NoContentComponent} from '@shared/components/no-content/no-content.component';
 
 @Component({
   selector: 'app-announcements-management',
@@ -50,12 +51,16 @@ import {
     NgClass,
     DatePipe,
     RouterLink,
-    PageLayoutComponent
+    PageLayoutComponent,
+    NoContentComponent,
+    MatNoDataRow
   ],
   templateUrl: './announcements-management.component.html',
   styleUrl: './announcements-management.component.css'
 })
 export class AnnouncementsManagementComponent implements OnInit {
+
+  protected loading:boolean = false;
 
   private readonly announcementService :AnnouncementService = inject(AnnouncementService);
   private readonly alertService:AlertService = inject(AlertService);
@@ -76,6 +81,7 @@ export class AnnouncementsManagementComponent implements OnInit {
   }
 
   loadAnnouncements(){
+    this.triggerLoading();
     this.announcementService.getAllAnnouncements(this.pageIndex,this.pageSize).subscribe({
       next: (res) => {
         if (res){
@@ -83,10 +89,12 @@ export class AnnouncementsManagementComponent implements OnInit {
           this.pageIndex =  res.page ?? 0;
           this.pageSize = res.size ?? 10;
           this.totalElements = res.totalElements ?? 0;
+          this.triggerLoading();
         }
       },
       error: (err) => {
         this.alertService.triggerErrorAlert(err.error.message);
+        this.triggerLoading();
       }
     })
   }
@@ -120,6 +128,10 @@ export class AnnouncementsManagementComponent implements OnInit {
     dialogRef.afterClosed().subscribe(()=>{
       this.loadAnnouncements();
     })
+  }
+
+  private triggerLoading():void{
+    this.loading = !this.loading;
   }
 
   protected readonly Eye = Eye;
