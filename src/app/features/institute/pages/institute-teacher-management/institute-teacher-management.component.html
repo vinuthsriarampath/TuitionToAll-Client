@@ -88,35 +88,12 @@
 
       <!-- STATS -->
       <div class="grid grid-cols-4 gap-4 mb-4 shrink-0">
-        <app-card-shell>
-          <div class="p-4">
-            <p class="para-primary">Total Teachers</p>
-            <h2 class="para-light">{{ stats.totalTeachers }}</h2>
-          </div>
-        </app-card-shell>
-        <app-card-shell>
-          <div class="p-4">
-            <p class="para-primary">Active</p>
-            <h2 class="para-light">{{ stats.activeTeachers }}</h2>
-          </div>
-        </app-card-shell>
-        <app-card-shell>
-          <div class="p-4">
-            <p class="para-primary">Active</p>
-            <h2 class="para-light">{{ stats.suspendedTeachers }}</h2>
-          </div>
-        </app-card-shell>
-        <app-card-shell>
-          <div class="p-4">
-            <p class="para-primary">Inactive</p>
-            <h2 class="para-light">{{ stats.inactiveTeachers }}</h2>
-          </div>
-        </app-card-shell>
-
-
-
-
+        <app-stat-card title="Total Teachers" [value]="stats.totalTeachers" [loading]="statLoading"></app-stat-card>
+        <app-stat-card title="Active" [value]="stats.activeTeachers" [loading]="statLoading"></app-stat-card>
+        <app-stat-card title="Suspended" [value]="stats.suspendedTeachers" [loading]="statLoading"></app-stat-card>
+        <app-stat-card title="Inactive" [value]="stats.inactiveTeachers" [loading]="statLoading"></app-stat-card>
       </div>
+
       <!-- Scrollable container -->
       <div class="flex-1 overflow-auto">
 
@@ -175,6 +152,23 @@
 
           <tr mat-header-row *matHeaderRowDef="columns, sticky: true"></tr>
           <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+
+          <tr *matNoDataRow>
+            <td class="mat-cell text-center p-4" [attr.colspan]="columns.length">
+              @if (loading) {
+                <ng-container>
+                  Loading all Teachers...
+                </ng-container>
+              } @else {
+                <ng-container>
+                  <app-no-content
+                    [title]="'No Teachers Found!'"
+                    [description]="'You can create your first vacancy by clicking the Create Vacancy button above.'"
+                  ></app-no-content>
+                </ng-container>
+              }
+            </td>
+          </tr>
         </table>
 
         <mat-paginator

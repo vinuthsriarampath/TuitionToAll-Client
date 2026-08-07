@@ -15,7 +15,7 @@ import {
   MatHeaderCell,
   MatHeaderCellDef,
   MatHeaderRow,
-  MatHeaderRowDef,
+  MatHeaderRowDef, MatNoDataRow,
   MatRow,
   MatRowDef,
   MatTable,
@@ -26,11 +26,11 @@ import {InstituteTeacherService} from '../../services/institute-teacher/institut
 import {InstituteTeacherResponse} from '../../dtos/response/InstituteTeacherResponse';
 import {AlertService} from '@core/services/alerts/alert.service';
 import {environment} from '@env/environment.development';
-import {ApplicationStatus} from '../../../applications/enums/application-status';
 import {InstituteTeacherStatus} from '../../enums/InstituteTeacherStatus';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {InstituteTeacherStatsResponse} from '../../dtos/response/InstituteTeacherStatsResponse';
-import {BadgeComponent, CardShellComponent} from '@shared/ui';
+import {BadgeComponent, CardShellComponent, StatCardComponent} from '@shared/ui';
+import {NoContentComponent} from '@shared/components/no-content/no-content.component';
 
 @Component({
   selector: 'app-institute-teacher-management',
@@ -57,7 +57,10 @@ import {BadgeComponent, CardShellComponent} from '@shared/ui';
     NgClass,
     MatPaginator,
     CardShellComponent,
-    BadgeComponent
+    BadgeComponent,
+    NoContentComponent,
+    StatCardComponent,
+    MatNoDataRow
   ],
   templateUrl: './institute-teacher-management.component.html',
   styleUrl: './institute-teacher-management.component.css'
@@ -65,6 +68,9 @@ import {BadgeComponent, CardShellComponent} from '@shared/ui';
 export class InstituteTeacherManagementComponent implements OnInit{
 
   @ViewChild('drawer') drawer!: MatSidenav;
+
+  protected loading:boolean = false;
+  protected statLoading:boolean = false;
 
   private readonly dialog = inject(MatDialog);
   private readonly instituteTeacherService:InstituteTeacherService = inject(InstituteTeacherService)
@@ -107,6 +113,7 @@ export class InstituteTeacherManagementComponent implements OnInit{
    Load all teachers related to the current institute
   ***/
   private loadTeachersByInstitute():void{
+    this.triggerLoading();
     this.instituteTeacherService.getAllTeachersByInstitute(this.pageIndex,this.pageSize).subscribe({
       next: (res) => {
         if(res){
@@ -114,10 +121,12 @@ export class InstituteTeacherManagementComponent implements OnInit{
           this.pageIndex = res.page ?? 0;
           this.pageSize = res.size ?? 10;
           this.totalElements = res.totalElements ?? 0;
+          this.triggerLoading();
         }
       },
       error: (err) => {
         this.alertService.triggerErrorAlert(err.error.message);
+        this.triggerLoading();
       }
     })
   }
@@ -126,6 +135,7 @@ export class InstituteTeacherManagementComponent implements OnInit{
    fetch stats related to the current institute
    ***/
   private loadInstituteTeacherStats():void{
+    this.triggerStatLoading();
     this.instituteTeacherService.getInstituteTeacherStats().subscribe({
       next: (res)=> {
         if(res.data){
@@ -133,10 +143,12 @@ export class InstituteTeacherManagementComponent implements OnInit{
           this.stats.activeTeachers = res.data.activeTeachers ?? 0;
           this.stats.suspendedTeachers = res.data.suspendedTeachers ?? 0;
           this.stats.inactiveTeachers = res.data.inactiveTeachers ?? 0;
+          this.triggerStatLoading();
         }
       },
       error: (err) => {
         this.alertService.triggerErrorAlert(err.error.message);
+        this.triggerStatLoading();
       }
     })
   }
@@ -162,13 +174,18 @@ export class InstituteTeacherManagementComponent implements OnInit{
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.selectedTeacher = result;
     });
   }
 
+  private triggerLoading():void{
+    this.loading = !this.loading;
+  }
+
+  private triggerStatLoading():void{
+    this.statLoading = !this.statLoading;
+  }
+
   protected readonly environment = environment;
-  protected readonly ApplicationStatus = ApplicationStatus;
-  protected readonly InstituteTeacherResponse = InstituteTeacherResponse;
   protected readonly InstituteTeacherStatus = InstituteTeacherStatus;
 }
