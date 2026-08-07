@@ -6,7 +6,7 @@ import {map} from 'rxjs/operators';
 
 export const teacherVacancyResolver: ResolveFn<TeacherVacancy> = (route, state) => {
   const teacherVacancyService = inject(TeacherVacancyService);
-  return teacherVacancyService.getByIdAndStatus(Number(route.paramMap.get('vacancyId'))).pipe(
+  return teacherVacancyService.getById(Number(route.paramMap.get('vacancyId'))).pipe(
     map((res) => res.data as TeacherVacancy)
   );
 };
