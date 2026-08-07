@@ -8,7 +8,7 @@ import {
   MatHeaderCell,
   MatHeaderCellDef,
   MatHeaderRow,
-  MatHeaderRowDef,
+  MatHeaderRowDef, MatNoDataRow,
   MatRow,
   MatRowDef,
   MatTable,
@@ -25,6 +25,7 @@ import {CreateModuleDialogComponent} from '../../dialogs/create-module-dialog/cr
 import {RouterLink} from '@angular/router';
 import {ModuleUpdateViewComponent} from '../../dialogs/module-update-view/module-update-view.component';
 import {BatchService} from '@features/batch/services/batch/batch.service';
+import {NoContentComponent} from '@shared/components/no-content/no-content.component';
 
 @Component({
   selector: 'app-module-section',
@@ -45,7 +46,9 @@ import {BatchService} from '@features/batch/services/batch/batch.service';
     MatPaginator,
     DatePipe,
     MatTooltip,
-    RouterLink
+    RouterLink,
+    NoContentComponent,
+    MatNoDataRow
   ],
   templateUrl: './module-section.component.html',
   styleUrl: './module-section.component.css'
@@ -53,6 +56,8 @@ import {BatchService} from '@features/batch/services/batch/batch.service';
 export class ModuleSectionComponent implements OnInit {
 
   batchId = input.required<number>();
+
+  protected loading:boolean = false;
 
   //table related variables
   protected pageIndex:number = 0;
@@ -73,6 +78,7 @@ export class ModuleSectionComponent implements OnInit {
   }
 
   protected loadModulesByBatch():void{
+    this.triggerLoading();
     this.batchService.getAllModulesByBatch(this.batchId()).subscribe({
         next:(res)=>{
           if(res.data){
@@ -80,10 +86,12 @@ export class ModuleSectionComponent implements OnInit {
             this.pageIndex = res.page ?? 0;
             this.pageSize =res.size ?? 10;
             this.totalElements = res.totalElements ?? 0;
+            this.triggerLoading();
           }
         },
       error:(err)=>{
           this.alertService.triggerErrorAlert(err.error.message);
+          this.triggerLoading();
       }
     });
   }
@@ -124,6 +132,10 @@ export class ModuleSectionComponent implements OnInit {
         this.alertService.triggerErrorAlert("Failed to update module");
       }
     })
+  }
+
+  private triggerLoading():void{
+    this.loading = !this.loading;
   }
 
   protected readonly Plus = Plus;
