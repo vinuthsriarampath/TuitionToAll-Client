@@ -6,12 +6,14 @@ import {CourseFilter} from '../../../course/dtos/request/course-filter';
 import {CourseCardComponent} from '../../components/course-card/course-card.component';
 import {Course} from '@features/course/dtos/response/course';
 import {CourseService} from '@features/course/services/course/course.service';
+import {NoContentComponent} from '@shared/components/no-content/no-content.component';
 
 @Component({
   selector: 'app-user-courses',
   imports: [
     MatProgressSpinner,
-    CourseCardComponent
+    CourseCardComponent,
+    NoContentComponent
   ],
   templateUrl: './user-courses.component.html',
   styleUrl: './user-courses.component.css'
