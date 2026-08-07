@@ -11,7 +11,7 @@ import {
   MatHeaderCell,
   MatHeaderCellDef,
   MatHeaderRow,
-  MatHeaderRowDef,
+  MatHeaderRowDef, MatNoDataRow,
   MatRow,
   MatRowDef,
   MatTable,
@@ -29,6 +29,7 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {ApplicationRejectionRequest} from '../../dtos/request/ApplicationRejectionRequest';
 import {BadgeComponent, CardShellComponent} from '@shared/ui';
 import {PhonePipePipe} from '@shared/utils/pipes/phone-pipe/phone-pipe.pipe';
+import {NoContentComponent} from '@shared/components/no-content/no-content.component';
 
 @Component({
   selector: 'app-view-application',
@@ -54,7 +55,9 @@ import {PhonePipePipe} from '@shared/utils/pipes/phone-pipe/phone-pipe.pipe';
     MatTooltip,
     CardShellComponent,
     BadgeComponent,
-    PhonePipePipe
+    PhonePipePipe,
+    NoContentComponent,
+    MatNoDataRow
   ],
   templateUrl: './view-application.component.html',
   styleUrl: './view-application.component.css'
@@ -64,6 +67,7 @@ export class ViewApplicationComponent implements OnInit {
   private vacancyId!:number;
   private applications:ApplicationDetailsResponse[] = [];
 
+  protected loading:boolean = false;
   // Table related variables
   protected dataSource = new MatTableDataSource(this.applications);
   protected columns: string[] = ['select','id', 'dp' ,'firstName','lastName', 'status' , 'appliedDate', 'actions'];
@@ -130,6 +134,7 @@ export class ViewApplicationComponent implements OnInit {
   }
 
   private loadApplications():void{
+    this.triggerLoading();
     this.applicationService.getAllApplicationsByVacancy(this.vacancyId,this.pageIndex,this.pageSize).subscribe({
       next: (res)=>{
         if (res.data) {
@@ -138,10 +143,12 @@ export class ViewApplicationComponent implements OnInit {
           this.pageIndex = res.page ?? 0;
           this.pageSize = res.size ?? 10;
           this.totalElements = res.totalElements ?? 0;
+          this.triggerLoading();
         }
       },
       error: (err)=>{
-        console.log(err);
+        this.alertService.triggerErrorAlert(err.error.message);
+        this.triggerLoading();
       }
     })
   }
@@ -161,6 +168,7 @@ export class ViewApplicationComponent implements OnInit {
   }
 
   sendSelectionRequest(request:ApplicationSelectionRequest):void{
+    this.triggerLoading();
     this.instituteTeacherService.onboardTeachers(request).subscribe({
       next: (res)=>{
         if(res.data){
@@ -177,10 +185,12 @@ export class ViewApplicationComponent implements OnInit {
           }
 
           this.resetSelection();
+          this.triggerLoading();
         }
       },
       error: (err)=>{
-        console.log(err.error.message)
+        this.alertService.triggerErrorAlert(err.error.message);
+        this.triggerLoading();
       }
     })
   }
@@ -198,8 +208,10 @@ export class ViewApplicationComponent implements OnInit {
   }
 
   sendRejectionRequest(request:ApplicationRejectionRequest){
+    this.triggerLoading();
     this.instituteTeacherService.rejectApplications(request).subscribe({
       next: (res)=>{
+        this.triggerLoading();
         if(res.data){
           if (res.data.successApplicationIds.length > res.data.failedApplicationIds.length){
             this.alertService.triggerSuccessAlert(`${res.data.successApplicationIds.length} out of ${request.applicationIds.length} applications successfully rejected!`);
@@ -214,6 +226,7 @@ export class ViewApplicationComponent implements OnInit {
         }
       },
       error: (err)=>{
+        this.triggerLoading();
         this.alertService.triggerErrorAlert(err.error.message);
       }
     })
@@ -232,6 +245,8 @@ export class ViewApplicationComponent implements OnInit {
     this.drawer.open();
   }
 
-
+    private triggerLoading():void{
+      this.loading = !this.loading;
+    }
 
 }
