@@ -13,4 +13,6 @@ export class StatCardComponent {
   title = input.required<string>();
 
   value = input.required<string | number>();
+
+  loading = input<boolean>(false);
 }

@@ -2,8 +2,12 @@
   <div class="p-5 flex flex-col justify-center items-center gap-1">
     <p class="para-light para-md font-medium">{{ title() }}</p>
 
-    <p class="font-extrabold">
-      {{ value() }}
-    </p>
+    @if (!loading()) {
+      <p class="font-extrabold">
+        {{ value() }}
+      </p>
+    } @else {
+      <div class="h-4 w-8 bg-sky-900/80 animate-pulse"></div>
+    }
   </div>
 </app-card-shell>
