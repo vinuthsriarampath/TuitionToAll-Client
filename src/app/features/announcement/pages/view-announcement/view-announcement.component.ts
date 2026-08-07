@@ -31,6 +31,7 @@ export class ViewAnnouncementComponent implements OnInit {
 
   private announcementId!:number;
   protected announcement!:AnnouncementResponse;
+  protected loading:boolean = false;
 
   private readonly announcementService:AnnouncementService = inject(AnnouncementService);
   private readonly activatedRoute:ActivatedRoute = inject(ActivatedRoute);
@@ -44,16 +45,23 @@ export class ViewAnnouncementComponent implements OnInit {
   }
 
   private loadAnnouncementDetails(announcementId:number){
+    this.triggerLoading();
     this.announcementService.getAnnouncementById(announcementId).subscribe({
       next: (res)=>{
         if(res.data){
           this.announcement = res.data;
+          this.triggerLoading();
         }
       },
       error: (err)=>{
        this.alertService.triggerErrorAlert(err.error.message);
+        this.triggerLoading();
       }
     })
+  }
+
+  private triggerLoading():void{
+    this.loading = !this.loading;
   }
 
   protected readonly AnnouncementVisibility = AnnouncementVisibility;
