@@ -1,0 +1,50 @@
+<app-card-shell>
+
+  <div class="p-3 sm:p-4 flex flex-col gap-2">
+    <h1 class="text-xl font-bold">Intro</h1>
+
+    <div class="flex flex-col items-start mt-2 gap-2">
+
+      <!--user contact-->
+      <div class="flex flex-row items-center mt-2 gap-2">
+        <lucide-icon [img]="Phone" class="w-3.5 h-3.5 text-sky-400"></lucide-icon>
+        @if (!loading()){
+          <p class="para-sm">{{ (profileUser().contact | phone )|| 'N/A'}}</p>
+        } @else {
+          <div class="h-4 w-28 bg-sky-900/80 animate-pulse"></div>
+        }
+      </div>
+
+      <!--user dob-->
+      @if (UserHelper.isTeacher(profileUser().role?.role, profileUser().details) || UserHelper.isStudent(profileUser().role?.role, profileUser().details)){
+        <div class="flex flex-row items-center mt-2 gap-2">
+          <lucide-icon [img]="Calendar" class="w-3.5 h-3.5 text-sky-400"></lucide-icon>
+          @if (!loading()){
+            <p class="para-sm">{{ UserHelper.getUserDob(profileUser()) }}</p>
+          } @else {
+            <div class="h-4 w-24 bg-sky-900/80 animate-pulse"></div>
+          }
+
+        </div>
+      }
+
+      <!--user address-->
+      <div class="flex gap-2 mt-2">
+        <div class="flex items-center">
+          <lucide-icon [img]="MapPin" class="w-3.5 h-3.5 text-sky-400"></lucide-icon>
+        </div>
+        @if (!loading()){
+          <p class="para-sm">{{profileUser().address || 'N/A'}}</p>
+        } @else {
+          <div class="flex flex-col gap-1">
+            <div class="h-4 w-64 bg-sky-900/80 animate-pulse"></div>
+            <div class="h-4 w-48 bg-sky-900/80 animate-pulse"></div>
+          </div>
+        }
+      </div>
+      @if (isSameUser()) {
+        <button class="w-full btn-mini-secondary mt-2" (click)="openProfileUpdateDialog()" [disabled]="loading()">Edit Details</button>
+      }
+    </div>
+  </div>
+</app-card-shell>
