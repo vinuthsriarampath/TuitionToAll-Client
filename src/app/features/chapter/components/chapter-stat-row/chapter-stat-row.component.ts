@@ -19,6 +19,7 @@ export class ChapterStatRowComponent implements OnInit{
   private chapterId!:number;
   protected chapter!:ChapterDetailedResponse;
   protected chapterStats!:ChapterStatCountResponse;
+  protected loading:boolean = false;
 
   private readonly chapterService:ChapterService = inject(ChapterService);
   private readonly activatedRoute:ActivatedRoute = inject(ActivatedRoute);
@@ -36,13 +37,22 @@ export class ChapterStatRowComponent implements OnInit{
   }
 
   private loadChapterStats():void{
+    this.triggerLoading();
     this.chapterService.getChapterStats(this.chapterId).subscribe({
       next: (res)=>{
-        if (res.data) this.chapterStats = res.data;
+        if (res.data) {
+          this.chapterStats = res.data;
+          this.triggerLoading();
+        }
       },
       error: err => {
         this.alertService.triggerErrorAlert(err.error.message);
+        this.triggerLoading();
       }
     })
+  }
+
+  private triggerLoading():void{
+    this.loading = !this.loading;
   }
 }
