@@ -4,19 +4,23 @@
 
     <div class="flex items-center gap-2 mb-2">
       <app-chapter-badge [status]="status()"></app-chapter-badge>
-      <app-badge [text]="`Chapter: ${ chapterOrder() }`" [variant]="'secondary'"></app-badge>
+      <app-badge [text]="`Chapter: ${ loading() ? 'Loading...' : chapterOrder() }`" [variant]="'secondary'"></app-badge>
     </div>
 
-    <h1>{{ title() }}</h1>
+    @if (!loading()){
+      <h1>{{ title() }}</h1>
+    } @else {
+      <div class="w-42 h-8 bg-sky-900/80 animate-pulse"></div>
+    }
 
     <div class="flex gap-2 mt-4">
-      <app-badge [text]="`Created: ${ createdDate() | date: 'yyyy-MMM-dd' }`" [variant]="'info'"></app-badge>
-      <app-badge [text]="`Updated: ${ lastModifiedDate() | date: 'yyyy-MMM-dd' }`" [variant]="'warning'"></app-badge>
-      <app-badge [text]="`Module: ${ moduleName() }`" [variant]="'success'"></app-badge>
+      <app-badge [text]="`Created: ${ loading() ? 'Loading...' : createdDate() | date: 'yyyy-MMM-dd'}`" [variant]="'info'"></app-badge>
+      <app-badge [text]="`Updated: ${ loading() ? 'Loading...' : lastModifiedDate() | date: 'yyyy-MMM-dd' }`" [variant]="'warning'"></app-badge>
+      <app-badge [text]="`Module: ${ loading() ? 'Loading...' : moduleName() }`" [variant]="'success'"></app-badge>
     </div>
 
   </div>
 
-    <button class="btn-mini-primary" (click)="openUpdateChapterDetailsDialog()" >Edit Chapter</button>
+    <button class="btn-mini-primary" (click)="openUpdateChapterDetailsDialog()" [disabled]="loading()">Edit Chapter</button>
 
 </div>

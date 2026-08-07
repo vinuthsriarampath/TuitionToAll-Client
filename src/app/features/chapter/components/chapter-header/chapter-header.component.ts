@@ -29,6 +29,7 @@ export class ChapterHeaderComponent {
     moduleName = input.required<string>();
     createdDate = input.required<string>();
     lastModifiedDate = input.required<string>();
+    loading = input<boolean>(true);
 
   readonly chapterUpdated = output<void>();
 
