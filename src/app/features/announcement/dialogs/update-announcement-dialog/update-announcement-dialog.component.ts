@@ -53,14 +53,17 @@ export class UpdateAnnouncementDialogComponent {
   }
 
   fetchAnnouncementById(id:number){
+    this.triggerLoading();
     this.announcementService.getAnnouncementById(id).subscribe({
       next: (res)=>{
         if(res.data){
           this.announcement = res.data;
+          this.triggerLoading();
         }
       },
       error: (err)=>{
-        this.alertService.triggerErrorAlert(err.error.message)
+        this.alertService.triggerErrorAlert(err.error.message);
+        this.triggerLoading();
       }
     })
   }
