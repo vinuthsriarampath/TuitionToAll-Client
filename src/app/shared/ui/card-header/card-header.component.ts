@@ -10,4 +10,5 @@ export class CardHeaderComponent {
 
   title = input.required<string>();
   description = input<string | number | null>('');
+  loading = input<boolean>(false);
 }
