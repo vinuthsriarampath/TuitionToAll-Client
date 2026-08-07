@@ -14,7 +14,7 @@ import {
   MatHeaderCell,
   MatHeaderCellDef,
   MatHeaderRow,
-  MatHeaderRowDef,
+  MatHeaderRowDef, MatNoDataRow,
   MatRow,
   MatRowDef,
   MatTable,
@@ -22,6 +22,8 @@ import {
 } from '@angular/material/table';
 import {AnnouncementStatus} from '../../../announcement/enums/AnnouncementStatus';
 import {AnnouncementVisibility} from '../../../announcement/enums/AnnouncementVisibility';
+import {NoContentComponent} from '@shared/components/no-content/no-content.component';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-course-announcement-view',
@@ -40,7 +42,10 @@ import {AnnouncementVisibility} from '../../../announcement/enums/AnnouncementVi
     MatHeaderRow,
     MatRow,
     MatRowDef,
-    MatHeaderRowDef
+    MatHeaderRowDef,
+    NoContentComponent,
+    MatPaginator,
+    MatNoDataRow
   ],
   templateUrl: './course-announcement-view.component.html',
   styleUrl: './course-announcement-view.component.css'
@@ -48,6 +53,7 @@ import {AnnouncementVisibility} from '../../../announcement/enums/AnnouncementVi
 export class CourseAnnouncementViewComponent implements OnInit {
 
   protected courseId!:number;
+  protected loading:boolean= false;
 
   // table related
 
@@ -71,7 +77,7 @@ export class CourseAnnouncementViewComponent implements OnInit {
   private fetchAnnouncements():void{
     const filters:AnnouncementFilterRequest = new AnnouncementFilterRequest();
     filters.courseId = this.courseId;
-
+    this.triggerLoading();
     this.announcementService.getAllAnnouncements(0,10,'desc',['is_pinned','published_date'],filters).subscribe({
       next: (res)=>{
         if(res.data){
@@ -79,14 +85,25 @@ export class CourseAnnouncementViewComponent implements OnInit {
           this.pageIndex = res.page ?? 0;
           this.pageSize = res.size ?? 10;
           this.totalElements = res.totalElements ?? 0;
+          this.triggerLoading();
         }
       },
       error: (err) => {
         this.alertService.triggerErrorAlert(err.error.message);
+        this.triggerLoading();
       }
     })
   }
 
+  private triggerLoading():void{
+    this.loading = !this.loading;
+  }
+
+  protected onPageChange(event:PageEvent):void{
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.fetchAnnouncements();
+  }
 
   protected readonly AnnouncementStatus = AnnouncementStatus;
   protected readonly AnnouncementVisibility = AnnouncementVisibility;

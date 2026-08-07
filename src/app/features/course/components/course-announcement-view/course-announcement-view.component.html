@@ -1,5 +1,5 @@
 <div class="w-full overflow-x-auto">
-  <app-page-title [title]="'Announcements'" [description]="`All announcements related to course ${courseId}`" [backButton]="true"></app-page-title>
+  <app-page-title [title]="'Course Announcements'" [description]="`All announcements related to course ${courseId}`" [backButton]="true"></app-page-title>
   <div class="flex-1 overflow-auto">
 
     <table mat-table [dataSource]="dataSource">
@@ -59,7 +59,31 @@
 
       <tr mat-header-row *matHeaderRowDef="columns"></tr>
       <tr mat-row *matRowDef="let row; columns: columns;" [class.pinned-row]="row.pinned"></tr>
+
+      <tr *matNoDataRow>
+        <td class="mat-cell text-center p-4" [attr.colspan]="columns.length">
+          @if (loading) {
+            <ng-container>
+              Loading all Announcements for Course...
+            </ng-container>
+          } @else {
+            <ng-container>
+              <app-no-content
+                [title]="'No Announcements For This Course Found!'"
+                [description]="'You can create your first announcement in announcement management page.'"
+              ></app-no-content>
+            </ng-container>
+          }
+        </td>
+      </tr>
+
     </table>
+    <mat-paginator
+       [length]="totalElements"
+       [pageSize]="pageSize"
+       [pageSizeOptions]="[5, 10, 20]"
+       (page)="onPageChange($event)"
+    ></mat-paginator>
   </div>
 
 </div>
