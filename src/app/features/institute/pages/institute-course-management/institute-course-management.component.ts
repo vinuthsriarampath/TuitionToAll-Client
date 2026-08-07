@@ -9,6 +9,7 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {PageLayoutComponent} from '@core/layouts';
 import {Course} from '@features/course/dtos/response/course';
 import {CourseService} from '@features/course/services/course/course.service';
+import {NoContentComponent} from '@shared/components/no-content/no-content.component';
 
 @Component({
   selector: 'app-institute-course-management',
@@ -21,6 +22,7 @@ import {CourseService} from '@features/course/services/course/course.service';
     LucideAngularModule,
     MatTooltip,
     PageLayoutComponent,
+    NoContentComponent,
   ],
   templateUrl: './institute-course-management.component.html',
   styleUrl: './institute-course-management.component.css'

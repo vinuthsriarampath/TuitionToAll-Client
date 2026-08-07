@@ -2,6 +2,9 @@
   [headerTitle]="'Course Management'"
   [headerDescription]="'Manage all your courses here!'"
   [showBackButton]="false"
+  [isLoading]="loading"
+  [loaderTitle]="'Loading courses'"
+  [loaderDescription]="'Fetch all your courses from the server.'"
 >
 
   <button data-actions [routerLink]="['create']" class="btn-primary">Add Course</button>
@@ -56,33 +59,30 @@
         </td>
       </ng-container>
 
-      <!-- Loading Column -->
-      <ng-container matColumnDef="loading">
-        <td mat-cell *matCellDef [attr.colspan]="displayedColumns.length" class="text-center py-4">
-          Loading all Courses...
-        </td>
-      </ng-container>
-
-      <!-- No Data Column -->
-      <ng-container matColumnDef="noData">
-        <td mat-cell *matCellDef [attr.colspan]="displayedColumns.length" class="text-center py-4">
-          No Course Found, <a [routerLink]="['create']" class="text-blue-500 hover:underline">create your first
-          course</a>
-        </td>
-      </ng-container>
-
       <!-- Header Row -->
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 
       <!-- Data Row (Default) -->
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-          [hidden]="loading || dataSource.data.length === 0"></tr>
-
-      <!-- Loading Row -->
-      <tr mat-row *matRowDef="let row; columns: ['loading'];" [hidden]="!loading"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
       <!-- No Data Row -->
-      <tr mat-row *matRowDef="let row; columns: ['noData'];" [hidden]="loading || dataSource.data.length > 0"></tr>
+      <tr *matNoDataRow>
+        <td class="mat-cell text-center p-4" [attr.colspan]="displayedColumns.length">
+          @if (loading) {
+            <ng-container>
+              Loading all Courses...
+            </ng-container>
+          } @else {
+            <ng-container>
+              <app-no-content
+                [title]="'No Courses Found!'"
+                [description]="'You can create your first course by clicking the Add Course button above.'"
+              ></app-no-content>
+            </ng-container>
+          }
+        </td>
+      </tr>
+
     </table>
 
     <mat-paginator
