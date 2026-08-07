@@ -10,4 +10,6 @@ export class InfoRowComponent {
   label = input.required<string>();
 
   value = input.required<string | number | undefined>();
+
+  loading = input<boolean>(false);
 }

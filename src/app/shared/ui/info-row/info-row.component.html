@@ -3,7 +3,11 @@
     {{ label() }}
   </p>
 
-  <p class="text-sm font-medium tracking-wide text-sky-100 break-words leading-relaxed">
-    {{ value() ?? 'N/A' }}
-  </p>
+  @if (!loading()) {
+    <p class="text-sm font-medium tracking-wide text-sky-100 break-words leading-relaxed">
+      {{ value() ?? 'N/A' }}
+    </p>
+  } @else {
+    <div class="h-4 w-16 bg-sky-900/80 animate-pulse"></div>
+  }
 </div>
