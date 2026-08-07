@@ -8,7 +8,7 @@ import {
   MatHeaderCell,
   MatHeaderCellDef,
   MatHeaderRow,
-  MatHeaderRowDef,
+  MatHeaderRowDef, MatNoDataRow,
   MatRow,
   MatRowDef,
   MatTable,
@@ -29,6 +29,7 @@ import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {PaginatedApiResponse} from '@shared/utils/response/paginated-api-response';
 import {RouterLink} from '@angular/router';
 import {PageLayoutComponent} from '@core/layouts/page-layout/page-layout.component';
+import {NoContentComponent} from '@shared/components/no-content/no-content.component';
 
 @Component({
   selector: 'app-view-teacher-vacancy',
@@ -49,7 +50,9 @@ import {PageLayoutComponent} from '@core/layouts/page-layout/page-layout.compone
     NgClass,
     MatPaginator,
     RouterLink,
-    PageLayoutComponent
+    PageLayoutComponent,
+    MatNoDataRow,
+    NoContentComponent
   ],
   templateUrl: './view-teacher-vacancy.component.html',
   styleUrl: './view-teacher-vacancy.component.css'
