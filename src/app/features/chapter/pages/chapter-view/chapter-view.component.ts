@@ -38,6 +38,7 @@ export class ChapterViewComponent implements OnInit{
     private chapterId!:number;
     protected chapter!:ChapterDetailedResponse;
     protected readonly window = globalThis.window;
+    protected loading:boolean = false;
 
     private readonly chapterService:ChapterService = inject(ChapterService);
     private readonly activatedRoute:ActivatedRoute = inject(ActivatedRoute);
@@ -55,15 +56,23 @@ export class ChapterViewComponent implements OnInit{
     }
 
     protected loadChapterDetails():void{
-      console.info("working")
+      this.triggerLoading()
       this.chapterService.getDetailedChapterById(this.chapterId).subscribe({
         next: (res)=>{
-          if(res.data) this.chapter = res.data;
+          if(res.data) {
+            this.chapter = res.data;
+            this.triggerLoading();
+          }
         },
         error: (err)=>{
           this.alertService.triggerErrorAlert(err.error.message);
+          this.triggerLoading();
         }
       })
+    }
+
+    private triggerLoading():void{
+      this.loading = !this.loading;
     }
 
   protected readonly ArrowLeft = ArrowLeft;
