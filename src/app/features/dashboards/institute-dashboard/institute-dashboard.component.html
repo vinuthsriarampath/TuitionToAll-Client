@@ -99,7 +99,7 @@
           (click)="profileMenuOpen = !profileMenuOpen"
           (keydown.enter)="profileMenuOpen = !profileMenuOpen">
           <img
-            [src]="institute.dp ? (environment.USER_PROFILE_API + institute.dp) : 'https://avatar.iran.liara.run/public/boy'"
+            [src]="UserHelper.getProfileImageUrl(institute)"
             class="w-8 h-8 rounded-full object-cover shadow-sm ring-1 ring-white/10"
             alt="user-dp"/>
         </button>
@@ -109,24 +109,29 @@
           <!-- Click Outside Overlay -->
           <div class="fixed inset-0 z-40" (click)="profileMenuOpen = false"></div>
 
-          <div class="absolute right-0 mt-2 w-56 bg-sky-900/95 backdrop-blur-md border border-sky-700/50 shadow-2xl rounded-xl p-2 z-50 animate-in fade-in zoom-in-95 duration-150">
-            <div class="px-3 py-2 border-b border-sky-700/40 mb-1">
-              <p class="text-xs text-sky-300 font-medium uppercase tracking-wider">Institute</p>
-              <p class="text-sky-50 text-sm font-semibold truncate mt-0.5">{{ $any(institute.details)?.instituteName }}</p>
+          <div class="absolute right-0 mt-2 w-56 bg-sky-950/80 backdrop-blur-md border-b border-sky-800/50 shadow-2xl rounded-xl p-2 z-50 animate-in fade-in zoom-in-95 duration-150">
+            <div class="px-3 py-2 border-b border-sky-700/40 mb-1 ">
+              <p class="text-xs text-sky-300 font-medium uppercase tracking-wider">Account</p>
+              <p class="text-sky-50 text-sm font-semibold truncate mt-0.5" [title]="UserHelper.getDisplayName(institute)">{{ UserHelper.getDisplayName(institute) }}</p>
+              <p class="text-xs text-sky-200/80 truncate mt-0.5" [title]="institute.email">{{ institute.email }}</p>
             </div>
 
             <ul class="space-y-1">
+              <li [routerLink]="['/app']" (click)="profileMenuOpen = false"
+                class="flex items-center gap-x-2 text-sky-100 hover:text-white hover:bg-sky-700/60 rounded-lg p-2 transition-colors cursor-pointer text-sm font-medium">
+                <span class="text-sm font-medium">Feed</span>
+              </li>
               <li [routerLink]="['/profile/'+institute.userSlug]" (click)="profileMenuOpen = false"
-                class="flex items-center gap-x-2 text-sky-100 hover:text-white hover:bg-sky-700/60 rounded-lg p-2 transition-colors cursor-pointer">
+                class="flex items-center gap-x-2 text-sky-100 hover:text-white hover:bg-sky-700/60 rounded-lg p-2 transition-colors cursor-pointer text-sm font-medium">
                 <span class="text-sm font-medium">Profile</span>
               </li>
               <li (click)="profileMenuOpen = false"
-                class="flex items-center gap-x-2 text-sky-100 hover:text-white hover:bg-sky-700/60 rounded-lg p-2 transition-colors cursor-pointer">
+                class="flex items-center gap-x-2 text-sky-100 hover:text-white hover:bg-sky-700/60 rounded-lg p-2 transition-colors cursor-pointer text-sm font-medium">
                 <span class="text-sm font-medium">Settings</span>
               </li>
-              <li [routerLink]="['/app']" (click)="profileMenuOpen = false"
-                class="flex items-center gap-x-2 text-sky-100 hover:text-white hover:bg-sky-700/60 rounded-lg p-2 transition-colors cursor-pointer">
-                <span class="text-sm font-medium">Feed</span>
+              <li (click)="logout()"
+                  class="flex items-center gap-x-2 text-rose-300 hover:text-rose-100 hover:bg-rose-900/40 rounded-lg p-2 transition-colors cursor-pointer text-sm font-medium border-t border-sky-700/30 mt-1">
+                Logout
               </li>
             </ul>
           </div>

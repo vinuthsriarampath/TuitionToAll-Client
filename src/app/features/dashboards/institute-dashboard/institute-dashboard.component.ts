@@ -3,8 +3,6 @@ import {FlowbiteService} from '@core/services/flowbite/flowbite.service';
 import {initFlowbite} from 'flowbite';
 import {Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {
-  ArrowLeft,
-  ArrowRight,
   Book,
   ChevronDownIcon,
   Home,
@@ -20,6 +18,8 @@ import {NgClass, NgOptimizedImage} from '@angular/common';
 import {environment} from '@env/environment.development';
 import {SidebarMenuItem} from '../types/sidebar-menu-item';
 import {BreadcrumbComponent} from '@shared/components/breadcrumb/breadcrumb.component';
+import {AuthenticationService} from '@features/auth/services/auth/authentication.service';
+import {UserHelper} from '@shared/utils/helpers/user-helper';
 
 @Component({
   selector: 'app-institute-dashboard',
@@ -39,12 +39,11 @@ export class InstituteDashboardComponent implements OnInit{
 
   institute:User = new User(); // Current User
 
-  private readonly window = globalThis.window;
 
   private readonly flowbiteService: FlowbiteService = inject(FlowbiteService);
   private readonly userService: UserService = inject(UserService);
   private readonly alertService: AlertService = inject(AlertService);
-  private readonly router = inject(Router)
+  private readonly authService:AuthenticationService = inject(AuthenticationService);
 
   ngOnInit(): void {
     //Initialize flowbite
@@ -64,8 +63,6 @@ export class InstituteDashboardComponent implements OnInit{
 
   // Sidebar lucid icons
   protected readonly environment = environment;
-  protected readonly arrowLeft = ArrowLeft;
-  protected readonly arrowRight = ArrowRight;
   protected readonly dropDownIcon = ChevronDownIcon;
   protected readonly menu = Menu;
 
@@ -97,4 +94,10 @@ export class InstituteDashboardComponent implements OnInit{
       route: "announcements-mgt"
     }
   ]
+
+  protected logout():void{
+    this.authService.logout();
+  }
+
+  protected readonly UserHelper = UserHelper;
 }
