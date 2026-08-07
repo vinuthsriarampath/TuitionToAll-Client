@@ -2,6 +2,9 @@
   [headerTitle]="'Application for '+vacancy.title"
   [headerDescription]="'you can apply for the vacancy here!'"
   [showBackButton]="true"
+  [isLoading]="loading"
+  [loaderTitle]="'Loading application details...'"
+  [loaderDescription]="isApplied ? 'You have already applied for this vacancy.' : 'Please wait while we load the application details.'"
 >
   <div data-body>
 

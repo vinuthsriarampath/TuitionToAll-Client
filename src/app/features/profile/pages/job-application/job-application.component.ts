@@ -5,7 +5,6 @@ import {DatePipe} from '@angular/common';
 import {TeacherVacancyService} from '../../../teacher-vacancy/services/teacher-vacancy/teacher-vacancy.service';
 import {QuillEditorComponent} from 'ngx-quill';
 import {FormsModule} from '@angular/forms';
-import {PageTitleComponent} from '@shared/components/page-title/page-title.component';
 import {UserService} from '../../services/user/user.service';
 import {User} from '../../dtos/response/user';
 import {ApplicationService} from '../../../applications/services/application/application.service';
@@ -22,7 +21,6 @@ import {CardShellComponent} from '@shared/ui';
     DatePipe,
     QuillEditorComponent,
     FormsModule,
-    PageTitleComponent,
     PageLayoutComponent,
     CardShellComponent
   ],
@@ -35,6 +33,7 @@ export class JobApplicationComponent implements OnInit{
   protected vacancyId!: number;
   protected vacancy!:TeacherVacancy;
   protected currentUser!: User;
+  protected loading:boolean = false;
 
   private readonly activateRoute:ActivatedRoute = inject(ActivatedRoute);
   private readonly teacherVacancyService:TeacherVacancyService = inject(TeacherVacancyService);
@@ -51,11 +50,13 @@ export class JobApplicationComponent implements OnInit{
   }
 
   private loadVacancyData():void{
+    this.triggerLoading();
     this.teacherVacancyService.getByIdAndStatus(this.vacancyId,TeacherVacancyStatus.OPEN).subscribe({
       next: (res)=>{
         if(res.data){
           this.vacancy = res.data;
           this.checkIfApplied();
+          this.triggerLoading();
         }
       },
       error: (err)=>{
@@ -64,6 +65,7 @@ export class JobApplicationComponent implements OnInit{
         }else{
           this.alertService.triggerErrorAlert("Something Went Wrong!");
         }
+        this.triggerLoading();
       }
     })
   }
@@ -125,6 +127,9 @@ export class JobApplicationComponent implements OnInit{
         }
       }
     });
+  }
 
+  private triggerLoading():void{
+    this.loading = !this.loading;
   }
 }
