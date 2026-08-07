@@ -9,6 +9,7 @@ import {NavbarSearchComponent} from '@shared/components/navbar-search/navbar-sea
 import {Bell, House, LayoutDashboard, LucideAngularModule, MessageSquareText, Search, Users} from 'lucide-angular';
 import {User} from '@features/profile/dtos/response/user';
 import {UserService} from '@features/profile/services/user/user.service';
+import {AuthenticationService} from '@features/auth/services/auth/authentication.service';
 
 @Component({
   selector: 'app-navbar',
@@ -38,6 +39,7 @@ export class NavbarComponent implements OnInit{
   user: User | null = null;
 
   private readonly userService:UserService = inject(UserService);
+  private readonly authService:AuthenticationService = inject(AuthenticationService);
 
   @ViewChild('mobileSearchInput') mobileSearchInput!: ElementRef;
 
@@ -112,12 +114,7 @@ export class NavbarComponent implements OnInit{
   }
 
   logout() {
-    const token: string|null = localStorage.getItem("token");
-
-    if(token){
-      localStorage.removeItem("token");
-      window.location.replace("/auth/login");
-    }
+    this.authService.logout();
   }
 
   private isInstitute(details: any): details is Institute {
