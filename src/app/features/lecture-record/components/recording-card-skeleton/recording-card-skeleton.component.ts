@@ -1,14 +1,12 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {BadgeComponent, CardShellComponent} from "@shared/ui";
-import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-recording-card-skeleton',
-    imports: [
-        BadgeComponent,
-        CardShellComponent,
-        DatePipe
-    ],
+  imports: [
+    BadgeComponent,
+    CardShellComponent
+  ],
   templateUrl: './recording-card-skeleton.component.html',
   styleUrl: './recording-card-skeleton.component.css'
 })

@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { CourseTreeService } from './course-tree.service';
+import {CourseTreeService} from './course-tree.service';
 
 describe('CourseTreeService', () => {
   let service: CourseTreeService;

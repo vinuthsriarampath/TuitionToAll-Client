@@ -1,13 +1,11 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {BadgeComponent, CardShellComponent} from '@shared/ui';
+import {CardShellComponent} from '@shared/ui';
 import {MatDialog} from '@angular/material/dialog';
 import {LectureRecordUploadComponent} from '../../dialogs/lecture-record-upload/lecture-record-upload.component';
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {AlertService} from '@core/services/alerts/alert.service';
 import {LectureRecordResponse} from '../../dtos/response/LectureRecordResponse';
 import {ChapterService} from '../../../chapter/services/chapter/chapter.service';
-import {DatePipe} from '@angular/common';
-import {LectureRecordUpdateComponent} from '../../dialogs/lecture-record-update/lecture-record-update.component';
 import {RecordingCardComponent} from '@features/lecture-record/components/recording-card/recording-card.component';
 import {
   RecordingCardSkeletonComponent
@@ -18,9 +16,6 @@ import {NoContentComponent} from '@shared/components/no-content/no-content.compo
   selector: 'app-lecture-recording',
   imports: [
     CardShellComponent,
-    DatePipe,
-    RouterLink,
-    BadgeComponent,
     RecordingCardComponent,
     RecordingCardSkeletonComponent,
     NoContentComponent

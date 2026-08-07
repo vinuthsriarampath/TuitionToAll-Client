@@ -1,7 +1,6 @@
 import {Component, inject, input, output} from '@angular/core';
 import {CardShellComponent} from '@shared/ui';
 import {Calendar, LucideAngularModule, MapPin, Phone} from 'lucide-angular';
-import {NgIf} from '@angular/common';
 import {PhonePipePipe} from '@shared/utils/pipes/phone-pipe/phone-pipe.pipe';
 import {User} from '@features/profile/dtos/response/user';
 import {AlertService} from '@core/services/alerts/alert.service';
@@ -16,7 +15,6 @@ import {UserHelper} from '@shared/utils/helpers/user-helper';
   imports: [
     CardShellComponent,
     LucideAngularModule,
-    NgIf,
     PhonePipePipe
   ],
   templateUrl: './profile-intro.component.html',

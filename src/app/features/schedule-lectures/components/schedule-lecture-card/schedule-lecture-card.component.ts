@@ -2,7 +2,7 @@ import {Component, inject, input, output} from '@angular/core';
 import {CardHeaderComponent, CardShellComponent} from "@shared/ui";
 import {DatePipe} from "@angular/common";
 import {
-    ScheduleLecBadgeComponent
+  ScheduleLecBadgeComponent
 } from "@features/schedule-lectures/components/schedule-lec-badge/schedule-lec-badge.component";
 import {ScheduleLectureResponse} from '@features/schedule-lectures/dtos/response/ScheduleLectureResponse';
 import {ScheduleLectureService} from '@features/schedule-lectures/services/schedule-lecture/schedule-lecture.service';

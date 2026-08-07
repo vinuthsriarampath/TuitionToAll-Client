@@ -1,4 +1,4 @@
-import { CourseTreeNodeFactory } from './course-tree-node-factory';
+import {CourseTreeNodeFactory} from './course-tree-node-factory';
 
 describe('CourseTreeNodeFactory', () => {
   it('should create an instance', () => {

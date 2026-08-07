@@ -1,15 +1,13 @@
-import {Component, computed, inject, input, output} from '@angular/core';
+import {Component, inject, input, output} from '@angular/core';
 import {ChapterBadgeComponent} from "../chapter-badge/chapter-badge.component";
 import {DatePipe} from "@angular/common";
 import {ChapterStatus} from '../../enums/ChapterStatus';
 import {BadgeComponent} from '@shared/ui';
-import {ChapterResponse} from '@features/chapter/dtos/response/ChapterResponse';
 import {
   ChapterUpdateDialogComponent
 } from '@features/chapter/dialogs/chapter-update-dialog/chapter-update-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {ActivatedRoute} from '@angular/router';
-import {toSignal} from '@angular/core/rxjs-interop';
 import {ChapterMapper} from '@features/chapter/mapper/chapter-mapper';
 
 @Component({

@@ -1,16 +1,8 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {FlowbiteService} from '@core/services/flowbite/flowbite.service';
 import {initFlowbite} from 'flowbite';
-import {Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
-import {
-  Book,
-  ChevronDownIcon,
-  Home,
-  LucideAngularModule,
-  Megaphone,
-  Menu,
-  User2
-} from 'lucide-angular';
+import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
+import {Book, ChevronDownIcon, Home, LucideAngularModule, Megaphone, Menu, User2} from 'lucide-angular';
 import {UserService} from '../../profile/services/user/user.service';
 import {AlertService} from '@core/services/alerts/alert.service';
 import {User} from '../../profile/dtos/response/user';

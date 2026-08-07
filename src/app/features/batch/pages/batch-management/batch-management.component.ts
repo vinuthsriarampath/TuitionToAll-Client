@@ -9,7 +9,8 @@ import {
   MatHeaderCell,
   MatHeaderCellDef,
   MatHeaderRow,
-  MatHeaderRowDef, MatNoDataRow,
+  MatHeaderRowDef,
+  MatNoDataRow,
   MatRow,
   MatRowDef,
   MatTable,
@@ -25,7 +26,6 @@ import {MatDialog} from '@angular/material/dialog';
 import {UpdateBatchDialogComponent} from '../../dialogs/update-batch-dialog/update-batch-dialog.component';
 import {PageLayoutComponent} from '@core/layouts';
 import {Batch} from '@features/batch/dtos/response/batch';
-import {Course} from '@features/course/dtos/response/course';
 import {BatchService} from '@features/batch/services/batch/batch.service';
 import {NoContentComponent} from '@shared/components/no-content/no-content.component';
 

@@ -4,7 +4,7 @@ import {AnnouncementResponse} from '../../../announcement/dtos/response/Announce
 import {AlertService} from '@core/services/alerts/alert.service';
 import {AnnouncementFilterRequest} from '../../../announcement/dtos/request/AnnouncementFilterRequest';
 import {AnnouncementStatus} from '../../../announcement/enums/AnnouncementStatus';
-import {CircleSlash, LucideAngularModule, Pin} from 'lucide-angular';
+import {LucideAngularModule, Pin} from 'lucide-angular';
 import {NgClass} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {CardShellComponent} from '@shared/ui';

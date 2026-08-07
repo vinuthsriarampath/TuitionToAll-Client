@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { NoContentComponent } from './no-content.component';
+import {NoContentComponent} from './no-content.component';
 
 describe('NoContentComponent', () => {
   let component: NoContentComponent;
