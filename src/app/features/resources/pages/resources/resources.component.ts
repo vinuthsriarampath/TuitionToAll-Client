@@ -11,7 +11,7 @@ import {
   MatHeaderCell,
   MatHeaderCellDef,
   MatHeaderRow,
-  MatHeaderRowDef,
+  MatHeaderRowDef, MatNoDataRow,
   MatRow,
   MatRowDef,
   MatTable,
@@ -24,6 +24,7 @@ import {ResourceService} from '../../services/resource/resource.service';
 import {environment} from '@env/environment.development';
 import {ResourceCreateComponent} from '../../dialogs/resource-create/resource-create.component';
 import {ConfirmationDialogData} from '@shared/dialogs/confirmation-dialog/confirmation-dialog.component';
+import {NoContentComponent} from '@shared/components/no-content/no-content.component';
 
 @Component({
   selector: 'app-resources',
@@ -41,11 +42,15 @@ import {ConfirmationDialogData} from '@shared/dialogs/confirmation-dialog/confir
     MatRow,
     MatPaginator,
     LucideAngularModule,
+    MatNoDataRow,
+    NoContentComponent,
   ],
   templateUrl: './resources.component.html',
   styleUrl: './resources.component.css'
 })
 export class ResourcesComponent implements OnInit{
+
+  protected loading:boolean = false;
 
   protected dataSource:MatTableDataSource<ResourceResponse> = new MatTableDataSource<ResourceResponse>([]);
   protected columns:string[] = ['name','action'];
@@ -79,6 +84,7 @@ export class ResourcesComponent implements OnInit{
   }
 
   private fetchResources():void{
+    this.triggerLoading();
     this.chapterService.getAllResourcesWithFilters(this.chapterId,this.pageIndex,this.pageSize).subscribe({
       next:(res)=>{
         if(res.data){
@@ -86,10 +92,12 @@ export class ResourcesComponent implements OnInit{
           this.pageIndex = res.page ?? 0;
           this.pageSize = res.size ?? 5;
           this.totalElements = res.totalElements ?? 0;
+          this.triggerLoading();
         }
       },
       error:(err)=>{
         this.alertService.triggerErrorAlert(err.error.message);
+        this.triggerLoading();
       }
     })
   }
@@ -159,10 +167,12 @@ export class ResourcesComponent implements OnInit{
     });
   }
 
+  private triggerLoading():void{
+    this.loading = !this.loading;
+  }
+
   protected readonly Download = Download;
   protected readonly RefreshCw = RefreshCw;
-
-
   protected readonly environment = environment;
   protected readonly Trash2 = Trash2;
 }

@@ -42,13 +42,31 @@
 
         <tr mat-header-row *matHeaderRowDef="columns"></tr>
         <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+
+        <tr *matNoDataRow>
+          <td class="mat-cell text-center p-4" [attr.colspan]="columns.length">
+            @if (loading) {
+              <ng-container>
+                Loading all Resources...
+              </ng-container>
+            } @else {
+              <ng-container>
+                <app-no-content
+                  [title]="'No Resources Found!'"
+                  [description]="'You can create your first resource by clicking the Add button above.'"
+                ></app-no-content>
+              </ng-container>
+            }
+          </td>
+
+        </tr>
       </table>
 
     </div>
       <mat-paginator
-        [hidePageSize]="true"
         [pageIndex]="pageIndex"
         [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 20]"
         showFirstLastButtons
         aria-label="Select page of resources"
         (page)="onPageChange($event)"
