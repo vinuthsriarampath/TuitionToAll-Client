@@ -24,6 +24,7 @@ import {NoContentComponent} from '@shared/components/no-content/no-content.compo
 })
 export class CourseAnnouncementListComponent implements OnInit{
   protected announcements:AnnouncementResponse[] = [];
+  protected loading:boolean = false;
 
   protected totalAnnouncements:number = 0;
 
@@ -39,6 +40,7 @@ export class CourseAnnouncementListComponent implements OnInit{
 
   private loadAnnouncements(){
     if(this.recentAnnouncements()){
+      this.triggerLoading();
       const filters:AnnouncementFilterRequest = new AnnouncementFilterRequest();
       filters.status = AnnouncementStatus.PUBLISHED;
       filters.courseId = this.courseId();
@@ -48,10 +50,12 @@ export class CourseAnnouncementListComponent implements OnInit{
           if(res.data){
             this.announcements = res.data;
             this.totalAnnouncements = res.totalElements ?? 0;
+            this.triggerLoading();
           }
         },
         error: (err)=>{
           this.alertService.triggerErrorAlert(err.error.message);
+          this.triggerLoading();
         }
       })
     }
@@ -102,8 +106,10 @@ export class CourseAnnouncementListComponent implements OnInit{
     return publishedDate.toLocaleDateString();
   }
 
+  private triggerLoading():void{
+    this.loading = !this.loading;
+  }
 
   protected readonly Pin = Pin;
   protected readonly Number = Number;
-  protected readonly CircleSlash = CircleSlash;
 }
