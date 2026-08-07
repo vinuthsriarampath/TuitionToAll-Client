@@ -55,6 +55,23 @@
 
         <tr *matHeaderRowDef="columns" mat-header-row></tr>
         <tr *matRowDef="let row; columns: columns;" mat-row></tr>
+
+        <!-- No Data Row -->
+        <tr *matNoDataRow>
+          <td class="mat-cell text-center p-4" [attr.colspan]="columns.length">
+            @if (loading) {
+              <ng-container>
+                Loading all Modules...
+              </ng-container>
+            } @else {
+              <ng-container>
+                <app-no-content
+                  [title]="'No Assignments Found!'"
+                  [description]="'You can create your first module by clicking the Add Assignment button above.'"
+                ></app-no-content>
+              </ng-container>
+            }
+          </td>
       </table>
     </div>
     <mat-paginator

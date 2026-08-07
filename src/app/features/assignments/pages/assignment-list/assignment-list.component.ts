@@ -7,7 +7,7 @@ import {
   MatHeaderCell,
   MatHeaderCellDef,
   MatHeaderRow,
-  MatHeaderRowDef,
+  MatHeaderRowDef, MatNoDataRow,
   MatRow,
   MatRowDef,
   MatTable,
@@ -21,6 +21,7 @@ import {ChapterService} from '@features/chapter/services/chapter/chapter.service
 import {AlertService} from '@core/services/alerts/alert.service';
 import {Eye, LucideAngularModule, Pencil, RefreshCw} from 'lucide-angular';
 import {ActivatedRoute, Router} from '@angular/router';
+import {NoContentComponent} from '@shared/components/no-content/no-content.component';
 
 export type AssignmentConfig =
   | { type: 'module'; moduleId: number; chapterId?: never }
@@ -47,7 +48,9 @@ export type Header = {
     MatRowDef,
     MatTable,
     MatTooltip,
-    MatHeaderCellDef
+    MatHeaderCellDef,
+    NoContentComponent,
+    MatNoDataRow
   ],
   templateUrl: './assignment-list.component.html',
   styleUrl: './assignment-list.component.css'
@@ -57,6 +60,7 @@ export class AssignmentListComponent implements OnInit {
   header= input.required<Header>();
   config = input.required<AssignmentConfig>();
 
+  protected loading:boolean = false;
   protected columns: string[] = ['id', 'topic', 'availableDate', 'dueDate', 'createdDate', 'actions'];
   protected dataSource: MatTableDataSource<Assignment> = new MatTableDataSource<Assignment>();
 
@@ -126,6 +130,10 @@ export class AssignmentListComponent implements OnInit {
       ['assignments',id,'view'],
       {relativeTo: this.activatedRoute,queryParams: this.config()}
     )
+  }
+
+  private triggerLoading():void{
+    this.loading = !this.loading;
   }
   protected readonly RefreshCw = RefreshCw;
   protected readonly Eye = Eye;
