@@ -5,13 +5,15 @@ import {TeacherVacancy} from '../../../teacher-vacancy/dtos/response/teacher-vac
 import {FormsModule} from '@angular/forms';
 import {VacancyCardComponent} from '../../components/vacancy-card/vacancy-card.component';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
+import {NoContentComponent} from '@shared/components/no-content/no-content.component';
 
 @Component({
   selector: 'app-institute-jobs',
   imports: [
     FormsModule,
     VacancyCardComponent,
-    MatProgressSpinner
+    MatProgressSpinner,
+    NoContentComponent
   ],
   templateUrl: './institute-jobs.component.html',
   styleUrl: './institute-jobs.component.css'
