@@ -1,0 +1,21 @@
+<app-card-shell>
+  <div class="flex justify-between items-start p-5">
+    <div>
+      <app-badge [text]="`Recorded on .....`" [variant]="'indigo'"></app-badge>
+      <div class="mt-2 w-32 h-6 bg-sky-900/80 animate-pulse"></div>
+    </div>
+
+    <div class="flex gap-2">
+
+      <button class="btn-mini-primary" [disabled]="true">
+        Watch
+      </button>
+
+      <button class="btn-mini-secondary" [disabled]="true">
+        Edit
+      </button>
+
+    </div>
+
+  </div>
+</app-card-shell>
