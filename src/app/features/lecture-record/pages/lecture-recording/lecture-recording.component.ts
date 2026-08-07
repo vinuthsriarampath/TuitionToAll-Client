@@ -8,6 +8,11 @@ import {LectureRecordResponse} from '../../dtos/response/LectureRecordResponse';
 import {ChapterService} from '../../../chapter/services/chapter/chapter.service';
 import {DatePipe} from '@angular/common';
 import {LectureRecordUpdateComponent} from '../../dialogs/lecture-record-update/lecture-record-update.component';
+import {RecordingCardComponent} from '@features/lecture-record/components/recording-card/recording-card.component';
+import {
+  RecordingCardSkeletonComponent
+} from '@features/lecture-record/components/recording-card-skeleton/recording-card-skeleton.component';
+import {NoContentComponent} from '@shared/components/no-content/no-content.component';
 
 @Component({
   selector: 'app-lecture-recording',
@@ -15,7 +20,10 @@ import {LectureRecordUpdateComponent} from '../../dialogs/lecture-record-update/
     CardShellComponent,
     DatePipe,
     RouterLink,
-    BadgeComponent
+    BadgeComponent,
+    RecordingCardComponent,
+    RecordingCardSkeletonComponent,
+    NoContentComponent
   ],
   templateUrl: './lecture-recording.component.html',
   styleUrl: './lecture-recording.component.css'
@@ -24,6 +32,7 @@ export class LectureRecordingComponent implements  OnInit{
 
   private chapterId!:number;
   protected lectureRecords:LectureRecordResponse[] =[];
+  protected loading:boolean = false;
 
   private readonly dialog:MatDialog = inject(MatDialog);
   private readonly alertService:AlertService = inject(AlertService);
@@ -42,13 +51,18 @@ export class LectureRecordingComponent implements  OnInit{
     })
   }
 
-  private fetchAllLectureRecords():void{
+  protected fetchAllLectureRecords = ():void => {
+    this.triggerLoading();
     this.chapterService.getAllLectureRecordsByChapterId(this.chapterId).subscribe({
       next:(res)=>{
-        if(res.data) this.lectureRecords = res.data
+        if(res.data) {
+          this.lectureRecords = res.data;
+          this.triggerLoading();
+        }
       },
       error:(err)=>{
         this.alertService.triggerErrorAlert(err.error.message);
+        this.triggerLoading();
       }
     })
   }
@@ -70,19 +84,7 @@ export class LectureRecordingComponent implements  OnInit{
     })
   }
 
-  protected openLectureRecordDetailsUpdateDialog(lectureRecord:LectureRecordResponse):void{
-    const dialogRef = this.dialog.open(LectureRecordUpdateComponent,{
-      width:'650px',
-      data:lectureRecord,
-    });
-
-    dialogRef.afterClosed().subscribe({
-      next:(res)=>{
-        this.fetchAllLectureRecords();
-      },
-      error:(err)=>{
-        this.alertService.triggerErrorAlert(err.error.message);
-      }
-    })
+  private triggerLoading():void{
+    this.loading=!this.loading;
   }
 }
