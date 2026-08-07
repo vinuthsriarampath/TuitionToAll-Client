@@ -5,7 +5,7 @@ import {DatePipe} from '@angular/common';
 import {TeacherVacancyStatus} from '../../enums/teacher-vacancy-status';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {QuillEditorComponent} from 'ngx-quill';
-import {DialogLayoutComponent} from '../../../../core/layouts/dialog-layout/dialog-layout.component';
+import {DialogLayoutComponent} from '@core/layouts';
 import {InfoIcon, LucideIconData} from 'lucide-angular';
 import {BadgeComponent, CardShellComponent} from '@shared/ui';
 
