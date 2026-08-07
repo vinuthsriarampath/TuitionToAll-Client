@@ -13,6 +13,8 @@ import {MatDialog} from '@angular/material/dialog';
 import {ChapterUpdateDialogComponent} from '../../dialogs/chapter-update-dialog/chapter-update-dialog.component';
 import {ChapterReorderRequest} from '../../dtos/request/ChapterReorderRequest';
 import {ChapterService} from '../../services/chapter/chapter.service';
+import {NoContentComponent} from '@shared/components/no-content/no-content.component';
+import {LoaderOverlayComponent} from '@shared/components/loader-overlay/loader-overlay.component';
 
 @Component({
   selector: 'app-chapter-list',
@@ -26,7 +28,9 @@ import {ChapterService} from '../../services/chapter/chapter.service';
     CdkDragHandle,
     ChapterBadgeComponent,
     RouterLink,
-    BadgeComponent
+    BadgeComponent,
+    NoContentComponent,
+    LoaderOverlayComponent
   ],
   templateUrl: './chapter-list.component.html',
   styleUrl: './chapter-list.component.css'
@@ -34,6 +38,7 @@ import {ChapterService} from '../../services/chapter/chapter.service';
 export class ChapterListComponent implements OnInit, OnChanges {
 
   protected chapters:ChapterResponse[] = [];
+  protected loading:boolean = false;
 
   private moduleId!:number;
   private readonly dialog:MatDialog = inject(MatDialog);
@@ -65,11 +70,15 @@ export class ChapterListComponent implements OnInit, OnChanges {
   }
 
   private loadChaptersByModule():void{
+    this.triggerLoading();
     this.moduleService.getChaptersByModuleId(this.moduleId).subscribe({
       next:(res)=>{
         if(res.data) this.chapters = res.data;
+        this.triggerLoading();
+
       },
       error:(err)=>{
+        this.triggerLoading();
         this.alertService.triggerErrorAlert(err.error.message)
       }
     })
@@ -130,6 +139,10 @@ export class ChapterListComponent implements OnInit, OnChanges {
   onEditClick(event: MouseEvent, chapter: ChapterResponse): void {
     event.stopPropagation(); // Prevent routerLink
     this.openUpdateChapterDetailsDialog(chapter);
+  }
+
+  private triggerLoading():void{
+    this.loading = !this.loading;
   }
 
   protected readonly Edit = Edit;
