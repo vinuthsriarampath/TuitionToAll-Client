@@ -1,5 +1,5 @@
 import {Component, inject, input, output} from '@angular/core';
-import {CardHeaderComponent} from "@shared/ui";
+import {CardHeaderComponent, CardShellComponent} from "@shared/ui";
 import {Lock, LucideAngularModule} from "lucide-angular";
 import {ModuleDetailedResponse} from '../../dtos/response/ModuleDetailedResponse';
 import {MatDialog} from '@angular/material/dialog';
@@ -13,10 +13,11 @@ import {ModuleStatus} from '../../enums/ModuleStatus';
 
 @Component({
   selector: 'app-module-danger-panel',
-    imports: [
-        CardHeaderComponent,
-        LucideAngularModule
-    ],
+  imports: [
+    CardHeaderComponent,
+    LucideAngularModule,
+    CardShellComponent
+  ],
   templateUrl: './module-danger-panel.component.html',
   styleUrl: './module-danger-panel.component.css'
 })
