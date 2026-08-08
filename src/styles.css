@@ -528,9 +528,64 @@ mat-tree-node .mat-mdc-icon-button {
   @apply bg-sky-900/40 text-sky-200 border-sky-700/30;
 }
 
-/* Dynamic Cards */
-.full-w-card {
-  @apply w-full mb-3 bg-sky-950/80 backdrop-blur-md border border-sky-800/50 rounded-xl p-4 shadow-lg hover:border-sky-700/70 hover:bg-sky-900/60 transition-all duration-200 flex gap-3 cursor-pointer active:scale-[0.99];
+/* ==========================================================================
+   Card Shell Variants
+   ========================================================================== */
+
+.card-primary {
+  @apply bg-sky-950/80 border border-sky-800/50 text-sky-100;
+}
+
+.card-secondary {
+  @apply bg-slate-900/80 border border-slate-700/60 text-slate-100;
+}
+
+.card-success {
+  @apply bg-emerald-950/80 border border-emerald-800/50 text-emerald-100;
+}
+
+.card-warning {
+  @apply bg-amber-950/80 border border-amber-800/50 text-amber-100;
+}
+
+.card-danger {
+  @apply bg-rose-950/80 border border-rose-800/50 text-rose-100;
+}
+
+.card-info {
+  @apply bg-cyan-950/80 border border-cyan-800/50 text-cyan-100;
+}
+
+.card-indigo {
+  @apply bg-indigo-950/80 border border-indigo-800/50 text-indigo-100;
+}
+
+.card-violet {
+  @apply bg-violet-950/80 border border-violet-800/50 text-violet-100;
+}
+
+/* ==========================================================================
+   Card Shell Border Styles
+   ========================================================================== */
+
+.card-border-solid {
+  border-style: solid;
+}
+
+.card-border-dashed {
+  border-style: dashed;
+}
+
+.card-border-dotted {
+  border-style: dotted;
+}
+
+.card-border-double {
+  border-style: double;
+}
+
+.card-border-none {
+  border-style: none;
 }
 
 
@@ -593,6 +648,8 @@ p {
 .link-light {
   @apply text-gray-300 hover:text-gray-200;
 }
+
+/* quill editor */
 
 .ql-background {
   background-color: whitesmoke;
