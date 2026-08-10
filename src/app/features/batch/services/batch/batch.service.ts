@@ -45,4 +45,8 @@ export class BatchService {
 
     return this.http.get<PaginatedApiResponse<ModuleResponse>>(`${environment.BATCH_API}/${id}/modules`, { params });
   }
+
+  getEnrollableBatchesOfCourse(courseId:number):Observable<ApiResponse<Batch[]>> {
+    return this.http.get<ApiResponse<Batch[]>>(`${environment.BATCH_API}/${courseId}/enrollables`);
+  }
 }
