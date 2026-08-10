@@ -1,0 +1,23 @@
+<app-card-shell>
+  <div class="p-4 grid grid-cols-4 gap-4 items-start">
+    <div class="col-span-3 flex flex-col gap-2">
+      <p class="para-primary para-sm">SELECTED COURSE</p>
+      <h1>{{ course().title }}</h1>
+      <p class="para-md">{{ course().description }}</p>
+      <div class="flex flex-wrap gap-2">
+        <app-badge [text]="(course().category | titlecase) ?? 'Not specified'" variant="info"></app-badge>
+        <app-badge [text]="(course().language | titlecase) ?? 'Not specified'" variant="info"></app-badge>
+        <app-badge [text]="(course().level | titlecase) ?? 'Not specified'" variant="info"></app-badge>
+      </div>
+    </div>
+    <div class="col-span-1">
+      <app-card-shell>
+        <div class="p-4 flex flex-col items-end">
+          <p class="para-sm para-primary"> COURSE FEE</p>
+          <h3 class="text-2xl font-bold">LKR {{ course().price | number:'1.2-2' }}</h3>
+          <p class="para-primary para-xs">One-time payment</p>
+        </div>
+      </app-card-shell>
+    </div>
+  </div>
+</app-card-shell>
