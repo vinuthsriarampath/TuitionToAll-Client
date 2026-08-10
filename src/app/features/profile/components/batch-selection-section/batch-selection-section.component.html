@@ -1,0 +1,90 @@
+<app-card-shell>
+  <div class="p-4">
+    <app-card-header [title]="'Select Batch'" [description]="'Only batches currently accepting enrollments are shown.'"></app-card-header>
+    <div class="my-2 flex flex-col gap-2">
+      @if (loading) {
+        <app-card-shell>
+          <div class="p-4 animate-pulse">
+            <h3> Loading Batches.. </h3>
+            <p class="para-primary para-xs"> Please wait while we load the available batches.. </p>
+          </div>
+        </app-card-shell>
+      } @else {
+        @if (batches.length === 0) {
+          <p class="para-primary para-md">No batches available for enrollment.</p>
+        } @else {
+          @for (batch of batches; track batch.id) {
+            <div (click)="batchSelect(batch)" [ngClass]="selectedBatch.id === batch.id ? 'border-sky-400 bg-sky-900/40 ring-2 ring-sky-400/20' : 'border-sky-800/60 bg-slate-900/80 hover:border-sky-600 hover:bg-slate-900'"
+                 class="group flex items-start gap-4 p-4 rounded-xl border cursor-pointer transition-all duration-200 active:scale-[0.99]" >
+              <!-- Selection Indicator -->
+              <div class="pt-1 shrink-0">
+                <div [ngClass]=" selectedBatch.id === batch.id ? 'border-sky-400 bg-sky-500' : 'border-slate-600 group-hover:border-sky-500' " class="w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors">
+                  @if (selectedBatch.id === batch.id) {
+                    <div class="w-2 h-2 rounded-full bg-white"></div>
+                  }
+                </div>
+              </div>
+
+              <!-- Batch Content -->
+              <div class="flex-1 min-w-0">
+
+                <!-- Header -->
+                <div class="flex items-start justify-between gap-3">
+                  <div class="min-w-0">
+                    <h3 [title]="batch.name" >{{ batch.name }}</h3>
+                    <p class="para-xs para-primary mt-1"> Batch schedule </p>
+                  </div>
+
+                  <!-- Status -->
+                  <app-badge class="shrink-0" [text]=" selectedBatch.id === batch.id ? 'SELECTED' : (batch.enrollment_status | lowercase) " [variant]="'info'" ></app-badge>
+                </div>
+
+                <!-- Metadata -->
+                <div class="flex flex-wrap items-center gap-x-5 gap-y-2 mt-4">
+
+                  <!-- Start Date -->
+                  <div class="flex items-center gap-2">
+                    <div class="w-7 h-7 rounded-lg bg-sky-950/80 flex items-center justify-center">
+                      <lucide-icon [img]="Calendar" class="w-3.5 h-3.5 text-sky-400"></lucide-icon>
+                    </div>
+
+                    <div>
+                      <p class="para-primary para-sm uppercase tracking-wide">Start Date</p>
+                      <p class="text-sm text-slate-200">{{ batch.start_date | date:'mediumDate' }}</p>
+                    </div>
+                  </div>
+
+                  <!-- Start Time -->
+                  <div class="flex items-center gap-2">
+                    <div class="w-7 h-7 rounded-lg bg-sky-950/80 flex items-center justify-center">
+                      <lucide-icon [img]="Clock" class="w-3.5 h-3.5 text-sky-400"></lucide-icon>
+                    </div>
+
+                    <div>
+                      <p class="para-primary para-sm uppercase tracking-wide">Start Time</p>
+                      <p class="text-sm text-slate-200">{{ batch.start_time }}</p>
+                    </div>
+                  </div>
+
+                  <!-- Seats -->
+                  @if (batch.is_seat_limited) {
+                    <div class="flex items-center gap-2">
+                      <div class="w-7 h-7 rounded-lg bg-sky-950/80 flex items-center justify-center">
+                        <lucide-icon [img]="Users" class="w-3.5 h-3.5 text-sky-400"></lucide-icon>
+                      </div>
+
+                      <div>
+                        <p class="para-primary para-sm uppercase tracking-wide">Seats</p>
+                        <p class="text-sm text-slate-200">{{ batch.max_seat_limit }}</p>
+                      </div>
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+          }
+        }
+      }
+    </div>
+  </div>
+</app-card-shell>
