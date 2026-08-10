@@ -72,6 +72,7 @@ import {AssignmentResolverData} from '@features/assignments/resolvers/assignment
 import {AnnouncementResolverData} from '@features/announcement/resolvers/announcement-resolver-data';
 import {ChapterResolverData} from '@features/chapter/resolvers/chapter-resolver-data';
 import {TeacherVacancyResolverData} from '@features/teacher-vacancy/resolvers/teacher-vacancy-resolver-data';
+import {CourseCheckoutComponent} from '@features/profile/pages/course-checkout/course-checkout.component';
 
 
 export const routes: Routes = [
@@ -448,8 +449,21 @@ export const routes: Routes = [
   },
   {
     path: 'profile/:userSlug',
-    component: UserProfileComponent,
     canActivate: [authGuard,tokenGuard],
+    canActivateChild: [authGuard,tokenGuard],
+    children: [
+      {
+        path: '',
+        component: UserProfileComponent
+      },
+      {
+        path: 'checkout/:courseId',
+        resolve:{
+          course: courseResolver
+        },
+        component: CourseCheckoutComponent
+      }
+    ]
   },
   {
     path: '**',

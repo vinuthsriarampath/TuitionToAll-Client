@@ -29,7 +29,7 @@
           <p class="font-semibold text-emerald-700 text-sm">
             {{ (course().price ?? 0) > 0 ? ('Rs. ' + (course().price | currency:'':'':'1.0-2') + ' /=') : 'Free' }}
           </p>
-          <button class="btn-mini-primary">View Details</button>
+          <button [routerLink]="['checkout', course().id]" class="btn-mini-primary">View Details</button>
         </div>
 
       </div>

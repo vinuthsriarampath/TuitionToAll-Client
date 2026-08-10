@@ -3,6 +3,7 @@ import {CurrencyPipe, NgOptimizedImage} from '@angular/common';
 import {BadgeComponent, CardShellComponent} from '@shared/ui';
 import {environment} from '@env/environment.development';
 import {Course} from '@features/course/dtos/response/course';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-course-card',
@@ -10,7 +11,8 @@ import {Course} from '@features/course/dtos/response/course';
     CardShellComponent,
     CurrencyPipe,
     BadgeComponent,
-    NgOptimizedImage
+    NgOptimizedImage,
+    RouterLink
   ],
   templateUrl: './course-card.component.html',
   styleUrl: './course-card.component.css'
