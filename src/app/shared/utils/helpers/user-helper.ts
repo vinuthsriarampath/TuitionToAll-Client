@@ -1,7 +1,7 @@
 import {RoleDetails} from '@features/profile/dtos/response/RoleDetails';
 import {Institute} from '@features/institute/dtos/response/institute';
 import {Teacher} from '@features/profile/dtos/response/teacher';
-import {Student} from '@features/profile/dtos/response/student';
+import {Student} from '@features/student/dtos/responses/student';
 import {User} from '@features/profile/dtos/response/user';
 import {environment} from '@env/environment.development';
 

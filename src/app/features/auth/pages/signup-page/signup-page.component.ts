@@ -26,7 +26,7 @@ import {AuthenticationService} from '../../services/auth/authentication.service'
 import {ApiResponse} from '@shared/utils/response/api-response';
 import {Teacher} from '../../../profile/dtos/response/teacher';
 import {Institute} from '../../../institute/dtos/response/institute';
-import {Student} from '../../../profile/dtos/response/student';
+import {Student} from '../../../student/dtos/responses/student';
 import {
   AlertCircle,
   ArrowRight,

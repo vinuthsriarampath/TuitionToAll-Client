@@ -5,7 +5,7 @@ import {
   StudentDetailsUpdateRequest
 } from '@features/profile/dtos/request/user-update/sub-user-details-update-dto/StudentDetailsUpdateRequest';
 import {ApiResponse} from '@shared/utils/response/api-response';
-import {Student} from '@features/profile/dtos/response/student';
+import {Student} from '@features/student/dtos/responses/student';
 
 @Injectable({
   providedIn: 'root'

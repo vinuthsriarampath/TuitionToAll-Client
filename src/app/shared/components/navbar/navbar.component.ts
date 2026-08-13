@@ -1,7 +1,7 @@
 import {Component, ElementRef, HostListener, inject, OnInit, ViewChild} from '@angular/core';
 import {RouterLink, RouterLinkActive} from '@angular/router';
 import {FormsModule} from '@angular/forms';
-import {Student} from '@features/profile/dtos/response/student';
+import {Student} from '@features/student/dtos/responses/student';
 import {Teacher} from '@features/profile/dtos/response/teacher';
 import {Institute} from '@features/institute/dtos/response/institute';
 import {environment} from '@env/environment.development';
