@@ -70,7 +70,7 @@ export class AuthenticationService {
   }
 
   validateInstitute(){
-    return this.http.get<ApiResponse<null>>(` ${environment.USER_API}/validate/institute-role`);
+    return this.http.get<ApiResponse<null>>(` ${environment.INSTITUTE_API}/validate/role`);
   }
 
   logout() {

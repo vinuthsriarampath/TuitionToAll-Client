@@ -18,6 +18,9 @@ import {UserService} from '../../services/user/user.service';
 import {User} from '../../dtos/response/user';
 import {DialogLayoutComponent} from '@core/layouts';
 import {SquarePen} from 'lucide-angular';
+import {InstituteService} from '@features/institute/services/institute/institute.service';
+import {StudentService} from '@features/student/services/student/student.service';
+import {TeacherService} from '@features/teacher/services/teacher/teacher.service';
 
 @Component({
   selector: 'app-update-profile-dialog',
@@ -35,7 +38,10 @@ export class UpdateProfileDialogComponent {
   user!: User;
   isLoading: boolean = false;
 
-  userService:UserService = inject(UserService);
+  private readonly userService:UserService = inject(UserService);
+  private readonly instituteService:InstituteService = inject(InstituteService);
+  private readonly teacherService:TeacherService = inject(TeacherService);
+  private readonly studentService:StudentService = inject(StudentService);
 
   constructor(
     public dialogRef:MatDialogRef<UpdateProfileDialogComponent>,
@@ -44,7 +50,6 @@ export class UpdateProfileDialogComponent {
       details: Institute|Teacher|Student;
     }) {
     this.user = {...data.details};
-    console.log(this.user);
   }
 
 
@@ -61,7 +66,7 @@ export class UpdateProfileDialogComponent {
     if (updateRequest) {
       if (this.data.userRole=='institute') {
         this.triggerLoading();
-        this.userService.updateInstituteDetails(updateRequest).subscribe({
+        this.instituteService.updateInstituteDetails(updateRequest).subscribe({
           next:():void =>{
             this.triggerLoading();
             this.onConfirm();
@@ -73,7 +78,7 @@ export class UpdateProfileDialogComponent {
         })
       }else if(this.data.userRole=='teacher'){
         this.triggerLoading();
-        this.userService.updateTeacherDetails(updateRequest).subscribe({
+        this.teacherService.updateTeacherDetails(updateRequest).subscribe({
           next:() =>{
             this.triggerLoading();
             this.onConfirm();
@@ -85,7 +90,7 @@ export class UpdateProfileDialogComponent {
         })
       }else if(this.data.userRole=='student'){
         this.triggerLoading();
-        this.userService.updateStudentDetails(updateRequest).subscribe({
+        this.studentService.updateStudentDetails(updateRequest).subscribe({
           next:() =>{
             this.triggerLoading();
             this.onConfirm();
@@ -104,7 +109,6 @@ export class UpdateProfileDialogComponent {
   }
 
   private createUpdateRequest(): InstituteDetailsUpdateRequest | TeacherDetailsUpdateRequest | StudentDetailsUpdateRequest | null {
-    console.log("3",this.data.userRole);
     switch (this.data.userRole) {
       case 'institute':
         return {
