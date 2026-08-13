@@ -1,4 +1,4 @@
-import {RoleDetails} from '@features/profile/dtos/response/RoleDetails';
+import {RoleDetails} from '@features/role/dtos/RoleDetails';
 import {Institute} from '@features/institute/dtos/response/institute';
 import {Teacher} from '@features/teacher/dtos/responses/teacher';
 import {Student} from '@features/student/dtos/responses/student';
