@@ -21,7 +21,7 @@ import {
 } from '../../../student/dtos/requests/StudentDetailsUpdateRequest';
 import {
   TeacherDetailsUpdateRequest
-} from '../../dtos/request/user-update/sub-user-details-update-dto/TeacherDetailsUpdateRequest';
+} from '../../../teacher/dtos/requests/TeacherDetailsUpdateRequest';
 import {User} from '../../dtos/response/user';
 import {BehaviorSubject} from 'rxjs';
 import {Institute} from '../../../institute/dtos/response/institute';

@@ -3,7 +3,7 @@ import {environment} from '@env/environment.development';
 import {HttpClient} from '@angular/common/http';
 import {
   TeacherDetailsUpdateRequest
-} from '@features/profile/dtos/request/user-update/sub-user-details-update-dto/TeacherDetailsUpdateRequest';
+} from '@features/teacher/dtos/requests/TeacherDetailsUpdateRequest';
 import {ApiResponse} from '@shared/utils/response/api-response';
 import {Teacher} from '@features/teacher/dtos/responses/teacher';
 
