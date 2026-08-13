@@ -42,18 +42,6 @@ export class UserService {
     return this.http.get<ApiResponse<User>>(`${environment.USER_API}/by-user-slug/${userSlug}`);
   }
 
-  updateInstituteDetails(updateRequest: InstituteDetailsUpdateRequest){
-    return this.http.patch<ApiResponse<Institute>>(`${environment.USER_API}/institutes/update/me`,updateRequest);
-  }
-
-  updateTeacherDetails(updateRequest: TeacherDetailsUpdateRequest){
-    return this.http.patch<ApiResponse<Teacher>>(`${environment.USER_API}/teachers/update/me`,updateRequest);
-  }
-
-  updateStudentDetails(updateRequest: StudentDetailsUpdateRequest){
-    return this.http.patch<ApiResponse<Student>>(`${environment.USER_API}/student/update/me`,updateRequest);
-  }
-
   setCurrentUser(user: User|null){
     this.currentUserSubject.next(user);
   }
