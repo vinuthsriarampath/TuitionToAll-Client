@@ -3,7 +3,7 @@ import {RouterLink, RouterLinkActive} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {Student} from '@features/profile/dtos/response/student';
 import {Teacher} from '@features/profile/dtos/response/teacher';
-import {Institute} from '@features/profile/dtos/response/institute';
+import {Institute} from '@features/institute/dtos/response/institute';
 import {environment} from '@env/environment.development';
 import {NavbarSearchComponent} from '@shared/components/navbar-search/navbar-search.component';
 import {Bell, House, LayoutDashboard, LucideAngularModule, MessageSquareText, Search, Users} from 'lucide-angular';

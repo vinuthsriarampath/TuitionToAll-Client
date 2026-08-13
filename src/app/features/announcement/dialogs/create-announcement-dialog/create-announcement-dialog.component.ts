@@ -13,7 +13,7 @@ import {AnnouncementVisibility} from '@features/announcement/enums/AnnouncementV
 import {AnnouncementCreateStatus} from '@features/announcement/dtos/request/enums/AnnouncementCreateStatus';
 import {Course} from '@features/course/dtos/response/course';
 import {Batch} from '@features/batch/dtos/response/batch';
-import {Institute} from '@features/profile/dtos/response/institute';
+import {Institute} from '@features/institute/dtos/response/institute';
 import {getDateTime} from '@shared/utils/helpers/date-helper';
 import {CourseFilter} from '@features/course/dtos/request/course-filter';
 import {CourseStatus} from '@features/course/enums/course-status';

@@ -1,4 +1,4 @@
-import {Institute} from './institute';
+import {Institute} from '../../../institute/dtos/response/institute';
 import {Teacher} from './teacher';
 import {Student} from './student';
 

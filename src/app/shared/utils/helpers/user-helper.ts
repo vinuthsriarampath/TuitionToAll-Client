@@ -1,5 +1,5 @@
 import {RoleDetails} from '@features/profile/dtos/response/RoleDetails';
-import {Institute} from '@features/profile/dtos/response/institute';
+import {Institute} from '@features/institute/dtos/response/institute';
 import {Teacher} from '@features/profile/dtos/response/teacher';
 import {Student} from '@features/profile/dtos/response/student';
 import {User} from '@features/profile/dtos/response/user';

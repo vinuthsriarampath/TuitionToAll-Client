@@ -8,7 +8,7 @@ import {TeacherVacancyStatus} from '../../../teacher-vacancy/enums/teacher-vacan
 import {
   InstituteDetailsUpdateRequest
 } from '@features/profile/dtos/request/user-update/sub-user-details-update-dto/InstituteDetailsUpdateRequest';
-import {Institute} from '@features/profile/dtos/response/institute';
+import {Institute} from '@features/institute/dtos/response/institute';
 
 @Injectable({
   providedIn: 'root'
