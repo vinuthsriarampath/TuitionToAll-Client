@@ -8,8 +8,8 @@ import {ApplicationSelectionResponse} from '../../../applications/dtos/response/
 import {ApplicationRejectionRequest} from '../../../applications/dtos/request/ApplicationRejectionRequest';
 import {ApplicationRejectionResponse} from '../../../applications/dtos/response/ApplicationRejectionResponse';
 import {PaginatedApiResponse} from '@shared/utils/response/paginated-api-response';
-import {InstituteTeacherResponse} from '../../dtos/response/InstituteTeacherResponse';
-import {InstituteTeacherStatsResponse} from '../../dtos/response/InstituteTeacherStatsResponse';
+import {InstituteTeacherResponse} from '../../dtos/response/institute-teacher-responses/InstituteTeacherResponse';
+import {InstituteTeacherStatsResponse} from '../../dtos/response/institute-teacher-responses/InstituteTeacherStatsResponse';
 import {TeacherBasicResponse} from '../../../profile/dtos/response/TeacherBasicResponse';
 
 @Injectable({

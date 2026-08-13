@@ -24,12 +24,12 @@ import {
 } from '@angular/material/table';
 import {MatTooltip} from '@angular/material/tooltip';
 import {InstituteTeacherService} from '../../services/institute-teacher/institute-teacher.service';
-import {InstituteTeacherResponse} from '../../dtos/response/InstituteTeacherResponse';
+import {InstituteTeacherResponse} from '../../dtos/response/institute-teacher-responses/InstituteTeacherResponse';
 import {AlertService} from '@core/services/alerts/alert.service';
 import {environment} from '@env/environment.development';
 import {InstituteTeacherStatus} from '../../enums/InstituteTeacherStatus';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
-import {InstituteTeacherStatsResponse} from '../../dtos/response/InstituteTeacherStatsResponse';
+import {InstituteTeacherStatsResponse} from '../../dtos/response/institute-teacher-responses/InstituteTeacherStatsResponse';
 import {BadgeComponent, CardShellComponent, StatCardComponent} from '@shared/ui';
 import {NoContentComponent} from '@shared/components/no-content/no-content.component';
 
