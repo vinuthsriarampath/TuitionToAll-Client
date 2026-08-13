@@ -13,7 +13,7 @@ import {
 } from '../../dtos/request/user-update/sub-user-details-update-dto/TeacherDetailsUpdateRequest';
 import {
   StudentDetailsUpdateRequest
-} from '../../dtos/request/user-update/sub-user-details-update-dto/StudentDetailsUpdateRequest';
+} from '../../../student/dtos/requests/StudentDetailsUpdateRequest';
 import {UserService} from '../../services/user/user.service';
 import {User} from '../../dtos/response/user';
 import {DialogLayoutComponent} from '@core/layouts';

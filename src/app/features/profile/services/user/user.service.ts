@@ -18,7 +18,7 @@ import {
 } from '../../../institute/dtos/requests/InstituteDetailsUpdateRequest';
 import {
   StudentDetailsUpdateRequest
-} from '../../dtos/request/user-update/sub-user-details-update-dto/StudentDetailsUpdateRequest';
+} from '../../../student/dtos/requests/StudentDetailsUpdateRequest';
 import {
   TeacherDetailsUpdateRequest
 } from '../../dtos/request/user-update/sub-user-details-update-dto/TeacherDetailsUpdateRequest';
