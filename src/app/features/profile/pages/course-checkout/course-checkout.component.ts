@@ -13,7 +13,7 @@ import {
 import {
   BatchSelectionSectionComponent
 } from '@features/profile/components/batch-selection-section/batch-selection-section.component';
-import {UserService} from '@features/profile/services/user/user.service';
+import {UserService} from '@features/user/services/user/user.service';
 import {
   StudentEnrollmentService
 } from '@features/student_batch_enrollment/service/student-enrollment/student-enrollment.service';

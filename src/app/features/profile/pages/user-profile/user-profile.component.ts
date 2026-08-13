@@ -2,7 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NavbarComponent} from '@shared/components/navbar/navbar.component';
 import {User} from '../../dtos/response/user';
-import {UserService} from '../../services/user/user.service';
+import {UserService} from '@features/user/services/user/user.service';
 import {LucideAngularModule} from 'lucide-angular';
 import {environment} from '@env/environment.development';
 import {ProfileCoverComponent} from '@features/profile/components/profile-cover/profile-cover.component';

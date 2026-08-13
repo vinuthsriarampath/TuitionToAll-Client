@@ -8,7 +8,7 @@ import {CourseService} from '@features/course/services/course/course.service';
 import {AnnouncementService} from '@features/announcement/services/announcements/announcement.service';
 import {BatchService} from '@features/batch/services/batch/batch.service';
 import {AlertService} from '@core/services/alerts/alert.service';
-import {UserService} from '@features/profile/services/user/user.service';
+import {UserService} from '@features/user/services/user/user.service';
 import {AnnouncementVisibility} from '@features/announcement/enums/AnnouncementVisibility';
 import {AnnouncementCreateStatus} from '@features/announcement/dtos/request/enums/AnnouncementCreateStatus';
 import {Course} from '@features/course/dtos/response/course';

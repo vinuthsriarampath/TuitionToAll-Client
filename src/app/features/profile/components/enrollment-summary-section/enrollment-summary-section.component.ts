@@ -13,7 +13,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {
   EnrollmentEligibilityResponse
 } from '@features/student_batch_enrollment/dto/response/enrollment-eligibility-response/enrollment-eligibility-response';
-import {UserService} from '@features/profile/services/user/user.service';
+import {UserService} from '@features/user/services/user/user.service';
 import {EnrollmentEligibilityReason} from '@features/student_batch_enrollment/enums/EnrollmentEligibilityReason';
 
 @Component({

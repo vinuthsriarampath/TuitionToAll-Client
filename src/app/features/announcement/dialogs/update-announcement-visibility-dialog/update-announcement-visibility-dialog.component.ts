@@ -8,7 +8,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {AlertService} from '@core/services/alerts/alert.service';
 import {CourseFilter} from '../../../course/dtos/request/course-filter';
 import {Institute} from '../../../institute/dtos/response/institute';
-import {UserService} from '../../../profile/services/user/user.service';
+import {UserService} from '@features/user/services/user/user.service';
 import {AnnouncementVisibilityUpdateRequest} from '../../dtos/request/AnnouncementVisibilityUpdateRequest';
 import {DialogLayoutComponent} from '@core/layouts';
 import {Course} from '@features/course/dtos/response/course';

@@ -14,7 +14,7 @@ import {AuthenticationService} from '@features/auth/services/auth/authentication
 import {inject} from '@angular/core';
 import {of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
-import {UserService} from '@features/profile/services/user/user.service';
+import {UserService} from '@features/user/services/user/user.service';
 
 export const tokenGuard: CanActivateFn = (route, state) => {
   const token: string | null = localStorage.getItem('token');

@@ -8,7 +8,7 @@ import {environment} from '@env/environment.development';
 import {NavbarSearchComponent} from '@shared/components/navbar-search/navbar-search.component';
 import {Bell, House, LayoutDashboard, LucideAngularModule, MessageSquareText, Search, Users} from 'lucide-angular';
 import {User} from '@features/profile/dtos/response/user';
-import {UserService} from '@features/profile/services/user/user.service';
+import {UserService} from '@features/user/services/user/user.service';
 import {AuthenticationService} from '@features/auth/services/auth/authentication.service';
 
 @Component({
