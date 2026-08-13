@@ -57,4 +57,12 @@ export class UserService {
   setCurrentUser(user: User|null){
     this.currentUserSubject.next(user);
   }
+
+  getCurrentUserRole(): string {
+    const user = this.currentUserSubject.value;
+    if(user){
+        return user?.role?.role || 'N/A';
+    }
+    return 'N/A';
+  }
 }
