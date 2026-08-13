@@ -22,7 +22,7 @@
 
         <div class="flex flex-col gap-4 w-full md:w-1/3">
 
-          <app-enrollment-summary-section [course]="course" [selectedBatch]="selectedBatch"></app-enrollment-summary-section>
+          <app-enrollment-summary-section [course]="course" [selectedBatch]="selectedBatch" [batchEnrollEligibility]="enrollmentEligibility" [eligibilityCheckLoading]="eligibilityCheckLoading" (checkEligibility)="checkEnrollEligibility()"></app-enrollment-summary-section>
 
         </div>
       </div>

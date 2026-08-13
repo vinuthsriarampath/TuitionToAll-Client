@@ -13,6 +13,18 @@ import {
 import {
   BatchSelectionSectionComponent
 } from '@features/profile/components/batch-selection-section/batch-selection-section.component';
+import {UserService} from '@features/profile/services/user/user.service';
+import {
+  StudentEnrollmentService
+} from '@features/student_batch_enrollment/service/student-enrollment/student-enrollment.service';
+import {
+  EnrollmentEligibilityCheckRequest
+} from '@features/student_batch_enrollment/dto/request/enrollment-eligibility-check-request/enrollment-eligibility-check-request';
+import {AlertService} from '@core/services/alerts/alert.service';
+import {
+  EnrollmentEligibilityResponse
+} from '@features/student_batch_enrollment/dto/response/enrollment-eligibility-response/enrollment-eligibility-response';
+import {EnrollmentEligibilityReason} from '@features/student_batch_enrollment/enums/EnrollmentEligibilityReason';
 
 @Component({
   selector: 'app-course-checkout',
@@ -31,10 +43,44 @@ export class CourseCheckoutComponent {
   course:Course = this.route.snapshot.data['course'];
   protected batches:Batch[] = [];
   protected selectedBatch!:Batch;
+  protected enrollmentEligibility!:EnrollmentEligibilityResponse;
+  protected eligibilityCheckLoading:boolean = false;
 
+  protected readonly userService:UserService = inject(UserService);
+  protected readonly enrollmentService:StudentEnrollmentService = inject(StudentEnrollmentService);
+  protected readonly alertService:AlertService = inject(AlertService);
 
   protected selectBatch = (batch:Batch):void => {
     this.selectedBatch = batch;
+    this.checkEnrollEligibility();
+  }
+
+  protected checkEnrollEligibility = ()=> {
+    this.triggerEligibilityCheckLoading();
+    if(this.userService.getCurrentUserRole() === 'student'){
+      const request = new EnrollmentEligibilityCheckRequest();
+      request.courseId = this.course.id ?? -1;
+      request.batchId = this.selectedBatch.id;
+      this.enrollmentService.checkEnrollmentEligibility(request).subscribe({
+        next: (res) => {
+          if(res.data){
+            this.enrollmentEligibility = res.data;
+          }
+          this.triggerEligibilityCheckLoading();
+        },
+        error: () => {
+          this.enrollmentEligibility = new EnrollmentEligibilityResponse();
+          this.enrollmentEligibility.canEnroll=false;
+          this.enrollmentEligibility.reason=EnrollmentEligibilityReason.CHECK_FAILED;
+          this.alertService.triggerErrorAlert('Failed to check enrollment eligibility.');
+          this.triggerEligibilityCheckLoading();
+        }
+      })
+    }
+  }
+
+  private triggerEligibilityCheckLoading():void {
+    this.eligibilityCheckLoading = !this.eligibilityCheckLoading;
   }
 
   protected readonly User = User;
