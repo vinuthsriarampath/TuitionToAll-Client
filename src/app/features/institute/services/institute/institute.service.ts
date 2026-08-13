@@ -7,7 +7,7 @@ import {environment} from '@env/environment.development';
 import {TeacherVacancyStatus} from '../../../teacher-vacancy/enums/teacher-vacancy-status';
 import {
   InstituteDetailsUpdateRequest
-} from '@features/profile/dtos/request/user-update/sub-user-details-update-dto/InstituteDetailsUpdateRequest';
+} from '@features/institute/dtos/requests/InstituteDetailsUpdateRequest';
 import {Institute} from '@features/institute/dtos/response/institute';
 
 @Injectable({

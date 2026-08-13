@@ -7,7 +7,7 @@ import {Student} from '../../../student/dtos/responses/student';
 import {NgClass, NgIf} from '@angular/common';
 import {
   InstituteDetailsUpdateRequest
-} from '../../dtos/request/user-update/sub-user-details-update-dto/InstituteDetailsUpdateRequest';
+} from '../../../institute/dtos/requests/InstituteDetailsUpdateRequest';
 import {
   TeacherDetailsUpdateRequest
 } from '../../dtos/request/user-update/sub-user-details-update-dto/TeacherDetailsUpdateRequest';

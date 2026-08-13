@@ -9,7 +9,7 @@
  * All rights reserved.
  */
 
-import {UserDetailsUpdateRequest} from '../UserDetailsUpdateRequest';
+import {UserDetailsUpdateRequest} from '../../../profile/dtos/request/user-update/UserDetailsUpdateRequest';
 
 export interface InstituteDetailsUpdateRequest extends UserDetailsUpdateRequest{
   instituteName?: string;
