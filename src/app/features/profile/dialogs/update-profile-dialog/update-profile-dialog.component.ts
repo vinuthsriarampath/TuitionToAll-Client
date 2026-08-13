@@ -2,7 +2,7 @@ import {Component, inject, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {FormsModule} from '@angular/forms';
 import {Institute} from '../../../institute/dtos/response/institute';
-import {Teacher} from '../../dtos/response/teacher';
+import {Teacher} from '../../../teacher/dtos/responses/teacher';
 import {Student} from '../../../student/dtos/responses/student';
 import {NgClass, NgIf} from '@angular/common';
 import {

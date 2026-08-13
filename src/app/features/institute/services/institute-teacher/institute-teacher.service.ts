@@ -10,7 +10,7 @@ import {ApplicationRejectionResponse} from '../../../applications/dtos/response/
 import {PaginatedApiResponse} from '@shared/utils/response/paginated-api-response';
 import {InstituteTeacherResponse} from '../../dtos/response/institute-teacher-responses/InstituteTeacherResponse';
 import {InstituteTeacherStatsResponse} from '../../dtos/response/institute-teacher-responses/InstituteTeacherStatsResponse';
-import {TeacherBasicResponse} from '../../../profile/dtos/response/TeacherBasicResponse';
+import {TeacherBasicResponse} from '../../../teacher/dtos/responses/TeacherBasicResponse';
 
 @Injectable({
   providedIn: 'root'

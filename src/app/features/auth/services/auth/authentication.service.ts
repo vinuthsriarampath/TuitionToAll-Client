@@ -26,7 +26,7 @@ import {
 import {ApiResponse} from '@shared/utils/response/api-response';
 import {User} from '../../../profile/dtos/response/user';
 import {Institute} from '../../../institute/dtos/response/institute';
-import {Teacher} from '../../../profile/dtos/response/teacher';
+import {Teacher} from '../../../teacher/dtos/responses/teacher';
 import {Student} from '../../../student/dtos/responses/student';
 
 @Injectable({

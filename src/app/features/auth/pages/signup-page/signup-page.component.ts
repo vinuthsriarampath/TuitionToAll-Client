@@ -24,7 +24,7 @@ import {CommonModule, NgClass} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
 import {AuthenticationService} from '../../services/auth/authentication.service';
 import {ApiResponse} from '@shared/utils/response/api-response';
-import {Teacher} from '../../../profile/dtos/response/teacher';
+import {Teacher} from '../../../teacher/dtos/responses/teacher';
 import {Institute} from '../../../institute/dtos/response/institute';
 import {Student} from '../../../student/dtos/responses/student';
 import {

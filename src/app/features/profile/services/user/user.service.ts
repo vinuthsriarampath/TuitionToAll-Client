@@ -25,7 +25,7 @@ import {
 import {User} from '../../dtos/response/user';
 import {BehaviorSubject} from 'rxjs';
 import {Institute} from '../../../institute/dtos/response/institute';
-import {Teacher} from '../../dtos/response/teacher';
+import {Teacher} from '../../../teacher/dtos/responses/teacher';
 import {Student} from '../../../student/dtos/responses/student';
 
 @Injectable({

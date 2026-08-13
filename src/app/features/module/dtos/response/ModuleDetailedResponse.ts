@@ -1,4 +1,4 @@
-import {TeacherBasicResponse} from '../../../profile/dtos/response/TeacherBasicResponse';
+import {TeacherBasicResponse} from '../../../teacher/dtos/responses/TeacherBasicResponse';
 import {ModuleStatus} from '../../enums/ModuleStatus';
 import {BatchBasicResponse} from '@features/batch/dtos/response/BatchBasicResponse';
 
