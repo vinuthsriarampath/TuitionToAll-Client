@@ -3,7 +3,7 @@ import {InstituteJobsComponent} from "@features/profile/pages/institute-jobs/ins
 import {MatTab, MatTabContent, MatTabGroup} from "@angular/material/tabs";
 import {UserCoursesComponent} from "@features/profile/pages/user-courses/user-courses.component";
 import {UserPostsComponent} from "@features/profile/pages/user-posts/user-posts.component";
-import {User} from '@features/profile/dtos/response/user';
+import {User} from '@features/user/dtos/responses/user';
 import {UserHelper} from '@shared/utils/helpers/user-helper';
 
 @Component({

@@ -15,7 +15,7 @@ import {
   StudentDetailsUpdateRequest
 } from '../../../student/dtos/requests/StudentDetailsUpdateRequest';
 import {UserService} from '@features/user/services/user/user.service';
-import {User} from '../../dtos/response/user';
+import {User} from '../../../user/dtos/responses/user';
 import {DialogLayoutComponent} from '@core/layouts';
 import {SquarePen} from 'lucide-angular';
 import {InstituteService} from '@features/institute/services/institute/institute.service';

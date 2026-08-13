@@ -2,7 +2,7 @@ import {RoleDetails} from '@features/role/dtos/RoleDetails';
 import {Institute} from '@features/institute/dtos/response/institute';
 import {Teacher} from '@features/teacher/dtos/responses/teacher';
 import {Student} from '@features/student/dtos/responses/student';
-import {User} from '@features/profile/dtos/response/user';
+import {User} from '@features/user/dtos/responses/user';
 import {environment} from '@env/environment.development';
 
 export class UserHelper {

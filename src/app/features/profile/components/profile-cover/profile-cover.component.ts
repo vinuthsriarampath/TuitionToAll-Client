@@ -1,5 +1,5 @@
 import {Component, inject, input, output} from '@angular/core';
-import {User} from '@features/profile/dtos/response/user';
+import {User} from '@features/user/dtos/responses/user';
 import {MatDialog} from '@angular/material/dialog';
 import {
   UpdateUserProfilePicDialogComponent

@@ -22,7 +22,7 @@ import {
 import {
   TeacherDetailsUpdateRequest
 } from '../../../teacher/dtos/requests/TeacherDetailsUpdateRequest';
-import {User} from '../../../profile/dtos/response/user';
+import {User} from '../../dtos/responses/user';
 import {BehaviorSubject} from 'rxjs';
 import {Institute} from '../../../institute/dtos/response/institute';
 import {Teacher} from '../../../teacher/dtos/responses/teacher';

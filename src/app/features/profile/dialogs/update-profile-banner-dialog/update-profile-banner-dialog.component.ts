@@ -3,7 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
 import {ProfileFileServiceService} from '../../services/profile-files/profile-file-service.service';
-import {User} from '../../dtos/response/user';
+import {User} from '../../../user/dtos/responses/user';
 import {DialogLayoutComponent} from '@core/layouts';
 import {ImageIcon} from 'lucide-angular';
 import {AlertService} from '@core/services/alerts/alert.service';

@@ -7,7 +7,7 @@ import {Institute} from '@features/institute/dtos/response/institute';
 import {environment} from '@env/environment.development';
 import {NavbarSearchComponent} from '@shared/components/navbar-search/navbar-search.component';
 import {Bell, House, LayoutDashboard, LucideAngularModule, MessageSquareText, Search, Users} from 'lucide-angular';
-import {User} from '@features/profile/dtos/response/user';
+import {User} from '@features/user/dtos/responses/user';
 import {UserService} from '@features/user/services/user/user.service';
 import {AuthenticationService} from '@features/auth/services/auth/authentication.service';
 

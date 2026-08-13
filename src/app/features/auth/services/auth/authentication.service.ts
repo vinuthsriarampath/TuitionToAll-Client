@@ -24,7 +24,7 @@ import {
   InstituteRegistrationRequest
 } from '../../dtos/request/registration/sub-registration-dto/institute-registration-request';
 import {ApiResponse} from '@shared/utils/response/api-response';
-import {User} from '../../../profile/dtos/response/user';
+import {User} from '../../../user/dtos/responses/user';
 import {Institute} from '../../../institute/dtos/response/institute';
 import {Teacher} from '../../../teacher/dtos/responses/teacher';
 import {Student} from '../../../student/dtos/responses/student';

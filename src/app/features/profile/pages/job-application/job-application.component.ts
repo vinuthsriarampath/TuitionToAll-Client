@@ -6,7 +6,7 @@ import {TeacherVacancyService} from '../../../teacher-vacancy/services/teacher-v
 import {QuillEditorComponent} from 'ngx-quill';
 import {FormsModule} from '@angular/forms';
 import {UserService} from '@features/user/services/user/user.service';
-import {User} from '../../dtos/response/user';
+import {User} from '../../../user/dtos/responses/user';
 import {ApplicationService} from '../../../applications/services/application/application.service';
 import {AlertService} from '@core/services/alerts/alert.service';
 import {TeacherVacancyStatus} from '../../../teacher-vacancy/enums/teacher-vacancy-status';

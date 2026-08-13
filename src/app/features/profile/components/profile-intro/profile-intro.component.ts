@@ -2,7 +2,7 @@ import {Component, inject, input, output} from '@angular/core';
 import {CardShellComponent} from '@shared/ui';
 import {Calendar, LucideAngularModule, MapPin, Phone} from 'lucide-angular';
 import {PhonePipePipe} from '@shared/utils/pipes/phone-pipe/phone-pipe.pipe';
-import {User} from '@features/profile/dtos/response/user';
+import {User} from '@features/user/dtos/responses/user';
 import {AlertService} from '@core/services/alerts/alert.service';
 import {MatDialog} from '@angular/material/dialog';
 import {

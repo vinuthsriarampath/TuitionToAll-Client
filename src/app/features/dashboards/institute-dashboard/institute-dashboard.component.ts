@@ -5,7 +5,7 @@ import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {Book, ChevronDownIcon, Home, LucideAngularModule, Megaphone, Menu, User2} from 'lucide-angular';
 import {UserService} from '@features/user/services/user/user.service';
 import {AlertService} from '@core/services/alerts/alert.service';
-import {User} from '../../profile/dtos/response/user';
+import {User} from '../../user/dtos/responses/user';
 import {NgClass, NgOptimizedImage} from '@angular/common';
 import {environment} from '@env/environment.development';
 import {SidebarMenuItem} from '../types/sidebar-menu-item';

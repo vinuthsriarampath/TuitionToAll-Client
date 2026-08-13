@@ -1,7 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NavbarComponent} from '@shared/components/navbar/navbar.component';
-import {User} from '../../dtos/response/user';
+import {User} from '../../../user/dtos/responses/user';
 import {UserService} from '@features/user/services/user/user.service';
 import {LucideAngularModule} from 'lucide-angular';
 import {environment} from '@env/environment.development';
