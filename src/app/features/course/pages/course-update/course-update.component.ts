@@ -41,7 +41,7 @@ export class CourseUpdateComponent implements OnInit{
   protected readonly ArrowLeft = ArrowLeft;
 
   protected originalCourse:Course = new Course();
-  protected editableCourse:CourseUpdate = new Course();
+  protected editableCourse:CourseUpdate = new CourseUpdate();
 
   protected readonly window = globalThis.window;
 
@@ -74,7 +74,7 @@ export class CourseUpdateComponent implements OnInit{
     this.courseService.getCourseById(courseId).subscribe({
       next: (res) => {
         this.originalCourse = res;
-        this.editableCourse=res;
+        this.editableCourse = {...res};
         if(res.thumbnail){
           this.imageUrl = `${environment.COURSE_API}${res.thumbnail}`;
           this.selectedFile = new File([], 'thumbnail');

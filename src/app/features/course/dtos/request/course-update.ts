@@ -6,13 +6,13 @@ import {CourseMode} from '@features/course/enums/course-mode';
 
 
 export class CourseUpdate{
-  title?:string;
-  description?:string;
-  durationInHours?:number;
-  price?:number;
-  level?:CourseLevel;
-  category?:CourseCategory;
-  status?:CourseStatus;
-  language?:CourseLanguage;
-  mode?:CourseMode
+  title!:string;
+  description!:string;
+  durationInHours!:number;
+  price!:number;
+  level!:CourseLevel;
+  category!:CourseCategory;
+  status!:CourseStatus;
+  language!:CourseLanguage;
+  mode!:CourseMode
 }
