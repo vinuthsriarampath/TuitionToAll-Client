@@ -14,7 +14,6 @@ import {
 import {
   StudentDetailsUpdateRequest
 } from '../../../student/dtos/requests/StudentDetailsUpdateRequest';
-import {UserService} from '@features/user/services/user/user.service';
 import {User} from '../../../user/dtos/responses/user';
 import {DialogLayoutComponent} from '@core/layouts';
 import {SquarePen} from 'lucide-angular';
@@ -38,16 +37,15 @@ export class UpdateProfileDialogComponent {
   user!: User;
   isLoading: boolean = false;
 
-  private readonly userService:UserService = inject(UserService);
   private readonly instituteService:InstituteService = inject(InstituteService);
   private readonly teacherService:TeacherService = inject(TeacherService);
   private readonly studentService:StudentService = inject(StudentService);
+  private readonly dialogRef:MatDialogRef<UpdateProfileDialogComponent> = inject(MatDialogRef<UpdateProfileDialogComponent>);
 
   constructor(
-    public dialogRef:MatDialogRef<UpdateProfileDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data:{
       userRole: string;
-      details: Institute|Teacher|Student;
+      details: User;
     }) {
     this.user = {...data.details};
   }

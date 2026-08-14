@@ -35,7 +35,7 @@
 
         <!-- 🔹 APPLY BUTTON (Desktop) -->
         <div class="hidden md:block">
-          @if (currentUser && currentUser.role?.role === 'teacher'){
+          @if (currentUser && currentUser.role.role === 'teacher'){
             <button
               class="btn-primary"
               (click)="applyForVacancy()"
@@ -95,7 +95,7 @@
 
     <!-- 🔹 MOBILE APPLY BAR -->
     <div class="fixed bottom-0 left-0 w-full bg-sky-950 border-t border-t-sky-900/80 p-3 md:hidden shadow-md">
-      @if (currentUser && currentUser.role?.role === 'teacher'){
+      @if (currentUser && currentUser.role.role === 'teacher'){
       <button
         class="btn-primary w-full"
         (click)="applyForVacancy()"

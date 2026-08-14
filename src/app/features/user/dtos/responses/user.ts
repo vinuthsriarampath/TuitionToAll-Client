@@ -14,17 +14,17 @@ import {Role} from '../../../role/dtos/Role';
 import {RoleDetails} from '../../../role/dtos/RoleDetails';
 
 export class User {
-    id?: number;
-    address?: string;
-    contact?: string;
-    email?: string;
-    role?: Role;
-    isDisabled?: boolean;
-    userSlug?:string;
-    dp?:string;
-    banner?:string;
-    creationTimeStamp?:string;
-    updatedAt?:string;
+    id!: number;
+    address!: string;
+    contact!: string;
+    email!: string;
+    role!: Role;
+    isDisabled!: boolean;
+    userSlug!:string;
+    dp!:string;
+    banner!:string;
+    creationTimeStamp!:string;
+    updatedAt!:string;
 
-    details?:RoleDetails;
+    details!:RoleDetails;
 }

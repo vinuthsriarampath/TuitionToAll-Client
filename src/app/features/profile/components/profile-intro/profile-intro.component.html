@@ -16,7 +16,7 @@
       </div>
 
       <!--user dob-->
-      @if (UserHelper.isTeacher(profileUser().role?.role, profileUser().details) || UserHelper.isStudent(profileUser().role?.role, profileUser().details)){
+      @if (UserHelper.isTeacher(profileUser().role.role, profileUser().details) || UserHelper.isStudent(profileUser().role.role, profileUser().details)){
         <div class="flex flex-row items-center mt-2 gap-2">
           <lucide-icon [img]="Calendar" class="w-3.5 h-3.5 text-sky-400"></lucide-icon>
           @if (!loading()){
