@@ -64,7 +64,7 @@ export class UpdateProfileDialogComponent {
     if (updateRequest) {
       if (this.data.userRole=='institute') {
         this.triggerLoading();
-        this.instituteService.updateInstituteDetails(updateRequest).subscribe({
+        this.instituteService.updateInstituteDetails(updateRequest as InstituteDetailsUpdateRequest).subscribe({
           next:():void =>{
             this.triggerLoading();
             this.onConfirm();
@@ -76,7 +76,7 @@ export class UpdateProfileDialogComponent {
         })
       }else if(this.data.userRole=='teacher'){
         this.triggerLoading();
-        this.teacherService.updateTeacherDetails(updateRequest).subscribe({
+        this.teacherService.updateTeacherDetails(updateRequest as TeacherDetailsUpdateRequest).subscribe({
           next:() =>{
             this.triggerLoading();
             this.onConfirm();
@@ -88,7 +88,7 @@ export class UpdateProfileDialogComponent {
         })
       }else if(this.data.userRole=='student'){
         this.triggerLoading();
-        this.studentService.updateStudentDetails(updateRequest).subscribe({
+        this.studentService.updateStudentDetails(updateRequest as StudentDetailsUpdateRequest).subscribe({
           next:() =>{
             this.triggerLoading();
             this.onConfirm();
@@ -108,28 +108,31 @@ export class UpdateProfileDialogComponent {
 
   private createUpdateRequest(): InstituteDetailsUpdateRequest | TeacherDetailsUpdateRequest | StudentDetailsUpdateRequest | null {
     switch (this.data.userRole) {
-      case 'institute':
-        return {
-          instituteName: (this.user.details as Institute).instituteName,
-          address: this.user.address,
-          contact: this.user.contact,
-        } as InstituteDetailsUpdateRequest;
-      case 'teacher':
-        return {
-          firstName: (this.user.details as Teacher).firstName,
-          lastName: (this.user.details as Teacher).lastName,
-          dob: (this.user.details as Teacher).dob,
-          address: this.user.address,
-          contact: this.user.contact,
-        } as TeacherDetailsUpdateRequest;
-      case 'student':
-        return {
-          firstName: (this.user.details as Student).firstName,
-          lastName: (this.user.details as Student).lastName,
-          dob: (this.user.details as Student).dob,
-          address: this.user.address,
-          contact: this.user.contact,
-        } as StudentDetailsUpdateRequest;
+      case 'institute': {
+        const request = new InstituteDetailsUpdateRequest();
+        request.instituteName = (this.user.details as Institute).instituteName;
+        request.address = this.user.address;
+        request.contact = this.user.contact;
+        return request;
+      }
+      case 'teacher': {
+        const request = new TeacherDetailsUpdateRequest();
+        request.firstName = (this.user.details as Teacher).firstName;
+        request.lastName = (this.user.details as Teacher).lastName;
+        request.dob = (this.user.details as Teacher).dob;
+        request.address = this.user.address;
+        request.contact = this.user.contact;
+        return request;
+      }
+      case 'student': {
+        const request = new StudentDetailsUpdateRequest();
+        request.firstName = (this.user.details as Student).firstName;
+        request.lastName = (this.user.details as Student).lastName;
+        request.dob = (this.user.details as Student).dob;
+        request.address = this.user.address;
+        request.contact = this.user.contact;
+        return request;
+      }
       default:
         return null;
     }

@@ -11,8 +11,8 @@
 
 import {UserDetailsUpdateRequest} from '../../../user/dtos/requests/UserDetailsUpdateRequest';
 
-export interface StudentDetailsUpdateRequest extends UserDetailsUpdateRequest{
-  firstName?: string;
-  lastName?: string;
-  dob?: Date;
+export class StudentDetailsUpdateRequest extends UserDetailsUpdateRequest{
+  firstName!: string;
+  lastName!: string;
+  dob!: string;
 }

@@ -9,7 +9,7 @@
  * All rights reserved.
  */
 
-export interface UserDetailsUpdateRequest {
-  address?:string;
-  contact?:string;
+export class UserDetailsUpdateRequest {
+  address!:string;
+  contact!:string;
 }
