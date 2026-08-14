@@ -1,0 +1,54 @@
+<app-page-layout
+  [headerTitle]="'Students'"
+  [isLoading]="loading"
+  [loaderTitle]="'Loading Students'"
+  [loaderDescription]="'Fetching all the students from the server.'"
+>
+  <div data-body>
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>#</th>
+        <td mat-cell *matCellDef="let element">{{ element.studentId}}</td>
+      </ng-container>
+      <ng-container matColumnDef="dp">
+        <th mat-header-cell *matHeaderCellDef class="text-center">DP</th>
+        <td mat-cell *matCellDef="let element">
+          <div class="flex items-center justify-center">
+            <img [ngSrc]="element.dp ?? 'profile_logo.png'" [alt]="element.firstName + ' ' + element.lastName" width="32" height="32" class="h-8 w-8 rounded-full object-cover"/>
+          </div>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.firstName }} {{ element.lastName }}</td>
+      </ng-container>
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+      </ng-container>
+      <ng-container matColumnDef="contact">
+        <th mat-header-cell *matHeaderCellDef>Contact</th>
+        <td mat-cell *matCellDef="let element">{{ element.contact | phone }}</td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="columns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: columns"></tr>
+      <tr *matNoDataRow>
+        <td class="mat-cell text-center p-4" [attr.colspan]="columns.length">
+          @if (loading) {
+            <ng-container>
+              Loading all Students...
+            </ng-container>
+          } @else {
+            <ng-container>
+              <app-no-content
+                [title]="'No Students Found!'"
+                [description]="'There are no students enrolled in this batch.'"
+              ></app-no-content>
+            </ng-container>
+          }
+        </td>
+      </tr>
+    </table>
+    <mat-paginator [length]="totalElements" [pageSize]="pageSize" [pageIndex]="pageIndex" [pageSizeOptions]="[5, 10, 25, 50]" (page)="onPageChange($event)"></mat-paginator>
+  </div>
+</app-page-layout>
