@@ -9,9 +9,9 @@
  * All rights reserved.
  */
 
-export interface UserRegistrationRequest {
-    address?:string;
-    contact?:string;
-    email?:string;
-    password?:string;
+export class UserRegistrationRequest {
+    address!:string;
+    contact!:string;
+    email!:string;
+    password!:string;
 }

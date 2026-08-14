@@ -79,9 +79,9 @@ export class SignupPageComponent {
   successMessage?: string = '';
   isLoading: boolean = false;
 
-  studentRegistrationRequest: StudentRegistrationRequest = {};
-  teacherRegistrationRequest: TeacherRegistrationRequest = {};
-  instituteRegistrationRequest: InstituteRegistrationRequest = {};
+  studentRegistrationRequest: StudentRegistrationRequest = new StudentRegistrationRequest();
+  teacherRegistrationRequest: TeacherRegistrationRequest = new TeacherRegistrationRequest();
+  instituteRegistrationRequest: InstituteRegistrationRequest = new InstituteRegistrationRequest();
 
   constructor(private readonly authService:AuthenticationService, private readonly router:Router){}
 

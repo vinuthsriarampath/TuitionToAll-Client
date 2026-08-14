@@ -9,7 +9,7 @@
  * All rights reserved.
  */
 
-export interface UserLoginRequest {
-    email?:string;
-    password?:string;
+export class UserLoginRequest {
+    email!:string;
+    password!:string;
 }

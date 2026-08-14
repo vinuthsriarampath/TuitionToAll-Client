@@ -46,7 +46,7 @@ import {CardShellComponent} from '@shared/ui';
 })
 export class LoginPageComponent {
 
-  userLoginRequest: UserLoginRequest = {};
+  userLoginRequest: UserLoginRequest = new UserLoginRequest();
 
   isLoading:boolean=false;
   errorMessage?:string;
