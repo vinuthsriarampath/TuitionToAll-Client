@@ -73,12 +73,12 @@ export class CourseUpdateComponent implements OnInit{
 
     this.courseService.getCourseById(courseId).subscribe({
       next: (res) => {
+        this.originalCourse = res;
         this.editableCourse=res;
         if(res.thumbnail){
           this.imageUrl = `${environment.COURSE_API}${res.thumbnail}`;
           this.selectedFile = new File([], 'thumbnail');
         }
-        this.originalCourse = {...this.editableCourse};
       },
       error: (err) => {
           this.alertService.triggerErrorAlert(err.error.message())
