@@ -1,6 +1,6 @@
-export interface Role {
-  id:number;
-  role:string;
-  creationTimeStamp:string;
-  updatedAt:string;
+export class Role {
+  id!:number;
+  role!:string;
+  creationTimeStamp!:string;
+  updatedAt!:string;
 }
