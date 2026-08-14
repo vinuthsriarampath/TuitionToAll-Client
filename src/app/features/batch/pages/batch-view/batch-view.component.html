@@ -28,6 +28,11 @@
             <app-module-section [batchId]="batch.id"></app-module-section>
           </ng-template>
         </mat-tab>
+        <mat-tab label="Students">
+          <ng-template matTabContent>
+            <app-batch-student-section [batchId]="batch.id"></app-batch-student-section>
+          </ng-template>
+        </mat-tab>
       </mat-tab-group>
     </div>
   </div>

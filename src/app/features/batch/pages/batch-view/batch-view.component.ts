@@ -12,6 +12,9 @@ import {ModuleSectionComponent} from '../../../module/components/module-section/
 import {CardHeaderComponent, CardShellComponent} from '@shared/ui';
 import {BatchService} from '@features/batch/services/batch/batch.service';
 import {Batch} from '@features/batch/dtos/response/batch';
+import {
+  BatchStudentSectionComponent
+} from '@features/student/components/batch-student-section/batch-student-section.component';
 
 @Component({
   selector: 'app-batch-view',
@@ -24,7 +27,8 @@ import {Batch} from '@features/batch/dtos/response/batch';
     MatTab,
     MatTabContent,
     LucideAngularModule,
-    ModuleSectionComponent
+    ModuleSectionComponent,
+    BatchStudentSectionComponent
   ],
   templateUrl: './batch-view.component.html',
   styleUrl: './batch-view.component.css'
