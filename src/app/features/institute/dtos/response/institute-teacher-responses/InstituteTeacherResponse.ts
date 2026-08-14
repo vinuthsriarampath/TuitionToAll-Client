@@ -1,5 +1,5 @@
 import {InstituteTeacherStatus} from '../../../enums/InstituteTeacherStatus';
-import {TeacherUserResponse} from '../../../../teacher/dtos/responses/teacher-user-response';
+import {TeacherUserResponse} from '@features/teacher/dtos/responses/teacher-user-response';
 
 export class InstituteTeacherResponse {
   id!:number;

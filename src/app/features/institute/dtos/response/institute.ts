@@ -10,6 +10,6 @@
  */
 
 export class Institute{
-  id?: number;
-  instituteName?: string;
+  id!: number;
+  instituteName!: string;
 }
