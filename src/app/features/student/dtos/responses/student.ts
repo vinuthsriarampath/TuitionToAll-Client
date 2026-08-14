@@ -10,8 +10,8 @@
  */
 
 export class Student{
-  id?: number;
-  firstName?: string;
-  lastName?: string;
-  dob?: Date;
+  id!: number;
+  firstName!: string;
+  lastName!: string;
+  dob!: Date;
 }
