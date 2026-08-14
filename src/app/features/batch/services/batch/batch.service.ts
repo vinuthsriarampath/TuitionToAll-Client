@@ -8,6 +8,8 @@ import {BatchCreateRequest} from '@features/batch/dtos/request/batch-create-requ
 import {BatchUpdateRequest} from '@features/batch/dtos/request/batch-update-request';
 import {PaginatedApiResponse} from '@shared/utils/response/paginated-api-response';
 import {ModuleResponse} from '@features/module/dtos/response/ModuleResponse';
+import { StudentUserResponse } from "@features/student/dtos/responses/student-user-response/student-user-response";
+import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -48,5 +50,21 @@ export class BatchService {
 
   getEnrollableBatchesOfCourse(courseId:number):Observable<ApiResponse<Batch[]>> {
     return this.http.get<ApiResponse<Batch[]>>(`${environment.BATCH_API}/${courseId}/enrollables`);
+  }
+
+  getStudentsByBatch(batchId: number, paginationRequest:PaginationRequest): Observable<PaginatedApiResponse<StudentUserResponse>> {
+
+    const { page, size, direction, sortBy } = paginationRequest;
+
+    let params = new HttpParams()
+      .set('page', page)
+      .set('size', size)
+      .set('direction', direction);
+
+    sortBy.forEach(value => {
+      params = params.append('sortBy', value);
+    });
+
+    return this.http.get<PaginatedApiResponse<StudentUserResponse>>(`${environment.BATCH_API}/${batchId}/students`, { params });
   }
 }
