@@ -11,7 +11,7 @@
 
 import {User} from "../../../user/dtos/responses/user";
 
-export interface AuthResponse {
-    token?:string;
-    user?:User;
+export class AuthResponse {
+    token!:string;
+    user!:User;
 }
