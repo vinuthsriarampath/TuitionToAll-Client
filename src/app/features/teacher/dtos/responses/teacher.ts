@@ -10,8 +10,8 @@
  */
 
 export class Teacher{
-    id?:number;
-    firstName?:string;
-    lastName?:string;
-    dob?:string;
+    id!:number;
+    firstName!:string;
+    lastName!:string;
+    dob!:string;
 }
