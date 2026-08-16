@@ -1,0 +1,6 @@
+export enum ReviewEligibilityReason {
+  ELIGIBLE = 'ELIGIBLE',
+  NOT_ENROLLED = 'NOT_ENROLLED',
+  ALREADY_REVIEWED = 'ALREADY_REVIEWED',
+  NOT_STUDENT = 'NOT_STUDENT'
+}
