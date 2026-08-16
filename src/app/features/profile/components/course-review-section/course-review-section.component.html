@@ -1,0 +1,23 @@
+<app-card-shell class="mb-4 block">
+  <div class="py-4">
+    <app-card-header [title]="'Course Ratings & Reviews'" [description]="'Ratings & Reviews are from students who have enrolled with the course.'"></app-card-header>
+    <div class="px-4">
+
+      <!-- Rating Card -->
+      <app-rating-card [avgRating]="course().avg_rating" [totalRatings]="course().total_no_ratings"></app-rating-card>
+
+
+      <!-- Review Input Form (Rendered only if user can review) -->
+      @if (reviewEligibility?.canReview) {
+        <div class="mt-4">
+          <app-review-create-card [courseId]="course().id" [reviewEligibility]="reviewEligibility" (loadReviews)="loadReviews()" (reviewEligibilityCheck)="checkReviewEligibility()"></app-review-create-card>
+        </div>
+
+      }
+
+      <div class="mt-4">
+        <app-review-list [reviews]="reviews" [pageIndex]="pageIndex" [pageSize]="pageSize" [totalElements]="totalElements" (pageChange)="onPageChange($event)"></app-review-list>
+      </div>
+    </div>
+  </div>
+</app-card-shell>
