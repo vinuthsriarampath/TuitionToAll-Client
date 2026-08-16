@@ -32,6 +32,7 @@ interface Environment {
   STUDENT_ENROLLMENT_API?:string;
   STUDENT_API:string;
   TEACHER_API:string;
+  REVIEW_API?: string;
 }
 
 const BASE_URL = 'http://localhost:8080/api/v2';
@@ -59,5 +60,6 @@ export const environment: Environment = {
   STUDENT_ENROLLMENT_API: `${BASE_URL}/enrollments`,
   STUDENT_API: `${BASE_URL}/students`,
   TEACHER_API: `${BASE_URL}/teachers`,
+  REVIEW_API: `${BASE_URL}/reviews`
 };
 
