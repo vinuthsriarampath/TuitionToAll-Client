@@ -16,6 +16,8 @@ export class Course{
   language!:CourseLanguage;
   mode!:CourseMode;
   thumbnail?:string;
+  avg_rating!:number;
+  total_no_ratings!:number;
   creationTimeStamp!:string;
   updatedAt?:string;
 }
