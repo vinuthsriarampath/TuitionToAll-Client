@@ -25,6 +25,10 @@ import {
   EnrollmentEligibilityResponse
 } from '@features/student_batch_enrollment/dto/response/enrollment-eligibility-response/enrollment-eligibility-response';
 import {EnrollmentEligibilityReason} from '@features/student_batch_enrollment/enums/EnrollmentEligibilityReason';
+import {
+  CourseReviewSectionComponent
+} from '@features/profile/components/course-review-section/course-review-section.component';
+import {NgClass} from '@angular/common';
 
 @Component({
   selector: 'app-course-checkout',
@@ -33,7 +37,9 @@ import {EnrollmentEligibilityReason} from '@features/student_batch_enrollment/en
     LucideAngularModule,
     SelectedCourseSectionComponent,
     EnrollmentSummarySectionComponent,
-    BatchSelectionSectionComponent
+    BatchSelectionSectionComponent,
+    CourseReviewSectionComponent,
+    NgClass
   ],
   templateUrl: './course-checkout.component.html',
   styleUrl: './course-checkout.component.css'
@@ -77,6 +83,10 @@ export class CourseCheckoutComponent {
         }
       })
     }
+  }
+
+  protected get showSummarySidebar(): boolean {
+    return !!(this.course?.id && this.selectedBatch);
   }
 
   private triggerEligibilityCheckLoading():void {
