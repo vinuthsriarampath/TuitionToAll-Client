@@ -1,5 +1,5 @@
 import {Component, input} from '@angular/core';
-import {InstituteJobsComponent} from "@features/profile/pages/institute-jobs/institute-jobs.component";
+import {InstituteJobsComponent} from "@features/teacher-vacancy/components/institute-jobs/institute-jobs.component";
 import {MatTab, MatTabContent, MatTabGroup} from "@angular/material/tabs";
 import {UserCoursesComponent} from "@features/course/components/user-courses/user-courses.component";
 import {UserPostsComponent} from "@features/posts/components/user-posts/user-posts.component";

@@ -1,9 +1,9 @@
 import {Component, inject, input, OnInit} from '@angular/core';
 import {InstituteService} from '../../../institute/services/institute/institute.service';
-import {TeacherVacancyStatus} from '../../../teacher-vacancy/enums/teacher-vacancy-status';
-import {TeacherVacancy} from '../../../teacher-vacancy/dtos/response/teacher-vacancy';
+import {TeacherVacancyStatus} from '../../enums/teacher-vacancy-status';
+import {TeacherVacancy} from '../../dtos/response/teacher-vacancy';
 import {FormsModule} from '@angular/forms';
-import {VacancyCardComponent} from '../../components/vacancy-card/vacancy-card.component';
+import {VacancyCardComponent} from '../../../profile/components/vacancy-card/vacancy-card.component';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {NoContentComponent} from '@shared/components/no-content/no-content.component';
 
