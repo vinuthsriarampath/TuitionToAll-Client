@@ -2,7 +2,7 @@ import {Component, inject, input, OnInit} from '@angular/core';
 import {CardHeaderComponent, CardShellComponent} from '@shared/ui';
 import {Course} from '@features/course/dtos/response/course';
 import {LucideAngularModule, Users} from 'lucide-angular';
-import {ReviewService} from '@features/review/service/review/review.service';
+import {ReviewService} from '@features/review/services/review/review.service';
 import {AlertService} from '@core/services/alerts/alert.service';
 import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
 import {BasicReviewResponse} from '@features/review/dtos/response/basic-review-response';

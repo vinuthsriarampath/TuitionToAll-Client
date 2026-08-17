@@ -4,7 +4,7 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {LucideAngularModule, Send, Star} from "lucide-angular";
 import {ReviewCreateRequest} from '@features/review/dtos/request/review-create-request';
 import {AlertService} from '@core/services/alerts/alert.service';
-import {ReviewService} from '@features/review/service/review/review.service';
+import {ReviewService} from '@features/review/services/review/review.service';
 import {ReviewEligibilityResponse} from '@features/review/dtos/response/review-eligibility-response';
 
 @Component({
