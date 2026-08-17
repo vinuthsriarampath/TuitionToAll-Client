@@ -2,7 +2,7 @@ import {Component, input} from '@angular/core';
 import {QuillEditorComponent} from 'ngx-quill';
 import {FormsModule} from '@angular/forms';
 import {RouterLink} from '@angular/router';
-import {TeacherVacancy} from '../../../teacher-vacancy/dtos/response/teacher-vacancy';
+import {TeacherVacancy} from '../../dtos/response/teacher-vacancy';
 import {DatePipe} from '@angular/common';
 import {BadgeComponent, CardShellComponent} from '@shared/ui';
 

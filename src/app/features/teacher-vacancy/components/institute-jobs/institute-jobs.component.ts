@@ -3,7 +3,7 @@ import {InstituteService} from '../../../institute/services/institute/institute.
 import {TeacherVacancyStatus} from '../../enums/teacher-vacancy-status';
 import {TeacherVacancy} from '../../dtos/response/teacher-vacancy';
 import {FormsModule} from '@angular/forms';
-import {VacancyCardComponent} from '../../../profile/components/vacancy-card/vacancy-card.component';
+import {VacancyCardComponent} from '@features/teacher-vacancy/components/vacancy-card/vacancy-card.component';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {NoContentComponent} from '@shared/components/no-content/no-content.component';
 
