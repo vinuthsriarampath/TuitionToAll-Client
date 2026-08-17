@@ -49,7 +49,7 @@ import {
 import {ViewAnnouncementComponent} from '@features/announcement/pages/view-announcement/view-announcement.component';
 import {
   CourseAnnouncementViewComponent
-} from '@features/course/components/course-announcement-view/course-announcement-view.component';
+} from '@features/announcement/pages/course-announcement-view/course-announcement-view.component';
 import {ModuleViewComponent} from '@features/module/pages/module-view/module-view.component';
 import {ChapterViewComponent} from '@features/chapter/pages/chapter-view/chapter-view.component';
 import {

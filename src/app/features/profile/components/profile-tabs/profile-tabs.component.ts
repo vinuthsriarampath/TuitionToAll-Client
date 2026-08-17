@@ -1,7 +1,7 @@
 import {Component, input} from '@angular/core';
 import {InstituteJobsComponent} from "@features/profile/pages/institute-jobs/institute-jobs.component";
 import {MatTab, MatTabContent, MatTabGroup} from "@angular/material/tabs";
-import {UserCoursesComponent} from "@features/profile/pages/user-courses/user-courses.component";
+import {UserCoursesComponent} from "@features/course/components/user-courses/user-courses.component";
 import {UserPostsComponent} from "@features/profile/pages/user-posts/user-posts.component";
 import {User} from '@features/user/dtos/responses/user';
 import {UserHelper} from '@shared/utils/helpers/user-helper';

@@ -1,9 +1,9 @@
 import {Component, inject, input, OnInit} from '@angular/core';
-import {environment} from '../../../../../environments/environment.development';
+import {environment} from '@env/environment.development';
 import {AlertService} from '@core/services/alerts/alert.service';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
-import {CourseFilter} from '../../../course/dtos/request/course-filter';
-import {CourseCardComponent} from '../../components/course-card/course-card.component';
+import {CourseFilter} from '../../dtos/request/course-filter';
+import {CourseCardComponent} from '../../../profile/components/course-card/course-card.component';
 import {Course} from '@features/course/dtos/response/course';
 import {CourseService} from '@features/course/services/course/course.service';
 import {NoContentComponent} from '@shared/components/no-content/no-content.component';

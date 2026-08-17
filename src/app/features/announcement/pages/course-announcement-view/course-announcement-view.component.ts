@@ -1,9 +1,9 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {AnnouncementService} from '../../../announcement/services/announcements/announcement.service';
-import {AnnouncementResponse} from '../../../announcement/dtos/response/AnnouncementResponse';
+import {AnnouncementService} from '../../services/announcements/announcement.service';
+import {AnnouncementResponse} from '../../dtos/response/AnnouncementResponse';
 import {AlertService} from '@core/services/alerts/alert.service';
 import {Eye, LucideAngularModule} from 'lucide-angular';
-import {AnnouncementFilterRequest} from '../../../announcement/dtos/request/AnnouncementFilterRequest';
+import {AnnouncementFilterRequest} from '../../dtos/request/AnnouncementFilterRequest';
 import {DatePipe, NgClass} from '@angular/common';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {PageTitleComponent} from '@shared/components/page-title/page-title.component';
@@ -21,8 +21,8 @@ import {
   MatTable,
   MatTableDataSource
 } from '@angular/material/table';
-import {AnnouncementStatus} from '../../../announcement/enums/AnnouncementStatus';
-import {AnnouncementVisibility} from '../../../announcement/enums/AnnouncementVisibility';
+import {AnnouncementStatus} from '../../enums/AnnouncementStatus';
+import {AnnouncementVisibility} from '../../enums/AnnouncementVisibility';
 import {NoContentComponent} from '@shared/components/no-content/no-content.component';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 

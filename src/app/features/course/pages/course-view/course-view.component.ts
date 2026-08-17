@@ -5,7 +5,7 @@ import {CurrencyPipe, NgOptimizedImage} from '@angular/common';
 import {environment} from '@env/environment.development';
 import {
   CourseAnnouncementListComponent
-} from '../../components/course-announcement-list/course-announcement-list.component';
+} from '@features/announcement/components/course-announcement-list/course-announcement-list.component';
 import {CourseService} from '@features/course/services/course/course.service';
 import {Course} from '@features/course/dtos/response/course';
 import {BadgeComponent, CardShellComponent} from '@shared/ui';
