@@ -3,7 +3,7 @@ import {environment} from '@env/environment.development';
 import {AlertService} from '@core/services/alerts/alert.service';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {CourseFilter} from '../../dtos/request/course-filter';
-import {CourseCardComponent} from '../../../profile/components/course-card/course-card.component';
+import {CourseCardComponent} from '@features/course/components/course-card/course-card.component';
 import {Course} from '@features/course/dtos/response/course';
 import {CourseService} from '@features/course/services/course/course.service';
 import {NoContentComponent} from '@shared/components/no-content/no-content.component';
