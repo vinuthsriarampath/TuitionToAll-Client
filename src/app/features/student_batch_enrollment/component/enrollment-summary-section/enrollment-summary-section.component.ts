@@ -6,7 +6,7 @@ import {DatePipe, DecimalPipe, TitleCasePipe} from '@angular/common';
 import {AlertTriangle, LucideAngularModule, ShieldCheck} from 'lucide-angular';
 import {
   StudentEnrollmentService
-} from '@features/student_batch_enrollment/service/student-enrollment/student-enrollment.service';
+} from '@features/student_batch_enrollment/services/student-enrollment/student-enrollment.service';
 import {EnrollmentRequest} from '@features/student_batch_enrollment/dto/request/enrollment-request/enrollment-request';
 import {AlertService} from '@core/services/alerts/alert.service';
 import {HttpErrorResponse} from '@angular/common/http';

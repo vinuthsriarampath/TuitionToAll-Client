@@ -16,7 +16,7 @@ import {
 import {UserService} from '@features/user/services/user/user.service';
 import {
   StudentEnrollmentService
-} from '@features/student_batch_enrollment/service/student-enrollment/student-enrollment.service';
+} from '@features/student_batch_enrollment/services/student-enrollment/student-enrollment.service';
 import {
   EnrollmentEligibilityCheckRequest
 } from '@features/student_batch_enrollment/dto/request/enrollment-eligibility-check-request/enrollment-eligibility-check-request';
