@@ -6,7 +6,7 @@ import {LucideAngularModule, User, Users} from 'lucide-angular';
 import {Batch} from '@features/batch/dtos/response/batch';
 import {
   SelectedCourseSectionComponent
-} from '@features/profile/components/selected-course-section/selected-course-section.component';
+} from '@features/student_batch_enrollment/component/selected-course-section/selected-course-section.component';
 import {
   EnrollmentSummarySectionComponent
 } from '@features/profile/components/enrollment-summary-section/enrollment-summary-section.component';

@@ -72,7 +72,7 @@ import {AssignmentResolverData} from '@features/assignments/resolvers/assignment
 import {AnnouncementResolverData} from '@features/announcement/resolvers/announcement-resolver-data';
 import {ChapterResolverData} from '@features/chapter/resolvers/chapter-resolver-data';
 import {TeacherVacancyResolverData} from '@features/teacher-vacancy/resolvers/teacher-vacancy-resolver-data';
-import {CourseCheckoutComponent} from '@features/profile/pages/course-checkout/course-checkout.component';
+import {CourseCheckoutComponent} from '@features/student_batch_enrollment/page/course-checkout/course-checkout.component';
 
 
 export const routes: Routes = [
