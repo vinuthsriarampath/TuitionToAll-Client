@@ -9,7 +9,7 @@ import {
 } from '@features/student_batch_enrollment/component/selected-course-section/selected-course-section.component';
 import {
   EnrollmentSummarySectionComponent
-} from '@features/profile/components/enrollment-summary-section/enrollment-summary-section.component';
+} from '@features/student_batch_enrollment/component/enrollment-summary-section/enrollment-summary-section.component';
 import {
   BatchSelectionSectionComponent
 } from '@features/student_batch_enrollment/component/batch-selection-section/batch-selection-section.component';
