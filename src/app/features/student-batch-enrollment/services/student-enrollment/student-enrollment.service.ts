@@ -2,13 +2,13 @@ import {inject, Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment} from '@env/environment.development';
 import {Observable} from 'rxjs';
-import {EnrollmentRequest} from '@features/student_batch_enrollment/dto/request/enrollment-request/enrollment-request';
+import {EnrollmentRequest} from '@features/student-batch-enrollment/dtos/requests/enrollment-request/enrollment-request';
 import {
   EnrollmentEligibilityCheckRequest
-} from '@features/student_batch_enrollment/dto/request/enrollment-eligibility-check-request/enrollment-eligibility-check-request';
+} from '@features/student-batch-enrollment/dtos/requests/enrollment-eligibility-check-request/enrollment-eligibility-check-request';
 import {
   EnrollmentEligibilityResponse
-} from '@features/student_batch_enrollment/dto/response/enrollment-eligibility-response/enrollment-eligibility-response';
+} from '@features/student-batch-enrollment/dtos/responses/enrollment-eligibility-response/enrollment-eligibility-response';
 import {ApiResponse} from '@shared/utils/response/api-response';
 
 @Injectable({

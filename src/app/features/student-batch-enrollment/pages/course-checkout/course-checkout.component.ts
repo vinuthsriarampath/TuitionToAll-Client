@@ -6,25 +6,25 @@ import {LucideAngularModule, User, Users} from 'lucide-angular';
 import {Batch} from '@features/batch/dtos/response/batch';
 import {
   SelectedCourseSectionComponent
-} from '@features/student_batch_enrollment/component/selected-course-section/selected-course-section.component';
+} from '@features/student-batch-enrollment/components/selected-course-section/selected-course-section.component';
 import {
   EnrollmentSummarySectionComponent
-} from '@features/student_batch_enrollment/component/enrollment-summary-section/enrollment-summary-section.component';
+} from '@features/student-batch-enrollment/components/enrollment-summary-section/enrollment-summary-section.component';
 import {
   BatchSelectionSectionComponent
-} from '@features/student_batch_enrollment/component/batch-selection-section/batch-selection-section.component';
+} from '@features/student-batch-enrollment/components/batch-selection-section/batch-selection-section.component';
 import {UserService} from '@features/user/services/user/user.service';
 import {
   StudentEnrollmentService
-} from '@features/student_batch_enrollment/services/student-enrollment/student-enrollment.service';
+} from '@features/student-batch-enrollment/services/student-enrollment/student-enrollment.service';
 import {
   EnrollmentEligibilityCheckRequest
-} from '@features/student_batch_enrollment/dto/request/enrollment-eligibility-check-request/enrollment-eligibility-check-request';
+} from '@features/student-batch-enrollment/dtos/requests/enrollment-eligibility-check-request/enrollment-eligibility-check-request';
 import {AlertService} from '@core/services/alerts/alert.service';
 import {
   EnrollmentEligibilityResponse
-} from '@features/student_batch_enrollment/dto/response/enrollment-eligibility-response/enrollment-eligibility-response';
-import {EnrollmentEligibilityReason} from '@features/student_batch_enrollment/enums/EnrollmentEligibilityReason';
+} from '@features/student-batch-enrollment/dtos/responses/enrollment-eligibility-response/enrollment-eligibility-response';
+import {EnrollmentEligibilityReason} from '@features/student-batch-enrollment/enums/EnrollmentEligibilityReason';
 import {
   CourseReviewSectionComponent
 } from '@features/review/components/course-review-section/course-review-section.component';

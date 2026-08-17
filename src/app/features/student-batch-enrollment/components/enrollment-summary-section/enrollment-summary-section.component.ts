@@ -6,15 +6,15 @@ import {DatePipe, DecimalPipe, TitleCasePipe} from '@angular/common';
 import {AlertTriangle, LucideAngularModule, ShieldCheck} from 'lucide-angular';
 import {
   StudentEnrollmentService
-} from '@features/student_batch_enrollment/services/student-enrollment/student-enrollment.service';
-import {EnrollmentRequest} from '@features/student_batch_enrollment/dto/request/enrollment-request/enrollment-request';
+} from '@features/student-batch-enrollment/services/student-enrollment/student-enrollment.service';
+import {EnrollmentRequest} from '@features/student-batch-enrollment/dtos/requests/enrollment-request/enrollment-request';
 import {AlertService} from '@core/services/alerts/alert.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {
   EnrollmentEligibilityResponse
-} from '@features/student_batch_enrollment/dto/response/enrollment-eligibility-response/enrollment-eligibility-response';
+} from '@features/student-batch-enrollment/dtos/responses/enrollment-eligibility-response/enrollment-eligibility-response';
 import {UserService} from '@features/user/services/user/user.service';
-import {EnrollmentEligibilityReason} from '@features/student_batch_enrollment/enums/EnrollmentEligibilityReason';
+import {EnrollmentEligibilityReason} from '@features/student-batch-enrollment/enums/EnrollmentEligibilityReason';
 
 @Component({
   selector: 'app-enrollment-summary-section',
