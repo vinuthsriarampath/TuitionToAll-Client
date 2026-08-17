@@ -41,7 +41,7 @@ import {
 import {
   ViewTeacherVacancyComponent
 } from '@features/teacher-vacancy/pages/view-teacher-vacancy/view-teacher-vacancy.component';
-import {JobApplicationComponent} from '@features/profile/pages/job-application/job-application.component';
+import {JobApplicationComponent} from '@features/applications/pages/job-application/job-application.component';
 import {ViewApplicationComponent} from '@features/applications/pages/view-application/view-application.component';
 import {
   AnnouncementsManagementComponent
