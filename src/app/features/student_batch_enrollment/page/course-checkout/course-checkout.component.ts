@@ -12,7 +12,7 @@ import {
 } from '@features/profile/components/enrollment-summary-section/enrollment-summary-section.component';
 import {
   BatchSelectionSectionComponent
-} from '@features/profile/components/batch-selection-section/batch-selection-section.component';
+} from '@features/student_batch_enrollment/component/batch-selection-section/batch-selection-section.component';
 import {UserService} from '@features/user/services/user/user.service';
 import {
   StudentEnrollmentService
