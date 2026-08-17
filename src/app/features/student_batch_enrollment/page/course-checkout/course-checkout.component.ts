@@ -27,7 +27,7 @@ import {
 import {EnrollmentEligibilityReason} from '@features/student_batch_enrollment/enums/EnrollmentEligibilityReason';
 import {
   CourseReviewSectionComponent
-} from '@features/profile/components/course-review-section/course-review-section.component';
+} from '@features/review/components/course-review-section/course-review-section.component';
 import {NgClass} from '@angular/common';
 
 @Component({
