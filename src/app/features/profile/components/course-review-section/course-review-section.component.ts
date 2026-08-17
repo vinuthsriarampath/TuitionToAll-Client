@@ -2,14 +2,12 @@ import {Component, inject, input, OnInit} from '@angular/core';
 import {CardHeaderComponent, CardShellComponent} from '@shared/ui';
 import {Course} from '@features/course/dtos/response/course';
 import {LucideAngularModule, Star, StarHalf, Users} from 'lucide-angular';
-import {DatePipe, NgOptimizedImage} from '@angular/common';
 import {ReviewService} from '@features/review/service/review/review.service';
 import {AlertService} from '@core/services/alerts/alert.service';
 import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
-import {NoContentComponent} from '@shared/components/no-content/no-content.component';
 import {BasicReviewResponse} from '@features/review/dtos/response/basic-review-response';
 import {ReactiveFormsModule} from '@angular/forms';
-import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {PageEvent} from '@angular/material/paginator';
 import {RatingCardComponent} from '@features/review/components/rating-card/rating-card.component';
 import {ReviewEligibilityResponse} from '@features/review/dtos/response/review-eligibility-response';
 import {ReviewCreateCardComponent} from '@features/review/components/review-create-card/review-create-card.component';
@@ -21,11 +19,7 @@ import {ReviewListComponent} from '@features/review/components/review-list/revie
     CardShellComponent,
     CardHeaderComponent,
     LucideAngularModule,
-    NoContentComponent,
-    DatePipe,
-    NgOptimizedImage,
     ReactiveFormsModule,
-    MatPaginator,
     RatingCardComponent,
     ReviewCreateCardComponent,
     ReviewListComponent

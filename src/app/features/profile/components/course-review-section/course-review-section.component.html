@@ -8,7 +8,7 @@
 
 
       <!-- Review Input Form (Rendered only if user can review) -->
-      @if (reviewEligibility?.canReview) {
+      @if (reviewEligibility.canReview) {
         <div class="mt-4">
           <app-review-create-card [courseId]="course().id" [reviewEligibility]="reviewEligibility" (loadReviews)="loadReviews()" (reviewEligibilityCheck)="checkReviewEligibility()"></app-review-create-card>
         </div>
