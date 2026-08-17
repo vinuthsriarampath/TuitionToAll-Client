@@ -1,7 +1,7 @@
 import {Component, inject, input, OnInit} from '@angular/core';
 import {CardHeaderComponent, CardShellComponent} from '@shared/ui';
 import {Course} from '@features/course/dtos/response/course';
-import {LucideAngularModule, Star, StarHalf, Users} from 'lucide-angular';
+import {LucideAngularModule, Users} from 'lucide-angular';
 import {ReviewService} from '@features/review/service/review/review.service';
 import {AlertService} from '@core/services/alerts/alert.service';
 import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
@@ -86,15 +86,6 @@ export class CourseReviewSectionComponent implements OnInit{
     });
   }
 
-
-
-
-
-
-
-
-
-
   private triggerLoading():void{
     this.loading = !this.loading;
   }
@@ -104,8 +95,6 @@ export class CourseReviewSectionComponent implements OnInit{
     this.pageSize = $event.pageSize;
     this.loadReviews();
   }
-  protected readonly Star = Star;
   protected readonly Users = Users;
-  protected readonly StarHalf = StarHalf;
 
 }
