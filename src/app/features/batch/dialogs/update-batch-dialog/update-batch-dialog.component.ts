@@ -7,6 +7,7 @@ import {DialogLayoutComponent} from '@core/layouts';
 import {SquarePen} from 'lucide-angular';
 import {Batch} from '@features/batch/dtos/response/batch';
 import {BatchService} from '@features/batch/services/batch/batch.service';
+import {AlertService} from '@core/services/alerts/alert.service';
 
 @Component({
   selector: 'app-update-batch-dialog',
@@ -28,9 +29,15 @@ export class UpdateBatchDialogComponent implements OnInit{
 
   private readonly formBuilder = inject(FormBuilder);
   private readonly batchService = inject(BatchService);
+  private readonly alertsService = inject(AlertService);
 
   constructor(private readonly dialogRef:MatDialogRef<UpdateBatchDialogComponent>,@Inject(MAT_DIALOG_DATA) public data:{batch:Batch,courseId:number}) {
     this.originalBatch = data.batch;
+    if (this.originalBatch.batch_status === BatchStatus.COMPLETED) {
+      this.alertsService.triggerErrorAlert("Cannot update a completed batch.");
+      this.dialogRef.close();
+      return;
+    }
     this.form = this.initializeForm(data.batch);
   }
 

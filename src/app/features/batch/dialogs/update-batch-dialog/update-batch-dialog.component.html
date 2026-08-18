@@ -25,7 +25,7 @@
 
         <!--Batch Start Date-->
         <div class="col-span-1">
-          <label for="batch-start-date" class="text-sm text-gray-700">Start Date<sup class="text-red-500"> *</sup></label>
+          <label for="batch-start-date" class="form-label">Start Date<sup class="text-red-500"> *</sup></label>
           <input type="date" id="batch-start-date" name="batch-start-date" class="form-input" formControlName="start_date" [class.form-input-error]="form.get('start_date')?.invalid && form.get('start_date')?.touched" (change)="validateStartDate()" />
           @if (form.get('start_date')?.errors?.['required']) {
             <p class="form-error">Start date is required</p>
@@ -54,7 +54,7 @@
           <div class="flex items-center gap-2">
             <input type="checkbox" id="batch-is-seat-limited" name="batch-is-seat-limited" class="w-4 h-4" [class.form-input-error]="form.get('is_seat_limited')?.invalid && form.get('is_seat_limited')?.touched"
                    formControlName="is_seat_limited" (change)="validateSeatsLimit()"/>
-            <label for="form-label">Seat Limited<sup class="text-red-500">*</sup></label>
+            <label id="batch-is-seat-limited-label" for="batch-is-seat-limited" class="form-label">Seat Limited<sup class="text-red-500">*</sup></label>
           </div>
 
           <!--        Batch Seat Limit Count-->
