@@ -3,6 +3,7 @@
     <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="500ms" class="w-3/4 custom-tabs">
       <mat-tab label="Feedbacks">
         <ng-template matTabContent>
+          <app-course-feedback-section [course]="course"></app-course-feedback-section>
         </ng-template>
       </mat-tab>
       <mat-tab label="Reviews">

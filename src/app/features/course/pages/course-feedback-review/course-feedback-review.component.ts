@@ -6,6 +6,9 @@ import {MatTab, MatTabContent, MatTabGroup} from '@angular/material/tabs';
 import {
   CourseReviewSectionComponent
 } from '@features/review/components/course-review-section/course-review-section.component';
+import {
+  CourseFeedbackSectionComponent
+} from '@features/feedback/components/course-feedback-section/course-feedback-section.component';
 
 @Component({
   selector: 'app-course-feedback-review',
@@ -14,7 +17,8 @@ import {
     MatTabGroup,
     MatTab,
     MatTabContent,
-    CourseReviewSectionComponent
+    CourseReviewSectionComponent,
+    CourseFeedbackSectionComponent
   ],
   templateUrl: './course-feedback-review.component.html',
   styleUrl: './course-feedback-review.component.css'
