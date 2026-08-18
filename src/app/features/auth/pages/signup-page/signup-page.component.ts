@@ -20,7 +20,7 @@ import {
 import {
   TeacherRegistrationRequest
 } from '../../dtos/request/registration/sub-registration-dto/teacher-registration-request';
-import {CommonModule, NgClass} from '@angular/common';
+import {CommonModule, NgClass, NgOptimizedImage} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
 import {AuthenticationService} from '../../services/auth/authentication.service';
 import {ApiResponse} from '@shared/utils/response/api-response';
@@ -47,6 +47,8 @@ import {
   X
 } from 'lucide-angular';
 import {CardShellComponent} from '@shared/ui';
+import {HeaderComponent} from '@shared/components/header/header.component';
+import {FooterComponent} from '@shared/components/footer/footer.component';
 
 @Component({
   selector: 'app-signup-page',
@@ -57,7 +59,10 @@ import {CardShellComponent} from '@shared/ui';
     CommonModule,
     RouterLink,
     LucideAngularModule,
-    CardShellComponent
+    CardShellComponent,
+    HeaderComponent,
+    NgOptimizedImage,
+    FooterComponent
   ],
   templateUrl: './signup-page.component.html'
 })
