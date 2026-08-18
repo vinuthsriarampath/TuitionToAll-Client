@@ -73,6 +73,9 @@ import {AnnouncementResolverData} from '@features/announcement/resolvers/announc
 import {ChapterResolverData} from '@features/chapter/resolvers/chapter-resolver-data';
 import {TeacherVacancyResolverData} from '@features/teacher-vacancy/resolvers/teacher-vacancy-resolver-data';
 import {CourseCheckoutComponent} from '@features/student-batch-enrollment/pages/course-checkout/course-checkout.component';
+import {
+  CourseFeedbackReviewComponent
+} from '@features/course/pages/course-feedback-review/course-feedback-review.component';
 
 
 export const routes: Routes = [
@@ -196,6 +199,21 @@ export const routes: Routes = [
                     },
                     data:{
                       breadcrumb: (data:AnnouncementResolverData)=> data.announcement.title
+                    }
+                  }
+                ]
+              },
+              {
+                path : 'feedbacks&reviews',
+                data: {
+                  breadcrumb: 'Feedbacks & Reviews'
+                },
+                children:[
+                  {
+                    path: '',
+                    component: CourseFeedbackReviewComponent,
+                    data: {
+                      breadcrumb: null
                     }
                   }
                 ]
