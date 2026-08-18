@@ -1,26 +1,10 @@
-<!--<div class=" p-4 bg-white">-->
-<!--  <div class="w-full flex justify-between items-center border-b-2 border-gray-200">-->
-<!--    <h1 class="text-lg">Create Batch</h1>-->
-<!--    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"-->
-<!--         class="size-5 cursor-pointer" (click)="onCancel()" (keydown)="onCancel()">-->
-<!--      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>-->
-<!--    </svg>-->
-<!--  </div>-->
-<!--  -->
-<!--  <div *ngIf="isLoading" class="w-full h-full bg-gray-100 opacity-50 absolute top-0 left-0 z-10 flex flex-col justify-center items-center ">-->
-<!--    <div class="relative z-20 flex flex-col justify-center items-center">-->
-<!--      <div class="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full border-blue-600 border-t-transparent"></div>-->
-<!--      <p class="text-gray-800 font-semibold">Creating..</p>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-
 <app-dialog-layout
   [loading]="isLoading"
   [loaderTitle]="'Creating Batch'"
   [title]="'Create Batch'"
   [description]="'Create a new batch for the course'"
   [icon]="Plus"
+
   (cancelEvent)="onCancel()"
 >
   <div data-body>
@@ -43,7 +27,7 @@
 
         <!--Batch Start Date-->
         <div class="col-span-1">
-          <label for="batch-start-date" class="text-sm text-gray-700">Start Date<sup class="text-red-500">
+          <label for="batch-start-date" class="form-label">Start Date<sup class="text-red-500">
             *</sup></label>
           <input type="date" id="batch-start-date" name="batch-start-date" class="form-input"
                  formControlName="start_date"
@@ -74,11 +58,11 @@
         <!--      Batch Seat Limitation-->
         <div class="col-span-2 flex items-center justify-between">
           <!--        Is Batch Seat Limited?-->
-          <div class="flex items-center gap-2">
+          <div class="flex items-center  gap-2">
             <input type="checkbox" id="batch-is-seat-limited" name="batch-is-seat-limited" class="w-4 h-4"
                    [class.form-input-error]="form.get('is_seat_limited')?.invalid && form.get('is_seat_limited')?.touched"
                    formControlName="is_seat_limited" (change)="validateSeatsLimit()"/>
-            <label for="form-label">Seat Limited<sup class="text-red-500">*</sup></label>
+            <label for="batch-is-seat-limited" class="form-label">Seat Limited<sup class="text-red-500">*</sup></label>
           </div>
 
           <!--        Batch Seat Limit Count-->
