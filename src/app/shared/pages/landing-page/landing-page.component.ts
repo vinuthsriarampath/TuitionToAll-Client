@@ -23,7 +23,6 @@ import {
   Layers,
   LogIn,
   LucideAngularModule,
-  Menu,
   Sliders,
   Sparkles,
   UserCheck,
@@ -33,6 +32,7 @@ import {
 } from 'lucide-angular';
 import {CardShellComponent} from '@shared/ui';
 import {FooterComponent} from '@shared/components/footer/footer.component';
+import {HeaderComponent} from '@shared/components/header/header.component';
 
 @Component({
   selector: 'app-landing-page',
@@ -44,18 +44,14 @@ import {FooterComponent} from '@shared/components/footer/footer.component';
     LucideAngularModule,
     CardShellComponent,
     NgOptimizedImage,
-    FooterComponent
+    FooterComponent,
+    HeaderComponent
   ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css'
 })
 export class LandingPageComponent {
-  menuOpen = false;
   showMore = false;
-
-  toggleMenu() {
-    this.menuOpen = !this.menuOpen;
-  }
 
   toggleReadMore() {
     this.showMore = !this.showMore;
@@ -73,7 +69,6 @@ export class LandingPageComponent {
   protected readonly ChevronDown = ChevronDown;
   protected readonly Sparkles = Sparkles;
   protected readonly ArrowRight = ArrowRight;
-  protected readonly Menu = Menu;
   protected readonly X = X;
   protected readonly LogIn = LogIn;
   protected readonly UserPlus = UserPlus;
