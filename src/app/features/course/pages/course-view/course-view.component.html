@@ -82,8 +82,8 @@
       <div class="p-4 text-center">
         <h3 class="font-semibold">Rating</h3>
         <div class="flex flex-row items-center justify-center gap-1">
-          <span>4.8</span>
-          <lucide-icon [img]="Star" class="w-3 h-3 fill-yellow-400 text-yellow-400"></lucide-icon>
+          <span>{{ course.avg_rating }}</span>
+          <lucide-icon [img]="Star" class="w-3 h-3 fill-amber-400 text-yellow-400"></lucide-icon>
         </div>
       </div>
     </app-card-shell>
@@ -103,8 +103,8 @@
   <!-- ACTION TOOLBAR -->
   <div class="mt-8 flex flex-wrap gap-3">
     <button class="btn-primary" [routerLink]="['batch-mgt']">Batches</button>
-    <button class="btn-secondary btn-success" [routerLink]="'/ins/dashboard/announcements-mgt'">Announcements</button>
-    <button class="btn-secondary btn-success">Reviews & Feedbacks</button>
+    <button class="btn-secondary btn-success" [routerLink]="['announcements']">Announcements</button>
+    <button class="btn-secondary btn-success" [routerLink]="['feedbacks&reviews']">Reviews & Feedbacks</button>
     <button class="btn-light">Analytics (Future)</button>
   </div>
 
