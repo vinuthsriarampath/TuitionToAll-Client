@@ -1,0 +1,15 @@
+<app-page-layout headerTitle="Feedback & Reviews" headerDescription="All the feedbacks and reviews for this course are listed here." [showBackButton]="true">
+  <div data-body class="flex justify-center items-center">
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="500ms" class="w-3/4 custom-tabs">
+      <mat-tab label="Feedbacks">
+        <ng-template matTabContent>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="Reviews">
+        <ng-template matTabContent>
+          <app-course-review-section [course]="course"></app-course-review-section>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</app-page-layout>
