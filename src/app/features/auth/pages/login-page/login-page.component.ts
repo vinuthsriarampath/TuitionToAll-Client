@@ -12,7 +12,7 @@
 import {Component, inject} from '@angular/core';
 import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 import {UserLoginRequest} from '../../dtos/request/user-login-request';
-import {CommonModule} from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {AuthenticationService} from '../../services/auth/authentication.service';
 import {UserService} from '@features/user/services/user/user.service';
@@ -30,6 +30,8 @@ import {
   X
 } from 'lucide-angular';
 import {CardShellComponent} from '@shared/ui';
+import {FooterComponent} from '@shared/components/footer/footer.component';
+import {HeaderComponent} from '@shared/components/header/header.component';
 
 @Component({
   selector: 'app-login-dto-page',
@@ -39,7 +41,10 @@ import {CardShellComponent} from '@shared/ui';
     FormsModule,
     RouterLinkActive,
     LucideAngularModule,
-    CardShellComponent
+    CardShellComponent,
+    FooterComponent,
+    HeaderComponent,
+    NgOptimizedImage
   ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css'
