@@ -32,6 +32,7 @@ import {
   X
 } from 'lucide-angular';
 import {CardShellComponent} from '@shared/ui';
+import {FooterComponent} from '@shared/components/footer/footer.component';
 
 @Component({
   selector: 'app-landing-page',
@@ -42,7 +43,8 @@ import {CardShellComponent} from '@shared/ui';
     RouterLinkActive,
     LucideAngularModule,
     CardShellComponent,
-    NgOptimizedImage
+    NgOptimizedImage,
+    FooterComponent
   ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css'
