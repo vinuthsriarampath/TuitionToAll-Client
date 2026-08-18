@@ -1,0 +1,8 @@
+<app-card-shell>
+  <div class="py-4">
+    <app-card-header [title]="'Course Feedback'" [description]="'Feedbacks are from students who have enrolled with the course.'"></app-card-header>
+    <div class="px-4">
+      <app-feedback-list [feedbacks]="feedbacks" [pageIndex]="pageIndex" [pageSize]="pageSize" [totalElements]="totalElements" (pageChange)="onPageChange($event)"></app-feedback-list>
+    </div>
+  </div>
+</app-card-shell>
