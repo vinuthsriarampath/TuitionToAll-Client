@@ -16,6 +16,8 @@ import {
   X
 } from 'lucide-angular';
 import {CardShellComponent} from '@shared/ui';
+import {HeaderComponent} from '@shared/components/header/header.component';
+import {FooterComponent} from '@shared/components/footer/footer.component';
 
 @Component({
   selector: 'app-reset-password-request-page',
@@ -25,7 +27,9 @@ import {CardShellComponent} from '@shared/ui';
     NgClass,
     LucideAngularModule,
     RouterLinkActive,
-    CardShellComponent
+    CardShellComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   templateUrl: './reset-password-request-page.component.html',
   styleUrl: './reset-password-request-page.component.css'
