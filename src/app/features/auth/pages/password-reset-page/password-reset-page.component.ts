@@ -6,6 +6,8 @@ import {AuthenticationService} from '../../services/auth/authentication.service'
 import {AlertService} from '@core/services/alerts/alert.service';
 import {ArrowLeft, Check, GraduationCap, Loader2, Lock, LucideAngularModule, X} from 'lucide-angular';
 import {CardShellComponent} from '@shared/ui';
+import {FooterComponent} from '@shared/components/footer/footer.component';
+import {HeaderComponent} from '@shared/components/header/header.component';
 
 @Component({
   selector: 'app-password-reset-page',
@@ -15,7 +17,9 @@ import {CardShellComponent} from '@shared/ui';
     RouterLink,
     LucideAngularModule,
     RouterLinkActive,
-    CardShellComponent
+    CardShellComponent,
+    FooterComponent,
+    HeaderComponent
   ],
   templateUrl: './password-reset-page.component.html',
   styleUrl: './password-reset-page.component.css'
