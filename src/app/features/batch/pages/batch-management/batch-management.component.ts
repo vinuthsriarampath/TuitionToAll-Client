@@ -73,8 +73,7 @@ export class BatchManagementComponent implements OnInit, AfterViewInit{
   protected openCreateBatchDialog(){
 
     const dialogRef =  this.dialog.open(CreateBatchDialogComponent,{
-      maxWidth: '60vh',
-      width: '100%',
+      width: '500px',
       panelClass: 'create-batch-dialog',
       data: this.courseId
     });
@@ -98,8 +97,7 @@ export class BatchManagementComponent implements OnInit, AfterViewInit{
 
   protected openUpdateBatchDialog(batch:Batch){
     const dialogRef =  this.dialog.open(UpdateBatchDialogComponent,{
-      maxWidth: '60vh',
-      width: '100%',
+      width: '500px',
       panelClass: 'update-batch-dialog',
       data: {
         batch:batch,

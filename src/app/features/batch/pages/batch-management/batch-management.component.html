@@ -64,10 +64,12 @@
             <a [routerLink]="[element.id]" matTooltip="View Batch" matTooltipPosition="above">
               <lucide-icon [img]="Eye" [size]="16"></lucide-icon>
             </a>
-            <button (click)="openUpdateBatchDialog(element)" matTooltip="Edit Batch" matTooltipPosition="above"
-                    class="cursor-pointer">
-              <lucide-icon [img]="Edit" [size]="16"></lucide-icon>
-            </button>
+            @if (element.batch_status != BatchStatus.COMPLETED) {
+              <button (click)="openUpdateBatchDialog(element)" matTooltip="Edit Batch" matTooltipPosition="above"
+                      class="cursor-pointer">
+                <lucide-icon [img]="Edit" [size]="16"></lucide-icon>
+              </button>
+            }
           </div>
         </td>
       </ng-container>

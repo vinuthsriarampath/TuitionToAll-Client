@@ -15,6 +15,7 @@ import {Batch} from '@features/batch/dtos/response/batch';
 import {
   BatchStudentSectionComponent
 } from '@features/student/components/batch-student-section/batch-student-section.component';
+import {BatchStatus} from '@features/batch/enums/batch-status';
 
 @Component({
   selector: 'app-batch-view',
@@ -67,6 +68,7 @@ export class BatchViewComponent implements OnInit {
 
   protected editBatch():void{
     const dialogRef=this.dialog.open(UpdateBatchDialogComponent,{
+      width: '500px',
       data:{
         batch:this.batch,
         courseId:this.batch.courseId
@@ -88,4 +90,5 @@ export class BatchViewComponent implements OnInit {
 
   }
 
+  protected readonly BatchStatus = BatchStatus;
 }
