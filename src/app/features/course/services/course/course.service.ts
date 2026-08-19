@@ -8,6 +8,7 @@ import {environment} from '@env/environment.development';
 import {CourseCreate} from '@features/course/dtos/request/course-create';
 import {CourseUpdate} from '@features/course/dtos/request/course-update';
 import {CourseFilter} from '@features/course/dtos/request/course-filter';
+import {CourseStatsResponse} from '@features/course/dtos/response/course-stats-response';
 
 @Injectable({
   providedIn: 'root'
@@ -59,5 +60,9 @@ export class CourseService {
       .pipe(
         map(res => res.data!)
       );
+  }
+
+  getCourseStats(courseId: number): Observable<ApiResponse<CourseStatsResponse>> {
+    return this.http.get<ApiResponse<CourseStatsResponse>>(`${environment.COURSE_API}/${courseId}/stats`);
   }
 }
