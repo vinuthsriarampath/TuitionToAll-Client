@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {ActivatedRoute, Router, RouterLink, RouterLinkActive} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {NgClass} from '@angular/common';
 import {AuthenticationService} from '../../services/auth/authentication.service';
@@ -16,7 +16,6 @@ import {HeaderComponent} from '@shared/components/header/header.component';
     NgClass,
     RouterLink,
     LucideAngularModule,
-    RouterLinkActive,
     CardShellComponent,
     FooterComponent,
     HeaderComponent
