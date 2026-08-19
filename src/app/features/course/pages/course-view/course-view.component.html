@@ -1,135 +1,167 @@
-<div class="w-full">
+<app-page-layout
+[isLoading]="loading"
+[loaderTitle]="'Loading Course'"
+[loaderDescription]="'Fetching course details from the server.'"
+>
+  <div data-body>
 
-  <!-- HERO BANNER -->
-  <div class="relative w-full h-80 rounded-xl overflow-hidden shadow-lg">
-    <img
-      [ngSrc]="course.thumbnail ? environment.COURSE_API + course.thumbnail : 'no_image_provided.png'"
-      alt="thumbnail"
-      fill
-      class="object-cover"
-      priority="1"
-      (error)="$any($event.target).src = 'no_image_provided.png'"
-    />
+    <!-- HERO BANNER -->
+    <div class="relative w-full h-80 rounded-xl overflow-hidden shadow-lg">
+      <img
+        [ngSrc]="course.thumbnail ? environment.COURSE_API + course.thumbnail : 'no_image_provided.png'"
+        alt="thumbnail"
+        fill
+        class="object-cover"
+        priority="1"
+        (error)="$any($event.target).src = 'no_image_provided.png'"
+      />
 
-    <!-- Gradient Overlay -->
-    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+      <!-- Gradient Overlay -->
+      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
 
-    <!-- Status Badge -->
-    <div class="absolute top-4 left-4 flex gap-2">
-      <button (click)="window.history.back()" class="btn-mini-primary">
-        Go Back
-      </button>
-      <app-badge [text]="course.status? course.status : 'N/A'" [variant]="course.status === 'DRAFT' ? 'warning' : course.status === 'ARCHIVED' ? 'secondary' : 'success'"></app-badge>
-    </div>
-
-    <!-- Edit Button -->
-    <div class="absolute top-4 right-4">
-      <a [routerLink]="['update']">
-        <button
-          class="btn-mini-primary">
-          Edit Course
+      <!-- Status Badge -->
+      <div class="absolute top-4 left-4 flex gap-2">
+        <button (click)="window.history.back()" class="btn-mini-primary">
+          Go Back
         </button>
-      </a>
+        <app-badge [text]="course.status? course.status : 'N/A'" [variant]="course.status === 'DRAFT' ? 'warning' : course.status === 'ARCHIVED' ? 'secondary' : 'success'"></app-badge>
+      </div>
 
-    </div>
-  </div>
+      <!-- Edit Button -->
+      <div class="absolute top-4 right-4">
+        <a [routerLink]="['update']">
+          <button
+            class="btn-mini-primary">
+            Edit Course
+          </button>
+        </a>
 
-  <!-- COURSE HEADER -->
-  <div class="mt-6 px-1 sm:px-3">
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between">
-      <div>
-        <h1 class="text-3xl font-bold">{{ course.title }}</h1>
-
-        <!-- Price -->
-        <p class="text-emerald-400 para-base font-semibold mt-1">
-          {{ course.price! > 0 ? ('Rs. ' + (course.price | currency:'':'':'1.0-2') + ' /=') : 'Free' }}
-        </p>
       </div>
     </div>
 
-    <!-- Meta Badges -->
-    <div class="flex flex-wrap gap-2 mt-4">
-      <app-badge [text]="course.category? course.category : 'N/A'" variant="indigo"></app-badge>
-      <app-badge [text]="course.language? course.language : 'N/A'" variant="violet"></app-badge>
-      <app-badge [text]="course.level? course.level : 'N/A'" [variant]="course.level === 'BEGINNER' ? 'success' : course.level === 'INTERMEDIATE' ? 'warning' : 'danger'"></app-badge>
-      <app-badge [text]="course.mode? course.mode : 'N/A'" variant="secondary"></app-badge>
-      <app-badge [text]="course.durationInHours? course.durationInHours + ' Hours' : 'N/A'" variant="success"></app-badge>
-    </div>
-  </div>
+    <!-- COURSE HEADER -->
+    <div class="mt-6 px-1 sm:px-3">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+        <div>
+          <h1 class="text-3xl font-bold">{{ course.title }}</h1>
 
-  <!-- QUICK STATS -->
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
-
-    <app-card-shell>
-      <div class="p-4 text-center">
-        <h3 class="font-semibold">Students</h3>
-        <span>128</span>
-      </div>
-    </app-card-shell>
-    <app-card-shell>
-      <div class="p-4 text-center">
-        <h3 class="font-semibold">Batches</h3>
-        <span>4</span>
-      </div>
-    </app-card-shell>
-    <app-card-shell>
-      <div class="p-4 text-center">
-        <h3 class="font-semibold">Modules</h3>
-        <span>12</span>
-      </div>
-    </app-card-shell>
-    <app-card-shell>
-      <div class="p-4 text-center">
-        <h3 class="font-semibold">Rating</h3>
-        <div class="flex flex-row items-center justify-center gap-1">
-          <span>{{ course.avg_rating }}</span>
-          <lucide-icon [img]="Star" class="w-3 h-3 fill-amber-400 text-yellow-400"></lucide-icon>
+          <!-- Price -->
+          <p class="text-emerald-400 para-base font-semibold mt-1">
+            {{ course.price! > 0 ? ('Rs. ' + (course.price | currency:'':'':'1.0-2') + ' /=') : 'Free' }}
+          </p>
         </div>
       </div>
-    </app-card-shell>
-  </div>
 
-  <!-- DESCRIPTION -->
-  <app-card-shell>
-    <div class="p-4">
-      <h2 class="font-semibold mb-2 text-lg">Description</h2>
-      <p class="para-primary">
-        {{ course.description }}
-      </p>
+      <!-- Meta Badges -->
+      <div class="flex flex-wrap gap-2 mt-4">
+        <app-badge [text]="course.category? course.category : 'N/A'" variant="indigo"></app-badge>
+        <app-badge [text]="course.language? course.language : 'N/A'" variant="violet"></app-badge>
+        <app-badge [text]="course.level? course.level : 'N/A'" [variant]="course.level === 'BEGINNER' ? 'success' : course.level === 'INTERMEDIATE' ? 'warning' : 'danger'"></app-badge>
+        <app-badge [text]="course.mode? course.mode : 'N/A'" variant="secondary"></app-badge>
+        <app-badge [text]="course.durationInHours? course.durationInHours + ' Hours' : 'N/A'" variant="success"></app-badge>
+      </div>
     </div>
-  </app-card-shell>
 
+    <!-- QUICK STATS -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
 
-  <!-- ACTION TOOLBAR -->
-  <div class="mt-8 flex flex-wrap gap-3">
-    <button class="btn-primary" [routerLink]="['batch-mgt']">Batches</button>
-    <button class="btn-secondary btn-success" [routerLink]="['announcements']">Announcements</button>
-    <button class="btn-secondary btn-success" [routerLink]="['feedbacks&reviews']">Reviews & Feedbacks</button>
-    <button class="btn-light">Analytics (Future)</button>
-  </div>
-
-  <!-- MAIN GRID -->
-  <div class="grid lg:grid-cols-3 gap-6 mt-6 items-start">
-
-    <!-- LEFT SIDE -->
-    <div class="lg:col-span-2 space-y-6">
-
-      <!-- COURSE MANAGEMENT -->
       <app-card-shell>
-        <div class="p-6 space-y-3">
-          <h3>Course Tree</h3>
-          <app-course-tree></app-course-tree>
+        <div class="p-4 text-center">
+          <h3 class="font-semibold">Active Students</h3>
+          @if (statsLoading) {
+            <div class="flex justify-center items-center">
+              <div class="w-12 h-4 bg-sky-900 animate-pulse mt-2"></div>
+            </div>
+          } @else {
+            <span>{{ courseStats.activeStudents | number: '1.0-0' }}</span>
+          }
         </div>
       </app-card-shell>
+      <app-card-shell>
+        <div class="p-4 text-center">
+          <h3 class="font-semibold">Ongoing Batches</h3>
+          @if (statsLoading) {
+            <div class="flex justify-center items-center">
+              <div class="w-12 h-4 bg-sky-900 animate-pulse mt-2"></div>
+            </div>
+          } @else {
+            <span>{{ courseStats.ongoingBatches | number: '1.0-0' }}</span>
+          }
+        </div>
+      </app-card-shell>
+      <app-card-shell>
+        <div class="p-4 text-center">
+          <h3 class="font-semibold">Total Revenue</h3>
+          @if (statsLoading) {
+            <div class="flex justify-center items-center">
+              <div class="w-12 h-4 bg-sky-900 animate-pulse mt-2"></div>
+            </div>
+          } @else {
+            <span> {{'LKR. '+ (courseStats.totalRevenue | currency:'':'':'1.2-2') + ' /=' }}</span>
+          }
+        </div>
+      </app-card-shell>
+      <app-card-shell>
+        <div class="p-4 text-center">
+          <h3 class="font-semibold">Rating</h3>
+          <div class="flex flex-row items-center justify-center gap-1">
 
+            @if (loading) {
+              <div class="flex justify-center items-center mt-2">
+                <div class="w-12 h-4 bg-sky-900 animate-pulse"></div>
+              </div>
+              <lucide-icon [img]="Star" class="w-3 h-3 fill-amber-400 text-yellow-400"></lucide-icon>
+            } @else {
+              <span>{{ course.avg_rating | number: '1.1-1' }}</span>
+              <lucide-icon [img]="Star" class="w-3 h-3 fill-amber-400 text-yellow-400"></lucide-icon>
+            }
+          </div>
+        </div>
+      </app-card-shell>
     </div>
 
+    <!-- DESCRIPTION -->
+    <app-card-shell>
+      <div class="p-4">
+        <h2 class="font-semibold mb-2 text-lg">Description</h2>
+        <p class="para-primary">
+          {{ course.description }}
+        </p>
+      </div>
+    </app-card-shell>
 
-    <!-- RIGHT SIDE -->
-    <div class="space-y-6">
-      <!-- ANNOUNCEMENTS -->
-      <app-course-announcement-list [courseId]="courseId" [recentAnnouncements]="true"></app-course-announcement-list>
+
+    <!-- ACTION TOOLBAR -->
+    <div class="mt-8 flex flex-wrap gap-3">
+      <button class="btn-primary" [routerLink]="['batch-mgt']">Batches</button>
+      <button class="btn-secondary btn-success" [routerLink]="['announcements']">Announcements</button>
+      <button class="btn-secondary btn-success" [routerLink]="['feedbacks&reviews']">Reviews & Feedbacks</button>
+      <button class="btn-light">Analytics (Future)</button>
+    </div>
+
+    <!-- MAIN GRID -->
+    <div class="grid lg:grid-cols-3 gap-6 mt-6 items-start">
+
+      <!-- LEFT SIDE -->
+      <div class="lg:col-span-2 space-y-6">
+
+        <!-- COURSE MANAGEMENT -->
+        <app-card-shell>
+          <div class="p-6 space-y-3">
+            <h3>Course Tree</h3>
+            <app-course-tree></app-course-tree>
+          </div>
+        </app-card-shell>
+
+      </div>
+
+
+      <!-- RIGHT SIDE -->
+      <div class="space-y-6">
+        <!-- ANNOUNCEMENTS -->
+        <app-course-announcement-list [courseId]="courseId" [recentAnnouncements]="true"></app-course-announcement-list>
+      </div>
     </div>
   </div>
-</div>
+</app-page-layout>
 
