@@ -1,0 +1,40 @@
+<app-card-shell>
+  <div class="p-4 flex flex-col justify-between">
+    <div>
+      <div class="flex justify-between items-center mb-4">
+        <div>
+          <h3>Course Performance</h3>
+          <p class="para-xs para-primary">Most popular courses this period.</p>
+        </div>
+        <a class="link-primary para-xs inline-flex items-center gap-1">
+          View Courses <lucide-icon [img]="ArrowRight" class="w-3.5 h-3.5"></lucide-icon>
+        </a>
+      </div>
+
+      <div class="space-y-4">
+        @for (item of courses; track item){
+        <div  class="space-y-1.5">
+          <div class="flex justify-between items-start">
+            <div>
+              <div class="flex items-center gap-1">
+                <h3>{{ item.rank }}</h3>
+                <span class="para-primary text-2xl">•</span>
+                <h3>{{ item.title }}</h3>
+              </div>
+              <p class="para-xs para-primary">{{ item.studentsCount }} students · {{ item.activeBatchesCount }} active batches</p>
+            </div>
+            <div class="flex items-center gap-1 text-xs font-bold text-gray-800">
+              <p class="para-primary">{{ item.rating | number:'1.1-1' }}</p>
+              <lucide-icon [img]="Star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></lucide-icon>
+            </div>
+          </div>
+
+          <div class="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+            <div class="h-full bg-emerald-600 rounded-full" [style.width.%]="item.progressPercentage"></div>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</app-card-shell>
