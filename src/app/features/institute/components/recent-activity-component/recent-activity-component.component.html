@@ -1,0 +1,36 @@
+<app-card-shell>
+  <div class="p-4 h-full flex flex-col justify-between">
+    <div>
+      <div class="flex justify-between items-center mb-4">
+        <div>
+          <h3>Recent Activity</h3>
+          <p class="para-xs para-primary">Latest institute events.</p>
+        </div>
+        <a class="text-xs link link-primary inline-flex items-center gap-1">
+          View All <lucide-icon [img]="ArrowRight" class="w-3.5 h-3.5"></lucide-icon>
+        </a>
+      </div>
+
+      <div class="space-y-4 relative before:absolute before:inset-0 before:left-3 before:w-0.5 before:bg-emerald-500">
+        @for (activity of activities; track activity.id) {
+          <div class="flex gap-3 relative z-10 items-start">
+            <div class="w-6 h-6 rounded-full bg-emerald-700 flex items-center justify-center shrink-0">
+              <lucide-icon [img]="activity.icon" class="w-3.5 h-3.5"></lucide-icon>
+            </div>
+
+            <div class="text-xs inline-flex gap-1 items-center">
+              <p class="para-xs para-primary font-medium">{{ activity.time }}</p>
+              <p class="para-xs para-light">{{ activity.message }}</p>
+              @if (activity.highlightText){
+                <strong class="para-xs para-primary font-semibold"> {{ activity.highlightText }}</strong>
+              }
+              @if (activity.postText){
+                <span class="para-xs para-light"> {{ activity.postText }}</span>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</app-card-shell>
