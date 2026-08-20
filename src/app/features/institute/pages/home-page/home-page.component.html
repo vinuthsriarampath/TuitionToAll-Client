@@ -1,0 +1,85 @@
+<app-page-layout>
+  <div data-body>
+    <div class="space-y-4">
+      <!-- Header & Quick Action Buttons -->
+      <header class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h1 class="text-2xl font-bold text-gray-900">Good morning, Institute Admin 👋</h1>
+          <p class="para-primary">Here's what's happening with your institute.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button class="btn-mini-primary flex items-center justify-center gap-2">
+            <lucide-icon [img]="Calendar" class="w-4 h-4 text-sky-400"></lucide-icon>
+            Last 30 days
+          </button>
+          <button class="btn-mini-secondary">
+            <lucide-icon [img]="RotateCw" class="w-4 h-4"></lucide-icon>
+          </button>
+        </div>
+      </header>
+
+      <!-- Quick Creation Action Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <button [routerLink]="['course-mgt','create']" class="p-3.5 card-success rounded-xl shadow-sm flex items-center justify-start gap-3 cursor-pointer">
+          <div class="p-2 bg-emerald-700 rounded-lg"><lucide-icon [img]="Plus" class="w-5 h-5"></lucide-icon></div>
+          <div class="text-left">
+            <p class="font-bold text-sm">Create Course</p>
+            <p class="para-xs text-emerald-200">Publish a new syllabus</p>
+          </div>
+        </button>
+        <button class="p-3.5 card-primary rounded-xl shadow-sm flex items-center gap-3 cursor-pointer">
+          <div class="p-2 bg-sky-800/80 rounded-lg text-sky-400"><lucide-icon [img]="Megaphone" class="w-5 h-5"></lucide-icon></div>
+          <div class="text-left">
+            <p class="font-bold text-sm">Create Announcement</p>
+            <p class="para-xs text-sky-200">Share important updates</p>
+          </div>
+        </button>
+        <button class="p-3.5 card-primary rounded-xl shadow-sm flex items-center gap-3 cursor-pointer">
+          <div class="p-2 bg-sky-800/80 rounded-lg text-sky-400"><lucide-icon [img]="UserPlus" class="w-5 h-5"></lucide-icon></div>
+          <div class="text-left">
+            <p class="font-bold text-sm">Open Vacancy</p>
+            <p class="para-xs text-sky-200">Fill available positions</p>
+          </div>
+        </button>
+        <button class="p-3.5 card-primary rounded-xl shadow-sm flex items-center gap-3 cursor-pointer">
+          <div class="p-2 bg-sky-800/80 rounded-lg text-sky-400"><lucide-icon [img]="Users" class="w-5 h-5"></lucide-icon></div>
+          <div class="text-left">
+            <p class="font-bold text-sm">View Students</p>
+            <p class="para-xs text-sky-200">1,248 enrolled</p>
+          </div>
+        </button>
+      </div>
+
+      <!-- KPI Cards Row -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <app-kpi-card title="Total Students" value="1,248" changeValue="12.4%" changeLabel="vs previous month" [icon]="Users" [sparklineData]="[10,15,12,18,20,25]"></app-kpi-card>
+        <app-kpi-card title="Active Courses" value="24" changeValue="3" changeLabel="this month" [icon]="BookOpen" [sparklineData]="[5,8,12,10,14,24]"></app-kpi-card>
+        <app-kpi-card title="Active Batches" value="37" changeValue="5" changeLabel="currently running" [icon]="Calendar" [sparklineData]="[20,22,25,30,32,37]"></app-kpi-card>
+        <app-kpi-card title="Teachers" value="58" changeValue="4" changeLabel="active teachers" [icon]="GraduationCap" [sparklineData]="[40,42,45,48,52,58]"></app-kpi-card>
+        <app-kpi-card title="Revenue" value="Rs. 2.45M" changeValue="8.6%" changeLabel="vs previous month" [icon]="Wallet" [sparklineData]="[1.2,1.5,1.8,2.0,2.2,2.45]"></app-kpi-card>
+      </div>
+
+      <!-- Charts Section -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2">
+          <app-enrollment-cart></app-enrollment-cart>
+        </div>
+        <div class="lg:col-span-1">
+          <app-distribution-chart></app-distribution-chart>
+        </div>
+      </div>
+
+      <!-- Active Batches Table -->
+      <app-active-batches-table></app-active-batches-table>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+        <div class="lg:col-span-2">
+          <app-performance-widget></app-performance-widget>
+        </div>
+        <div class="lg:col-span-1">
+          <app-recent-activity-component></app-recent-activity-component>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-page-layout>

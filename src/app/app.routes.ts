@@ -26,7 +26,6 @@ import {AppComponent} from '@core/layouts/app/app.component';
 import {FeedComponent} from '@features/feed/pages/feed.component';
 import {InstituteDashboardComponent} from '@features/dashboards/pages/institute-dashboard/institute-dashboard.component';
 import {instituteRoleGuard} from '@core/guards/institute-role-guard/institute-role.guard';
-import {DashboardComponent} from '@features/institute/pages/dashboard/dashboard.component';
 import {
   InstituteCourseManagementComponent
 } from '@features/institute/pages/institute-course-management/institute-course-management.component';
@@ -76,6 +75,7 @@ import {CourseCheckoutComponent} from '@features/student-batch-enrollment/pages/
 import {
   CourseFeedbackReviewComponent
 } from '@features/course/pages/course-feedback-review/course-feedback-review.component';
+import {HomePageComponent} from '@features/institute/pages/home-page/home-page.component';
 
 
 export const routes: Routes = [
@@ -130,9 +130,9 @@ export const routes: Routes = [
     children:[
       {
         path: '',
-        component: DashboardComponent,
+        component: HomePageComponent,
         data : {
-          breadcrumb: 'Dashboard',
+          breadcrumb: null,
         },
       },
       {
