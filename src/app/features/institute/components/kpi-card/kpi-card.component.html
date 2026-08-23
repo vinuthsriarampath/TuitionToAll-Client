@@ -1,23 +1,42 @@
 <app-card-shell [variant]="'primary'">
-  <div class="kpi-card  p-4 flex flex-col justify-between h-full">
+
+  <div class="kpi-card p-4 flex flex-col justify-between h-full">
+    <!-- Header -->
     <div class="flex items-center gap-3 mb-2">
-      <lucide-icon [img]="icon()" class="w-5 h-5 text-sky-400"></lucide-icon>
-      <span class="para-primary font-medium">{{ title() }}</span>
+      <lucide-icon [img]="icon()" class="w-5 h-5 text-sky-400"> </lucide-icon>
+      <span class="para-primary font-medium"> {{ title() }} </span>
     </div>
 
-    <h3 class="font-bold my-1">{{ value() }}</h3>
 
+    <!-- Main KPI value -->
+    <h3 class="font-bold my-1">
+      {{ data().value | number }}
+    </h3>
+
+
+    <!-- Change indicator -->
     <div class="flex items-center text-xs gap-1 mb-3">
-      <span [ngClass]="isPositive() ? 'text-emerald-800 bg-emerald-100' : 'text-rose-800 bg-rose-100'"
-            class="inline-flex items-center font-semibold px-1.5 py-0.5 rounded">
-        <lucide-icon [img]="isPositive() ? ArrowUpRight : ArrowDownRight" class="w-3 h-3 mr-0.5"></lucide-icon>
-        {{ changeValue() }}
+
+      <span class="inline-flex items-center font-semibold px-1.5 py-0.5 rounded" [ngClass]=" isChangeValuePositive() ? 'text-emerald-800 bg-emerald-100' : 'text-rose-800 bg-rose-100' " >
+        <lucide-icon [img]=" isChangeValuePositive() ? ArrowUpRight : ArrowDownRight" class="w-3 h-3 mr-0.5"></lucide-icon>
+        <span>
+          {{ data().changeValue | number:'1.0-2' }}
+          @if (isPercentageChange()) {
+            %
+          }
+        </span>
+
       </span>
-      <p class="para-xs para-primary">{{ changeLabel() }}</p>
+
+
+      <p class="para-xs para-primary">{{ data().changeLabel }}</p>
+
     </div>
 
-    <div class="h-8 w-full">
-      <canvas baseChart [data]="sparklineConfig" [options]="sparklineOptions" [type]="sparklineType"></canvas>
+
+    <!-- Sparkline -->
+    <div class="h-16 w-full">
+      <canvas baseChart [type]="sparklineType" [data]="sparklineData()" [options]="sparklineOptions"></canvas>
     </div>
   </div>
 
