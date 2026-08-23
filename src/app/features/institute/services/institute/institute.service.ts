@@ -9,6 +9,7 @@ import {
   InstituteDetailsUpdateRequest
 } from '@features/institute/dtos/requests/InstituteDetailsUpdateRequest';
 import {Institute} from '@features/institute/dtos/response/institute';
+import {InstituteBootstrapResponse} from '@features/institute/dtos/response/institute-bootstrap-response';
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +24,9 @@ export class InstituteService {
 
   updateInstituteDetails(updateRequest: InstituteDetailsUpdateRequest){
     return this.http.patch<ApiResponse<Institute>>(`${environment.INSTITUTE_API}/me`,updateRequest);
+  }
+
+  getInstituteBootstrapData(): Observable<ApiResponse<InstituteBootstrapResponse>> {
+    return this.http.get<ApiResponse<InstituteBootstrapResponse>>(`${environment.INSTITUTE_API}/me/bootstrap`);
   }
 }
