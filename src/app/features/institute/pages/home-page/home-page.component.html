@@ -15,7 +15,29 @@
           }
         </div>
 
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+          <div class="lg:col-span-2">
+            <div class="h-80 rounded-xl bg-sky-900/80 animate-pulse"></div>
+          </div>
+          <div class="lg:col-span-1">
+            <div class="h-80 rounded-xl bg-sky-900/80 animate-pulse"></div>
+          </div>
+
+        </div>
+
         <div class="h-80 rounded-xl bg-sky-900/80 animate-pulse"></div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+
+          <div class="lg:col-span-2">
+            <div class="h-80 rounded-xl bg-sky-900/80 animate-pulse"></div>
+          </div>
+          <div class="lg:col-span-1">
+            <div class="h-80 rounded-xl bg-sky-900/80 animate-pulse"></div>
+          </div>
+
+        </div>
 
       </div>
 
@@ -168,7 +190,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
 
           <div class="lg:col-span-2">
-            <app-performance-widget></app-performance-widget>
+            <app-performance-widget [courses]="bootstrapData.coursePerformance"></app-performance-widget>
           </div>
           <div class="lg:col-span-1">
             <app-recent-activity-component></app-recent-activity-component>
