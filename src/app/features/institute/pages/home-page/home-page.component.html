@@ -173,7 +173,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
           <div class="lg:col-span-2">
-            <app-enrollment-cart></app-enrollment-cart>
+            <app-enrollment-cart [data]="bootstrapData.overallEnrollment"></app-enrollment-cart>
           </div>
           <div class="lg:col-span-1">
             <app-distribution-chart [data]="bootstrapData.enrollmentDistribution"></app-distribution-chart>
