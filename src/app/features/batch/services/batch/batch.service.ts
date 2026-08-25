@@ -10,6 +10,8 @@ import {PaginatedApiResponse} from '@shared/utils/response/paginated-api-respons
 import {ModuleResponse} from '@features/module/dtos/response/ModuleResponse';
 import { StudentUserResponse } from "@features/student/dtos/responses/student-user-response/student-user-response";
 import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
+import { BatchFilterRequest } from "@features/batch/dtos/request/batch-filter-request";
+import {BatchDetailedResponse} from '@features/batch/dtos/response/batch-detailed-response';
 
 @Injectable({
   providedIn: 'root'
@@ -66,5 +68,46 @@ export class BatchService {
     });
 
     return this.http.get<PaginatedApiResponse<StudentUserResponse>>(`${environment.BATCH_API}/${batchId}/students`, { params });
+  }
+
+  getDetailedBatches(pagination: PaginationRequest, filters?: BatchFilterRequest): Observable<PaginatedApiResponse<BatchDetailedResponse>> {
+
+    const { page, size, direction, sortBy } = pagination;
+    const { id, batchName, courseId, instituteId, status, enrollmentStatus } = filters ?? {};
+
+    let params = new HttpParams()
+      .set('page', page)
+      .set('size', size)
+      .set('direction', direction);
+
+    sortBy.forEach(sort => {
+      params = params.append('sortBy', sort);
+    });
+
+    if (id !== undefined) {
+      params = params.set('id', id);
+    }
+
+    if (batchName !== undefined) {
+      params = params.set('batchName', batchName);
+    }
+
+    if (courseId !== undefined) {
+      params = params.set('courseId', courseId);
+    }
+
+    if (instituteId !== undefined) {
+      params = params.set('instituteId', instituteId);
+    }
+
+    if (status !== undefined) {
+      params = params.set('status', status);
+    }
+
+    if (enrollmentStatus !== undefined) {
+      params = params.set('enrollmentStatus', enrollmentStatus);
+    }
+
+    return this.http.get<PaginatedApiResponse<BatchDetailedResponse>>(`${environment.BATCH_API}/detailed`, { params });
   }
 }
