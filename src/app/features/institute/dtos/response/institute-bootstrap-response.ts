@@ -3,9 +3,11 @@ import {CoursePerformanceResponse} from '@features/course/dtos/response/course-p
 import {
   EnrollmentDistributionResponse
 } from '@features/student-batch-enrollment/dtos/responses/enrollment-distribution-response';
+import {OverallEnrollmentResponse} from '@features/student-batch-enrollment/dtos/responses/overall-enrollment-response';
 
 export class InstituteBootstrapResponse {
   kpiStats!: InstituteDashboardKpiStats;
   coursePerformance!: CoursePerformanceResponse[];
   enrollmentDistribution!: EnrollmentDistributionResponse;
+  overallEnrollment!: OverallEnrollmentResponse;
 }
