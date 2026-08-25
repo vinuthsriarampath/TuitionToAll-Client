@@ -2,31 +2,31 @@
   <div class="p-4 h-full flex flex-col justify-between">
     <div class="flex justify-between items-center mb-2">
       <div>
-        <h3>Student Distribution</h3>
+        <h3>Enrollment Distribution</h3>
         <p class="para-xs para-primary">By enrollment status.</p>
       </div>
     </div>
 
     <div class="relative flex justify-center items-center h-48 my-2">
-      <canvas baseChart [data]="doughnutChartData" [options]="doughnutChartOptions" [type]="'doughnut'"></canvas>
+      <canvas baseChart [data]="doughnutChartData()" [options]="doughnutChartOptions" [type]="'doughnut'"></canvas>
       <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-        <h3 class="font-bold">1,248</h3>
-        <p class="para-xs para-primary">Total Students</p>
+        <h3 class="font-bold">{{ data().totalEnrollments | number }}</h3>
+        <p class="para-xs para-primary">Total Enrollments</p>
       </div>
     </div>
 
     <div class="space-y-1.5 text-xs text-gray-600 mt-2">
       <div class="flex justify-between items-center">
         <p class="para-xs para-primary flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-teal-800"></span> Active</p>
-        <p class="font-semibold para-primary para-xs">72% · 899</p>
+        <p class="font-semibold para-primary para-xs">{{ data().activeEnrollmentsPercentage }}% · {{ data().activeEnrollments | number }}</p>
       </div>
       <div class="flex justify-between items-center">
         <p class="para-xs para-primary flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-emerald-300"></span> Completed</p>
-        <p class="font-semibold para-primary para-xs">18% · 225</p>
+        <p class="font-semibold para-primary para-xs">{{ data().completedEnrollmentsPercentage }}% · {{ data().completedEnrollments | number }}</p>
       </div>
       <div class="flex justify-between items-center">
-        <p class="para-xs para-primary flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Pending</p>
-        <p class="font-semibold para-primary para-xs">6% · 75</p>
+        <p class="para-xs para-primary flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Suspended</p>
+        <p class="font-semibold para-primary para-xs">{{ data().suspendedEnrollmentsPercentage }}% · {{ data().suspendedEnrollments | number }}</p>
       </div>
     </div>
   </div>
