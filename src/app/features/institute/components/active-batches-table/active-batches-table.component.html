@@ -2,7 +2,7 @@
   <div class="p-4">
     <div class="flex justify-between items-center mb-4">
       <div>
-        <h3>Active Batches</h3>
+        <h3>Ongoing Batches</h3>
         <p class="para-xs para-primary">Currently running intakes across all courses.</p>
       </div>
       <a class="link link-xs link-primary flex flex-row gap-1 items-center cursor-pointer">
@@ -17,55 +17,56 @@
         <ng-container matColumnDef="batch">
           <th mat-header-cell *matHeaderCellDef >BATCH</th>
           <td mat-cell *matCellDef="let row">
-            <p class="para-light">{{ row.batch }}</p>
-            <p class="para-xs para-primary">{{ row.code }}</p>
+            <p class="para-light">{{ row.name | titlecase }}</p>
+            <p class="para-xs para-primary">{{ row.id }}</p>
           </td>
         </ng-container>
 
         <!-- Course Column -->
         <ng-container matColumnDef="course">
           <th mat-header-cell *matHeaderCellDef >COURSE</th>
-          <td mat-cell *matCellDef="let row" >{{ row.course }}</td>
+          <td mat-cell *matCellDef="let row" >{{ row.courseTitle | titlecase }}</td>
         </ng-container>
 
-        <!-- Teacher Column -->
-        <ng-container matColumnDef="teacher">
-          <th mat-header-cell *matHeaderCellDef class="!text-left ">TEACHER</th>
-          <td mat-cell *matCellDef="let row" class="">
-            <div class="flex items-center justify-start gap-2">
-              <img [ngSrc]="'profile_logo.png'" width="28" height="28" alt="Profile Logo" class="rounded-full w-7 h-7 object-cover shrink-0">
-              <p class="para-light m-0">{{ row.teacher }}</p>
-            </div>
-          </td>
-        </ng-container>
-
-        <!-- Students Column -->
-        <ng-container matColumnDef="students">
-          <th mat-header-cell *matHeaderCellDef class="text-center">STUDENTS</th>
+        <!-- Enrollments Column -->
+        <ng-container matColumnDef="seats">
+          <th mat-header-cell *matHeaderCellDef class="text-center">Seats</th>
           <td mat-cell *matCellDef="let row" class="align-middle text-center">
             <div class="flex flex-col items-center gap-1">
-              <p class="para-xs para-light m-0">
-                {{ row.studentsCurrent }} / {{ row.studentsMax }}
-              </p>
-              <div class="w-32 h-1.5 bg-gray-100 rounded-full overflow-hidden ">
-                <div class="h-full bg-emerald-700 rounded-full" [style.width.%]="getCapacityPercentage(row.studentsCurrent, row.studentsMax)"></div>
-              </div>
+              @if (row.isSeatLimited){
+                <p class="para-xs para-light m-0">
+                  {{ row.totalEnrollments }} / {{ row.maxSeatsLimit }}
+                </p>
+                <div class="w-32 h-1.5 bg-gray-100 rounded-full overflow-hidden ">
+                  <div class="h-full bg-emerald-700 rounded-full" [style.width.%]="getCapacityPercentage(row.totalEnrollments, row.maxSeatsLimit)"></div>
+                </div>
+              } @else {
+                <p class="para-xs para-light m-0">Unlimited</p>
+              }
             </div>
           </td>
         </ng-container>
 
         <!-- Start Date Column -->
-        <ng-container matColumnDef="startDate">
-          <th mat-header-cell *matHeaderCellDef>START DATE</th>
-          <td mat-cell *matCellDef="let row">{{ row.startDate }}</td>
+        <ng-container matColumnDef="startDateAndTime">
+          <th mat-header-cell *matHeaderCellDef>START DATE & Time</th>
+          <td mat-cell *matCellDef="let row">
+            {{ row.startDate | date:'longDate' }} at {{ formatTimeString(row.startTime) }}
+          </td>
         </ng-container>
 
         <!-- Status Column -->
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef >STATUS</th>
           <td mat-cell *matCellDef="let row">
-            <app-badge [text]="row.status" [variant]="'success'"></app-badge>
+            <app-badge [text]="row.batchStatus" [variant]="row.batchStatus === BatchStatus.PREPARATION ? 'primary' : row.batchStatus === BatchStatus.COMPLETED ? 'success' : 'warning'"></app-badge>
+          </td>
+        </ng-container>
 
+        <ng-container matColumnDef="enrollmentStatus">
+          <th mat-header-cell *matHeaderCellDef >ENROLLMENT STATUS</th>
+          <td mat-cell *matCellDef="let row">
+            <app-badge [text]="row.enrollmentStatus" [variant]="row.enrollmentStatus === BatchEnrollmentStatus.OPEN ? 'success' : 'danger'"></app-badge>
           </td>
         </ng-container>
 
@@ -73,8 +74,8 @@
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let row">
-            <button class="cursor-pointer text-gray-400 hover:text-gray-600">
-              <lucide-icon [img]="MoreVertical" class="w-4 h-4"></lucide-icon>
+            <button [routerLink]="['course-mgt', row.courseId,'batch-mgt',row.id]" class="cursor-pointer text-gray-400 hover:text-gray-600">
+              <lucide-icon [img]="Eye" class="w-4 h-4"></lucide-icon>
             </button>
           </td>
         </ng-container>

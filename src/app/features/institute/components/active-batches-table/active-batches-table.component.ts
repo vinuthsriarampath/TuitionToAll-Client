@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, input, OnInit} from '@angular/core';
 import {
   MatCell,
   MatCellDef,
@@ -8,11 +8,16 @@ import {
   MatHeaderRow, MatHeaderRowDef, MatNoDataRow, MatRow, MatRowDef,
   MatTable, MatTableDataSource
 } from '@angular/material/table';
-import {ArrowRight, LucideAngularModule, MoreVertical} from 'lucide-angular';
+import {ArrowRight, Eye, LucideAngularModule, MoreVertical} from 'lucide-angular';
 import {BadgeComponent, CardShellComponent} from '@shared/ui';
-import {NgOptimizedImage} from '@angular/common';
+import {DatePipe, NgOptimizedImage, TitleCasePipe} from '@angular/common';
 import {NoContentComponent} from '@shared/components/no-content/no-content.component';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {BatchDetailedResponse} from '@features/batch/dtos/response/batch-detailed-response';
+import {PaginatedApiResponse} from '@shared/utils/response/paginated-api-response';
+import {BatchEnrollmentStatus} from '@features/batch/enums/batch-enrollment-status';
+import {BatchStatus} from '@features/batch/enums/batch-status';
+import {RouterLink} from '@angular/router';
 
 export interface BatchData {
   batch: string;
@@ -45,31 +50,48 @@ export interface BatchData {
     NgOptimizedImage,
     MatNoDataRow,
     NoContentComponent,
-    MatPaginator
+    MatPaginator,
+    DatePipe,
+    TitleCasePipe,
+    RouterLink
   ],
   templateUrl: './active-batches-table.component.html',
   styleUrl: './active-batches-table.component.css'
 })
-export class ActiveBatchesTableComponent {
-  displayedColumns: string[] = ['batch', 'course', 'teacher', 'students', 'startDate', 'status', 'action'];
+export class ActiveBatchesTableComponent implements OnInit{
+  data = input.required<PaginatedApiResponse<BatchDetailedResponse>>();
+  displayedColumns: string[] = ['batch', 'course', 'seats', 'startDateAndTime', 'status','enrollmentStatus', 'action'];
 
-  protected dataSource: MatTableDataSource<BatchData> = new MatTableDataSource<BatchData>([]);
+  protected dataSource: MatTableDataSource<BatchDetailedResponse> = new MatTableDataSource<BatchDetailedResponse>([]);
 
   protected pageIndex:number = 0;
   protected pageSize:number = 5;
   protected totalElements:number = 0;
 
-  protected getActiveBatches():void {
-    this.dataSource.data = [
-      { batch: 'January 2026', code: 'BTC-2026-01', course: 'Java Programming', teacher: 'Kasun Perera', avatarInitials: 'KP', studentsCurrent: 42, studentsMax: 50, startDate: '05 Jan 2026', status: 'Active' },
-      { batch: 'February 2026', code: 'BTC-2026-02', course: 'Spring Boot', teacher: 'Nimal Fernando', avatarInitials: 'NF', studentsCurrent: 37, studentsMax: 40, startDate: '02 Feb 2026', status: 'Active' }
-    ];
+  ngOnInit(): void {
+      this.pageIndex = this.data().page ?? 0;
+      this.pageSize = this.data().size ?? 5;
+      this.totalElements = this.data().totalElements ?? 0;
+
+      this.dataSource.data = this.data().data ?? [];
   }
 
-  getCapacityPercentage(current: number, max: number): number {
+  protected getActiveBatches():void {
+
+  }
+
+
+  protected formatTimeString(timeStr: string): string {
+    if (!timeStr) return '';
+    const [hours, minutes] = timeStr.split(':');
+    const date = new Date();
+    date.setHours(+hours, +minutes);
+    return date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+  }
+
+  protected getCapacityPercentage(current: number, max: number): number {
     return Math.round((current / max) * 100);
   }
-
 
   protected onPageChange(event:PageEvent):void{
     this.pageIndex = event.pageIndex;
@@ -78,4 +100,7 @@ export class ActiveBatchesTableComponent {
   }
   protected readonly ArrowRight = ArrowRight;
   protected readonly MoreVertical = MoreVertical;
+  protected readonly BatchEnrollmentStatus = BatchEnrollmentStatus;
+  protected readonly BatchStatus = BatchStatus;
+  protected readonly Eye = Eye;
 }
