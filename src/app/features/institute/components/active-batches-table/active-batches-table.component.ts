@@ -1,4 +1,4 @@
-import {Component, input, OnInit} from '@angular/core';
+import {Component, inject, input, OnInit} from '@angular/core';
 import {
   MatCell,
   MatCellDef,
@@ -8,9 +8,9 @@ import {
   MatHeaderRow, MatHeaderRowDef, MatNoDataRow, MatRow, MatRowDef,
   MatTable, MatTableDataSource
 } from '@angular/material/table';
-import {ArrowRight, Eye, LucideAngularModule, MoreVertical} from 'lucide-angular';
+import {ArrowRight, Eye, LucideAngularModule} from 'lucide-angular';
 import {BadgeComponent, CardShellComponent} from '@shared/ui';
-import {DatePipe, NgOptimizedImage, TitleCasePipe} from '@angular/common';
+import {DatePipe, TitleCasePipe} from '@angular/common';
 import {NoContentComponent} from '@shared/components/no-content/no-content.component';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {BatchDetailedResponse} from '@features/batch/dtos/response/batch-detailed-response';
@@ -18,18 +18,11 @@ import {PaginatedApiResponse} from '@shared/utils/response/paginated-api-respons
 import {BatchEnrollmentStatus} from '@features/batch/enums/batch-enrollment-status';
 import {BatchStatus} from '@features/batch/enums/batch-status';
 import {RouterLink} from '@angular/router';
-
-export interface BatchData {
-  batch: string;
-  code: string;
-  course: string;
-  teacher: string;
-  avatarInitials: string;
-  studentsCurrent: number;
-  studentsMax: number;
-  startDate: string;
-  status: 'Active' | 'Pending' | 'Completed';
-}
+import {BatchService} from '@features/batch/services/batch/batch.service';
+import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
+import {BatchFilterRequest} from '@features/batch/dtos/request/batch-filter-request';
+import {UserService} from '@features/user/services/user/user.service';
+import {AlertService} from '@core/services/alerts/alert.service';
 
 @Component({
   selector: 'app-active-batches-table',
@@ -47,7 +40,6 @@ export interface BatchData {
     MatRowDef,
     CardShellComponent,
     BadgeComponent,
-    NgOptimizedImage,
     MatNoDataRow,
     NoContentComponent,
     MatPaginator,
@@ -64,6 +56,10 @@ export class ActiveBatchesTableComponent implements OnInit{
 
   protected dataSource: MatTableDataSource<BatchDetailedResponse> = new MatTableDataSource<BatchDetailedResponse>([]);
 
+  private readonly batchService = inject(BatchService);
+  private readonly userService = inject(UserService);
+  private readonly alertService = inject(AlertService);
+
   protected pageIndex:number = 0;
   protected pageSize:number = 5;
   protected totalElements:number = 0;
@@ -76,8 +72,24 @@ export class ActiveBatchesTableComponent implements OnInit{
       this.dataSource.data = this.data().data ?? [];
   }
 
-  protected getActiveBatches():void {
-
+  protected getOngoingBatches():void {
+    const pagination = new PaginationRequest(this.pageIndex, this.pageSize);
+    const filters = new BatchFilterRequest();
+    filters.status = BatchStatus.ONGOING;
+    filters.instituteId = this.userService.getCurrentUser().details.id ?? -1;
+    this.batchService.getDetailedBatches(pagination,filters).subscribe({
+      next: (res) =>{
+        if(res.data){
+          this.dataSource.data = res.data ?? [];
+          this.pageIndex = res.page ?? 0;
+          this.pageSize = res.size ?? 5;
+          this.totalElements = res.totalElements ?? 0;
+        }
+      },
+      error: () => {
+        this.alertService.triggerErrorAlert('Failed to change pages.');
+      }
+    });
   }
 
 
@@ -96,10 +108,10 @@ export class ActiveBatchesTableComponent implements OnInit{
   protected onPageChange(event:PageEvent):void{
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.getActiveBatches();
+    this.getOngoingBatches();
   }
+
   protected readonly ArrowRight = ArrowRight;
-  protected readonly MoreVertical = MoreVertical;
   protected readonly BatchEnrollmentStatus = BatchEnrollmentStatus;
   protected readonly BatchStatus = BatchStatus;
   protected readonly Eye = Eye;
