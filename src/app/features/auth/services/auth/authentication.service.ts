@@ -39,15 +39,12 @@ import {Router} from '@angular/router';
 })
 export class AuthenticationService {
 
-  constructor(private readonly http:HttpClient) { }
   private readonly http: HttpClient = inject(HttpClient);
   private readonly stompClient: StompClientService = inject(StompClientService);
   private readonly userService = inject(UserService);
   private readonly router = inject(Router);
 
   login(UserLoginRequest:UserLoginRequest){
-
-    return this.http.post<AuthResponse>(`${environment.AUTH_API}/login`, UserLoginRequest)
     return this.http.post<AuthResponse>(`${environment.AUTH_API}/login`, UserLoginRequest).pipe(tap(response => {
       this.setAuthToken(response.token);
       if(response.user){
@@ -97,6 +94,28 @@ export class AuthenticationService {
 
   validateInstitute(){
     return this.http.get<ApiResponse<null>>(` ${environment.INSTITUTE_API}/validate/role`);
+  }
+
+  restoreSession(): Observable<boolean> {
+    const token = this.getAuthToken();
+
+    if (!token) {
+      return of(false);
+    }
+
+    return this.verifyToken().pipe(tap(response => {
+        if (response.data) {
+          this.userService.setCurrentUser(response.data);
+          this.stompClient.connect();
+        }
+      }),
+      map(() => true),
+      catchError(() => {
+        this.removeAuthToken();
+        this.userService.setCurrentUser(null);
+        return of(false);
+      })
+    );
   }
 
   logout() {
