@@ -10,7 +10,7 @@
  */
 
 import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {UserLoginRequest} from '../../dtos/request/user-login-request';
 import {environment} from '@env/environment.development';
 import {AuthResponse} from '../../dtos/responses/auth-response';
@@ -28,6 +28,7 @@ import {User} from '../../../user/dtos/responses/user';
 import {Institute} from '../../../institute/dtos/response/institute';
 import {Teacher} from '../../../teacher/dtos/responses/teacher';
 import {Student} from '../../../student/dtos/responses/student';
+import {StompClientService} from '@core/services/stomp/stomp-client.service';
 import {UserService} from '@features/user/services/user/user.service';
 import {Observable, of, tap} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
@@ -40,6 +41,7 @@ export class AuthenticationService {
 
   constructor(private readonly http:HttpClient) { }
   private readonly http: HttpClient = inject(HttpClient);
+  private readonly stompClient: StompClientService = inject(StompClientService);
   private readonly userService = inject(UserService);
   private readonly router = inject(Router);
 
@@ -50,6 +52,9 @@ export class AuthenticationService {
       this.setAuthToken(response.token);
       if(response.user){
         this.userService.setCurrentUser(response.user);
+      }
+      if(!this.stompClient.connected()){
+        this.stompClient.connect();
       }
     }))
   }
@@ -98,8 +103,11 @@ export class AuthenticationService {
     const token: string|null = this.getAuthToken();
 
     if(token){
-      localStorage.removeItem("token");
-      window.location.replace("/auth/login");
+      this.removeAuthToken();
+      if (this.stompClient.connected()) {
+        this.stompClient.disconnect();
+      }
+      this.router.navigate(['/auth/login']);
     }
   }
 }
