@@ -53,4 +53,12 @@ export class UserService {
     }
     return 'N/A';
   }
+
+  getCurrentUser(): User {
+    const user = this.currentUserSubject.value;
+    if(user){
+      return user;
+    }
+    throw new Error('Current user not found');
+  }
 }
