@@ -1,0 +1,7 @@
+<app-badge [text]="status().toLowerCase()"
+           [variant]="
+           status() === ScheduleLectureStatus.DRAFT ? 'secondary' :
+           status() === ScheduleLectureStatus.SCHEDULED ? 'primary' :
+           status() === ScheduleLectureStatus.LIVE ? 'danger' :
+           status() === ScheduleLectureStatus.CANCELLED ? 'warning' : 'success'
+" />

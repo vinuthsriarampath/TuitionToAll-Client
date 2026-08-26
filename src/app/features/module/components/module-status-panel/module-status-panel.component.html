@@ -1,0 +1,24 @@
+<app-card-shell>
+  <app-card-header
+    title="Module Status"
+    description="Change the status of the module">
+  </app-card-header>
+  <div class="py-2 px-5 space-y-2">
+    <p>Module Status</p>
+    <app-module-badge [status]="module().status"></app-module-badge>
+  </div>
+  <div class="flex flex-row gap-2 px-5 pt-2 pb-5">
+    @if (module().status != ModuleStatus.PUBLISHED) {
+      <button class="btn-mini-primary btn-success flex flex-row justify-center items-center gap-2" (click)="openPublishModuleDialog()">
+        <lucide-icon [img]="UploadCloud" [size]="14"></lucide-icon>
+        Publish Module
+      </button>
+    }
+    @if (module().status != ModuleStatus.ARCHIVED && module().status != ModuleStatus.ARCHIVED){
+      <button class="btn-mini-secondary flex flex-row justify-center items-center gap-2" (click)="openArchiveModuleDialog()">
+        <lucide-icon [img]="Archive" [size]="14"></lucide-icon>
+        Archive Module
+      </button>
+    }
+  </div>
+</app-card-shell>

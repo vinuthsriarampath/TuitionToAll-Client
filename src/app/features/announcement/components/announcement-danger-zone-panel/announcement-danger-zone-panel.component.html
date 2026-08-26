@@ -1,0 +1,32 @@
+<div class="rounded-2xl bg-rose-900/50 text-rose-100 border border-rose-700/50 overflow-hidden">
+
+  <app-card-header
+    title="Danger Zone"
+    description="Permanently delete this announcement">
+  </app-card-header>
+
+  <div class="p-5 flex justify-between items-center gap-5 flex-wrap">
+
+    <div>
+
+      <p class="para-danger">Delete Announcement</p>
+
+      <p class="para-danger">This action cannot be undone</p>
+
+    </div>
+
+    <button
+      class="btn-mini-primary btn-danger flex items-center gap-2"
+      (click)="deleteAnnouncement()" [disabled]="announcement().status === AnnouncementStatus.DELETED">
+
+      <lucide-icon [img]="Trash2" [size]="14"></lucide-icon>
+      @if (announcement().status === AnnouncementStatus.DELETED) {
+        Announcement already deleted
+      } @else {
+        Delete Announcement
+      }
+    </button>
+
+  </div>
+
+</div>

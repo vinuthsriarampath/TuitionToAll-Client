@@ -1,0 +1,43 @@
+<app-card-shell>
+  <div class=" p-4">
+    <h3>Write a Review</h3>
+
+    <form [formGroup]="form" (ngSubmit)="submitReview()" class="flex flex-col gap-4">
+      <!-- Interactive Star Rating Input -->
+      <div class="flex flex-col gap-1">
+        <label for="rating" class="form-label">Your Rating *</label>
+        <div class="flex items-center gap-1" (mouseleave)="clearHoverRating()">
+          @for (star of [1, 2, 3, 4, 5]; track star) {
+            <button type="button" (click)="setRating(star)" (mouseenter)="setHoverRating(star)" class="p-0.5 transition-transform hover:scale-110 focus:outline-none">
+              <lucide-icon [img]="Star" [class]="(hoverRating || form.get('rating')?.value) >= star ? 'h-6 w-6 fill-amber-400 text-amber-400' : 'h-6 w-6 text-slate-300 dark:text-slate-600'"></lucide-icon>
+            </button>
+          }
+        </div>
+        @if (form.get('rating')?.touched && form.get('rating')?.invalid) {
+          <span class="form-error">Please select a star rating.</span>
+        }
+      </div>
+
+      <!-- Review Text Area -->
+      <div class="flex flex-col gap-1">
+        <label for="review-text" class="form-label">Your Review *</label>
+        <textarea id="review-text" formControlName="review" rows="3" placeholder="Share your experience with this course..." class="w-full form-input">
+                </textarea>
+        @if (form.get('review')?.touched && form.get('review')?.errors?.['required']) {
+          <span class="form-error">Review text is required.</span>
+        }
+        @if (form.get('review')?.touched && form.get('review')?.errors?.['minlength']) {
+          <p class="form-error">Review must be at least 10 characters long.</p>
+        }
+      </div>
+
+      <!-- Submit Button -->
+      <div class="flex justify-end">
+        <button type="submit" [disabled]="submitting || form.invalid" class="btn btn-mini-primary flex items-center gap-1">
+          <lucide-icon [img]="Send" class="h-3.5 w-3.5"></lucide-icon>
+          <span>{{ submitting ? 'Submitting...' : 'Submit Review' }}</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</app-card-shell>

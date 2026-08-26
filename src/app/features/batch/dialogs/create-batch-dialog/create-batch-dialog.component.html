@@ -1,0 +1,150 @@
+<app-dialog-layout
+  [loading]="isLoading"
+  [loaderTitle]="'Creating Batch'"
+  [title]="'Create Batch'"
+  [description]="'Create a new batch for the course'"
+  [icon]="Plus"
+
+  (cancelEvent)="onCancel()"
+>
+  <div data-body>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="grid grid-cols-2 gap-4">
+
+        <!--Batch Name-->
+        <div class="col-span-2">
+          <label for="batch-name" class="form-label">Batch Name<sup class="text-red-500"> *</sup></label>
+          <input type="text" id="batch-name" class="form-input" placeholder="D001" formControlName="name"
+                 [class.form-input-error]="form.get('name')?.invalid && form.get('name')?.touched"/>
+          @if (form.get('name')?.errors?.['required'] && form.get('name')?.touched) {
+            <p class="form-error">Batch name is required</p>
+          }
+          @if (form.get('name')?.errors?.['server']) {
+            <p class="form-error">{{ form.get('name')?.errors?.['server'] }}</p>
+          }
+
+        </div>
+
+        <!--Batch Start Date-->
+        <div class="col-span-1">
+          <label for="batch-start-date" class="form-label">Start Date<sup class="text-red-500">
+            *</sup></label>
+          <input type="date" id="batch-start-date" name="batch-start-date" class="form-input"
+                 formControlName="start_date"
+                 [class.form-input-error]="form.get('start_date')?.invalid && form.get('start_date')?.touched"
+                 (change)="validateStartDate()"/>
+          @if (form.get('start_date')?.errors?.['required']) {
+            <p class="form-error">Start date is required</p>
+          }
+          @if (form.get('start_date')?.errors?.['server'] || form.get('start_date')?.errors?.['custom']) {
+            <p
+              class="form-error">{{ form.get('start_date')?.errors?.['server'] || form.get('start_date')?.errors?.['custom'] }}</p>
+          }
+        </div>
+
+        <!--Batch Start Time-->
+        <div class="col-span-1">
+          <label for="batch-start-time" class="form-label">Start Time<sup class="text-red-500"> *</sup></label>
+          <input type="time" id="batch-start-time" name="batch-end-date" class="form-input" formControlName="start_time"
+                 [class.form-input-error]="form.get('start_time')?.invalid && form.get('start_time')?.touched"/>
+          @if (form.get('start_time')?.errors?.['required']) {
+            <p class="form-error">Start time is required</p>
+          }
+          @if (form.get('start_time')?.errors?.['server']) {
+            <p class="form-error">{{ form.get('start_time')?.errors?.['server'] }}</p>
+          }
+        </div>
+
+        <!--      Batch Seat Limitation-->
+        <div class="col-span-2 flex items-center justify-between">
+          <!--        Is Batch Seat Limited?-->
+          <div class="flex items-center  gap-2">
+            <input type="checkbox" id="batch-is-seat-limited" name="batch-is-seat-limited" class="w-4 h-4"
+                   [class.form-input-error]="form.get('is_seat_limited')?.invalid && form.get('is_seat_limited')?.touched"
+                   formControlName="is_seat_limited" (change)="validateSeatsLimit()"/>
+            <label for="batch-is-seat-limited" class="form-label">Seat Limited<sup class="text-red-500">*</sup></label>
+          </div>
+
+          <!--        Batch Seat Limit Count-->
+          @if (form.get('is_seat_limited')?.value) {
+            <div class="w-62">
+              <label for="batch-seat-limit" class="form-label">Seats<sup class="text-red-500"> *</sup></label>
+              <input type="number" id="batch-seat-limit" name="batch-seat-limit" class="form-input"
+                     [class.form-input-error]="form.get('max_seat_limit')?.invalid && form.get('max_seat_limit')?.touched"
+                     formControlName="max_seat_limit" (change)="validateSeatsLimit()"/>
+            </div>
+          }
+        </div>
+
+        <div class="col-span-2">
+          @if (form.get('max_seat_limit')?.errors?.['required']) {
+            <p class="form-error">max seat limit is required</p>
+          }
+          @if (form.get('is_seat_limited')?.errors?.['server'] || form.get('is_seat_limited')?.errors?.['custom']) {
+            <p
+              class="form-error">{{ form.get('is_seat_limited')?.errors?.['server'] || form.get('is_seat_limited')?.errors?.['custom'] }}</p>
+          }
+          @if (form.get('max_seat_limit')?.errors?.['server'] || form.get('max_seat_limit')?.errors?.['custom']) {
+            <p
+              class="form-error">{{ form.get('max_seat_limit')?.errors?.['server'] || form.get('max_seat_limit')?.errors?.['custom'] }}</p>
+          }
+        </div>
+
+        <!--      Batch Status-->
+        <div>
+          <label for="batch-status" class="form-label">Batch Status<sup class="text-red-500"> *</sup></label>
+          <select id="batch-status" name="batch-status" class="form-input" formControlName="batch_status"
+                  [class.form-input-error]="form.get('batch_status')?.invalid && form.get('batch_status')?.touched"
+                  (change)="validateStatus()">
+            @for (status of batchStatuses; track status) {
+              @if (status === 'PREPARATION') {
+                <option [value]="status" selected>{{ status.toLowerCase() }}</option>
+              } @else {
+                <option [value]="status">{{ status.toLowerCase() }}</option>
+              }
+            }
+          </select>
+        </div>
+
+        <!--      Batch Enrollment Status-->
+        <div>
+          <label for="batch-enrollment-status" class="form-label">Enrollment Status<sup class="text-red-500">
+            *</sup></label>
+          <select id="batch-enrollment-status" name="batch-enrollment-status" class="form-input"
+                  [class.form-input-error]="form.get('enrollment_status')?.invalid && form.get('enrollment_status')?.touched"
+                  formControlName="enrollment_status" (change)="validateStatus()">
+            @for (status of batchEnrollmentStatuses; track status) {
+              @if (status === 'OPEN') {
+                <option [value]="status" selected>{{ status.toLowerCase() }}</option>
+
+              } @else {
+                <option [value]="status">{{ status.toLowerCase() }}</option>
+              }
+            }
+          </select>
+        </div>
+
+        <div class="col-span-2">
+          @if (form.get('batch_status')?.errors?.['required']) {
+            <p class="form-error"> Batch Status is required</p>
+          }
+          @if (form.get('enrollment_status')?.errors?.['required']) {
+            <p class="form-error">Enrollment Status is required</p>
+          }
+          @if (form.get('batch_status')?.errors?.['server']) {
+            <p class="form-error">{{ form.get('batch_status')?.errors?.['server'] }}</p>
+          }
+          @if (form.get('enrollment_status')?.errors?.['server'] || form.get('enrollment_status')?.errors?.['custom']) {
+            <p
+              class="form-error">{{ form.get('enrollment_status')?.errors?.['server'] || form.get('enrollment_status')?.errors?.['custom'] }}</p>
+          }
+        </div>
+
+        <div class="col-span-2 flex justify-end gap-2">
+          <button type="button" (click)="onReset()" class="btn-mini-secondary">Reset</button>
+          <button type="submit" class="btn-mini-primary">Save</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</app-dialog-layout>

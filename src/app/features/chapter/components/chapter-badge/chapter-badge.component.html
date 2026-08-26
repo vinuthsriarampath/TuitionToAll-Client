@@ -1,0 +1,6 @@
+<app-badge [text]="status()"
+           [variant]="
+           status() === ChapterStatus.PUBLISHED ? 'success':
+           status() === ChapterStatus.DRAFT ? 'secondary' :
+           status() == ChapterStatus.LOCKED ? 'warning' : 'danger'"
+/>

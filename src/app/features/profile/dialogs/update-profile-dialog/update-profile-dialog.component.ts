@@ -1,0 +1,136 @@
+import {Component, inject, Inject} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {FormsModule} from '@angular/forms';
+import {Institute} from '../../../institute/dtos/response/institute';
+import {Teacher} from '../../../teacher/dtos/responses/teacher';
+import {Student} from '../../../student/dtos/responses/student';
+import {NgClass, NgIf} from '@angular/common';
+import {InstituteDetailsUpdateRequest} from '../../../institute/dtos/requests/InstituteDetailsUpdateRequest';
+import {TeacherDetailsUpdateRequest} from '../../../teacher/dtos/requests/TeacherDetailsUpdateRequest';
+import {StudentDetailsUpdateRequest} from '../../../student/dtos/requests/StudentDetailsUpdateRequest';
+import {User} from '../../../user/dtos/responses/user';
+import {DialogLayoutComponent} from '@core/layouts';
+import {SquarePen} from 'lucide-angular';
+import {InstituteService} from '@features/institute/services/institute/institute.service';
+import {StudentService} from '@features/student/services/student/student.service';
+import {TeacherService} from '@features/teacher/services/teacher/teacher.service';
+
+@Component({
+  selector: 'app-update-profile-dialog',
+  imports: [
+    FormsModule,
+    NgIf,
+    DialogLayoutComponent,
+    NgClass,
+  ],
+  templateUrl: './update-profile-dialog.component.html',
+  styleUrl: './update-profile-dialog.component.css'
+})
+export class UpdateProfileDialogComponent {
+
+  user!: User;
+  isLoading: boolean = false;
+
+  private readonly instituteService:InstituteService = inject(InstituteService);
+  private readonly teacherService:TeacherService = inject(TeacherService);
+  private readonly studentService:StudentService = inject(StudentService);
+  private readonly dialogRef:MatDialogRef<UpdateProfileDialogComponent> = inject(MatDialogRef<UpdateProfileDialogComponent>);
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data:{
+      userRole: string;
+      details: User;
+    }) {
+    this.user = {...data.details};
+  }
+
+
+  onConfirm(){
+    this.dialogRef.close(this.user);
+  }
+
+  onCancel(){
+    this.dialogRef.close();
+  }
+
+  onSubmit() {
+    const updateRequest = this.createUpdateRequest();
+    if (updateRequest) {
+      if (this.data.userRole=='institute') {
+        this.triggerLoading();
+        this.instituteService.updateInstituteDetails(updateRequest as InstituteDetailsUpdateRequest).subscribe({
+          next:():void =>{
+            this.triggerLoading();
+            this.onConfirm();
+          },
+          error:():void =>{
+            this.triggerLoading();
+            this.onCancel();
+          }
+        })
+      }else if(this.data.userRole=='teacher'){
+        this.triggerLoading();
+        this.teacherService.updateTeacherDetails(updateRequest as TeacherDetailsUpdateRequest).subscribe({
+          next:() =>{
+            this.triggerLoading();
+            this.onConfirm();
+          },
+          error:()=>{
+            this.triggerLoading();
+            this.onCancel();
+          }
+        })
+      }else if(this.data.userRole=='student'){
+        this.triggerLoading();
+        this.studentService.updateStudentDetails(updateRequest as StudentDetailsUpdateRequest).subscribe({
+          next:() =>{
+            this.triggerLoading();
+            this.onConfirm();
+          },
+          error:()=>{
+            this.triggerLoading();
+            this.onCancel();
+          }
+        })
+      }
+    }
+  }
+
+  private triggerLoading(){
+    this.isLoading = !this.isLoading;
+  }
+
+  private createUpdateRequest(): InstituteDetailsUpdateRequest | TeacherDetailsUpdateRequest | StudentDetailsUpdateRequest | null {
+    switch (this.data.userRole) {
+      case 'institute': {
+        const request = new InstituteDetailsUpdateRequest();
+        request.instituteName = (this.user.details as Institute).instituteName;
+        request.address = this.user.address;
+        request.contact = this.user.contact;
+        return request;
+      }
+      case 'teacher': {
+        const request = new TeacherDetailsUpdateRequest();
+        request.firstName = (this.user.details as Teacher).firstName;
+        request.lastName = (this.user.details as Teacher).lastName;
+        request.dob = (this.user.details as Teacher).dob;
+        request.address = this.user.address;
+        request.contact = this.user.contact;
+        return request;
+      }
+      case 'student': {
+        const request = new StudentDetailsUpdateRequest();
+        request.firstName = (this.user.details as Student).firstName;
+        request.lastName = (this.user.details as Student).lastName;
+        request.dob = (this.user.details as Student).dob;
+        request.address = this.user.address;
+        request.contact = this.user.contact;
+        return request;
+      }
+      default:
+        return null;
+    }
+  }
+
+  protected readonly SquarePen = SquarePen;
+}

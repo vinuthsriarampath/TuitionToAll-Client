@@ -9,9 +9,30 @@
  * All rights reserved.
  */
 
-import { CommonModule, NgClass } from '@angular/common';
-import { Component } from '@angular/core';
+import {CommonModule, NgClass, NgOptimizedImage} from '@angular/common';
+import {Component} from '@angular/core';
 import {RouterLink, RouterLinkActive} from '@angular/router';
+import {
+  ArrowRight,
+  BookOpenCheck,
+  Building2,
+  Check,
+  ChevronDown,
+  ChevronUp,
+  GraduationCap,
+  Layers,
+  LogIn,
+  LucideAngularModule,
+  Sliders,
+  Sparkles,
+  UserCheck,
+  UserPlus,
+  Users,
+  X
+} from 'lucide-angular';
+import {CardShellComponent} from '@shared/ui';
+import {FooterComponent} from '@shared/components/footer/footer.component';
+import {HeaderComponent} from '@shared/components/header/header.component';
 
 @Component({
   selector: 'app-landing-page',
@@ -19,20 +40,36 @@ import {RouterLink, RouterLinkActive} from '@angular/router';
     NgClass,
     CommonModule,
     RouterLink,
-    RouterLinkActive
+    RouterLinkActive,
+    LucideAngularModule,
+    CardShellComponent,
+    NgOptimizedImage,
+    FooterComponent,
+    HeaderComponent
   ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css'
 })
 export class LandingPageComponent {
-  menuOpen = false;
   showMore = false;
-
-  toggleMenu() {
-    this.menuOpen = !this.menuOpen;
-  }
 
   toggleReadMore() {
     this.showMore = !this.showMore;
   }
+
+  protected readonly GraduationCap = GraduationCap;
+  protected readonly Check = Check;
+  protected readonly UserCheck = UserCheck;
+  protected readonly Sliders = Sliders;
+  protected readonly Layers = Layers;
+  protected readonly Building2 = Building2;
+  protected readonly Users = Users;
+  protected readonly BookOpenCheck = BookOpenCheck;
+  protected readonly ChevronUp = ChevronUp;
+  protected readonly ChevronDown = ChevronDown;
+  protected readonly Sparkles = Sparkles;
+  protected readonly ArrowRight = ArrowRight;
+  protected readonly X = X;
+  protected readonly LogIn = LogIn;
+  protected readonly UserPlus = UserPlus;
 }

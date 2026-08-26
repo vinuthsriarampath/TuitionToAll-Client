@@ -9,175 +9,246 @@
   ~ All rights reserved.
   -->
 
-<div class="bg-gray-50 text-gray-900">
-  <header class="bg-blue-900 shadow-lg">
-    <div class="container mx-auto px-2 sm:px-4 py-6 flex flex-col md:flex-row items-center justify-between">
+<div class="bg-gradient-to-br from-slate-950 via-slate-900 to-sky-950 text-sky-100 min-h-screen flex flex-col font-sans selection:bg-sky-500 selection:text-white">
 
-      <div class="flex items-center justify-between w-full md:w-auto">
-        <h1 class="text-white text-2xl sm:text-3xl font-bold">TuitionToAll</h1>
+  <app-header class="sticky top-0 z-50">
+    <ul class="flex flex-col md:flex-row md:space-x-4 text-center items-center">
+      <li class="py-2 md:py-0 w-full md:w-auto">
+        <a [routerLink]="['/auth/login']" class="btn-mini-secondary w-full md:w-auto inline-flex justify-center items-center gap-2">
+          <lucide-icon [img]="LogIn" class="w-4 h-4"></lucide-icon>
+          Login
+        </a>
+      </li>
+      <li class="py-2 md:py-0 w-full md:w-auto">
+        <a [routerLink]="['/auth/signup']" routerLinkActive="router-link-active" class="btn-mini-primary w-full md:w-auto inline-flex justify-center items-center gap-2">
+          <lucide-icon [img]="UserPlus" class="w-4 h-4"></lucide-icon>
+          Signup
+        </a>
+      </li>
+    </ul>
+  </app-header>
 
-        <button class="md:hidden text-white focus:outline-none" (click)="toggleMenu()">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-          </svg>
-        </button>
-      </div>
-
-      <nav [ngClass]="{'hidden': !menuOpen, 'md:block': true}" class="w-full md:w-auto mt-4 md:mt-0">
-        <ul class="flex flex-col md:flex-row md:space-x-6 text-center">
-          <li class="py-2 md:py-0">
-            <a [routerLink]="['/auth/login']"  class="text-white hover:text-blue-300 transition-colors duration-300">Login</a>
-          </li>
-          <li class="py-2 md:py-0">
-            <a [routerLink]="['/auth/signup']" routerLinkActive="router-link-active"  class="bg-white text-blue-900 px-4 py-2 rounded hover:bg-gray-200 transition-colors duration-300">Signup</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <section class="relative">
-    <img src="online_meeting.jpg" class="absolute w-full h-full object-cover" alt="Background Image">
-    <div class="absolute inset-0 bg-black/50"></div>
-    <div class="relative z-10 py-42 text-center text-white">
-      <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden min-h-[500px] flex items-center justify-center">
+    <img ngSrc="/online_meeting.jpg" class="absolute w-full h-full object-cover opacity-20 filter brightness-75 scale-105" alt="Background" fill>
+    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent"></div>
+    <div class="relative z-10 container mx-auto px-4 py-24 sm:py-32 text-center">
+      <span class="batch batch-info mb-6 inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold tracking-wider uppercase">
+        <lucide-icon [img]="Sparkles" class="w-3.5 h-3.5"></lucide-icon> Next-Gen LMS Platform
+      </span>
+      <h2 class="text-3xl sm:text-5xl md:text-6xl font-extrabold text-sky-50 tracking-tight mb-6 max-w-4xl mx-auto drop-shadow-md">
         Empowering Education Across Institutes
       </h2>
-      <p class="text-lg sm:text-xl mb-8">
-        Unify your courses, notes, and assignments from multiple institutes in one simple platform.
+      <p class="text-base sm:text-xl text-sky-200/90 mb-10 max-w-2xl mx-auto font-medium leading-relaxed">
+        Unify your courses, notes, and assignments from multiple institutes in one seamless, high-performance platform.
       </p>
-      <a [routerLink]="['/auth/signup']" routerLinkActive="router-link-active"  class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-full transition-colors duration-300">
-        Get Started
-      </a>
-    </div>
-  </section>
-
-  <section class="container mx-auto px-2 sm:px-4 py-16">
-    <h2 class="text-3xl font-bold text-center text-blue-900 mb-8">About Our Service</h2>
-    <div class=" md:flex-row items-center" [ngClass]="{'flex flex-row': showMore , 'flex flex-col': !showMore}">
-      <div class="md:w-1/2 mb-8 md:mb-0" [ngClass]="{'hidden': showMore}">
-        <img src="meeting.jpg" alt="Online Education" class="rounded-lg shadow-lg w-full h-auto">
-      </div>
-      <div class="md:w-1/2 md:pl-12" [ngClass]="{'md:w-full': showMore}">
-        <p class="mb-4">Our centralized Learning Management System (LMS) revolutionizes how institutes, teachers, and students interact with educational content. Designed for efficiency and ease-of-use, our platform enables institutes to manage courses, teachers, and students effortlessly.</p>
-        <p class="mb-4">Teachers enjoy a unified dashboard that aggregates courses from multiple institutes, making it easier to organize notes, assignments, and student submissions. Meanwhile, students can easily access study materials, submit assignments, and track their academic progress—all in one place.</p>
-        <div *ngIf="showMore">
-          <p class="mb-4">Our platform reduces repetitive registrations and administrative overhead, saving valuable time and reducing costs for educational institutions. With intuitive navigation and a responsive design, every user can focus on learning and teaching without technical hassles.</p>
-          <p class="mb-4">Moreover, our secure infrastructure ensures that sensitive educational data is handled with the highest standards of privacy and integrity, providing peace of mind for everyone.</p>
-        </div>
-        <button class="text-blue-600 font-bold focus:outline-none" (click)="toggleReadMore()">{{ showMore ? 'Read Less' : 'Read More' }}</button>
+      <div class="flex justify-center items-center">
+        <a [routerLink]="['/auth/signup']" routerLinkActive="router-link-active" class="btn-primary text-base px-8 py-3.5 inline-flex items-center gap-2">
+          <span>Get Started</span>
+          <lucide-icon [img]="ArrowRight" class="w-5 h-5"></lucide-icon>
+        </a>
       </div>
     </div>
   </section>
 
-  <section class="bg-gray-100 py-16">
-    <div class="container mx-auto px-2 sm:px-4">
-      <h2 class="text-3xl font-bold text-center text-blue-900 mb-12">Who We Serve</h2>
-      <div class="flex flex-col md:flex-row justify-center gap-8">
-        <div class="bg-white rounded-lg shadow-lg p-6 flex-1">
-          <div class="flex justify-center mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-14 text-blue-600">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75Z" />
-            </svg>
+  <!-- About Section -->
+  <section class="container mx-auto px-4 py-10">
+    <div class="text-center mb-12">
+      <span class="batch batch-violet mb-3">Overview</span>
+      <h1 class="tracking-wide">About Our Service</h1>
+    </div>
+
+    <app-card-shell>
+      <div class="items-center gap-8 p-6 sm:p-10" [ngClass]="{'flex flex-row flex-wrap': showMore, 'flex flex-col md:flex-row': !showMore}">
+        <div class="w-full md:w-1/2 mb-6 md:mb-0" [ngClass]="{'hidden': showMore}">
+          <div class="relative rounded-xl overflow-hidden border border-sky-800/50 shadow-2xl group">
+            <img [ngSrc]="'meeting.jpg'" alt="Online Education" class="w-full h-auto object-cover transform transition-transform duration-500 group-hover:scale-105" width="600" height="400">
+            <div class="absolute inset-0 bg-sky-950/20"></div>
           </div>
-          <h3 class="text-xl font-bold text-center mb-2">Institutes</h3>
-          <p class="text-center text-gray-600">
-            Manage courses, teachers, and students in one place. Save on costs by eliminating individual LMS systems
+        </div>
+
+        <div class="w-full md:w-1/2 md:pl-6" [ngClass]="{'md:w-full': showMore}">
+          <p class="para-md leading-relaxed ">
+            Our centralized Learning Management System (LMS) revolutionizes how institutes, teachers, and students interact with educational content. Designed for efficiency and ease-of-use, our platform enables institutes to manage courses, teachers, and students effortlessly.
+          </p>
+          <p class="para-md leading-relaxed">
+            Teachers enjoy a unified dashboard that aggregates courses from multiple institutes, making it easier to organize notes, assignments, and student submissions. Meanwhile, students can easily access study materials, submit assignments, and track their academic progress—all in one place.
           </p>
 
-        </div>
-        <div class="bg-white rounded-lg shadow-lg p-6 flex-1">
-          <div class="flex justify-center mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-14 text-blue-600">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
-            </svg>
+          @if (showMore) {
+            <div class="animate-in fade-in slide-in-from-top-2 duration-300">
+              <p class="para-md leading-relaxed">
+                Our platform reduces repetitive registrations and administrative overhead, saving valuable time and reducing costs for educational institutions. With intuitive navigation and a responsive design, every user can focus on learning and teaching without technical hassles.
+              </p>
+              <p class="para-md leading-relaxed">
+                Moreover, our secure infrastructure ensures that sensitive educational data is handled with the highest standards of privacy and integrity, providing peace of mind for everyone.
+              </p>
+            </div>
+          }
 
-          </div>
-          <h3 class="text-xl font-bold text-center mb-2">Teachers</h3>
-          <p class="text-center text-gray-600">
-            Oversee courses across multiple institutes from a single dashboard. Organize notes, assignments, and track progress effortlessly.
-          </p>
+          <button class="btn-mini-primary mt-2 inline-flex items-center gap-2" (click)="toggleReadMore()">
+            <span>{{ showMore ? 'Read Less' : 'Read More' }}</span>
+            <lucide-icon [img]="showMore ? ChevronUp : ChevronDown" class="w-4 h-4"></lucide-icon>
+          </button>
+        </div>
+      </div>
+    </app-card-shell>
+  </section>
 
-        </div>
-        <div class="bg-white rounded-lg shadow-lg p-6 flex-1">
-          <div class="flex justify-center mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-14 text-blue-600">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" />
-            </svg>
+  <!-- Who We Serve Section -->
+  <section class="bg-slate-900/60 border-y border-sky-900/40 py-10">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <span class="batch batch-primary mb-3">Target Audience</span>
+        <h1 class="tracking-wide">Who We Serve</h1>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Institutes Card -->
+        <app-card-shell class="transition-all duration-300 hover:-translate-y-1">
+          <div class="p-8 flex flex-col items-center text-center">
+            <div class="w-16 h-16 rounded-2xl bg-sky-900/50 border border-sky-700/50 flex items-center justify-center mb-6 text-sky-400 shadow-inner">
+              <lucide-icon [img]="Building2" class="w-8 h-8"></lucide-icon>
+            </div>
+            <h3 class="mb-3">Institutes</h3>
+              <p class="para-primary font-medium tracking-wide leading-relaxed">
+              Manage courses, teachers, and students in one place. Save on costs by eliminating individual LMS systems.
+            </p>
           </div>
-          <h3 class="text-xl font-bold text-center mb-2">Students</h3>
-          <p class="text-center text-gray-600">
-            Access all your courses, download study materials, submit assignments, and stay organized no matter how many institutes you join.
-          </p>
-        </div>
+        </app-card-shell>
+
+        <!-- Teachers Card -->
+        <app-card-shell class="transition-all duration-300 hover:-translate-y-1">
+          <div class="p-8 flex flex-col items-center text-center">
+            <div class="w-16 h-16 rounded-2xl bg-sky-900/50 border border-sky-700/50 flex items-center justify-center mb-6 text-sky-400 shadow-inner">
+              <lucide-icon [img]="Users" class="w-8 h-8"></lucide-icon>
+            </div>
+            <h3 class="mb-3">Teachers</h3>
+            <p class="para-primary font-medium tracking-wide leading-relaxed">
+              Oversee courses across multiple institutes from a single dashboard. Organize notes, assignments, and track progress effortlessly.
+            </p>
+          </div>
+        </app-card-shell>
+
+        <!-- Students Card -->
+        <app-card-shell class="transition-all duration-300 hover:-translate-y-1">
+          <div class="p-8 flex flex-col items-center text-center">
+            <div class="w-16 h-16 rounded-2xl bg-sky-900/50 border border-sky-700/50 flex items-center justify-center mb-6 text-sky-400 shadow-inner">
+              <lucide-icon [img]="BookOpenCheck" class="w-8 h-8"></lucide-icon>
+            </div>
+            <h3 class="mb-3">Students</h3>
+            <p class="para-primary font-medium tracking-wide leading-relaxed">
+              Access all your courses, download study materials, submit assignments, and stay organized no matter how many institutes you join.
+            </p>
+          </div>
+        </app-card-shell>
       </div>
     </div>
   </section>
 
-  <section class="py-16">
-    <div class="container mx-auto px-2 sm:px-4">
-      <h2 class="text-3xl font-bold text-center text-blue-900 mb-12">How It Works</h2>
-      <div class="flex flex-col md:flex-row justify-center gap-8">
-        <div class="bg-white rounded-lg shadow-lg p-6 flex-1">
-          <div class="flex justify-center mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-14 text-blue-600">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold text-center mb-2">Register</h3>
-          <p class="text-center text-gray-600">
-            Sign up as an institute, teacher, or student and create your profile with ease.
-          </p>
+  <!-- How It Works Section -->
+  <section class="py-10">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <span class="batch batch-success mb-3">Simple Workflow</span>
+        <h1 class="tracking-wide">How It Works</h1>
+      </div>
 
-        </div>
-        <div class="bg-white rounded-lg shadow-lg p-6 flex-1">
-          <div class="flex justify-center mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg"fill="#155dfc" viewBox="0 -960 960 960" stroke-width="1.5" class="size-14">
-              <path d="m234-480-12-60q-12-5-22.5-10.5T178-564l-58 18-40-68 46-40q-2-13-2-26t2-26l-46-40 40-68 58 18q11-8 21.5-13.5T222-820l12-60h80l12 60q12 5 22.5 10.5T370-796l58-18 40 68-46 40q2 13 2 26t-2 26l46 40-40 68-58-18q-11 8-21.5 13.5T326-540l-12 60h-80Zm40-120q33 0 56.5-23.5T354-680q0-33-23.5-56.5T274-760q-33 0-56.5 23.5T194-680q0 33 23.5 56.5T274-600ZM592-40l-18-84q-17-6-31.5-14.5T514-158l-80 26-56-96 64-56q-2-18-2-36t2-36l-64-56 56-96 80 26q14-11 28.5-19.5T574-516l18-84h112l18 84q17 6 31.5 14.5T782-482l80-26 56 96-64 56q2 18 2 36t-2 36l64 56-56 96-80-26q-14 11-28.5 19.5T722-124l-18 84H592Zm56-160q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35Z"/>
-            </svg>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Step 1 -->
+        <app-card-shell class="transition-all duration-300 hover:-translate-y-1">
+          <div class="p-8 flex flex-col items-center text-center relative group">
+            <div class="w-14 h-14 rounded-full bg-sky-900/60 border border-sky-600/50 flex items-center justify-center mb-6 text-sky-300 font-bold text-lg shadow-md group-hover:scale-110 transition-transform">
+              <lucide-icon [img]="UserCheck" class="w-7 h-7 text-sky-400"></lucide-icon>
+            </div>
+            <h3 class="text-xl font-bold text-sky-50 mb-3">1. Register</h3>
+            <p class="para-primary font-medium leading-relaxed">
+              Sign up as an institute, teacher, or student and create your profile with ease.
+            </p>
           </div>
-          <h3 class="text-xl font-bold text-center mb-2">Manage</h3>
-          <p class="text-center text-gray-600">
-            Institutes manage courses and users, while teachers and students enjoy centralized course management.
-          </p>
+        </app-card-shell>
 
-        </div>
-        <div class="bg-white rounded-lg shadow-lg p-6 flex-1">
-          <div class="flex justify-center mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-14 text-blue-600">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z" />
-            </svg>
+        <!-- Step 2 -->
+        <app-card-shell class="transition-all duration-300 hover:-translate-y-1">
+          <div class="p-8 flex flex-col items-center text-center relative group">
+            <div class="w-14 h-14 rounded-full bg-sky-900/60 border border-sky-600/50 flex items-center justify-center mb-6 text-sky-300 font-bold text-lg shadow-md group-hover:scale-110 transition-transform">
+              <lucide-icon [img]="Sliders" class="w-7 h-7 text-sky-400"></lucide-icon>
+            </div>
+            <h3 class="text-xl font-bold text-sky-50 mb-3">2. Manage</h3>
+            <p class="para-primary font-medium leading-relaxed">
+              Institutes manage courses and users, while teachers and students enjoy centralized course management.
+            </p>
           </div>
-          <h3 class="text-xl font-bold text-center mb-2">Engage</h3>
-          <p class="text-center text-gray-600">
-            Access study materials, submit assignments, and track academic progress—all from one platform.
-          </p>
-        </div>
+        </app-card-shell>
+
+        <!-- Step 3 -->
+        <app-card-shell class="transition-all duration-300 hover:-translate-y-1">
+          <div class="p-8 flex flex-col items-center text-center relative group">
+            <div class="w-14 h-14 rounded-full bg-sky-900/60 border border-sky-600/50 flex items-center justify-center mb-6 text-sky-300 font-bold text-lg shadow-md group-hover:scale-110 transition-transform">
+              <lucide-icon [img]="Layers" class="w-7 h-7 text-sky-400"></lucide-icon>
+            </div>
+            <h3 class="text-xl font-bold text-sky-50 mb-3">3. Engage</h3>
+            <p class="para-primary font-medium leading-relaxed">
+              Access study materials, submit assignments, and track academic progress—all from one platform.
+            </p>
+          </div>
+        </app-card-shell>
       </div>
     </div>
   </section>
 
-  <section class="bg-gray-100 py-16">
-    <div class="container mx-auto">
-      <h2 class="text-3xl font-bold text-center text-blue-900 mb-8">Why Choose Our LMS?</h2>
-      <div class="flex flex-col md:flex-row justify-center items-center">
-        <div class="md:w-1/2 mb-8 md:mb-0">
-          <img src="handshake.jpg" alt="Handshake Image" class="rounded-lg w-full h-auto">
-        </div>
-        <div class="md:w-1/2 md:pl-12">
-          <ul class="list-disc list-inside space-y-3 text-gray-600 text-lg">
-            <li><strong>Effective:</strong>  Save money by avoiding multiple LMS subscriptions.</li>
-            <li><strong>Simplified Management:</strong> Institutes easily manage teachers and students under one roof.</li>
-            <li><strong>Time-Saving:</strong> Teachers and students no longer need to re-register for each institute.</li>
-            <li><strong>Unified Experience:</strong> All course content, assignments, and notes are available at your fingertips.</li>
-          </ul>
-        </div>
+  <!-- Why Choose Us Section -->
+  <section class="bg-slate-900/60 border-t border-sky-900/40 py-10">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <span class="batch batch-warning mb-3">Key Advantages</span>
+        <h1 class="tracking-wide">Why Choose Our LMS?</h1>
       </div>
+
+      <app-card-shell>
+
+        <div class="flex flex-col md:flex-row items-center gap-12 p-6 sm:p-10">
+          <div class="w-full md:w-1/2">
+            <div class="relative rounded-xl overflow-hidden border border-sky-800/50 shadow-2xl">
+              <img [ngSrc]="'handshake.jpg'" alt="Handshake" class="w-full h-auto object-cover" width="600" height="400">
+              <div class="absolute inset-0 bg-sky-950/20"></div>
+            </div>
+          </div>
+
+          <div class="w-full md:w-1/2">
+            <ul class="space-y-4 text-sky-100">
+              <li class="flex items-start gap-2">
+                <div class="p-1 rounded bg-sky-900/80 border border-sky-700/50 text-sky-400 mt-0.5">
+                  <lucide-icon [img]="Check" class="w-4 h-4"></lucide-icon>
+                </div>
+                <span class="text-base"><strong class="text-sky-50 font-semibold">Cost-Effective:</strong> Save money by avoiding multiple LMS subscriptions.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <div class="p-1 rounded bg-sky-900/80 border border-sky-700/50 text-sky-400 mt-0.5">
+                  <lucide-icon [img]="Check" class="w-4 h-4"></lucide-icon>
+                </div>
+                <span class="text-base"><strong class="text-sky-50 font-semibold">Simplified Management:</strong> Institutes easily manage teachers and students under one roof.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <div class="p-1 rounded bg-sky-900/80 border border-sky-700/50 text-sky-400 mt-0.5">
+                  <lucide-icon [img]="Check" class="w-4 h-4"></lucide-icon>
+                </div>
+                <span class="text-base"><strong class="text-sky-50 font-semibold">Time-Saving:</strong> Teachers and students no longer need to re-register for each institute.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <div class="p-1 rounded bg-sky-900/80 border border-sky-700/50 text-sky-400 mt-0.5">
+                  <lucide-icon [img]="Check" class="w-4 h-4"></lucide-icon>
+                </div>
+                <span class="text-base"><strong class="text-sky-50 font-semibold">Unified Experience:</strong> All course content, assignments, and notes are available at your fingertips.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </app-card-shell>
     </div>
   </section>
 
-  <footer class="bg-blue-900 text-white py-6 text-center">
-      <p>&copy; 2025 TuitionToAll. All rights reserved.</p>
-  </footer>
+  <!-- Footer -->
+  <app-footer></app-footer>
 
 </div>

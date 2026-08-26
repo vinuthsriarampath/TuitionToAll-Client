@@ -1,0 +1,74 @@
+<app-dialog-layout
+  (cancelEvent)="onCancel()"
+  [title]="'Update Announcement Content'"
+  [description]="'Modify title, description and expiration'"
+  [icon]="SquarePen"
+  [loading]="loading"
+  [loaderTitle]="'Updating Announcement Content'"
+>
+  <div data-body>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="grid grid-cols-2 gap-5">
+
+      <!-- Title -->
+      <div class="col-span-2">
+
+        <label for="title" class="form-label">Title <span class="text-red-500">*</span></label>
+
+        <input id="title" class="form-input" formControlName="title" placeholder="Enter announcement title"
+               [class.form-input-error]="form.get('title')?.invalid && form.get('title')?.touched"/>
+
+        @if (form.get('title')?.errors?.['required'] && form.get('title')?.touched) {
+          <p class="form-error">* Title is Mandatory</p>
+        }
+        @if (form.get('title')?.errors?.['server']) {
+          <p class="form-error">* {{ form.get('title')?.errors?.['server'] }}</p>
+        }
+      </div>
+
+      <!-- Description -->
+      <div class="col-span-2">
+
+        <label for="description" class="form-label">Description <span class="text-red-500">*</span></label>
+
+        <quill-editor id="description" class="w-full ql-background" [modules]="modules" formControlName="description"
+                      placeholder="Update announcement description"></quill-editor>
+
+        @if (form.get('description')?.errors?.['required'] && form.get('description')?.touched) {
+          <p class="form-error">* Description is Mandatory!</p>
+        }
+        @if (form.get('description')?.errors?.['server']) {
+          <p class="form-error">* {{ form.get('description')?.errors?.['server'] }}</p>
+        }
+
+      </div>
+
+      <!-- Expire At -->
+      <div class="col-span-2">
+
+        <label for="expireAt" class="form-label">Expire At <span class="text-red-500">*</span></label>
+
+        <input id="expireAt" type="datetime-local" class="form-input" formControlName="expireAt"
+               [class.form-input-error]="form.get('expireAt')?.invalid && form.get('expireAt')?.touched"/>
+
+        @if (form.get('expireAt')?.errors?.['required'] && form.get('expireAt')?.touched) {
+          <p class="form-error">* ExpireAt is Mandatory!</p>
+        }
+        @if (form.get('expireAt')?.errors?.['server']) {
+          <p class="form-error">* {{ form.get('expireAt')?.errors?.['server'] }}</p>
+        }
+      </div>
+
+      <!-- Footer -->
+      <div class="col-span-2 flex justify-end gap-3 pt-3 border-t border-sky-900/80">
+
+        <button type="button" class="btn-mini-secondary" (click)="onCancel()">Cancel</button>
+
+        <button type="button" class="btn-mini-secondary" (click)="onReset()">Reset</button>
+
+        <button type="submit" class="btn-mini-primary" [disabled]="form.invalid || loading">Save Changes</button>
+
+      </div>
+
+    </form>
+  </div>
+</app-dialog-layout>

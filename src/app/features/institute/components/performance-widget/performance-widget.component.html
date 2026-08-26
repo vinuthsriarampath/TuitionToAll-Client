@@ -1,0 +1,40 @@
+<app-card-shell>
+  <div class="p-4 flex flex-col justify-between">
+    <div>
+      <div class="flex justify-between items-center mb-4">
+        <div>
+          <h3>Course Performance</h3>
+          <p class="para-xs para-primary">Most popular courses this period.</p>
+        </div>
+        <a [routerLink]="['course-mgt']" class="link-primary para-xs inline-flex items-center gap-1 cursor-pointer">
+          View Courses <lucide-icon [img]="ArrowRight" class="w-3.5 h-3.5"></lucide-icon>
+        </a>
+      </div>
+
+      <div class="space-y-4">
+        @for (course of courses(); track course; let i = $index){
+          <app-card-shell class="block mt-2">
+            <div  class="space-y-1.5 py-2 px-4">
+              <div class="flex justify-between items-start">
+                <div>
+                  <div class="flex items-center gap-1">
+                    <h3>{{ i + 1 }}</h3>
+                    <span class="para-primary text-2xl">•</span>
+                    <h3>{{ course.title }}</h3>
+                  </div>
+                  <p class="para-xs para-primary">{{ course.activeStudentsCount }} active students · {{ course.ongoingBatchesCount }} ongoing batches</p>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-bold text-gray-800">
+                  <p class="para-primary">{{ course.avgRating | number:'1.1-1' }}</p>
+                  <lucide-icon [img]="Star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></lucide-icon>
+                </div>
+              </div>
+            </div>
+          </app-card-shell>
+        } @empty {
+          <app-no-content [title]="'No Courses Available'" [description]="'There are no courses available at the moment.'" ></app-no-content>
+        }
+      </div>
+    </div>
+  </div>
+</app-card-shell>

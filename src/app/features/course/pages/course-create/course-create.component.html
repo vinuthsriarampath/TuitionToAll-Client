@@ -1,0 +1,166 @@
+<app-page-layout
+  [headerTitle]="'Create Course'"
+  [headerDescription]="'Create a new course for the students!'"
+  [showBackButton]="true"
+>
+  <div data-body>
+    <app-card-shell>
+
+      <form (ngSubmit)="onSubmit()" class="grid grid-cols-12 gap-4 p-4">
+        <div class="col-span-6 grid grid-cols-2 gap-4 ">
+          <div class="flex flex-col gap-2 col-span-2">
+            <label for="title" class="form-label">Title :</label>
+            <input id="title" type="text" name="title" [(ngModel)]="courseCreateRequest.title" required
+                   #title="ngModel"
+                   placeholder="Course title"
+                   class="w-full form-input"
+                   [ngClass]="{'form-input-error': title.invalid && title.touched}"
+                   [disabled]="loading">
+            <div *ngIf="title.invalid && title.touched" class="form-error">
+              <div *ngIf="title.errors?.['required']">Title is required.</div>
+            </div>
+          </div>
+          <div class="flex flex-col gap-2 col-span-2">
+            <label for="description" class="form-label">Description :</label>
+            <textarea id="description" name="description" [(ngModel)]="courseCreateRequest.description" required
+                      #description="ngModel" placeholder="Course description" rows="3"
+                      [ngClass]="{'form-input-error': description.invalid && description.touched}"
+                      class="w-full form-input"
+                      [disabled]="loading"></textarea>
+            <div *ngIf="description.invalid && description.touched" class="form-error">
+              <div *ngIf="description.errors?.['required']">Description is required.</div>
+            </div>
+          </div>
+          <div class="flex flex-row gap-2 col-span-2">
+            <div class="flex flex-col flex-1">
+              <label for="duration" class="form-label">Course duration (In Hours) :</label>
+              <input id="duration" type="number" name="duration" [(ngModel)]="courseCreateRequest.durationInHours"
+                     required min="0" #duration="ngModel" placeholder="Course duration"
+                     [ngClass]="{'form-input-error': duration.invalid && duration.touched}"
+                     class="w-full form-input"
+                     [disabled]="loading">
+              <div *ngIf="duration.invalid && duration.touched" class="form-error">
+                <div *ngIf="duration.errors?.['required']">Course duration is required.</div>
+                <div *ngIf="duration.errors?.['min']">Course duration cannot be negative.</div>
+              </div>
+            </div>
+            <div class="flex flex-col flex-1">
+              <label for="price" class="form-label">Course price (In LKR) :</label>
+              <input id="price" type="number" name="price" [(ngModel)]="courseCreateRequest.price" required min="0"
+                     #price="ngModel" placeholder="Course price"
+                     [ngClass]="{'form-input-error': price.invalid && price.touched}"
+                     class="w-full form-input"
+                     [disabled]="loading">
+              <div *ngIf="price.invalid && price.touched" class="form-error">
+                <div *ngIf="price.errors?.['required']">Course price is required.</div>
+                <div *ngIf="price.errors?.['min']">Course price cannot be negative.</div>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-row gap-2 col-span-2">
+            <div class="flex flex-col flex-1">
+              <label for="category" class="form-label">Category :</label>
+              <select id="category" name="category" [(ngModel)]="courseCreateRequest.category" required
+                      #category="ngModel"
+                      [ngClass]="{'form-input-error': category.invalid && category.touched}"
+                      class="w-full form-input"
+                      [disabled]="loading">
+                <option disabled value="">-- Select Category --</option>
+                <option *ngFor="let category of courseCategories" [value]="category"
+                        class="text-gray-700 bg-white hover:bg-blue-300">{{ category | titlecase }}
+                </option>
+              </select>
+              <div *ngIf="category.invalid && category.touched" class="form-error">
+                <div *ngIf="category.errors?.['required']">Course category is required.</div>
+              </div>
+            </div>
+            <div class="flex flex-col flex-1">
+              <label for="language" class="form-label">Language :</label>
+              <select id="language" name="language" [(ngModel)]="courseCreateRequest.language" required
+                      #language="ngModel"
+                      [ngClass]="{'form-input-error': language.invalid && language.touched}"
+                      class="w-full form-input"
+                      [disabled]="loading">
+                <option disabled value="">-- Select Language --</option>
+                <option *ngFor="let language of courseLanguages" [value]="language"
+                        class="text-gray-700 bg-white hover:bg-blue-300">{{ language | titlecase }}
+                </option>
+              </select>
+              <div *ngIf="language.invalid && language.touched" class="form-error">
+                <div *ngIf="language.errors?.['required']">Course language is required.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-span-6 flex flex-col gap-4 items-center justify-center">
+          <label for="image-input"
+                 class="w-md h-60 flex justify-center items-center border-dashed border-2 border-blue-500">
+            <input type="file" id="image-input" #fileInput (change)="onImageSelect($event)" accept="image/*" hidden
+                   class="w-full p-2 border border-gray-300 focus:outline-none focus:ring focus:ring-blue-500"
+                   [disabled]="loading"/>
+            <div id="image-view" [style]="imageUrl ? 'background-image: url(' + imageUrl + '); ' : ''"
+                 class="w-full h-full bg-sky-900/80 flex justify-center items-center bg-center bg-cover overflow-hidden">
+              <div *ngIf="!selectedFile " class="flex flex-col justify-center items-center">
+                <lucide-icon [img]="CloudUpload" class="w-11 h-11 text-sky-300"></lucide-icon>
+                <p class="text-sm">Drag and Drop or click here to upload an Thumbnail (Optional)</p>
+              </div>
+            </div>
+          </label>
+          @if (!loading && selectedFile) {
+            <button type="button" (click)="resetUpload()" class="btn-secondary w-2xs">Reset
+              Upload
+            </button>
+          }
+        </div>
+        <div class="flex flex-row gap-2 col-span-12">
+          <div class="flex flex-col">
+            <label for="level" class="form-label">Difficulty level :</label>
+            <mat-button-toggle-group name="level" aria-label="level" [(ngModel)]="courseCreateRequest.level" required
+                                     #level="ngModel" class="mt-2">
+              <mat-button-toggle *ngFor="let level of courseLevels" [value]="level">{{ level | titlecase }}
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+            <div *ngIf="level.invalid && level.touched" class="form-error">
+              <div *ngIf="level.errors?.['required']">Course level is required.</div>
+            </div>
+          </div>
+          <div class="flex flex-col">
+            <label for="mode" class="form-label">Course Mode :</label>
+            <mat-button-toggle-group name="mode" aria-label="mode" [(ngModel)]="courseCreateRequest.mode" required
+                                     #mode="ngModel" class="mt-2">
+              <mat-button-toggle *ngFor="let mode of courseModes" [value]="mode">{{ mode | titlecase }}
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+            <div *ngIf="mode.invalid && mode.touched" class="form-error">
+              <div *ngIf="mode.errors?.['required']">Course mode is required.</div>
+            </div>
+          </div>
+          <div class="flex flex-col">
+            <label for="status" class="form-label">Course Status :</label>
+            <mat-button-toggle-group name="status" aria-label="status" [(ngModel)]="courseCreateRequest.status"
+                                     required
+                                     #status="ngModel" class="mt-2">
+              <mat-button-toggle *ngFor="let status of courseStatuses" [value]="status">{{ status | titlecase }}
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+            <div *ngIf="status.invalid && status.touched" class="form-error">
+              <div *ngIf="status.errors?.['required']">Course status is required.</div>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-row gap-2 justify-end col-span-12">
+          @if (!loading) {
+            <button type="button" (click)="resetForm()" class="btn-secondary w-2xs">Reset Form</button>
+            <button type="submit" class="btn-primary w-2xs">Create Course</button>
+          } @else {
+            <button type="button" class="btn-secondary w-2xs flex justify-center items-center" disabled>
+              <mat-spinner diameter="30"></mat-spinner>
+            </button>
+          }
+        </div>
+
+      </form>
+    </app-card-shell>
+  </div>
+
+</app-page-layout>

@@ -1,0 +1,41 @@
+<app-card-shell>
+  <div class="p-5">
+
+    <div class="flex justify-between items-center mb-4">
+
+      <div>
+        <h2 class="text-xl font-semibold"> Scheduled Lectures </h2>
+        <p class="para-primary"> Upcoming lecture sessions </p>
+      </div>
+
+      <div class="flex gap-2">
+        <button (click)="onRefresh()" class="btn-mini-light" [disabled]="loading">
+          <lucide-icon [img]="RefreshCcw" [size]="20" class="filled-icon"></lucide-icon>
+        </button>
+
+        <button class="btn-mini-primary" (click)="openScheduleLecCreateDialog()" [disabled]="loading">
+          Add
+        </button>
+      </div>
+
+    </div>
+
+    <div class="flex flex-col gap-3">
+      @if (loading){
+        @for (i of [0,1] ; track i) {
+          <app-schedule-lecture-card-skeleton></app-schedule-lecture-card-skeleton>
+        }
+      } @else {
+        @if (scheduleLectures.length == 0){
+          <app-no-content [title]="'No scheduled lectures found'" [description]="'You can schedule your first lecture by clicking the Add button above.'"></app-no-content>
+        } @else {
+          @for (scheduleLecture of scheduleLectures; track scheduleLecture.id){
+            <app-schedule-lecture-card [scheduleLecture]="scheduleLecture" (fetchScheduledLectures)="fetchAllScheduledLecturesByChapterId()"></app-schedule-lecture-card>
+          }
+        }
+      }
+
+    </div>
+
+  </div>
+</app-card-shell>

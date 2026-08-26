@@ -1,0 +1,207 @@
+<app-page-layout>
+
+  <div data-body>
+
+    @if (isLoading) {
+
+      <div class="space-y-4">
+
+        <!-- Dashboard skeleton -->
+        <div class="h-10 w-64 rounded bg-sky-900/80 animate-pulse"></div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          @for (item of [1, 2, 3, 4, 5]; track item) {
+            <div class="h-32 rounded-xl bg-sky-900/80 animate-pulse"></div>
+          }
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+          <div class="lg:col-span-2">
+            <div class="h-80 rounded-xl bg-sky-900/80 animate-pulse"></div>
+          </div>
+          <div class="lg:col-span-1">
+            <div class="h-80 rounded-xl bg-sky-900/80 animate-pulse"></div>
+          </div>
+
+        </div>
+
+        <div class="h-80 rounded-xl bg-sky-900/80 animate-pulse"></div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+
+          <div class="lg:col-span-2">
+            <div class="h-80 rounded-xl bg-sky-900/80 animate-pulse"></div>
+          </div>
+          <div class="lg:col-span-1">
+            <div class="h-80 rounded-xl bg-sky-900/80 animate-pulse"></div>
+          </div>
+
+        </div>
+
+      </div>
+
+    } @else if (bootstrapData) {
+
+      <div class="space-y-4">
+
+        <!-- Header -->
+        <header class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+
+          <div>
+            <h1 class="text-2xl font-bold text-gray-900">
+              Good morning, Institute Admin 👋
+            </h1>
+
+            <p class="para-primary">
+              Here's what's happening with your institute.
+            </p>
+          </div>
+
+          <div class="flex items-center gap-2">
+
+            <button
+              class="btn-mini-primary flex items-center justify-center gap-2 cursor-none">
+
+              <lucide-icon
+                [img]="Calendar"
+                class="w-4 h-4 text-sky-400">
+              </lucide-icon>
+
+              Last 30 days
+            </button>
+
+            <button
+              (click)="refreshDashboard()"
+              class="btn-mini-secondary">
+
+              <lucide-icon
+                [img]="RotateCw"
+                class="w-4 h-4">
+              </lucide-icon>
+
+            </button>
+
+          </div>
+
+        </header>
+
+
+        <!-- Quick Creation Action Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+          <button
+            [routerLink]="['course-mgt', 'create']"
+            class="p-3.5 card-success rounded-xl shadow-sm flex items-center justify-start gap-3 cursor-pointer">
+
+            <div class="p-2 bg-emerald-700 rounded-lg">
+              <lucide-icon [img]="Plus" class="w-5 h-5"></lucide-icon>
+            </div>
+
+            <div class="text-left">
+              <p class="font-bold text-sm">Create Course</p>
+              <p class="para-xs text-emerald-200">
+                Publish a new syllabus
+              </p>
+            </div>
+
+          </button>
+
+          <button
+            class="p-3.5 card-primary rounded-xl shadow-sm flex items-center gap-3 cursor-pointer">
+
+            <div class="p-2 bg-sky-800/80 rounded-lg text-sky-400">
+              <lucide-icon [img]="Megaphone" class="w-5 h-5"></lucide-icon>
+            </div>
+
+            <div class="text-left">
+              <p class="font-bold text-sm">Create Announcement</p>
+              <p class="para-xs text-sky-200">
+                Share important updates
+              </p>
+            </div>
+
+          </button>
+
+          <button
+            class="p-3.5 card-primary rounded-xl shadow-sm flex items-center gap-3 cursor-pointer">
+
+            <div class="p-2 bg-sky-800/80 rounded-lg text-sky-400">
+              <lucide-icon [img]="UserPlus" class="w-5 h-5"></lucide-icon>
+            </div>
+
+            <div class="text-left">
+              <p class="font-bold text-sm">Open Vacancy</p>
+              <p class="para-xs text-sky-200">
+                Fill available positions
+              </p>
+            </div>
+
+          </button>
+
+          <button
+            class="p-3.5 card-primary rounded-xl shadow-sm flex items-center gap-3 cursor-pointer">
+
+            <div class="p-2 bg-sky-800/80 rounded-lg text-sky-400">
+              <lucide-icon [img]="Users" class="w-5 h-5"></lucide-icon>
+            </div>
+
+            <div class="text-left">
+              <p class="font-bold text-sm">View Students</p>
+              <p class="para-xs text-sky-200">
+                {{ bootstrapData.kpiStats.activeStudents.value }}
+                enrolled
+              </p>
+            </div>
+
+          </button>
+
+        </div>
+
+
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          <app-kpi-card title="Active Students" [data]="bootstrapData.kpiStats.activeStudents" [icon]="Users"></app-kpi-card>
+          <app-kpi-card title="Published Courses" [data]="bootstrapData.kpiStats.publishedCourses" [icon]="BookOpen"></app-kpi-card>
+          <app-kpi-card title="Ongoing Batches" [data]="bootstrapData.kpiStats.ongoingBatches" [icon]="Calendar"></app-kpi-card>
+          <app-kpi-card title="Teachers" [data]="bootstrapData.kpiStats.activeTeachers" [icon]="GraduationCap"></app-kpi-card>
+          <app-kpi-card title="Revenue" [data]="bootstrapData.kpiStats.revenue" [icon]="Wallet"></app-kpi-card>
+        </div>
+
+
+        <!-- Charts -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+          <div class="lg:col-span-2">
+            <app-enrollment-cart [data]="bootstrapData.overallEnrollment"></app-enrollment-cart>
+          </div>
+          <div class="lg:col-span-1">
+            <app-distribution-chart [data]="bootstrapData.enrollmentDistribution"></app-distribution-chart>
+          </div>
+
+        </div>
+
+
+        <!-- Active Batches -->
+        <app-active-batches-table [data]="bootstrapData.activeBatches"></app-active-batches-table>
+
+
+        <!-- Performance + Activity -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+
+          <div class="lg:col-span-2">
+            <app-performance-widget [courses]="bootstrapData.coursePerformance"></app-performance-widget>
+          </div>
+          <div class="lg:col-span-1">
+            <app-recent-activity-component></app-recent-activity-component>
+          </div>
+
+        </div>
+
+      </div>
+
+    }
+
+  </div>
+
+</app-page-layout>

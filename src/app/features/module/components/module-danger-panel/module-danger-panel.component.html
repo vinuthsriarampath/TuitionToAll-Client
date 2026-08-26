@@ -1,0 +1,34 @@
+<app-card-shell variant="danger">
+  <app-card-header class="block border-b border-rose-700/50"
+                   title="Danger Zone"
+                   description="Lock access to the module for public">
+  </app-card-header>
+
+  <div class="p-5 flex justify-between items-center gap-5 flex-wrap">
+
+    <div>
+
+      <p class="para-danger font-semibold">
+        Lock Module
+      </p>
+
+      <p class="para-xs para-danger">
+        Once Locked module access will be locked for related students and teachers
+      </p>
+
+    </div>
+
+    <button
+      class="btn-mini-primary btn-danger flex items-center gap-2"
+      (click)="lockModule()" [disabled]="module().status === ModuleStatus.LOCKED">
+
+      <lucide-icon [img]="Lock" [size]="14"></lucide-icon>
+      @if (module().status === ModuleStatus.LOCKED) {
+        Announcement already locked
+      } @else {
+        Lock Announcement
+      }
+    </button>
+
+  </div>
+</app-card-shell>

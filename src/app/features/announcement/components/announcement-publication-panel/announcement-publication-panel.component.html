@@ -1,0 +1,39 @@
+<app-card-shell>
+
+  <app-card-header
+    title="Publication Controls"
+    description="Manage publication lifecycle">
+  </app-card-header>
+
+  <div class="p-5 flex flex-wrap gap-3">
+
+    @if (announcement().status === AnnouncementStatus.DRAFT || announcement().status === AnnouncementStatus.ARCHIVED) {
+
+      <button
+        class="btn-mini-primary btn-success flex items-center gap-2"
+        (click)="publishAnnouncement()">
+
+        <lucide-icon [img]="Send" [size]="14"></lucide-icon>
+        Publish Announcement
+      </button>
+    }
+
+    @if (announcement().status !== AnnouncementStatus.ARCHIVED &&
+    announcement().status !== AnnouncementStatus.DELETED) {
+
+      <button
+        class="btn-mini-secondary flex items-center gap-2"
+        (click)="archiveAnnouncement()">
+
+        <lucide-icon [img]="Archive" [size]="14"></lucide-icon>
+        Archive Announcement
+      </button>
+    }
+
+    @if (announcement().status === AnnouncementStatus.DELETED){
+      <button class="btn-mini-primary" [disabled]="true">Announcement is Deleted</button>
+    }
+
+  </div>
+
+</app-card-shell>

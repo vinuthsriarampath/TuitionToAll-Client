@@ -1,0 +1,21 @@
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 p-4 bg-sky-950/80 backdrop-blur-md border border-sky-800/50 shadow-lg rounded-lg">
+  <div class="space-y-1">
+    <h1>{{title()}}</h1>
+    @if (description()){
+      <p class="para-primary">{{description()}}</p>
+    }
+  </div>
+
+  <div class="flex items-center gap-2.5 shrink-0 self-end sm:self-auto">
+    @if (backButton()){
+      <button
+        type="button"
+        class="btn-secondary flex items-center gap-2"
+        (click)="window.history.back()">
+        <lucide-icon [img]="ArrowLeft" class="w-4 h-4"></lucide-icon>
+        <span>Go Back</span>
+      </button>
+    }
+    <ng-content select="[data-actions]"></ng-content>
+  </div>
+</div>

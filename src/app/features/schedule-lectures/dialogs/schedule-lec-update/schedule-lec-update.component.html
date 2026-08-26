@@ -1,0 +1,40 @@
+<app-dialog-layout title="Update Schedule Lecture" description="Update details of scheduled lecutre here!" [icon]="Pencil" (cancelEvent)="onCancel()" [loading]="loading" [loaderTitle]="'Updating Lecture Meeting'" loaderDescription="Please wait while the lecture is being updated">
+
+  <div data-body>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+      <app-card-shell>
+        <div class="p-4">
+          <p class="para-md para-warning">Warning!</p>
+          <p class="para-warning">Sharing a meeting URL through the <span class="para-danger underline">TuitionToAll platform does not guarantee </span> that only students from your institute can join the meeting. Please avoid sharing meeting links with outsiders.</p>
+          <p class="para-warning">If supported by the meeting provider (Zoom, Google Meet, Microsoft Teams, etc.), <span class="para-danger underline">disable participant invite link sharing </span> and allow only the host to manage invitations.</p>
+          <p class="para-warning">Always verify attendance and participants through the meeting provider to ensure that learning content is accessed only by authorized students and staff.</p>
+        </div>
+      </app-card-shell>
+
+      <app-input id="topic" label="Lecture Topic" placeholder="Enter lecture topic" [required]="true" [control]="form.get('topic')" />
+      <app-input id="startDate" label="Lecture Start Date" placeholder="Enter lecture start date" type="date" [required]="true" [control]="form.get('startDate')" class="block border-none p-0" />
+
+      <div class="flex flex-row gap-2 justify-center items-center">
+        <app-input id="startTime" label="Start Time" placeholder="Enter lecture start time" type="time" [required]="true" [control]="form.get('startTime')" class="block border-none p-0 w-full" />
+        <app-input id="endTime" label="End Time" placeholder="Enter lecture end time" type="time" [required]="true" [control]="form.get('endTime')" class="block border-none p-0 w-full" />
+      </div>
+
+      <app-input id="meetingUrl" label="Meeting URL" placeholder="Enter meeting url" [required]="true" [control]="form.get('meetingUrl')" />
+      <app-card-shell>
+        <div class="p-4">
+          <h1 class="para-md para-warning">Warning!</h1>
+          <p class="para-warning">Disabling the <span class="font-bold uppercase">late attendance</span> option will automatically disable the join button 10 minutes after the scheduled start time of the meeting.</p>
+          <p class="para-warning">After this 10-minute window, students who were disconnected or left the meeting will not be able to rejoin.</p>
+          <p class="para-warning">However, if the meeting URL is shared or leaked externally, unauthorized users or late students may still be able to access the meeting through that link. Please ensure the meeting link is kept secure and shared only with intended participants.</p>
+        </div>
+      </app-card-shell>
+
+      <app-checkbox [control]="form.get('lateAttendance')" id="lateAttendance" label="Late Attendance" [required]="true" [multiple]="false" [options]="[{ label: 'Allow late attendance', value: true }]"/>
+      <app-select id="status" label="Status" placeholder="Select a status for the lecture" [required]="true" [control]="form.get('status')" [options]="statusOptions" />
+      <div class="flex justify-end my-3 gap-2">
+        <button type="button" class="btn-mini-secondary" (click)="onReset()">Reset</button>
+        <button type="submit" class="btn-mini-primary" [disabled]="form.invalid || loading">Update</button>
+      </div>
+    </form>
+  </div>
+</app-dialog-layout>

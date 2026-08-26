@@ -1,0 +1,28 @@
+<app-dialog-layout
+  [loading]="loading"
+  [title]="'Update Announcement'"
+  [description]="'Update announcements of private, teachers, courses, or batches'"
+  [icon]="Megaphone"
+  (cancelEvent)="onCancel()"
+>
+  <div data-body>
+    <div class="space-y-5 flex flex-col gap-2 ">
+
+      <app-announcement-card [announcement]="announcement"></app-announcement-card>
+      <app-announcement-content-panel [announcement]="announcement"
+                                      (update)="openContentUpdate($event)"></app-announcement-content-panel>
+      <app-announcement-visibility-panel [announcement]="announcement"
+                                         (update)="openVisibilityUpdate($event)"></app-announcement-visibility-panel>
+      <app-announcement-publication-panel [announcement]="announcement" (publish)="publishAnnouncement($event)"
+                                          (archive)="archiveAnnouncement($event)"
+                                          (triggerLoading)="this.triggerLoading()"></app-announcement-publication-panel>
+      <app-announcement-pin-panel [announcement]="announcement" (pin)="pinAnnouncement($event)"
+                                  (unpin)="unpinAnnouncement($event)"
+                                  (triggerLoading)="this.triggerLoading()"></app-announcement-pin-panel>
+
+      <app-announcement-danger-zone-panel [announcement]="announcement" (delete)="deleteAnnouncement($event)"
+                                          (triggerLoading)="this.triggerLoading()"></app-announcement-danger-zone-panel>
+
+    </div>
+  </div>
+</app-dialog-layout>

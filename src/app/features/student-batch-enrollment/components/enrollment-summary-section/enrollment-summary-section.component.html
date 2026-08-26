@@ -1,0 +1,103 @@
+<app-card-shell>
+  <div class="p-4">
+    <h3>Enrollment Summary</h3>
+    <div class="my-2 flex flex-col gap-2 ">
+      <app-info-row [label]="'COURSE'" [value]="course().title"></app-info-row>
+      <app-info-row [label]="'SELECTED BATCH'" [value]="selectedBatch().name"></app-info-row>
+      <app-info-row [label]="'START DATE'" [value]="(selectedBatch().start_date | date:'mediumDate') ?? 'N/A'"></app-info-row>
+      <app-info-row [label]="'LANGUAGE'" [value]="(course().language | titlecase) ?? 'Not specified'"></app-info-row>
+      <app-info-row [label]="'LEVEL'" [value]="(course().level | titlecase) ?? 'Not specified'"></app-info-row>
+    </div>
+
+    <hr class="border border-sky-900/80">
+
+    <div class="my-2 flex flex-col justify-between ">
+      <div class="flex flex-row justify-between">
+        <p class="para-md para-primary">Course Fee</p>
+        <p class="para-md para-light font-bold">LKR {{ course().price | number:'1.2-2' }}</p>
+      </div>
+      <div class="flex flex-row justify-between">
+        <p class="para-md para-primary">Discount</p>
+        <p class="para-md para-light font-bold">LKR 0</p>
+      </div>
+    </div>
+
+    <app-card-shell [variant]="'info'">
+      <div class="p-4 flex flex-row gap-2 justify-between">
+        <p class="para-md para-light">Total</p>
+        <p class="para-md para-primary font-bold">LKR {{ course().price | number:'1.2-2' }}</p>
+      </div>
+    </app-card-shell>
+
+    @if (enrollmentLoading){
+      <app-card-shell [variant]="'info'" class="mt-4 block">
+        <div class="p-2 animate-pulse text-center">
+          <p class="para-sm para-light">Enrolling...</p>
+        </div>
+      </app-card-shell>
+    } @else {
+
+      @if (eligibilityCheckLoading()){
+
+        <app-card-shell [variant]="'info'" class="mt-4 block">
+          <div class="p-2 animate-pulse text-center">
+            <p class="para-sm para-light">Checking enrollment eligibility...</p>
+          </div>
+        </app-card-shell>
+
+      } @else {
+
+        @if (userService.getCurrentUserRole() === 'student') {
+          @if (batchEnrollEligibility().canEnroll && batchEnrollEligibility().reason === EnrollmentEligibilityReason.ELIGIBLE) {
+            <button class="btn btn-primary w-full mt-8" (click)="enrollStudent()" [disabled]="!batchEnrollEligibility().canEnroll">Pay & Register</button>
+          } @else {
+            <app-card-shell [variant]="'warning'" class="mt-4 block">
+              <div class="p-2 text-center">
+                @switch (batchEnrollEligibility().reason){
+                  @case (EnrollmentEligibilityReason.ALREADY_ENROLLED) {
+                    <p class="para-light para-sm">You are already enrolled in this batch</p>
+                  }
+                  @case (EnrollmentEligibilityReason.BATCH_FULL) {
+                    <p class="para-light para-sm">This batch is full. Please select another batch.</p>
+                  }
+                  @case (EnrollmentEligibilityReason.BATCH_NOT_FOUND) {
+                    <span class="para-light para-sm">Selected batch not found.</span>
+                  }
+                  @case (EnrollmentEligibilityReason.ANOTHER_ACTIVE_BATCH){
+                    <p class="para-light para-sm">You are already enrolled in another active batch. Please complete that course first.</p>
+                  }
+                  @case (EnrollmentEligibilityReason.COURSE_NOT_FOUND) {
+                    <p class="para-light para-sm">Selected course not found.</p>
+                  }
+                  @case (EnrollmentEligibilityReason.ENROLLMENT_CLOSED) {
+                    <p class="para-light para-sm">Enrollment for this batch is closed.</p>
+                  }
+                  @case (EnrollmentEligibilityReason.INVALID_BATCH){
+                    <p class="para-light para-sm">Selected batch is invalid.</p>
+                  }
+                  @case (EnrollmentEligibilityReason.CHECK_FAILED){
+                    <p class="para-light para-sm">Failed to check enrollment eligibility.</p>
+                  }
+                }
+              </div>
+            </app-card-shell>
+          }
+
+        } @else {
+         <app-card-shell [variant]="'warning'" class="mt-4">
+            <div class="p-4 flex flex-col gap-2 items-center justify-center">
+              <lucide-icon [img]="AlertTriangle" class="w-6 h-6 text-yellow-400"></lucide-icon>
+              <p class="para-md para-light text-center">You are not a student. Only a student can enroll with a course.</p>
+            </div>
+          </app-card-shell>
+        }
+
+      }
+    }
+
+    <div class="flex flex-inline gap-2 items-center mt-2 justify-center">
+      <lucide-icon [img]="ShieldCheck" class="w-4 h-4 text-sky-400"></lucide-icon>
+      <p class="text-xs para-primary">Secure enrollment</p>
+    </div>
+  </div>
+</app-card-shell>

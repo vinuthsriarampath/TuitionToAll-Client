@@ -1,0 +1,34 @@
+<app-dialog-layout
+  [title]="'Vacancy Details'"
+  [description]="'View the details of the teacher vacancy'"
+  [icon]="InfoIcon"
+  (cancelEvent)="onCancel()"
+>
+  <div data-body>
+    <app-card-shell>
+      <div class="p-4">
+        <h1> {{ vacancy.title }}</h1>
+        <div class="flex justify-between gap-2 mt-2 mx-2">
+          <div class="text-sm flex flex-col gap-y-2">
+            <p class="para-md para-primary">Status:</p>
+            <app-badge [text]="vacancy.status" [variant]="vacancy.status == TeacherVacancyStatus.OPEN ? 'success' : vacancy.status == TeacherVacancyStatus.FILLED ? 'warning' : 'danger'"></app-badge>
+          </div>
+          <div class="text-sm flex flex-col gap-y-2 ">
+            <p class="para-md para-primary">Years of Experience (YoE) Required :</p>
+            <p class="para-light">{{ vacancy.requiredExperienceYears}}</p>
+          </div>
+          <div class="text-sm flex flex-col gap-y-2 ">
+            <p class="para-md para-primary">Closing Date:</p>
+            <app-badge [text]="`${vacancy.vacancyClosingDate | date : 'medium'}`" [variant]="'info'"></app-badge>
+          </div>
+        </div>
+      </div>
+    </app-card-shell>
+    <app-card-shell class="block mt-4">
+      <div class="p-4 h-80 flex flex-col">
+        <h3>Job Description</h3>
+        <quill-editor class="w-full flex-1 min-h-0 " id="jobDescription" [modules]="{toolbar:false}" [ngModel]="vacancy.jobDescription" [readOnly]="true" [styles]="{ border: 'none'}"></quill-editor>
+      </div>
+    </app-card-shell>
+  </div>
+</app-dialog-layout>

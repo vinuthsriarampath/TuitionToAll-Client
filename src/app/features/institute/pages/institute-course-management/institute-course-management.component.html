@@ -1,0 +1,95 @@
+<app-page-layout
+  [headerTitle]="'Course Management'"
+  [headerDescription]="'Manage all your courses here!'"
+  [showBackButton]="false"
+  [isLoading]="loading"
+  [loaderTitle]="'Loading courses'"
+  [loaderDescription]="'Fetch all your courses from the server.'"
+>
+
+  <button data-actions [routerLink]="['create']" class="btn-primary">Add Course</button>
+
+  <div data-body>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" multiTemplateDataRows>
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>#</th>
+        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+      </ng-container>
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef>title</th>
+        <td mat-cell *matCellDef="let element">{{ element.title }}</td>
+      </ng-container>
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef>Category</th>
+        <td mat-cell *matCellDef="let element">
+          <span class="batch batch-info">{{ element.category }}</span></td>
+      </ng-container>
+      <ng-container matColumnDef="durationInHours">
+        <th mat-header-cell *matHeaderCellDef>Duration(H)</th>
+        <td mat-cell *matCellDef="let element">{{ element.durationInHours }}</td>
+      </ng-container>
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef>Price</th>
+        <td mat-cell *matCellDef="let element" class="text-center">
+        <span class="batch batch-success">
+          {{ element.price > 0 ? ('Rs. ' + (element.price | currency:'':'':'1.0-2') + ' /=') : 'Free' }}
+        </span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let element">
+        <span
+          class="batch"
+          [ngClass]="{
+            'batch-success': element.status === 'PUBLISHED',
+            'batch-warning': element.status === 'DRAFT',
+            'batch-danger': element.status === 'ARCHIVED'
+          }">{{ element.status }}</span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="actions" sticky="end" class="w-24">
+        <th mat-header-cell *matHeaderCellDef><span class="sr-only">Actions</span></th>
+        <td mat-cell *matCellDef="let element" class="text-center">
+          <div class="flex gap-2">
+            <a [routerLink]="[element.id]" matTooltip="View Course" matTooltipPosition="above">
+              <lucide-icon [img]="Eye" [size]="14"></lucide-icon>
+            </a>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Header Row -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+      <!-- Data Row (Default) -->
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <!-- No Data Row -->
+      <tr *matNoDataRow>
+        <td class="mat-cell text-center p-4" [attr.colspan]="displayedColumns.length">
+          @if (loading) {
+            <ng-container>
+              Loading all Courses...
+            </ng-container>
+          } @else {
+            <ng-container>
+              <app-no-content
+                [title]="'No Courses Found!'"
+                [description]="'You can create your first course by clicking the Add Course button above.'"
+              ></app-no-content>
+            </ng-container>
+          }
+        </td>
+      </tr>
+
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[10, 20, 50, 100]"
+      showFirstLastButtons
+      aria-label="Select page of courses"
+      [hidden]="loading || dataSource.data.length === 0">
+    </mat-paginator>
+  </div>
+</app-page-layout>

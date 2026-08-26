@@ -1,0 +1,7 @@
+.pinned-row {
+  background-color: oklch(97.3% 0.071 103.193) !important;
+}
+
+.pinned-row:hover {
+  background-color: oklch(94.5% 0.129 101.54) !important;
+}

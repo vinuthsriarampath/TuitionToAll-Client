@@ -1,0 +1,18 @@
+
+  @if (!loading) {
+    <div>
+      @if (teacherVacancies.length > 0) {
+        @for (vacancy of teacherVacancies; track vacancy.id) {
+          <app-vacancy-card [vacancy]="vacancy"></app-vacancy-card>
+        }
+      } @else {
+        <app-no-content [title]="'No Vacancies Found'" [description]="'There are no teacher vacancies available at the moment.'">
+        </app-no-content>
+      }
+    </div>
+  } @else {
+    <div class="flex flex-col items-center justify-center">
+      <mat-spinner diameter="35"></mat-spinner>
+      <p class="text-xs animate-pulse">Loading...</p>
+    </div>
+  }

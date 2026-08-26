@@ -1,0 +1,78 @@
+<app-card-shell>
+  <div class="p-5">
+
+    <div class="flex justify-between items-center mb-4">
+
+      <div>
+        <h2>Resources</h2>
+        <p class="para-primary">Chapter learning materials</p>
+      </div>
+
+      <div class="flex gap-2">
+        <button (click)="onRefresh()" class="btn-mini-light">
+          <lucide-icon [img]="RefreshCw" [size]="20" class="filled-icon"></lucide-icon>
+        </button>
+        <button (click)="openResourceCreateDialog()" class="btn-mini-primary">
+          Add
+        </button>
+      </div>
+
+    </div>
+
+    <div class="overflow-x-auto">
+
+      <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="flex justify-center items-center gap-2">
+              <button (click)="onDownload(element.fileName)" class="btn-mini-primary">
+                <lucide-icon [img]="Download" [size]="18" class="filled-icon"></lucide-icon>
+              </button>
+              <button (click)="onDeleteConfirmation(element.id)" class="btn-mini-secondary btn-danger">
+                <lucide-icon [img]="Trash2" [size]="18" class="filled-icon"></lucide-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columns"></tr>
+        <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+
+        <tr *matNoDataRow>
+          <td class="mat-cell text-center p-4" [attr.colspan]="columns.length">
+            @if (loading) {
+              <ng-container>
+                Loading all Resources...
+              </ng-container>
+            } @else {
+              <ng-container>
+                <app-no-content
+                  [title]="'No Resources Found!'"
+                  [description]="'You can create your first resource by clicking the Add button above.'"
+                ></app-no-content>
+              </ng-container>
+            }
+          </td>
+
+        </tr>
+      </table>
+
+    </div>
+      <mat-paginator
+        [pageIndex]="pageIndex"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons
+        aria-label="Select page of resources"
+        (page)="onPageChange($event)"
+      />
+
+  </div>
+</app-card-shell>
+
+

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "TuitionToAll-Client": {
+    "tuitiontoall-client": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/tuition-to-all-client",
+            "outputPath": "dist/tuitiontoall-client",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -62,10 +62,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "TuitionToAll-Client:build:production"
+              "buildTarget": "tuitiontoall-client:build:production"
             },
             "development": {
-              "buildTarget": "TuitionToAll-Client:build:development"
+              "buildTarget": "tuitiontoall-client:build:development"
             }
           },
           "defaultConfiguration": "development"

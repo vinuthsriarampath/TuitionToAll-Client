@@ -20,11 +20,28 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body>
+<body class="bg-gradient-to-br from-slate-900 via-sky-950 to-gray-900 col-span-12 font-sans text-sky-100 antialiased">
   <app-root>
-    <section class="flex flex-col justify-center items-center h-screen">
-      <img src="Loading.gif" alt="Loading..." class="w-42 h-42" />
-      <h1 class="text-3xl font-bold text-blue-900 animate-pulse">Preparing to Learn ...</h1>
+    <section class="flex flex-col justify-center items-center h-screen w-full">
+
+      <!-- Minimal Loading Card -->
+      <div class="flex flex-col items-center p-8 rounded-xl bg-sky-950/80 border border-sky-800/50 backdrop-blur-md shadow-lg space-y-5 text-center">
+
+        <!-- Standard Smooth Spinner -->
+        <div class="w-10 h-10 border-3 border-sky-500/20 border-t-sky-400 rounded-full animate-spin"></div>
+
+        <!-- Text -->
+        <div class="space-y-1">
+          <h1 class="text-lg md:text-xl font-semibold tracking-wide text-sky-50">
+            Preparing to Learn ...
+          </h1>
+          <p class="text-xs text-sky-200/80 font-medium">
+            TuitionToAll
+          </p>
+        </div>
+
+      </div>
+
     </section>
   </app-root>
 </body>

@@ -1,0 +1,19 @@
+<app-card-shell>
+  <app-card-header
+    title="Batch Details"
+    description="View the details of the batch here!">
+
+    <button card-action class="btn-mini-primary flex items-center gap-1" (click)="openUpdateModuleBatchDialog()">
+      <lucide-icon [img]="Edit" [size]="14"></lucide-icon>
+      Edit Module Batch
+    </button>
+  </app-card-header>
+  <div class="p-5 grid grid-cols-2 gap-5">
+    <div class="col-span-1">
+      <app-info-row label="Batch Id" value="{{ module().batch.id }}"></app-info-row>
+    </div>
+    <div class="col-span-1">
+      <app-info-row label="Batch Name" value="{{ module().batch.name }}"></app-info-row>
+    </div>
+  </div>
+</app-card-shell>

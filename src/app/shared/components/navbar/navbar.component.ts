@@ -1,12 +1,15 @@
-import {Component, ElementRef, HostListener, ViewChild} from '@angular/core';
-import {RouterLink} from '@angular/router';
-import {NgIf} from '@angular/common';
+import {Component, ElementRef, HostListener, inject, OnInit, ViewChild} from '@angular/core';
+import {RouterLink, RouterLinkActive} from '@angular/router';
 import {FormsModule} from '@angular/forms';
-import {Student} from '../../../core/models/user-models/sub-user-models/student';
-import {Teacher} from '../../../core/models/user-models/sub-user-models/teacher';
-import {Institute} from '../../../core/models/user-models/sub-user-models/institute';
-import {environment} from '../../../environment/environment.development';
-import {NavbarSearchComponent} from './navbar-search/navbar-search.component';
+import {Student} from '@features/student/dtos/responses/student';
+import {Teacher} from '@features/teacher/dtos/responses/teacher';
+import {Institute} from '@features/institute/dtos/response/institute';
+import {environment} from '@env/environment.development';
+import {NavbarSearchComponent} from '@shared/components/navbar-search/navbar-search.component';
+import {Bell, House, LayoutDashboard, LucideAngularModule, MessageSquareText, Search, Users} from 'lucide-angular';
+import {User} from '@features/user/dtos/responses/user';
+import {UserService} from '@features/user/services/user/user.service';
+import {AuthenticationService} from '@features/auth/services/auth/authentication.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,49 +17,38 @@ import {NavbarSearchComponent} from './navbar-search/navbar-search.component';
   imports: [
     RouterLink,
     FormsModule,
-    NgIf,
-    NavbarSearchComponent
+    NavbarSearchComponent,
+    LucideAngularModule,
+    RouterLinkActive,
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit{
+
+  readonly LayoutDashboard = LayoutDashboard;
+  readonly MessageSquareText = MessageSquareText
+  readonly Bell = Bell;
+  readonly Users = Users;
+  readonly House = House;
+  readonly Search = Search;
+
   isProfileDropdownOpen: boolean = false;
   isSearchDropdownOpen: boolean = false;
   isMobileSearchActive:boolean = false;
-  user: any;
-  searchInput : string | undefined;
+  user: User | null = null;
+
+  private readonly userService:UserService = inject(UserService);
+  private readonly authService:AuthenticationService = inject(AuthenticationService);
 
   @ViewChild('mobileSearchInput') mobileSearchInput!: ElementRef;
 
-  constructor() {
-    const userData = localStorage.getItem("user");
-    if (userData) {
-      const parsedUser = JSON.parse(userData);
-      switch (parsedUser.role) {
-        case 'ROLE_INSTITUTE':
-          this.user = parsedUser as Institute;
-          break;
-        case 'ROLE_TEACHER':
-          this.user = parsedUser as Teacher;
-          break;
-        case 'ROLE_STUDENT':
-          this.user = parsedUser as Student;
-          break;
-        default:
-          this.user = null;
-      }
-    } else {
-      this.user = null;
-    }
-  }
-
   ngOnInit(): void {
     this.updateBodyScrollClass();
-  }
 
-  toggleSearchDropdown(): void {
-    this.isSearchDropdownOpen = !this.isSearchDropdownOpen;
+    this.userService.currentUser$.subscribe(user => {
+      this.user = user;
+    })
   }
 
   toggleProfileDropdown(): void {
@@ -85,12 +77,6 @@ export class NavbarComponent {
     } else {
       document.body.classList.remove('overflow-hidden');
     }
-  }
-
-  onSearchChange(event: Event): void {
-    this.searchInput = (event.target as HTMLInputElement).value;
-
-    this.isSearchDropdownOpen = this.searchInput.length > 0;
   }
 
   @HostListener('document:keydown.escape', ['$event'])
@@ -128,16 +114,40 @@ export class NavbarComponent {
   }
 
   logout() {
-    const token: string|null = localStorage.getItem("token");
-    const user = localStorage.getItem("user");
-    const role = localStorage.getItem("role");
+    this.authService.logout();
+  }
 
-    if(token && user && role){
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-      localStorage.removeItem("role");
-      window.location.replace("/auth/login");
+  private isInstitute(details: any): details is Institute {
+    return details && 'instituteName' in details;
+  }
+
+  private isStudent(details: any): details is Student {
+    return details && 'firstName' in details && 'lastName' in details;
+  }
+
+  private isTeacher(details: any): details is Teacher {
+    return details && 'firstName' in details && 'lastName' in details;
+  }
+
+  get displayName(): string {
+    const details = this.user?.details;
+    if (!details) return '';
+
+    if (this.isInstitute(details)) {
+      return details.instituteName || '';
     }
+
+    if (this.isStudent(details) || this.isTeacher(details)) {
+      const first = details.firstName || '';
+      const last = details.lastName || '';
+      return (first + ' ' + last).trim();
+    }
+
+    // fallback
+    const d = details as any;
+    return (
+      (d.firstName || d.instituteName || '') + ' ' + (d.lastName || '')
+    ).trim();
   }
 
   protected readonly environment = environment;

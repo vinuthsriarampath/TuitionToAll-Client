@@ -1,0 +1,44 @@
+<app-page-layout headerTitle="Lecture Record Watch" headerDescription="Watch lecture recordings" [showBackButton]="true">
+
+  <div data-body class="p-4 grid grid-cols-12 gap-4">
+
+    <!-- Left Content -->
+    <div class="col-span-12 lg:col-span-9 flex flex-col gap-y-3 items-center w-full">
+      <!-- Video Player -->
+      <div class="w-full max-w-[1400px] aspect-video bg-black rounded-2xl overflow-hidden shadow-xl border border-sky-900/80">
+        <video [src]="videoUrl" controls preload="metadata" class="w-full h-full object-contain"></video>
+      </div>
+
+      <!-- Lecture Details -->
+      <app-card-shell class="block w-full max-w-[1400px]">
+        <div class="p-4">
+          <h2>{{ currentLectureRecord.title }}</h2>
+          <app-badge [text]="`${ currentLectureRecord.createdDate | date:'dd MMM yyyy'}`" [variant]="'info'"></app-badge>
+        </div>
+      </app-card-shell>
+    </div>
+
+    <!-- Right Sidebar -->
+    <div class="col-span-12 lg:col-span-3 flex flex-col gap-y-2 h-fit lg:h-full " >
+      @if (lectureRecords.length === 1) {
+        <div class="flex flex-col gap-2 items-center justify-center h-full">
+          <p class="para-primary">You are watching the only available lecture recording.</p>
+          <p class="para-light">Please check back later for new recordings</p>
+        </div>
+
+      } @else {
+        @for (lectureRecord of lectureRecords; track lectureRecord.id) {
+          @if(lectureRecord.id !== currentLectureRecord.id) {
+            <app-card-shell (click)="onVideoClick(lectureRecord)" class="cursor-pointer hover:shadow-md transition duration-200" >
+              <div class="p-3 flex flex-col gap-1">
+                <app-card-header [title]="lectureRecord.title"/>
+                <app-badge [text]="`${ lectureRecord.createdDate | date:'dd MMM yyyy'}`" [variant]="'info'"></app-badge>
+              </div>
+            </app-card-shell>
+          }
+        }
+      }
+    </div>
+  </div>
+</app-page-layout>
+

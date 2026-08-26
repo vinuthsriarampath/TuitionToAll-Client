@@ -1,0 +1,248 @@
+<mat-sidenav-container class="h-full flex flex-col">
+
+  <mat-sidenav #drawer mode="over" position="end" class="h-full shadow-xl flex flex-col"
+               style="width: 23vw; min-width: 320px;">
+    <div class="flex items-center justify-between border-b pb-3 px-4 pt-4">
+      <h2 class="text-lg font-semibold text-gray-800">Teacher Details</h2>
+      <button class="btn-mini-secondary" (click)="drawer.close()">Close</button>
+    </div>
+
+    <!-- CONTENT -->
+    <div *ngIf="selectedTeacher as data" class="flex-1 overflow-auto p-4 space-y-4">
+
+      <!-- PROFILE SECTION -->
+      <div class="flex flex-col items-center text-center">
+        <img
+          [src]="data.teacher.dp
+              ? environment.USER_PROFILE_API + data.teacher.dp
+              : 'profile_logo.png'"
+          class="w-24 h-24 rounded-full object-cover border shadow-sm"
+          alt="profile"
+        />
+
+        <h3>{{ data.teacher.firstName }} {{ data.teacher.lastName }}</h3>
+        <p class="para-primary">{{ data.teacher.email }}</p>
+      </div>
+
+      <!-- INFO CARD -->
+      <app-card-shell class="block mb-4">
+        <div class="p-4">
+
+          <div class="flex justify-between">
+            <p class="para-primary">Contact</p>
+            <p class="para-light font-medium">
+              {{ data.teacher.contact | phone }}
+            </p>
+          </div>
+
+          <div class="flex justify-between">
+            <p class="para-primary">Date of Birth</p>
+            <p class="para-light font-medium">
+              {{ data.teacher.dob | date }}
+            </p>
+          </div>
+
+          <div class="flex flex-col">
+            <p class="para-primary">Address</p>
+            <p class="para-light">
+              {{ data.teacher.address }}
+            </p>
+          </div>
+        </div>
+      </app-card-shell>
+
+      <!-- APPLICATION INFO -->
+      <app-card-shell class="block mb-4">
+
+        <div class="p-4">
+
+          <div class="flex justify-between">
+            <p class="para-primary">Application ID</p>
+            <p class="para-light">
+              #{{ data.id }}
+            </p>
+          </div>
+
+          <div class="flex justify-between">
+            <p class="para-primary">Status</p>
+            <app-badge [text]="data.status" [variant]="  data.status === ApplicationStatus.SELECTED? 'success' : data.status === ApplicationStatus.PENDING ? 'warning' : 'danger' "></app-badge>
+
+          </div>
+
+          <div class="flex justify-between">
+            <p class="para-primary">Applied Date</p>
+            <p class="para-light">
+              {{ data.appliedDate | date }}
+            </p>
+          </div>
+        </div>
+      </app-card-shell>
+      @if (data.status === ApplicationStatus.PENDING){
+        <div class="border-t border-sky-900/80 p-4 flex flex-col gap-2">
+          <button (click)="onSingleSelect(data.id)" class="btn-primary w-full">
+            Select
+          </button>
+
+          <button (click)="onSingleReject(data.id)" class="btn-primary btn-danger w-full">
+            Reject
+          </button>
+        </div>
+      } @else {
+        @if (data.status === ApplicationStatus.SELECTED) {
+          <div class="border-t p-4">
+            <button [disabled]="true" class="btn-primary w-full">
+              Already Selected
+            </button>
+          </div>
+        } @else if(data.status === ApplicationStatus.REJECTED || data.status === ApplicationStatus.CANCELED) {
+          <div class="border-t p-4">
+            <button [disabled]="true" class="btn-primary w-full">
+              {{ data.status === ApplicationStatus.REJECTED ? 'Already Rejected' : 'Canceled' }}
+            </button>
+          </div>
+        }
+
+      }
+    </div>
+
+
+  </mat-sidenav>
+
+
+  <mat-sidenav-content>
+
+    <app-page-title [title]="'Job Applications'" [description]="'View all your job applications for the vacancy here!'"
+                    [backButton]="true"></app-page-title>
+
+    <app-card-shell class="block mb-4">
+
+      <div *ngIf="hasSelection"
+           class="flex items-center justify-between px-4 py-2">
+
+      <p class="para-primary">
+        {{ selection.selected.length }} selected
+      </p>
+
+        <div class="flex gap-2">
+          <button (click)="resetSelection()" class="btn-mini-secondary">
+            Reset
+          </button>
+
+          <button (click)="onBulkSelect()" class="btn-mini-primary">
+            Select
+          </button>
+
+          <button (click)="onBulkReject()" class="btn-mini-primary btn-danger">
+            Reject
+          </button>
+        </div>
+      </div>
+    </app-card-shell>
+
+    <div class="flex-1 overflow-auto">
+      <table mat-table [dataSource]="dataSource">
+
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <label for="select-all" class="sr-only">Select All</label>
+            <input id="select-all" type="checkbox" class="form-checkbox h-3 w-3 text-blue-600 rounded-sm"
+                   [checked]="isAllSelected()"
+                   (change)="toggleAll()" [disabled]="loading"/>
+          </th>
+
+          <td mat-cell *matCellDef="let element">
+            <label for="select-{{ element.id }}" class="sr-only">Select {{ element.id }}</label>
+            <input id="select-{{ element.id }}" type="checkbox" class="form-checkbox h-3 w-3 text-blue-600 rounded-sm"
+                   (click)="$event.stopPropagation()"
+                   (change)="toggleRow(element)"
+                   [checked]="selection.isSelected(element)" [disabled]="loading"/>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>#</th>
+          <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="dp">
+          <th mat-header-cell *matHeaderCellDef>Dp</th>
+          <td mat-cell *matCellDef="let element">
+            <div class="flex items-center justify-center">
+              <img [src]="element.teacher.dp ? environment.USER_PROFILE_API + element.teacher.dp : 'profile_logo.png'"
+              class="w-8 h-8 rounded-full object-cover shadow-sm" alt="teacher-dp"/>
+            </div>
+
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef>First Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.teacher.firstName}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="lastName">
+          <th mat-header-cell *matHeaderCellDef>Last Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.teacher.lastName}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let element">
+            <span
+              class="batch"
+              [ngClass]="{
+                'batch-success': element.status === ApplicationStatus.SELECTED,
+                'batch-warning': element.status === ApplicationStatus.PENDING,
+                'batch-danger': element.status === ApplicationStatus.REJECTED || element.status === ApplicationStatus.CANCELED
+              }">
+              {{ element.status }}
+            </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="appliedDate">
+          <th mat-header-cell *matHeaderCellDef> Applied Date</th>
+          <td mat-cell *matCellDef="let element">{{ element.appliedDate | date }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let element">
+            <button class="btn-mini-primary" (click)="openDrawer(element)" matTooltip="View Teacher Profile" matTooltipPosition="above" [disabled]="loading">view</button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columns; sticky:true"></tr>
+        <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+
+        <tr *matNoDataRow>
+          <td class="mat-cell text-center p-4" [attr.colspan]="columns.length">
+            @if (loading) {
+              <ng-container>
+                Loading all Applications...
+              </ng-container>
+            } @else {
+              <ng-container>
+                <app-no-content
+                  [title]="'No Applications Found!'"
+                  [description]="'You can view all the applications for this vacancy here.'"
+                ></app-no-content>
+              </ng-container>
+            }
+          </td>
+        </tr>
+      </table>
+
+      <mat-paginator
+        [length]="totalElements"
+        [pageIndex]="pageIndex"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[10, 20, 50]"
+        showFirstLastButtons
+        aria-label="Select page of Applications"
+        (page)="onPageChange($event)">
+      </mat-paginator>
+    </div>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

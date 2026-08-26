@@ -1,0 +1,194 @@
+<!--
+  ~ Copyright (c) 2025 vinuth sri arampath
+  ~
+  ~ This code is the intellectual property of vinuth sri arampath and is protected under copyright law.
+  ~ Unauthorized copying, modification, distribution, or use of this code, in whole or in part,
+  ~ without prior written permission is strictly prohibited.
+  ~
+  ~ Portions of this code may be generated with AI and modified by vinuth sri arampath
+  ~ All rights reserved.
+  -->
+<div class="min-h-screen w-full bg-gradient-to-br from-slate-900 via-sky-950 to-gray-900 flex flex-col font-sans text-sky-100 antialiased">
+
+  <!-- Header -->
+  <app-header class="top-0 z-50 sticky">
+    <button [routerLink]="['/auth/signup']" routerLinkActive="router-link-active" class="btn-mini-secondary flex items-center justify-center gap-1.5 w-full md:w-auto">
+      <span>Sign Up</span>
+      <lucide-icon [img]="ArrowRight" class="w-4 h-4"></lucide-icon>
+    </button>
+  </app-header>
+
+  <!-- Main Content Layout -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex items-center justify-center">
+    <div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+
+      <!-- Left Column: Marketing / Visual Side Banner (Hidden on Mobile) -->
+      <section class="hidden lg:flex lg:col-span-6 xl:col-span-7 flex-col justify-center p-8 lg:p-12 animate-in fade-in slide-in-from-top-2 duration-500">
+        <div class="relative w-full aspect-video rounded-2xl overflow-hidden border border-sky-800/50 shadow-2xl mb-8 group">
+          <img [ngSrc]="'loginpage_pic.jpg'" alt="Login Banner" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" [width]="800" [height]="450">
+          <div class="absolute inset-0 bg-gradient-to-t from-sky-950 via-sky-950/40 to-transparent"></div>
+          <div class="absolute bottom-6 left-6 right-6">
+            <span class="batch batch-violet mb-2">Learning Platform</span>
+            <h2 class="text-2xl xl:text-3xl font-bold text-white mb-2 drop-shadow-md">Unlock Knowledge Anywhere</h2>
+            <p class="xl:text-base line-clamp-2">Connect with expert tutors, access interactive study modules, and streamline your entire academic journey.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-4">
+          <app-card-shell>
+            <div class="p-4 text-center">
+              <p class="text-2xl font-bold text-sky-300">10k+</p>
+              <p class="text-xs text-sky-200/80 mt-1">Active Students</p>
+            </div>
+          </app-card-shell>
+          <app-card-shell>
+            <div class="p-4 text-center">
+              <p class="text-2xl font-bold text-sky-300">500+</p>
+              <p class="text-xs text-sky-200/80 mt-1">Certified Tutors</p>
+            </div>
+          </app-card-shell>
+          <app-card-shell>
+            <div class="p-4 text-center">
+              <p class="text-2xl font-bold text-sky-300">4.9★</p>
+              <p class="text-xs text-sky-200/80 mt-1">User Rating</p>
+            </div>
+          </app-card-shell>
+        </div>
+      </section>
+
+      <!-- Right Column: Interactive Login Panel -->
+      <section class="col-span-1 lg:col-span-6 xl:col-span-5 w-full">
+        <app-card-shell>
+          <div class="p-6 sm:p-8 lg:p-10 ">
+
+            <!-- Card Header -->
+            <div class="mb-6 sm:mb-8 text-center sm:text-left">
+              <div class="batch batch-primary mb-1">
+                <lucide-icon [img]="ShieldCheck" class="w-3.5 h-3.5 text-sky-400"></lucide-icon>
+                <span>Secure Authentication</span>
+              </div>
+              <h1>Welcome Back</h1>
+              <p>Sign in to continue to your learning portal</p>
+            </div>
+
+            <!-- Dynamic Error Alert -->
+            @if (errorMessage) {
+              <div class="w-full bg-red-500/30 border border-red-500/50 text-red-200 rounded-xl p-4 mb-6 flex items-start justify-center gap-3 animate-in fade-in slide-in-from-top-2">
+                <lucide-icon [img]="AlertCircle" class="w-5 h-5 text-red-400 shrink-0"></lucide-icon>
+                <div class="text-sm font-medium flex-1">{{errorMessage}}</div>
+              </div>
+            }
+
+            <!-- Form Area -->
+            <form class="space-y-5">
+              <!-- Email Field -->
+              <div>
+                <label for="email" class="form-label">Email Address</label>
+                <div class="relative">
+                  <lucide-icon [img]="Mail" class="w-5 h-5 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400/70 pointer-events-none"></lucide-icon>
+                  <input
+                    id="email"
+                    type="email"
+                    [(ngModel)]="userLoginRequest.email"
+                    placeholder="name@example.com"
+                    name="email"
+                    class="form-input input-special"
+                    [ngClass]="{'form-input-error': email.invalid && email.touched}"
+                    required
+                    #email="ngModel">
+                </div>
+
+                @if (email.invalid && email.touched) {
+                  <div class="form-error flex flex-col gap-0.5">
+                    @if (email.errors?.['required']) {
+                      <span class="flex items-center gap-1"><lucide-icon [img]="X" class="w-3 h-3"></lucide-icon> Email address is required.</span>
+                    }
+                    @if (email.errors?.['email']) {
+                      <span class="flex items-center gap-1"><lucide-icon [img]="X" class="w-3 h-3"></lucide-icon> Please enter a valid email address.</span>
+                    }
+                  </div>
+                }
+              </div>
+
+              <!-- Password Field -->
+              <div>
+                <div class="flex items-center justify-between">
+                  <label for="password" class="form-label">Password</label>
+                  <a [routerLink]="[`/auth/reset-password/request`]" class="link link-primary">Forgot Password?</a>
+                </div>
+                <div class="relative">
+                  <lucide-icon [img]="Lock" class="w-5 h-5 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400/70 pointer-events-none"></lucide-icon>
+                  <input
+                    id="password"
+                    type="password"
+                    [(ngModel)]="userLoginRequest.password"
+                    placeholder="••••••••••••"
+                    name="password"
+                    class="form-input input-special"
+                    [ngClass]="{'form-input-error': password.invalid && password.touched}"
+                    required
+                    minlength="8"
+                    #password="ngModel">
+                </div>
+
+                @if (password.invalid && password.touched) {
+                  <div class="form-error flex flex-col gap-0.5">
+                    @if (password.errors?.['required']) {
+                      <span class="flex items-center gap-1"><lucide-icon [img]="X" class="w-3 h-3"></lucide-icon> Password is required.</span>
+                    }
+                    @if (password.errors?.['minlength']) {
+                      <span class="flex items-center gap-1"><lucide-icon [img]="X" class="w-3 h-3"></lucide-icon> Password must be at least 8 characters long.</span>
+                    }
+                  </div>
+                }
+              </div>
+
+              <!-- Submit Button -->
+              <button
+                type="button"
+                class="btn-primary btn-special flex items-center justify-center gap-2 mt-6"
+                [ngClass]="{'hover:from-sky-500 hover:to-blue-600': email.invalid || password.invalid}"
+                (click)="login()"
+                [disabled]="email.invalid || password.invalid">
+
+                @if (!isLoading) {
+                  <span class="flex items-center gap-2">
+                    <span>Sign In</span>
+                    <lucide-icon [img]="LogIn" class="w-4 h-4"></lucide-icon>
+                  </span>
+                }
+                @if (isLoading) {
+                  <span class="flex items-center gap-2">
+                    <lucide-icon [img]="Loader2" class="w-4 h-4 animate-spin"></lucide-icon>
+                    <span>Signing in...</span>
+                  </span>
+                }
+              </button>
+            </form>
+
+            <!-- Divider -->
+            <div class="relative my-6 flex items-center">
+              <div class="flex-grow border-t border-sky-800/60"></div>
+              <span class="flex-shrink mx-3 text-xs text-sky-200/60 uppercase tracking-wider font-semibold">New to TuitionToAll?</span>
+              <div class="flex-grow border-t border-sky-800/60"></div>
+            </div>
+
+            <!-- Register Link Button -->
+            <a [routerLink]="['/auth/signup']" routerLinkActive="router-link-active" class="block">
+              <button type="button" class="btn-secondary w-full flex items-center justify-center gap-2">
+                <lucide-icon [img]="UserPlus" class="w-4 h-4 text-sky-400"></lucide-icon>
+                <span>Create an Account</span>
+              </button>
+            </a>
+
+          </div>
+        </app-card-shell>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <app-footer></app-footer>
+
+</div>

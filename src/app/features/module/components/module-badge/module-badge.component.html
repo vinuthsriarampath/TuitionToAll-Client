@@ -1,0 +1,5 @@
+<app-badge [text]="status()"
+           [variant]="
+           status() === ModuleStatus.PUBLISHED ? 'success':
+           status() === ModuleStatus.DRAFT ? 'secondary' :
+           status() == ModuleStatus.LOCKED ? 'warning' : 'danger'"/>

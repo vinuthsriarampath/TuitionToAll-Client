@@ -1,0 +1,257 @@
+<app-dialog-layout
+  [loading]="loading"
+  [loaderTitle]="'Creating Announcement'"
+  [title]="'Create Announcement'"
+  [description]="'Publish announcements for teachers, courses, or batches'"
+  [icon]="Megaphone"
+  (cancelEvent)="onCancel()"
+>
+
+  <div data-body>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="grid grid-cols-2 gap-5">
+
+      <!-- Title -->
+      <div class="col-span-2">
+        <label class="form-label" for="title">
+          Title <span class="text-red-500">*</span>
+        </label>
+
+        <input id="title" class="form-input" formControlName="title" placeholder="Enter announcement title"
+               [class.form-input-error]="form.get('title')?.invalid && form.get('title')?.touched"/>
+        @if (form.get('title')?.errors?.['required'] && form.get('title')?.touched) {
+          <p class="form-error"> * Title is Mandatory!</p>
+        }
+        @if (form.get('title')?.errors?.['server']) {
+          <p class="form-error"> * {{ form.get('title')?.errors?.['server'] }}</p>
+        }
+      </div>
+
+      <!-- Description -->
+      <div class="col-span-2">
+        <label class="form-label" for="description">
+          Description <span class="text-red-500">*</span>
+        </label>
+
+        <quill-editor
+          id="description"
+          class="w-full ql-background"
+          [modules]="modules"
+          formControlName="description"
+          placeholder="Enter your announcement description here...">
+        </quill-editor>
+        @if (form.get('description')?.errors?.['required'] && form.get('description')?.touched) {
+          <p class="form-error"> * Description is Mandatory!</p>
+        }
+        @if (form.get('description')?.errors?.['server'] && form.get('description')?.touched) {
+          <p class="form-error"> * {{ form.get('description')?.errors?.['server'] }}</p>
+        }
+
+      </div>
+
+      <!-- Visibility -->
+      <div>
+        <label for="visibility" class="form-label">
+          Visibility <span class="text-red-500">*</span>
+        </label>
+
+        <select class="form-input" id="visibility" formControlName="visibility"
+                [class.form-input-error]="form.get('visibility')?.invalid && form.get('visibility')?.touched">
+          <option [ngValue]="null" disabled>
+            -- Select Visibility --
+          </option>
+
+          @for (v of visibilities; track v) {
+            <option [value]="v">
+              {{ v }}
+            </option>
+          }
+        </select>
+
+        @if (form.get('visibility')?.errors?.['required'] && form.get('visibility')?.touched) {
+          <p class="form-error"> * Visibility is Mandatory!</p>
+        }
+        @if (form.get('visibility')?.errors?.['server'] && form.get('visibility')?.touched) {
+          <p class="form-error"> * {{ form.get('visibility')?.errors?.['server'] }}</p>
+        }
+      </div>
+
+      <!-- Status -->
+      <div>
+        <label for="status" class="form-label">
+          Status <span class="text-red-500">*</span>
+        </label>
+
+        <select class="form-input" id="status" formControlName="status"
+                [class.form-input-error]="form.get('status')?.invalid && form.get('status')?.touched">
+          <option [ngValue]="null" disabled>
+            -- Select Status --
+          </option>
+
+          @for (s of statuses; track s) {
+            <option [value]="s">
+              {{ s }}
+            </option>
+          }
+        </select>
+
+        @if (form.get('status')?.errors?.['required'] && form.get('status')?.touched) {
+          <p class="form-error"> * Status is Mandatory!</p>
+        }
+        @if (form.get('status')?.errors?.['server']) {
+          <p class="form-error"> * {{ form.get('status')?.errors?.['server'] }}</p>
+        }
+      </div>
+
+      <!-- COURSE -->
+      @if (form.value.visibility === 'COURSE' || form.value.visibility === 'BATCH') {
+
+        <app-card-shell class="col-span-2">
+          <div class="p-4">
+
+            <div class="flex items-center gap-2 mb-3">
+              <div class="w-2 h-2 rounded-full bg-sky-500"></div>
+              <h2 class="text-sm font-semibold text-blue-700">
+                Course Selection
+              </h2>
+            </div>
+
+            <label for="course" class="form-label">
+              Course <span class="text-red-500">*</span>
+            </label>
+
+            <select id="course" class="form-input" formControlName="courseId"
+                    [class.form-input-error]="form.get('courseId')?.invalid && form.get('courseId')?.touched">
+
+              @if (courses.length == 0) {
+                <option [ngValue]="null" disabled selected>
+                  No courses available
+                </option>
+              } @else {
+                <option [ngValue]="null" disabled>
+                  -- Select Course --
+                </option>
+
+                @for (c of courses; track c.id) {
+                  <option [ngValue]="c.id">
+                    {{ c.title }}
+                  </option>
+                }
+              }
+
+            </select>
+            @if (form.get('courseId')?.errors?.['server']) {
+              <p class="form-error"> * {{ form.get('courseId')?.errors?.['server'] }}</p>
+            }
+
+            <!-- Selected Course Preview -->
+            @if (selectedCourseTitle) {
+              <app-card-shell class="block mt-3">
+                <div class="p-3">
+                  <p class="para-primary">
+                    Selected Course
+                  </p>
+
+                  <p class="para-light">
+                    {{ selectedCourseTitle }}
+                  </p>
+                </div>
+              </app-card-shell>
+            }
+          </div>
+        </app-card-shell>
+      }
+
+      <!-- BATCH -->
+      @if (form.value.visibility === 'BATCH') {
+
+        <app-card-shell class="col-span-2">
+
+          <div class="p-4">
+
+            <div class="flex items-center gap-2 mb-3">
+              <div class="w-2 h-2 rounded-full bg-purple-500"></div>
+              <h2>
+                Batch Selection
+              </h2>
+            </div>
+
+            <label for="batch" class="form-label">Batch <span class="text-red-500">*</span></label>
+
+            <select id="batch" class="form-input" formControlName="batchId"
+                    [class.form-input-error]="(form.get('batchId')?.invalid || form.get('expireAt')?.errors?.['server']) && form.get('batchId')?.touched">
+
+              @if (!form.get('courseId')?.value) {
+                <option [ngValue]="null" disabled selected>
+                  -- Select a Course First --
+                </option>
+              } @else if (batches.length == 0) {
+                <option [ngValue]="null" disabled selected>
+                  No batches available for the selected course
+                </option>
+              } @else {
+                <option [ngValue]="null" disabled selected>
+                  -- Select a Batch --
+                </option>
+                @for (b of batches; track b.id) {
+                  <option [ngValue]="b.id">
+                    {{ b.name }}
+                  </option>
+                }
+              }
+            </select>
+
+            @if (form.get('batchId')?.errors?.['server']) {
+              <p class="form-error"> * {{ form.get('batchId')?.errors?.['server'] }}</p>
+            }
+
+            <!-- Selected Batch Preview -->
+            @if (selectedBatchName) {
+              <app-card-shell class="block mt-3">
+                <div class="p-3">
+                  <p class="para-primary">
+                    Selected Batch
+                  </p>
+
+                  <p class="para-light">
+                    {{ selectedBatchName }}
+                  </p>
+                </div>
+              </app-card-shell>
+            }
+          </div>
+        </app-card-shell>
+      }
+
+      <!-- Expire Date -->
+      <div class="col-span-2">
+        <label for="expireDate" class="form-label">
+          Expire At <span class="text-red-500">*</span>
+        </label>
+
+        <input class="form-input h-11" id="expireDate" type="datetime-local" formControlName="expireAt"
+               [class.form-input-error]="form.get('expireAt')?.invalid && form.get('expireAt')?.touched"/>
+
+        @if (form.get('expireAt')?.errors?.['required'] && form.get('expireAt')?.touched) {
+          <p class="form-error"> * expireAt is Mandatory!</p>
+        }
+        @if (form.get('expireAt')?.errors?.['server']) {
+          <p class="form-error">{{ form.get('expireAt')?.errors?.['server'] }}</p>
+        }
+      </div>
+
+      <!-- Footer -->
+      <div class="col-span-2 flex justify-end gap-3 pt-3 border-t border-gray-200">
+
+        <button type="button" class="btn-mini-secondary" (click)="onRest()" [disabled]="loading">
+          Reset
+        </button>
+
+        <button class="btn-mini-primary" type="submit" [disabled]="form.invalid || loading">
+          Create Announcement
+        </button>
+
+      </div>
+
+    </form>
+  </div>
+</app-dialog-layout>

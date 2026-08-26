@@ -1,0 +1,41 @@
+<app-page-layout
+  [headerTitle]="batch.name"
+  [headerDescription]="'All the details about the batch'"
+  [showBackButton]="true"
+>
+  @if (batch.batch_status != BatchStatus.COMPLETED) {
+    <button data-actions class="btn-primary font-semibold" (click)="editBatch()">Edit</button>
+  }
+  <div data-body>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+
+      <app-card-shell>
+        <app-card-header [title]="'Start Date'" [description]="batch.start_date | date"/>
+      </app-card-shell>
+
+      <app-card-shell>
+        <app-card-header [title]="'Start Time'" [description]="batch.start_time"/>
+      </app-card-shell>
+
+      <app-card-shell>
+        <app-card-header [title]="'Seat Limit'"
+                         [description]="batch.is_seat_limited ? batch.max_seat_limit : 'No Limit Set!'"/>
+      </app-card-shell>
+    </div>
+
+    <div class="flex justify-between items-center mb-4 ">
+      <mat-tab-group class="custom-tabs w-full" mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="500ms">
+        <mat-tab label="Modules">
+          <ng-template matTabContent>
+            <app-module-section [batchId]="batch.id"></app-module-section>
+          </ng-template>
+        </mat-tab>
+        <mat-tab label="Students">
+          <ng-template matTabContent>
+            <app-batch-student-section [batchId]="batch.id"></app-batch-student-section>
+          </ng-template>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</app-page-layout>

@@ -1,0 +1,122 @@
+<!-- Desktop Search -->
+<div class="lg:relative hidden lg:block w-full">
+  <div class="relative">
+    <lucide-icon [img]="Search" class="w-4 h-4 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400 pointer-events-none"></lucide-icon>
+    <label for="search" class="sr-only">Search</label>
+    <input id="search" type="search" (keydown)="onEscapeKey()" name="search"
+           class="form-input input-special w-full"
+           placeholder="Search..."
+           (focus)="toggleSearchDropdown()"
+           autocomplete="off"
+           (input)="onSearchChange($event)"/>
+  </div>
+
+  @if (isSearchDropdownOpen) {
+    <div class="search_menu absolute left-0 right-0 mt-2 p-3 w-96 max-h-[30rem] rounded-xl border border-sky-700/50 shadow-2xl bg-sky-900/95 backdrop-blur-md flex flex-col gap-1.5 overflow-y-auto scrollbar-thin scrollbar-thumb-sky-800/50 animate-in fade-in zoom-in-95 duration-150 z-50">
+
+      @if (!searchResults || (searchResults.institutes?.length === 0 && searchResults.students?.length === 0 && searchResults.teachers?.length === 0)) {
+        <p class="text-xs text-sky-200/80 p-3 text-center font-medium">No Search Results.</p>
+      }
+
+      <!-- Students -->
+      @for (results of searchResults?.students; track results.userSlug) {
+        <a [routerLink]="['/profile', results.userSlug]"
+           class="flex items-center gap-3 p-2 rounded-lg hover:bg-sky-800/60 transition-all active:scale-[0.98] cursor-pointer group">
+          <img
+            [src]="results?.dp ? (environment.USER_PROFILE_API + results?.dp) : 'profile_logo.png'"
+            alt="Student Avatar" class="h-8 w-8 rounded-full object-cover ring-1 ring-sky-500/20 group-hover:ring-sky-400 transition-all">
+          <div class="flex flex-col min-w-0 flex-1">
+            <span class="text-sm font-medium text-sky-100 group-hover:text-white truncate transition-colors">{{ $any(results.details).firstName }} {{ $any(results.details).lastName }}</span>
+            <span class="batch batch-primary text-[10px] w-fit mt-0.5">Student</span>
+          </div>
+        </a>
+      }
+
+      <!-- Teachers -->
+      @for (results of searchResults?.teachers; track results.userSlug) {
+        <a [routerLink]="['/profile', results.userSlug]"
+           class="flex items-center gap-3 p-2 rounded-lg hover:bg-sky-800/60 transition-all active:scale-[0.98] cursor-pointer group">
+          <img
+            [src]="results?.dp ? (environment.USER_PROFILE_API + results?.dp) : 'profile_logo.png'"
+            alt="Teacher Avatar" class="h-8 w-8 rounded-full object-cover ring-1 ring-sky-500/20 group-hover:ring-sky-400 transition-all">
+          <div class="flex flex-col min-w-0 flex-1">
+            <span class="text-sm font-medium text-sky-100 group-hover:text-white truncate transition-colors">{{ $any(results.details).firstName }} {{ $any(results.details).lastName }}</span>
+            <span class="batch batch-info text-[10px] w-fit mt-0.5">Teacher</span>
+          </div>
+        </a>
+      }
+
+      <!-- Institutes -->
+      @for (results of searchResults?.institutes; track results.userSlug) {
+        <a [routerLink]="['/profile', results.userSlug]"
+           class="flex items-center gap-3 p-2 rounded-lg hover:bg-sky-800/60 transition-all active:scale-[0.98] cursor-pointer group">
+          <img
+            [src]="results?.dp ? (environment.USER_PROFILE_API + results?.dp) : 'profile_logo.png'"
+            alt="Institute Avatar" class="h-8 w-8 rounded-full object-cover ring-1 ring-sky-500/20 group-hover:ring-sky-400 transition-all">
+          <div class="flex flex-col min-w-0 flex-1">
+            <span class="text-sm font-medium text-sky-100 group-hover:text-white truncate transition-colors">{{ $any(results.details).instituteName }}</span>
+            <span class="batch batch-secondary text-[10px] w-fit mt-0.5">Institute</span>
+          </div>
+        </a>
+      }
+    </div>
+  }
+</div>
+
+<!-- Mobile Search Overlay -->
+@if (isMobileSearchActive) {
+  <div class="relative flex items-center h-14 lg:hidden w-full">
+    <!-- Backdrop Blur Overlay -->
+    <div class="fixed inset-0 bg-black/40 backdrop-blur-xs z-40 transition-opacity duration-300" (keydown)="onEscapeKey()" (click)="deactivateMobileSearch()"></div>
+
+    <!-- Active Input Bar -->
+    <div class="flex items-center w-full gap-2 z-50 relative px-1">
+      <button class="p-2 bg-sky-800/50 hover:bg-sky-800 text-sky-200 hover:text-white rounded-lg transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-sky-400/50" (click)="deactivateMobileSearch()">
+        <lucide-icon [img]="ArrowLeft" class="w-5 h-5 text-sky-200"></lucide-icon>
+      </button>
+
+      <div class="relative flex-1">
+        <lucide-icon [img]="Search" class="w-4 h-4 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400 pointer-events-none"></lucide-icon>
+
+        <label for="mobileSearch" class="sr-only">Search</label>
+        <input type="search" name="mobileSearch" id="mobileSearch"
+               class="form-input input-special"
+               placeholder="Search..." autocomplete="off"
+               (input)="onSearchChange($event)" #mobileSearchInput/>
+      </div>
+    </div>
+
+    <!-- Dropdown Menu Results -->
+    @if (isSearchDropdownOpen) {
+      <div class="search_menu absolute left-1 right-1 top-16 p-3 rounded-xl border border-sky-700/50 shadow-2xl bg-sky-900/95 backdrop-blur-md flex flex-col gap-2 max-h-[70vh] overflow-y-auto scrollbar-thin scrollbar-thumb-sky-800/50 animate-in fade-in zoom-in-95 duration-150 z-50">
+        @if (!searchResults || (searchResults.institutes?.length === 0 && searchResults.students?.length === 0 && searchResults.teachers?.length === 0)) {
+          <p class="text-xs text-sky-200/80 p-3 text-center font-medium">No Search Results.</p>
+        }
+
+        @for (results of searchResults?.institutes; track results.userSlug) {
+          <a [href]="'profile/' + results.userSlug"
+             class="p-2.5 rounded-lg bg-sky-800/40 hover:bg-sky-800/80 border border-sky-700/40 text-sm font-medium text-sky-100 hover:text-white break-words transition-colors active:scale-[0.98] flex items-center justify-between">
+            <span class="truncate">{{ $any(results.details).instituteName }}</span>
+            <span class="batch batch-secondary text-[10px] ml-2 shrink-0">Institute</span>
+          </a>
+        }
+
+        @for (results of searchResults?.teachers; track results.userSlug) {
+          <a [href]="'profile/' + results.userSlug"
+             class="p-2.5 rounded-lg bg-sky-800/40 hover:bg-sky-800/80 border border-sky-700/40 text-sm font-medium text-sky-100 hover:text-white break-words transition-colors active:scale-[0.98] flex items-center justify-between">
+            <span class="truncate">{{ $any(results.details).firstName }}</span>
+            <span class="batch batch-info text-[10px] ml-2 shrink-0">Teacher</span>
+          </a>
+        }
+
+        @for (results of searchResults?.students; track results.userSlug) {
+          <a [href]="'profile/' + results.userSlug"
+             class="p-2.5 rounded-lg bg-sky-800/40 hover:bg-sky-800/80 border border-sky-700/40 text-sm font-medium text-sky-100 hover:text-white break-words transition-colors active:scale-[0.98] flex items-center justify-between">
+            <span class="truncate">{{ $any(results.details).firstName }}</span>
+            <span class="batch batch-primary text-[10px] ml-2 shrink-0">Student</span>
+          </a>
+        }
+      </div>
+    }
+  </div>
+}

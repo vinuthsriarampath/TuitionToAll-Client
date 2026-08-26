@@ -9,9 +9,9 @@
  * All rights reserved.
  */
 
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { UnderDevelopmentPageComponent } from './under-development-page.component';
+import {UnderDevelopmentPageComponent} from './under-development-page.component';
 
 describe('UnderDevelopmentPageComponent', () => {
   let component: UnderDevelopmentPageComponent;

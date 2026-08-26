@@ -9,16 +9,40 @@
  * All rights reserved.
  */
 
-import { AfterViewInit, Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RouterOutlet } from '@angular/router';
+import {Component, inject, OnInit} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {RouterOutlet} from '@angular/router';
+import {initFlowbite} from 'flowbite';
+import {QuillModule} from 'ngx-quill';
+import {AuthenticationService} from '@features/auth/services/auth/authentication.service';
+import {UserService} from '@features/user/services/user/user.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,FormsModule],
+  imports: [RouterOutlet,FormsModule,QuillModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent{
+export class AppComponent implements OnInit{
+
+  private readonly authService:AuthenticationService = inject(AuthenticationService);
+  private readonly userService:UserService = inject(UserService);
+
+  ngOnInit(): void {
+    initFlowbite();
+
+    const token = this.authService.getAuthToken();
+
+    if (token) {
+      this.authService.verifyToken().subscribe({
+        next: (res) => {
+          if (res.data) this.userService.setCurrentUser(res.data);
+        },
+        error: () => {
+          localStorage.removeItem('token');
+        }
+      });
+    }
+  }
   title = 'TuitionToAll';
 }

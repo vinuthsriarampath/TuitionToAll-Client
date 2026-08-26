@@ -9,3 +9,47 @@
  * All rights reserved.
  */
 
+/* floating clouds */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Slow gear spin */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+/* Progress bar loading pulse */
+@keyframes loading-bar {
+  0% { width: 5%; }
+  50% { width: 75%; }
+  100% { width: 45%; }
+}
+
+.animate-loading-bar {
+  animation: loading-bar 3s ease-in-out infinite;
+}
+
+/* Fade in entrance */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

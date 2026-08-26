@@ -1,0 +1,21 @@
+<app-dialog-layout title="Add resource" description="Publish Resources related to the chapter here!" [icon]="BookCopy" (cancelEvent)="onCancel()">
+  <div data-body>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+      <app-input id="name" label="Resource Name" placeholder="Enter a name for the resource" [required]="true" [control]="form.get('name')" />
+      <app-file-input  id="file" label="Resource File" placeholder="Select a resource file to upload" accept=".pdf,.doc,.docx,.ppt,.pptx,.txt,image/*" [required]="true" [control]="form.get('file')" />
+      <div *ngIf="isUploading" class="flex flex-col gap-2">
+
+        <div class="w-full bg-gray-200 rounded-full h-3">
+          <div class="bg-blue-500 h-3 rounded-full transition-all duration-300" [style.width.%]="uploadProgress"></div>
+        </div>
+
+        <span class="text-sm text-gray-600">Uploading... {{ uploadProgress }}%</span>
+
+      </div>
+      <div class="flex justify-end my-3 gap-2">
+        <button type="button" class="btn-mini-secondary" (click)="onReset()">Reset</button>
+        <button type="submit" class="btn-mini-primary" [disabled]="form.invalid || isUploading">{{ isUploading ? 'Uploading...' : 'Upload Resource' }}</button>
+      </div>
+    </form>
+  </div>
+</app-dialog-layout>

@@ -1,0 +1,20 @@
+<app-card-shell>
+  <div>
+    <app-card-header [title]="'Loading...'" [description]="'dd MMM yyyy'" [loading]="true">
+      <app-badge [text]="'Loading...'" [variant]="'secondary'"></app-badge>
+    </app-card-header>
+    <div class="flex flex-col gap-2 pl-4 p-2">
+
+      <div class="inline-flex items-center gap-2">
+        <div class="h-4 w-8 bg-sky-900/80 animate-pulse"></div>
+        <span>-</span>
+        <div class="h-4 w-8 bg-sky-900/80 animate-pulse"></div>
+      </div>
+
+      <div class="flex gap-2">
+        <button class="btn-mini-secondary btn-success" [disabled]="true">Join</button>
+        <button class="btn-mini-primary" [disabled]="true">Edit</button>
+      </div>
+    </div>
+  </div>
+</app-card-shell>

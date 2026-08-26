@@ -1,0 +1,38 @@
+<app-card-shell>
+  <div class="p-5">
+
+    <div class="flex justify-between items-center mb-4">
+
+      <div>
+        <h2>Lecture Recordings</h2>
+        <p class="para-primary">Uploaded chapter recordings</p>
+      </div>
+
+      <button (click)="openLectureRecordingUploadDialog()" class="btn-mini-primary">
+        Upload Recording
+      </button>
+
+    </div>
+
+    <div class="flex flex-col gap-4">
+      @if (loading) {
+        @for (i of [0, 1, 2]; track i) {
+          <app-recording-card-skeleton></app-recording-card-skeleton>
+        }
+      } @else {
+        <!-- Recording Card -->
+        @if (lectureRecords.length > 0){
+          @for (lectureRecord of lectureRecords; track lectureRecord.id) {
+            <app-recording-card [lectureRecord]="lectureRecord" [loading]="loading" (fetchAllLectureRecords)="this.fetchAllLectureRecords()"></app-recording-card>
+          }
+        } @else {
+          <app-no-content [title]="'No lecture recordings found'" [description]="'Upload a lecture recording to get started.'"></app-no-content>
+        }
+      }
+
+
+    </div>
+
+  </div>
+</app-card-shell>
+

@@ -9,22 +9,17 @@
  * All rights reserved.
  */
 
-import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { AppComponent } from './app/app.component';
-import { isDevMode, provideAppInitializer } from '@angular/core';
-import { inject as vercelInject } from '@vercel/analytics';
+import {bootstrapApplication} from '@angular/platform-browser';
+import {appConfig} from './app/app.config';
+import {AppComponent} from './app/app.component';
+import {provideCharts, withDefaultRegisterables} from 'ng2-charts';
 
-function initializeAnalytics() {
-  vercelInject({ mode: isDevMode() ? 'development' : 'production' });
-}
 
 setTimeout(() => {
   bootstrapApplication(AppComponent, {
     ...appConfig,
     providers: [
-      ...(appConfig.providers || []),
-      provideAppInitializer(initializeAnalytics)
+      ...(appConfig.providers || []), provideCharts(withDefaultRegisterables()),
     ]
   })
   .catch(err => console.error(err));

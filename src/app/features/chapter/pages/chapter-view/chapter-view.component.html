@@ -1,0 +1,66 @@
+<app-page-layout
+  [headerTitle]="'Chapter Management'"
+  [headerDescription]="'Manage chapter content here!'"
+  [showBackButton]="true"
+>
+  <div data-body>
+    <!-- Chapter Header -->
+    <app-card-shell class="block mb-4">
+      <div class="p-5">
+        <app-chapter-header
+          [title]="chapter.title"
+          [chapterOrder]="chapter.chapterOrder"
+          [moduleName]="chapter.module.name"
+          [status]="chapter.status"
+          [createdDate]="chapter.createdDate"
+          [lastModifiedDate]="chapter.lastModifiedDate"
+          [loading]="loading"
+          (chapterUpdated)="loadChapterDetails()"
+        />
+      </div>
+    </app-card-shell>
+
+    <!-- Summary Cards -->
+    <app-chapter-stat-row/>
+
+    <!-- Main Layout -->
+    <div class="grid grid-cols-12 gap-4">
+
+      <!-- LEFT SIDE -->
+      <div class="col-span-7 flex flex-col gap-4">
+
+        <!-- Chapter Overview -->
+        <app-chapter-overview
+          [chapterOrder]="chapter.chapterOrder"
+          [moduleName]="chapter.module.name"
+          [status]="chapter.status"
+          [loading]="loading"
+        />
+
+        <!-- Lecture Recordings -->
+        <app-lecture-recording/>
+
+      </div>
+
+      <!-- RIGHT SIDE -->
+      <div class="col-span-5 flex flex-col gap-4">
+
+        <!-- Resource Management -->
+        <app-resources/>
+
+        <!-- Scheduled Lectures -->
+        <app-scheduled-lectures/>
+
+        <!-- Chapter Assignments-->
+        <app-card-shell>
+          <div class="p-5">
+            <app-assignment-list [config]="{ type:'chapter', chapterId:this.chapter.id}" [header]="{ title: 'Assignments', description: 'Manage assignments for this chapter'}" />
+          </div>
+        </app-card-shell>
+
+      </div>
+
+    </div>
+
+  </div>
+</app-page-layout>

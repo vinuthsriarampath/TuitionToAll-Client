@@ -1,0 +1,46 @@
+import {inject, Injectable} from '@angular/core';
+import {HttpClient, HttpEvent} from '@angular/common/http';
+import {environment} from '@env/environment.development';
+import {LectureRecordUploadInitResponse} from '../../dtos/response/LectureRecordUploadInitResponse';
+import {ApiResponse} from '@shared/utils/response/api-response';
+import {Observable} from 'rxjs';
+import {LectureRecordUploadInitRequest} from '../../dtos/request/LectureRecordUploadInitRequest';
+import {LectureRecordChunkUploadResponse} from '../../dtos/response/LectureRecordChunkUploadResponse';
+import {LectureRecordResponse} from '../../dtos/response/LectureRecordResponse';
+import {LectureRecordDetailsUpdateRequest} from '../../dtos/request/LectureRecordDetailsUpdateRequest';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class LectureRecordService {
+
+  private readonly baseUrl = environment.LECTURE_RECORD_API;
+  private readonly http:HttpClient = inject(HttpClient);
+
+  initializeUpload(request: LectureRecordUploadInitRequest): Observable<ApiResponse<LectureRecordUploadInitResponse>> {
+    return this.http.post<ApiResponse<LectureRecordUploadInitResponse>>( `${this.baseUrl}/upload/init`, request );
+  }
+
+  uploadChunk( uploadId: string, chunkIndex: number, chunk: Blob ): Observable<HttpEvent<ApiResponse<LectureRecordChunkUploadResponse>>> {
+
+    const formData = new FormData();
+
+    formData.append('uploadId', uploadId);
+    formData.append('chunkIndex', chunkIndex.toString());
+    formData.append('chunk', chunk);
+
+    return this.http.post<ApiResponse<LectureRecordChunkUploadResponse>>( `${this.baseUrl}/upload/chunk`, formData, { reportProgress: true, observe: 'events' } );
+  }
+
+  completeUpload( uploadId: string ): Observable<ApiResponse<LectureRecordResponse>> {
+    return this.http.post<ApiResponse<LectureRecordResponse>>( `${this.baseUrl}/upload/complete/${uploadId}`, {} );
+  }
+
+  getStreamToken(fileName:string): Observable<ApiResponse<string>>{
+    return this.http.get<ApiResponse<string>>(`${this.baseUrl}/stream-token/${fileName}`);
+  }
+
+  updateLectureRecordDetails(lectureRecordId:number,request :LectureRecordDetailsUpdateRequest): Observable<ApiResponse<LectureRecordResponse>>{
+    return this.http.put<ApiResponse<LectureRecordResponse>>(`${this.baseUrl}/${lectureRecordId}/details`,request);
+  }
+}

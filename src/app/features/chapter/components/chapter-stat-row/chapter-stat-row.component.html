@@ -1,0 +1,6 @@
+<div class="grid grid-cols-4 gap-4 mb-4">
+  <app-stat-card title="Resources" [value]="chapterStats.resourceCount" [loading]="loading"/>
+  <app-stat-card title="Lecture Recordings" [value]="chapterStats.lectureRecordingCount" [loading]="loading"/>
+  <app-stat-card title="Upcoming Scheduled Lectures" [value]="chapterStats.upcomingScheduleLectureCount" [loading]="loading"/>
+  <app-stat-card title="Active Chapter Assignments" [value]="chapterStats.activeAssignmentsCount" [loading]="loading"/>
+</div>

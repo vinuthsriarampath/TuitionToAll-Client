@@ -1,0 +1,63 @@
+<p class="form-label mb-2 flex items-center gap-1">
+  {{ label() }}
+
+  @if (required()) {
+    <span class="text-rose-400 font-bold" aria-hidden="true">*</span>
+  }
+</p>
+
+<div
+  class="flex flex-col gap-2.5 transition-all duration-200"
+  [class.border]="showContainer()"
+  [class.rounded-xl]="showContainer()"
+  [class.p-4]="showContainer()"
+  [class.bg-sky-950\80]="showContainer()"
+  [class.backdrop-blur-md]="showContainer()"
+  [class.border-sky-950\80]="showContainer() && !hasError()"
+  [class.form-input-error]="hasError()"
+  [class.border-rose-500\80]="hasError()"
+  [class.bg-rose-950\10]="hasError() && showContainer()">
+
+@for (opt of options(); track getValue(opt)) {
+  <label
+    class="group relative flex items-center gap-3 p-2 rounded-lg cursor-pointer select-none transition-all duration-150 hover:bg-sky-900/30 active:scale-[0.99]"
+    [for]="id() + '-' + getValue(opt)">
+
+    <!-- MULTIPLE SELECT -->
+    @if (multiple()) {
+      <input
+        type="checkbox"
+        class="peer cursor-pointer h-4 w-4 rounded-md border-sky-700 bg-slate-900/80 text-sky-500 focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900 transition-colors"
+        [id]="id() + '-' + getValue(opt)"
+        [checked]="isChecked(getValue(opt))"
+        (change)="onMultipleChange($event, getValue(opt))"/>
+    }
+
+    <!-- SINGLE SELECT -->
+    @if (!multiple()) {
+      <input
+        type="checkbox"
+        class="peer cursor-pointer h-4 w-4 rounded-md border-sky-700 bg-slate-900/80 text-sky-500 focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900 transition-colors"
+        [id]="id() + '-' + getValue(opt)"
+        [checked]="control()?.value === getValue(opt)"
+        (change)="onSingleChange($event, getValue(opt))"/>
+    }
+
+    <span class="text-sm font-medium text-sky-100 group-hover:text-white transition-colors">
+        {{ getLabel(opt) }}
+      </span>
+  </label>
+}
+</div>
+
+@if (control()?.errors?.['required'] && control()?.touched) {
+  <p class="form-error mt-1.5 flex items-center gap-1.5 text-xs font-medium text-rose-400 animate-in fade-in slide-in-from-top-2">
+    <span>*</span> {{ label() }} is Mandatory!
+  </p>
+}
+
+@if (control()?.errors?.['server']) {
+  <p class="form-error mt-1.5 flex items-center gap-1.5 text-xs font-medium text-rose-400 animate-in fade-in slide-in-from-top-2">
+    <span>*</span> {{ control()?.errors?.['server'] }}
+  </p>
+}

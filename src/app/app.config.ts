@@ -9,12 +9,12 @@
  * All rights reserved.
  */
 
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import {ApplicationConfig, provideZoneChangeDetection} from '@angular/core';
+import {provideRouter} from '@angular/router';
 
-import { routes } from './app.routes';
+import {routes} from './app.routes';
 import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
-import {AuthInterceptor} from './core/interceptors/authInterceptor';
+import {AuthInterceptor} from '@core/interceptors/authInterceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [

@@ -1,0 +1,148 @@
+<div class="h-screen flex overflow-hidden relative bg-slate-900 selection:bg-sky-500 selection:text-white">
+
+  <!-- Sidebar Overlay Backdrop (Mobile/UX friendly) -->
+  @if (sidebarOpen) {
+    <div class="fixed inset-0 bg-black/40 backdrop-blur-xs z-40 transition-opacity duration-300" (click)="sidebarOpen = false">
+    </div>
+  }
+
+  <!-- Sidebar Navigation -->
+  <aside
+    class="fixed inset-y-0 left-0 z-50 flex flex-col transition-all duration-300 ease-in-out border-r border-sky-800/50"
+    [ngClass]="sidebarOpen
+      ? 'w-72 px-5 py-3 bg-sky-950/80 backdrop-blur-md shadow-2xl opacity-100 translate-x-0'
+      : 'w-0 p-0 opacity-0 -translate-x-full overflow-hidden'">
+
+    <!-- Sidebar Header -->
+    <div class="h-14 flex items-center justify-between border-b border-sky-800/40 pb-2">
+      <div class="flex items-center gap-x-3">
+        <div class="p-1 bg-sky-900/40 rounded-lg ring-1 ring-sky-500/20">
+          <img [ngSrc]="'tuitiontoall_logo.png'" width="28" height="28" class="rounded cursor-pointer object-contain" alt="app-logo"/>
+        </div>
+        <span class="text-base font-semibold tracking-wide text-sky-50 drop-shadow-sm">TuitionToAll</span>
+      </div>
+      <button
+        class="p-1.5 bg-sky-800/50 hover:bg-sky-800 text-sky-200 hover:text-white rounded-lg transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-sky-400/50"
+        (click)="sidebarOpen = !sidebarOpen"
+        (keydown.enter)="sidebarOpen = !sidebarOpen">
+        <lucide-icon [name]="menu" class="w-5 h-5"></lucide-icon>
+      </button>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <div class="flex-1 overflow-y-auto py-4 scrollbar-thin scrollbar-thumb-sky-800/50">
+      <ul [hidden]="!sidebarOpen" class="space-y-1">
+        @for (menu of menus; track menu.title) {
+          <!-- Menu Item -->
+          <li
+            [routerLink]="menu.subMenu ? null : [menu.route]"
+            class="group text-sky-100 flex items-center gap-x-3 cursor-pointer hover:bg-sky-800/60 active:scale-[0.98] rounded-lg p-2.5 transition-all duration-150 ease-in-out"
+            routerLinkActive="bg-sky-800 text-white font-medium shadow-sm ring-1 ring-sky-500/30"
+            [routerLinkActiveOptions]="{exact : true}"
+            [ngClass]="menu.spacing ? 'mt-6' : 'mt-1'"
+            (click)="menu.subMenu && (subMenuOpen = !subMenuOpen)"
+            (keydown.enter)="menu.subMenu && (subMenuOpen = !subMenuOpen)"
+            (keydown.space)="$event.preventDefault(); menu.subMenu && (subMenuOpen = !subMenuOpen)">
+
+            <lucide-icon [img]="menu.icon" size="18" class="text-sky-300 group-hover:text-white transition-colors"></lucide-icon>
+            <p class="text-sm font-medium flex-1 tracking-wide">{{ menu.title }}</p>
+
+            @if (menu.subMenu && sidebarOpen) {
+              <!-- Submenu Arrow -->
+              <lucide-icon
+                [img]="dropDownIcon"
+                class="w-4 h-4 text-sky-400 transition-transform duration-200 ease-in-out"
+                [ngClass]="{'rotate-180': subMenuOpen}"
+                (click)="$event.stopPropagation(); subMenuOpen = !subMenuOpen">
+              </lucide-icon>
+            }
+          </li>
+
+          <!-- Submenu Dropdown -->
+          @if (menu.subMenu && subMenuOpen && sidebarOpen) {
+            <ul class="pl-4 mt-1 space-y-1 border-l-2 border-sky-800/60 ml-4 animate-in fade-in slide-in-from-top-2 duration-200">
+              @for (subMenuItem of menu.subMenuItems; track subMenuItem.title) {
+                <li
+                  [routerLink]="[subMenuItem.route]"
+                  routerLinkActive="text-white font-semibold bg-sky-800/40"
+                  class="text-sky-200/80 text-sm flex items-center cursor-pointer hover:text-white hover:bg-sky-800/40 rounded-md p-2 px-3 transition-all duration-150">
+                  <span class="text-xs font-medium flex-1">{{ subMenuItem.title }}</span>
+                </li>
+              }
+            </ul>
+          }
+        }
+      </ul>
+    </div>
+  </aside>
+
+  <!-- Main Content Area Wrapper -->
+  <div class="flex-1 flex flex-col overflow-hidden w-full">
+
+    <!-- Top Header Bar -->
+    <header class="py-2 px-4 h-14 flex bg-sky-950/80 backdrop-blur-md border-b border-sky-800/50 items-center justify-between shadow-md z-30">
+
+      <!-- Sidebar Trigger Toggle -->
+      <button
+        class="p-2 bg-sky-800/40 hover:bg-sky-800 text-sky-200 hover:text-white rounded-lg transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-sky-400/50 active:scale-95"
+        (click)="sidebarOpen = !sidebarOpen"
+        (keydown.enter)="sidebarOpen = !sidebarOpen">
+        <lucide-icon [name]="menu" class="w-5 h-5"></lucide-icon>
+      </button>
+
+      <app-breadcrumb/>
+
+      <!-- Profile Menu Button -->
+      <div class="relative">
+        <button
+          class="flex items-center gap-2 p-1 bg-sky-800/40 hover:bg-sky-800/80 ring-1 ring-sky-500/20 rounded-full transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-sky-400"
+          (click)="profileMenuOpen = !profileMenuOpen"
+          (keydown.enter)="profileMenuOpen = !profileMenuOpen">
+          <img
+            [src]="UserHelper.getProfileImageUrl(institute)"
+            class="w-8 h-8 rounded-full object-cover shadow-sm ring-1 ring-white/10"
+            alt="user-dp"/>
+        </button>
+
+        <!-- Profile Dropdown Popover -->
+        @if (profileMenuOpen) {
+          <!-- Click Outside Overlay -->
+          <div class="fixed inset-0 z-40" (click)="profileMenuOpen = false"></div>
+
+          <div class="absolute right-0 mt-2 w-56 bg-sky-950/80 backdrop-blur-md border-b border-sky-800/50 shadow-2xl rounded-xl p-2 z-50 animate-in fade-in zoom-in-95 duration-150">
+            <div class="px-3 py-2 border-b border-sky-700/40 mb-1 ">
+              <p class="text-xs text-sky-300 font-medium uppercase tracking-wider">Account</p>
+              <p class="text-sky-50 text-sm font-semibold truncate mt-0.5" [title]="UserHelper.getDisplayName(institute)">{{ UserHelper.getDisplayName(institute) }}</p>
+              <p class="text-xs text-sky-200/80 truncate mt-0.5" [title]="institute.email">{{ institute.email }}</p>
+            </div>
+
+            <ul class="space-y-1">
+              <li [routerLink]="['/app']" (click)="profileMenuOpen = false"
+                class="flex items-center gap-x-2 text-sky-100 hover:text-white hover:bg-sky-700/60 rounded-lg p-2 transition-colors cursor-pointer text-sm font-medium">
+                <span class="text-sm font-medium">Feed</span>
+              </li>
+              <li [routerLink]="['/profile/'+institute.userSlug]" (click)="profileMenuOpen = false"
+                class="flex items-center gap-x-2 text-sky-100 hover:text-white hover:bg-sky-700/60 rounded-lg p-2 transition-colors cursor-pointer text-sm font-medium">
+                <span class="text-sm font-medium">Profile</span>
+              </li>
+              <li (click)="profileMenuOpen = false"
+                class="flex items-center gap-x-2 text-sky-100 hover:text-white hover:bg-sky-700/60 rounded-lg p-2 transition-colors cursor-pointer text-sm font-medium">
+                <span class="text-sm font-medium">Settings</span>
+              </li>
+              <li (click)="logout()"
+                  class="flex items-center gap-x-2 text-rose-300 hover:text-rose-100 hover:bg-rose-900/40 rounded-lg p-2 transition-colors cursor-pointer text-sm font-medium border-t border-sky-700/30 mt-1">
+                Logout
+              </li>
+            </ul>
+          </div>
+        }
+      </div>
+    </header>
+
+    <!-- Router Outlet Container -->
+    <main class="flex-1 overflow-auto p-6 md:p-8 bg-gradient-to-br from-slate-900 via-sky-950 to-gray-900 fade-in animate-in duration-200">
+      <router-outlet></router-outlet>
+    </main>
+
+  </div>
+</div>

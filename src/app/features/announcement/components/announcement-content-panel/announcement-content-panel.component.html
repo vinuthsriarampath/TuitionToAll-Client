@@ -1,0 +1,38 @@
+<app-card-shell>
+
+  <app-card-header
+    title="Content Information"
+    description="Update title, description and expire date">
+
+    <button card-action
+      class="btn-mini-primary flex items-center gap-1" (click)="openContentUpdate()">
+
+      <lucide-icon [img]="SquarePen" [size]="14"></lucide-icon>
+      Edit Content
+    </button>
+
+  </app-card-header>
+
+  <div class="p-5 grid grid-cols-2 gap-5">
+
+    <div class="col-span-2">
+
+      <app-info-row
+        label="Announcement Title"
+        [value]="announcement().title">
+      </app-info-row>
+
+    </div>
+
+    <div class="col-span-2">
+
+      <app-info-row
+        label="Expire At"
+        [value]="formatDate(announcement().expireAt)">
+      </app-info-row>
+
+    </div>
+
+  </div>
+
+</app-card-shell>

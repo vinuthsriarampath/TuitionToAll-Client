@@ -1,0 +1,20 @@
+<app-card-shell [variant]="'secondary'">
+  <div class="p-4">
+    <div class="flex gap-2 items-start">
+      <img [ngSrc]="'profile_logo.png'" alt="Anonymous Student Profile" class="h-10 w-10 rounded-full border border-slate-200 object-cover dark:border-slate-700" height="256" width="256"/>
+      <div class="flex flex-col">
+        <p class="para-light font-medium ">Anonymous</p>
+        <p class="text-xs para-primary">
+          {{ feedback().createdDate | date:'mediumDate' }}
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <p [class.line-clamp-3]="!expandedFeedbacks[feedback().id]" class="para-light leading-relaxed whitespace-pre-line"> {{feedback().feedback}}</p>
+      @if (feedback().feedback && feedback().feedback.length > 200) {
+        <button (click)="toggleExpand(feedback().id)" class="mt-1 text-xs font-semibold text-sky-50 hover:underline focus:outline-none cursor-pointer">{{ expandedFeedbacks[feedback().id] ? 'Show Less' : 'Read More' }}</button>
+      }
+    </div>
+  </div>
+</app-card-shell>

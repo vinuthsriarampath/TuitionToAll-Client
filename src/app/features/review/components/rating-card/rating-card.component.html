@@ -1,0 +1,31 @@
+<app-card-shell [variant]="'secondary'">
+  <div class="flex items-center gap-6 p-4">
+    <div class="flex flex-col items-center justify-center border-r border-slate-200 pr-6 dark:border-slate-800">
+            <span class="text-4xl font-extrabold text-slate-900 dark:text-white">
+              {{ avgRating() | number:'1.1-1' }}
+            </span>
+      <span class="text-xs font-medium text-slate-500 dark:text-slate-400">out of 5</span>
+    </div>
+
+    <div class="flex flex-col gap-1.5">
+      <div class="flex items-center gap-1 text-amber-400">
+        <div class="flex items-center gap-1">
+          @for (star of [1, 2, 3, 4, 5]; track star) {
+            @if (avgRating() >= star) {
+              <lucide-icon [img]="Star" class="h-5 w-5 fill-amber-400 text-amber-400"></lucide-icon>
+            } @else if (avgRating() >= star - 0.75 && avgRating() < star) {
+              <lucide-icon [img]="StarHalf" class="h-5 w-5 fill-amber-400 text-amber-400"></lucide-icon>
+            } @else {
+              <lucide-icon [img]="Star" class="h-5 w-5 text-slate-300 dark:text-slate-600"></lucide-icon>
+            }
+          }
+        </div>
+      </div>
+
+      <div class="flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-400">
+        <lucide-icon [img]="Users" class="h-3.5 w-3.5"></lucide-icon>
+        <span>Based on <strong>{{ totalRatings() | number }}</strong> student ratings</span>
+      </div>
+    </div>
+  </div>
+</app-card-shell>

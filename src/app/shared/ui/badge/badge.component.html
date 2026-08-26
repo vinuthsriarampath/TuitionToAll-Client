@@ -1,0 +1,12 @@
+<span
+  class="batch inline-flex items-center justify-center gap-1.5 px-2.5 py-1 text-xs font-semibold tracking-wide rounded-full transition-all duration-200 ease-in-out cursor-default select-none shadow-xs"
+  [ngClass]="classes()"
+>
+  @if (icon()) {
+    <lucide-icon [img]="icon()" [size]="14" class="shrink-0 transition-transform duration-200"></lucide-icon>
+  }
+
+  <span class="truncate leading-none">
+    {{ text() }}
+  </span>
+</span>

@@ -1,0 +1,89 @@
+<app-page-layout [headerTitle]="module.name" headerDescription="Manage module, chapters and assignments" [showBackButton]="true">
+
+  <div data-actions class="inline-flex gap-2">
+    <button type="button" (click)="openChapterCreateDialog()" class="btn-primary"> Add Chapter</button>
+    <button type="button" (click)="openModuleUpdateViewDialog()" class="btn-primary"> Edit Module</button>
+  </div>
+
+  <div data-body class="h-full  flex gap-4 p-3">
+
+    <!-- Left Side (Module Card) -->
+    <div class="relative w-80 rounded-2xl p-3 shadow-lg overflow-hidden">
+
+      <!-- Background Image -->
+      <img
+        ngSrc="/no_image_provided.png"
+        width="1280" height="720" alt="background-img"
+        class="absolute inset-0 w-full h-full object-cover scale-125 blur-xl"
+      />
+
+      <!-- Dark Overlay -->
+      <div class="absolute inset-0 bg-black/50"></div>
+
+      <!-- Content -->
+      <div class="relative z-10 flex flex-col ">
+
+        <!-- Module Thumbnail -->
+        <div class="w-full h-48 overflow-hidden rounded-lg mb-3">
+          <img
+            ngSrc="/no_image_provided.png"
+            width="1280" height="720" alt="Module Thumbnail"
+            class="w-full h-48 object-cover rounded-lg"
+          />
+        </div>
+
+        <!-- Title -->
+        <h1 class="text-xl font-semibold mb-2">
+          {{ module.name }}
+        </h1>
+
+        <!-- Meta Row -->
+        <div class="flex justify-between">
+          <div class="flex flex-row gap-1 items-center">
+            <p class="para-light">Created At:</p>
+            <p class="para-light">{{ module.createdDate | date:'dd MMM yyyy' }}</p>
+          </div>
+          <app-module-badge [status]="module.status"></app-module-badge>
+        </div>
+
+        <!-- Teacher -->
+        <div class="flex flex-row gap-1 mt-1 items-center">
+          <p class="para-light">Teacher:</p>
+          <a [routerLink]="['/profile', module.teacher.userslug]" class="link link-light link-sm">
+            {{ module.teacher.firstName }} {{ module.teacher.lastName }}
+          </a>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-row justify-center items-center mt-3 gap-2">
+          <button (click)="openModuleUpdateViewDialog()" matTooltip="Edit Module" matTooltipPosition="above"
+                  class="bg-white/10 rounded-full p-2 cursor-pointer">
+            <lucide-icon [img]="Pen" [size]="20" class="filled-icon"></lucide-icon>
+          </button>
+
+          <button (click)="openChapterCreateDialog()" matTooltip="Add Chapter" matTooltipPosition="above"
+                  class="bg-white/10 rounded-full p-2 cursor-pointer">
+            <lucide-icon [img]="Plus" [size]="20" class="filled-icon"></lucide-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Side -->
+    <div class="flex-1 overflow-y-auto flex flex-col">
+      <mat-tab-group class="custom-tabs w-full" mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="500ms">
+        <mat-tab label="Chapters" >
+          <ng-template matTabContent>
+            <app-chapter-list [triggerRefresh]="chapterRefreshTrigger" class="flex-1 overflow-y-auto"></app-chapter-list>
+          </ng-template>
+        </mat-tab>
+        <mat-tab label="Module Assignments">
+          <ng-template matTabContent>
+            <app-assignment-list [config]="{type: 'module',moduleId: module.id}" [header]="{ title: 'Assignments', description:'Manage all module assignments'}" class="flex-1 overflow-y-auto"/>
+          </ng-template>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</app-page-layout>
+

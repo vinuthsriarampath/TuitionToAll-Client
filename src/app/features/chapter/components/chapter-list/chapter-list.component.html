@@ -1,0 +1,84 @@
+@if(loading){
+  <div class="flex flex-col items-center justify-center gap-3 h-screen">
+    <app-loader-overlay title="Loading Chapters" description="Fetching all chapters from the server."></app-loader-overlay>
+  </div>
+} @else {
+
+  @if (chapters.length > 0) {
+
+    <div class="chapter-boundry flex flex-col gap-3" cdkDropList (cdkDropListDropped)="drop($event)">
+
+      @for (chapter of chapters; track chapter.id; let i = $index) {
+
+        <app-card-shell cdkDrag cdkDragLockAxis="y" cdkDragBoundary=".chapter-boundry" class="group transition-all duration-200 hover:-translate-y-[1px]" [routerLink]="['chapters',chapter.id]">
+
+          <div class="flex items-center justify-between gap-3 p-3">
+
+            <!-- Left -->
+            <div class="flex items-center gap-3 flex-1 min-w-0">
+
+              <!-- Drag Handle -->
+              <div cdkDragHandle class="cursor-grab active:cursor-grabbing text-sky-400 hover:text-sky-600 transition">
+                <lucide-icon [img]="GripVertical" [size]="18"></lucide-icon>
+              </div>
+
+              <!-- Order -->
+              <app-card-shell>
+                <div class="w-9 h-9 flex items-center justify-center shrink-0">
+                  <p>{{ i + 1 }}</p>
+                </div>
+              </app-card-shell>
+
+              <!-- Chapter Info -->
+              <div class="flex flex-col min-w-0 flex-1">
+
+                <div class="flex items-center gap-2 flex-wrap">
+
+                  <h2>{{ chapter.title }}</h2>
+
+                  <!-- Status -->
+                  <app-chapter-badge [status]="chapter.status"></app-chapter-badge>
+
+                </div>
+
+                <!-- Meta -->
+                <div class="flex items-center gap-3 mt-1 text-xs text-gray-500">
+
+                  <app-badge [icon]="BookOpen" [text]="`Chapter ${ i + 1 }`" [variant]="'info'"></app-badge>
+
+                  @if (chapter.createdDate) {
+                    <app-badge [icon]="CalendarDays" [text]="`${ chapter.createdDate | date:'MMM d, y' }`" [variant]="'primary'"></app-badge>
+                  }
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- Right Actions -->
+            <div class="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">
+
+              <button (click)="onEditClick($event,chapter)" class="w-9 h-9 cursor-pointer rounded-lg btn-primary transition flex items-center justify-center" matTooltip="Edit Chapter" matTooltipPosition="above">
+                <lucide-icon [img]="Pencil" [size]="16"></lucide-icon>
+              </button>
+
+            </div>
+
+          </div>
+
+        </app-card-shell>
+
+      }
+
+    </div>
+  } @else {
+
+    <div class="flex flex-col items-center justify-center gap-3 p-4">
+      <app-no-content class="block w-full"
+        [title]="'No Chapters Found!'"
+        [description]="'You can create your first chapter by clicking the Add Chapter button above.'"
+      ></app-no-content>
+    </div>
+  }
+}

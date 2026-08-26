@@ -1,0 +1,5 @@
+export enum BatchStatus {
+  PREPARATION = 'PREPARATION',
+  ONGOING = 'ONGOING',
+  COMPLETED = 'COMPLETED'
+}

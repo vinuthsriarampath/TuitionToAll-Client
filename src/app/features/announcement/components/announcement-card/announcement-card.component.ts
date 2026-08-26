@@ -1,0 +1,33 @@
+import {Component, input} from '@angular/core';
+import {AnnouncementResponse} from '../../dtos/response/AnnouncementResponse';
+import {QuillEditorComponent} from 'ngx-quill';
+import {DatePipe} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {AnnouncementStatus} from '../../enums/AnnouncementStatus';
+import {AnnouncementVisibility} from '../../enums/AnnouncementVisibility';
+import {BookOpen, CalendarClock, LucideAngularModule, Pin, Users} from 'lucide-angular';
+import {BadgeComponent, CardShellComponent} from '@shared/ui';
+
+@Component({
+  selector: 'app-announcement-card',
+  imports: [
+    QuillEditorComponent,
+    DatePipe,
+    BadgeComponent,
+    CardShellComponent,
+    FormsModule,
+    LucideAngularModule
+  ],
+  templateUrl: './announcement-card.component.html',
+  styleUrl: './announcement-card.component.css'
+})
+export class AnnouncementCardComponent {
+
+  announcement = input.required<AnnouncementResponse>();
+  protected readonly AnnouncementStatus = AnnouncementStatus;
+  protected readonly AnnouncementVisibility = AnnouncementVisibility;
+  protected readonly Pin = Pin;
+  protected readonly Users = Users;
+  protected readonly BookOpen = BookOpen;
+  protected readonly CalendarClock = CalendarClock;
+}

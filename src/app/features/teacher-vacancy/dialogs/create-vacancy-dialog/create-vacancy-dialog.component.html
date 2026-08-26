@@ -1,0 +1,54 @@
+<app-dialog-layout
+  [loading]="loading"
+  [loaderTitle]="'Creating Vacancy'"
+  [title]="'Create Vacancy'"
+  [description]="'Create vacancy details'"
+  [icon]="SquarePen"
+  (cancelEvent)="onCancel()"
+>
+  <div data-body>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="gap-4 grid grid-cols-1 md:grid-cols-2">
+      <div class="col-span-2">
+        <label for="title" class="form-label">Title <span class="text-red-500">*</span></label>
+        <input type="text" id="title" class="form-input" placeholder="Title" formControlName="title">
+        @if (form.get('title')?.errors?.['required'] && form.get('title')?.touched) {
+          <p class="form-error">Title is required</p>
+        }
+      </div>
+      <div class="col-span-1">
+        <label for="yearsOfExperience" class="form-label">Years Of Experience Required <span class="text-red-500">*</span></label>
+        <input type="number" id="yearsOfExperience" class="form-input" placeholder="YearsOfExperience" formControlName="requiredExperienceYears">
+        @if (form.get('requiredExperienceYears')?.errors?.['required'] && form.get('requiredExperienceYears')?.touched) {
+          <p class="form-error">Years of Experience is required</p>
+        }
+        @if (form.get('requiredExperienceYears')?.errors?.['min'] && form.get('requiredExperienceYears')?.touched) {
+          <p class="form-error">Years of Experience must be greater than or equal to 0</p>
+        }
+      </div>
+
+      <div class="col-span-1">
+        <label for="deadline" class="form-label">Deadline <span class="text-red-500">*</span></label>
+        <input type="datetime-local" id="deadline" class="form-input" placeholder="Deadline" formControlName="vacancyClosingDate">
+        @if (form.get('vacancyClosingDate')?.errors?.['required'] && form.get('vacancyClosingDate')?.touched) {
+          <p class="form-error">Deadline is required</p>
+        }
+        @if (form.get('vacancyClosingDate')?.errors?.['isFutureDate'] && form.get('vacancyClosingDate')?.touched) {
+          <p class="form-error"> {{ form.get('vacancyClosingDate')?.errors?.['isFutureDate'].message }} </p>
+        }
+      </div>
+      <div class="col-span-2">
+        <label for="jobDescription" class="form-label">Job Description <span class="text-red-500">*</span></label>
+        <quill-editor class="w-full ql-background" id="jobDescription" [modules]="modules" formControlName="jobDescription"
+                      placeholder="Enter Your Job Description Here...">
+        </quill-editor>
+        @if (form.get('jobDescription')?.errors?.['required'] && form.get('jobDescription')?.touched) {
+          <p class="form-error">Job Description is required</p>
+        }
+      </div>
+      <div class="col-span-2 flex justify-end gap-4">
+        <input type="button" (click)="onReset()" class="btn-mini-secondary" value="Reset">
+        <input type="submit" class="btn-mini-primary" value="Create Vacancy">
+      </div>
+    </form>
+  </div>
+</app-dialog-layout>

@@ -1,0 +1,19 @@
+<app-card-shell>
+  <div class="p-5 flex flex-col gap-3">
+
+    <div class="flex justify-between items-start">
+      <div>
+        <h2 class="text-lg font-semibold text-sky-50 tracking-tight">{{ vacancy().title }}</h2>
+
+        <div class="flex gap-2 mt-1">
+          <app-badge [text]="vacancy().requiredExperienceYears + ' yrs exp'" variant="warning"></app-badge>
+          <app-badge [text]="'Closes: ' + (vacancy().vacancyClosingDate | date:'mediumDate')" variant="danger"></app-badge>
+        </div>
+      </div>
+
+      <button [routerLink]="[vacancy().id + '/apply']" class="btn-mini-primary">Apply</button>
+    </div>
+
+    <quill-editor [readOnly]="true" [modules]="{toolbar:false}" class="prose w-full h-auto" [styles]="{ border: 'none'}" [ngModel]="vacancy().jobDescription"></quill-editor>
+  </div>
+</app-card-shell>

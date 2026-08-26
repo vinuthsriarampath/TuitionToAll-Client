@@ -1,0 +1,35 @@
+<mat-tree #tree [dataSource]="nodes" [childrenAccessor]="childrenAccessor">
+
+  <!-- Expandable Folder Nodes ('Batches' container or individual 'Batch') -->
+  <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+    <button mat-icon-button matTreeNodeToggle (click)="onNodeToggle(node)" class="mr-1">
+      <lucide-icon
+        [img]="tree.isExpanded(node) ? ChevronDown : ChevronRight"
+        class="w-4 h-4 text-sky-400">
+      </lucide-icon>
+    </button>
+
+    <span class="font-semibold text-sky-50">{{ node.title }}</span>
+
+    <!-- Spinner when modules are fetching -->
+    @if (node.loading) {
+      <span class="ml-2 text-xs text-sky-400 animate-pulse">Loading modules...</span>
+    }
+  </mat-tree-node>
+
+  <!-- Leaf Nodes (Module or Batch without children) -->
+  <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding class="pl-10">
+    @if (node.type === 'load-more') {
+      <!-- Load More Button Node -->
+      <button
+        (click)="onLoadMore(node.parentId)"
+        class="text-xs font-semibold text-sky-400 hover:text-sky-300 hover:underline cursor-pointer py-1">
+        + {{ node.title }}
+      </button>
+    } @else {
+      <!-- Standard Module Leaf Node -->
+      <span class="text-sm font-medium text-sky-200/90">{{ node.title }}</span>
+    }
+  </mat-tree-node>
+
+</mat-tree>

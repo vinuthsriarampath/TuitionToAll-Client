@@ -1,0 +1,25 @@
+<div class="px-5 py-4   flex justify-between items-center gap-4 transition-all">
+
+  <div class="min-w-0 flex-1">
+    @if (!loading()) {
+      <h2 class="text-base md:text-lg font-semibold tracking-wide text-sky-50 drop-shadow-sm truncate">
+        {{ title() }}
+      </h2>
+
+      @if (description()) {
+        <p class="text-xs text-sky-200/80 mt-1 leading-relaxed">
+          {{ description() }}
+        </p>
+      }
+    } @else {
+      <div class="h-7 w-32 bg-sky-900/80 animate-pulse mb-1"></div>
+      <div class="h-4 w-48 bg-sky-900/80 animate-pulse"></div>
+    }
+
+  </div>
+
+  <div class="flex items-center gap-2 shrink-0">
+    <ng-content select="[card-action]"></ng-content>
+  </div>
+
+</div>
