@@ -28,6 +28,10 @@ import {User} from '../../../user/dtos/responses/user';
 import {Institute} from '../../../institute/dtos/response/institute';
 import {Teacher} from '../../../teacher/dtos/responses/teacher';
 import {Student} from '../../../student/dtos/responses/student';
+import {UserService} from '@features/user/services/user/user.service';
+import {Observable, of, tap} from 'rxjs';
+import {catchError, map} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -35,10 +39,19 @@ import {Student} from '../../../student/dtos/responses/student';
 export class AuthenticationService {
 
   constructor(private readonly http:HttpClient) { }
+  private readonly http: HttpClient = inject(HttpClient);
+  private readonly userService = inject(UserService);
+  private readonly router = inject(Router);
 
   login(UserLoginRequest:UserLoginRequest){
 
     return this.http.post<AuthResponse>(`${environment.AUTH_API}/login`, UserLoginRequest)
+    return this.http.post<AuthResponse>(`${environment.AUTH_API}/login`, UserLoginRequest).pipe(tap(response => {
+      this.setAuthToken(response.token);
+      if(response.user){
+        this.userService.setCurrentUser(response.user);
+      }
+    }))
   }
 
   registerStudent(StudentRegistrationRequest:StudentRegistrationRequest){
@@ -65,8 +78,16 @@ export class AuthenticationService {
     return this.http.post<ApiResponse<null>>(`${environment.AUTH_API}/forgot-password/reset?token=${token}`, newPassword);
   }
 
+  setAuthToken(token: string){
+    localStorage.setItem('token', token as string);
+  }
+
   getAuthToken(){
     return localStorage.getItem('token')
+  }
+
+  removeAuthToken(){
+    localStorage.removeItem('token');
   }
 
   validateInstitute(){
@@ -74,7 +95,7 @@ export class AuthenticationService {
   }
 
   logout() {
-    const token: string|null = localStorage.getItem("token");
+    const token: string|null = this.getAuthToken();
 
     if(token){
       localStorage.removeItem("token");
