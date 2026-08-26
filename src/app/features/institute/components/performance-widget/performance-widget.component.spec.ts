@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PerformanceWidgetComponent } from './performance-widget.component';
+import {PerformanceWidgetComponent} from './performance-widget.component';
 
 describe('PerformanceWidgetComponent', () => {
   let component: PerformanceWidgetComponent;

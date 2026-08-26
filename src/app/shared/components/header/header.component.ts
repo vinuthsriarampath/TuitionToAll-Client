@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {GraduationCap, LucideAngularModule, Menu, X} from "lucide-angular";
 import {NgClass} from '@angular/common';
 

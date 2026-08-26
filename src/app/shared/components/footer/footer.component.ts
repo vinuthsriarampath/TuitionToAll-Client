@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {GraduationCap, LucideAngularModule} from "lucide-angular";
 
 @Component({

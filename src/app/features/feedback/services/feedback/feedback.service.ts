@@ -2,7 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment} from '@env/environment.development';
 import {FeedbackCreateRequest} from '@features/feedback/dto/requests/feedback-create-request';
-import { Observable } from "rxjs";
+import {Observable} from "rxjs";
 import {ApiResponse} from '@shared/utils/response/api-response';
 import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
 import {PaginatedApiResponse} from '@shared/utils/response/paginated-api-response';

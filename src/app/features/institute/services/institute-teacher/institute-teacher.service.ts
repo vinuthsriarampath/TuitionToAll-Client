@@ -9,7 +9,9 @@ import {ApplicationRejectionRequest} from '../../../applications/dtos/request/Ap
 import {ApplicationRejectionResponse} from '../../../applications/dtos/response/ApplicationRejectionResponse';
 import {PaginatedApiResponse} from '@shared/utils/response/paginated-api-response';
 import {InstituteTeacherResponse} from '../../dtos/response/institute-teacher-responses/InstituteTeacherResponse';
-import {InstituteTeacherStatsResponse} from '../../dtos/response/institute-teacher-responses/InstituteTeacherStatsResponse';
+import {
+  InstituteTeacherStatsResponse
+} from '../../dtos/response/institute-teacher-responses/InstituteTeacherStatsResponse';
 import {TeacherBasicResponse} from '../../../teacher/dtos/responses/TeacherBasicResponse';
 
 @Injectable({

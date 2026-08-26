@@ -5,6 +5,7 @@ import {CardShellComponent} from '@shared/ui';
 import {CoursePerformanceResponse} from '@features/course/dtos/response/course-performance-response';
 import {NoContentComponent} from '@shared/components/no-content/no-content.component';
 import {RouterLink} from '@angular/router';
+
 export interface CoursePerformance {
   rank: string;
   title: string;

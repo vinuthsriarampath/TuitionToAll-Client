@@ -1,4 +1,4 @@
-import {Component, computed, effect, input} from '@angular/core';
+import {Component, computed, input} from '@angular/core';
 import {ChartConfiguration, ChartType} from 'chart.js';
 import {BaseChartDirective} from 'ng2-charts';
 import {ArrowDownRight, ArrowUpRight, LucideAngularModule, LucideIconData} from 'lucide-angular';

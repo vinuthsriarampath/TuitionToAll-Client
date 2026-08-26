@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { FeedbackCardComponent } from './feedback-card.component';
+import {FeedbackCardComponent} from './feedback-card.component';
 
 describe('FeedbackCardComponent', () => {
   let component: FeedbackCardComponent;

@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { BatchStudentSectionComponent } from './batch-student-section.component';
+import {BatchStudentSectionComponent} from './batch-student-section.component';
 
 describe('BatchStudentSectionComponent', () => {
   let component: BatchStudentSectionComponent;

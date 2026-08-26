@@ -1,4 +1,4 @@
-import { EnrollmentEligibilityResponse } from './enrollment-eligibility-response';
+import {EnrollmentEligibilityResponse} from './enrollment-eligibility-response';
 
 describe('EnrollmentEligibilityResponse', () => {
   it('should create an instance', () => {

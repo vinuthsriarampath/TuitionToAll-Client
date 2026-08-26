@@ -2,12 +2,18 @@ import {Component, inject, input, OnInit} from '@angular/core';
 import {BatchService} from '@features/batch/services/batch/batch.service';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
-import { AlertService } from "@core/services/alerts/alert.service";
+import {AlertService} from "@core/services/alerts/alert.service";
 import {
-  MatCell, MatCellDef,
+  MatCell,
+  MatCellDef,
   MatColumnDef,
   MatHeaderCell,
-  MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatNoDataRow, MatRow, MatRowDef,
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatNoDataRow,
+  MatRow,
+  MatRowDef,
   MatTable,
   MatTableDataSource
 } from '@angular/material/table';

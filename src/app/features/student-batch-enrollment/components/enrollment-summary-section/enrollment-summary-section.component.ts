@@ -1,4 +1,4 @@
-import {Component, inject, input, OnInit, output} from '@angular/core';
+import {Component, inject, input, output} from '@angular/core';
 import {Course} from '@features/course/dtos/response/course';
 import {Batch} from '@features/batch/dtos/response/batch';
 import {CardShellComponent, InfoRowComponent} from '@shared/ui';
@@ -7,7 +7,9 @@ import {AlertTriangle, LucideAngularModule, ShieldCheck} from 'lucide-angular';
 import {
   StudentEnrollmentService
 } from '@features/student-batch-enrollment/services/student-enrollment/student-enrollment.service';
-import {EnrollmentRequest} from '@features/student-batch-enrollment/dtos/requests/enrollment-request/enrollment-request';
+import {
+  EnrollmentRequest
+} from '@features/student-batch-enrollment/dtos/requests/enrollment-request/enrollment-request';
 import {AlertService} from '@core/services/alerts/alert.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {

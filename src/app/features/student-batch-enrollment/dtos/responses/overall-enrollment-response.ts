@@ -1,4 +1,4 @@
-import { TrendPoint } from "@shared/utils/response/trend-point";
+import {TrendPoint} from "@shared/utils/response/trend-point";
 
 export class OverallEnrollmentResponse {
   trendPoints!: TrendPoint[];

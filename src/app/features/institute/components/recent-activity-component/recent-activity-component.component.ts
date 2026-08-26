@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {
   ArrowRight,
   Calendar,
@@ -6,7 +6,8 @@ import {
   CreditCard,
   GraduationCap,
   LucideAngularModule,
-  LucideIconData, UserPlus
+  LucideIconData,
+  UserPlus
 } from 'lucide-angular';
 import {CardShellComponent} from '@shared/ui';
 

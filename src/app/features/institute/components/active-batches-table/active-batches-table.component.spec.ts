@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ActiveBatchesTableComponent } from './active-batches-table.component';
+import {ActiveBatchesTableComponent} from './active-batches-table.component';
 
 describe('ActiveBatchesTableComponent', () => {
   let component: ActiveBatchesTableComponent;

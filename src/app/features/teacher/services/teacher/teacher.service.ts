@@ -1,9 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {environment} from '@env/environment.development';
 import {HttpClient} from '@angular/common/http';
-import {
-  TeacherDetailsUpdateRequest
-} from '@features/teacher/dtos/requests/TeacherDetailsUpdateRequest';
+import {TeacherDetailsUpdateRequest} from '@features/teacher/dtos/requests/TeacherDetailsUpdateRequest';
 import {ApiResponse} from '@shared/utils/response/api-response';
 import {Teacher} from '@features/teacher/dtos/responses/teacher';
 

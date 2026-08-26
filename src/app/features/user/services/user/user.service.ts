@@ -13,20 +13,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ApiResponse} from '@shared/utils/response/api-response';
 import {environment} from '@env/environment.development';
-import {
-  InstituteDetailsUpdateRequest
-} from '../../../institute/dtos/requests/InstituteDetailsUpdateRequest';
-import {
-  StudentDetailsUpdateRequest
-} from '../../../student/dtos/requests/StudentDetailsUpdateRequest';
-import {
-  TeacherDetailsUpdateRequest
-} from '../../../teacher/dtos/requests/TeacherDetailsUpdateRequest';
 import {User} from '../../dtos/responses/user';
 import {BehaviorSubject} from 'rxjs';
-import {Institute} from '../../../institute/dtos/response/institute';
-import {Teacher} from '../../../teacher/dtos/responses/teacher';
-import {Student} from '../../../student/dtos/responses/student';
 
 @Injectable({
   providedIn: 'root'

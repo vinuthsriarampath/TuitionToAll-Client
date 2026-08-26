@@ -29,7 +29,9 @@ import {AlertService} from '@core/services/alerts/alert.service';
 import {environment} from '@env/environment.development';
 import {InstituteTeacherStatus} from '../../enums/InstituteTeacherStatus';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
-import {InstituteTeacherStatsResponse} from '../../dtos/response/institute-teacher-responses/InstituteTeacherStatsResponse';
+import {
+  InstituteTeacherStatsResponse
+} from '../../dtos/response/institute-teacher-responses/InstituteTeacherStatsResponse';
 import {BadgeComponent, CardShellComponent, StatCardComponent} from '@shared/ui';
 import {NoContentComponent} from '@shared/components/no-content/no-content.component';
 

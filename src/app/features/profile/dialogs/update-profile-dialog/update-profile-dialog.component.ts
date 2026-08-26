@@ -5,15 +5,9 @@ import {Institute} from '../../../institute/dtos/response/institute';
 import {Teacher} from '../../../teacher/dtos/responses/teacher';
 import {Student} from '../../../student/dtos/responses/student';
 import {NgClass, NgIf} from '@angular/common';
-import {
-  InstituteDetailsUpdateRequest
-} from '../../../institute/dtos/requests/InstituteDetailsUpdateRequest';
-import {
-  TeacherDetailsUpdateRequest
-} from '../../../teacher/dtos/requests/TeacherDetailsUpdateRequest';
-import {
-  StudentDetailsUpdateRequest
-} from '../../../student/dtos/requests/StudentDetailsUpdateRequest';
+import {InstituteDetailsUpdateRequest} from '../../../institute/dtos/requests/InstituteDetailsUpdateRequest';
+import {TeacherDetailsUpdateRequest} from '../../../teacher/dtos/requests/TeacherDetailsUpdateRequest';
+import {StudentDetailsUpdateRequest} from '../../../student/dtos/requests/StudentDetailsUpdateRequest';
 import {User} from '../../../user/dtos/responses/user';
 import {DialogLayoutComponent} from '@core/layouts';
 import {SquarePen} from 'lucide-angular';

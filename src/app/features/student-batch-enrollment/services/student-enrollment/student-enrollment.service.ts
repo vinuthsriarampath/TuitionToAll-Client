@@ -2,7 +2,9 @@ import {inject, Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment} from '@env/environment.development';
 import {Observable} from 'rxjs';
-import {EnrollmentRequest} from '@features/student-batch-enrollment/dtos/requests/enrollment-request/enrollment-request';
+import {
+  EnrollmentRequest
+} from '@features/student-batch-enrollment/dtos/requests/enrollment-request/enrollment-request';
 import {
   EnrollmentEligibilityCheckRequest
 } from '@features/student-batch-enrollment/dtos/requests/enrollment-eligibility-check-request/enrollment-eligibility-check-request';

@@ -5,8 +5,13 @@ import {
   MatColumnDef,
   MatHeaderCell,
   MatHeaderCellDef,
-  MatHeaderRow, MatHeaderRowDef, MatNoDataRow, MatRow, MatRowDef,
-  MatTable, MatTableDataSource
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatNoDataRow,
+  MatRow,
+  MatRowDef,
+  MatTable,
+  MatTableDataSource
 } from '@angular/material/table';
 import {ArrowRight, Eye, LucideAngularModule} from 'lucide-angular';
 import {BadgeComponent, CardShellComponent} from '@shared/ui';

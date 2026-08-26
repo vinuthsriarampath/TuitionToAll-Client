@@ -24,7 +24,9 @@ import {
 import {PasswordResetPageComponent} from '@features/auth/pages/password-reset-page/password-reset-page.component';
 import {AppComponent} from '@core/layouts/app/app.component';
 import {FeedComponent} from '@features/feed/pages/feed.component';
-import {InstituteDashboardComponent} from '@features/dashboards/pages/institute-dashboard/institute-dashboard.component';
+import {
+  InstituteDashboardComponent
+} from '@features/dashboards/pages/institute-dashboard/institute-dashboard.component';
 import {instituteRoleGuard} from '@core/guards/institute-role-guard/institute-role.guard';
 import {
   InstituteCourseManagementComponent
@@ -71,7 +73,9 @@ import {AssignmentResolverData} from '@features/assignments/resolvers/assignment
 import {AnnouncementResolverData} from '@features/announcement/resolvers/announcement-resolver-data';
 import {ChapterResolverData} from '@features/chapter/resolvers/chapter-resolver-data';
 import {TeacherVacancyResolverData} from '@features/teacher-vacancy/resolvers/teacher-vacancy-resolver-data';
-import {CourseCheckoutComponent} from '@features/student-batch-enrollment/pages/course-checkout/course-checkout.component';
+import {
+  CourseCheckoutComponent
+} from '@features/student-batch-enrollment/pages/course-checkout/course-checkout.component';
 import {
   CourseFeedbackReviewComponent
 } from '@features/course/pages/course-feedback-review/course-feedback-review.component';

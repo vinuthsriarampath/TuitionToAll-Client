@@ -8,9 +8,9 @@ import {BatchCreateRequest} from '@features/batch/dtos/request/batch-create-requ
 import {BatchUpdateRequest} from '@features/batch/dtos/request/batch-update-request';
 import {PaginatedApiResponse} from '@shared/utils/response/paginated-api-response';
 import {ModuleResponse} from '@features/module/dtos/response/ModuleResponse';
-import { StudentUserResponse } from "@features/student/dtos/responses/student-user-response/student-user-response";
+import {StudentUserResponse} from "@features/student/dtos/responses/student-user-response/student-user-response";
 import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
-import { BatchFilterRequest } from "@features/batch/dtos/request/batch-filter-request";
+import {BatchFilterRequest} from "@features/batch/dtos/request/batch-filter-request";
 import {BatchDetailedResponse} from '@features/batch/dtos/response/batch-detailed-response';
 
 @Injectable({

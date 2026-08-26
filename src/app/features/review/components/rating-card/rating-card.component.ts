@@ -2,7 +2,6 @@ import {Component, input} from '@angular/core';
 import {CardShellComponent} from "@shared/ui";
 import {DecimalPipe} from "@angular/common";
 import {LucideAngularModule, Star, StarHalf, Users} from "lucide-angular";
-import {Course} from '@features/course/dtos/response/course';
 
 @Component({
   selector: 'app-rating-card',
