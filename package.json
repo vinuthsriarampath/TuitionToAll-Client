@@ -1,6 +1,6 @@
 {
-  "name": "tuition-to-all-client",
-  "version": "2.2.1",
+  "name": "tuitiontoall-client",
+  "version": "2.3.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0",
