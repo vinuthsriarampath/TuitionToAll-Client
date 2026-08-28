@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, effect, inject, OnDestroy, OnInit} from '@angular/core';
 import {PageLayoutComponent} from '@core/layouts';
 import {KpiCardComponent} from '@features/institute/components/kpi-card/kpi-card.component';
 import {
@@ -30,6 +30,13 @@ import {RouterLink} from '@angular/router';
 import {InstituteService} from '@features/institute/services/institute/institute.service';
 import {AlertService} from '@core/services/alerts/alert.service';
 import {InstituteBootstrapResponse} from '@features/institute/dtos/response/institute-bootstrap-response';
+import {
+  InstituteDashboardWebsocketService
+} from '@features/institute/services/institute-dashboard-websocket/institute-dashboard-websocket.service';
+import {UserService} from '@features/user/services/user/user.service';
+import {
+  EnrollmentMetricsUpdatedResponse
+} from '@features/student-batch-enrollment/responses/EnrollmentMetricsUpdatedResponse';
 
 @Component({
   selector: 'app-home-page',
@@ -47,17 +54,33 @@ import {InstituteBootstrapResponse} from '@features/institute/dtos/response/inst
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
-export class HomePageComponent implements OnInit{
+export class HomePageComponent implements OnInit, OnDestroy{
 
   protected bootstrapData = new InstituteBootstrapResponse();
   protected isLoading:boolean = false;
 
-
+  private readonly dashboardWebSocketService = inject(InstituteDashboardWebsocketService);
   private readonly instituteService = inject(InstituteService);
   private readonly alertService = inject(AlertService);
+  private readonly userService = inject(UserService);
 
   ngOnInit(): void {
-      this.fetchBootstrapData();
+    this.fetchBootstrapData();
+    const instituteId = this.userService.getCurrentUser().details.id;
+    this.dashboardWebSocketService.subscribeToInstituteEnrollmentMetrics(instituteId);
+  }
+
+  ngOnDestroy(): void {
+      this.dashboardWebSocketService.unsubscribeFromInstituteEnrollmentMetrics();
+  }
+
+  constructor() {
+
+    effect(() => {
+      const update = this.dashboardWebSocketService.enrollmentMetricsUpdated();
+      if (!update) {return;}
+      this.applyEnrollmentMetricsUpdate(update);
+    });
   }
 
   private fetchBootstrapData():void{
@@ -82,6 +105,16 @@ export class HomePageComponent implements OnInit{
 
   private triggerLoading():void{
     this.isLoading = !this.isLoading;
+  }
+
+  private applyEnrollmentMetricsUpdate(update: EnrollmentMetricsUpdatedResponse): void {
+    this.bootstrapData.kpiStats = {
+      ...this.bootstrapData.kpiStats,
+      activeStudents: update.studentKpi,
+      revenue: update.revenueKpi
+    };
+    this.bootstrapData.overallEnrollment = update.overallEnrollment;
+    this.bootstrapData.enrollmentDistribution = update.enrollmentDistribution;
   }
 
   protected readonly Users = Users;
