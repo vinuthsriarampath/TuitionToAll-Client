@@ -1,6 +1,9 @@
 import {Injectable, signal} from '@angular/core';
-import {Client} from '@stomp/stompjs';
+import {Client, IMessage, StompSubscription} from '@stomp/stompjs';
 import {environment} from '@env/environment.development';
+import {
+  EnrollmentMetricsUpdatedResponse
+} from '@features/student-batch-enrollment/responses/EnrollmentMetricsUpdatedResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -73,6 +76,17 @@ export class StompClientService {
     this.connected.set(false);
 
     this.client.deactivate();
+  }
+
+  subscribe(destination: string, callback: (message: IMessage) => void): StompSubscription | undefined {
+
+    if (!this.connected()) {
+      console.warn(`[STOMP] Cannot subscribe to ${destination} before connection`);
+      return undefined;
+    }
+    const subscription = this.client.subscribe(destination, callback);
+    console.log(`[STOMP] Subscribed to ${destination}`);
+    return subscription;
   }
 
 }
