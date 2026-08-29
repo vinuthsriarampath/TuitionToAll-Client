@@ -37,6 +37,9 @@ import {UserService} from '@features/user/services/user/user.service';
 import {
   EnrollmentMetricsUpdatedResponse
 } from '@features/student-batch-enrollment/responses/EnrollmentMetricsUpdatedResponse';
+import {
+  InstituteTeacherMetricsUpdatedResponse
+} from '@features/institute/dtos/response/institute-teacher-responses/institute-teacher-metrics-updated-response';
 
 @Component({
   selector: 'app-home-page',
@@ -68,10 +71,12 @@ export class HomePageComponent implements OnInit, OnDestroy{
     this.fetchBootstrapData();
     const instituteId = this.userService.getCurrentUser().details.id;
     this.dashboardWebSocketService.subscribeToInstituteEnrollmentMetrics(instituteId);
+    this.dashboardWebSocketService.subscribeToTeacherMetrics(instituteId);
   }
 
   ngOnDestroy(): void {
       this.dashboardWebSocketService.unsubscribeFromInstituteEnrollmentMetrics();
+      this.dashboardWebSocketService.unsubscribeToTeacherMetrics();
   }
 
   constructor() {
@@ -80,6 +85,13 @@ export class HomePageComponent implements OnInit, OnDestroy{
       const update = this.dashboardWebSocketService.enrollmentMetricsUpdated();
       if (!update) {return;}
       this.applyEnrollmentMetricsUpdate(update);
+    });
+
+    effect(() => {
+      const update= this.dashboardWebSocketService.teacherMetricsUpdated();
+      console.log('Teacher metrics update received:', update);
+      if(!update){return;}
+      this.applyTeacherMetricsUpdate(update);
     });
   }
 
@@ -115,6 +127,13 @@ export class HomePageComponent implements OnInit, OnDestroy{
     };
     this.bootstrapData.overallEnrollment = update.overallEnrollment;
     this.bootstrapData.enrollmentDistribution = update.enrollmentDistribution;
+  }
+
+  private applyTeacherMetricsUpdate(update: InstituteTeacherMetricsUpdatedResponse): void {
+    this.bootstrapData.kpiStats = {
+      ...this.bootstrapData.kpiStats,
+      activeTeachers: update.activeTeachers
+    };
   }
 
   protected readonly Users = Users;
