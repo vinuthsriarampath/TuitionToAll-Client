@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, effect, inject, OnDestroy, OnInit} from '@angular/core';
 import {PageLayoutComponent} from '@core/layouts';
 import {KpiCardComponent} from '@features/institute/components/kpi-card/kpi-card.component';
 import {
@@ -30,6 +30,25 @@ import {RouterLink} from '@angular/router';
 import {InstituteService} from '@features/institute/services/institute/institute.service';
 import {AlertService} from '@core/services/alerts/alert.service';
 import {InstituteBootstrapResponse} from '@features/institute/dtos/response/institute-bootstrap-response';
+import {
+  InstituteDashboardWebsocketService
+} from '@features/institute/services/institute-dashboard-websocket/institute-dashboard-websocket.service';
+import {UserService} from '@features/user/services/user/user.service';
+import {
+  EnrollmentMetricsUpdatedResponse
+} from '@features/student-batch-enrollment/responses/EnrollmentMetricsUpdatedResponse';
+import {
+  InstituteTeacherMetricsUpdatedResponse
+} from '@features/institute/dtos/response/institute-teacher-responses/institute-teacher-metrics-updated-response';
+import {
+  InstituteCourseMetricsUpdatedResponse
+} from '@features/course/dtos/response/institute-course-metrics-updated-response';
+import {
+  InstituteBatchMetricsUpdatedResponse
+} from '@features/batch/dtos/response/institute-batch-metrics-updated-response';
+import {
+  InstituteDashboardStoreService
+} from '@features/institute/services/institute-dashboard-store/institute-dashboard-store.service';
 
 @Component({
   selector: 'app-home-page',
@@ -47,17 +66,26 @@ import {InstituteBootstrapResponse} from '@features/institute/dtos/response/inst
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
-export class HomePageComponent implements OnInit{
-
-  protected bootstrapData = new InstituteBootstrapResponse();
-  protected isLoading:boolean = false;
+export class HomePageComponent implements OnInit, OnDestroy{
 
 
+  private readonly dashboardWebSocketService = inject(InstituteDashboardWebsocketService);
   private readonly instituteService = inject(InstituteService);
   private readonly alertService = inject(AlertService);
+  private readonly userService = inject(UserService);
+  private readonly store = inject(InstituteDashboardStoreService);
+
+  protected data = this.store.dashboard;
+  protected isLoading:boolean = false;
 
   ngOnInit(): void {
-      this.fetchBootstrapData();
+    this.fetchBootstrapData();
+    const instituteId = this.userService.getCurrentUser().details.id;
+    this.dashboardWebSocketService.connect(instituteId);
+  }
+
+  ngOnDestroy(): void {
+      this.dashboardWebSocketService.disconnect();
   }
 
   private fetchBootstrapData():void{
@@ -65,7 +93,7 @@ export class HomePageComponent implements OnInit{
     this.instituteService.getInstituteBootstrapData().subscribe({
       next: (res) => {
         if(res.data){
-          this.bootstrapData = res.data;
+          this.store.setBootstrapData(res.data);
         }
         this.triggerLoading();
       },

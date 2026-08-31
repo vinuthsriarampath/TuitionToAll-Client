@@ -34,6 +34,7 @@ interface Environment {
   TEACHER_API:string;
   REVIEW_API?: string;
   FEEDBACK_API?: string;
+  BROKER_URL: string;
 }
 
 const BASE_URL = 'http://localhost:8080/api/v2';
@@ -63,5 +64,6 @@ export const environment: Environment = {
   TEACHER_API: `${BASE_URL}/teachers`,
   REVIEW_API: `${BASE_URL}/reviews`,
   FEEDBACK_API: `${BASE_URL}/feedbacks`,
+  BROKER_URL: 'ws://localhost:8080/ws',
 };
 

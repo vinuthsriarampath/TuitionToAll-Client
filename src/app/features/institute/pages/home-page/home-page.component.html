@@ -41,7 +41,7 @@
 
       </div>
 
-    } @else if (bootstrapData) {
+    } @else if (data()) {
 
       <div class="space-y-4">
 
@@ -149,7 +149,7 @@
             <div class="text-left">
               <p class="font-bold text-sm">View Students</p>
               <p class="para-xs text-sky-200">
-                {{ bootstrapData.kpiStats.activeStudents.value }}
+                {{ data().kpiStats.activeStudents.value }}
                 enrolled
               </p>
             </div>
@@ -161,11 +161,11 @@
 
         <!-- KPI Cards -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-          <app-kpi-card title="Active Students" [data]="bootstrapData.kpiStats.activeStudents" [icon]="Users"></app-kpi-card>
-          <app-kpi-card title="Published Courses" [data]="bootstrapData.kpiStats.publishedCourses" [icon]="BookOpen"></app-kpi-card>
-          <app-kpi-card title="Ongoing Batches" [data]="bootstrapData.kpiStats.ongoingBatches" [icon]="Calendar"></app-kpi-card>
-          <app-kpi-card title="Teachers" [data]="bootstrapData.kpiStats.activeTeachers" [icon]="GraduationCap"></app-kpi-card>
-          <app-kpi-card title="Revenue" [data]="bootstrapData.kpiStats.revenue" [icon]="Wallet"></app-kpi-card>
+          <app-kpi-card title="Active Students" [data]="data().kpiStats.activeStudents" [icon]="Users"></app-kpi-card>
+          <app-kpi-card title="Published Courses" [data]="data().kpiStats.publishedCourses" [icon]="BookOpen"></app-kpi-card>
+          <app-kpi-card title="Ongoing Batches" [data]="data().kpiStats.ongoingBatches" [icon]="Calendar"></app-kpi-card>
+          <app-kpi-card title="Teachers" [data]="data().kpiStats.activeTeachers" [icon]="GraduationCap"></app-kpi-card>
+          <app-kpi-card title="Revenue" [data]="data().kpiStats.revenue" [icon]="Wallet"></app-kpi-card>
         </div>
 
 
@@ -173,24 +173,24 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
           <div class="lg:col-span-2">
-            <app-enrollment-cart [data]="bootstrapData.overallEnrollment"></app-enrollment-cart>
+            <app-enrollment-cart [data]="data().overallEnrollment"></app-enrollment-cart>
           </div>
           <div class="lg:col-span-1">
-            <app-distribution-chart [data]="bootstrapData.enrollmentDistribution"></app-distribution-chart>
+            <app-distribution-chart [data]="data().enrollmentDistribution"></app-distribution-chart>
           </div>
 
         </div>
 
 
         <!-- Active Batches -->
-        <app-active-batches-table [data]="bootstrapData.activeBatches"></app-active-batches-table>
+        <app-active-batches-table [data]="data().activeBatches"></app-active-batches-table>
 
 
         <!-- Performance + Activity -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
 
           <div class="lg:col-span-2">
-            <app-performance-widget [courses]="bootstrapData.coursePerformance"></app-performance-widget>
+            <app-performance-widget [courses]="data().coursePerformance"></app-performance-widget>
           </div>
           <div class="lg:col-span-1">
             <app-recent-activity-component></app-recent-activity-component>

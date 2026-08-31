@@ -15,7 +15,6 @@ import {UserLoginRequest} from '../../dtos/request/user-login-request';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {AuthenticationService} from '../../services/auth/authentication.service';
-import {UserService} from '@features/user/services/user/user.service';
 import {
   AlertCircle,
   ArrowRight,
@@ -56,8 +55,8 @@ export class LoginPageComponent {
   isLoading:boolean=false;
   errorMessage?:string;
   error?:boolean;
-  private readonly userService:UserService = inject(UserService);
-  constructor(private readonly authService: AuthenticationService, private readonly router:Router) {}
+  private readonly authService: AuthenticationService = inject(AuthenticationService);
+  private readonly router:Router = inject(Router);
 
   login() {
     this.isLoading=true;
@@ -70,17 +69,12 @@ export class LoginPageComponent {
         next: (response) => {
 
           if (response) {
-            localStorage.setItem('token',response.token as string)
-            if(response.user) this.userService.setCurrentUser(response?.user)
-
             this.isLoading=false;
             this.router.navigate(['app'])
           } else {
-
             this.errorMessage='UnExpected Error ! ';
             this.isLoading=false;
             this.hideErrorAfterDelay();
-
           }
         },
         error: (error) => {
@@ -92,7 +86,9 @@ export class LoginPageComponent {
         }
       });
     } else {
-      console.log('Form is invalid');
+      this.errorMessage='Please fill in all required fields.';
+      this.isLoading=false;
+      this.hideErrorAfterDelay();
     }
   }
 
