@@ -46,6 +46,9 @@ import {
 import {
   InstituteBatchMetricsUpdatedResponse
 } from '@features/batch/dtos/response/institute-batch-metrics-updated-response';
+import {
+  InstituteDashboardStoreService
+} from '@features/institute/services/institute-dashboard-store/institute-dashboard-store.service';
 
 @Component({
   selector: 'app-home-page',
@@ -65,55 +68,24 @@ import {
 })
 export class HomePageComponent implements OnInit, OnDestroy{
 
-  protected bootstrapData = new InstituteBootstrapResponse();
-  protected isLoading:boolean = false;
 
   private readonly dashboardWebSocketService = inject(InstituteDashboardWebsocketService);
   private readonly instituteService = inject(InstituteService);
   private readonly alertService = inject(AlertService);
   private readonly userService = inject(UserService);
+  private readonly store = inject(InstituteDashboardStoreService);
+
+  protected data = this.store.dashboard;
+  protected isLoading:boolean = false;
 
   ngOnInit(): void {
     this.fetchBootstrapData();
     const instituteId = this.userService.getCurrentUser().details.id;
-    this.dashboardWebSocketService.subscribeToInstituteEnrollmentMetrics(instituteId);
-    this.dashboardWebSocketService.subscribeToTeacherMetrics(instituteId);
-    this.dashboardWebSocketService.subscribeToCourseMetrics(instituteId);
-    this.dashboardWebSocketService.subscribeToBatchMetrics(instituteId);
+    this.dashboardWebSocketService.connect(instituteId);
   }
 
   ngOnDestroy(): void {
-      this.dashboardWebSocketService.unsubscribeFromInstituteEnrollmentMetrics();
-      this.dashboardWebSocketService.unsubscribeToTeacherMetrics();
-      this.dashboardWebSocketService.unsubscribeToCourseMetrics();
-      this.dashboardWebSocketService.unsubscribeToBatchMetrics();
-  }
-
-  constructor() {
-
-    effect(() => {
-      const update = this.dashboardWebSocketService.enrollmentMetricsUpdated();
-      if (!update) {return;}
-      this.applyEnrollmentMetricsUpdate(update);
-    });
-
-    effect(() => {
-      const update= this.dashboardWebSocketService.teacherMetricsUpdated();
-      if(!update){return;}
-      this.applyTeacherMetricsUpdate(update);
-    });
-
-    effect(() => {
-      const update= this.dashboardWebSocketService.courseMetricsUpdated();
-      if(!update){return;}
-      this.applyCourseMetricsUpdate(update);
-    });
-
-    effect(() => {
-      const update= this.dashboardWebSocketService.batchMetricsUpdated();
-      if(!update){return;}
-      this.applyBatchMetricsUpdate(update);
-    });
+      this.dashboardWebSocketService.disconnect();
   }
 
   private fetchBootstrapData():void{
@@ -121,7 +93,7 @@ export class HomePageComponent implements OnInit, OnDestroy{
     this.instituteService.getInstituteBootstrapData().subscribe({
       next: (res) => {
         if(res.data){
-          this.bootstrapData = res.data;
+          this.store.setBootstrapData(res.data);
         }
         this.triggerLoading();
       },
@@ -138,37 +110,6 @@ export class HomePageComponent implements OnInit, OnDestroy{
 
   private triggerLoading():void{
     this.isLoading = !this.isLoading;
-  }
-
-  private applyEnrollmentMetricsUpdate(update: EnrollmentMetricsUpdatedResponse): void {
-    this.bootstrapData.kpiStats = {
-      ...this.bootstrapData.kpiStats,
-      activeStudents: update.studentKpi,
-      revenue: update.revenueKpi
-    };
-    this.bootstrapData.overallEnrollment = update.overallEnrollment;
-    this.bootstrapData.enrollmentDistribution = update.enrollmentDistribution;
-  }
-
-  private applyTeacherMetricsUpdate(update: InstituteTeacherMetricsUpdatedResponse): void {
-    this.bootstrapData.kpiStats = {
-      ...this.bootstrapData.kpiStats,
-      activeTeachers: update.activeTeachers
-    };
-  }
-
-  private applyCourseMetricsUpdate(update: InstituteCourseMetricsUpdatedResponse): void {
-    this.bootstrapData.kpiStats = {
-      ...this.bootstrapData.kpiStats,
-      publishedCourses: update.publishedCourses
-    };
-  }
-
-  private applyBatchMetricsUpdate(update: InstituteBatchMetricsUpdatedResponse): void {
-    this.bootstrapData.kpiStats = {
-      ...this.bootstrapData.kpiStats,
-      ongoingBatches: update.ongoingBatches
-    };
   }
 
   protected readonly Users = Users;
