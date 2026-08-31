@@ -1,9 +1,6 @@
 import {Injectable, signal} from '@angular/core';
 import {Client, IMessage, StompSubscription} from '@stomp/stompjs';
 import {environment} from '@env/environment.development';
-import {
-  EnrollmentMetricsUpdatedResponse
-} from '@features/student-batch-enrollment/responses/EnrollmentMetricsUpdatedResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -19,36 +16,52 @@ export class StompClientService {
   readonly connected = signal(false);
   readonly connecting = signal(false);
 
+  private readonly subscriptions = new Map<
+    string,
+    {
+      callback: (message: IMessage) => void;
+      subscription?: StompSubscription;
+    }
+  >();
+
   constructor() {
     this.client.onConnect = () => {
       console.log('[STOMP] Connected');
 
       this.connecting.set(false);
       this.connected.set(true);
+
+      this.restoreSubscriptions();
     };
 
     this.client.onDisconnect = () => {
       console.log('[STOMP] Disconnected');
 
-      this.connecting.set(false);
       this.connected.set(false);
+      this.connecting.set(false);
+
+      this.clearActiveSubscriptions();
     };
 
     this.client.onStompError = (frame) => {
-      console.error('[STOMP] Error:', frame);
+      console.error('[STOMP] STOMP error:', frame);
+    };
+
+    this.client.onWebSocketError = (error) => {
+      console.error('[STOMP] WebSocket error:', error);
+    };
+
+    this.client.onWebSocketClose = () => {
+      console.warn('[STOMP] WebSocket closed');
+      this.connected.set(false);
     };
   }
 
   connect(): void {
 
     if (this.connected() || this.connecting()) {
-      console.log('[STOMP] Already connected/connecting');
       return;
     }
-
-    console.log('[STOMP] Connecting...');
-
-    this.connecting.set(true);
 
     const token = localStorage.getItem('token');
 
@@ -56,6 +69,8 @@ export class StompClientService {
       console.warn('[STOMP] Cannot connect without authentication token');
       return;
     }
+
+    this.connecting.set(true);
 
     this.client.connectHeaders = {
       Authorization: `Bearer ${token}`
@@ -72,21 +87,72 @@ export class StompClientService {
 
     console.log('[STOMP] Disconnecting...');
 
+    this.subscriptions.clear();
+
     this.connecting.set(false);
     this.connected.set(false);
 
     this.client.deactivate();
   }
 
-  subscribe(destination: string, callback: (message: IMessage) => void): StompSubscription | undefined {
+  subscribe(destination: string, callback: (message: IMessage) => void): void {
 
-    if (!this.connected()) {
-      console.warn(`[STOMP] Cannot subscribe to ${destination} before connection`);
-      return undefined;
+    // Store the subscription definition.
+    this.subscriptions.set(destination, {callback});
+
+    // If already connected, subscribe immediately.
+    if (this.connected()) {
+      this.subscribeNow(destination);
     }
-    const subscription = this.client.subscribe(destination, callback);
-    console.log(`[STOMP] Subscribed to ${destination}`);
-    return subscription;
   }
 
+  unsubscribe(destination: string): void {
+
+    const entry = this.subscriptions.get(destination);
+
+    if (!entry) {return;}
+
+    entry.subscription?.unsubscribe();
+
+    this.subscriptions.delete(destination);
+
+    console.log(`[STOMP] Unsubscribed from ${destination}`);
+  }
+
+  private restoreSubscriptions(): void {
+
+    console.log(`[STOMP] Restoring ${this.subscriptions.size} subscriptions`);
+
+    for (const destination of this.subscriptions.keys()) {
+      this.subscribeNow(destination);
+    }
+  }
+
+  private subscribeNow(destination: string): void {
+
+    const entry = this.subscriptions.get(destination);
+
+    if (!entry || !this.connected()) {
+      return;
+    }
+
+    // Prevent duplicate subscription.
+    if (entry.subscription) {
+      return;
+    }
+
+    entry.subscription = this.client.subscribe(
+      destination,
+      entry.callback
+    );
+
+    console.log(`[STOMP] Subscribed to ${destination}`);
+  }
+
+  private clearActiveSubscriptions(): void {
+
+    for (const entry of this.subscriptions.values()) {
+      entry.subscription = undefined;
+    }
+  }
 }
