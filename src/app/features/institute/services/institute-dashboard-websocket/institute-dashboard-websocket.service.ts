@@ -9,6 +9,10 @@ import {
 } from '@features/institute/dtos/response/institute-teacher-responses/institute-teacher-metrics-updated-response';
 import {InstituteCourseMetricsUpdatedResponse} from '@features/course/dtos/response/institute-course-metrics-updated-response';
 import {InstituteBatchMetricsUpdatedResponse} from '@features/batch/dtos/response/institute-batch-metrics-updated-response';
+import { InstituteDashboardWebSocketTopics } from "@features/institute/dtos/institute-dashboard-websocket-topics";
+import {
+  InstituteDashboardStoreService
+} from '@features/institute/services/institute-dashboard-store/institute-dashboard-store.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,136 +21,78 @@ export class InstituteDashboardWebsocketService {
 
   private readonly stomp = inject(StompClientService);
 
-  readonly enrollmentMetricsUpdated = signal<EnrollmentMetricsUpdatedResponse | null>(null);
-  private instituteEnrollmentMetricsSubscription?: StompSubscription;
+  readonly dashboardStore = inject(InstituteDashboardStoreService);
 
-  readonly teacherMetricsUpdated = signal<InstituteTeacherMetricsUpdatedResponse | null>(null);
-  private instituteTeacherMetricsSubscription?: StompSubscription;
+  private instituteId?: number;
 
-  readonly courseMetricsUpdated = signal<InstituteCourseMetricsUpdatedResponse | null>(null);
-  private instituteCourseMetricsSubscription?: StompSubscription;
+  connect(instituteId: number): void {
 
-  readonly batchMetricsUpdated = signal<InstituteBatchMetricsUpdatedResponse | null>(null);
-  private instituteBatchMetricsSubscription?: StompSubscription;
+    this.instituteId = instituteId;
 
-  subscribeToInstituteEnrollmentMetrics(instituteId: number): void {
+    this.stomp.subscribe(
+      InstituteDashboardWebSocketTopics.enrollmentMetrics(instituteId),
+      message => {
+        const response =
+          JSON.parse(message.body) as EnrollmentMetricsUpdatedResponse;
 
-    if (!this.stomp.connected()) {
-      console.warn('[STOMP] Cannot subscribe before connection');
-      return;
-    }
+        this.dashboardStore.applyEnrollmentMetrics(response);
+      }
+    );
 
-    const destination = `/topic/institute/${instituteId}/enrollment-metrics`;
+    this.stomp.subscribe(
+      InstituteDashboardWebSocketTopics.teacherMetrics(instituteId),
+      message => {
+        const response =
+          JSON.parse(message.body) as InstituteTeacherMetricsUpdatedResponse;
 
-    this.instituteEnrollmentMetricsSubscription =
-      this.stomp.subscribe(destination, message => {
-        const response: EnrollmentMetricsUpdatedResponse = JSON.parse(message.body);
-        console.log('[STOMP] Dashboard enrollment metrics updated:', response);
-        this.enrollmentMetricsUpdated.set(response);
-      });
+        this.dashboardStore.applyTeacherMetrics(response);
+      }
+    );
 
-    console.log(`[STOMP] Subscribed to ${destination}`);
-  }
+    this.stomp.subscribe(
+      InstituteDashboardWebSocketTopics.courseMetrics(instituteId),
+      message => {
+        const response =
+          JSON.parse(message.body) as InstituteCourseMetricsUpdatedResponse;
 
-  unsubscribeFromInstituteEnrollmentMetrics(): void {
+        this.dashboardStore.applyCourseMetrics(response);
+      }
+    );
 
-    if (!this.instituteEnrollmentMetricsSubscription) {
-      return;
-    }
+    this.stomp.subscribe(
+      InstituteDashboardWebSocketTopics.batchMetrics(instituteId),
+      message => {
+        const response =
+          JSON.parse(message.body) as InstituteBatchMetricsUpdatedResponse;
 
-    console.log('[STOMP] Unsubscribing from institute enrollment metrics');
-
-    this.instituteEnrollmentMetricsSubscription.unsubscribe();
-    this.instituteEnrollmentMetricsSubscription = undefined;
-    this.enrollmentMetricsUpdated.set(null);
-  }
-
-  subscribeToTeacherMetrics(instituteId: number): void {
-    if (!this.stomp.connected()) {
-      console.warn('[STOMP] Cannot subscribe before connection');
-      return;
-    }
-
-    const destination = `/topic/institute/${instituteId}/active-teacher-metrics`;
-
-    this.instituteTeacherMetricsSubscription =
-      this.stomp.subscribe(destination, message => {
-        const response: InstituteTeacherMetricsUpdatedResponse = JSON.parse(message.body);
-        console.log('[STOMP] Dashboard active teacher metrics updated:', response);
-        this.teacherMetricsUpdated.set(response);
-      });
-
-    console.log(`[STOMP] Subscribed to ${destination}`);
-  }
-
-  unsubscribeToTeacherMetrics(): void {
-    if(!this.instituteTeacherMetricsSubscription) {
-      return;
-    }
-
-    console.log('[STOMP] Unsubscribing from institute active teacher metrics');
-
-    this.instituteTeacherMetricsSubscription.unsubscribe();
-    this.instituteTeacherMetricsSubscription = undefined;
-    this.teacherMetricsUpdated.set(null);
-  }
-
-  subscribeToCourseMetrics(instituteId: number): void {
-    if(!this.stomp.connected()) {
-      console.warn('[STOMP] Cannot subscribe before connection');
-      return;
-    }
-
-    const destination = `/topic/institute/${instituteId}/course-metrics`;
-
-    this.instituteCourseMetricsSubscription = this.stomp.subscribe(destination, message => {
-      const response: InstituteCourseMetricsUpdatedResponse = JSON.parse(message.body);
-      console.log('[STOMP] Dashboard course metrics updated:', response);
-      this.courseMetricsUpdated.set(response);
-    });
-
-    console.log(`[STOMP] Subscribed to ${destination}`);
-  }
-
-  unsubscribeToCourseMetrics(): void {
-    if(!this.instituteCourseMetricsSubscription) {
-      return;
-    }
-
-    console.log('[STOMP] Unsubscribing from institute course metrics');
-
-    this.instituteCourseMetricsSubscription.unsubscribe();
-    this.instituteCourseMetricsSubscription = undefined;
-    this.courseMetricsUpdated.set(null);
+        this.dashboardStore.applyBatchMetrics(response);
+      }
+    );
   }
 
 
-  subscribeToBatchMetrics(instituteId: number): void {
-    if (!this.stomp.connected()) {
-      console.warn('[STOMP] Cannot subscribe before connection');
+  disconnect(): void {
+
+    if (!this.instituteId) {
       return;
     }
 
-    const destination = `/topic/institute/${instituteId}/batch-metrics`;
+    this.stomp.unsubscribe(
+      InstituteDashboardWebSocketTopics.enrollmentMetrics(this.instituteId)
+    );
 
-    this.instituteBatchMetricsSubscription = this.stomp.subscribe(destination, message => {
-      const response: InstituteBatchMetricsUpdatedResponse = JSON.parse(message.body);
-      console.log("[STOMP] Dashboard batch metrics updated:", response);
-      this.batchMetricsUpdated.set(response);
-    });
+    this.stomp.unsubscribe(
+      InstituteDashboardWebSocketTopics.teacherMetrics(this.instituteId)
+    );
 
-    console.log(`[STOMP] Subscribed to ${destination}`);
-  }
+    this.stomp.unsubscribe(
+      InstituteDashboardWebSocketTopics.courseMetrics(this.instituteId)
+    );
 
-  unsubscribeToBatchMetrics(): void {
-    if(!this.instituteBatchMetricsSubscription){
-      return;
-    }
+    this.stomp.unsubscribe(
+      InstituteDashboardWebSocketTopics.batchMetrics(this.instituteId)
+    );
 
-    console.log('[STOMP] Unsubscribing from institute batch metrics');
-
-    this.instituteBatchMetricsSubscription.unsubscribe();
-    this.instituteBatchMetricsSubscription = undefined;
-    this.batchMetricsUpdated.set(null);
+    this.instituteId = undefined;
   }
 }
