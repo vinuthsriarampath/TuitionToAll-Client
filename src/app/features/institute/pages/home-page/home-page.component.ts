@@ -40,6 +40,12 @@ import {
 import {
   InstituteTeacherMetricsUpdatedResponse
 } from '@features/institute/dtos/response/institute-teacher-responses/institute-teacher-metrics-updated-response';
+import {
+  InstituteCourseMetricsUpdatedResponse
+} from '@features/course/dtos/response/institute-course-metrics-updated-response';
+import {
+  InstituteBatchMetricsUpdatedResponse
+} from '@features/batch/dtos/response/institute-batch-metrics-updated-response';
 
 @Component({
   selector: 'app-home-page',
@@ -72,11 +78,15 @@ export class HomePageComponent implements OnInit, OnDestroy{
     const instituteId = this.userService.getCurrentUser().details.id;
     this.dashboardWebSocketService.subscribeToInstituteEnrollmentMetrics(instituteId);
     this.dashboardWebSocketService.subscribeToTeacherMetrics(instituteId);
+    this.dashboardWebSocketService.subscribeToCourseMetrics(instituteId);
+    this.dashboardWebSocketService.subscribeToBatchMetrics(instituteId);
   }
 
   ngOnDestroy(): void {
       this.dashboardWebSocketService.unsubscribeFromInstituteEnrollmentMetrics();
       this.dashboardWebSocketService.unsubscribeToTeacherMetrics();
+      this.dashboardWebSocketService.unsubscribeToCourseMetrics();
+      this.dashboardWebSocketService.unsubscribeToBatchMetrics();
   }
 
   constructor() {
@@ -89,9 +99,20 @@ export class HomePageComponent implements OnInit, OnDestroy{
 
     effect(() => {
       const update= this.dashboardWebSocketService.teacherMetricsUpdated();
-      console.log('Teacher metrics update received:', update);
       if(!update){return;}
       this.applyTeacherMetricsUpdate(update);
+    });
+
+    effect(() => {
+      const update= this.dashboardWebSocketService.courseMetricsUpdated();
+      if(!update){return;}
+      this.applyCourseMetricsUpdate(update);
+    });
+
+    effect(() => {
+      const update= this.dashboardWebSocketService.batchMetricsUpdated();
+      if(!update){return;}
+      this.applyBatchMetricsUpdate(update);
     });
   }
 
@@ -133,6 +154,20 @@ export class HomePageComponent implements OnInit, OnDestroy{
     this.bootstrapData.kpiStats = {
       ...this.bootstrapData.kpiStats,
       activeTeachers: update.activeTeachers
+    };
+  }
+
+  private applyCourseMetricsUpdate(update: InstituteCourseMetricsUpdatedResponse): void {
+    this.bootstrapData.kpiStats = {
+      ...this.bootstrapData.kpiStats,
+      publishedCourses: update.publishedCourses
+    };
+  }
+
+  private applyBatchMetricsUpdate(update: InstituteBatchMetricsUpdatedResponse): void {
+    this.bootstrapData.kpiStats = {
+      ...this.bootstrapData.kpiStats,
+      ongoingBatches: update.ongoingBatches
     };
   }
 
