@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {StudentDetailsUpdateRequest} from '@features/student/dtos/requests/StudentDetailsUpdateRequest';
 import {ApiResponse} from '@shared/utils/response/api-response';
 import {Student} from '@features/student/dtos/responses/student';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,5 +15,9 @@ export class StudentService {
 
   updateStudentDetails(updateRequest: StudentDetailsUpdateRequest){
     return this.http.patch<ApiResponse<Student>>(`${this.baseUrl}/me`,updateRequest);
+  }
+
+  validateStudentRole():Observable<ApiResponse<null>>{
+    return this.http.get<ApiResponse<null>>(`${this.baseUrl}/validate/role`);
   }
 }
