@@ -63,7 +63,7 @@
             </a>
 
             <!-- Dashboard -->
-            <a [routerLink]="user?.role?.role == 'institute' ? ['/ins/dashboard'] : user?.role?.role == 'student' ? ['/std/dashboard'] : user?.role?.role == 'teacher' ? ['/tch/dashboard'] : ['/dashboard']"
+            <a [routerLink]="user?.role?.role == 'institute' ? ['/ins/dashboard'] : user?.role?.role == 'student' ? ['/stu/dashboard'] : user?.role?.role == 'teacher' ? ['/tch/dashboard'] : ['/inValidUser']"
                [routerLinkActive]="'bg-sky-800 text-white font-medium shadow-sm ring-1 ring-sky-500/30'"
                class="group text-sky-100 flex flex-col items-center justify-center cursor-pointer hover:bg-sky-800/60 rounded-lg px-3 py-1.5 transition-all duration-150 ease-in-out active:scale-[0.98]">
               <lucide-icon [img]="LayoutDashboard" [strokeWidth]="1.35" class="w-5 h-5 text-sky-300 group-hover:text-white transition-colors"></lucide-icon>
