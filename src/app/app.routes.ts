@@ -24,10 +24,7 @@ import {
 import {PasswordResetPageComponent} from '@features/auth/pages/password-reset-page/password-reset-page.component';
 import {AppComponent} from '@core/layouts/app/app.component';
 import {FeedComponent} from '@features/feed/pages/feed.component';
-import {
-  InstituteDashboardComponent
-} from '@features/dashboards/pages/institute-dashboard/institute-dashboard.component';
-import {instituteRoleGuard} from '@core/guards/institute-role-guard/institute-role.guard';
+import {instituteRoleGuard} from '@core/guards/role-guards/institute-role-guard/institute-role.guard';
 import {
   InstituteCourseManagementComponent
 } from '@features/institute/pages/institute-course-management/institute-course-management.component';
@@ -79,7 +76,16 @@ import {
 import {
   CourseFeedbackReviewComponent
 } from '@features/course/pages/course-feedback-review/course-feedback-review.component';
-import {HomePageComponent} from '@features/institute/pages/home-page/home-page.component';
+import {InstituteShellComponent} from '@features/dashboards/pages/institute-shell/institute-shell.component';
+import {
+  InstituteDashboardComponent
+} from '@features/institute/pages/institute-dashboard/institute-dashboard.component';
+import {TeacherShellComponent} from '@features/dashboards/pages/teacher-shell/teacher-shell.component';
+import {TeacherDashboardComponent} from '@features/teacher/pages/teacher-dashboard/teacher-dashboard.component';
+import {StudentDashboardComponent} from '@features/student/pages/student-dashboard/student-dashboard.component';
+import {StudentShellComponent} from '@features/dashboards/pages/student-shell/student-shell.component';
+import {teacherRoleGuard} from '@core/guards/role-guards/teacher-role-guard/teacher-role.guard';
+import {studentRoleGuard} from '@core/guards/role-guards/student-role-guard/student-role.guard';
 
 
 export const routes: Routes = [
@@ -124,19 +130,25 @@ export const routes: Routes = [
     ]
   },
   {
-    path: 'ins/dashboard',
-    component:InstituteDashboardComponent,
+    path: 'ins',
+    component:InstituteShellComponent,
     canActivate: [authGuard,tokenGuard],
     canActivateChild: [instituteRoleGuard],
-    data : {
-      breadcrumb: 'Home',
+    data: {
+      breadcrumb: 'Institute'
     },
+    title: "Institute Dashboard",
     children:[
       {
         path: '',
-        component: HomePageComponent,
+        pathMatch: 'full',
+        redirectTo: 'dashboard'
+      },
+      {
+        path: 'dashboard',
+        component: InstituteDashboardComponent,
         data : {
-          breadcrumb: null,
+          breadcrumb: 'Dashboard',
         },
       },
       {
@@ -462,6 +474,54 @@ export const routes: Routes = [
             }
           }
         ]
+      }
+    ]
+  },
+  {
+    path: "tch",
+    title: "Teacher dashboard",
+    canActivate: [authGuard,tokenGuard],
+    canActivateChild: [teacherRoleGuard],
+    component: TeacherShellComponent,
+    data:{
+      breadcrumb: 'Teacher'
+    },
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'dashboard'
+      },
+      {
+        path: 'dashboard',
+        component: TeacherDashboardComponent,
+        data: {
+          breadcrumb: "Dashboard"
+        }
+      }
+    ]
+  },
+  {
+    path: "stu",
+    title: "Student dashboard",
+    canActivate: [authGuard,tokenGuard],
+    canActivateChild: [studentRoleGuard],
+    component: StudentShellComponent,
+    data:{
+      breadcrumb: 'Student'
+    },
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'dashboard'
+      },
+      {
+        path: 'dashboard',
+        component: StudentDashboardComponent,
+        data: {
+          breadcrumb: "Dashboard"
+        }
       }
     ]
   },
