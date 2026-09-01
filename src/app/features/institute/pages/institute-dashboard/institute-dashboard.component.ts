@@ -1,74 +1,57 @@
-import {Component, effect, inject, OnDestroy, OnInit} from '@angular/core';
-import {PageLayoutComponent} from '@core/layouts';
-import {KpiCardComponent} from '@features/institute/components/kpi-card/kpi-card.component';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
+import {RouterLink} from '@angular/router';
 import {
   BookOpen,
   Calendar,
   GraduationCap,
   LucideAngularModule,
-  Megaphone,
-  Plus,
-  RotateCw,
+  Megaphone, Plus, RotateCw,
   UserPlus,
   Users,
   Wallet
 } from 'lucide-angular';
-import {EnrollmentCartComponent} from '@features/institute/components/enrollment-cart/enrollment-cart.component';
-import {
-  DistributionChartComponent
-} from '@features/institute/components/distribution-chart/distribution-chart.component';
+import {UserService} from '@features/user/services/user/user.service';
+import {AlertService} from '@core/services/alerts/alert.service';
 import {
   ActiveBatchesTableComponent
 } from '@features/institute/components/active-batches-table/active-batches-table.component';
+import {
+  DistributionChartComponent
+} from '@features/institute/components/distribution-chart/distribution-chart.component';
+import {EnrollmentCartComponent} from '@features/institute/components/enrollment-cart/enrollment-cart.component';
+import {KpiCardComponent} from '@features/institute/components/kpi-card/kpi-card.component';
+import {PageLayoutComponent} from '@core/layouts';
 import {
   PerformanceWidgetComponent
 } from '@features/institute/components/performance-widget/performance-widget.component';
 import {
   RecentActivityComponentComponent
 } from '@features/institute/components/recent-activity-component/recent-activity-component.component';
-import {RouterLink} from '@angular/router';
-import {InstituteService} from '@features/institute/services/institute/institute.service';
-import {AlertService} from '@core/services/alerts/alert.service';
-import {InstituteBootstrapResponse} from '@features/institute/dtos/response/institute-bootstrap-response';
 import {
   InstituteDashboardWebsocketService
 } from '@features/institute/services/institute-dashboard-websocket/institute-dashboard-websocket.service';
-import {UserService} from '@features/user/services/user/user.service';
-import {
-  EnrollmentMetricsUpdatedResponse
-} from '@features/student-batch-enrollment/responses/EnrollmentMetricsUpdatedResponse';
-import {
-  InstituteTeacherMetricsUpdatedResponse
-} from '@features/institute/dtos/response/institute-teacher-responses/institute-teacher-metrics-updated-response';
-import {
-  InstituteCourseMetricsUpdatedResponse
-} from '@features/course/dtos/response/institute-course-metrics-updated-response';
-import {
-  InstituteBatchMetricsUpdatedResponse
-} from '@features/batch/dtos/response/institute-batch-metrics-updated-response';
+import {InstituteService} from '@features/institute/services/institute/institute.service';
 import {
   InstituteDashboardStoreService
 } from '@features/institute/services/institute-dashboard-store/institute-dashboard-store.service';
 
 @Component({
-  selector: 'app-home-page',
+  selector: 'app-institute-dashboard',
   imports: [
-    PageLayoutComponent,
-    KpiCardComponent,
-    EnrollmentCartComponent,
-    DistributionChartComponent,
-    ActiveBatchesTableComponent,
+    RouterLink,
     LucideAngularModule,
+    ActiveBatchesTableComponent,
+    DistributionChartComponent,
+    EnrollmentCartComponent,
+    KpiCardComponent,
+    PageLayoutComponent,
     PerformanceWidgetComponent,
-    RecentActivityComponentComponent,
-    RouterLink
+    RecentActivityComponentComponent
   ],
-  templateUrl: './home-page.component.html',
-  styleUrl: './home-page.component.css'
+  templateUrl: './institute-dashboard.component.html',
+  styleUrl: './institute-dashboard.component.css'
 })
-export class HomePageComponent implements OnInit, OnDestroy{
-
-
+export class InstituteDashboardComponent implements OnInit, OnDestroy{
   private readonly dashboardWebSocketService = inject(InstituteDashboardWebsocketService);
   private readonly instituteService = inject(InstituteService);
   private readonly alertService = inject(AlertService);
@@ -85,7 +68,7 @@ export class HomePageComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-      this.dashboardWebSocketService.disconnect();
+    this.dashboardWebSocketService.disconnect();
   }
 
   private fetchBootstrapData():void{
@@ -112,13 +95,13 @@ export class HomePageComponent implements OnInit, OnDestroy{
     this.isLoading = !this.isLoading;
   }
 
-  protected readonly Users = Users;
-  protected readonly BookOpen = BookOpen;
-  protected readonly Calendar = Calendar;
-  protected readonly GraduationCap = GraduationCap;
   protected readonly Wallet = Wallet;
+  protected readonly GraduationCap = GraduationCap;
+  protected readonly Calendar = Calendar;
+  protected readonly BookOpen = BookOpen;
+  protected readonly Users = Users;
   protected readonly UserPlus = UserPlus;
+  protected readonly Megaphone = Megaphone;
   protected readonly Plus = Plus;
   protected readonly RotateCw = RotateCw;
-  protected readonly Megaphone = Megaphone;
 }
