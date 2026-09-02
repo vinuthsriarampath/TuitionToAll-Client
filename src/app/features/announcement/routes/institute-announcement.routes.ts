@@ -1,7 +1,3 @@
-import {
-  AnnouncementsManagementComponent
-} from '@features/announcement/pages/announcements-management/announcements-management.component';
-import {ViewAnnouncementComponent} from '@features/announcement/pages/view-announcement/view-announcement.component';
 import {announcementResolver} from '@features/announcement/resolvers/announcement.resolver';
 import {AnnouncementResolverData} from '@features/announcement/resolvers/announcement-resolver-data';
 import {Routes} from '@angular/router';
@@ -9,17 +5,14 @@ import {Routes} from '@angular/router';
 export const INSTITUTE_ANNOUNCEMENT_ROUTES:Routes = [
   {
     path: '',
-    component: AnnouncementsManagementComponent,
+    title: 'Institute Announcements',
     data: {breadcrumb: null},
+    loadComponent: () => import('@features/announcement/pages/announcements-management/announcements-management.component').then(m => m.AnnouncementsManagementComponent)
   },
   {
     path: ':announcementId',
-    component: ViewAnnouncementComponent,
-    resolve: {
-      announcement: announcementResolver
-    },
-    data:{
-      breadcrumb: (data:AnnouncementResolverData)=> data.announcement.title
-    }
+    data:{breadcrumb: (data:AnnouncementResolverData)=> data.announcement.title},
+    resolve: {announcement: announcementResolver},
+    loadComponent: () => import('@features/announcement/pages/view-announcement/view-announcement.component').then(m => m.ViewAnnouncementComponent),
   }
 ];

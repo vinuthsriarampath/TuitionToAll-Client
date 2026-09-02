@@ -6,6 +6,7 @@ export const INSTITUTE_BATCH_ROUTES: Routes = [
   {
     path: '',
     data:{breadcrumb: null},
+    title: 'Batches',
     loadComponent: () => import('@features/batch/pages/batch-management/batch-management.component').then(m => m.BatchManagementComponent)
   },
   {
@@ -15,6 +16,7 @@ export const INSTITUTE_BATCH_ROUTES: Routes = [
     children:[
       {
         path: '',
+        title: (route) => route.parent?.data['batch'].name,
         data:{breadcrumb: null},
         loadComponent: () => import('@features/batch/pages/batch-view/batch-view.component').then(m => m.BatchViewComponent)
       },

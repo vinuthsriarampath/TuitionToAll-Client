@@ -1,25 +1,20 @@
 import {Routes} from '@angular/router';
 import {studentRoleGuard} from '@core/guards/role-guards/student-role-guard/student-role.guard';
-import {StudentShellComponent} from '@features/dashboards/pages/student-shell/student-shell.component';
-import {StudentDashboardComponent} from '@features/student/pages/student-dashboard/student-dashboard.component';
 
 export const STUDENT_ROUTES: Routes = [
   {
     path: '',
-    title: "Student dashboard",
+    title: "Student",
     canActivateChild: [studentRoleGuard],
-    component: StudentShellComponent,
-    data:{
-      breadcrumb: 'Student'
-    },
+    data:{breadcrumb: 'Student'},
+    loadComponent: () => import('@features/dashboards/pages/student-shell/student-shell.component').then(m => m.StudentShellComponent),
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'dashboard'},
       {
         path: 'dashboard',
-        component: StudentDashboardComponent,
-        data: {
-          breadcrumb: "Dashboard"
-        }
+        title: 'Student Dashboard',
+        data: {breadcrumb: "Dashboard"},
+        loadComponent: () => import('@features/student/pages/student-dashboard/student-dashboard.component').then(m => m.StudentDashboardComponent),
       }
     ]
   },

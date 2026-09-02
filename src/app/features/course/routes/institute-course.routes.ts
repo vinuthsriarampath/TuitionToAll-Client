@@ -5,11 +5,13 @@ import {CourseResolverData} from '@features/course/resolvers/course-resolver-dat
 export const INSTITUTE_COURSE_ROUTES:Routes = [
   {
     path: '',
+    title: 'Institute Courses',
     data : {breadcrumb: null},
     loadComponent: () => import('@features/institute/pages/institute-course-management/institute-course-management.component').then(m => m.InstituteCourseManagementComponent)
   },
   {
     path: 'create',
+    title: 'Course Create',
     data:{breadcrumb:'Create'},
     loadComponent: () => import('@features/course/pages/course-create/course-create.component').then(m => m.CourseCreateComponent)
   },
@@ -20,11 +22,13 @@ export const INSTITUTE_COURSE_ROUTES:Routes = [
     children:[
       {
         path: '',
+        title: (route) => route.parent?.data['course'].title,
         data: {breadcrumb: null},
         loadComponent: () => import('@features/course/pages/course-view/course-view.component').then(m => m.CourseViewComponent)
       },
       {
         path: 'update',
+        title: (route) => route.parent?.data['course'].title + ' Update',
         data: {breadcrumb: 'Update'},
         loadComponent: () => import('@features/course/pages/course-update/course-update.component').then(m => m.CourseUpdateComponent)
       },

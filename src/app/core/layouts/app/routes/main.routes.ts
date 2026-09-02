@@ -1,18 +1,17 @@
 import {Routes} from '@angular/router';
-import {AppComponent} from '@core/layouts';
 import {tokenGuard} from '@core/guards/token-guard/token.guard';
 import {authGuard} from '@core/guards/auth-guard/auth.guard';
-import {FeedComponent} from '@features/feed/pages/feed.component';
 
 export const MAIN_ROUTES: Routes = [
   {
     path: '',
-    component: AppComponent,
+    loadComponent: () => import('@core/layouts/app/app.component').then(m => m.AppComponent),
     canActivateChild: [tokenGuard,authGuard],
     children: [
       {
         path:'',
-        component:FeedComponent
+        title: 'Feed',
+        loadComponent: () => import('@features/feed/pages/feed.component').then(m => m.FeedComponent),
       },
 
     ]

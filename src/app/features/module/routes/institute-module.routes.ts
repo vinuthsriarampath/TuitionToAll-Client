@@ -11,12 +11,13 @@ export const INSTITUTE_MODULE_ROUTES:Routes = [
       {
         path: '',
         data:{breadcrumb: null},
+        title: (route) => route.parent?.data['module'].name,
         loadComponent: () => import('@features/module/pages/module-view/module-view.component').then(m => m.ModuleViewComponent)
       },
       {
         path:'assignments',
         data:{breadcrumb: 'Assignments'},
-        loadChildren: () => import('@features/assignments/routes/institute-module-assignment.routes').then(m => m.INSTITUTE_MODULE_ASSIGNMENT_ROUTES)
+        loadChildren: () => import('@features/assignments/routes/institute-assignment.routes').then(m => m.INSTITUTE_ASSIGNMENT_ROUTES)
       },
       {
         path:'chapters',

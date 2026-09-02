@@ -1,21 +1,13 @@
 import {Routes} from '@angular/router';
-import {
-  InstituteTeacherManagementComponent
-} from '@features/institute/pages/institute-teacher-management/institute-teacher-management.component';
-import {
-  ViewTeacherVacancyComponent
-} from '@features/teacher-vacancy/pages/view-teacher-vacancy/view-teacher-vacancy.component';
-import {ViewApplicationComponent} from '@features/applications/pages/view-application/view-application.component';
 import {teacherVacancyResolver} from '@features/teacher-vacancy/resolvers/teacher-vacancy.resolver';
 import {TeacherVacancyResolverData} from '@features/teacher-vacancy/resolvers/teacher-vacancy-resolver-data';
 
 export const INSTITUTE_TEACHER_ROUTES: Routes = [
   {
     path: '',
-    component: InstituteTeacherManagementComponent,
-    data:{
-      breadcrumb: null
-    }
+    title: 'Institute Teachers',
+    data:{breadcrumb: null},
+    loadComponent: () => import('@features/institute/pages/institute-teacher-management/institute-teacher-management.component').then(m => m.InstituteTeacherManagementComponent)
   },
   {
     path: 'vacancies',
@@ -25,20 +17,14 @@ export const INSTITUTE_TEACHER_ROUTES: Routes = [
     children: [
       {
         path: '',
-        component: ViewTeacherVacancyComponent,
-        data: {
-          breadcrumb: null
-        }
+        data: {breadcrumb: null},
+        loadComponent: () => import('@features/teacher-vacancy/pages/view-teacher-vacancy/view-teacher-vacancy.component').then(m => m.ViewTeacherVacancyComponent)
       },
       {
         path: ':vacancyId/applications',
-        component: ViewApplicationComponent,
-        resolve: {
-          vacancy: teacherVacancyResolver
-        },
-        data: {
-          breadcrumb: (data:TeacherVacancyResolverData) => data.vacancy.title + "- Applications"
-        }
+        resolve: {vacancy: teacherVacancyResolver},
+        data: {breadcrumb: (data:TeacherVacancyResolverData) => data.vacancy.title + "- Applications"},
+        loadComponent: () => import('@features/applications/pages/view-application/view-application.component').then(m => m.ViewApplicationComponent),
       }
     ]
   }

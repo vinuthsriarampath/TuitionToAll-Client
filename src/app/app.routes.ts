@@ -50,11 +50,13 @@ export const routes: Routes = [
   },
   {
     path:'maintenance',
+    title: 'Maintenance',
     loadComponent: () => import('@shared/pages/under-development-page/under-development-page.component').then(m => m.UnderDevelopmentPageComponent),
     canActivate: [authGuard]
   },
   {
     path: '**',
+    title: '404 | Not Found',
     loadComponent: () => import('@shared/pages/page-not-found/page-not-found.component').then(m => m.PageNotFoundComponent)
   }
 ];

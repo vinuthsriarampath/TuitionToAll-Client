@@ -1,27 +1,25 @@
 import {Routes} from '@angular/router';
-import {LoginPageComponent} from '@features/auth/pages/login-page/login-page.component';
-import {SignupPageComponent} from '@features/auth/pages/signup-page/signup-page.component';
-import {
-  ResetPasswordRequestPageComponent
-} from '@features/auth/pages/reset-password-request-page/reset-password-request-page.component';
-import {PasswordResetPageComponent} from '@features/auth/pages/password-reset-page/password-reset-page.component';
 
 export const AUTH_ROUTES: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
   {
     path: 'login',
-    component: LoginPageComponent
+    title: 'Login',
+    loadComponent: () => import('@features/auth/pages/login-page/login-page.component').then(m => m.LoginPageComponent)
   },
   {
     path: 'signup',
-    component: SignupPageComponent
+    title: 'Signup',
+    loadComponent: () => import('@features/auth/pages/signup-page/signup-page.component').then(m => m.SignupPageComponent)
   },
   {
     path: 'reset-password/request',
-    component: ResetPasswordRequestPageComponent
+    title: 'Reset Password Request',
+    loadComponent: () => import('@features/auth/pages/reset-password-request-page/reset-password-request-page.component').then(m => m.ResetPasswordRequestPageComponent)
   },
   {
     path: 'reset',
-    component: PasswordResetPageComponent
+    title: 'Reset Password',
+    loadComponent: () => import('@features/auth/pages/password-reset-page/password-reset-page.component').then(m => m.PasswordResetPageComponent)
   },
 ];
