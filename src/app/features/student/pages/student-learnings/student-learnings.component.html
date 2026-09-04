@@ -1,0 +1,87 @@
+<app-page-layout headerTitle="My Learning" headerDescription="Courses you're currently learning or have completed.">
+  <div data-body class="flex flex-col gap-6">
+    @if (loading) {
+      <app-loader-overlay title="Loading Learning Data" description="Please wait while we fetch your learning information."></app-loader-overlay>
+    } @else {
+      @for (institute of myLearning(); track institute.instituteId) {
+        <app-card-shell>
+
+          <app-card-header [title]="'Institute ID: ' + institute.instituteId" [description]="institute.instituteName"></app-card-header>
+
+          <div class="p-4 sm:p-5 lg:p-6">
+            <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              @for (course of institute.courses; track course.id) {
+                <app-card-shell>
+                  <div class="flex h-full flex-col">
+                    <div class="relative aspect-video w-full overflow-hidden rounded-t-2xl group">
+                      <img [ngSrc]="course.thumbnail ? environment.COURSE_API + course.thumbnail : 'no_image_provided.png'" width="1280" height="720" alt="Course thumbnail" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105">
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                      <div class="absolute left-3 top-3">
+                        <app-badge variant="warning" [text]="course.currentEnrollment.enrollmentStatus"></app-badge>
+                      </div>
+                    </div>
+
+                    <div class="flex flex-1 flex-col gap-2 p-4">
+                      <div class="flex flex-col gap-2">
+                        <h3 class="line-clamp-2 text-base font-semibold leading-snug">
+                          {{ course.title }}
+                        </h3>
+                        <p class="para-primary para-xs line-clamp-2 min-h-[2.75rem]">
+                          {{ course.description }}
+                        </p>
+                      </div>
+                      <div class="flex flex-wrap gap-1.5">
+                        <app-badge variant="warning" [text]="course.level"></app-badge>
+                        <app-badge variant="violet" [text]="course.language"></app-badge>
+                        <app-badge variant="info" [text]="course.mode"></app-badge>
+                      </div>
+
+                      <div class="flex items-center gap-1.5">
+                        <lucide-icon [img]="Star" class="h-4 w-4 shrink-0 fill-amber-500 text-amber-500"></lucide-icon>
+                        <p class="para-light">
+                          {{ course.averageRating }}
+                        </p>
+                      </div>
+
+                      <app-card-shell variant="secondary">
+                        <div class="grid grid-cols-1 gap-3 px-4 py-3 sm:grid-cols-2">
+                          <div class="min-w-0">
+                            <p class="para-primary para-xs">Current Batch</p>
+                            <p class="para-light truncate font-semibold" [title]="course.currentEnrollment.batchName">
+                              {{ course.currentEnrollment.batchName }}
+                            </p>
+                          </div>
+
+                          <div class="min-w-0 sm:text-right">
+                            <p class="para-primary para-xs">Started</p>
+                            <p class="para-light font-semibold">
+                              {{ course.currentEnrollment.startDate | date:'dd MMM yyyy' }}
+                            </p>
+                          </div>
+                        </div>
+                      </app-card-shell>
+
+                      <div class="mt-auto flex gap-2 pt-1">
+                        <button class="btn btn-primary flex-1">Continue Learning</button>
+                        @if (course.enrollmentHistoryAvailable){
+                          <button class="btn btn-secondary shrink-0">History</button>
+                        }
+                      </div>
+                    </div>
+                  </div>
+                </app-card-shell>
+              } @empty {
+                <div class="col-span-full">
+                  <app-no-content title="No Enrolled Courses" description="You don't have any enrolled courses in this institute."></app-no-content>
+                </div>
+              }
+            </div>
+          </div>
+        </app-card-shell>
+      } @empty {
+        <app-no-content title="No Learning Data Available" description="You haven't started any courses yet."></app-no-content>
+      }
+    }
+  </div>
+</app-page-layout>
+
