@@ -1,87 +1,155 @@
-<app-page-layout headerTitle="My Learning" headerDescription="Courses you're currently learning or have completed.">
-  <div data-body class="flex flex-col gap-6">
-    @if (loading) {
-      <app-loader-overlay title="Loading Learning Data" description="Please wait while we fetch your learning information."></app-loader-overlay>
-    } @else {
-      @for (institute of myLearning(); track institute.instituteId) {
-        <app-card-shell>
+<mat-sidenav-container class="h-full">
+  <mat-sidenav #drawer mode="over" position="end" class="h-full flex flex-col" style="width: 28vw; min-width: 350px;">
+    <div class="flex items-center justify-between border-b border-sky-900/80 pb-3 px-4 pt-4">
+      <div>
+        <h2>Enrollment History</h2>
+        <p class="para-xs para-primary"> {{ enrollmentHistory()?.courseTitle }}</p>
+      </div>
+      <button class="btn-mini-secondary" (click)="onCloseHistoryDrawer()">Close</button>
+    </div>
 
-          <app-card-header [title]="'Institute ID: ' + institute.instituteId" [description]="institute.instituteName"></app-card-header>
+    <div class="max-w-3xl mx-auto space-y-4 p-2">
+      @if (historyLoading) {
+        <!-- Skeleton / Spinner Loading State -->
+        <div class="flex flex-col items-center justify-center py-12 space-y-3">
+          <div class="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+          <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">Loading Enrollment Histories...</p>
+        </div>
+      } @else {
+        @for (enrollment of enrollmentHistory()?.enrollments; track enrollment.enrollmentId) {
+          <app-card-shell variant="secondary">
+            <div class="p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-all hover:shadow-md rounded-lg">
 
-          <div class="p-4 sm:p-5 lg:p-6">
-            <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              @for (course of institute.courses; track course.id) {
-                <app-card-shell>
-                  <div class="flex h-full flex-col">
-                    <div class="relative aspect-video w-full overflow-hidden rounded-t-2xl group">
-                      <img [ngSrc]="course.thumbnail ? environment.COURSE_API + course.thumbnail : 'no_image_provided.png'" width="1280" height="720" alt="Course thumbnail" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105">
-                      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-                      <div class="absolute left-3 top-3">
-                        <app-badge variant="warning" [text]="course.currentEnrollment.enrollmentStatus"></app-badge>
-                      </div>
-                    </div>
-
-                    <div class="flex flex-1 flex-col gap-2 p-4">
-                      <div class="flex flex-col gap-2">
-                        <h3 class="line-clamp-2 text-base font-semibold leading-snug">
-                          {{ course.title }}
-                        </h3>
-                        <p class="para-primary para-xs line-clamp-2 min-h-[2.75rem]">
-                          {{ course.description }}
-                        </p>
-                      </div>
-                      <div class="flex flex-wrap gap-1.5">
-                        <app-badge variant="warning" [text]="course.level"></app-badge>
-                        <app-badge variant="violet" [text]="course.language"></app-badge>
-                        <app-badge variant="info" [text]="course.mode"></app-badge>
-                      </div>
-
-                      <div class="flex items-center gap-1.5">
-                        <lucide-icon [img]="Star" class="h-4 w-4 shrink-0 fill-amber-500 text-amber-500"></lucide-icon>
-                        <p class="para-light">
-                          {{ course.averageRating }}
-                        </p>
-                      </div>
-
-                      <app-card-shell variant="secondary">
-                        <div class="grid grid-cols-1 gap-3 px-4 py-3 sm:grid-cols-2">
-                          <div class="min-w-0">
-                            <p class="para-primary para-xs">Current Batch</p>
-                            <p class="para-light truncate font-semibold" [title]="course.currentEnrollment.batchName">
-                              {{ course.currentEnrollment.batchName }}
-                            </p>
-                          </div>
-
-                          <div class="min-w-0 sm:text-right">
-                            <p class="para-primary para-xs">Started</p>
-                            <p class="para-light font-semibold">
-                              {{ course.currentEnrollment.startDate | date:'dd MMM yyyy' }}
-                            </p>
-                          </div>
-                        </div>
-                      </app-card-shell>
-
-                      <div class="mt-auto flex gap-2 pt-1">
-                        <button class="btn btn-primary flex-1">Continue Learning</button>
-                        @if (course.enrollmentHistoryAvailable){
-                          <button class="btn btn-secondary shrink-0">History</button>
-                        }
-                      </div>
-                    </div>
-                  </div>
-                </app-card-shell>
-              } @empty {
-                <div class="col-span-full">
-                  <app-no-content title="No Enrolled Courses" description="You don't have any enrolled courses in this institute."></app-no-content>
+              <!-- Left Content: Batch Info -->
+              <div class="space-y-2">
+                <div class="flex items-center gap-2.5 flex-wrap">
+                  <h3 class="text-base font-semibold leading-tight">
+                    {{ enrollment.batchName }}
+                  </h3>
+                  <app-badge [variant]="enrollment.enrollmentStatus === 'ACTIVE' ? 'success' : enrollment.enrollmentStatus === 'COMPLETED' ? 'secondary' : 'danger'" [text]="enrollment.enrollmentStatus"></app-badge>
                 </div>
-              }
+
+                <!-- Meta details (Dates & IDs) -->
+                <div class="flex flex-wrap items-center gap-y-1 gap-x-4 text-xs text-gray-500 dark:text-gray-400">
+                  <span class="flex items-center gap-1">
+                    <lucide-icon [img]="Calendar" class="h-3.5 w-3.5"></lucide-icon>
+                    Enrolled: {{ enrollment.enrollmentDate | date:'mediumDate' }}
+                  </span>
+                  <span class="flex items-center gap-1">
+                    <lucide-icon [img]="Zap" class="h-3.5 w-3.5"></lucide-icon>
+                    Starts: {{ enrollment.batchStartDate | date:'mediumDate' }}
+                  </span>
+                </div>
+              </div>
+
+              <!-- Right Content: Batch Status Tag -->
+              <div class="flex sm:flex-col items-end justify-between sm:justify-center border-t sm:border-t-0 pt-3 sm:pt-0 border-gray-100 dark:border-gray-800">
+                <p class="para-xs para-primary uppercase tracking-wider font-semibold">
+                  Batch Status
+                </p>
+                <app-badge [text]="enrollment.batchStatus" [variant]="enrollment.batchStatus === 'PREPARATION' ? 'info' : enrollment.batchStatus === 'ONGOING' ? 'warning' : 'success'"></app-badge>
+              </div>
+
             </div>
+          </app-card-shell>
+        } @empty {
+          <div class="py-12">
+            <app-no-content
+              title="No Enrollment History Found"
+              description="You have not enrolled in any courses yet."
+            ></app-no-content>
           </div>
-        </app-card-shell>
-      } @empty {
-        <app-no-content title="No Learning Data Available" description="You haven't started any courses yet."></app-no-content>
+        }
       }
-    }
-  </div>
-</app-page-layout>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <app-page-title title="My Learning" description="Courses you're currently learning or have completed."></app-page-title>
+    <div data-body class="flex flex-col gap-6">
+      @if (loading) {
+        <app-loader-overlay title="Loading Learning Data" description="Please wait while we fetch your learning information."></app-loader-overlay>
+      } @else {
+        @for (institute of myLearning(); track institute.instituteId) {
+          <app-card-shell>
+
+            <app-card-header [title]="'Institute ID: ' + institute.instituteId" [description]="institute.instituteName"></app-card-header>
+
+            <div class="p-4 sm:p-5 lg:p-6 border-t-2 border-t-sky-900">
+              <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                @for (course of institute.courses; track course.id) {
+                  <app-card-shell>
+                    <div class="flex h-full flex-col">
+                      <div class="relative aspect-video w-full overflow-hidden rounded-t-2xl group">
+                        <img [ngSrc]="course.thumbnail ? environment.COURSE_API + course.thumbnail : 'no_image_provided.png'" width="1280" height="720" alt="Course thumbnail" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                        <div class="absolute left-3 top-3">
+                          <app-badge [variant]="course.currentEnrollment.enrollmentStatus === 'ACTIVE' ? 'success' : course.currentEnrollment.enrollmentStatus === 'COMPLETED' ? 'secondary' : 'danger'" [text]="course.currentEnrollment.enrollmentStatus"></app-badge>
+                        </div>
+                      </div>
+
+                      <div class="flex flex-1 flex-col gap-2 p-4">
+                        <div class="flex flex-col gap-2">
+                          <h3 class="line-clamp-2 text-base font-semibold leading-snug">
+                            {{ course.title }}
+                          </h3>
+                          <p class="para-primary para-xs line-clamp-2 min-h-[2.75rem]">
+                            {{ course.description }}
+                          </p>
+                        </div>
+                        <div class="flex flex-wrap gap-1.5">
+                          <app-badge variant="warning" [text]="course.level"></app-badge>
+                          <app-badge variant="violet" [text]="course.language"></app-badge>
+                          <app-badge variant="info" [text]="course.mode"></app-badge>
+                        </div>
+
+                        <div class="flex items-center gap-1.5">
+                          <lucide-icon [img]="Star" class="h-4 w-4 shrink-0 fill-amber-500 text-amber-500"></lucide-icon>
+                          <p class="para-light">
+                            {{ course.averageRating }}
+                          </p>
+                        </div>
+
+                        <app-card-shell variant="secondary">
+                          <div class="grid grid-cols-1 gap-3 px-4 py-3 sm:grid-cols-2">
+                            <div class="min-w-0">
+                              <p class="para-primary para-xs">Current Batch</p>
+                              <p class="para-light truncate font-semibold" [title]="course.currentEnrollment.batchName">
+                                {{ course.currentEnrollment.batchName }}
+                              </p>
+                            </div>
+
+                            <div class="min-w-0 sm:text-right">
+                              <p class="para-primary para-xs">Started</p>
+                              <p class="para-light font-semibold">
+                                {{ course.currentEnrollment.startDate | date:'dd MMM yyyy' }}
+                              </p>
+                            </div>
+                          </div>
+                        </app-card-shell>
+
+                        <div class="mt-auto flex gap-2 pt-1">
+                          <button class="btn btn-mini-primary flex-1">Access Course</button>
+                          @if (course.enrollmentHistoryAvailable){
+                            <button (click)="onHistoryClick(course.id)" class="btn btn-mini-secondary shrink-0">History</button>
+                          }
+                        </div>
+                      </div>
+                    </div>
+                  </app-card-shell>
+                } @empty {
+                  <div class="col-span-full">
+                    <app-no-content title="No Enrolled Courses" description="You don't have any enrolled courses in this institute."></app-no-content>
+                  </div>
+                }
+              </div>
+            </div>
+          </app-card-shell>
+        } @empty {
+          <app-no-content title="No Learning Data Available" description="You haven't started any courses yet."></app-no-content>
+        }
+      }
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
 
