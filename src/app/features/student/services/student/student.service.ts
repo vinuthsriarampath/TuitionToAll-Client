@@ -5,6 +5,7 @@ import {StudentDetailsUpdateRequest} from '@features/student/dtos/requests/Stude
 import {ApiResponse} from '@shared/utils/response/api-response';
 import {Student} from '@features/student/dtos/responses/student';
 import {Observable} from 'rxjs';
+import {StudentLearningResponse} from '@features/student/dtos/responses/student-learning-response';
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +20,9 @@ export class StudentService {
 
   validateStudentRole():Observable<ApiResponse<null>>{
     return this.http.get<ApiResponse<null>>(`${this.baseUrl}/validate/role`);
+  }
+
+  getMyLearning():Observable<ApiResponse<StudentLearningResponse[]>> {
+    return this.http.get<ApiResponse<StudentLearningResponse[]>>(`${this.baseUrl}/me/learning`);
   }
 }
