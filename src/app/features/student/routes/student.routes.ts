@@ -15,6 +15,10 @@ export const STUDENT_ROUTES: Routes = [
         title: 'Student Dashboard',
         data: {breadcrumb: "Dashboard"},
         loadComponent: () => import('@features/student/pages/student-dashboard/student-dashboard.component').then(m => m.StudentDashboardComponent),
+      },
+      {
+        path: 'my-learnings',
+        loadChildren: () => import('@features/course/routes/student-course.routes').then(m => m.STUDENT_COURSE_ROUTES),
       }
     ]
   },
