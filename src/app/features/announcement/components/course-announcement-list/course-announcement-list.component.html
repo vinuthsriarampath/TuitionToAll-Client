@@ -9,9 +9,11 @@
         <p class="text-xs text-sky-200/60 mt-0.5">Latest course updates and notices</p>
       </div>
 
-      <a [routerLink]="'/ins/dashboard/announcements-mgt'">
-        <button class="btn-mini-primary">Manage</button>
-      </a>
+      @if (showManageButton()){
+        <a [routerLink]="'/ins/dashboard/announcements-mgt'">
+          <button class="btn-mini-primary">Manage</button>
+        </a>
+      }
     </div>
 
     <!-- Announcement List -->

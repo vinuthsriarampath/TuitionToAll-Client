@@ -23,6 +23,9 @@ import {NoContentComponent} from '@shared/components/no-content/no-content.compo
   styleUrl: './course-announcement-list.component.css'
 })
 export class CourseAnnouncementListComponent implements OnInit{
+
+  showManageButton = input<boolean>(false);
+
   protected announcements:AnnouncementResponse[] = [];
   protected loading:boolean = false;
 
