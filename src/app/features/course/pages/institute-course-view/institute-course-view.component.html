@@ -1,0 +1,57 @@
+<app-page-layout
+  [isLoading]="loading"
+  [loaderTitle]="'Loading Course'"
+  [loaderDescription]="'Fetching course details from the server.'"
+>
+  @if (course) {
+    <app-course-view-shell data-body>
+      <div page-header>
+        <app-course-hero [course]="course" [courseLoading]="loading">
+          <div top-left-actions class="space-x-2">
+            <button (click)="window.history.back()" class="btn-mini-primary">
+              Go Back
+            </button>
+            <app-badge [text]="course.status || 'N/A'"
+                       [variant]="course.status === 'DRAFT' ? 'warning' : course.status === 'ARCHIVED' ? 'secondary' : 'success'">
+            </app-badge>
+          </div>
+          <div top-right-actions class="space-x-2">
+            <a [routerLink]="['update']">
+              <button class="btn-mini-primary">
+                Edit Course
+              </button>
+            </a>
+          </div>
+        </app-course-hero>
+
+        <!-- QUICK STATS -->
+        <app-course-stats [courseId]="courseId" [courseAvgRating]="course.avg_rating" [courseLoading]="loading"></app-course-stats>
+
+        <!-- DESCRIPTION -->
+        <app-course-description [description]="course.description"></app-course-description>
+
+        <!-- ACTION TOOLBAR -->
+        <div class="mt-8 flex flex-wrap gap-3">
+          <button class="btn-primary" [routerLink]="['batch-mgt']">Batches</button>
+          <button class="btn-secondary btn-success" [routerLink]="['announcements']">Announcements</button>
+          <button class="btn-secondary btn-success" [routerLink]="['feedbacks&reviews']">Reviews & Feedbacks</button>
+          <button class="btn-light">Analytics (Future)</button>
+        </div>
+      </div>
+
+      <div main-content class="flex flex-col gap-4">
+        <app-card-shell>
+          <div class="p-6 space-y-3">
+            <h3>Course Tree</h3>
+            <app-course-tree></app-course-tree>
+          </div>
+        </app-card-shell>
+      </div>
+
+      <div side-content class="flex flex-col gap-4">
+        <app-course-announcement-list [courseId]="courseId" [recentAnnouncements]="true" [showManageButton]="true"></app-course-announcement-list>
+      </div>
+    </app-course-view-shell>
+  }
+
+</app-page-layout>
