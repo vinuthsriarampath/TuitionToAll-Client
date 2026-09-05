@@ -1,4 +1,4 @@
-import {Component, effect, inject, input, OnInit} from '@angular/core';
+import {Component, inject, input, OnInit} from '@angular/core';
 import {CourseStatsResponse} from "@features/course/dtos/response/course-stats-response";
 import {CardShellComponent} from '@shared/ui';
 import {LucideAngularModule, Star} from 'lucide-angular';

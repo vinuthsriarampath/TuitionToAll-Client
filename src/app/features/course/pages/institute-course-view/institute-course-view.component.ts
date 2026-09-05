@@ -1,7 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {Course} from '@features/course/dtos/response/course';
-import {AlertService} from '@core/services/alerts/alert.service';
-import {CourseService} from '@features/course/services/course/course.service';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {PageLayoutComponent} from '@core/layouts';
 import {BadgeComponent, CardShellComponent} from '@shared/ui';
