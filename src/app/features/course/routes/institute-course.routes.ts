@@ -24,7 +24,7 @@ export const INSTITUTE_COURSE_ROUTES:Routes = [
         path: '',
         title: (route) => route.parent?.data['course'].title,
         data: {breadcrumb: null},
-        loadComponent: () => import('@features/course/pages/course-view/course-view.component').then(m => m.CourseViewComponent)
+        loadComponent: () => import('@features/course/pages/institute-course-view/institute-course-view.component').then(m => m.InstituteCourseViewComponent)
       },
       {
         path: 'update',
