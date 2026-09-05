@@ -1,0 +1,48 @@
+<div class="relative w-full h-80 rounded-xl overflow-hidden shadow-lg">
+  <img
+    [ngSrc]="course().thumbnail ? environment.COURSE_API + course().thumbnail : 'no_image_provided.png'"
+    alt="thumbnail"
+    fill
+    class="object-cover"
+    priority="1"
+    (error)="$any($event.target).src = 'no_image_provided.png'"
+  />
+
+  <!-- Gradient Overlay -->
+  <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+
+  <!-- Status Badge -->
+  <div class="absolute top-4 left-4">
+    <ng-content select="[top-left-actions]"></ng-content>
+  </div>
+
+  <!-- Edit Button -->
+  <div class="absolute top-4 right-4">
+    <ng-content select="[top-right-actions]"></ng-content>
+  </div>
+</div>
+
+<!-- COURSE HEADER -->
+<div class="mt-6 px-1 sm:px-3">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+    <div>
+      <h1 class="text-3xl font-bold">{{ course().title }}</h1>
+
+      @if (showPrice()) {
+        <p class="text-emerald-400 para-base font-semibold mt-1">
+          {{ course().price! > 0 ? ('Rs. ' + (course().price | currency:'':'':'1.0-2') + ' /=') : 'Free' }}
+        </p>
+      }
+    </div>
+  </div>
+
+  <!-- Meta Badges -->
+  <div class="flex flex-wrap gap-2 mt-4">
+    <app-badge [text]="course().category? course().category : 'N/A'" variant="indigo"></app-badge>
+    <app-badge [text]="course().language? course().language : 'N/A'" variant="violet"></app-badge>
+    <app-badge [text]="course().level? course().level : 'N/A'"
+               [variant]="course().level === 'BEGINNER' ? 'success' : course().level === 'INTERMEDIATE' ? 'warning' : 'danger'"></app-badge>
+    <app-badge [text]="course().mode? course().mode : 'N/A'" variant="secondary"></app-badge>
+    <app-badge [text]="course().durationInHours? course().durationInHours + ' Hours' : 'N/A'" variant="success"></app-badge>
+  </div>
+</div>
