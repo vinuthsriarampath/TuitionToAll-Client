@@ -44,7 +44,6 @@ export class InstituteCourseViewComponent implements OnInit{
       if (course) {
         this.course = course;
         this.courseId = course.id;
-        console.log(this.course);
       }
     });
   }
