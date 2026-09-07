@@ -1,0 +1,27 @@
+<app-page-layout loaderTitle="Loading Course" loaderDescription="Please wait while we load the course details." [isLoading]="loading">
+  @if(course){
+    <app-course-view-shell data-body>
+      <div page-header class="flex flex-col gap-4">
+        <app-course-hero [courseTitle]="course.title"
+                         [courseThumbnail]="course.thumbnail"
+                         [courseCategory]="course.category" [courseLanguage]="course.language"
+                         [courseLevel]="course.level" [courseMode]="course.mode" [courseDuration]="course.durationInHours" [courseLoading]="loading">
+          <div top-left-actions class="space-x-2">
+            <button (click)="window.history.back()" class="btn-mini-primary">
+              Go Back
+            </button>
+          </div>
+
+        </app-course-hero>
+
+        <app-course-description [description]="course.description"></app-course-description>
+      </div>
+      <div main-content>
+        <p>test 2</p>
+      </div>
+      <div side-content>
+        <app-course-announcement-list [courseId]="course.id" [recentAnnouncements]="true"></app-course-announcement-list>
+      </div>
+    </app-course-view-shell>
+  }
+</app-page-layout>
