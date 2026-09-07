@@ -1,7 +1,6 @@
 import {Component, inject, OnInit, signal, ViewChild} from '@angular/core';
-import {PageLayoutComponent} from '@core/layouts';
 import {BadgeComponent, CardHeaderComponent, CardShellComponent} from '@shared/ui';
-import {DatePipe, NgClass, NgOptimizedImage, TitleCasePipe} from '@angular/common';
+import {DatePipe, NgOptimizedImage} from '@angular/common';
 import {Calendar, LucideAngularModule, Star, Zap} from 'lucide-angular';
 import {StudentService} from '@features/student/services/student/student.service';
 import {StudentLearningResponse} from '@features/student/dtos/responses/student-learning-response';
@@ -12,11 +11,11 @@ import {LoaderOverlayComponent} from '@shared/components/loader-overlay/loader-o
 import {EnrollmentHistoryResponse} from '@features/student-batch-enrollment/dtos/responses/enrollment-history-response';
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from '@angular/material/sidenav';
 import {PageTitleComponent} from '@shared/components/page-title/page-title.component';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-student-learnings',
   imports: [
-    PageLayoutComponent,
     CardShellComponent,
     CardHeaderComponent,
     NgOptimizedImage,
@@ -29,8 +28,7 @@ import {PageTitleComponent} from '@shared/components/page-title/page-title.compo
     MatSidenav,
     MatSidenavContent,
     PageTitleComponent,
-    NgClass,
-    TitleCasePipe
+    RouterLink
   ],
   templateUrl: './student-learnings.component.html',
   styleUrl: './student-learnings.component.css'
@@ -42,6 +40,7 @@ export class StudentLearningsComponent implements OnInit{
   protected historyLoading:boolean = false;
   protected myLearning = signal<StudentLearningResponse[]>([]);
   protected enrollmentHistory = signal<EnrollmentHistoryResponse | null>(null);
+  protected viewingCourseId = signal<number | null>(null);
 
   private readonly studentService = inject(StudentService);
   private readonly alertService = inject(AlertService);
@@ -72,6 +71,7 @@ export class StudentLearningsComponent implements OnInit{
       this.studentService.getEnrollmentHistory(courseId).subscribe({
         next: res => {
           if (res.data){
+            this.viewingCourseId.set(courseId);
             this.enrollmentHistory.set(res.data);
           }
           this.historyLoading = false;
@@ -86,6 +86,7 @@ export class StudentLearningsComponent implements OnInit{
 
   onCloseHistoryDrawer(){
     this.drawer.close().then(() => {
+      this.viewingCourseId.set(null);
       this.enrollmentHistory.set(null);
     })
   }

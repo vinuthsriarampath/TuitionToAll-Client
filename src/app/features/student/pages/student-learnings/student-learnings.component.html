@@ -17,7 +17,7 @@
         </div>
       } @else {
         @for (enrollment of enrollmentHistory()?.enrollments; track enrollment.enrollmentId) {
-          <app-card-shell variant="secondary">
+          <app-card-shell variant="secondary" [routerLink]="['courses', viewingCourseId(), 'batches', enrollment.batchId]" class="cursor-pointer">
             <div class="p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-all hover:shadow-md rounded-lg">
 
               <!-- Left Content: Batch Info -->
@@ -129,7 +129,7 @@
                         </app-card-shell>
 
                         <div class="mt-auto flex gap-2 pt-1">
-                          <button class="btn btn-mini-primary flex-1">Access Course</button>
+                          <button class="btn btn-mini-primary flex-1" [routerLink]="['courses', course.id, 'batches', course.currentEnrollment.batchId]">Access Course</button>
                           @if (course.enrollmentHistoryAvailable){
                             <button (click)="onHistoryClick(course.id)" class="btn btn-mini-secondary shrink-0">History</button>
                           }
