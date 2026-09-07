@@ -6,7 +6,10 @@
   @if (course) {
     <app-course-view-shell data-body>
       <div page-header>
-        <app-course-hero [course]="course" [courseLoading]="loading">
+        <app-course-hero [courseTitle]="course.title"
+                         [courseThumbnail]="course.thumbnail" [coursePrice]="course.price"
+                         [courseCategory]="course.category" [courseLanguage]="course.language"
+                         [courseLevel]="course.level" [courseMode]="course.mode" [courseDuration]="course.durationInHours" [courseLoading]="loading" [showPrice]="true">
           <div top-left-actions class="space-x-2">
             <button (click)="window.history.back()" class="btn-mini-primary">
               Go Back
