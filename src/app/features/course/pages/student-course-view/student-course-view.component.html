@@ -16,10 +16,13 @@
 
         <app-course-description [description]="course.description"></app-course-description>
       </div>
-      <div main-content>
+      <div main-content class="flex flex-col gap-4">
         <p>test 2</p>
       </div>
-      <div side-content>
+      <div side-content class="flex flex-col gap-4">
+        @if (batch) {
+          <app-batch-detail [batchId]="batch.id" [batchName]="batch.name" [batchStartDate]="batch.startDate" [batchStartTime]="batch.startTime" [batchStatus]="batch.status"></app-batch-detail>
+        }
         <app-course-announcement-list [courseId]="course.id" [recentAnnouncements]="true"></app-course-announcement-list>
       </div>
     </app-course-view-shell>

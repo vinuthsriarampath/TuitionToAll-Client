@@ -11,6 +11,7 @@ import {CourseDescriptionComponent} from '@features/course/components/course-des
 import {
   CourseAnnouncementListComponent
 } from '@features/announcement/components/course-announcement-list/course-announcement-list.component';
+import {BatchDetailComponent} from '@features/batch/components/batch-detail/batch-detail.component';
 
 @Component({
   selector: 'app-student-course-view',
@@ -19,7 +20,8 @@ import {
     CourseViewShellComponent,
     CourseHeroComponent,
     CourseDescriptionComponent,
-    CourseAnnouncementListComponent
+    CourseAnnouncementListComponent,
+    BatchDetailComponent
   ],
   templateUrl: './student-course-view.component.html',
   styleUrl: './student-course-view.component.css'
@@ -41,7 +43,7 @@ export class StudentCourseViewComponent implements OnInit{
       if (course) {
         this.courseViewResponse = course;
         this.course = course.course;
-        this.batch = course.batch;
+        this.batch = course.selectedBatch;
         this.modules = course.modules;
       }
       this.loading = false;
