@@ -1,6 +1,6 @@
 import {Routes} from '@angular/router';
-import {courseResolver} from '@features/course/resolvers/course.resolver';
-import {CourseResolverData} from '@features/course/resolvers/course-resolver-data';
+import {courseResolver} from '@features/course/resolvers/course-resolver/course.resolver';
+import {CourseResolverData} from '@features/course/resolvers/course-resolver/course-resolver-data';
 
 export const INSTITUTE_COURSE_ROUTES:Routes = [
   {
