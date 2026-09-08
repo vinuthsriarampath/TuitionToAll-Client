@@ -12,6 +12,7 @@ import {
   CourseAnnouncementListComponent
 } from '@features/announcement/components/course-announcement-list/course-announcement-list.component';
 import {BatchDetailComponent} from '@features/batch/components/batch-detail/batch-detail.component';
+import {CourseModuleComponent} from '@features/module/components/course-module/course-module.component';
 
 @Component({
   selector: 'app-student-course-view',
@@ -21,7 +22,8 @@ import {BatchDetailComponent} from '@features/batch/components/batch-detail/batc
     CourseHeroComponent,
     CourseDescriptionComponent,
     CourseAnnouncementListComponent,
-    BatchDetailComponent
+    BatchDetailComponent,
+    CourseModuleComponent
   ],
   templateUrl: './student-course-view.component.html',
   styleUrl: './student-course-view.component.css'
@@ -32,7 +34,7 @@ export class StudentCourseViewComponent implements OnInit{
   protected loading: boolean = false;
   protected course !:StudentCourseResponse;
   protected batch !: StudentBatchResponse;
-  protected modules!:StudentModuleResponse;
+  protected modules!:StudentModuleResponse[];
   protected courseViewResponse!:StudentCourseViewResponse;
 
   private readonly activatedRoute = inject(ActivatedRoute);

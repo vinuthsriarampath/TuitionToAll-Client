@@ -17,7 +17,9 @@
         <app-course-description [description]="course.description"></app-course-description>
       </div>
       <div main-content class="flex flex-col gap-4">
-        <p>test 2</p>
+        @if (modules) {
+          <app-course-module [modules]="modules"></app-course-module>
+        }
       </div>
       <div side-content class="flex flex-col gap-4">
         @if (batch) {
