@@ -25,7 +25,7 @@
         @if (batch) {
           <app-batch-detail [batchId]="batch.id" [batchName]="batch.name" [batchStartDate]="batch.startDate" [batchStartTime]="batch.startTime" [batchStatus]="batch.status"></app-batch-detail>
         }
-        <app-course-announcement-list [courseId]="course.id" [recentAnnouncements]="true"></app-course-announcement-list>
+        <app-course-announcement-list [courseId]="course.id" [batchId]="batch.id" [recentAnnouncements]="true" noContentDescription="The latest announcements for this course will appear here."></app-course-announcement-list>
       </div>
     </app-course-view-shell>
   }
