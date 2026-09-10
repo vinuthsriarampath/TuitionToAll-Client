@@ -67,8 +67,8 @@
 
         @if (announcements.length === 0) {
           <app-no-content
-            [title]="'No new announcements yet!'"
-            [description]="'New Course Announcements will appear here. You can create a new announcement by clicking the Manage button above.'"
+            [title]="noContentTitle()"
+            [description]="noContentDescription()"
           ></app-no-content>
         }
       }
