@@ -54,6 +54,7 @@ import {MatPaginator, PageEvent} from '@angular/material/paginator';
 export class CourseAnnouncementViewComponent implements OnInit {
 
   protected courseId!:number;
+  protected batchId?:number;
   protected loading:boolean= false;
 
   // table related
@@ -71,6 +72,7 @@ export class CourseAnnouncementViewComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params =>{
       this.courseId = Number.parseInt(params.get('courseId') ?? '');
+      this.batchId = Number.parseInt(params.get('batchId') ?? '');
       this.fetchAnnouncements();
     })
   }
@@ -78,6 +80,9 @@ export class CourseAnnouncementViewComponent implements OnInit {
   private fetchAnnouncements():void{
     const filters:AnnouncementFilterRequest = new AnnouncementFilterRequest();
     filters.courseId = this.courseId;
+    if(this.batchId){
+      filters.batchId = this.batchId;
+    }
     this.triggerLoading();
     this.announcementService.getAllAnnouncements(0,10,'desc',['is_pinned','published_date'],filters).subscribe({
       next: (res)=>{
