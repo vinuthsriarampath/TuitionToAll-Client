@@ -39,7 +39,7 @@ import {PageLayoutComponent} from '@core/layouts';
 export class ModuleViewComponent implements OnInit{
   canEditModule = input<boolean>(false);
   canAddChapter = input<boolean>(false);
-  canAddModuleAssignment = input<boolean>(false);
+  canAddAssignment = input<boolean>(false);
 
   protected module!:ModuleDetailedResponse;
   protected chapterRefreshTrigger:number = 0;
