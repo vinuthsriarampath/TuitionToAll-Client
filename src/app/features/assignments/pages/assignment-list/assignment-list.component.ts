@@ -60,6 +60,7 @@ export class AssignmentListComponent implements OnInit {
 
   header= input.required<Header>();
   config = input.required<AssignmentConfig>();
+  addAssignment = input<boolean>(false);
 
   protected loading:boolean = false;
   protected columns: string[] = ['id', 'topic', 'availableDate', 'dueDate', 'createdDate', 'actions'];
