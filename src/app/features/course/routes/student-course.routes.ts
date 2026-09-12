@@ -1,7 +1,8 @@
 import {Routes} from '@angular/router';
 import {studentCourseResolver} from '@features/course/resolvers/student-course-resolver/student-course.resolver';
-import {StudentCourseViewResponse} from '@features/course/dtos/response/student-course-view-response';
 import {StudentCourseResolverData} from '@features/course/resolvers/student-course-resolver/StudentCourseResolverData';
+import {modulesResolver} from '@features/module/resolvers/modules.resolver';
+import {ModuleResolverData} from '@features/module/resolvers/module-resolver-data';
 
 export const STUDENT_COURSE_ROUTES: Routes = [
   {
@@ -34,6 +35,14 @@ export const STUDENT_COURSE_ROUTES: Routes = [
         },
         title: 'Announcements',
         loadChildren: () => import('@features/announcement/routes/student-course-announcement.route').then(m => m.STUDENT_COURSE_ROUTES)
+      },
+      {
+        path:'modules/:moduleId',
+        resolve: {module: modulesResolver},
+        data: {
+          breadcrumb: (data:ModuleResolverData) => data.module.name
+        },
+        loadChildren: () => import('@features/module/routes/student-module.routes').then(m => m.STUDENT_MODULE_ROUTES)
       }
     ]
   }
