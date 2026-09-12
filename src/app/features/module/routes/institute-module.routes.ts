@@ -10,7 +10,12 @@ export const INSTITUTE_MODULE_ROUTES:Routes = [
     children:[
       {
         path: '',
-        data:{breadcrumb: null},
+        data:{
+          breadcrumb: null,
+          canEditModule: true,
+          canAddChapter: true,
+          canAddModuleAssignment: true,
+        },
         title: (route) => route.parent?.data['module'].name,
         loadComponent: () => import('@features/module/pages/module-view/module-view.component').then(m => m.ModuleViewComponent)
       },
