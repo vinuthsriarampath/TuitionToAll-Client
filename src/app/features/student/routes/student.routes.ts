@@ -18,6 +18,7 @@ export const STUDENT_ROUTES: Routes = [
       },
       {
         path: 'my-learnings',
+        data: { breadcrumb: 'My Learnings' },
         loadChildren: () => import('@features/course/routes/student-course.routes').then(m => m.STUDENT_COURSE_ROUTES),
       }
     ]
