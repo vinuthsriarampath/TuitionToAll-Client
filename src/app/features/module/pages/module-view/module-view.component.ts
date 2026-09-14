@@ -45,6 +45,7 @@ export class ModuleViewComponent implements OnInit{
 
   canAddAssignment = input<boolean>(false);
   canEditAssignment = input<boolean>(false);
+  availableAssignmentsOnly = input<boolean>(true);
 
 
   protected module!:ModuleDetailedResponse;

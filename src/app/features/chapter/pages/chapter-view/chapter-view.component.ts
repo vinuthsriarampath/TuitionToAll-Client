@@ -48,6 +48,7 @@ export class ChapterViewComponent implements OnInit{
 
     canAddAssignment= input<boolean>(false);
     canEditAssignment = input<boolean>(false);
+    availableAssignmentsOnly = input<boolean>(true);
 
     private chapterId!:number;
     protected chapter!:ChapterDetailedResponse;

@@ -55,7 +55,7 @@
         <!-- Chapter Assignments-->
         <app-card-shell>
           <div class="p-5">
-            <app-assignment-list [config]="{ type:'chapter', chapterId:this.chapter.id}" [canAddAssignment]="canAddAssignment()" [canEditAssignment]="canEditAssignment()" [header]="{ title: 'Assignments', description: 'Manage assignments for this chapter'}" />
+            <app-assignment-list [config]="{ type:'chapter', chapterId:this.chapter.id}" [canAddAssignment]="canAddAssignment()" [canEditAssignment]="canEditAssignment()" [availableAssignmentsOnly]="availableAssignmentsOnly()" [header]="{ title: 'Assignments', description: 'Manage assignments for this chapter'}" />
           </div>
         </app-card-shell>
 
