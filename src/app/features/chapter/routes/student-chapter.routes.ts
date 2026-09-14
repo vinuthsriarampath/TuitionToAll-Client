@@ -27,5 +27,11 @@ export const STUDENT_CHAPTER_ROUTES: Routes = [
     path: 'assignments/:assignmentId',
     resolve: {assignment: assignmentResolver},
     loadChildren: () => import('@features/assignments/routes/student-assignment.routes').then(m => m.STUDENT_ASSIGNMENT_ROUTES),
-  }
+  },
+  {
+    path: 'watch',
+    data: {breadcrumb: 'Watch'},
+    title: 'lecture Recordings',
+    loadComponent: () => import('@features/lecture-record/pages/lecture-record-watch/lecture-record-watch.component').then(m => m.LectureRecordWatchComponent)
+  },
 ]
