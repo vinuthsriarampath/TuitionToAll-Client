@@ -22,6 +22,7 @@ export const INSTITUTE_CHAPTER_ROUTES: Routes = [
 
       canScheduleLectures: true,
       canEditLectureSchedules: true,
+      availableAssignmentsOnly: false
     },
     children: [
       {

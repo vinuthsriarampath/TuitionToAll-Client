@@ -17,6 +17,7 @@ export const STUDENT_CHAPTER_ROUTES: Routes = [
 
       canAddAssignment: false,
       canEditAssignment: false,
+      availableAssignmentsOnly: true,
 
       canUploadResources: false,
       canDeleteResources: false,

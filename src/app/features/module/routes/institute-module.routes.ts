@@ -20,6 +20,7 @@ export const INSTITUTE_MODULE_ROUTES:Routes = [
 
           canAddAssignment: true,
           canEditAssignment: true,
+          availableAssignmentsOnly: false
         },
         title: (route) => route.parent?.data['module'].name,
         loadComponent: () => import('@features/module/pages/module-view/module-view.component').then(m => m.ModuleViewComponent)

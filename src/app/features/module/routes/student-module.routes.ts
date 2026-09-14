@@ -17,6 +17,7 @@ export const STUDENT_MODULE_ROUTES: Routes = [
 
       canAddAssignment: false,
       canEditAssignment: false,
+      availableAssignmentsOnly: true
     },
     loadComponent: () => import('@features/module/pages/module-view/module-view.component').then(m => m.ModuleViewComponent),
   },
