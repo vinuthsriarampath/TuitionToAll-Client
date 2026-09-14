@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, input, OnInit} from '@angular/core';
 import {CardShellComponent} from '@shared/ui';
 import {MatDialog} from '@angular/material/dialog';
 import {LectureRecordUploadComponent} from '../../dialogs/lecture-record-upload/lecture-record-upload.component';
@@ -24,6 +24,9 @@ import {NoContentComponent} from '@shared/components/no-content/no-content.compo
   styleUrl: './lecture-recording.component.css'
 })
 export class LectureRecordingComponent implements  OnInit{
+
+  canUploadRecording = input<boolean>(false);
+  canEditLectureRecording = input<boolean>(false);
 
   private chapterId!:number;
   protected lectureRecords:LectureRecordResponse[] =[];
