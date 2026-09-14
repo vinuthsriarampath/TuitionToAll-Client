@@ -49,10 +49,10 @@
 
             <app-card-shell>
               <div class="p-4">
-                <p class="para-primary">Description</p>
-                <div class="para-light prose max-w-none"
-                     [innerHTML]="assignment.description">
-                </div>
+                <p class="para-primary mb-2">Description</p>
+
+                <quill-view [content]="assignment.description" format="html" theme="snow"></quill-view>
+
               </div>
             </app-card-shell>
           </div>

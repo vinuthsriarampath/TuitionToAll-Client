@@ -8,6 +8,7 @@ import {AssignmentDetailedResponse} from '@features/assignments/dtos/response/as
 import {DatePipe, NgClass} from '@angular/common';
 import {PageLayoutComponent} from '@core/layouts';
 import {CardShellComponent} from '@shared/ui';
+import {QuillViewComponent} from 'ngx-quill';
 
 @Component({
   selector: 'app-assignment-view',
@@ -15,7 +16,8 @@ import {CardShellComponent} from '@shared/ui';
     DatePipe,
     NgClass,
     PageLayoutComponent,
-    CardShellComponent
+    CardShellComponent,
+    QuillViewComponent
   ],
   templateUrl: './assignment-view.component.html',
   styleUrl: './assignment-view.component.css'
