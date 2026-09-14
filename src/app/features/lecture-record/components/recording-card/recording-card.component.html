@@ -13,9 +13,11 @@
         Watch
       </button>
 
-      <button (click)="openLectureRecordDetailsUpdateDialog(lectureRecord())" class="btn-mini-secondary" [disabled]="loading()">
-        Edit
-      </button>
+      @if (canEditLectureRecording()){
+        <button (click)="openLectureRecordDetailsUpdateDialog(lectureRecord())" class="btn-mini-secondary" [disabled]="loading()">
+          Edit
+        </button>
+      }
 
     </div>
 
