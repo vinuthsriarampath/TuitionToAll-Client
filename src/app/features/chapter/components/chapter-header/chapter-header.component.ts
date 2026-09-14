@@ -28,6 +28,7 @@ export class ChapterHeaderComponent {
     createdDate = input.required<string>();
     lastModifiedDate = input.required<string>();
     loading = input<boolean>(true);
+    canEditChapter = input<boolean>(false);
 
   readonly chapterUpdated = output<void>();
 
