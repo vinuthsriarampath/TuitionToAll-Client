@@ -58,7 +58,7 @@ export class ScheduledLecturesComponent implements OnInit{
 
   protected readonly fetchAllScheduledLecturesByChapterId = ():void =>{
     this.triggerLoading();
-    this.chapterService.getAllScheduleLecturesWithFilters(this.chapterId).subscribe({
+    this.chapterService.getAllScheduleLecturesWithFilters(this.chapterId,0,10,'desc',['start_time']).subscribe({
       next:(res)=>{
         if(res.data) {
           this.scheduleLectures = res.data;
