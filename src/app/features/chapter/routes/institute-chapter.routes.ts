@@ -6,7 +6,23 @@ export const INSTITUTE_CHAPTER_ROUTES: Routes = [
   {
     path: ':chapterId',
     resolve: {chapter: chapterResolver},
-    data: {breadcrumb: (data: ChapterResolverData) => data.chapter.title},
+    data: {
+      breadcrumb: (data: ChapterResolverData) => data.chapter.title,
+
+      canEditChapter: true,
+
+      canUploadRecording: true,
+      canEditLectureRecording: true,
+
+      canUploadResources: true,
+      canDeleteResources: true,
+
+      canAddAssignment: true,
+      canEditAssignment: true,
+
+      canScheduleLectures: true,
+      canEditLectureSchedules: true,
+    },
     children: [
       {
         path: '',
