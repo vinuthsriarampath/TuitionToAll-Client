@@ -9,16 +9,21 @@ export const STUDENT_MODULE_ROUTES: Routes = [
     data: {
       breadcrumb: null,
       canEditModule: false,
+
       canAddChapter: false,
+      canEditChapter: false,
+      canReorderChapter: false,
+
       canAddAssignment: false,
+      canEditAssignment: false,
     },
     loadComponent: () => import('@features/module/pages/module-view/module-view.component').then(m => m.ModuleViewComponent),
   },
   {
     path: 'chapters/:chapterId',
-    resolve: chapterResolver,
-    data:{
-      breadcrumb: (data:ChapterResolverData) => data.chapter.title
+    resolve: {chapter: chapterResolver},
+    data: {
+      breadcrumb: (data: ChapterResolverData) => data.chapter.title
     },
     loadChildren: () => import('@features/chapter/routes/student-chapter.routes').then(m => m.STUDENT_CHAPTER_ROUTES)
   }

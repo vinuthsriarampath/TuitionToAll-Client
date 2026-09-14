@@ -13,8 +13,13 @@ export const INSTITUTE_MODULE_ROUTES:Routes = [
         data:{
           breadcrumb: null,
           canEditModule: true,
+
           canAddChapter: true,
-          canAddModuleAssignment: true,
+          canEditChapter: true,
+          canReorderChapter: true,
+
+          canAddAssignment: true,
+          canEditAssignment: true,
         },
         title: (route) => route.parent?.data['module'].name,
         loadComponent: () => import('@features/module/pages/module-view/module-view.component').then(m => m.ModuleViewComponent)
