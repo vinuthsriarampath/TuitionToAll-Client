@@ -23,6 +23,13 @@ import {AlertService} from '@core/services/alerts/alert.service';
 import {Eye, LucideAngularModule, Pencil, RefreshCw} from 'lucide-angular';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NoContentComponent} from '@shared/components/no-content/no-content.component';
+import {
+  ModuleAssignmentFilterRequest
+} from '@features/assignments/dtos/request/module-assignment/module-assignment-filter-request';
+import {getDateTime} from '@shared/utils/helpers/date-helper';
+import {
+  ChapterAssignmentFilterRequest
+} from '@features/assignments/dtos/request/chapter-assignment/chapter-assignment-filter-request';
 
 export type AssignmentConfig =
   | { type: 'module'; moduleId: number; chapterId?: never }
@@ -62,6 +69,7 @@ export class AssignmentListComponent implements OnInit {
   config = input.required<AssignmentConfig>();
   canAddAssignment = input<boolean>(false);
   canEditAssignment = input<boolean>(false);
+  availableAssignmentsOnly = input<boolean>(true);
 
   protected loading:boolean = false;
   protected columns: string[] = ['id', 'topic', 'availableDate', 'dueDate', 'createdDate', 'actions'];
@@ -84,9 +92,20 @@ export class AssignmentListComponent implements OnInit {
   protected loadAssignments() {
     const currentConfig = this.config();
 
-    const assignmentObservable$ = currentConfig.type === 'module'
-      ? this.moduleService.getAssignmentsByModule(currentConfig.moduleId,this.pageIndex,this.pageSize)
-      : this.chapterService.getAllChapterAssignmentsWithFilters(currentConfig.chapterId,this.pageIndex,this.pageSize);
+    let assignmentObservable$;
+    if (currentConfig.type === 'module'){
+      const filter = new ModuleAssignmentFilterRequest();
+      if (this.availableAssignmentsOnly()) {
+        filter.availableOn = getDateTime(0, 0, 0, 0, 0);
+      }
+      assignmentObservable$ = this.moduleService.getAssignmentsByModule(currentConfig.moduleId,this.pageIndex,this.pageSize,'desc',[],filter);
+    }else{
+      const filter = new ModuleAssignmentFilterRequest();
+      if (this.availableAssignmentsOnly()) {
+        filter.availableOn = getDateTime(0, 0, 0, 0, 0);
+      }
+      assignmentObservable$ = this.chapterService.getAllChapterAssignmentsWithFilters(currentConfig.chapterId,this.pageIndex,this.pageSize,'desc',[],filter);
+    }
 
     assignmentObservable$.subscribe({
       next: (res) => {
