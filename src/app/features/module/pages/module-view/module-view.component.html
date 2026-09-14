@@ -81,12 +81,12 @@
       <mat-tab-group class="custom-tabs w-full" mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="500ms">
         <mat-tab label="Chapters" >
           <ng-template matTabContent>
-            <app-chapter-list [triggerRefresh]="chapterRefreshTrigger" class="flex-1 overflow-y-auto"></app-chapter-list>
+            <app-chapter-list [canReorderChapter]="canReorderChapter()" [canEditChapter]="canAddChapter()" [triggerRefresh]="chapterRefreshTrigger" class="flex-1 overflow-y-auto"></app-chapter-list>
           </ng-template>
         </mat-tab>
         <mat-tab label="Module Assignments">
           <ng-template matTabContent>
-            <app-assignment-list [config]="{type: 'module',moduleId: module.id}" [addAssignment]="canAddAssignment()" [header]="{ title: 'Assignments', description:'Manage all module assignments'}" class="flex-1 overflow-y-auto"/>
+            <app-assignment-list [config]="{type: 'module',moduleId: module.id}" [canAddAssignment]="canAddAssignment()" [canEditAssignment]="canEditAssignment()" [header]="{ title: 'Assignments', description:'Manage all module assignments'}" class="flex-1 overflow-y-auto"/>
           </ng-template>
         </mat-tab>
       </mat-tab-group>
