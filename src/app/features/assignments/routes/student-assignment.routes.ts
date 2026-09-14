@@ -3,6 +3,11 @@ import {AssignmentResolverData} from '@features/assignments/resolvers/assignment
 
 export const STUDENT_ASSIGNMENT_ROUTES: Routes = [
   {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'view'
+  },
+  {
     path: 'view',
     data: {
       breadcrumb: (data:AssignmentResolverData) => data.assignment.topic,

@@ -25,6 +25,9 @@ export const STUDENT_CHAPTER_ROUTES: Routes = [
   },
   {
     path: 'assignments/:assignmentId',
+    data:{
+      breadcrumb: null
+    },
     resolve: {assignment: assignmentResolver},
     loadChildren: () => import('@features/assignments/routes/student-assignment.routes').then(m => m.STUDENT_ASSIGNMENT_ROUTES),
   },
