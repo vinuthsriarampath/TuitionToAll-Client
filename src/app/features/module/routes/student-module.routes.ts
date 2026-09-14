@@ -1,6 +1,7 @@
 import {Routes} from '@angular/router';
 import {chapterResolver} from '@features/chapter/resolvers/chapter.resolver';
 import {ChapterResolverData} from '@features/chapter/resolvers/chapter-resolver-data';
+import {assignmentResolver} from '@features/assignments/resolvers/assignment.resolver';
 
 export const STUDENT_MODULE_ROUTES: Routes = [
   {
@@ -18,6 +19,11 @@ export const STUDENT_MODULE_ROUTES: Routes = [
       canEditAssignment: false,
     },
     loadComponent: () => import('@features/module/pages/module-view/module-view.component').then(m => m.ModuleViewComponent),
+  },
+  {
+    path: 'assignments/:assignmentId',
+    resolve: {assignment: assignmentResolver},
+    loadChildren: () => import('@features/assignments/routes/student-assignment.routes').then(m => m.STUDENT_ASSIGNMENT_ROUTES),
   },
   {
     path: 'chapters/:chapterId',
