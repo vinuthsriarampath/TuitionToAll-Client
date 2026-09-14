@@ -37,6 +37,9 @@ import {LoaderOverlayComponent} from '@shared/components/loader-overlay/loader-o
 })
 export class ChapterListComponent implements OnInit, OnChanges {
 
+  canEditChapter = input<boolean>(false);
+  canReorderChapter = input<boolean>(false);
+
   protected chapters:ChapterResponse[] = [];
   protected loading:boolean = false;
 
