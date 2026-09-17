@@ -7,7 +7,6 @@ import {LowerCasePipe, TitleCasePipe} from '@angular/common';
   selector: 'app-assignment-submission-status-badge',
   imports: [
     BadgeComponent,
-    LowerCasePipe,
     TitleCasePipe
   ],
   templateUrl: './assignment-submission-status-badge.component.html',
