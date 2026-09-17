@@ -7,6 +7,14 @@
   loaderDescription="Please wait while we load the assignment..."
 >
 
+  <div data-actions>
+    @if(canSubmitAssignment()) {
+      <button type="button" (click)="scrollToSubmission()" class="btn btn-primary">
+        Submit Assignment
+      </button>
+    }
+  </div>
+
   <div data-body class="max-w-4xl mx-auto space-y-10">
 
     @if (isLoaded && assignment) {
@@ -192,7 +200,10 @@
       </app-card-shell>
 
       @if (canSubmitAssignment()) {
-        <app-assignment-submission-form [assignmentId]="assignment.id"></app-assignment-submission-form>
+        <div id="submissionForm">
+          <app-assignment-submission-form id="submissionForm" [assignmentId]="assignment.id"></app-assignment-submission-form>
+          <app-student-assignment-submission-list [assignmentId]="assignment.id"></app-student-assignment-submission-list>
+        </div>
       }
 
     }
