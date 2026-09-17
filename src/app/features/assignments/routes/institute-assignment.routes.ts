@@ -22,7 +22,10 @@ export const INSTITUTE_ASSIGNMENT_ROUTES: Routes = [
       },
       {
         path:'view',
-        data:{breadcrumb: "View"},
+        data:{
+          breadcrumb: "View",
+          canSubmitAssignment: false,
+        },
         title: (route) => route.parent?.data['assignment'].topic,
         loadComponent: () => import('@features/assignments/pages/assignment-view/assignment-view.component').then(m => m.AssignmentViewComponent)
       }

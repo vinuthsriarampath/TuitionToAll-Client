@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AssignmentService} from '@features/assignments/services/assignment/assignment.service';
 import {AlertService} from '@core/services/alerts/alert.service';
@@ -9,6 +9,9 @@ import {DatePipe, NgClass} from '@angular/common';
 import {PageLayoutComponent} from '@core/layouts';
 import {CardShellComponent} from '@shared/ui';
 import {QuillViewComponent} from 'ngx-quill';
+import {
+  AssignmentSubmissionFormComponent
+} from '@features/assignment-submission/components/assignment-submission-form/assignment-submission-form.component';
 
 @Component({
   selector: 'app-assignment-view',
@@ -17,12 +20,15 @@ import {QuillViewComponent} from 'ngx-quill';
     NgClass,
     PageLayoutComponent,
     CardShellComponent,
-    QuillViewComponent
+    QuillViewComponent,
+    AssignmentSubmissionFormComponent
   ],
   templateUrl: './assignment-view.component.html',
   styleUrl: './assignment-view.component.css'
 })
 export class AssignmentViewComponent implements OnInit{
+  canSubmitAssignment = input<boolean>(false);
+
   protected assignment!: AssignmentDetailedResponse;
   protected config!: AssignmentConfig;
 

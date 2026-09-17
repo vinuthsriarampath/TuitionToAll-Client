@@ -191,6 +191,10 @@
           </div>
       </app-card-shell>
 
+      @if (canSubmitAssignment()) {
+        <app-assignment-submission-form [assignmentId]="assignment.id"></app-assignment-submission-form>
+      }
+
     }
 
     @else {
