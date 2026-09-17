@@ -1,0 +1,6 @@
+export enum AssignmentSubmitStatus {
+  SUBMITTED = 'SUBMITTED',
+  LATE_SUBMITTED = 'LATE_SUBMITTED',
+  GRADED = 'GRADED',
+  RESUBMITTED = 'RESUBMITTED'
+}
