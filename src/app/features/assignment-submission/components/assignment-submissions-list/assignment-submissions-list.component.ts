@@ -24,6 +24,10 @@ import {NoContentComponent} from '@shared/components/no-content/no-content.compo
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {DatePipe} from '@angular/common';
 import {MatTooltip} from '@angular/material/tooltip';
+import {MatDialog} from '@angular/material/dialog';
+import {
+  AssignmentSubmissionViewComponent
+} from '@features/assignment-submission/components/assignment-submission-view/assignment-submission-view.component';
 
 @Component({
   selector: 'app-assignment-submissions-list',
@@ -59,6 +63,7 @@ export class AssignmentSubmissionsListComponent implements OnInit{
 
   private readonly submissionService = inject(AssignmentSubmissionService);
   private readonly alertService = inject(AlertService);
+  protected readonly dialog = inject(MatDialog);
 
   protected totalElements:number = 0;
   protected pageIndex:number = 0;
@@ -102,5 +107,19 @@ export class AssignmentSubmissionsListComponent implements OnInit{
     this.pageIndex = $event.pageIndex;
     this.pageSize = $event.pageSize;
     this.loadSubmissions();
+  }
+
+  protected openViewSubmissionDialog(viewData: AssignmentSubmissionDetailedResponse): void {
+    const dialogRef = this.dialog.open(AssignmentSubmissionViewComponent, {
+      width: '50vw',
+      maxWidth: '1200px',
+      data: viewData,
+    });
+
+    dialogRef.afterClosed().subscribe((res) => {
+      if(res){
+        this.loadSubmissions();
+      }
+    });
   }
 }
