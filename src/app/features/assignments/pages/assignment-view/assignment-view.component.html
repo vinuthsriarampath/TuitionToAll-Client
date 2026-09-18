@@ -206,6 +206,10 @@
         </div>
       }
 
+      @if (canViewSubmission()) {
+        <app-assignment-submissions-list [assignmentId]="assignment.id"></app-assignment-submissions-list>
+      }
+
     }
 
     @else {

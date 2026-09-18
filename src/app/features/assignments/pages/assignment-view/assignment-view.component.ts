@@ -15,6 +15,9 @@ import {
 import {
   StudentAssignmentSubmissionListComponent
 } from '@features/assignment-submission/components/student-assignment-submission-list/student-assignment-submission-list.component';
+import {
+  AssignmentSubmissionsListComponent
+} from '@features/assignment-submission/components/assignment-submissions-list/assignment-submissions-list.component';
 
 @Component({
   selector: 'app-assignment-view',
@@ -25,13 +28,15 @@ import {
     CardShellComponent,
     QuillViewComponent,
     AssignmentSubmissionFormComponent,
-    StudentAssignmentSubmissionListComponent
+    StudentAssignmentSubmissionListComponent,
+    AssignmentSubmissionsListComponent
   ],
   templateUrl: './assignment-view.component.html',
   styleUrl: './assignment-view.component.css'
 })
 export class AssignmentViewComponent implements OnInit{
   canSubmitAssignment = input<boolean>(false);
+  canViewSubmission = input<boolean>(false);
 
   protected assignment!: AssignmentDetailedResponse;
   protected config!: AssignmentConfig;
