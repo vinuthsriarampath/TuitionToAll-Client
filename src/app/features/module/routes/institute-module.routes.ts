@@ -27,7 +27,7 @@ export const INSTITUTE_MODULE_ROUTES:Routes = [
       },
       {
         path:'assignments',
-        data:{breadcrumb: 'Assignments'},
+        data:{breadcrumb: null},
         loadChildren: () => import('@features/assignments/routes/institute-assignment.routes').then(m => m.INSTITUTE_ASSIGNMENT_ROUTES)
       },
       {
