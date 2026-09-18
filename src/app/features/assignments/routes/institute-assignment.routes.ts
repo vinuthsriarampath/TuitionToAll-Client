@@ -25,6 +25,7 @@ export const INSTITUTE_ASSIGNMENT_ROUTES: Routes = [
         data:{
           breadcrumb: "View",
           canSubmitAssignment: false,
+          canViewSubmission: true,
         },
         title: (route) => route.parent?.data['assignment'].topic,
         loadComponent: () => import('@features/assignments/pages/assignment-view/assignment-view.component').then(m => m.AssignmentViewComponent)
