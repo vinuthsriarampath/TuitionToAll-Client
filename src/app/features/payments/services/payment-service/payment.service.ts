@@ -6,6 +6,14 @@ import {Observable} from 'rxjs';
 import {MyPaymentFilterRequest} from '@features/payments/dtos/requests/payment-filter-request';
 import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
 import {environment} from '@env/environment.development';
+import {MyPaymentReceivesFilterRequest} from '@features/payments/dtos/requests/my-payment-receives-filter-request';
+import {
+  AssignmentSubmissionFilterRequest
+} from '@features/assignment-submission/dtos/requests/assignment-submission-filter-request';
+import {
+  StudentAssignmentSubmissionFilterRequest
+} from '@features/assignment-submission/dtos/requests/student-assignment-submission-filter-request';
+import {addFilterParams, buildPaginationParams} from '@shared/utils/helpers/params-helper';
 
 @Injectable({
   providedIn: 'root'
@@ -16,24 +24,22 @@ export class PaymentService {
   private readonly baseUrl: string = environment.PAYMENT_API ?? '';
 
   myPayments(pagination: PaginationRequest, filters?: MyPaymentFilterRequest): Observable<PaginatedApiResponse<PaymentDetailedResponse>> {
-    let params = new HttpParams()
-      .set('page', pagination.page)
-      .set('size', pagination.size)
-      .set('direction', pagination.direction);
-
-    pagination.sortBy.forEach(sort => {
-      params = params.append('sortBy', sort);
-    });
+    let params = buildPaginationParams(pagination);
 
     if (filters) {
-      Object.keys(filters).forEach(key => {
-        const value = (filters as any)[key];
-        if (value !== undefined && value !== null) {
-          params = params.set(key, value.toString());
-        }
-      });
+      params = addFilterParams(params, filters);
     }
 
     return this.http.get<PaginatedApiResponse<PaymentDetailedResponse>>(`${this.baseUrl}/my`, { params });
+  }
+
+  myReceives(pagination: PaginationRequest, filters?: MyPaymentReceivesFilterRequest): Observable<PaginatedApiResponse<PaymentDetailedResponse>> {
+    let params = buildPaginationParams(pagination);
+
+    if (filters) {
+      params = addFilterParams(params, filters);
+    }
+
+    return this.http.get<PaginatedApiResponse<PaymentDetailedResponse>>(`${this.baseUrl}/my/receives`, { params });
   }
 }
