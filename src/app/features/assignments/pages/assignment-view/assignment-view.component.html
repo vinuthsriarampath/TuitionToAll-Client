@@ -207,7 +207,7 @@
       }
 
       @if (canViewSubmission()) {
-        <app-assignment-submissions-list [assignmentId]="assignment.id"></app-assignment-submissions-list>
+        <app-assignment-submissions-list [assignmentId]="assignment.id" [gradingRanges]="assignment.gradingRangers" [totalMarks]="assignment.totalMarks"></app-assignment-submissions-list>
       }
 
     }

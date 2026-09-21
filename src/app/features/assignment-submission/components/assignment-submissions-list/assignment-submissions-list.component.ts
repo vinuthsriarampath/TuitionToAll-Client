@@ -28,6 +28,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {
   AssignmentSubmissionViewComponent
 } from '@features/assignment-submission/components/assignment-submission-view/assignment-submission-view.component';
+import {GradingRageResponse} from '@features/assignments/dtos/response/grading-range/grading-range-response';
 
 @Component({
   selector: 'app-assignment-submissions-list',
@@ -56,6 +57,8 @@ import {
 })
 export class AssignmentSubmissionsListComponent implements OnInit{
   assignmentId = input.required<number>();
+  totalMarks = input.required<number>();
+  gradingRanges = input.required<GradingRageResponse[]>();
 
   protected loading: boolean = false;
   protected dataSource: MatTableDataSource<AssignmentSubmissionDetailedResponse> = new MatTableDataSource<AssignmentSubmissionDetailedResponse>([]);
@@ -113,7 +116,11 @@ export class AssignmentSubmissionsListComponent implements OnInit{
     const dialogRef = this.dialog.open(AssignmentSubmissionViewComponent, {
       width: '50vw',
       maxWidth: '1200px',
-      data: viewData,
+      data: {
+        submissionData: viewData,
+        gradingRages : this.gradingRanges(),
+        totalMarks: this.totalMarks()
+      },
     });
 
     dialogRef.afterClosed().subscribe((res) => {
