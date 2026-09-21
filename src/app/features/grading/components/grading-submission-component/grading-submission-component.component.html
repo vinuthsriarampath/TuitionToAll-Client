@@ -1,0 +1,13 @@
+<h3 class="mb-2">Grading Matrix</h3>
+
+<app-card-shell variant="secondary">
+  <div class="p-4">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <app-input id="marksGained" label="Marks Gained" type="number" placeholder="Enter marks gained" [control]="form.get('marksGained')" [required]="true"></app-input>
+      <div class="flex justify-end items-center gap-2">
+        <input type="submit" [value]="loading ? 'Submitting..' : 'Submit'" class="btn btn-mini-primary" [disabled]="form.invalid || loading">
+        <input type="button" (click)="onReset()" value="reset" class="btn btn-mini-secondary" [disabled]="loading">
+      </div>
+    </form>
+  </div>
+</app-card-shell>
