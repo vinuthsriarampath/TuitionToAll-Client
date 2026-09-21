@@ -1,0 +1,29 @@
+<app-card-shell>
+  <app-card-header title="Batch Details" description="Here are details of the batch you selected!"></app-card-header>
+  <div class="px-4 flex flex-col gap-4 mb-4">
+    <app-card-shell variant="secondary">
+      <div class="p-4 flex flex-row justify-between items-center">
+        <div>
+          <p class="para-md para-primary">Batch Name</p>
+          <p class="para-light">{{ batchName() }}</p>
+        </div>
+        <app-badge [text]="batchStatus()" [variant]="batchStatus() === 'PREPARATION' ? 'secondary' : batchStatus() === 'ONGOING' ? 'warning': 'success' "></app-badge>
+      </div>
+    </app-card-shell>
+    <app-card-shell variant="secondary">
+      <div class="p-4 flex flex-row justify-between items-center">
+        <div>
+          <p class="para-md para-primary">Start Date</p>
+          <p class="para-light">{{ batchStartDate() | date : 'dd/MM/YYYY' }}</p>
+        </div>
+        <div>
+          <p class="para-md para-primary">Start Time (24H)</p>
+          <p class="para-light">{{ batchStartTime() }}</p>
+        </div>
+
+      </div>
+    </app-card-shell>
+
+  </div>
+
+</app-card-shell>

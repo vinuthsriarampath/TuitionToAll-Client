@@ -10,7 +10,7 @@
 
       @for (chapter of chapters; track chapter.id; let i = $index) {
 
-        <app-card-shell cdkDrag cdkDragLockAxis="y" cdkDragBoundary=".chapter-boundry" class="group transition-all duration-200 hover:-translate-y-[1px]" [routerLink]="['chapters',chapter.id]">
+        <app-card-shell cdkDrag cdkDragLockAxis="y" cdkDragBoundary=".chapter-boundry" class="group transition-all duration-200 hover:-translate-y-[1px] cursor-pointer" [routerLink]="['chapters',chapter.id]">
 
           <div class="flex items-center justify-between gap-3 p-3">
 
@@ -18,9 +18,11 @@
             <div class="flex items-center gap-3 flex-1 min-w-0">
 
               <!-- Drag Handle -->
-              <div cdkDragHandle class="cursor-grab active:cursor-grabbing text-sky-400 hover:text-sky-600 transition">
-                <lucide-icon [img]="GripVertical" [size]="18"></lucide-icon>
-              </div>
+              @if (canReorderChapter()){
+                <div cdkDragHandle class="cursor-grab active:cursor-grabbing text-sky-400 hover:text-sky-600 transition">
+                  <lucide-icon [img]="GripVertical" [size]="18"></lucide-icon>
+                </div>
+              }
 
               <!-- Order -->
               <app-card-shell>
@@ -59,9 +61,11 @@
             <!-- Right Actions -->
             <div class="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">
 
-              <button (click)="onEditClick($event,chapter)" class="w-9 h-9 cursor-pointer rounded-lg btn-primary transition flex items-center justify-center" matTooltip="Edit Chapter" matTooltipPosition="above">
-                <lucide-icon [img]="Pencil" [size]="16"></lucide-icon>
-              </button>
+              @if (canEditChapter()){
+                <button (click)="onEditClick($event,chapter)" class="w-9 h-9 cursor-pointer rounded-lg btn-primary transition flex items-center justify-center" matTooltip="Edit Chapter" matTooltipPosition="above">
+                  <lucide-icon [img]="Pencil" [size]="16"></lucide-icon>
+                </button>
+              }
 
             </div>
 

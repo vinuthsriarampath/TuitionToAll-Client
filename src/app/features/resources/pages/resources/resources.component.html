@@ -12,9 +12,9 @@
         <button (click)="onRefresh()" class="btn-mini-light">
           <lucide-icon [img]="RefreshCw" [size]="20" class="filled-icon"></lucide-icon>
         </button>
-        <button (click)="openResourceCreateDialog()" class="btn-mini-primary">
-          Add
-        </button>
+        @if (canUploadResources()){
+          <button (click)="openResourceCreateDialog()" class="btn-mini-primary">Upload</button>
+        }
       </div>
 
     </div>
@@ -33,9 +33,11 @@
               <button (click)="onDownload(element.fileName)" class="btn-mini-primary">
                 <lucide-icon [img]="Download" [size]="18" class="filled-icon"></lucide-icon>
               </button>
-              <button (click)="onDeleteConfirmation(element.id)" class="btn-mini-secondary btn-danger">
-                <lucide-icon [img]="Trash2" [size]="18" class="filled-icon"></lucide-icon>
-              </button>
+              @if (canDeleteResources()){
+                <button (click)="onDeleteConfirmation(element.id)" class="btn-mini-secondary btn-danger">
+                  <lucide-icon [img]="Trash2" [size]="18" class="filled-icon"></lucide-icon>
+                </button>
+              }
             </div>
           </td>
         </ng-container>

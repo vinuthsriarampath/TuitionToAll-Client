@@ -1,0 +1,16 @@
+<app-card-shell>
+  <div class="p-6">
+    <app-card-header title="Modules" description="Here are the modules of the batch you selected!"></app-card-header>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+      @for (module of modules(); track module.id) {
+        <app-module-card [moduleId]="module.id" [moduleName]="module.name" [moduleStatus]="module.status">
+        </app-module-card>
+      } @empty {
+        <div class="col-span-full py-8">
+          <app-no-content title="No Modules" description="There are no modules available for this batch."></app-no-content>
+        </div>
+      }
+    </div>
+  </div>
+</app-card-shell>

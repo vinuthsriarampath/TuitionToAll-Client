@@ -25,6 +25,7 @@ import {AlertService} from '@core/services/alerts/alert.service';
 })
 export class ScheduleLectureCardComponent {
   scheduleLecture = input.required<ScheduleLectureResponse>();
+  canEditLectureSchedules = input<boolean>(false);
 
   fetchScheduledLectures = output<void>();
 

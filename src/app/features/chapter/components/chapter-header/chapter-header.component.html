@@ -21,6 +21,8 @@
 
   </div>
 
+  @if (canEditChapter()){
     <button class="btn-mini-primary" (click)="openUpdateChapterDetailsDialog()" [disabled]="loading()">Edit Chapter</button>
+  }
 
 </div>

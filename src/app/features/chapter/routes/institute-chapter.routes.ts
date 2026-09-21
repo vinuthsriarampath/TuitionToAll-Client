@@ -1,0 +1,47 @@
+import {Routes} from '@angular/router';
+import {chapterResolver} from '@features/chapter/resolvers/chapter.resolver';
+import {ChapterResolverData} from '@features/chapter/resolvers/chapter-resolver-data';
+
+export const INSTITUTE_CHAPTER_ROUTES: Routes = [
+  {
+    path: ':chapterId',
+    resolve: {chapter: chapterResolver},
+    data: {
+      breadcrumb: (data: ChapterResolverData) => data.chapter.title,
+
+      canEditChapter: true,
+
+      canUploadRecording: true,
+      canEditLectureRecording: true,
+
+      canUploadResources: true,
+      canDeleteResources: true,
+
+      canAddAssignment: true,
+      canEditAssignment: true,
+
+      canScheduleLectures: true,
+      canEditLectureSchedules: true,
+      availableAssignmentsOnly: false
+    },
+    children: [
+      {
+        path: '',
+        data: {breadcrumb: null},
+        title: (route) => route.parent?.data['chapter'].title,
+        loadComponent: () => import('@features/chapter/pages/chapter-view/chapter-view.component').then(m => m.ChapterViewComponent)
+      },
+      {
+        path: 'watch',
+        data: {breadcrumb: 'Watch'},
+        title: 'lecture Recordings',
+        loadComponent: () => import('@features/lecture-record/pages/lecture-record-watch/lecture-record-watch.component').then(m => m.LectureRecordWatchComponent)
+      },
+      {
+        path: 'assignments',
+        data: {breadcrumb: null},
+        loadChildren: () => import('@features/assignments/routes/institute-assignment.routes').then(m => m.INSTITUTE_ASSIGNMENT_ROUTES)
+      }
+    ]
+  }
+]

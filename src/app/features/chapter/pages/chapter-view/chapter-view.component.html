@@ -15,6 +15,7 @@
           [createdDate]="chapter.createdDate"
           [lastModifiedDate]="chapter.lastModifiedDate"
           [loading]="loading"
+          [canEditChapter]="canEditChapter()"
           (chapterUpdated)="loadChapterDetails()"
         />
       </div>
@@ -38,7 +39,7 @@
         />
 
         <!-- Lecture Recordings -->
-        <app-lecture-recording/>
+        <app-lecture-recording [canUploadRecording]="canUploadRecording()" [canEditLectureRecording]="canEditLectureRecording()" />
 
       </div>
 
@@ -46,15 +47,15 @@
       <div class="col-span-5 flex flex-col gap-4">
 
         <!-- Resource Management -->
-        <app-resources/>
+        <app-resources [canUploadResources]="canUploadResources()" [canDeleteResources]="canDeleteResources()"/>
 
         <!-- Scheduled Lectures -->
-        <app-scheduled-lectures/>
+        <app-scheduled-lectures [canScheduleLectures]="canScheduleLectures()" [canEditLectureSchedules]="canEditLectureSchedules()"/>
 
         <!-- Chapter Assignments-->
         <app-card-shell>
           <div class="p-5">
-            <app-assignment-list [config]="{ type:'chapter', chapterId:this.chapter.id}" [header]="{ title: 'Assignments', description: 'Manage assignments for this chapter'}" />
+            <app-assignment-list [config]="{ type:'chapter', chapterId:this.chapter.id}" [canAddAssignment]="canAddAssignment()" [canEditAssignment]="canEditAssignment()" [availableAssignmentsOnly]="availableAssignmentsOnly()" [header]="{ title: 'Assignments', description: 'Manage assignments for this chapter'}" />
           </div>
         </app-card-shell>
 

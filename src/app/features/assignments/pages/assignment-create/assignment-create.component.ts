@@ -18,6 +18,7 @@ import {ModuleAssignmentService} from '@features/assignments/services/module-ass
 import {AlertService} from '@core/services/alerts/alert.service';
 import {FormErrorHandler} from '@shared/utils/helpers/FormErrorHandler';
 import {LucideAngularModule, Trash2} from 'lucide-angular';
+import {formatQuillStyle} from '@shared/utils/helpers/quill-helper';
 
 @Component({
   selector: 'app-assignment-create',
@@ -152,7 +153,9 @@ export class AssignmentCreateComponent implements OnInit{
           let request:ModuleAssignmentCreateRequest= {
             moduleId: this.mainForm.get('moduleId')?.value,
             topic : this.mainForm.get('topic')?.value,
-            description:this.mainForm.get('description')?.value,
+            description: formatQuillStyle(
+              this.mainForm.get('description')?.value ?? ''
+            ),
             totalMarks: this.mainForm.get('totalMarks')?.value,
             availableOn: this.mainForm.get('availableOn')?.value,
             dueDate: this.mainForm.get('dueDate')?.value,
@@ -166,7 +169,9 @@ export class AssignmentCreateComponent implements OnInit{
           let request:ChapterAssignmentCreateRequest ={
             chapterId: this.mainForm.get('chapterId')?.value,
             topic : this.mainForm.get('topic')?.value,
-            description:this.mainForm.get('description')?.value,
+            description: formatQuillStyle(
+              this.mainForm.get('description')?.value ?? ''
+            ),
             totalMarks: this.mainForm.get('totalMarks')?.value,
             availableOn: this.mainForm.get('availableOn')?.value,
             dueDate: this.mainForm.get('dueDate')?.value,

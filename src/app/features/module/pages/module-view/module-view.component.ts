@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, input, OnInit} from '@angular/core';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {ModuleService} from '../../services/module/module.service';
 import {AlertService} from '@core/services/alerts/alert.service';
@@ -37,6 +37,16 @@ import {PageLayoutComponent} from '@core/layouts';
   styleUrl: './module-view.component.css'
 })
 export class ModuleViewComponent implements OnInit{
+  canEditModule = input<boolean>(false);
+
+  canAddChapter = input<boolean>(false);
+  canEditChapter = input<boolean>(false);
+  canReorderChapter = input<boolean>(false);
+
+  canAddAssignment = input<boolean>(false);
+  canEditAssignment = input<boolean>(false);
+  availableAssignmentsOnly = input<boolean>(true);
+
 
   protected module!:ModuleDetailedResponse;
   protected chapterRefreshTrigger:number = 0;
@@ -55,6 +65,8 @@ export class ModuleViewComponent implements OnInit{
       this.moduleId = Number.parseInt(moduleIdParam);
       if(this.moduleId && !Number.isNaN(this.moduleId)){
         this.fetchModuleDetails(this.moduleId);
+        console.log(this.canEditModule())
+        console.log(this.canAddChapter())
       }else{
         this.alertService.triggerErrorAlert("Invalid module id passed via route parameters");
       }

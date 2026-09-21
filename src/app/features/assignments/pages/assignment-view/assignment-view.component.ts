@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AssignmentService} from '@features/assignments/services/assignment/assignment.service';
 import {AlertService} from '@core/services/alerts/alert.service';
@@ -8,6 +8,16 @@ import {AssignmentDetailedResponse} from '@features/assignments/dtos/response/as
 import {DatePipe, NgClass} from '@angular/common';
 import {PageLayoutComponent} from '@core/layouts';
 import {CardShellComponent} from '@shared/ui';
+import {QuillViewComponent} from 'ngx-quill';
+import {
+  AssignmentSubmissionFormComponent
+} from '@features/assignment-submission/components/assignment-submission-form/assignment-submission-form.component';
+import {
+  StudentAssignmentSubmissionListComponent
+} from '@features/assignment-submission/components/student-assignment-submission-list/student-assignment-submission-list.component';
+import {
+  AssignmentSubmissionsListComponent
+} from '@features/assignment-submission/components/assignment-submissions-list/assignment-submissions-list.component';
 
 @Component({
   selector: 'app-assignment-view',
@@ -15,12 +25,19 @@ import {CardShellComponent} from '@shared/ui';
     DatePipe,
     NgClass,
     PageLayoutComponent,
-    CardShellComponent
+    CardShellComponent,
+    QuillViewComponent,
+    AssignmentSubmissionFormComponent,
+    StudentAssignmentSubmissionListComponent,
+    AssignmentSubmissionsListComponent
   ],
   templateUrl: './assignment-view.component.html',
   styleUrl: './assignment-view.component.css'
 })
 export class AssignmentViewComponent implements OnInit{
+  canSubmitAssignment = input<boolean>(false);
+  canViewSubmission = input<boolean>(false);
+
   protected assignment!: AssignmentDetailedResponse;
   protected config!: AssignmentConfig;
 
@@ -33,6 +50,7 @@ export class AssignmentViewComponent implements OnInit{
   private readonly router = inject(Router);
   private readonly assignmentService = inject(AssignmentService);
   private readonly alertService = inject(AlertService);
+
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(query => {
@@ -74,5 +92,14 @@ export class AssignmentViewComponent implements OnInit{
         this.router.navigate(['/404'], { skipLocationChange: true });
       }
     });
+  }
+
+  scrollToSubmission(): void {
+    // Directly query the DOM element by ID
+    const element = document.getElementById('submissionForm');
+
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 }

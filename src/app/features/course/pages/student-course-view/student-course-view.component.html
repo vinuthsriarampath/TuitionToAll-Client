@@ -1,0 +1,32 @@
+<app-page-layout loaderTitle="Loading Course" loaderDescription="Please wait while we load the course details." [isLoading]="loading">
+  @if(course){
+    <app-course-view-shell data-body>
+      <div page-header class="flex flex-col gap-4">
+        <app-course-hero [courseTitle]="course.title"
+                         [courseThumbnail]="course.thumbnail"
+                         [courseCategory]="course.category" [courseLanguage]="course.language"
+                         [courseLevel]="course.level" [courseMode]="course.mode" [courseDuration]="course.durationInHours" [courseLoading]="loading">
+          <div top-left-actions class="space-x-2">
+            <button (click)="window.history.back()" class="btn-mini-primary">
+              Go Back
+            </button>
+          </div>
+
+        </app-course-hero>
+
+        <app-course-description [description]="course.description"></app-course-description>
+      </div>
+      <div main-content class="flex flex-col gap-4">
+        @if (modules) {
+          <app-course-module [modules]="modules"></app-course-module>
+        }
+      </div>
+      <div side-content class="flex flex-col gap-4">
+        @if (batch) {
+          <app-batch-detail [batchId]="batch.id" [batchName]="batch.name" [batchStartDate]="batch.startDate" [batchStartTime]="batch.startTime" [batchStatus]="batch.status"></app-batch-detail>
+        }
+        <app-course-announcement-list [courseId]="course.id" [batchId]="batch.id" [recentAnnouncements]="true" noContentDescription="The latest announcements for this course will appear here."></app-course-announcement-list>
+      </div>
+    </app-course-view-shell>
+  }
+</app-page-layout>

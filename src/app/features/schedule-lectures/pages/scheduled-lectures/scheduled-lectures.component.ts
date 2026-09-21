@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, input, OnInit} from '@angular/core';
 import {CardShellComponent} from '@shared/ui';
 import {MatDialog} from '@angular/material/dialog';
 import {ScheduleLecCreateComponent} from '../../dialogs/schedule-lec-create/schedule-lec-create.component';
@@ -29,6 +29,9 @@ import {NoContentComponent} from '@shared/components/no-content/no-content.compo
 })
 export class ScheduledLecturesComponent implements OnInit{
 
+  canScheduleLectures = input<boolean>(false);
+  canEditLectureSchedules = input<boolean>(false);
+
   protected loading:boolean = false;
 
   protected scheduleLectures:ScheduleLectureResponse[] = [];
@@ -55,7 +58,7 @@ export class ScheduledLecturesComponent implements OnInit{
 
   protected readonly fetchAllScheduledLecturesByChapterId = ():void =>{
     this.triggerLoading();
-    this.chapterService.getAllScheduleLecturesWithFilters(this.chapterId).subscribe({
+    this.chapterService.getAllScheduleLecturesWithFilters(this.chapterId,0,10,'desc',['start_time']).subscribe({
       next:(res)=>{
         if(res.data) {
           this.scheduleLectures = res.data;

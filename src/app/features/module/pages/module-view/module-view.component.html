@@ -1,8 +1,12 @@
 <app-page-layout [headerTitle]="module.name" headerDescription="Manage module, chapters and assignments" [showBackButton]="true">
 
   <div data-actions class="inline-flex gap-2">
-    <button type="button" (click)="openChapterCreateDialog()" class="btn-primary"> Add Chapter</button>
-    <button type="button" (click)="openModuleUpdateViewDialog()" class="btn-primary"> Edit Module</button>
+    @if (canAddChapter()) {
+      <button type="button" (click)="openChapterCreateDialog()" class="btn-primary"> Add Chapter</button>
+    }
+    @if (canEditModule()) {
+      <button type="button" (click)="openModuleUpdateViewDialog()" class="btn-primary"> Edit Module</button>
+    }
   </div>
 
   <div data-body class="h-full  flex gap-4 p-3">
@@ -56,15 +60,18 @@
 
         <!-- Actions -->
         <div class="flex flex-row justify-center items-center mt-3 gap-2">
-          <button (click)="openModuleUpdateViewDialog()" matTooltip="Edit Module" matTooltipPosition="above"
-                  class="bg-white/10 rounded-full p-2 cursor-pointer">
-            <lucide-icon [img]="Pen" [size]="20" class="filled-icon"></lucide-icon>
-          </button>
-
-          <button (click)="openChapterCreateDialog()" matTooltip="Add Chapter" matTooltipPosition="above"
-                  class="bg-white/10 rounded-full p-2 cursor-pointer">
-            <lucide-icon [img]="Plus" [size]="20" class="filled-icon"></lucide-icon>
-          </button>
+          @if (canAddChapter()) {
+            <button (click)="openChapterCreateDialog()" matTooltip="Add Chapter" matTooltipPosition="above"
+                    class="bg-white/10 rounded-full p-2 cursor-pointer">
+              <lucide-icon [img]="Plus" [size]="20" class="filled-icon"></lucide-icon>
+            </button>
+          }
+          @if (canEditModule()) {
+            <button (click)="openModuleUpdateViewDialog()" matTooltip="Edit Module" matTooltipPosition="above"
+                    class="bg-white/10 rounded-full p-2 cursor-pointer">
+              <lucide-icon [img]="Pen" [size]="20" class="filled-icon"></lucide-icon>
+            </button>
+          }
         </div>
       </div>
     </div>
@@ -74,12 +81,12 @@
       <mat-tab-group class="custom-tabs w-full" mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="500ms">
         <mat-tab label="Chapters" >
           <ng-template matTabContent>
-            <app-chapter-list [triggerRefresh]="chapterRefreshTrigger" class="flex-1 overflow-y-auto"></app-chapter-list>
+            <app-chapter-list [canReorderChapter]="canReorderChapter()" [canEditChapter]="canAddChapter()" [triggerRefresh]="chapterRefreshTrigger" class="flex-1 overflow-y-auto"></app-chapter-list>
           </ng-template>
         </mat-tab>
         <mat-tab label="Module Assignments">
           <ng-template matTabContent>
-            <app-assignment-list [config]="{type: 'module',moduleId: module.id}" [header]="{ title: 'Assignments', description:'Manage all module assignments'}" class="flex-1 overflow-y-auto"/>
+            <app-assignment-list [config]="{type: 'module',moduleId: module.id}" [canAddAssignment]="canAddAssignment()" [canEditAssignment]="canEditAssignment()" [availableAssignmentsOnly]="availableAssignmentsOnly()" [header]="{ title: 'Assignments', description:'Manage all module assignments'}" class="flex-1 overflow-y-auto"/>
           </ng-template>
         </mat-tab>
       </mat-tab-group>

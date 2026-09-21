@@ -1,0 +1,5 @@
+export enum GradingEligibilityReason {
+  ALREADY_GRADED = 'ALREADY_GRADED',
+  ELIGIBLE = 'ELIGIBLE',
+  UNKNOWN_ERROR = 'UNKNOWN_ERROR'
+}

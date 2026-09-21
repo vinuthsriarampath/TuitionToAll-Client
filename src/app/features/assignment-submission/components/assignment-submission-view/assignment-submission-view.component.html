@@ -1,0 +1,76 @@
+<app-dialog-layout
+  [title]="'Grade Submission: ' + submissionData.studentName"
+  description="View and submit gradings for the submission"
+  [icon]="FileUser"
+  (cancelEvent)="closeDialog()">
+
+  <div data-body class="flex flex-col gap-3 text-sm text-gray-700 dark:text-gray-300">
+
+    <h3 class="text-base font-semibold text-gray-900 dark:text-gray-100">Submission Details</h3>
+
+    <app-card-shell variant="secondary">
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 p-4">
+        <div class="inline-flex gap-2">
+          <p><strong class="para-light">Student:</strong></p>
+          <p class="para-primary"> {{ submissionData.studentName }}</p>
+        </div>
+        <div class="inline-flex gap-2">
+          <p><strong class="para-light">Attempt:</strong></p>
+          <p class="para-primary"> {{ submissionData.attemptNo }}</p>
+        </div>
+        <div class="inline-flex gap-2">
+          <p><strong class="para-light">Assignment ID:</strong></p>
+          <p class="para-primary"> {{ submissionData.assignmentId }}</p>
+        </div>
+        <div class="inline-flex gap-2">
+          <p><strong class="para-light">Submission ID:</strong></p>
+          <p class="para-primary"> {{ submissionData.submissionId }}</p>
+        </div>
+
+        <div class="md:col-span-2 inline-flex gap-2">
+          <p><strong class="para-light">Submission Date:</strong></p>
+          <p class="para-primary"> {{ submissionData.submittedAt | date: 'medium' }}</p>
+        </div>
+
+        <div class="md:col-span-2 flex items-center justify-between gap-4 pt-2 border-t border-gray-200 dark:border-gray-700">
+          <div class="truncate">
+            <strong class="font-medium text-gray-900 dark:text-gray-200">Attachment: </strong>
+            <span class="para-xs para-primary truncate" [title]="submissionData.url">{{ submissionData.url }}</span>
+          </div>
+          <a [href]="environment.ASSIGNMENT_SUBMISSION_API + '/download/' + submissionData.url" target="_blank" download class="btn-mini-primary shrink-0">
+            Download
+          </a>
+        </div>
+
+        <div class="md:col-span-2 flex items-center gap-2">
+          <strong class="font-medium text-gray-900 dark:text-gray-200">Status:</strong>
+          <app-assignment-submission-status-badge [status]="submissionData.status"></app-assignment-submission-status-badge>
+        </div>
+      </div>
+    </app-card-shell>
+
+    <hr class="my-3 border-gray-200 dark:border-gray-700" />
+    @if (checkingGradingEligibility){
+          <p class="text-sm text-gray-700 dark:text-gray-300">Checking grading eligibility...</p>
+    } @else {
+      @if (gradingEligibility.canGrade) {
+        <app-grading-submission-component [submissionId]="submissionData.submissionId" [gradingRanges]="gradingRanges" [totalMarks]="totalMarks" (onUpdate)="onUpdate($event)"></app-grading-submission-component>
+      } @else {
+        <app-card-shell variant="secondary">
+          <div class="p-4">
+            @switch (gradingEligibility.reason){
+              @case (GradingEligibilityReason.ALREADY_GRADED){
+                <p class="para-xs para-warning">This submission has already been graded.</p>
+              }
+              @case (GradingEligibilityReason.UNKNOWN_ERROR){
+                <p class="para-xs para-warning">An unknown error occurred while checking grading eligibility.</p>
+              }
+            }
+          </div>
+        </app-card-shell>
+      }
+    }
+
+  </div>
+</app-dialog-layout>

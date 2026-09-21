@@ -7,6 +7,14 @@
   loaderDescription="Please wait while we load the assignment..."
 >
 
+  <div data-actions>
+    @if(canSubmitAssignment()) {
+      <button type="button" (click)="scrollToSubmission()" class="btn btn-primary">
+        Submit Assignment
+      </button>
+    }
+  </div>
+
   <div data-body class="max-w-4xl mx-auto space-y-10">
 
     @if (isLoaded && assignment) {
@@ -49,10 +57,10 @@
 
             <app-card-shell>
               <div class="p-4">
-                <p class="para-primary">Description</p>
-                <div class="para-light prose max-w-none"
-                     [innerHTML]="assignment.description">
-                </div>
+                <p class="para-primary mb-2">Description</p>
+
+                <quill-view [content]="assignment.description" format="html" theme="snow"></quill-view>
+
               </div>
             </app-card-shell>
           </div>
@@ -190,6 +198,17 @@
 
           </div>
       </app-card-shell>
+
+      @if (canSubmitAssignment()) {
+        <div id="submissionForm">
+          <app-assignment-submission-form id="submissionForm" [assignmentId]="assignment.id"></app-assignment-submission-form>
+          <app-student-assignment-submission-list [assignmentId]="assignment.id"></app-student-assignment-submission-list>
+        </div>
+      }
+
+      @if (canViewSubmission()) {
+        <app-assignment-submissions-list [assignmentId]="assignment.id" [gradingRanges]="assignment.gradingRangers" [totalMarks]="assignment.totalMarks"></app-assignment-submissions-list>
+      }
 
     }
 

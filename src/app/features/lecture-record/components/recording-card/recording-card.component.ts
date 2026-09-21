@@ -22,6 +22,8 @@ import {AlertService} from '@core/services/alerts/alert.service';
 })
 export class RecordingCardComponent {
   lectureRecord = input.required<LectureRecordResponse>();
+  canEditLectureRecording = input<boolean>(false);
+
   loading = input<boolean>(false);
 
   readonly fetchAllLectureRecords = output<void>();

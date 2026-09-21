@@ -23,6 +23,14 @@ import {NoContentComponent} from '@shared/components/no-content/no-content.compo
   styleUrl: './course-announcement-list.component.css'
 })
 export class CourseAnnouncementListComponent implements OnInit{
+
+  courseId = input.required<number>();
+  batchId = input<number>();
+  recentAnnouncements = input.required<boolean>();
+  showManageButton = input<boolean>(false);
+  noContentTitle = input<string>('No new announcements yet!');
+  noContentDescription = input<string>('There are no announcements available at the moment. Please check back later for any updates or important information.');
+
   protected announcements:AnnouncementResponse[] = [];
   protected loading:boolean = false;
 
@@ -31,8 +39,6 @@ export class CourseAnnouncementListComponent implements OnInit{
   private readonly announcementService:AnnouncementService = inject(AnnouncementService);
   private readonly alertService = inject(AlertService);
 
-  courseId = input.required<number>();
-  recentAnnouncements = input.required<boolean>();
 
   ngOnInit(): void {
     this.loadAnnouncements();
@@ -45,13 +51,17 @@ export class CourseAnnouncementListComponent implements OnInit{
       filters.status = AnnouncementStatus.PUBLISHED;
       filters.courseId = this.courseId();
 
+      if(this.batchId()){
+        filters.batchId = this.batchId();
+      }
+
       this.announcementService.getAllAnnouncements(0,10,'desc',['is_pinned','published_date'],filters).subscribe({
         next: (res)=>{
           if(res.data){
-            this.announcements = res.data;
+            this.announcements = res.data ?? [];
             this.totalAnnouncements = res.totalElements ?? 0;
-            this.triggerLoading();
           }
+          this.triggerLoading();
         },
         error: (err)=>{
           this.alertService.triggerErrorAlert(err.error.message);

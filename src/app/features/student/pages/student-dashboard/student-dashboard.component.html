@@ -1,0 +1,32 @@
+<app-page-layout>
+  <div data-body class="space-y-4">
+
+    <!-- Header -->
+    <header class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900">
+          Good morning, {{ UserHelper.getDisplayName(student) }} 👋
+        </h1>
+
+        <p class="para-primary">
+          Here's what's happening around you.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-2">
+
+        <button class="btn-mini-primary flex items-center justify-center gap-2 cursor-none">
+          <lucide-icon [img]="Calendar" class="w-4 h-4 text-sky-400"></lucide-icon>
+          Last 30 days
+        </button>
+
+        <button class="btn-mini-secondary">
+          <lucide-icon [img]="RotateCw" class="w-4 h-4"></lucide-icon>
+        </button>
+
+      </div>
+
+    </header>
+  </div>
+</app-page-layout>

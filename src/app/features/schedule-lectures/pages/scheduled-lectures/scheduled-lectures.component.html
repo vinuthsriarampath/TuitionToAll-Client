@@ -13,9 +13,9 @@
           <lucide-icon [img]="RefreshCcw" [size]="20" class="filled-icon"></lucide-icon>
         </button>
 
-        <button class="btn-mini-primary" (click)="openScheduleLecCreateDialog()" [disabled]="loading">
-          Add
-        </button>
+        @if (canScheduleLectures()) {
+          <button class="btn-mini-primary" (click)="openScheduleLecCreateDialog()" [disabled]="loading">Add</button>
+        }
       </div>
 
     </div>
@@ -30,7 +30,7 @@
           <app-no-content [title]="'No scheduled lectures found'" [description]="'You can schedule your first lecture by clicking the Add button above.'"></app-no-content>
         } @else {
           @for (scheduleLecture of scheduleLectures; track scheduleLecture.id){
-            <app-schedule-lecture-card [scheduleLecture]="scheduleLecture" (fetchScheduledLectures)="fetchAllScheduledLecturesByChapterId()"></app-schedule-lecture-card>
+            <app-schedule-lecture-card [scheduleLecture]="scheduleLecture" [canEditLectureSchedules]="canEditLectureSchedules()" (fetchScheduledLectures)="fetchAllScheduledLecturesByChapterId()"></app-schedule-lecture-card>
           }
         }
       }

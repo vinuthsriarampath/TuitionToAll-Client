@@ -1,0 +1,17 @@
+<!--TOP CONTENT-->
+<ng-content select="[page-header]"></ng-content>
+
+<!-- MAIN GRID -->
+<div class="grid lg:grid-cols-3 gap-6 mt-6 items-start">
+
+  <!-- LEFT SIDE -->
+  <div class="lg:col-span-2 gap-4">
+    <ng-content select="[main-content]"></ng-content>
+  </div>
+
+
+  <!-- RIGHT SIDE -->
+  <div class="space-y-6">
+    <ng-content select="[side-content]"></ng-content>
+  </div>
+</div>

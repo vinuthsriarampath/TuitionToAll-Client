@@ -1,0 +1,56 @@
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
+
+  <app-card-shell>
+    <div class="p-4 text-center">
+      <h3 class="font-semibold">Active Students</h3>
+      @if (statsLoading) {
+        <div class="flex justify-center items-center">
+          <div class="w-12 h-4 bg-sky-900 animate-pulse mt-2"></div>
+        </div>
+      } @else {
+        <span>{{ courseStats.activeStudents | number: '1.0-0' }}</span>
+      }
+    </div>
+  </app-card-shell>
+  <app-card-shell>
+    <div class="p-4 text-center">
+      <h3 class="font-semibold">Ongoing Batches</h3>
+      @if (statsLoading) {
+        <div class="flex justify-center items-center">
+          <div class="w-12 h-4 bg-sky-900 animate-pulse mt-2"></div>
+        </div>
+      } @else {
+        <span>{{ courseStats.ongoingBatches | number: '1.0-0' }}</span>
+      }
+    </div>
+  </app-card-shell>
+  <app-card-shell>
+    <div class="p-4 text-center">
+      <h3 class="font-semibold">Total Revenue</h3>
+      @if (statsLoading) {
+        <div class="flex justify-center items-center">
+          <div class="w-12 h-4 bg-sky-900 animate-pulse mt-2"></div>
+        </div>
+      } @else {
+        <span> {{ 'LKR. ' + (courseStats.totalRevenue | currency:'':'':'1.2-2') + ' /=' }}</span>
+      }
+    </div>
+  </app-card-shell>
+  <app-card-shell>
+    <div class="p-4 text-center">
+      <h3 class="font-semibold">Rating</h3>
+      <div class="flex flex-row items-center justify-center gap-1">
+
+        @if (courseLoading()) {
+          <div class="flex justify-center items-center mt-2">
+            <div class="w-12 h-4 bg-sky-900 animate-pulse"></div>
+          </div>
+          <lucide-icon [img]="Star" class="w-3 h-3 fill-amber-400 text-yellow-400"></lucide-icon>
+        } @else {
+          <span>{{ courseAvgRating() | number: '1.1-1' }}</span>
+          <lucide-icon [img]="Star" class="w-3 h-3 fill-amber-400 text-yellow-400"></lucide-icon>
+        }
+      </div>
+    </div>
+  </app-card-shell>
+</div>

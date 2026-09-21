@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, input, OnInit} from '@angular/core';
 import {ChapterDetailedResponse} from '../../dtos/response/ChapterDetailedResponse';
 import {ChapterService} from '../../services/chapter/chapter.service';
 import {ActivatedRoute} from '@angular/router';
@@ -34,6 +34,21 @@ import {PageLayoutComponent} from '@core/layouts';
   styleUrl: './chapter-view.component.css'
 })
 export class ChapterViewComponent implements OnInit{
+
+    canEditChapter = input<boolean>(false);
+
+    canUploadRecording = input<boolean>(false);
+    canEditLectureRecording = input<boolean>(false);
+
+    canUploadResources = input<boolean>(false);
+    canDeleteResources = input<boolean>(false);
+
+    canScheduleLectures = input<boolean>(false);
+    canEditLectureSchedules = input<boolean>(false);
+
+    canAddAssignment= input<boolean>(false);
+    canEditAssignment = input<boolean>(false);
+    availableAssignmentsOnly = input<boolean>(true);
 
     private chapterId!:number;
     protected chapter!:ChapterDetailedResponse;

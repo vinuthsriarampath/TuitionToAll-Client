@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, input, OnInit} from '@angular/core';
 import {CardShellComponent} from '@shared/ui';
 import {ChapterService} from '../../../chapter/services/chapter/chapter.service';
 import {AlertService} from '@core/services/alerts/alert.service';
@@ -50,6 +50,9 @@ import {NoContentComponent} from '@shared/components/no-content/no-content.compo
   styleUrl: './resources.component.css'
 })
 export class ResourcesComponent implements OnInit{
+
+  canUploadResources = input<boolean>(false);
+  canDeleteResources = input<boolean>(false);
 
   protected loading:boolean = false;
 
