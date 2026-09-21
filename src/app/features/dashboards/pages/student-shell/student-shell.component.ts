@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {GraduationCap, Home, LucideAngularModule} from 'lucide-angular';
+import {CreditCard, GraduationCap, Home, LucideAngularModule} from 'lucide-angular';
 import {SidebarMenuItem} from '@features/dashboards/types/sidebar-menu-item';
 import {DashboardShellComponent} from '@features/dashboards/components/dashboard-shell/dashboard-shell.component';
 
@@ -23,6 +23,11 @@ export class StudentShellComponent{
       title: "My Learnings",
       icon: GraduationCap,
       route: 'my-learnings'
+    },
+    {
+      title: "My Payments",
+      icon: CreditCard,
+      route: 'my-payments'
     }
   ];
 }
