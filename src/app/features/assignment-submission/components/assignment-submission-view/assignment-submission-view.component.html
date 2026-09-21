@@ -51,8 +51,26 @@
     </app-card-shell>
 
     <hr class="my-3 border-gray-200 dark:border-gray-700" />
-
-    <h3 class="text-base font-semibold text-gray-900 dark:text-gray-100">Grading</h3>
+    @if (checkingGradingEligibility){
+          <p class="text-sm text-gray-700 dark:text-gray-300">Checking grading eligibility...</p>
+    } @else {
+      @if (gradingEligibility.canGrade) {
+        <app-grading-submission-component [submissionId]="submissionData.submissionId" [gradingRanges]="gradingRanges" [totalMarks]="totalMarks" (onUpdate)="onUpdate($event)"></app-grading-submission-component>
+      } @else {
+        <app-card-shell variant="secondary">
+          <div class="p-4">
+            @switch (gradingEligibility.reason){
+              @case (GradingEligibilityReason.ALREADY_GRADED){
+                <p class="para-xs para-warning">This submission has already been graded.</p>
+              }
+              @case (GradingEligibilityReason.UNKNOWN_ERROR){
+                <p class="para-xs para-warning">An unknown error occurred while checking grading eligibility.</p>
+              }
+            }
+          </div>
+        </app-card-shell>
+      }
+    }
 
   </div>
 </app-dialog-layout>
