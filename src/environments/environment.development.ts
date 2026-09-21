@@ -37,6 +37,7 @@ interface Environment {
   BROKER_URL: string;
   ASSIGNMENT_SUBMISSION_API: string;
   GRADING_API: string;
+  PAYMENT_API: string;
 }
 
 const BASE_URL = 'http://localhost:8080/api/v2';
@@ -68,6 +69,7 @@ export const environment: Environment = {
   FEEDBACK_API: `${BASE_URL}/feedbacks`,
   BROKER_URL: 'ws://localhost:8080/ws',
   ASSIGNMENT_SUBMISSION_API: `${BASE_URL}/assignment-submissions`,
-  GRADING_API: `${BASE_URL}/gradings`
+  GRADING_API: `${BASE_URL}/gradings`,
+  PAYMENT_API: `${BASE_URL}/payments`,
 };
 
