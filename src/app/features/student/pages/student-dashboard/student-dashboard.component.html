@@ -33,7 +33,7 @@
         <header class="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h1 class="text-2xl font-bold text-gray-900">
-              Good morning, {{ UserHelper.getDisplayName(student) }} 👋
+              {{getGreet()}}, {{ UserHelper.getDisplayName(student) }} 👋
             </h1>
             <p class="para-primary">
               Here's what's happening around you.

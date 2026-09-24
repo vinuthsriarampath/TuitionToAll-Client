@@ -27,6 +27,7 @@ import {RecentEnrollmentResponse} from '@features/student/dtos/responses/recent-
 import {UpcomingAssignmentResponse} from '@features/assignments/dtos/response/upcoming-assignment-response';
 import {RecentResultsResponse} from '@features/student/dtos/responses/recent-results-response';
 import {AssignmentType} from '@features/assignments/enums/assignment-type';
+import {getGreet} from '@shared/utils/helpers/date-helper';
 
 @Component({
   selector: 'app-student-dashboard',
@@ -141,4 +142,5 @@ export class StudentDashboardComponent implements OnInit {
   protected readonly Award = Award;
   protected readonly ArrowRight = ArrowRight;
   protected readonly AssignmentType = AssignmentType;
+  protected readonly getGreet = getGreet;
 }
