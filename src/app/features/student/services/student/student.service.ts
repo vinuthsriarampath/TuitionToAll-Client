@@ -8,6 +8,7 @@ import {Observable} from 'rxjs';
 import {StudentLearningResponse} from '@features/student/dtos/responses/student-learning-response';
 import {EnrollmentHistoryResponse} from '@features/student-batch-enrollment/dtos/responses/enrollment-history-response';
 import {StudentCourseViewResponse} from '@features/course/dtos/response/student-course-view-response';
+import {StudentBootstrapResponse} from '@features/student/dtos/responses/student-bootstrap-response';
 
 @Injectable({
   providedIn: 'root'
@@ -34,5 +35,9 @@ export class StudentService {
 
   getStudentCourse(courseId: number, batchId:number):Observable<ApiResponse<StudentCourseViewResponse>> {
     return this.http.get<ApiResponse<StudentCourseViewResponse>>(`${this.baseUrl}/me/learning/courses/${courseId}/batches/${batchId}`);
+  }
+
+  getBootstrapData():Observable<ApiResponse<StudentBootstrapResponse>>{
+    return this.http.get<ApiResponse<StudentBootstrapResponse>>(`${this.baseUrl}/me/bootstrap`);
   }
 }
