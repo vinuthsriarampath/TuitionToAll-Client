@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Book, Home, LucideAngularModule, Megaphone, User2} from "lucide-angular";
+import {Book, HandCoins, Home, LucideAngularModule, Megaphone, User2} from "lucide-angular";
 import {SidebarMenuItem} from '@features/dashboards/types/sidebar-menu-item';
 import {DashboardShellComponent} from '@features/dashboards/components/dashboard-shell/dashboard-shell.component';
 
@@ -33,6 +33,11 @@ export class InstituteShellComponent{
       title: "Announcements",
       icon: Megaphone,
       route: "announcements-mgt"
+    },
+    {
+      title: "Payment Receives",
+      icon: HandCoins,
+      route: "payments"
     }
   ];
 }

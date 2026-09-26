@@ -30,6 +30,11 @@ export const INSTITUTE_ROUTES:Routes = [
         path: "announcements-mgt",
         data: {breadcrumb: 'Announcements'},
         loadChildren: () => import('@features/announcement/routes/institute-announcement.routes').then(m => m.INSTITUTE_ANNOUNCEMENT_ROUTES)
+      },
+      {
+        path: "payments",
+        data: {breadcrumb: 'Payments'},
+        loadChildren: () => import('@features/payments/routes/payment-receives.routes').then(m => m.PAYMENT_RECEIVES_ROUTES)
       }
     ]
   },

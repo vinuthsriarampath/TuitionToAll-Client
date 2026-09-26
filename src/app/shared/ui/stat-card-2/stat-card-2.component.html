@@ -1,0 +1,20 @@
+<app-card-shell>
+  <div class="p-4 flex flex-col justify-between items-start gap-2">
+    <div class="flex items-center gap-2">
+          @if (icon()) {
+            <lucide-icon [img]="icon()" class="w-5 h-5" [ngClass]="getIconColour"></lucide-icon>
+          }
+          <span class="para-primary para-xs font-medium uppercase tracking-wider">{{ title() }}</span>
+    </div>
+    @if (!loading()) {
+      <h3>{{ value() }}</h3>
+    } @else {
+      <div class="h-4 w-8 bg-sky-900/80 animate-pulse mt-3"></div>
+    }
+    @if (description()) {
+      <p class="para-primary para-xs">
+        {{ description() }}
+      </p>
+    }
+  </div>
+</app-card-shell>

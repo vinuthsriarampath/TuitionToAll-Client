@@ -41,3 +41,18 @@ export const getTime = (hours: number = 0, minutes: number = 0): string => {
 
   return `${hour}:${minute}`;
 };
+
+type Greet = 'Good Morning' | 'Good Afternoon' | 'Good Evening';
+
+export const getGreet= (): Greet =>{
+  const now = new Date();
+  const hour = now.getHours();
+
+  if (hour < 12){
+    return 'Good Morning';
+  }
+  if (hour < 18){
+    return 'Good Afternoon';
+  }
+  return 'Good Evening';
+}

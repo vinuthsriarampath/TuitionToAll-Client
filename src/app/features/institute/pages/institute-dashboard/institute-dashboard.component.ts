@@ -34,6 +34,7 @@ import {InstituteService} from '@features/institute/services/institute/institute
 import {
   InstituteDashboardStoreService
 } from '@features/institute/services/institute-dashboard-store/institute-dashboard-store.service';
+import {getGreet} from '@shared/utils/helpers/date-helper';
 
 @Component({
   selector: 'app-institute-dashboard',
@@ -104,4 +105,5 @@ export class InstituteDashboardComponent implements OnInit, OnDestroy{
   protected readonly Megaphone = Megaphone;
   protected readonly Plus = Plus;
   protected readonly RotateCw = RotateCw;
+  protected readonly getGreet = getGreet;
 }
