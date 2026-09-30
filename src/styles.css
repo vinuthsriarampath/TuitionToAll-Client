@@ -418,6 +418,55 @@ mat-tree-node .mat-mdc-icon-button {
 }
 
 /* ==========================================================================
+   Angular Material Expansion Panel Overrides
+   ========================================================================== */
+mat-accordion,
+mat-expansion-panel,
+.mat-expansion-panel {
+  /* card-primary background color and borders */
+  background-color: rgba(8, 47, 73, 0.8) !important; /* bg-sky-950/80 */
+  border: 1px solid rgba(7, 89, 133, 0.5) !important; /* border-sky-800/50 */
+  border-radius: 12px !important;
+  color: #e0f2fe !important; /* text-sky-100 */
+  box-shadow: none !important;
+  overflow: hidden !important;
+}
+
+/* Panel Header */
+mat-expansion-panel-header,
+.mat-expansion-panel-header {
+  background: transparent !important;
+  padding: 0 1.25rem !important;
+  transition: background-color 150ms ease-in-out !important;
+}
+
+mat-expansion-panel-header:hover,
+.mat-expansion-panel-header:hover {
+  background-color: rgba(7, 89, 133, 0.3) !important; /* hover:bg-sky-800/30 */
+}
+
+/* Header Titles */
+mat-panel-title,
+.mat-panel-title,
+mat-panel-description,
+.mat-panel-description {
+  color: #f0f9ff !important; /* text-sky-50 */
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+}
+
+/* Expansion Indicator Arrow Icon */
+.mat-expansion-indicator::after {
+  color: #38bdf8 !important; /* text-sky-400 */
+}
+
+/* Expanded Content Area */
+.mat-expansion-panel-body {
+  padding: 1.25rem !important;
+  border-top: 1px solid rgba(7, 89, 133, 0.3) !important; /* sky-800/30 border divider */
+}
+
+/* ==========================================================================
    Design System Utility Classes (Buttons, Forms, Badges, Cards)
    ========================================================================== */
 
