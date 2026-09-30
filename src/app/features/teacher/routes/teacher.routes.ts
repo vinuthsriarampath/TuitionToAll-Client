@@ -15,6 +15,11 @@ export const TEACHER_ROUTES: Routes = [
         title: 'Teacher Dashboard',
         data: {breadcrumb: "Dashboard"},
         loadComponent: () => import('@features/teacher/pages/teacher-dashboard/teacher-dashboard.component').then(m => m.TeacherDashboardComponent),
+      },
+      {
+        path: 'my-teachings',
+        data: { breadcrumb: 'My Teachings' },
+        loadChildren: () => import('@features/course/routes/teacher-courses.routes').then(m => m.TEACHER_COURSES_ROUTES)
       }
     ]
   },
