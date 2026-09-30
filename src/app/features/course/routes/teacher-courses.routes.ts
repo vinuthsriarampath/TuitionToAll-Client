@@ -3,6 +3,8 @@ import {teacherCourseResolver} from '@features/course/resolvers/teacher-course-r
 import {
   TeacherCourseResolverData
 } from '@features/course/resolvers/teacher-course-resolver/teacher-course-resolver-data';
+import {modulesResolver} from '@features/module/resolvers/modules.resolver';
+import {ModuleResolverData} from '@features/module/resolvers/module-resolver-data';
 
 export const TEACHER_COURSES_ROUTES: Routes = [
   {
@@ -26,6 +28,14 @@ export const TEACHER_COURSES_ROUTES: Routes = [
         },
         title: route => route.parent?.data['course'].title,
         loadComponent: () => import('@features/course/pages/teacher-course-view/teacher-course-view.component').then(m => m.TeacherCourseViewComponent),
+      },
+      {
+        path: 'batches/:batchId/modules/:moduleId',
+        resolve: {module: modulesResolver},
+        data: {
+          breadcrumb: (data:ModuleResolverData) => data.module.name
+        },
+        loadChildren: ()=> import('@features/module/routes/teacher-module-routes').then(m => m.TEACHER_MODULE_ROUTES)
       }
     ]
   }
