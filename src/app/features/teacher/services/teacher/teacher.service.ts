@@ -5,6 +5,7 @@ import {TeacherDetailsUpdateRequest} from '@features/teacher/dtos/requests/Teach
 import {ApiResponse} from '@shared/utils/response/api-response';
 import {Teacher} from '@features/teacher/dtos/responses/teacher';
 import {Observable} from 'rxjs';
+import {TeachingResponse} from '@features/teacher/dtos/responses/teaching-response';
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +20,9 @@ export class TeacherService {
 
   validateTeacherRole():Observable<ApiResponse<null>>{
     return this.http.get<ApiResponse<null>>(`${this.baseUrl}/validate/role`);
+  }
+
+  getMyTeachingDetails(): Observable<ApiResponse<TeachingResponse[]>> {
+    return this.http.get<ApiResponse<TeachingResponse[]>>(`${this.baseUrl}/me/teachings`);
   }
 }
