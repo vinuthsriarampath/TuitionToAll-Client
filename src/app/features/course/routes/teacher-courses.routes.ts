@@ -1,6 +1,8 @@
 import {Routes} from '@angular/router';
-import {courseResolver} from '@features/course/resolvers/course-resolver/course.resolver';
-import {CourseResolverData} from '@features/course/resolvers/course-resolver/course-resolver-data';
+import {teacherCourseResolver} from '@features/course/resolvers/teacher-course-resolver/teacher-course.resolver';
+import {
+  TeacherCourseResolverData
+} from '@features/course/resolvers/teacher-course-resolver/teacher-course-resolver-data';
 
 export const TEACHER_COURSES_ROUTES: Routes = [
   {
@@ -11,11 +13,20 @@ export const TEACHER_COURSES_ROUTES: Routes = [
   },
   {
     path: 'courses/:courseId',
-    resolve: {course: courseResolver},
+    resolve: {course: teacherCourseResolver},
     data: {
-      breadcrumb: (data:CourseResolverData) => data.course.title
+      breadcrumb: (data:TeacherCourseResolverData) => data.course.course.title
     },
-    title: route => route.data['course'].title,
-    loadComponent: () => import('@features/course/pages/teacher-course-view/teacher-course-view.component').then(m => m.TeacherCourseViewComponent),
+
+    children: [
+      {
+        path: '',
+        data: {
+          breadcrumb: null
+        },
+        title: route => route.parent?.data['course'].title,
+        loadComponent: () => import('@features/course/pages/teacher-course-view/teacher-course-view.component').then(m => m.TeacherCourseViewComponent),
+      }
+    ]
   }
 ]
