@@ -93,7 +93,8 @@
                           <h3 class="line-clamp-2 text-base font-semibold leading-snug">
                             {{ course.title }}
                           </h3>
-                          <p class="para-primary para-xs line-clamp-2 min-h-[2.75rem]">
+
+                          <p class="para-primary para-xs line-clamp-2 min-h-[2.75rem]" [matTooltip]="course.description" matTooltipPosition="below" matTooltipShowDelay="1000">
                             {{ course.description }}
                           </p>
                         </div>
