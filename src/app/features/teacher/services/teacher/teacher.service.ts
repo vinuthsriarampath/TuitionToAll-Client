@@ -7,6 +7,11 @@ import {Teacher} from '@features/teacher/dtos/responses/teacher';
 import {Observable} from 'rxjs';
 import {TeachingResponse} from '@features/teacher/dtos/responses/teaching-response';
 import {TeacherCourseViewResponse} from '@features/course/dtos/response/teacher-course-view-response';
+import {TeacherApplicationFilterRequest} from '@features/applications/dtos/request/teacher-application-filter-request';
+import {TeacherApplicationResponse} from '@features/applications/dtos/response/teacher-application-response';
+import {PaginatedApiResponse} from '@shared/utils/response/paginated-api-response';
+import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
+import {addFilterParams, buildPaginationParams} from '@shared/utils/helpers/params-helper';
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +34,16 @@ export class TeacherService {
 
   public getTeacherDetailedCourse(courseId: number): Observable<ApiResponse<TeacherCourseViewResponse>> {
     return this.http.get<ApiResponse<TeacherCourseViewResponse>>(`${this.baseUrl}/me/teachings/courses/${courseId}`);
+  }
+
+  getMyApplications(pagination: PaginationRequest, filters?: TeacherApplicationFilterRequest): Observable<PaginatedApiResponse<TeacherApplicationResponse>> {
+
+    let params = buildPaginationParams(pagination);
+
+    if (filters) {
+      params = addFilterParams(params, filters);
+    }
+
+    return this.http.get<PaginatedApiResponse<TeacherApplicationResponse>>(`${this.baseUrl}/me/applications`, { params });
   }
 }
