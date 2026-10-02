@@ -12,6 +12,7 @@ import {TeacherApplicationResponse} from '@features/applications/dtos/response/t
 import {PaginatedApiResponse} from '@shared/utils/response/paginated-api-response';
 import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
 import {addFilterParams, buildPaginationParams} from '@shared/utils/helpers/params-helper';
+import {TeacherBootstrapResponse} from '@features/teacher/dtos/responses/teacher-bootstrap-response';
 
 @Injectable({
   providedIn: 'root'
@@ -45,5 +46,9 @@ export class TeacherService {
     }
 
     return this.http.get<PaginatedApiResponse<TeacherApplicationResponse>>(`${this.baseUrl}/me/applications`, { params });
+  }
+
+  getTeacherBootstrapData(): Observable<ApiResponse<TeacherBootstrapResponse>> {
+    return this.http.get<ApiResponse<TeacherBootstrapResponse>>(`${this.baseUrl}/me/bootstrap`);
   }
 }
