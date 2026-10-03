@@ -14,11 +14,9 @@ import {UserService} from '@features/user/services/user/user.service';
 import {User} from '@features/user/dtos/responses/user';
 import {UserHelper} from '@shared/utils/helpers/user-helper';
 import {getGreet} from '@shared/utils/helpers/date-helper';
-import {ChartConfiguration, ChartType} from 'chart.js';
 import {Router, RouterLink} from '@angular/router';
-import {DatePipe, DecimalPipe} from '@angular/common';
+import {DatePipe} from '@angular/common';
 import {CardShellComponent} from '@shared/ui';
-import {BaseChartDirective} from 'ng2-charts';
 import {TeacherService} from '@features/teacher/services/teacher/teacher.service';
 import {DashboardStats} from '@shared/utils/response/dashboard-stats';
 import {TeacherBasicCourseResponse} from '@features/course/dtos/response/teacher-basic-course-response';
@@ -26,32 +24,13 @@ import {NonGradedSubmissionResponse} from '@features/grading/dtos/responses/non-
 import {ScheduleLectureResponse} from '@features/schedule-lectures/dtos/response/ScheduleLectureResponse';
 import {StatCard2Component} from '@shared/ui/stat-card-2/stat-card-2.component';
 import {NoContentComponent} from '@shared/components/no-content/no-content.component';
-
-export interface ActiveBatchOverview {
-  batchId: number;
-  courseTitle: string;
-  batchName: string;
-  instituteName: string;
-  assignedModulesCount: number;
-  status: 'ACTIVE' | 'ONGOING';
-}
-
-export interface PendingEvaluation {
-  submissionId: number;
-  assignmentTitle: string;
-  studentName: string;
-  submittedAt: Date;
-  batchName: string;
-}
-
-export interface ScheduledLecture {
-  id: number;
-  topic: string;
-  batchName: string;
-  startTime: Date;
-  durationMinutes: number;
-  meetingUrl?: string;
-}
+import {
+  ScheduleLectureCardComponent
+} from '@features/schedule-lectures/components/schedule-lecture-card/schedule-lecture-card.component';
+import {
+  AssignmentSubmissionStatusBadgeComponent
+} from '@features/assignment-submission/components/assignment-submission-status-badge/assignment-submission-status-badge.component';
+import {AlertService} from '@core/services/alerts/alert.service';
 
 @Component({
   selector: 'app-teacher-dashboard',
@@ -61,18 +40,18 @@ export interface ScheduledLecture {
     DatePipe,
     CardShellComponent,
     RouterLink,
-    BaseChartDirective,
-    DecimalPipe,
     StatCard2Component,
-    NoContentComponent
+    NoContentComponent,
+    ScheduleLectureCardComponent,
+    AssignmentSubmissionStatusBadgeComponent
   ],
   templateUrl: './teacher-dashboard.component.html',
   styleUrl: './teacher-dashboard.component.css'
 })
 export class TeacherDashboardComponent implements OnInit{
-  private readonly router = inject(Router);
   private readonly userService = inject(UserService);
   private readonly teacherService = inject(TeacherService);
+  private readonly alertService = inject(AlertService);
 
   protected isLoading = signal<boolean>(false);
   protected teacher = signal<User | null>(null);
@@ -106,8 +85,9 @@ export class TeacherDashboardComponent implements OnInit{
         }
         this.isLoading.set(false);
       },
-      error: () => {
+      error: (err) => {
         this.isLoading.set(false);
+        this.alertService.triggerErrorAlert(err.error.message ?? "Failed to load dashboard data");
       }
     });
   }
@@ -116,22 +96,16 @@ export class TeacherDashboardComponent implements OnInit{
     this.fetchDashboardData();
   }
 
-  protected gradeSubmission(submissionId: number): void {
-    this.router.navigate(['/teacher/evaluations', submissionId]);
-  }
-
-  protected navigateToBatch(batchId: number): void {
-    this.router.navigate(['/teacher/batches', batchId]);
-  }
+  // protected gradeSubmission(submissionId: number): void {
+  //   console.warn('method not implemented')
+  // }
 
   // Icon References[cite: 1]
   protected readonly BookOpen = BookOpen;
   protected readonly FileCheck = FileCheck;
-  protected readonly Clock = Clock;
   protected readonly Calendar = Calendar;
   protected readonly RotateCw = RotateCw;
   protected readonly ChevronRight = ChevronRight;
-  protected readonly Video = Video;
   protected readonly Layers = Layers;
   protected readonly UserHelper = UserHelper;
   protected readonly getGreet = getGreet;
