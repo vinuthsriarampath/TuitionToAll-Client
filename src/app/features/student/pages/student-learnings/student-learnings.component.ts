@@ -12,6 +12,7 @@ import {EnrollmentHistoryResponse} from '@features/student-batch-enrollment/dtos
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from '@angular/material/sidenav';
 import {PageTitleComponent} from '@shared/components/page-title/page-title.component';
 import {RouterLink} from '@angular/router';
+import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-student-learnings',
@@ -28,7 +29,8 @@ import {RouterLink} from '@angular/router';
     MatSidenav,
     MatSidenavContent,
     PageTitleComponent,
-    RouterLink
+    RouterLink,
+    MatTooltip
   ],
   templateUrl: './student-learnings.component.html',
   styleUrl: './student-learnings.component.css'

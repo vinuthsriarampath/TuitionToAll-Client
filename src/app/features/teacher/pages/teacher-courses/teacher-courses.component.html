@@ -1,0 +1,82 @@
+<app-page-title
+  title="My Teaching Assignments"
+  description="Courses and batches where you are currently assigned as an instructor."
+></app-page-title>
+
+<div data-body class="flex flex-col gap-6">
+  @if (loading) {
+    <app-loader-overlay title="Loading Assignments" description="Fetching your assigned institutes and course batches..."></app-loader-overlay>
+  } @else {
+    @for (institute of teachings; track institute.instituteId) {
+      <app-card-shell>
+        <app-card-header [title]="'Institute: ' + institute.instituteName" [description]="'ID: ' + institute.instituteId"></app-card-header>
+
+        <div class="p-4 sm:p-5 lg:p-6 border-t-2 border-t-sky-900">
+          <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            @for (course of institute.courses; track course.id) {
+
+              <app-course-card-2
+                [title]="course.title"
+                [description]="course.description"
+                [thumbnail]="course.thumbnail"
+                [level]="course.level"
+                [language]="course.language"
+                [mode]="course.mode"
+                [averageRating]="course.averageRating"
+              >
+                <!-- Role Badge -->
+                <div card-badge>
+                  <app-badge variant="info" [text]="course.assignedBatches.length + ' Batches'"></app-badge>
+                </div>
+
+                <!-- Teacher Multi-Batch Card Content -->
+                <div card-content class="space-y-2">
+                  <app-card-shell variant="secondary">
+                    <div class="p-3 space-y-2">
+                      <div class="flex justify-between items-center">
+                        <p class="para-primary para-xs font-semibold">Assigned Batches : </p>
+                        <span class="text-xs text-sky-400 font-medium">{{ course.assignedBatches.length }}</span>
+                      </div>
+
+                      <!-- Batch List summary -->
+                      <div class="max-h-24 overflow-y-auto space-y-1 pr-1">
+                        @for (batch of course.assignedBatches; track batch.id) {
+                          <div class="flex items-center justify-between text-xs py-1 border-b border-gray-800/50 last:border-0">
+                            <span class="truncate font-medium text-gray-200" [title]="batch.name">
+                              {{ batch.name }}
+                            </span>
+                            <app-badge
+                              [text]="batch.status"
+                              [variant]="batch.status === 'ONGOING' ? 'success' : 'warning'"
+                            ></app-badge>
+                          </div>
+                        }
+                      </div>
+                    </div>
+                  </app-card-shell>
+                </div>
+
+                <!-- Teacher Action Buttons -->
+                <div card-actions class="w-full flex gap-2">
+                  <button
+                    class="btn btn-mini-primary flex-1"
+                    [routerLink]="['courses', course.id]">
+                    View Batches & Modules
+                  </button>
+                </div>
+
+              </app-course-card-2>
+
+            } @empty {
+              <div class="col-span-full">
+                <app-no-content title="No Course Assignments" description="You do not have any assigned modules or batches in this institute."></app-no-content>
+              </div>
+            }
+          </div>
+        </div>
+      </app-card-shell>
+    } @empty {
+      <app-no-content title="No Teaching Data Available" description="You have not been assigned to any courses yet."></app-no-content>
+    }
+  }
+</div>

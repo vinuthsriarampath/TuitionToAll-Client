@@ -24,6 +24,7 @@ export class ModuleCardComponent {
   moduleStatus = input.required<ModuleStatus>();
   lockModuleAccess = input<boolean>(true);
 
+  moduleRouting = input<any[]>([]);
   isLocked = computed(() => this.lockModuleAccess() && this.moduleStatus() === 'LOCKED');
   protected readonly LockKeyhole = LockKeyhole;
 }

@@ -1,0 +1,45 @@
+<app-page-layout loaderTitle="Loading Course" loaderDescription="Please wait while we load the course details." [isLoading]="loading">
+  @if (course){
+    <app-course-view-shell data-body>
+      <div page-header class="flex flex-col gap-4">
+        <app-course-hero [courseTitle]="course.title"
+                         [courseThumbnail]="course.thumbnail"
+                         [courseCategory]="course.category" [courseLanguage]="course.language"
+                         [courseLevel]="course.level" [courseMode]="course.mode" [courseDuration]="course.durationInHours" [courseLoading]="loading">
+          <div top-left-actions class="space-x-2">
+            <button (click)="window.history.back()" class="btn-mini-primary">
+              Go Back
+            </button>
+          </div>
+
+        </app-course-hero>
+
+        <app-course-description [description]="course.description"></app-course-description>
+      </div>
+      <div main-content class="flex flex-col gap-4">
+        @for (batch of batches; track batch.batchId){
+          <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>{{ batch.batchName}}</mat-panel-title>
+              </mat-expansion-panel-header>
+
+            <ng-template matExpansionPanelContent>
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                @for (module of batch.modules; track module.moduleId) {
+                  <app-module-card [moduleId]="module.moduleId" [moduleName]="module.moduleName" [moduleStatus]="module.moduleStatus" [moduleRouting]="['batches', batch.batchId, 'modules', module.moduleId]"></app-module-card>
+                } @empty {
+                  <app-no-content [title]="'No Modules Assigned'" [description]="'You have not been assigned to any modules for this batch yet. Please contact the institute admin for more information.'"></app-no-content>
+                }
+              </div>
+            </ng-template>
+          </mat-expansion-panel>
+        } @empty {
+          <app-no-content [title]="'No Batches Assigned'" [description]="'You have not been assigned to any batches for this course yet. Please contact the institute admin for more information.'"></app-no-content>
+        }
+      </div>
+      <div side-content class="flex flex-col gap-4">
+        <app-course-announcement-list [courseId]="course.id"  [recentAnnouncements]="true" [showManageButton]="false" noContentDescription="The latest announcements for this course will appear here."></app-course-announcement-list>
+      </div>
+    </app-course-view-shell>
+  }
+</app-page-layout>

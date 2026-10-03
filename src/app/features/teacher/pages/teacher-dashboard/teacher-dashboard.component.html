@@ -6,7 +6,7 @@
 
       <div>
         <h1 class="text-2xl font-bold text-gray-900">
-          Good morning, {{ UserHelper.getDisplayName(teacher) }} 👋
+          {{getGreet()}}, {{ UserHelper.getDisplayName(teacher()!) }} 👋
         </h1>
 
         <p class="para-primary">
@@ -21,12 +21,144 @@
           Last 30 days
         </button>
 
-        <button class="btn-mini-secondary">
+        <button class="btn-mini-secondary" (click)="refreshDashboard()">
           <lucide-icon [img]="RotateCw" class="w-4 h-4"></lucide-icon>
         </button>
 
       </div>
 
     </header>
+
+    <!-- Lean Practical Metrics Grid (No charts, card-shell with inner div padding) -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+      <!-- Active Batches -->
+      @if (ongoingAssignedBatchesCount != null) {
+        <app-stat-card-2 [value]="ongoingAssignedBatchesCount.value"  [title]="'Ongoing Batches'" [description]="ongoingAssignedBatchesCount.label" [icon]="BookOpen" [iconColour]="'info'" [loading]="isLoading()"></app-stat-card-2>
+      }
+
+      <!-- Total Assigned Modules -->
+      @if (publishedAssignedModulesCount!= null) {
+        <app-stat-card-2 [value]="publishedAssignedModulesCount.value"  [title]="'Assigned Modules'" [description]="publishedAssignedModulesCount.label" [icon]="Layers" [iconColour]="'indigo'" [loading]="isLoading()"></app-stat-card-2>
+      }
+
+      <!-- Pending Evaluations -->
+      @if (pendingEvaluationsCount) {
+        <app-stat-card-2 [value]="pendingEvaluationsCount.value"  [title]="'Pending Evaluations'" [description]="pendingEvaluationsCount.label" [icon]="FileCheck" [iconColour]="'warning'" [loading]="isLoading()"></app-stat-card-2>
+      }
+
+    </div>
+
+    <!-- Main Content Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 items-start">
+
+      <!-- Left 2 Columns: Batches & Submissions Queue -->
+      <div class="lg:col-span-2 flex flex-col space-y-4">
+
+        <!-- Active Batches Grid -->
+        <app-card-shell [variant]="'primary'">
+          <div class="p-4">
+            <div class="flex justify-between items-center mb-4 pb-3 border-b border-sky-900/80">
+              <div>
+                <h2 class="text-lg font-semibold text-sky-50">Active Course Batches</h2>
+                <p class="para-xs para-primary">Batches and modules assigned to you</p>
+              </div>
+              <a [routerLink]="['/tch/my-teachings']" class="text-xs text-sky-400 hover:underline flex items-center gap-1">
+                View All <lucide-icon [img]="ChevronRight" class="w-3.5 h-3.5"></lucide-icon>
+              </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              @for (course of assignedPublishedCourses; track course.courseId) {
+                <div [routerLink]="['/tch/my-teachings/courses', course.courseId]"
+                  class="p-4 bg-slate-900/70 border border-sky-900/60 rounded-xl hover:border-sky-700/60 cursor-pointer transition-all">
+                  <h4 class="text-sm font-bold text-sky-100 mb-1 line-clamp-1">{{ course.courseTitle }}</h4>
+                  <p class="para-xs para-primary mb-3">{{ course.instituteName }}</p>
+
+                  <div class="flex items-center justify-between text-xs text-sky-200/80 pt-2 border-t border-sky-900/50">
+                    <span class="flex items-center gap-1.5">
+                      <lucide-icon [img]="Users" class="w-3.5 h-3.5 text-sky-400"></lucide-icon>
+                      {{ course.assignedOngoingBatchesCount }} Ongoing Batches
+                    </span>
+                    <span class="flex items-center gap-1.5">
+                      <lucide-icon [img]="Layers" class="w-3.5 h-3.5 text-sky-400"></lucide-icon>
+                      {{ course.assignedPublishedModulesCount }} Modules Assigned
+                    </span>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        </app-card-shell>
+
+        <!-- Pending Submissions Queue -->
+        <app-card-shell [variant]="'primary'">
+          <div class="p-4">
+            <div class="flex justify-between items-center mb-4 pb-3 border-b border-sky-900/80">
+              <div>
+                <h2 class="text-lg font-semibold text-sky-50">Pending Student Submissions</h2>
+                <p class="para-xs para-primary">Assignments requiring evaluation and grading</p>
+              </div>
+              <span class="text-xs font-medium text-amber-400 bg-amber-950/60 px-2.5 py-1 rounded-md border border-amber-800/50">
+              {{ nonGradedSubmissions.length }} Action Required
+            </span>
+            </div>
+
+            <div class="space-y-3">
+              @for (item of nonGradedSubmissions; track item.submissionId) {
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 bg-slate-900/70 border border-sky-900/60 rounded-xl hover:border-sky-700/60 transition-colors">
+                  <div class="space-y-1">
+                    <p class="text-sm font-medium text-sky-100">{{ item.assignmentId }}</p>
+                    <div class="flex items-center gap-2 text-xs para-primary">
+                      <span class="text-sky-100 font-medium">{{ item.studentName }}</span>
+                      <span>•</span>
+                      <span class="text-sky-400">Attempt No: {{ item.attemptNo }}</span>
+                      <span>•</span>
+                      <span class="flex items-center gap-1 text-sky-300/60">
+                      <app-assignment-submission-status-badge [status]="item.status"></app-assignment-submission-status-badge>
+                        Submitted At:  {{ item.submittedAt | date :'shortTime' }}
+                    </span>
+                    </div>
+                  </div>
+
+<!--                  <button-->
+<!--                    (click)="gradeSubmission(item.submissionId)"-->
+<!--                    class="px-3.5 py-1.5 text-xs font-semibold text-sky-300 bg-sky-900/50 hover:bg-sky-800/70 border border-sky-700/60 rounded-lg transition-colors self-start sm:self-center shrink-0">-->
+<!--                    Grade Submission-->
+<!--                  </button>-->
+                </div>
+              } @empty {
+                <app-no-content [title]="'No Pending Submissions'" [description]="'You have no student submissions pending evaluation.'" ></app-no-content>
+              }
+            </div>
+          </div>
+        </app-card-shell>
+
+      </div>
+
+      <!-- Right 1 Column: Teaching Schedule -->
+      <div class="space-y-6">
+        <app-card-shell [variant]="'primary'">
+          <div class="p-4">
+            <div class="flex items-center justify-between mb-4 pb-3 border-b border-sky-900/80">
+              <div>
+                <h2 class="text-lg font-semibold text-sky-50">Scheduled Sessions</h2>
+                <p class="para-xs para-primary">Upcoming lectures and practicals</p>
+              </div>
+              <lucide-icon [img]="Calendar" class="w-5 h-5 text-sky-400"></lucide-icon>
+            </div>
+
+            <div class=" flex flex-col gap-4">
+              @for (lec of upcomingLectureSchedules; track lec.id) {
+                <app-schedule-lecture-card [scheduleLecture]="lec" [canEditLectureSchedules]="true" (fetchScheduledLectures)="refreshDashboard()" ></app-schedule-lecture-card>
+              } @empty {
+                <app-no-content [title]="'No Scheduled Sessions'" [description]="'You have no upcoming lectures or practicals scheduled.'" ></app-no-content>
+              }
+            </div>
+          </div>
+        </app-card-shell>
+      </div>
+
+    </div>
   </div>
 </app-page-layout>

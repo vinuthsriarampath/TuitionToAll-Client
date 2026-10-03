@@ -1,4 +1,4 @@
-<app-card-shell [routerLink]="isLocked() ? null : ['modules', moduleId()]" [class.cursor-not-allowed]="isLocked()" [class.cursor-pointer]="!isLocked()" class="group relative block rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg focus-within:ring-2 focus-within:ring-primary-500">
+<app-card-shell [routerLink]="isLocked() ? null : moduleRouting().length > 0 ? moduleRouting() : ['modules', moduleId()]" [class.cursor-not-allowed]="isLocked()" [class.cursor-pointer]="!isLocked()" class="group relative block rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg focus-within:ring-2 focus-within:ring-primary-500">
 
   <div [class.opacity-75]="isLocked()" [class.grayscale-25]="isLocked()">
     <!-- Media Container -->
