@@ -19,7 +19,6 @@ export const TEACHER_COURSES_ROUTES: Routes = [
     data: {
       breadcrumb: (data:TeacherCourseResolverData) => data.course.course.title
     },
-
     children: [
       {
         path: '',
@@ -28,6 +27,14 @@ export const TEACHER_COURSES_ROUTES: Routes = [
         },
         title: route => route.parent?.data['course'].title,
         loadComponent: () => import('@features/course/pages/teacher-course-view/teacher-course-view.component').then(m => m.TeacherCourseViewComponent),
+      },
+      {
+        path: 'announcements',
+        data: {
+          breadcrumb: 'Announcements'
+        },
+        title: 'Announcements',
+        loadChildren: () => import('@features/announcement/routes/teacher-announcement.routes').then(m => m.TEACHER_ANNOUNCEMENT_ROUTES)
       },
       {
         path: 'batches/:batchId/modules/:moduleId',
