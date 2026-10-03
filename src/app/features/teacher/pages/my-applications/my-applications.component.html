@@ -33,6 +33,22 @@
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true;"></tr>
       <tr mat-row *matRowDef="let row; columns:displayedColumns;"></tr>
+      <tr *matNoDataRow>
+        <td class="mat-cell text-center p-4" [attr.colspan]="displayedColumns.length">
+          @if (loading) {
+            <ng-container>
+              Loading all Applications...
+            </ng-container>
+          } @else {
+            <ng-container>
+              <app-no-content
+                [title]="'No Applications Found!'"
+                [description]="'No applications for vacancies have been made yet.'"
+              ></app-no-content>
+            </ng-container>
+          }
+        </td>
+      </tr>
     </table>
     <mat-paginator [length]="totalItems" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" (page)="onPageChange($event)"></mat-paginator>
   </div>

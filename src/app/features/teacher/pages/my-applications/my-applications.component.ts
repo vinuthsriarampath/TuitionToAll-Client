@@ -6,7 +6,7 @@ import {
   MatCell, MatCellDef,
   MatColumnDef,
   MatHeaderCell,
-  MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
+  MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatNoDataRow, MatRow, MatRowDef,
   MatTable,
   MatTableDataSource
 } from '@angular/material/table';
@@ -17,6 +17,7 @@ import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {RouterLink} from '@angular/router';
 import {BadgeComponent} from '@shared/ui';
 import {ApplicationStatus} from '@features/applications/enums/application-status';
+import {NoContentComponent} from '@shared/components/no-content/no-content.component';
 
 @Component({
   selector: 'app-my-applications',
@@ -36,7 +37,9 @@ import {ApplicationStatus} from '@features/applications/enums/application-status
     MatPaginator,
     RouterLink,
     BadgeComponent,
-    TitleCasePipe
+    TitleCasePipe,
+    NoContentComponent,
+    MatNoDataRow
   ],
   templateUrl: './my-applications.component.html',
   styleUrl: './my-applications.component.css'
