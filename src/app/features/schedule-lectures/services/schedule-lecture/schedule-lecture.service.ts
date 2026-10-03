@@ -8,6 +8,8 @@ import {ApiResponse} from "@shared/utils/response/api-response";
 import {ScheduleLectureUpdateRequest} from '../../dtos/request/ScheduleLectureUpdateRequest';
 import {ScheduleLectureStatus} from '@features/schedule-lectures/enums/ScheduleLectureStatus';
 import {getDate, getTime} from '@shared/utils/helpers/date-helper';
+import {UserHelper} from '@shared/utils/helpers/user-helper';
+import {UserService} from '@features/user/services/user/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +19,7 @@ export class ScheduleLectureService {
   private readonly baseUrl: string = environment.SCHEDULE_LECTURE_API ?? '';
 
   private readonly http: HttpClient = inject(HttpClient);
+  private readonly userService = inject(UserService);
 
   scheduleLecture(request: ScheduleLectureCreateRequest): Observable<ApiResponse<ScheduleLectureResponse>> {
     return this.http.post<ApiResponse<ScheduleLectureResponse>>(`${this.baseUrl}`, request);
@@ -40,6 +43,12 @@ export class ScheduleLectureService {
     const validStatus:boolean = scheduleLecture.status === ScheduleLectureStatus.SCHEDULED || scheduleLecture.status === ScheduleLectureStatus.LIVE;
 
     let validAttendance:boolean;
+
+    const currentUser = this.userService.getCurrentUser();
+
+    if(!UserHelper.isStudent(currentUser.role.role,currentUser.details)) {
+      return (isToday && hasStarted && notEnded && validStatus);
+    }
 
     if (scheduleLecture.lateAttendance) {
       validAttendance = true;
