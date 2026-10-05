@@ -6,7 +6,16 @@ import {Teacher} from '@features/teacher/dtos/responses/teacher';
 import {Institute} from '@features/institute/dtos/response/institute';
 import {environment} from '@env/environment.development';
 import {NavbarSearchComponent} from '@shared/components/navbar-search/navbar-search.component';
-import {Bell, House, LayoutDashboard, LucideAngularModule, MessageSquareText, Search, Users} from 'lucide-angular';
+import {
+  Bell,
+  Globe,
+  House,
+  LayoutDashboard,
+  LucideAngularModule,
+  MessageSquareText,
+  Search,
+  Users
+} from 'lucide-angular';
 import {User} from '@features/user/dtos/responses/user';
 import {UserService} from '@features/user/services/user/user.service';
 import {AuthenticationService} from '@features/auth/services/auth/authentication.service';
@@ -151,4 +160,5 @@ export class NavbarComponent implements OnInit{
   }
 
   protected readonly environment = environment;
+  protected readonly Globe = Globe;
 }
