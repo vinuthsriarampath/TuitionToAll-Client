@@ -1,0 +1,12 @@
+<app-card-shell [routerLink]="['/profile', userSlug()]" class="cursor-pointer">
+  <div class="p-2 flex items-center gap-4">
+    <img [ngSrc]=" dp() ? `${environment.USER_PROFILE_API}${dp()}` : 'profile_logo.png'" loading="lazy" alt="avatar" height="48" width="48" class="w-12 h-12 rounded-full object-cover">
+    <div class="flex flex-row items-center justify-between w-full gap-2">
+      <div>
+        <h3 class="text-sm font-semibold text-sky-100">{{ displayName() }}</h3>
+        <p class="text-xs text-sky-300">{{ email() }}</p>
+      </div>
+      <app-badge [text]="role() | titlecase"></app-badge>
+    </div>
+  </div>
+</app-card-shell>
