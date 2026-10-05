@@ -9,12 +9,17 @@
  * All rights reserved.
  */
 
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ApiResponse} from '@shared/utils/response/api-response';
 import {environment} from '@env/environment.development';
 import {User} from '../../dtos/responses/user';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
+import { PaginationRequest } from "@shared/utils/requests/PaginationRequest";
+import { UserBasicFilterRequest } from "@features/user/dtos/requests/user-basic-filter-requests";
+import { PaginatedApiResponse } from "@shared/utils/response/paginated-api-response";
+import {addFilterParams, buildPaginationParams} from '@shared/utils/helpers/params-helper';
+import { UserBasicResponse } from "@features/user/dtos/responses/user-basic-response";
 
 @Injectable({
   providedIn: 'root'
@@ -24,10 +29,12 @@ export class UserService {
   private readonly currentUserSubject:BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
   currentUser$ = this.currentUserSubject.asObservable();
 
-  constructor(private readonly http:HttpClient) {}
+  private readonly http = inject(HttpClient);
+
+  private readonly baseUrl: string = environment.USER_API ?? '';
 
   findUserByUserSlug(userSlug: string){
-    return this.http.get<ApiResponse<User>>(`${environment.USER_API}/by-user-slug/${userSlug}`);
+    return this.http.get<ApiResponse<User>>(`${this.baseUrl}/by-user-slug/${userSlug}`);
   }
 
   setCurrentUser(user: User|null){
@@ -48,5 +55,27 @@ export class UserService {
       return user;
     }
     throw new Error('Current user not found');
+  }
+
+  getMyFollowers(pagination: PaginationRequest, filters?: UserBasicFilterRequest): Observable<PaginatedApiResponse<UserBasicResponse>> {
+
+    let params = buildPaginationParams(pagination);
+
+    if (filters) {
+      params = addFilterParams(params, filters);
+    }
+
+    return this.http.get<PaginatedApiResponse<UserBasicResponse>>(`${this.baseUrl}/me/followers`, { params });
+  }
+
+  getMyFollowings(pagination: PaginationRequest, filters?: UserBasicFilterRequest): Observable<PaginatedApiResponse<UserBasicResponse>> {
+
+    let params = buildPaginationParams(pagination);
+
+    if (filters) {
+      params = addFilterParams(params, filters);
+    }
+
+    return this.http.get<PaginatedApiResponse<UserBasicResponse>>(`${this.baseUrl}/me/followings`, { params });
   }
 }
