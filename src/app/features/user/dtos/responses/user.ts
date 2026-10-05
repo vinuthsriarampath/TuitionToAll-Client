@@ -27,6 +27,8 @@ export class User {
     updatedAt!:string;
 
     isFollowing?:boolean;
+    followersCount?:number;
+    followingCount?:number;
 
     details!:RoleDetails;
 }
