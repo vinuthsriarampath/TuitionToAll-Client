@@ -11,12 +11,16 @@ import {
 import {LucideAngularModule, Pen} from 'lucide-angular';
 import {NgOptimizedImage} from '@angular/common';
 import {UserHelper} from '@shared/utils/helpers/user-helper';
+import {UserFollowService} from '@features/user-follow/services/user-follow-service/user-follow.service';
+import {UserUnfollowService} from '@features/user-follow/services/user-unfollow-service/user-unfollow.service';
+import {FollowButtonComponent} from '@features/user-follow/components/follow-button/follow-button.component';
 
 @Component({
   selector: 'app-profile-cover',
   imports: [
     LucideAngularModule,
-    NgOptimizedImage
+    NgOptimizedImage,
+    FollowButtonComponent
   ],
   templateUrl: './profile-cover.component.html',
   styleUrl: './profile-cover.component.css'
@@ -83,7 +87,6 @@ export class ProfileCoverComponent {
       }
     });
   }
-
   protected readonly UserHelper = UserHelper;
   protected readonly Pen = Pen;
 }
