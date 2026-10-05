@@ -26,5 +26,7 @@ export class User {
     creationTimeStamp!:string;
     updatedAt!:string;
 
+    isFollowing?:boolean;
+
     details!:RoleDetails;
 }
