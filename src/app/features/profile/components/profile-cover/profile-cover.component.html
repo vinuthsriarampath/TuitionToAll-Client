@@ -22,7 +22,20 @@
         @if(!loading()){
           <h2 class=" sm:text-lg md:text-2xl font-semibold tracking-tighter">{{ UserHelper.getDisplayName(profileUser()) }}</h2>
           <p class="para-primary">{{ profileUser().email || 'N/A' }}</p>
-          <app-follow-button [targetUserId]="profileUser().id" [isSameUser]="isSameUser()" [initialFollowingState]="profileUser().isFollowing ?? false"></app-follow-button>
+          <div class="flex items-center gap-4 my-2 text-sm text-sky-200">
+            <div>
+              <span class="font-bold text-white">{{ profileUser().followersCount || 0 }}</span>
+              <span class="text-xs text-sky-300/80 ml-1">Followers</span>
+            </div>
+            <div class="h-3 w-px bg-sky-700/60"></div>
+            <div>
+              <span class="font-bold text-white">{{ profileUser().followingCount || 0 }}</span>
+              <span class="text-xs text-sky-300/80 ml-1">Following</span>
+            </div>
+          </div>
+          @if (!isSameUser()){
+            <app-follow-button [targetUserId]="profileUser().id" [isSameUser]="isSameUser()" [initialFollowingState]="profileUser().isFollowing ?? false" (followChanged)="onFollowStatusChanged($event)"></app-follow-button>
+          }
         } @else {
           <div class="w-64 h-7 bg-sky-900/80 animate-pulse mb-1"></div>
           <div class="w-32 h-4 bg-sky-900/80 animate-pulse"></div>

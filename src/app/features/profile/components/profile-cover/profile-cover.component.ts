@@ -31,7 +31,7 @@ export class ProfileCoverComponent {
   isSameUser = input.required<boolean>();
   loading = input<boolean>(false);
 
-  profileUpdated = output<void>()
+  profileUpdated = output<User>()
 
   private readonly alertService:AlertService = inject(AlertService);
   private readonly dialog:MatDialog = inject(MatDialog);
@@ -86,6 +86,15 @@ export class ProfileCoverComponent {
         this.alertService.triggerErrorAlert();
       }
     });
+  }
+  onFollowStatusChanged(isFollowingNow: boolean) {
+    const updatedUser = structuredClone(this.profileUser());
+    updatedUser.isFollowing = isFollowingNow;
+
+    const currentCount = updatedUser.followersCount ?? 0;
+    updatedUser.followersCount = isFollowingNow ? currentCount + 1 : Math.max(0, currentCount - 1);
+
+    this.profileUpdated.emit(updatedUser);
   }
   protected readonly UserHelper = UserHelper;
   protected readonly Pen = Pen;
