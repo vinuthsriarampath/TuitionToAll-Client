@@ -40,6 +40,7 @@ interface Environment {
   PAYMENT_API: string;
   USER_FOLLOW_API: string;
   USER_UNFOLLOW_API: string;
+  POST_API: string;
 }
 
 const BASE_URL = 'http://localhost:8080/api/v2';
@@ -75,5 +76,6 @@ export const environment: Environment = {
   PAYMENT_API: `${BASE_URL}/payments`,
   USER_FOLLOW_API: `${BASE_URL}/follows`,
   USER_UNFOLLOW_API: `${BASE_URL}/unfollows`,
+  POST_API: `${BASE_URL}/posts`,
 };
 
