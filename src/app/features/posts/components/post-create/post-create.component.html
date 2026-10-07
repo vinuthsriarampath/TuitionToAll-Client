@@ -1,0 +1,89 @@
+<app-card-shell>
+  <div class="p-4 space-y-3">
+
+    @if (!createPost){
+      <div class="flex items-center justify-center gap-2">
+        <img [ngSrc]="UserHelper.getProfileImageUrl(currentUser)" loading="lazy" class="w-9 h-9 rounded-full object-cover" width="40" height="40" alt="profilePic">
+        <button type="button" class="btn btn-mini-primary w-full" (click)="triggerCreatePost()">Create a Post</button>
+      </div>
+    } @else {
+
+      <form [formGroup]="postForm" (ngSubmit)="onSubmit(PostCreateStatus.PUBLISHED)">
+        <!-- Header / Visibility Row -->
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-2">
+            <app-select id="visibility" label="Visibility" placeholder="Who can view the post" [options]="postVisibilityOptions" [control]="this.postForm.get('visibility')" [required]="true"></app-select>
+          </div>
+        </div>
+
+        <!-- Caption Textarea -->
+        <label for="caption" class="sr-only">Caption:</label>
+        <div class="relative">
+          <textarea
+            id="caption"
+            formControlName="caption"
+            rows="3"
+            [placeholder]="placeholderText()"
+            class="w-full bg-slate-900/60 border border-sky-800/40 rounded-xl p-3 text-sm text-sky-50 placeholder-sky-300/40 focus:outline-none focus:border-sky-600/80 resize-none transition-all duration-200">
+          </textarea>
+        </div>
+
+        <!-- Selected Files Preview Grid -->
+        @if (selectedFiles().length > 0) {
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 my-2">
+            @for (item of selectedFiles(); track $index) {
+              <div class="relative group rounded-lg overflow-hidden border border-sky-800/50 bg-slate-800/40 p-1 flex items-center justify-between">
+                @if (item.mediaType === 'IMAGE') {
+                  <img [src]="item.previewUrl" alt="attachment" class="h-32 w-auto object-cover rounded-md" />
+                } @else {
+                  <div class="flex items-center gap-2 p-2 min-w-0">
+                    <lucide-icon [img]="Files" [size]="18" class="text-sky-400 shrink-0"></lucide-icon>
+                    <span class="text-xs text-sky-200 truncate">{{ item.file.name }}</span>
+                  </div>
+                }
+                <button
+                  type="button"
+                  (click)="removeFile($index)"
+                  class="absolute top-1 right-1 p-1 bg-slate-900/80 hover:bg-rose-600 text-sky-200 rounded-full transition-colors duration-150">
+                  <lucide-icon [img]="X" [size]="14"></lucide-icon>
+                </button>
+              </div>
+            }
+          </div>
+        }
+
+        <!-- Action Row -->
+        <div class="flex items-center justify-between pt-2 border-t border-sky-800/30 mt-2">
+          <div class="flex items-center gap-2">
+            <!-- Image Upload Trigger -->
+            <label class="flex items-center gap-1.5 text-xs text-sky-300/80 hover:text-sky-200 cursor-pointer px-2 py-1.5 rounded-lg hover:bg-sky-900/40 transition-colors">
+              <lucide-icon [img]="Image" [size]="16" class="text-sky-400"></lucide-icon>
+              <span>Photo</span>
+              <input type="file" accept="image/*" multiple (change)="onFileSelected($event, PostMediaType.IMAGE)" class="hidden" />
+            </label>
+
+            <!-- Document Upload Trigger -->
+            <label class="flex items-center gap-1.5 text-xs text-sky-300/80 hover:text-sky-200 cursor-pointer px-2 py-1.5 rounded-lg hover:bg-sky-900/40 transition-colors">
+              <lucide-icon [img]="Files" [size]="16" class="text-amber-400"></lucide-icon>
+              <span>Document</span>
+              <input type="file" accept=".pdf,.doc,.docx" multiple (change)="onFileSelected($event, PostMediaType.DOCUMENT)" class="hidden" />
+            </label>
+          </div>
+
+          <!-- Submit Button -->
+          <button
+            type="submit"
+            [disabled]="isSubmitting() || (postForm.invalid && selectedFiles().length === 0)"
+            class="btn btn-mini-primary flex items-center gap-1.5">
+            @if (isSubmitting()) {
+              <span>Posting...</span>
+            } @else {
+              <lucide-icon [img]="Send" [size]="14"></lucide-icon>
+              <span>Post</span>
+            }
+          </button>
+        </div>
+      </form>
+    }
+  </div>
+</app-card-shell>
