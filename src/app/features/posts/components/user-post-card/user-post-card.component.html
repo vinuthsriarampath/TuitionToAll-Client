@@ -1,0 +1,152 @@
+<div class="bg-slate-900/70 border border-sky-800/40 rounded-xl p-4 shadow-md space-y-3 transition-all">
+
+  <!-- Header: Status / Visibility & Management Dropdown -->
+  <div class="flex items-center justify-between border-b border-sky-800/30 pb-2">
+    <div class="flex items-center gap-2 text-xs text-sky-300/80">
+      <!-- Status Badge -->
+      <span
+        class="px-2 py-0.5 rounded-md font-medium text-[10px] uppercase tracking-wider"
+        [ngClass]="{
+          'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30': post().status === PostStatus.PUBLISHED,
+          'bg-amber-500/20 text-amber-400 border border-amber-500/30': post().status === PostStatus.DRAFT,
+          'bg-slate-700/50 text-slate-400 border border-slate-600/30': post().status === PostStatus.ARCHIVED
+        }">
+        {{ post().status }}
+      </span>
+
+      <span class="text-sky-700">•</span>
+
+      <!-- Visibility Icon & Label -->
+      <div class="flex items-center gap-1">
+        @switch (post().visibility) {
+          @case (PostVisibility.PUBLIC) {
+            <lucide-icon [img]="Globe" [size]="13" class="text-sky-400"></lucide-icon>
+            <span>Public</span>
+          }
+          @case (PostVisibility.FOLLOWERS_ONLY) {
+            <lucide-icon [img]="Users" [size]="13" class="text-amber-400"></lucide-icon>
+            <span>Followers</span>
+          }
+          @case (PostVisibility.PRIVATE) {
+            <lucide-icon [img]="Lock" [size]="13" class="text-rose-400"></lucide-icon>
+            <span>Private</span>
+          }
+        }
+      </div>
+
+      <span class="text-sky-700">•</span>
+      <span class="text-sky-400/60">{{ (post().publishedDate || post().createdDate) | date:'mediumDate' }}</span>
+    </div>
+
+    <!-- Management Actions (Only shown if current user is profile owner) -->
+    @if (isOwner()) {
+      <div class="relative">
+        <button
+          (click)="toggleMenu()"
+          class="p-1 hover:bg-sky-800/40 rounded-lg text-sky-300 transition-colors">
+          <lucide-icon [img]="MoreHorizontal" [size]="16"></lucide-icon>
+        </button>
+
+        @if (showMenu()) {
+          <div
+            class="absolute right-0 mt-1 w-40 bg-slate-800 border border-sky-800/60 rounded-lg shadow-xl z-20 py-1 text-xs">
+
+            @if (post().status === PostStatus.DRAFT) {
+              <button
+                (click)="publishPost.emit(post().id); toggleMenu()"
+                class="w-full flex items-center gap-2 px-3 py-1.5 text-emerald-400 hover:bg-sky-900/50">
+                <lucide-icon [img]="Send" [size]="14"></lucide-icon>
+                <span>Publish</span>
+              </button>
+            }
+
+            <button
+              (click)="editPost.emit(post())"
+              class="w-full flex items-center gap-2 px-3 py-1.5 text-sky-200 hover:bg-sky-900/50">
+              <lucide-icon [img]="Edit" [size]="14"></lucide-icon>
+              <span>Edit Post</span>
+            </button>
+
+            <button
+              (click)="deletePost.emit(post().id); toggleMenu()"
+              class="w-full flex items-center gap-2 px-3 py-1.5 text-rose-400 hover:bg-rose-950/40">
+              <lucide-icon [img]="Trash" [size]="14"></lucide-icon>
+              <span>Delete</span>
+            </button>
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+  <!-- Caption Body -->
+  @if (post().caption) {
+    <p class="text-sm text-sky-100 whitespace-pre-wrap leading-relaxed">
+      {{ post().caption }}
+    </p>
+  }
+
+  <!-- Media Attachments Gallery -->
+  @if (post().mediaList && post().mediaList.length > 0) {
+    <div class="space-y-2">
+      <div
+        class="grid gap-2"
+        [ngClass]="{
+          'grid-cols-1': post().mediaList.length === 1,
+          'grid-cols-2': post().mediaList.length >= 2
+        }">
+        @for (media of post().mediaList; track media.id) {
+          <div class="relative group rounded-lg overflow-hidden bg-slate-950/60 border border-sky-800/30">
+
+            <!-- Image Rendering -->
+            @if (media.mediaType === PostMediaType.IMAGE) {
+              <img
+                [src]="getMediaUrl(media.mediaUrl)"
+                alt="Post Media"
+
+                class="w-full max-h-80 object-cover rounded-lg hover:scale-105 transition-transform duration-300" />
+            }
+            @else if (media.mediaType === PostMediaType.VIDEO) {
+              <video controls class="w-full max-h-80 rounded-lg">
+                <source [src]="getMediaUrl(media.mediaUrl)" type="video/mp4">
+                Your browser does not support video playback.
+              </video>
+            }
+            @else if (media.mediaType === PostMediaType.DOCUMENT) {
+              <div class="p-3 flex items-center justify-between bg-slate-800/60 rounded-lg">
+                <div class="flex items-center gap-2 min-w-0">
+                  <lucide-icon [img]="Files" [size]="20" class="text-amber-400 shrink-0"></lucide-icon>
+                  <span class="text-xs text-sky-200 truncate">{{ media.mediaUrl }}</span>
+                </div>
+                <a
+                  [href]="getMediaUrl(media.mediaUrl)"
+                  target="_blank"
+                  download
+                  class="p-1.5 bg-sky-900/60 hover:bg-sky-800 text-sky-200 rounded-md transition-colors shrink-0">
+                  <lucide-icon [img]="Download" [size]="14"></lucide-icon>
+                </a>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Footer Interactions (Likes / Comments count) -->
+  <div class="flex items-center justify-between border-t border-sky-800/30 pt-2 text-xs text-sky-300/80">
+    <!-- Like Button -->
+    <button
+      class="flex items-center gap-1.5 px-2 py-1 rounded-lg hover:bg-sky-900/40 transition-colors"
+      [class.text-rose-400]="post().isLiked">
+      <lucide-icon [img]="Heart" [size]="16" [class.fill-rose-500]="post().isLiked"></lucide-icon>
+      <span>{{ post().likesCount }}</span>
+    </button>
+
+    <!-- Comments Button -->
+    <button class="flex items-center gap-1.5 px-2 py-1 rounded-lg hover:bg-sky-900/40 transition-colors">
+      <lucide-icon [img]="MessageCircleMore" [size]="16"></lucide-icon>
+      <span>{{ post().commentsCount }} Comments</span>
+    </button>
+  </div>
+</div>
