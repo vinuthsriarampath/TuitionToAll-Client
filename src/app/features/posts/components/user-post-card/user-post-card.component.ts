@@ -19,6 +19,7 @@ import {PostVisibility} from '@features/posts/enums/post-visibility';
 import {environment} from '@env/environment.development';
 import {PostService} from '@features/posts/services/post-service/post.service';
 import {AlertService} from '@core/services/alerts/alert.service';
+import {PostCommentListComponent} from '@features/posts/components/post-comment-list/post-comment-list.component';
 
 @Component({
   selector: 'app-user-post-card',
@@ -26,6 +27,7 @@ import {AlertService} from '@core/services/alerts/alert.service';
     NgClass,
     DatePipe,
     LucideAngularModule,
+    PostCommentListComponent,
   ],
   templateUrl: './user-post-card.component.html',
   styleUrl: './user-post-card.component.css'
@@ -41,6 +43,7 @@ export class UserPostCardComponent {
   archivePost = output<number>();
 
   protected showMenu = signal<boolean>(false);
+  protected showComments = signal<boolean>(false);
 
   private readonly postService = inject(PostService);
   private readonly alertService = inject(AlertService);
@@ -75,6 +78,10 @@ export class UserPostCardComponent {
         }
       });
     }
+  }
+
+  onComment():void{
+    this.showComments.update(b => !b);
   }
 
   protected readonly Heart = Heart;

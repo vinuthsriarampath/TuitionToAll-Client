@@ -104,10 +104,10 @@
                 [src]="getMediaUrl(media.mediaUrl)"
                 alt="Post Media"
 
-                class="w-full max-h-80 object-cover rounded-lg hover:scale-105 transition-transform duration-300" />
+                class="w-full max-h-auto object-cover rounded-lg hover:scale-105 transition-transform duration-300" />
             }
             @else if (media.mediaType === PostMediaType.VIDEO) {
-              <video controls class="w-full max-h-80 rounded-lg">
+              <video controls class="w-full max-h-auto rounded-lg">
                 <source [src]="getMediaUrl(media.mediaUrl)" type="video/mp4">
                 Your browser does not support video playback.
               </video>
@@ -149,9 +149,13 @@
     </button>
 
     <!-- Comments Button -->
-    <button class="flex items-center gap-1.5 px-2 py-1 rounded-lg hover:bg-sky-900/40 transition-colors">
+    <button (click)="onComment()" class="flex items-center gap-1.5 px-2 py-1 rounded-lg hover:bg-sky-900/40 transition-colors cursor-pointer">
       <lucide-icon [img]="MessageCircleMore" [size]="16"></lucide-icon>
       <span>{{ post().commentsCount }} Comments</span>
     </button>
   </div>
+
+  @if (showComments()){
+    <app-post-comment-list [postId]="post().id"></app-post-comment-list>
+  }
 </div>
