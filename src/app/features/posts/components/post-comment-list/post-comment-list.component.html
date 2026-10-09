@@ -1,0 +1,24 @@
+<div class="p-4 flex flex-col gap-y-2 border-t border-t-sky-950">
+  <h3>Comments ({{ totalElements }})</h3>
+  <app-post-comment-create [postId]="postId()" (commented)="onPostCommentCreate($event)"></app-post-comment-create>
+  @if (loading && this.user() != null) {
+    <div class="flex justify-center items-center">
+      <p class="para-xs para-primary">- Loading Comments -</p>
+    </div>
+  } @else {
+    <div class="flex flex-col gap-y-2">
+      @for (comment of comments(); track comment.id) {
+        <app-post-comment-card [comment]="comment"></app-post-comment-card>
+      } @empty {
+        <app-no-content [title]="'No Comments'" [description]="'No comments found for this post.'"></app-no-content>
+      }
+      @if (comments().length > 0) {
+        @if (!isLast) {
+          <span class="link link-sm link-primary" (click)="onLoadMore()">Show More</span>
+        } @else if (isLast && pageIndex > 0) {
+          <span class="link link-sm link-primary" (click)="onShowLess()">Show Less</span>
+        }
+      }
+    </div>
+  }
+</div>
