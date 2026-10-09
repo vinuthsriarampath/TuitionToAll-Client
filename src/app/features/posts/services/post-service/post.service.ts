@@ -67,6 +67,6 @@ export class PostService {
   }
 
   dislikePost(postId:number): Observable<ApiResponse<null>>{
-    return this.http.post<ApiResponse<null>>(`${this.baseUrl}/${postId}/dislike`, {});
+    return this.http.delete<ApiResponse<null>>(`${this.baseUrl}/${postId}/dislike`);
   }
 }
