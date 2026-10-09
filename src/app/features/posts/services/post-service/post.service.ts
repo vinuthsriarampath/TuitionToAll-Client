@@ -14,6 +14,7 @@ import {PostCommentsFilterRequest} from '@features/posts/dtos/requests/post-comm
 import {PostCommentRequest} from '@features/posts/dtos/requests/post-comment-request';
 import {PostCommentResponse} from '@features/posts/dtos/responses/post-comment-response';
 import {PostCommentDetailedResponse} from '@features/posts/dtos/responses/post-comment-detailed-response';
+import {FeedPostResponse} from '@features/posts/dtos/responses/feed-post-response';
 
 @Injectable({
   providedIn: 'root'
@@ -64,6 +65,13 @@ export class PostService {
     const params = buildPaginationParams(pagination);
 
     return this.http.get<PaginatedApiResponse<UserPostResponse>>(`${this.baseUrl}/user/${targetUserId}`, { params });
+  }
+
+  getFeedPosts(pagination: PaginationRequest): Observable<PaginatedApiResponse<FeedPostResponse>> {
+
+    const params = buildPaginationParams(pagination);
+
+    return this.http.get<PaginatedApiResponse<FeedPostResponse>>(`${this.baseUrl}/feed`, { params });
   }
 
   likePost(postId:number): Observable<ApiResponse<null>>{
