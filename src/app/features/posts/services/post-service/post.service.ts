@@ -61,4 +61,12 @@ export class PostService {
 
     return this.http.get<PaginatedApiResponse<UserPostResponse>>(`${this.baseUrl}/user/${targetUserId}`, { params });
   }
+
+  likePost(postId:number): Observable<ApiResponse<null>>{
+    return this.http.post<ApiResponse<null>>(`${this.baseUrl}/${postId}/like`, {});
+  }
+
+  dislikePost(postId:number): Observable<ApiResponse<null>>{
+    return this.http.post<ApiResponse<null>>(`${this.baseUrl}/${postId}/dislike`, {});
+  }
 }
