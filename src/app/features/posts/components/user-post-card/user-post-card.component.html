@@ -137,9 +137,14 @@
   <div class="flex items-center justify-between border-t border-sky-800/30 pt-2 text-xs text-sky-300/80">
     <!-- Like Button -->
     <button
+      (click)="likeDislikePost(post().id)"
       class="flex items-center gap-1.5 px-2 py-1 rounded-lg hover:bg-sky-900/40 transition-colors"
       [class.text-rose-400]="post().isLiked">
-      <lucide-icon [img]="Heart" [size]="16" [class.fill-rose-500]="post().isLiked"></lucide-icon>
+      @if (post().isLiked) {
+        <lucide-icon [img]="Heart" [size]="16" class="text-rose-500 fill-rose-500"></lucide-icon>
+      } @else {
+        <lucide-icon [img]="Heart" [size]="16" ></lucide-icon>
+      }
       <span>{{ post().likesCount }}</span>
     </button>
 
