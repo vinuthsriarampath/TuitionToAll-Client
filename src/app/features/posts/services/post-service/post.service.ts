@@ -10,6 +10,10 @@ import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
 import {MyPostsFilterRequests} from '@features/posts/dtos/requests/my-posts-filter-request';
 import {PaginatedApiResponse} from '@shared/utils/response/paginated-api-response';
 import {addFilterParams, buildPaginationParams} from '@shared/utils/helpers/params-helper';
+import {PostCommentsFilterRequest} from '@features/posts/dtos/requests/post-comment-filter-request';
+import {PostCommentRequest} from '@features/posts/dtos/requests/post-comment-request';
+import {PostCommentResponse} from '@features/posts/dtos/responses/post-comment-response';
+import {PostCommentDetailedResponse} from '@features/posts/dtos/responses/post-comment-detailed-response';
 
 @Injectable({
   providedIn: 'root'
@@ -68,5 +72,20 @@ export class PostService {
 
   dislikePost(postId:number): Observable<ApiResponse<null>>{
     return this.http.delete<ApiResponse<null>>(`${this.baseUrl}/${postId}/dislike`);
+  }
+
+  commentPost(postId: number, request: PostCommentRequest): Observable<ApiResponse<PostCommentResponse>> {
+    return this.http.post<ApiResponse<PostCommentResponse>>(`${this.baseUrl}/${postId}/comment`, request);
+  }
+
+  getPostComments(postId: number, pagination: PaginationRequest, filters?: PostCommentsFilterRequest): Observable<PaginatedApiResponse<PostCommentDetailedResponse>> {
+
+    let params = buildPaginationParams(pagination);
+
+    if (filters) {
+      params = addFilterParams(params, filters);
+    }
+
+    return this.http.get<PaginatedApiResponse<PostCommentDetailedResponse>>(`${this.baseUrl}/${postId}/comments`, { params });
   }
 }
