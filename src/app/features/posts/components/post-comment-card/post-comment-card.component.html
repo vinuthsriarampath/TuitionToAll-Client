@@ -1,0 +1,14 @@
+<app-card-shell>
+  <div class="p-4">
+    <div class="flex justify-between items-center mb-2">
+      <div class="flex flex-row gap-2">
+        <img [ngSrc]="comment().dp ? environment.USER_PROFILE_API+comment().dp : 'profile_logo.png'" [alt]="comment().displayName" width="8" height="8" class="w-6 h-6 rounded-full object-cover">
+        <a [routerLink]="['/profile', comment().userSlug]" class="link link-sm link-light">{{comment().displayName}}</a>
+      </div>
+      <p class="text-xs text-sky-300">{{comment().createdDate | date:'short'}}</p>
+    </div>
+    <p class="text-sm text-sky-100 whitespace-pre-wrap leading-relaxed">
+      {{ comment().message }}
+    </p>
+  </div>
+</app-card-shell>
