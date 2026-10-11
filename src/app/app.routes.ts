@@ -17,11 +17,13 @@ import {authGuard} from '@core/guards/auth-guard/auth.guard';
 export const routes: Routes = [
   {
     path: '',
+    canActivate: [tokenGuard],
     loadComponent: () => import('@shared/pages/landing-page/landing-page.component').then(m => m.LandingPageComponent),
-    canActivate: [tokenGuard]
   },
   {
     path: 'auth',
+    canActivate: [tokenGuard],
+    canActivateChild: [tokenGuard],
     loadChildren: () => import('@features/auth/routes/auth.routes').then(m => m.AUTH_ROUTES)
   },
   {
@@ -51,8 +53,8 @@ export const routes: Routes = [
   {
     path:'maintenance',
     title: 'Maintenance',
+    canActivate: [authGuard],
     loadComponent: () => import('@shared/pages/under-development-page/under-development-page.component').then(m => m.UnderDevelopmentPageComponent),
-    canActivate: [authGuard]
   },
   {
     path: '**',
