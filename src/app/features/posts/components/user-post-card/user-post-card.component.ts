@@ -16,10 +16,10 @@ import {PostMediaType} from '@features/posts/enums/post-media-type';
 import {DatePipe, NgClass} from '@angular/common';
 import {PostStatus} from '@features/posts/enums/post-status';
 import {PostVisibility} from '@features/posts/enums/post-visibility';
-import {environment} from '@env/environment.development';
-import {PostService} from '@features/posts/services/post-service/post.service';
-import {AlertService} from '@core/services/alerts/alert.service';
-import {PostCommentListComponent} from '@features/posts/components/post-comment-list/post-comment-list.component';
+import {PostCardFooterComponent} from '@features/posts/components/post-card-footer/post-card-footer.component';
+import {
+  PostMediaAttachmentGalleryComponent
+} from '@features/posts/components/post-media-attachment-gallery/post-media-attachment-gallery.component';
 
 @Component({
   selector: 'app-user-post-card',
@@ -27,7 +27,8 @@ import {PostCommentListComponent} from '@features/posts/components/post-comment-
     NgClass,
     DatePipe,
     LucideAngularModule,
-    PostCommentListComponent,
+    PostCardFooterComponent,
+    PostMediaAttachmentGalleryComponent,
   ],
   templateUrl: './user-post-card.component.html',
   styleUrl: './user-post-card.component.css'
@@ -43,52 +44,30 @@ export class UserPostCardComponent {
   archivePost = output<number>();
 
   protected showMenu = signal<boolean>(false);
-  protected showComments = signal<boolean>(false);
-
-  private readonly postService = inject(PostService);
-  private readonly alertService = inject(AlertService);
 
   toggleMenu(): void {
     this.showMenu.update(v => !v);
   }
 
-  getMediaUrl(filename: string): string {
-    return `${environment.POST_API}/media/${filename}`;
-  }
-
-  likeDislikePost(postId: number): void {
-    if (!this.post().isLiked){
-      this.postService.likePost(postId).subscribe({
-        next: () => {
-          this.post().isLiked = true;
-          this.post().likesCount += 1;
-        },
-        error: (err) => {
-          this.alertService.triggerErrorAlert(err.error?.message || 'An error occurred while liking the post.');
-        }
-      });
-    } else {
-      this.postService.dislikePost(postId).subscribe({
-        next: () => {
-          this.post().isLiked = false;
-          this.post().likesCount -= 1;
-        },
-        error: (err) => {
-          this.alertService.triggerErrorAlert(err.error?.message || 'An error occurred while disliking the post.');
-        }
-      });
+  onLiked() {
+    if(this.post().isLiked) {
+      return
+    }else {
+      this.post().isLiked = true;
+      this.post().likesCount += 1;
     }
   }
 
-  onComment():void{
-    this.showComments.update(b => !b);
+  onDislike(){
+    if (!this.post().isLiked) {
+      return
+    }else {
+      this.post().isLiked = false;
+      this.post().likesCount -= 1;
+    }
   }
 
-  protected readonly Heart = Heart;
-  protected readonly MessageCircleMore = MessageCircleMore;
   protected readonly Download = Download;
-  protected readonly Files = Files;
-  protected readonly PostMediaType = PostMediaType;
   protected readonly Trash = Trash;
   protected readonly Edit = Edit;
   protected readonly Send = Send;

@@ -88,74 +88,9 @@
 
   <!-- Media Attachments Gallery -->
   @if (post().mediaList && post().mediaList.length > 0) {
-    <div class="space-y-2">
-      <div
-        class="grid gap-2"
-        [ngClass]="{
-          'grid-cols-1': post().mediaList.length === 1,
-          'grid-cols-2': post().mediaList.length >= 2
-        }">
-        @for (media of post().mediaList; track media.id) {
-          <div class="relative group rounded-lg overflow-hidden bg-slate-950/60 border border-sky-800/30">
-
-            <!-- Image Rendering -->
-            @if (media.mediaType === PostMediaType.IMAGE) {
-              <img
-                [src]="getMediaUrl(media.mediaUrl)"
-                alt="Post Media"
-
-                class="w-full max-h-auto object-cover rounded-lg hover:scale-105 transition-transform duration-300" />
-            }
-            @else if (media.mediaType === PostMediaType.VIDEO) {
-              <video controls class="w-full max-h-auto rounded-lg">
-                <source [src]="getMediaUrl(media.mediaUrl)" type="video/mp4">
-                Your browser does not support video playback.
-              </video>
-            }
-            @else if (media.mediaType === PostMediaType.DOCUMENT) {
-              <div class="p-3 flex items-center justify-between bg-slate-800/60 rounded-lg">
-                <div class="flex items-center gap-2 min-w-0">
-                  <lucide-icon [img]="Files" [size]="20" class="text-amber-400 shrink-0"></lucide-icon>
-                  <span class="text-xs text-sky-200 truncate">{{ media.mediaUrl }}</span>
-                </div>
-                <a
-                  [href]="getMediaUrl(media.mediaUrl)"
-                  target="_blank"
-                  download
-                  class="p-1.5 bg-sky-900/60 hover:bg-sky-800 text-sky-200 rounded-md transition-colors shrink-0">
-                  <lucide-icon [img]="Download" [size]="14"></lucide-icon>
-                </a>
-              </div>
-            }
-          </div>
-        }
-      </div>
-    </div>
+    <app-post-media-attachment-gallery [mediaList]="post().mediaList"></app-post-media-attachment-gallery>
   }
 
   <!-- Footer Interactions (Likes / Comments count) -->
-  <div class="flex items-center justify-between border-t border-sky-800/30 pt-2 text-xs text-sky-300/80">
-    <!-- Like Button -->
-    <button
-      (click)="likeDislikePost(post().id)"
-      class="flex items-center gap-1.5 px-2 py-1 rounded-lg hover:bg-sky-900/40 transition-colors"
-      [class.text-rose-400]="post().isLiked">
-      @if (post().isLiked) {
-        <lucide-icon [img]="Heart" [size]="16" class="text-rose-500 fill-rose-500"></lucide-icon>
-      } @else {
-        <lucide-icon [img]="Heart" [size]="16" ></lucide-icon>
-      }
-      <span>{{ post().likesCount }}</span>
-    </button>
-
-    <!-- Comments Button -->
-    <button (click)="onComment()" class="flex items-center gap-1.5 px-2 py-1 rounded-lg hover:bg-sky-900/40 transition-colors cursor-pointer">
-      <lucide-icon [img]="MessageCircleMore" [size]="16"></lucide-icon>
-      <span>{{ post().commentsCount }} Comments</span>
-    </button>
-  </div>
-
-  @if (showComments()){
-    <app-post-comment-list [postId]="post().id"></app-post-comment-list>
-  }
+  <app-post-card-footer [postId]="post().id" [postLikeCount]="post().likesCount" [postIsLiked]="post().isLiked" [postCommentCount]="post().commentsCount" (liked)="onLiked()" (disliked)="onDislike()"></app-post-card-footer>
 </div>
