@@ -1,12 +1,43 @@
 <app-page-layout>
   <div data-body>
     <div class="max-w-2xl mx-auto space-y-4">
-      <!-- Reusable Create Post Component -->
+
+      <!-- Reusable Create Post Header -->
       <app-post-create
         [placeholderText]="'Share an update with your learning feed...'">
       </app-post-create>
 
-      <!-- Feed Post List Component -->
+      <!-- Feed Post Stream -->
+      @if (isLoading() && feedPosts().length === 0) {
+        <div class="space-y-4">
+          @for (i of [1, 2, 3]; track $index) {
+            <div class="h-48 bg-slate-900/70 rounded-xl animate-pulse border border-sky-800/30"></div>
+          }
+        </div>
+      } @else if (feedPosts().length > 0) {
+        <div class="space-y-4">
+          @for (postItem of feedPosts(); track postItem.id) {
+            <app-feed-post-card
+              [post]="postItem"
+              [currentUserId]="currentUser()?.id ?? null">
+            </app-feed-post-card>
+          }
+
+          @if (!isLast()) {
+            <div class="text-center pt-2">
+              <button (click)="onLoadMore()" class="btn-mini-primary px-5 py-2">
+                Load More Posts
+              </button>
+            </div>
+          }
+        </div>
+      } @else {
+        <div class="text-center py-12 bg-slate-900/40 rounded-xl border border-sky-800/30">
+          <lucide-icon [img]="RssIcon" [size]="36" class="mx-auto text-sky-600 mb-2"></lucide-icon>
+          <p class="text-sky-200 text-sm font-medium">Your feed is quiet</p>
+          <p class="text-sky-400/60 text-xs">Follow other users or create a post to get started!</p>
+        </div>
+      }
     </div>
   </div>
 </app-page-layout>
