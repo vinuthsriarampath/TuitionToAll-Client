@@ -1,0 +1,24 @@
+<div class="flex items-center justify-between border-t border-sky-800/30 pt-2 text-xs text-sky-300/80">
+  <!-- Like Button -->
+  <button
+    (click)="likeDislikePost()"
+    class="flex items-center gap-1.5 px-2 py-1 rounded-lg hover:bg-sky-900/40 transition-colors"
+    [class.text-rose-400]="postIsLiked()">
+    @if (postIsLiked()) {
+      <lucide-icon [img]="Heart" [size]="16" class="text-rose-500 fill-rose-500"></lucide-icon>
+    } @else {
+      <lucide-icon [img]="Heart" [size]="16" ></lucide-icon>
+    }
+    <span>{{ postLikeCount() }}</span>
+  </button>
+
+  <!-- Comments Button -->
+  <button (click)="onComment()" class="flex items-center gap-1.5 px-2 py-1 rounded-lg hover:bg-sky-900/40 transition-colors cursor-pointer">
+    <lucide-icon [img]="MessageCircleMore" [size]="16"></lucide-icon>
+    <span>{{ postCommentCount() }} Comments</span>
+  </button>
+</div>
+
+@if (showComments()){
+  <app-post-comment-list [postId]="postId()"></app-post-comment-list>
+}
