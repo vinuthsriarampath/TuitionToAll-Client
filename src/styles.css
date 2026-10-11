@@ -179,12 +179,11 @@
 .custom-tabs {
   border-radius: 12px;
   overflow: hidden;
-  border: 1px solid rgba(7, 89, 133, 0.5);
   --mat-tab-header-divider-color: rgba(0, 89, 138, 0.5);
 }
 
 .custom-tabs .mat-mdc-tab-header {
-  background: linear-gradient(to bottom right, #082f49 30%, #0f172a 90%);
+  background: #082f49;
   border-bottom: 1px solid rgba(7, 89, 133, 0.4);
 }
 
@@ -196,7 +195,7 @@
 .custom-tabs .mdc-tab__text-label {
   color: rgba(186, 230, 253, 0.7) !important; /* sky-200/70 */
   font-weight: 500;
-  transition: all 0.2s ease-in-out;
+  /*transition: all 0.2s ease-in-out;*/
 }
 
 .custom-tabs .mdc-tab--active .mdc-tab__text-label {
@@ -206,13 +205,11 @@
 
 .custom-tabs .mdc-tab-indicator__content--underline {
   border-color: #38bdf8 !important; /* sky-400 */
-  border-width: 3px;
+  border-width: 1px;
 }
 
 .custom-tabs .mat-mdc-tab-body-wrapper {
-  background-color: rgba(15, 23, 42, 0.8); /* slate-900/80 */
-  border-radius: 0 0 12px 12px;
-  padding: 20px;
+  padding-top: 10px;
 }
 
 /* ======================================================================
