@@ -1,0 +1,8 @@
+@if (!isSameUser()) {
+  <button
+    [class]="isFollowing() ? 'btn btn-mini-secondary' : 'btn btn-mini-primary'"
+    [disabled]="loading()"
+    (click)="toggleFollow()">
+    {{ isFollowing() ? 'Unfollow' : 'Follow' }}
+  </button>
+}

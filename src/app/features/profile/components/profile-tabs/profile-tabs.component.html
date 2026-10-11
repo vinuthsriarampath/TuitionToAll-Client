@@ -1,7 +1,7 @@
 <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="500ms" class="custom-tabs">
   <mat-tab label="Posts">
     <ng-template matTabContent>
-      <app-user-posts></app-user-posts>
+      <app-user-posts [isOwner]="isSameUser()" [targetUserId]="profileUser().id"></app-user-posts>
     </ng-template>
   </mat-tab>
   @if (UserHelper.isInstitute(profileUser().role.role, profileUser().details)) {

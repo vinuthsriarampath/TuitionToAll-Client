@@ -1,0 +1,43 @@
+<form [formGroup]="commentForm" (ngSubmit)="onSubmit()" class="w-full">
+  <div
+    class="relative border border-slate-700/60 bg-slate-900/80 rounded-2xl p-2.5 transition-all duration-200 focus-within:border-sky-500/80 focus-within:ring-1 focus-within:ring-sky-500/30"
+    [class.pb-3]="hasContent">
+
+    <!-- Comment Input Field -->
+    <label for="comment" class="sr-only">Add a comment</label>
+    <textarea
+      id="comment"
+      formControlName="comment"
+      placeholder="Add a comment..."
+      rows="1"
+      (input)="autoResize($event)"
+      class="w-full bg-transparent text-sm text-sky-50 placeholder-slate-400 border-none outline-none resize-none overflow-hidden px-2 focus:ring-0">
+    </textarea>
+
+
+    <div
+      class="flex items-center transition-all duration-200"
+      [class.justify-end]="!hasContent"
+      [class.justify-between]="hasContent"
+      [class.mt-2]="hasContent">
+
+      <div class="flex items-center gap-2 text-slate-400">
+        <!-- Optional icons container preserved here -->
+      </div>
+
+
+      @if (hasContent) {
+        <button
+          type="submit"
+          [disabled]="commentForm.invalid || isSubmitting"
+          class="btn-mini-primary px-4 py-1.5 rounded-full text-xs font-semibold bg-sky-600 hover:bg-sky-500 text-white transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5">
+          @if (isSubmitting) {
+            <span>Posting...</span>
+          } @else {
+            <span>Comment</span>
+          }
+        </button>
+      }
+    </div>
+  </div>
+</form>

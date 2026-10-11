@@ -1,0 +1,7 @@
+<div class="flex flex-col gap-y-2">
+  @for (follower of followers; track follower.id) {
+    <app-user-card [dp]="follower.dp" [displayName]="follower.displayName" [userSlug]="follower.userSlug" [email]="follower.email" [role]="follower.role"></app-user-card>
+  } @empty {
+    <app-no-content [title]="'No Followers'" [description]="'No one follows you yet!.'"></app-no-content>
+  }
+</div>

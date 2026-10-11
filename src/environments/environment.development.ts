@@ -38,6 +38,9 @@ interface Environment {
   ASSIGNMENT_SUBMISSION_API: string;
   GRADING_API: string;
   PAYMENT_API: string;
+  USER_FOLLOW_API: string;
+  USER_UNFOLLOW_API: string;
+  POST_API: string;
 }
 
 const BASE_URL = 'http://localhost:8080/api/v2';
@@ -71,5 +74,8 @@ export const environment: Environment = {
   ASSIGNMENT_SUBMISSION_API: `${BASE_URL}/assignment-submissions`,
   GRADING_API: `${BASE_URL}/gradings`,
   PAYMENT_API: `${BASE_URL}/payments`,
+  USER_FOLLOW_API: `${BASE_URL}/follows`,
+  USER_UNFOLLOW_API: `${BASE_URL}/unfollows`,
+  POST_API: `${BASE_URL}/posts`,
 };
 

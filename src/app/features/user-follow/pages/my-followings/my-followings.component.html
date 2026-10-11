@@ -1,0 +1,7 @@
+<div class="flex flex-col gap-y-2">
+  @for (user of followings; track user.id) {
+    <app-user-card [dp]="user.dp" [displayName]="user.displayName" [userSlug]="user.userSlug" [email]="user.email" [role]="user.role"></app-user-card>
+  } @empty {
+    <app-no-content [title]="'No Followings'" [description]="'You are not following anyone yet.'"></app-no-content>
+  }
+</div>

@@ -10,10 +10,19 @@ export const MAIN_ROUTES: Routes = [
     children: [
       {
         path:'',
+        redirectTo:'feed',
+        pathMatch:'full'
+      },
+      {
+        path:'feed',
         title: 'Feed',
         loadComponent: () => import('@features/feed/pages/feed.component').then(m => m.FeedComponent),
       },
-
+      {
+        path:'network',
+        title: 'My Network',
+        loadComponent: () => import('@features/user-follow/pages/network/network.component').then(m => m.NetworkComponent),
+      },
     ]
   },
 ];

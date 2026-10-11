@@ -8,14 +8,15 @@ import {UserHelper} from '@shared/utils/helpers/user-helper';
 
 @Component({
   selector: 'app-profile-tabs',
-    imports: [
-        InstituteJobsComponent,
-        MatTab,
-        MatTabContent,
-        MatTabGroup,
-        UserCoursesComponent,
-        UserPostsComponent
-    ],
+  imports: [
+    InstituteJobsComponent,
+    MatTab,
+    MatTabContent,
+    MatTabGroup,
+    UserCoursesComponent,
+    UserPostsComponent,
+    UserPostsComponent
+  ],
   templateUrl: './profile-tabs.component.html',
   styleUrl: './profile-tabs.component.css'
 })

@@ -1,2 +1,56 @@
-<app-no-content [title]="'No Posts Found'" [description]="'You have not created any posts yet. Start sharing your thoughts and ideas with the community!'">
-</app-no-content>
+<div class="space-y-4">
+
+  @if (isOwner()) {
+    <app-post-create></app-post-create>
+    <div class=" mt-4 flex items-center justify-between bg-slate-900/60 p-3 rounded-xl border border-sky-800/40">
+      <div class="flex items-center gap-2 text-xs text-sky-200">
+        <lucide-icon [img]="Funnel" [size]="14" class="text-sky-400"></lucide-icon>
+        <span class="font-medium">Filter Posts:</span>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <!-- Status Filter -->
+        <select
+          (change)="onFilterStatusChange($event)"
+          class="bg-slate-800 text-sky-100 text-xs rounded-lg px-2 py-1 border border-sky-800/60 focus:outline-none">
+          <option value="">All Statuses</option>
+          <option value="PUBLISHED">Published</option>
+          <option value="DRAFT">Draft</option>
+        </select>
+
+        <!-- Visibility Filter -->
+        <select
+          (change)="onFilterVisibilityChange($event)"
+          class="bg-slate-800 text-sky-100 text-xs rounded-lg px-2 py-1 border border-sky-800/60 focus:outline-none">
+          <option value="">All Visibilities</option>
+          <option value="PUBLIC">Public</option>
+          <option value="FOLLOWERS_ONLY">Followers Only</option>
+          <option value="PRIVATE">Private</option>
+        </select>
+      </div>
+    </div>
+  }
+
+  <!-- Posts Loading Skeleton -->
+  @if (isLoading()) {
+    <div class="space-y-3">
+      @for (i of [1, 2]; track $index) {
+        <div class="h-40 bg-slate-900/80 rounded-xl animate-pulse border border-sky-800/30"></div>
+      }
+    </div>
+  }
+  @else if (posts().length > 0) {
+    <div class="flex flex-col space-y-4">
+      @for (postItem of posts(); track postItem.id) {
+        <app-user-post-card
+          [post]="postItem"
+          [isOwner]="isOwner()">
+        </app-user-post-card>
+      }
+    </div>
+  }
+  @else {
+    <app-no-content [title]="'No Posts Found'" [description]="'You have not created any posts yet. Start sharing your thoughts and ideas with the community!'">
+    </app-no-content>
+  }
+</div>

@@ -1,0 +1,96 @@
+<div class="bg-slate-900/70 border border-sky-800/40 rounded-xl p-4 shadow-md space-y-3 transition-all">
+
+  <!-- Header: Status / Visibility & Management Dropdown -->
+  <div class="flex items-center justify-between border-b border-sky-800/30 pb-2">
+    <div class="flex items-center gap-2 text-xs text-sky-300/80">
+      <!-- Status Badge -->
+      <span
+        class="px-2 py-0.5 rounded-md font-medium text-[10px] uppercase tracking-wider"
+        [ngClass]="{
+          'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30': post().status === PostStatus.PUBLISHED,
+          'bg-amber-500/20 text-amber-400 border border-amber-500/30': post().status === PostStatus.DRAFT,
+          'bg-slate-700/50 text-slate-400 border border-slate-600/30': post().status === PostStatus.ARCHIVED
+        }">
+        {{ post().status }}
+      </span>
+
+      <span class="text-sky-700">•</span>
+
+      <!-- Visibility Icon & Label -->
+      <div class="flex items-center gap-1">
+        @switch (post().visibility) {
+          @case (PostVisibility.PUBLIC) {
+            <lucide-icon [img]="Globe" [size]="13" class="text-sky-400"></lucide-icon>
+            <span>Public</span>
+          }
+          @case (PostVisibility.FOLLOWERS_ONLY) {
+            <lucide-icon [img]="Users" [size]="13" class="text-amber-400"></lucide-icon>
+            <span>Followers</span>
+          }
+          @case (PostVisibility.PRIVATE) {
+            <lucide-icon [img]="Lock" [size]="13" class="text-rose-400"></lucide-icon>
+            <span>Private</span>
+          }
+        }
+      </div>
+
+      <span class="text-sky-700">•</span>
+      <span class="text-sky-400/60">{{ (post().publishedDate || post().createdDate) | date:'mediumDate' }}</span>
+    </div>
+
+    <!-- Management Actions (Only shown if current user is profile owner) -->
+    @if (isOwner()) {
+      <div class="relative">
+        <button
+          (click)="toggleMenu()"
+          class="p-1 hover:bg-sky-800/40 rounded-lg text-sky-300 transition-colors">
+          <lucide-icon [img]="MoreHorizontal" [size]="16"></lucide-icon>
+        </button>
+
+        @if (showMenu()) {
+          <div
+            class="absolute right-0 mt-1 w-40 bg-slate-800 border border-sky-800/60 rounded-lg shadow-xl z-20 py-1 text-xs">
+
+            @if (post().status === PostStatus.DRAFT) {
+              <button
+                (click)="publishPost.emit(post().id); toggleMenu()"
+                class="w-full flex items-center gap-2 px-3 py-1.5 text-emerald-400 hover:bg-sky-900/50">
+                <lucide-icon [img]="Send" [size]="14"></lucide-icon>
+                <span>Publish</span>
+              </button>
+            }
+
+            <button
+              (click)="editPost.emit(post())"
+              class="w-full flex items-center gap-2 px-3 py-1.5 text-sky-200 hover:bg-sky-900/50">
+              <lucide-icon [img]="Edit" [size]="14"></lucide-icon>
+              <span>Edit Post</span>
+            </button>
+
+            <button
+              (click)="deletePost.emit(post().id); toggleMenu()"
+              class="w-full flex items-center gap-2 px-3 py-1.5 text-rose-400 hover:bg-rose-950/40">
+              <lucide-icon [img]="Trash" [size]="14"></lucide-icon>
+              <span>Delete</span>
+            </button>
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+  <!-- Caption Body -->
+  @if (post().caption) {
+    <p class="text-sm text-sky-100 whitespace-pre-wrap leading-relaxed">
+      {{ post().caption }}
+    </p>
+  }
+
+  <!-- Media Attachments Gallery -->
+  @if (post().mediaList && post().mediaList.length > 0) {
+    <app-post-media-attachment-gallery [mediaList]="post().mediaList"></app-post-media-attachment-gallery>
+  }
+
+  <!-- Footer Interactions (Likes / Comments count) -->
+  <app-post-card-footer [postId]="post().id" [postLikeCount]="post().likesCount" [postIsLiked]="post().isLiked" [postCommentCount]="post().commentsCount" (liked)="onLiked()" (disliked)="onDislike()"></app-post-card-footer>
+</div>

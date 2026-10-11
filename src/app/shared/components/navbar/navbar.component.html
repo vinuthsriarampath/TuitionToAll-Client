@@ -33,19 +33,19 @@
           <div class="hidden lg:flex items-center gap-x-1">
 
             <!-- Feed -->
-            <a [routerLink]="['/app']"
+            <a [routerLink]="['/app/feed']"
                [routerLinkActive]="'bg-sky-800 text-white font-medium shadow-sm ring-1 ring-sky-500/30'"
                class="group text-sky-100 flex flex-col items-center justify-center cursor-pointer hover:bg-sky-800/60 rounded-lg px-3 py-1.5 transition-all duration-150 ease-in-out active:scale-[0.98]">
               <lucide-icon [img]="House" [strokeWidth]="1.35" class="w-5 h-5 text-sky-300 group-hover:text-white transition-colors"></lucide-icon>
               <p class="text-[0.8rem] font-medium tracking-wide mt-0.5">Feed</p>
             </a>
 
-            <!-- Connections -->
-            <a [routerLink]="['/maintenance']"
+            <!-- Network -->
+            <a [routerLink]="['/app/network']"
                [routerLinkActive]="'bg-sky-800 text-white font-medium shadow-sm ring-1 ring-sky-500/30'"
                class="group text-sky-100 flex flex-col items-center justify-center cursor-pointer hover:bg-sky-800/60 rounded-lg px-3 py-1.5 transition-all duration-150 ease-in-out active:scale-[0.98]">
-              <lucide-icon [img]="Users" [strokeWidth]="1.35" class="w-5 h-5 text-sky-300 group-hover:text-white transition-colors"></lucide-icon>
-              <p class="text-[0.8rem] font-medium tracking-wide mt-0.5">Connections</p>
+              <lucide-icon [img]="Globe" [strokeWidth]="1.35" class="w-5 h-5 text-sky-300 group-hover:text-white transition-colors"></lucide-icon>
+              <p class="text-[0.8rem] font-medium tracking-wide mt-0.5">Network</p>
             </a>
 
             <!-- Notifications -->
@@ -124,19 +124,20 @@
   <div class="flex justify-around items-center h-12 max-w-md mx-auto">
 
     <!-- Feed -->
-    <a [routerLink]="['/app']"
+    <a [routerLink]="['/app/feed']"
        [routerLinkActive]="'text-sky-300 font-semibold'"
+       [routerLinkActiveOptions]="{ exact: true }"
        class="flex flex-col items-center justify-center text-sky-200/80 hover:text-sky-100 transition-colors py-1 px-2">
       <lucide-icon [img]="House" [strokeWidth]="1.35" class="w-5 h-5"></lucide-icon>
       <span class="text-[0.65rem] tracking-tight mt-0.5">Feed</span>
     </a>
 
-    <!-- Connections -->
-    <a [routerLink]="['/maintenance']"
+    <!-- Network -->
+    <a [routerLink]="['/app/network']"
        [routerLinkActive]="'text-sky-300 font-semibold'"
        class="flex flex-col items-center justify-center text-sky-200/80 hover:text-sky-100 transition-colors py-1 px-2">
-      <lucide-icon [img]="Users" [strokeWidth]="1.35" class="w-5 h-5"></lucide-icon>
-      <span class="text-[0.65rem] tracking-tight mt-0.5">Connections</span>
+      <lucide-icon [img]="Globe" [strokeWidth]="1.35" class="w-5 h-5"></lucide-icon>
+      <span class="text-[0.65rem] tracking-tight mt-0.5">Network</span>
     </a>
 
     <!-- Notifications -->

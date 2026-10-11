@@ -11,12 +11,16 @@ import {
 import {LucideAngularModule, Pen} from 'lucide-angular';
 import {NgOptimizedImage} from '@angular/common';
 import {UserHelper} from '@shared/utils/helpers/user-helper';
+import {UserFollowService} from '@features/user-follow/services/user-follow-service/user-follow.service';
+import {UserUnfollowService} from '@features/user-follow/services/user-unfollow-service/user-unfollow.service';
+import {FollowButtonComponent} from '@features/user-follow/components/follow-button/follow-button.component';
 
 @Component({
   selector: 'app-profile-cover',
   imports: [
     LucideAngularModule,
-    NgOptimizedImage
+    NgOptimizedImage,
+    FollowButtonComponent
   ],
   templateUrl: './profile-cover.component.html',
   styleUrl: './profile-cover.component.css'
@@ -27,7 +31,7 @@ export class ProfileCoverComponent {
   isSameUser = input.required<boolean>();
   loading = input<boolean>(false);
 
-  profileUpdated = output<void>()
+  profileUpdated = output<User>()
 
   private readonly alertService:AlertService = inject(AlertService);
   private readonly dialog:MatDialog = inject(MatDialog);
@@ -83,7 +87,15 @@ export class ProfileCoverComponent {
       }
     });
   }
+  onFollowStatusChanged(isFollowingNow: boolean) {
+    const updatedUser = structuredClone(this.profileUser());
+    updatedUser.isFollowing = isFollowingNow;
 
+    const currentCount = updatedUser.followersCount ?? 0;
+    updatedUser.followersCount = isFollowingNow ? currentCount + 1 : Math.max(0, currentCount - 1);
+
+    this.profileUpdated.emit(updatedUser);
+  }
   protected readonly UserHelper = UserHelper;
   protected readonly Pen = Pen;
 }

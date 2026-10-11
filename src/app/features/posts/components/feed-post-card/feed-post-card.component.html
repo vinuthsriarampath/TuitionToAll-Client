@@ -1,0 +1,73 @@
+<div class="bg-slate-900/70 border border-sky-800/40 rounded-xl p-4 shadow-md space-y-3 transition-all">
+
+  <!-- Header: Author Profile, Metadata & Follow Button -->
+  <div class="flex items-center justify-between border-b border-sky-800/30 pb-3">
+    <div class="flex items-center gap-2.5">
+      <!-- Profile Picture -->
+      <a [routerLink]="['/profile', post().authorSlug]">
+        <img
+          [ngSrc]="post().authorDp ? environment.USER_PROFILE_API + post().authorDp : 'profile_logo.png'"
+          [alt]="post().authorName"
+          width="36"
+          height="36"
+          class="w-9 h-9 rounded-full object-cover border border-sky-600/40 hover:opacity-90 transition-opacity" />
+      </a>
+
+      <!-- Author Name & Date/Visibility -->
+      <div class="flex flex-col">
+        <div class="flex items-center gap-1.5">
+          <a [routerLink]="['/profile', post().authorSlug]" class="text-xs font-semibold text-sky-50 hover:text-sky-300 transition-colors">
+            {{ post().authorName }}
+          </a>
+          <span class="text-[10px] px-1.5 py-0.2 rounded bg-sky-950 text-sky-400 border border-sky-800/40 uppercase">
+            {{ post().authorRole }}
+          </span>
+        </div>
+
+        <div class="flex items-center gap-1.5 text-[11px] text-sky-300/70">
+          <span>{{ (post().publishedDate || post().createdDate) | date:'mediumDate' }}</span>
+          <span>•</span>
+          <div class="flex items-center gap-1">
+            @switch (post().visibility) {
+              @case (PostVisibility.PUBLIC) {
+                <lucide-icon [img]="Globe" [size]="12" class="text-sky-400"></lucide-icon>
+                <span>Public</span>
+              }
+              @case (PostVisibility.FOLLOWERS_ONLY) {
+                <lucide-icon [img]="Users" [size]="12" class="text-amber-400"></lucide-icon>
+                <span>Followers</span>
+              }
+              @case (PostVisibility.PRIVATE) {
+                <lucide-icon [img]="Lock" [size]="12" class="text-rose-400"></lucide-icon>
+                <span>Private</span>
+              }
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Follow / Following Button (Only shown if author is NOT the current logged-in user) -->
+    @if (currentUserId() !== post().authorId && !post().isFollowingAuthor) {
+      <button (click)="toggleFollowAuthor()" [disabled]="isFollowPending()" class="flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium transition-all duration-150 bg-sky-600 hover:bg-sky-500 text-white">
+          <lucide-icon [img]="UserPlus" [size]="13"></lucide-icon>
+          <span>Follow</span>
+      </button>
+    }
+  </div>
+
+  <!-- Caption Body -->
+  @if (post().caption) {
+    <p class="text-sm text-sky-100 whitespace-pre-wrap leading-relaxed">
+      {{ post().caption }}
+    </p>
+  }
+
+  <!-- Media Gallery -->
+  @if (post().mediaList && post().mediaList.length > 0) {
+    <app-post-media-attachment-gallery [mediaList]="post().mediaList"></app-post-media-attachment-gallery>
+  }
+
+  <app-post-card-footer [postId]="post().id" [postLikeCount]="post().likesCount" [postIsLiked]="post().isLiked" [postCommentCount]="post().commentsCount" (liked)="onLiked()" (disliked)="onDislike()"></app-post-card-footer>
+
+</div>
