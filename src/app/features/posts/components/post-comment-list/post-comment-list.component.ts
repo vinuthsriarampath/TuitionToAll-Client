@@ -7,7 +7,6 @@ import {PostCommentResponse} from '@features/posts/dtos/responses/post-comment-r
 import {User} from '@features/user/dtos/responses/user';
 import {UserService} from '@features/user/services/user/user.service';
 import {UserHelper} from '@shared/utils/helpers/user-helper';
-import {CardShellComponent} from '@shared/ui';
 import {PostCommentCardComponent} from '@features/posts/components/post-comment-card/post-comment-card.component';
 import {NoContentComponent} from '@shared/components/no-content/no-content.component';
 import {PostCommentCreateComponent} from '@features/posts/components/post-comment-create/post-comment-create.component';
@@ -15,7 +14,6 @@ import {PostCommentCreateComponent} from '@features/posts/components/post-commen
 @Component({
   selector: 'app-post-comment-list',
   imports: [
-    CardShellComponent,
     PostCommentCardComponent,
     NoContentComponent,
     PostCommentCreateComponent
