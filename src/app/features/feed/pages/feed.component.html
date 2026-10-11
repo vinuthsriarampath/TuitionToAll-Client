@@ -1,6 +1,6 @@
 <app-page-layout>
   <div data-body>
-    <div class="max-w-2xl mx-auto space-y-4">
+    <div class="max-w-2xl mx-auto flex flex-col gap-4">
 
       <!-- Reusable Create Post Header -->
       <app-post-create
@@ -9,13 +9,13 @@
 
       <!-- Feed Post Stream -->
       @if (isLoading() && feedPosts().length === 0) {
-        <div class="space-y-4">
+        <div class="flex flex-col gap-4">
           @for (i of [1, 2, 3]; track $index) {
             <div class="h-48 bg-slate-900/70 rounded-xl animate-pulse border border-sky-800/30"></div>
           }
         </div>
       } @else if (feedPosts().length > 0) {
-        <div class="space-y-4">
+        <div class="flex flex-col gap-4">
           @for (postItem of feedPosts(); track postItem.id) {
             <app-feed-post-card
               [post]="postItem"
