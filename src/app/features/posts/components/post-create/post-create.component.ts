@@ -43,7 +43,7 @@ export class PostCreateComponent implements OnInit{
   protected postForm!: FormGroup;
   protected isSubmitting = signal<boolean>(false);
   protected selectedFiles = signal<SelectedFile[]>([]);
-  protected createPost:boolean = false;
+  protected createPost = signal<boolean>(false);
 
   protected readonly postVisibilityOptions:SelectOption[] = [];
 
@@ -125,7 +125,7 @@ export class PostCreateComponent implements OnInit{
         this.alertService.triggerSuccessAlert('Post created successfully!');
         this.resetForm();
         if (res.data) {
-          this.createPost = false;
+          this.closeCreatePost();
           this.postCreated.emit(res.data);
         }
       },
@@ -144,8 +144,13 @@ export class PostCreateComponent implements OnInit{
     this.selectedFiles.set([]);
   }
 
-  protected triggerCreatePost(){
-    this.createPost = true;
+  protected openCreatePost(){
+    this.createPost.set(true);
+  }
+
+  protected closeCreatePost(): void {
+    this.resetForm();
+    this.createPost.set(false);
   }
 
   protected readonly X = X;

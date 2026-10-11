@@ -1,10 +1,10 @@
 <app-card-shell>
   <div class="p-4 space-y-3">
 
-    @if (!createPost){
+    @if (!createPost()){
       <div class="flex items-center justify-center gap-2">
         <img [ngSrc]="UserHelper.getProfileImageUrl(currentUser)" loading="lazy" class="w-9 h-9 rounded-full object-cover" width="40" height="40" alt="profilePic">
-        <button type="button" class="btn btn-mini-primary w-full" (click)="triggerCreatePost()">Create a Post</button>
+        <button type="button" class="btn btn-mini-primary w-full" (click)="openCreatePost()">Create a Post</button>
       </div>
     } @else {
 
@@ -71,17 +71,20 @@
           </div>
 
           <!-- Submit Button -->
-          <button
-            type="submit"
-            [disabled]="isSubmitting() || (postForm.invalid && selectedFiles().length === 0)"
-            class="btn btn-mini-primary flex items-center gap-1.5">
-            @if (isSubmitting()) {
-              <span>Posting...</span>
-            } @else {
-              <lucide-icon [img]="Send" [size]="14"></lucide-icon>
-              <span>Post</span>
-            }
-          </button>
+          <div class="flex items-center gap-2">
+            <button (click)="closeCreatePost()" type="button" class="btn btn-mini-secondary flex items-center gap-1.5">Cancel</button>
+            <button
+              type="submit"
+              [disabled]="isSubmitting() || (postForm.invalid && selectedFiles().length === 0)"
+              class="btn btn-mini-primary flex items-center gap-1.5">
+              @if (isSubmitting()) {
+                <span>Posting...</span>
+              } @else {
+                <lucide-icon [img]="Send" [size]="14"></lucide-icon>
+                <span>Post</span>
+              }
+            </button>
+          </div>
         </div>
       </form>
     }
