@@ -20,7 +20,7 @@
 
       <!-- Students -->
       @for (results of searchResults?.students; track results.userSlug) {
-        <a [routerLink]="['/profile', results.userSlug]"
+        <a [routerLink]="['/app/profile', results.userSlug]"
            class="flex items-center gap-3 p-2 rounded-lg hover:bg-sky-800/60 transition-all active:scale-[0.98] cursor-pointer group">
           <img
             [src]="results?.dp ? (environment.USER_PROFILE_API + results?.dp) : 'profile_logo.png'"
@@ -34,7 +34,7 @@
 
       <!-- Teachers -->
       @for (results of searchResults?.teachers; track results.userSlug) {
-        <a [routerLink]="['/profile', results.userSlug]"
+        <a [routerLink]="['/app/profile', results.userSlug]"
            class="flex items-center gap-3 p-2 rounded-lg hover:bg-sky-800/60 transition-all active:scale-[0.98] cursor-pointer group">
           <img
             [src]="results?.dp ? (environment.USER_PROFILE_API + results?.dp) : 'profile_logo.png'"
@@ -48,7 +48,7 @@
 
       <!-- Institutes -->
       @for (results of searchResults?.institutes; track results.userSlug) {
-        <a [routerLink]="['/profile', results.userSlug]"
+        <a [routerLink]="['/app/profile', results.userSlug]"
            class="flex items-center gap-3 p-2 rounded-lg hover:bg-sky-800/60 transition-all active:scale-[0.98] cursor-pointer group">
           <img
             [src]="results?.dp ? (environment.USER_PROFILE_API + results?.dp) : 'profile_logo.png'"
@@ -94,7 +94,7 @@
         }
 
         @for (results of searchResults?.institutes; track results.userSlug) {
-          <a [href]="'profile/' + results.userSlug"
+          <a [href]="'/app/profile/' + results.userSlug"
              class="p-2.5 rounded-lg bg-sky-800/40 hover:bg-sky-800/80 border border-sky-700/40 text-sm font-medium text-sky-100 hover:text-white break-words transition-colors active:scale-[0.98] flex items-center justify-between">
             <span class="truncate">{{ $any(results.details).instituteName }}</span>
             <span class="batch batch-secondary text-[10px] ml-2 shrink-0">Institute</span>
@@ -102,7 +102,7 @@
         }
 
         @for (results of searchResults?.teachers; track results.userSlug) {
-          <a [href]="'profile/' + results.userSlug"
+          <a [href]="'/app/profile/' + results.userSlug"
              class="p-2.5 rounded-lg bg-sky-800/40 hover:bg-sky-800/80 border border-sky-700/40 text-sm font-medium text-sky-100 hover:text-white break-words transition-colors active:scale-[0.98] flex items-center justify-between">
             <span class="truncate">{{ $any(results.details).firstName }}</span>
             <span class="batch batch-info text-[10px] ml-2 shrink-0">Teacher</span>
@@ -110,7 +110,7 @@
         }
 
         @for (results of searchResults?.students; track results.userSlug) {
-          <a [href]="'profile/' + results.userSlug"
+          <a [href]="'/app/profile/' + results.userSlug"
              class="p-2.5 rounded-lg bg-sky-800/40 hover:bg-sky-800/80 border border-sky-700/40 text-sm font-medium text-sky-100 hover:text-white break-words transition-colors active:scale-[0.98] flex items-center justify-between">
             <span class="truncate">{{ $any(results.details).firstName }}</span>
             <span class="batch batch-primary text-[10px] ml-2 shrink-0">Student</span>
