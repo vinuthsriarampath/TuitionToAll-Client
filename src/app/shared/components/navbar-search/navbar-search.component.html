@@ -5,22 +5,26 @@
     <label for="search" class="sr-only">Search</label>
     <input id="search" type="search" (keydown)="onEscapeKey()" name="search"
            class="form-input input-special w-full"
-           placeholder="Search..."
+           placeholder="Search for users..."
            (focus)="toggleSearchDropdown()"
            autocomplete="off"
+           [ngModel]="[searchInput]"
            (input)="onSearchChange($event)"/>
   </div>
 
   @if (isSearchDropdownOpen) {
-    <div class="search_menu absolute left-0 right-0 mt-2 p-3 w-96 max-h-[30rem] rounded-xl border border-sky-700/50 shadow-2xl bg-sky-900/95 backdrop-blur-md flex flex-col gap-1.5 overflow-y-auto scrollbar-thin scrollbar-thumb-sky-800/50 animate-in fade-in zoom-in-95 duration-150 z-50">
+    <div class="search_menu absolute left-0 right-0 mt-2 p-3 w-full max-h-[30rem] rounded-xl border border-sky-700/50 shadow-2xl bg-sky-900/95 backdrop-blur-md flex flex-col gap-1.5 overflow-y-auto scrollbar-thin scrollbar-thumb-sky-800/50 animate-in fade-in zoom-in-95 duration-150 z-50">
 
-      @if (!searchResults || (searchResults.institutes?.length === 0 && searchResults.students?.length === 0 && searchResults.teachers?.length === 0)) {
+
+      @if (loading()) {
+        <p class="text-xs text-sky-200/80 p-3 text-center font-medium">Loading...</p>
+      } @else if (!loading() && (!searchResults || (searchResults.institutes?.length === 0 && searchResults.students?.length === 0 && searchResults.teachers?.length === 0))) {
         <p class="text-xs text-sky-200/80 p-3 text-center font-medium">No Search Results.</p>
       }
 
       <!-- Students -->
       @for (results of searchResults?.students; track results.userSlug) {
-        <a [routerLink]="['/app/profile', results.userSlug]"
+        <a [routerLink]="['/app/profile', results.userSlug]" (click)="onResultClick()"
            class="flex items-center gap-3 p-2 rounded-lg hover:bg-sky-800/60 transition-all active:scale-[0.98] cursor-pointer group">
           <img
             [src]="results?.dp ? (environment.USER_PROFILE_API + results?.dp) : 'profile_logo.png'"
@@ -34,7 +38,7 @@
 
       <!-- Teachers -->
       @for (results of searchResults?.teachers; track results.userSlug) {
-        <a [routerLink]="['/app/profile', results.userSlug]"
+        <a [routerLink]="['/app/profile', results.userSlug]" (click)="onResultClick()"
            class="flex items-center gap-3 p-2 rounded-lg hover:bg-sky-800/60 transition-all active:scale-[0.98] cursor-pointer group">
           <img
             [src]="results?.dp ? (environment.USER_PROFILE_API + results?.dp) : 'profile_logo.png'"
@@ -48,7 +52,7 @@
 
       <!-- Institutes -->
       @for (results of searchResults?.institutes; track results.userSlug) {
-        <a [routerLink]="['/app/profile', results.userSlug]"
+        <a [routerLink]="['/app/profile', results.userSlug]" (click)="onResultClick()"
            class="flex items-center gap-3 p-2 rounded-lg hover:bg-sky-800/60 transition-all active:scale-[0.98] cursor-pointer group">
           <img
             [src]="results?.dp ? (environment.USER_PROFILE_API + results?.dp) : 'profile_logo.png'"
@@ -64,7 +68,7 @@
 </div>
 
 <!-- Mobile Search Overlay -->
-@if (isMobileSearchActive) {
+@if (isMobileSearchActive()) {
   <div class="relative flex items-center h-14 lg:hidden w-full">
     <!-- Backdrop Blur Overlay -->
     <div class="fixed inset-0 bg-black/40 backdrop-blur-xs z-40 transition-opacity duration-300" (keydown)="onEscapeKey()" (click)="deactivateMobileSearch()"></div>
