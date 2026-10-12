@@ -4,7 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
 import {ProfileFileServiceService} from '../../services/profile-files/profile-file-service.service';
 import {User} from '../../../user/dtos/responses/user';
-import {ImageIcon} from 'lucide-angular';
+import {ImageIcon, LucideAngularModule, UploadCloud} from 'lucide-angular';
 import {AlertService} from '@core/services/alerts/alert.service';
 import {DialogLayoutComponent} from '@core/layouts';
 
@@ -14,7 +14,8 @@ import {DialogLayoutComponent} from '@core/layouts';
     ReactiveFormsModule,
     NgIf,
     FormsModule,
-    DialogLayoutComponent
+    DialogLayoutComponent,
+    LucideAngularModule
   ],
   templateUrl: './update-user-profile-pic-dialog.component.html',
   styleUrl: './update-user-profile-pic-dialog.component.css'
@@ -96,4 +97,5 @@ export class UpdateUserProfilePicDialogComponent {
   }
 
   protected readonly ImageIcon = ImageIcon;
+  protected readonly UploadCloud = UploadCloud;
 }
