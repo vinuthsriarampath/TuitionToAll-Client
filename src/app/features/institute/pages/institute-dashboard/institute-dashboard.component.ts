@@ -35,6 +35,13 @@ import {
   InstituteDashboardStoreService
 } from '@features/institute/services/institute-dashboard-store/institute-dashboard-store.service';
 import {getGreet} from '@shared/utils/helpers/date-helper';
+import {MatDialog} from '@angular/material/dialog';
+import {
+  CreateAnnouncementDialogComponent
+} from '@features/announcement/dialogs/create-announcement-dialog/create-announcement-dialog.component';
+import {
+  CreateVacancyDialogComponent
+} from '@features/teacher-vacancy/dialogs/create-vacancy-dialog/create-vacancy-dialog.component';
 
 @Component({
   selector: 'app-institute-dashboard',
@@ -58,6 +65,7 @@ export class InstituteDashboardComponent implements OnInit, OnDestroy{
   private readonly alertService = inject(AlertService);
   private readonly userService = inject(UserService);
   private readonly store = inject(InstituteDashboardStoreService);
+  private readonly dialog = inject(MatDialog);
 
   protected data = this.store.dashboard;
   protected isLoading:boolean = false;
@@ -85,6 +93,22 @@ export class InstituteDashboardComponent implements OnInit, OnDestroy{
         this.triggerLoading();
         this.alertService.triggerErrorAlert('Failed to load dashboard data. Please try again later.');
       }
+    })
+  }
+
+  protected openNewAnnouncementDialog():void{
+    this.dialog.open(CreateAnnouncementDialogComponent, {
+      maxWidth: '100vh',
+      width: '500%',
+      panelClass: 'create-announcement-dialog'
+    });
+  }
+
+  protected openVacancyCreateDialog():void{
+    this.dialog.open(CreateVacancyDialogComponent, {
+      maxWidth: '100vh',
+      width: '500%',
+      panelClass: 'create-vacancy-dialog',
     })
   }
 
