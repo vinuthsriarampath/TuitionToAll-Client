@@ -30,44 +30,46 @@
 
         <!-- Desktop Navigation Links -->
         @if (!isMobileSearchActive) {
-          <div class="hidden lg:flex items-center gap-x-1">
+          <div class="hidden lg:grid grid-cols-5 gap-x-1">
 
             <!-- Feed -->
             <a [routerLink]="['/app/feed']"
                [routerLinkActive]="'bg-sky-800 text-white font-medium shadow-sm ring-1 ring-sky-500/30'"
-               class="group text-sky-100 flex flex-col items-center justify-center cursor-pointer hover:bg-sky-800/60 rounded-lg px-3 py-1.5 transition-all duration-150 ease-in-out active:scale-[0.98]">
+               class="group text-sky-100 flex flex-col items-center justify-center cursor-pointer hover:bg-sky-800/60 rounded-lg px-2 py-1.5 transition-all duration-150 ease-in-out active:scale-[0.98]">
               <lucide-icon [img]="House" [strokeWidth]="1.35" class="w-5 h-5 text-sky-300 group-hover:text-white transition-colors"></lucide-icon>
-              <p class="text-[0.8rem] font-medium tracking-wide mt-0.5">Feed</p>
+              <p class="text-[0.8rem] font-medium tracking-wide mt-0.5 truncate">Feed</p>
             </a>
 
             <!-- Network -->
             <a [routerLink]="['/app/network']"
                [routerLinkActive]="'bg-sky-800 text-white font-medium shadow-sm ring-1 ring-sky-500/30'"
-               class="group text-sky-100 flex flex-col items-center justify-center cursor-pointer hover:bg-sky-800/60 rounded-lg px-3 py-1.5 transition-all duration-150 ease-in-out active:scale-[0.98]">
+               class="group text-sky-100 flex flex-col items-center justify-center cursor-pointer hover:bg-sky-800/60 rounded-lg px-2 py-1.5 transition-all duration-150 ease-in-out active:scale-[0.98]">
               <lucide-icon [img]="Globe" [strokeWidth]="1.35" class="w-5 h-5 text-sky-300 group-hover:text-white transition-colors"></lucide-icon>
-              <p class="text-[0.8rem] font-medium tracking-wide mt-0.5">Network</p>
+              <p class="text-[0.8rem] font-medium tracking-wide mt-0.5 truncate">Network</p>
             </a>
 
             <!-- Notifications -->
-            <a class="group text-sky-100 flex flex-col items-center justify-center cursor-pointer hover:bg-sky-800/60 rounded-lg px-3 py-1.5 transition-all duration-150 ease-in-out active:scale-[0.98]">
+            <a [routerLink]="['/underdevelopment']"
+               [routerLinkActive]="'bg-sky-800 text-white font-medium shadow-sm ring-1 ring-sky-500/30'"
+               class="group text-sky-100 flex flex-col items-center justify-center cursor-pointer hover:bg-sky-800/60 rounded-lg px-2 py-1.5 transition-all duration-150 ease-in-out active:scale-[0.98]">
               <lucide-icon [img]="Bell" [strokeWidth]="1.35" class="w-5 h-5 text-sky-300 group-hover:text-white transition-colors"></lucide-icon>
-              <p class="text-[0.8rem] font-medium tracking-wide mt-0.5">Notifications</p>
+              <p class="text-[0.8rem] font-medium tracking-wide mt-0.5 truncate">Notifications</p>
             </a>
 
             <!-- Message -->
-            <a [routerLink]="['/maintenance']"
+            <a [routerLink]="['/underdevelopment']"
                [routerLinkActive]="'bg-sky-800 text-white font-medium shadow-sm ring-1 ring-sky-500/30'"
-               class="group text-sky-100 flex flex-col items-center justify-center cursor-pointer hover:bg-sky-800/60 rounded-lg px-3 py-1.5 transition-all duration-150 ease-in-out active:scale-[0.98]">
+               class="group text-sky-100 flex flex-col items-center justify-center cursor-pointer hover:bg-sky-800/60 rounded-lg px-2 py-1.5 transition-all duration-150 ease-in-out active:scale-[0.98]">
               <lucide-icon [img]="MessageSquareText" [strokeWidth]="1.35" class="w-5 h-5 text-sky-300 group-hover:text-white transition-colors"></lucide-icon>
-              <p class="text-[0.8rem] font-medium tracking-wide mt-0.5">Message</p>
+              <p class="text-[0.8rem] font-medium tracking-wide mt-0.5 truncate">Message</p>
             </a>
 
             <!-- Dashboard -->
             <a [routerLink]="user?.role?.role == 'institute' ? ['/ins/dashboard'] : user?.role?.role == 'student' ? ['/stu/dashboard'] : user?.role?.role == 'teacher' ? ['/tch/dashboard'] : ['/inValidUser']"
                [routerLinkActive]="'bg-sky-800 text-white font-medium shadow-sm ring-1 ring-sky-500/30'"
-               class="group text-sky-100 flex flex-col items-center justify-center cursor-pointer hover:bg-sky-800/60 rounded-lg px-3 py-1.5 transition-all duration-150 ease-in-out active:scale-[0.98]">
+               class="group text-sky-100 flex flex-col items-center justify-center cursor-pointer hover:bg-sky-800/60 rounded-lg px-2 py-1.5 transition-all duration-150 ease-in-out active:scale-[0.98]">
               <lucide-icon [img]="LayoutDashboard" [strokeWidth]="1.35" class="w-5 h-5 text-sky-300 group-hover:text-white transition-colors"></lucide-icon>
-              <p class="text-[0.8rem] font-medium tracking-wide mt-0.5">Dashboard</p>
+              <p class="text-[0.8rem] font-medium tracking-wide mt-0.5 truncate">Dashboard</p>
             </a>
 
           </div>
@@ -102,7 +104,7 @@
                     <li class="flex items-center gap-x-2 text-sky-100 hover:text-white hover:bg-sky-700/60 rounded-lg p-2 transition-colors cursor-pointer text-sm font-medium">
                       Settings
                     </li>
-                    <li (click)="logout()"
+                    <li (click)="logout()" (keydown.enter)="logout()"
                         class="flex items-center gap-x-2 text-rose-300 hover:text-rose-100 hover:bg-rose-900/40 rounded-lg p-2 transition-colors cursor-pointer text-sm font-medium border-t border-sky-700/30 mt-1">
                       Logout
                     </li>
@@ -141,13 +143,15 @@
     </a>
 
     <!-- Notifications -->
-    <a class="flex flex-col items-center justify-center text-sky-200/80 hover:text-sky-100 transition-colors py-1 px-2 cursor-pointer">
+    <a [routerLink]="['/underdevelopment']"
+       [routerLinkActive]="'bg-sky-800 text-white font-medium shadow-sm ring-1 ring-sky-500/30'"
+       class="flex flex-col items-center justify-center text-sky-200/80 hover:text-sky-100 transition-colors py-1 px-2 cursor-pointer">
       <lucide-icon [img]="Bell" [strokeWidth]="1.35" class="w-5 h-5"></lucide-icon>
       <span class="text-[0.65rem] tracking-tight mt-0.5">Notifications</span>
     </a>
 
     <!-- Message -->
-    <a [routerLink]="['/maintenance']"
+    <a [routerLink]="['/underdevelopment']"
        [routerLinkActive]="'text-sky-300 font-semibold'"
        class="flex flex-col items-center justify-center text-sky-200/80 hover:text-sky-100 transition-colors py-1 px-2">
       <lucide-icon [img]="MessageSquareText" [strokeWidth]="1.35" class="w-5 h-5"></lucide-icon>
