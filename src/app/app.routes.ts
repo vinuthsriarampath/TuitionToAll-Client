@@ -47,10 +47,6 @@ export const routes: Routes = [
     loadChildren: () => import('@features/student/routes/student.routes').then(m => m.STUDENT_ROUTES)
   },
   {
-    path: 'profile/:userSlug',
-    loadChildren: () => import('@features/profile/routes/profile.routes').then(m => m.PROFILE_ROUTES)
-  },
-  {
     path:'maintenance',
     title: 'Maintenance',
     canActivate: [authGuard],
