@@ -47,8 +47,8 @@ export const routes: Routes = [
     loadChildren: () => import('@features/student/routes/student.routes').then(m => m.STUDENT_ROUTES)
   },
   {
-    path:'maintenance',
-    title: 'Maintenance',
+    path:'underdevelopment',
+    title: 'Under Development',
     canActivate: [authGuard],
     loadComponent: () => import('@shared/pages/under-development-page/under-development-page.component').then(m => m.UnderDevelopmentPageComponent),
   },
