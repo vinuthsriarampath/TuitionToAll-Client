@@ -9,6 +9,7 @@ import {CourseService} from '@features/course/services/course/course.service';
 import {NoContentComponent} from '@shared/components/no-content/no-content.component';
 import {combineLatest, distinctUntilChanged, switchMap} from 'rxjs';
 import {toObservable} from '@angular/core/rxjs-interop';
+import {CourseStatus} from '@features/course/enums/course-status';
 
 @Component({
   selector: 'app-user-courses',
@@ -40,7 +41,7 @@ export class UserCoursesComponent implements OnInit{
         switchMap(([targetUserId]) => {
           this.loading.set(true);
           const filters = new CourseFilter()
-          filters.status = 'published';
+          filters.status = CourseStatus.PUBLISHED;
           return this.courseService.getAllCoursesByInstituteId(targetUserId,filters)
         })
       ).subscribe({

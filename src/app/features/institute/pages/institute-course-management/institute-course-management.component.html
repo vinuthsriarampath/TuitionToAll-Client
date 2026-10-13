@@ -2,9 +2,6 @@
   [headerTitle]="'Course Management'"
   [headerDescription]="'Manage all your courses here!'"
   [showBackButton]="false"
-  [isLoading]="loading"
-  [loaderTitle]="'Loading courses'"
-  [loaderDescription]="'Fetch all your courses from the server.'"
 >
 
   <button data-actions [routerLink]="['create']" class="btn-primary">Add Course</button>
@@ -68,7 +65,7 @@
       <!-- No Data Row -->
       <tr *matNoDataRow>
         <td class="mat-cell text-center p-4" [attr.colspan]="displayedColumns.length">
-          @if (loading) {
+          @if (loading()) {
             <ng-container>
               Loading all Courses...
             </ng-container>
@@ -86,10 +83,14 @@
     </table>
 
     <mat-paginator
+      [length]="totalElements()"
+      [pageIndex]="pageIndex()"
+      [pageSize]="pageSize()"
+      (page)="onPageChange($event)"
       [pageSizeOptions]="[10, 20, 50, 100]"
       showFirstLastButtons
       aria-label="Select page of courses"
-      [hidden]="loading || dataSource.data.length === 0">
+      [hidden]="loading() || totalElements() === 0">
     </mat-paginator>
   </div>
 </app-page-layout>

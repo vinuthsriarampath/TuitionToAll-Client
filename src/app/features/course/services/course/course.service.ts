@@ -9,6 +9,9 @@ import {CourseCreate} from '@features/course/dtos/request/course-create';
 import {CourseUpdate} from '@features/course/dtos/request/course-update';
 import {CourseFilter} from '@features/course/dtos/request/course-filter';
 import {CourseStatsResponse} from '@features/course/dtos/response/course-stats-response';
+import {addFilterParams, buildPaginationParams} from '@shared/utils/helpers/params-helper';
+import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
+import {PaginatedApiResponse} from '@shared/utils/response/paginated-api-response';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +20,15 @@ export class CourseService {
 
   constructor(private readonly http:HttpClient) { }
 
-  getInstitute(){
-    return this.http.get<ApiResponse<Course[]>>(`${environment.COURSE_API}/institute/all`);
+  getPaginatedCoursesForCurrentInstitute(pagination:PaginationRequest, filters?:CourseFilter):Observable<PaginatedApiResponse<Course>>{
+
+    let params = buildPaginationParams(pagination);
+
+    if(filters){
+      params = addFilterParams(params, filters);
+    }
+
+    return this.http.get<PaginatedApiResponse<Course>>(`${environment.COURSE_API}/institute`, { params });
   }
 
   createCourse(request:CourseCreate,file?:File){
@@ -40,15 +50,13 @@ export class CourseService {
   getAllCoursesByInstituteId(instituteId:number,filter?:CourseFilter):Observable<Course[]>{
 
     let params = new HttpParams();
+
     if(filter){
-      for (const [key, value] of Object.entries(filter)) {
-        if (value) {
-          params = params.set(key, value);
-        }
-      }
+      params = addFilterParams(params, filter);
     }
+
     return this.http.get<ApiResponse<Course[]>>(
-      `${environment.COURSE_API}/${instituteId}/all`,
+      `${environment.COURSE_API}/${instituteId}`,
       { params }
     ).pipe(
       map(res => res.data!)
