@@ -6,7 +6,25 @@
 
   <button data-actions [routerLink]="['create']" class="btn-primary">Add Course</button>
 
-  <div data-body>
+  <div data-body class="flex flex-col gap-4">
+
+    <!-- Reusable Dynamic Filter Toolbar Container -->
+    <app-card-shell>
+      <app-filter-toolbar [formGroup]="filterForm" [fields]="filterFields">
+        <!-- Slot projection for extra actions like Sort Toggle Button -->
+        <div>
+          <button
+            type="button"
+            (click)="toggleSortDirection()"
+            class="btn btn-secondary flex gap-2 items-center w-full"
+            matTooltip="Toggle Sort Direction"
+          >
+            <lucide-icon [img]="ArrowUpDown" [size]="16"></lucide-icon>
+            <span class="uppercase font-medium text-xs">{{ sortDirection() }}</span>
+          </button>
+        </div>
+      </app-filter-toolbar>
+    </app-card-shell>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" multiTemplateDataRows>
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>#</th>
