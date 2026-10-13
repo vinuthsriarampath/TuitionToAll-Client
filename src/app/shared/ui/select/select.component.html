@@ -16,7 +16,7 @@
       [formControl]="$any(control())"
       [class.form-input-error]="control()?.invalid && control()?.touched"
     >
-      <option value="" disabled selected class="bg-slate-900 text-sky-300/60">
+      <option [value]=" control()?.value == '' || undefined || null" disabled [selected]="true" class="bg-slate-900 text-sky-300/60">
         {{ placeholder() }}
       </option>
 
