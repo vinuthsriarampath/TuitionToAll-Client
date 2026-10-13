@@ -1,0 +1,45 @@
+<div [formGroup]="formGroup()" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-8 gap-3 items-end p-4">
+  @for (field of fields(); track field.key) {
+    <div [class]="field.colSpan || 'lg:col-span-1'">
+      @switch (field.type) {
+        @case ('text'){
+          <app-input
+            [control]="formGroup().get(field.key)"
+            [id]="field.key + '-filter'"
+            [label]="field.label"
+            [type]="field.type"
+            [placeholder]="field.placeholder || ''"
+          />
+        }
+        @case ('number'){
+          <app-input
+            [control]="formGroup().get(field.key)"
+            [id]="field.key + '-filter'"
+            [label]="field.label"
+            [type]="field.type"
+            [placeholder]="field.placeholder || ''"
+          />
+        }
+        @case ('date') {
+          <app-input
+            [control]="formGroup().get(field.key)"
+            [id]="field.key + '-filter'"
+            [label]="field.label"
+            [type]="field.type"
+            [placeholder]="field.placeholder || ''"
+          />
+        }
+        @case ('select') {
+          <app-select
+            [control]="formGroup().get(field.key)"
+            [id]="field.key + '-filter'"
+            [label]="field.label"
+            [options]="field.options || []"
+            [placeholder]="field.placeholder || 'All ' + field.label"
+          />
+        }
+      }
+    </div>
+  }
+  <ng-content />
+</div>
