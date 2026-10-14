@@ -12,15 +12,23 @@
     <app-card-shell>
       <app-filter-toolbar [formGroup]="filterForm" [fields]="filterFields">
         <!-- Slot projection for extra actions like Sort Toggle Button -->
-        <div>
+        <div class="flex flex-row gap-2 items-center ">
           <button
             type="button"
             (click)="toggleSortDirection()"
-            class="btn btn-secondary flex gap-2 items-center w-full"
+            class="btn btn-mini-primary flex gap-2 items-center titlecase w-full"
             matTooltip="Toggle Sort Direction"
           >
             <lucide-icon [img]="ArrowUpDown" [size]="16"></lucide-icon>
-            <span class="uppercase font-medium text-xs">{{ sortDirection() }}</span>
+            {{ sortDirection() | titlecase }}
+          </button>
+          <button
+            type="button"
+            (click)="clearFilters()"
+            class="btn btn-mini-secondary flex gap-2 items-center w-full"
+            matTooltip="Clear Filters"
+          >
+            Clear Filters
           </button>
         </div>
       </app-filter-toolbar>
