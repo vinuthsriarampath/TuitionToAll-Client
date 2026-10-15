@@ -1,4 +1,6 @@
+import {ModuleStatus} from '@features/module/enums/ModuleStatus';
+
 export class ModuleFilterRequest {
-  status?: string;
-  batchId?: number;
+  name?:string;
+  status?:ModuleStatus;
 }
