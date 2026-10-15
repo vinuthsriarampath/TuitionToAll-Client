@@ -21,7 +21,18 @@ import {StudentUserResponse} from '@features/student/dtos/responses/student-user
 import {PageLayoutComponent} from '@core/layouts';
 import {NoContentComponent} from '@shared/components/no-content/no-content.component';
 import {PhonePipePipe} from '@shared/utils/pipes/phone-pipe/phone-pipe.pipe';
-import {NgOptimizedImage} from '@angular/common';
+import {NgOptimizedImage, TitleCasePipe} from '@angular/common';
+import {FormGroup, NonNullableFormBuilder} from '@angular/forms';
+import {StudentBatchEnrollmentStatus} from '@features/student-batch-enrollment/enums/student-batch-enrollment-status';
+import {BasePaginatedFilterComponent} from '@shared/utils/base/BasePaginatedFilterComponent';
+import {BatchStudentFilterRequest} from '@features/batch/dtos/request/batch-student-filter-request';
+import {Observable} from 'rxjs';
+import {FilterFieldConfig} from '@shared/utils/config/filter-config';
+import {CardShellComponent} from '@shared/ui';
+import {FilterToolbarComponent} from '@shared/components/filter-toolbar/filter-toolbar.component';
+import {ArrowUpDown, LucideAngularModule} from 'lucide-angular';
+import {MatTooltip} from '@angular/material/tooltip';
+import {environment} from '@env/environment.development';
 
 @Component({
   selector: 'app-batch-student-section',
@@ -41,60 +52,54 @@ import {NgOptimizedImage} from '@angular/common';
     MatPaginator,
     MatNoDataRow,
     PhonePipePipe,
-    NgOptimizedImage
+    NgOptimizedImage,
+    CardShellComponent,
+    FilterToolbarComponent,
+    TitleCasePipe,
+    LucideAngularModule,
+    MatTooltip
   ],
   templateUrl: './batch-student-section.component.html',
   styleUrl: './batch-student-section.component.css'
 })
-export class BatchStudentSectionComponent implements OnInit{
+export class BatchStudentSectionComponent extends BasePaginatedFilterComponent<StudentUserResponse, BatchStudentFilterRequest>{
   batchId = input.required<number>();
 
-  protected loading:boolean = false;
-
   private readonly batchService:BatchService = inject(BatchService);
-  private readonly alertService:AlertService = inject(AlertService);
-  protected dataSource:MatTableDataSource<StudentUserResponse> = new MatTableDataSource<StudentUserResponse>([]);
+  private readonly fb = inject(NonNullableFormBuilder);
+
+  protected filterForm: FormGroup = this.fb.group({
+    search: [''],
+    enrollmentDate: [undefined],
+    enrollmentStatus: [undefined as StudentBatchEnrollmentStatus | undefined]
+  })
 
   protected columns:string[] = ['id','dp', 'name', 'email', 'contact'];
+  protected sortByFields:string[] = ['created_date'];
 
-  protected totalElements:number = 0
-  protected pageIndex:number = 0;
-  protected pageSize:number = 10;
+  protected readonly filterFields:FilterFieldConfig[] = [
+    {key: 'search', label: 'Search', type: 'text', placeholder: 'Search by name or email', colSpan: 'lg:col-span-2'},
+    {key: 'enrollmentDate', label: 'Enrollment Date', type: 'date', placeholder: 'Select enrollment date',colSpan: 'lg:col-span-2'},
+    {key: 'enrollmentStatus', label: 'Enrollment Status', type: 'select', placeholder: 'All Status',colSpan: 'lg:col-span-1', options: [
+      {label: 'Enrolled', value: StudentBatchEnrollmentStatus.ACTIVE},
+      {label: 'Pending', value: StudentBatchEnrollmentStatus.COMPLETED},
+      {label: 'Cancelled', value: StudentBatchEnrollmentStatus.SUSPENDED}
+    ]}
+  ];
 
-  ngOnInit(): void {
-    if(this.batchId()) this.loadBatchStudents();
+  protected fetchApiData(pagination:PaginationRequest, filters: BatchStudentFilterRequest):Observable<any> {
+    return this.batchService.getStudentsByBatch(this.batchId(), pagination, filters)
   }
 
-  private loadBatchStudents():void {
-    this.triggerLoading();
-    let pagination:PaginationRequest = new PaginationRequest();
-    pagination.page=this.pageIndex;
-    pagination.size=this.pageSize;
-    pagination.direction = 'ASC';
-    this.batchService.getStudentsByBatch(this.batchId(), pagination).subscribe({
-      next: (res)=>{
-        if(res.data){
-          this.totalElements=res.totalElements ?? 0;
-          this.pageIndex = res.page ?? 0;
-          this.pageSize = res.size ?? 10;
-          this.dataSource.data = res.data;
-        }
-        this.triggerLoading();
-      },
-      error: (err)=>{
-        this.alertService.triggerErrorAlert(err.error.message);
-        this.triggerLoading();
-      }
-    });
+  protected override mapFormToFilter(formValues: Record<string, any>): BatchStudentFilterRequest {
+    return {
+      name: formValues['search'] || undefined,
+      email: formValues['search'] || undefined,
+      enrolledDate: formValues['enrollmentDate'] || undefined,
+      enrollmentStatus: formValues['enrollmentStatus'] || undefined
+    };
   }
 
-  protected onPageChange(event:PageEvent):void{
-    this.pageIndex = event.pageIndex;
-    this.pageSize = event.pageSize;
-    this.loadBatchStudents();
-  }
-
-  private triggerLoading():void {
-    this.loading = !this.loading;
-  }
+  protected readonly ArrowUpDown = ArrowUpDown;
+  protected readonly environment = environment;
 }
