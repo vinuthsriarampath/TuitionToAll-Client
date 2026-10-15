@@ -13,6 +13,7 @@ import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
 import {BatchFilterRequest} from "@features/batch/dtos/request/batch-filter-request";
 import {BatchDetailedResponse} from '@features/batch/dtos/response/batch-detailed-response';
 import {addFilterParams, buildPaginationParams, buildParams} from '@shared/utils/helpers/params-helper';
+import {ModuleFilterRequest} from '@features/module/dtos/request/ModuleFilterRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -38,18 +39,9 @@ export class BatchService {
     return this.http.get<ApiResponse<Batch>>(`${environment.BATCH_API}/find/batch/${batchId}`);
   }
 
-  getAllModulesByBatch(id: number, page: number = 0, size: number = 10, direction: string = 'desc', sortBy: string[] = ['created_date']): Observable<PaginatedApiResponse<ModuleResponse>> {
-
-    let params = new HttpParams()
-      .set('page', page)
-      .set('size', size)
-      .set('direction', direction);
-
-    sortBy.forEach(value => {
-      params = params.append('sortBy', value);
-    });
-
-    return this.http.get<PaginatedApiResponse<ModuleResponse>>(`${environment.BATCH_API}/${id}/modules`, { params });
+  getAllModulesByBatch(batchId: number, pagination:PaginationRequest, filters?:ModuleFilterRequest): Observable<PaginatedApiResponse<ModuleResponse>> {
+    const params = buildParams({pagination, filters});
+    return this.http.get<PaginatedApiResponse<ModuleResponse>>(`${environment.BATCH_API}/${batchId}/modules`, { params });
   }
 
   getEnrollableBatchesOfCourse(courseId:number):Observable<ApiResponse<Batch[]>> {
