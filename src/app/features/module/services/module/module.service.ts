@@ -64,28 +64,6 @@ export class ModuleService {
     return this.http.get<ApiResponse<ModuleDetailedResponse>>(`${this.baseUrl}/${id}/detailed`);
   }
 
-  getAllModules(page: number = 0, size: number = 10, direction: string = 'desc', sortBy: string[] = ['created_date'], filter?: ModuleFilterRequest): Observable<PaginatedApiResponse<ModuleResponse>> {
-
-    let params = new HttpParams()
-      .set('page', page)
-      .set('size', size)
-      .set('direction', direction);
-
-    sortBy.forEach(value => {
-      params = params.append('sortBy', value);
-    });
-
-    if (filter?.status) {
-      params = params.set('status', filter.status);
-    }
-
-    if (filter?.batchId) {
-      params = params.set('batchId', filter.batchId);
-    }
-
-    return this.http.get<PaginatedApiResponse<ModuleResponse>>(`${this.baseUrl}`, {params});
-  }
-
   getChaptersByModuleId(moduleId: number): Observable<ApiResponse<ChapterResponse[]>> {
     return this.http.get<ApiResponse<ChapterResponse[]>>(`${this.baseUrl}/${moduleId}/chapters/all`);
   }
