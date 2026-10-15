@@ -2,11 +2,10 @@ import {Component, inject, OnInit} from '@angular/core';
 import {Course} from '@features/course/dtos/response/course';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {PageLayoutComponent} from '@core/layouts';
-import {BadgeComponent, CardShellComponent} from '@shared/ui';
+import {BadgeComponent} from '@shared/ui';
 import {CourseDescriptionComponent} from '@features/course/components/course-description/course-description.component';
 import {CourseHeroComponent} from '@features/course/components/course-hero/course-hero.component';
 import {CourseStatsComponent} from '@features/course/components/course-stats/course-stats.component';
-import {CourseTreeComponent} from '@features/course/components/course-tree/course-tree.component';
 import {
   CourseAnnouncementListComponent
 } from '@features/announcement/components/course-announcement-list/course-announcement-list.component';
@@ -22,8 +21,6 @@ import {BatchManagementComponent} from '@features/batch/pages/batch-management/b
     CourseHeroComponent,
     CourseStatsComponent,
     RouterLink,
-    CourseTreeComponent,
-    CardShellComponent,
     CourseAnnouncementListComponent,
     CourseViewShellComponent,
     BatchManagementComponent
