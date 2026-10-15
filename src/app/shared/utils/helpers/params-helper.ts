@@ -1,6 +1,22 @@
 import {HttpParams} from '@angular/common/http';
 import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
 
+interface QueryOptions {
+  pagination?: PaginationRequest;
+  filters?: object;
+}
+
+export const buildParams = (options: QueryOptions):HttpParams => {
+  let params = new HttpParams();
+  if(options.pagination){
+    params = buildPaginationParams(options.pagination);
+  }
+  if(options.filters){
+    params = addFilterParams(params, options.filters);
+  }
+  return params;
+}
+
 export const buildPaginationParams = (pagination:PaginationRequest):HttpParams =>{
   let params = new HttpParams()
     .set('page', pagination.page)
