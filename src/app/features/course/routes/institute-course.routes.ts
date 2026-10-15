@@ -1,6 +1,8 @@
 import {Routes} from '@angular/router';
 import {courseResolver} from '@features/course/resolvers/course-resolver/course.resolver';
 import {CourseResolverData} from '@features/course/resolvers/course-resolver/course-resolver-data';
+import {batchResolver} from '@features/batch/resolvers/batch.resolver';
+import {BatchResolverData} from '@features/batch/resolvers/batch-resolver-data';
 
 export const INSTITUTE_COURSE_ROUTES:Routes = [
   {
@@ -43,8 +45,9 @@ export const INSTITUTE_COURSE_ROUTES:Routes = [
         loadChildren: () => import('@features/course/routes/institute-course-reviews-and-feedback.routes').then(m => m.INSTITUTE_COURSE_REVIEWS_AND_FEEDBACK_ROUTES)
       },
       {
-        path: 'batch-mgt',
-        data:{breadcrumb: 'Batches'},
+        path: 'batches/:batchId',
+        resolve: {batch: batchResolver},
+        data: {breadcrumb: (data: BatchResolverData) => data.batch.name},
         loadChildren: () => import('@features/batch/routes/institute-batch.routes').then(m => m.INSTITUTE_BATCH_ROUTES)
       }
     ]
