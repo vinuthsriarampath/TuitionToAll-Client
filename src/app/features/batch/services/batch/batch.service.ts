@@ -14,6 +14,7 @@ import {BatchFilterRequest} from "@features/batch/dtos/request/batch-filter-requ
 import {BatchDetailedResponse} from '@features/batch/dtos/response/batch-detailed-response';
 import {addFilterParams, buildPaginationParams, buildParams} from '@shared/utils/helpers/params-helper';
 import {ModuleFilterRequest} from '@features/module/dtos/request/ModuleFilterRequest';
+import {BatchStudentFilterRequest} from '@features/batch/dtos/request/batch-student-filter-request';
 
 @Injectable({
   providedIn: 'root'
@@ -48,8 +49,8 @@ export class BatchService {
     return this.http.get<ApiResponse<Batch[]>>(`${environment.BATCH_API}/${courseId}/enrollables`);
   }
 
-  getStudentsByBatch(batchId: number, pagination:PaginationRequest): Observable<PaginatedApiResponse<StudentUserResponse>> {
-    const params = buildParams({pagination});
+  getStudentsByBatch(batchId: number, pagination:PaginationRequest, filters?: BatchStudentFilterRequest): Observable<PaginatedApiResponse<StudentUserResponse>> {
+    const params = buildParams({pagination, filters});
     return this.http.get<PaginatedApiResponse<StudentUserResponse>>(`${environment.BATCH_API}/${batchId}/students`, { params });
   }
 
