@@ -12,6 +12,7 @@ import {StudentUserResponse} from "@features/student/dtos/responses/student-user
 import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
 import {BatchFilterRequest} from "@features/batch/dtos/request/batch-filter-request";
 import {BatchDetailedResponse} from '@features/batch/dtos/response/batch-detailed-response';
+import {addFilterParams, buildPaginationParams, buildParams} from '@shared/utils/helpers/params-helper';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,9 @@ export class BatchService {
 
   constructor( private readonly http:HttpClient) { }
 
-  getAllBatchesByCourseId(courseId:number):Observable<ApiResponse<Batch[]>>{
-    return this.http.get<ApiResponse<Batch[]>>(`${environment.BATCH_API}/${courseId}/all`)
+  getAllBatchesByCourseId(courseId:number, pagination:PaginationRequest, filters?:BatchFilterRequest):Observable<PaginatedApiResponse<Batch>>{
+    const params = buildParams({pagination, filters});
+    return this.http.get<PaginatedApiResponse<Batch>>(`${environment.BATCH_API}/course/${courseId}`, { params });
   }
 
   createBatch(request:BatchCreateRequest):Observable<ApiResponse<Batch>>{
@@ -54,60 +56,13 @@ export class BatchService {
     return this.http.get<ApiResponse<Batch[]>>(`${environment.BATCH_API}/${courseId}/enrollables`);
   }
 
-  getStudentsByBatch(batchId: number, paginationRequest:PaginationRequest): Observable<PaginatedApiResponse<StudentUserResponse>> {
-
-    const { page, size, direction, sortBy } = paginationRequest;
-
-    let params = new HttpParams()
-      .set('page', page)
-      .set('size', size)
-      .set('direction', direction);
-
-    sortBy.forEach(value => {
-      params = params.append('sortBy', value);
-    });
-
+  getStudentsByBatch(batchId: number, pagination:PaginationRequest): Observable<PaginatedApiResponse<StudentUserResponse>> {
+    const params = buildParams({pagination});
     return this.http.get<PaginatedApiResponse<StudentUserResponse>>(`${environment.BATCH_API}/${batchId}/students`, { params });
   }
 
   getDetailedBatches(pagination: PaginationRequest, filters?: BatchFilterRequest): Observable<PaginatedApiResponse<BatchDetailedResponse>> {
-
-    const { page, size, direction, sortBy } = pagination;
-    const { id, batchName, courseId, instituteId, status, enrollmentStatus } = filters ?? {};
-
-    let params = new HttpParams()
-      .set('page', page)
-      .set('size', size)
-      .set('direction', direction);
-
-    sortBy.forEach(sort => {
-      params = params.append('sortBy', sort);
-    });
-
-    if (id !== undefined) {
-      params = params.set('id', id);
-    }
-
-    if (batchName !== undefined) {
-      params = params.set('batchName', batchName);
-    }
-
-    if (courseId !== undefined) {
-      params = params.set('courseId', courseId);
-    }
-
-    if (instituteId !== undefined) {
-      params = params.set('instituteId', instituteId);
-    }
-
-    if (status !== undefined) {
-      params = params.set('status', status);
-    }
-
-    if (enrollmentStatus !== undefined) {
-      params = params.set('enrollmentStatus', enrollmentStatus);
-    }
-
+    const params = buildParams({pagination, filters});
     return this.http.get<PaginatedApiResponse<BatchDetailedResponse>>(`${environment.BATCH_API}/detailed`, { params });
   }
 }
