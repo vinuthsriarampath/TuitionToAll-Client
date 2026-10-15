@@ -11,6 +11,7 @@ import {
   CourseAnnouncementListComponent
 } from '@features/announcement/components/course-announcement-list/course-announcement-list.component';
 import {CourseViewShellComponent} from '@features/course/components/course-view-shell/course-view-shell.component';
+import {BatchManagementComponent} from '@features/batch/pages/batch-management/batch-management.component';
 
 @Component({
   selector: 'app-institute-course-view',
@@ -24,7 +25,8 @@ import {CourseViewShellComponent} from '@features/course/components/course-view-
     CourseTreeComponent,
     CardShellComponent,
     CourseAnnouncementListComponent,
-    CourseViewShellComponent
+    CourseViewShellComponent,
+    BatchManagementComponent
   ],
   templateUrl: './institute-course-view.component.html',
   styleUrl: './institute-course-view.component.css'
