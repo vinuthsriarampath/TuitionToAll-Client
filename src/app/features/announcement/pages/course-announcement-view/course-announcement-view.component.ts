@@ -2,9 +2,9 @@ import {Component, inject, OnInit} from '@angular/core';
 import {AnnouncementService} from '../../services/announcements/announcement.service';
 import {AnnouncementResponse} from '../../dtos/response/AnnouncementResponse';
 import {AlertService} from '@core/services/alerts/alert.service';
-import {Eye, LucideAngularModule} from 'lucide-angular';
+import {ArrowUpDown, Eye, LucideAngularModule} from 'lucide-angular';
 import {AnnouncementFilterRequest} from '../../dtos/request/AnnouncementFilterRequest';
-import {DatePipe, NgClass} from '@angular/common';
+import {DatePipe, NgClass, TitleCasePipe} from '@angular/common';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {PageTitleComponent} from '@shared/components/page-title/page-title.component';
 import {
@@ -25,6 +25,14 @@ import {AnnouncementStatus} from '../../enums/AnnouncementStatus';
 import {AnnouncementVisibility} from '../../enums/AnnouncementVisibility';
 import {NoContentComponent} from '@shared/components/no-content/no-content.component';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {BasePaginatedFilterComponent} from '@shared/utils/base/BasePaginatedFilterComponent';
+import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
+import {Observable} from 'rxjs';
+import {FormGroup, NonNullableFormBuilder} from '@angular/forms';
+import {FilterFieldConfig} from '@shared/utils/config/filter-config';
+import {CardShellComponent} from '@shared/ui';
+import {FilterToolbarComponent} from '@shared/components/filter-toolbar/filter-toolbar.component';
+import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-course-announcement-view',
@@ -46,72 +54,67 @@ import {MatPaginator, PageEvent} from '@angular/material/paginator';
     MatHeaderRowDef,
     NoContentComponent,
     MatPaginator,
-    MatNoDataRow
+    MatNoDataRow,
+    CardShellComponent,
+    FilterToolbarComponent,
+    MatTooltip,
+    TitleCasePipe
   ],
   templateUrl: './course-announcement-view.component.html',
   styleUrl: './course-announcement-view.component.css'
 })
-export class CourseAnnouncementViewComponent implements OnInit {
+export class CourseAnnouncementViewComponent extends BasePaginatedFilterComponent<AnnouncementResponse, AnnouncementFilterRequest> {
 
   protected courseId!:number;
   protected batchId?:number;
-  protected loading:boolean= false;
-
-  // table related
-
-  protected columns:string[] = ['id','title','status','visibility','expireAt','createdDate','actions'];
-  protected dataSource = new MatTableDataSource<AnnouncementResponse>([]);
-  protected pageIndex:number = 0;
-  protected pageSize:number = 10;
-  protected totalElements:number = 0;
 
   private readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   private readonly announcementService:AnnouncementService = inject(AnnouncementService);
-  private readonly alertService = inject(AlertService);
+  private readonly fb = inject(NonNullableFormBuilder)
 
-  ngOnInit(): void {
+  filterForm:FormGroup = this.fb.group({
+    courseId: [this.courseId],
+    batchId: [this.batchId],
+    status: [undefined as AnnouncementStatus | undefined],
+    visibility: [undefined as AnnouncementVisibility | undefined],
+  });
+
+  filterFields:FilterFieldConfig[] = [
+    {key:'status', label:'Status', type:'select', options: Object.values(AnnouncementStatus).map(status => ({label: status, value: status}))},
+    {key:'visibility', label:'Visibility', type:'select', options: Object.values(AnnouncementVisibility).map(visibility => ({label: visibility, value: visibility}))},
+  ];
+
+  protected columns:string[] = ['id','title','status','visibility','expireAt','createdDate','actions'];
+  protected sortByFields:string[] = ['created_date'];
+
+
+  constructor(){
+    super();
     this.activatedRoute.paramMap.subscribe(params =>{
       this.courseId = Number.parseInt(params.get('courseId') ?? '');
       this.batchId = Number.parseInt(params.get('batchId') ?? '');
-      this.fetchAnnouncements();
     })
   }
 
-  private fetchAnnouncements():void{
-    const filters:AnnouncementFilterRequest = new AnnouncementFilterRequest();
+  fetchApiData(pagination:PaginationRequest, filters:AnnouncementFilterRequest):Observable<any>{
     filters.courseId = this.courseId;
     if(this.batchId){
       filters.batchId = this.batchId;
     }
-    this.triggerLoading();
-    this.announcementService.getAllAnnouncements(0,10,'desc',['is_pinned','published_date'],filters).subscribe({
-      next: (res)=>{
-        if(res.data){
-          this.dataSource.data = res.data ?? [];
-          this.pageIndex = res.page ?? 0;
-          this.pageSize = res.size ?? 10;
-          this.totalElements = res.totalElements ?? 0;
-          this.triggerLoading();
-        }
-      },
-      error: (err) => {
-        this.alertService.triggerErrorAlert(err.error.message);
-        this.triggerLoading();
-      }
-    })
+    return this.announcementService.getAllAnnouncements(pagination,filters);
   }
 
-  private triggerLoading():void{
-    this.loading = !this.loading;
-  }
-
-  protected onPageChange(event:PageEvent):void{
-    this.pageIndex = event.pageIndex;
-    this.pageSize = event.pageSize;
-    this.fetchAnnouncements();
+  protected override mapFormToFilter(formValues: Record<string, any>): AnnouncementFilterRequest {
+    return {
+      courseId: formValues['courseId'] || undefined,
+      batchId: formValues['batchId'] || undefined,
+      status: formValues['status'] || undefined,
+      visibility: formValues['visibility'] || undefined
+    };
   }
 
   protected readonly AnnouncementStatus = AnnouncementStatus;
   protected readonly AnnouncementVisibility = AnnouncementVisibility;
   protected readonly Eye = Eye;
+  protected readonly ArrowUpDown = ArrowUpDown;
 }
