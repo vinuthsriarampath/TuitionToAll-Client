@@ -9,6 +9,7 @@ import {NgClass} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {CardShellComponent} from '@shared/ui';
 import {NoContentComponent} from '@shared/components/no-content/no-content.component';
+import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
 
 @Component({
   selector: 'app-course-announcement-list',
@@ -47,6 +48,9 @@ export class CourseAnnouncementListComponent implements OnInit{
   private loadAnnouncements(){
     if(this.recentAnnouncements()){
       this.triggerLoading();
+
+      const pagination:PaginationRequest = new PaginationRequest(0,10,'desc',['is_pinned','published_date']);
+
       const filters:AnnouncementFilterRequest = new AnnouncementFilterRequest();
       filters.status = AnnouncementStatus.PUBLISHED;
       filters.courseId = this.courseId();
@@ -54,8 +58,7 @@ export class CourseAnnouncementListComponent implements OnInit{
       if(this.batchId()){
         filters.batchId = this.batchId();
       }
-
-      this.announcementService.getAllAnnouncements(0,10,'desc',['is_pinned','published_date'],filters).subscribe({
+      this.announcementService.getAllAnnouncements(pagination,filters).subscribe({
         next: (res)=>{
           if(res.data){
             this.announcements = res.data ?? [];

@@ -32,6 +32,7 @@ import {
   CreateAnnouncementDialogComponent
 } from '@features/announcement/dialogs/create-announcement-dialog/create-announcement-dialog.component';
 import {NoContentComponent} from '@shared/components/no-content/no-content.component';
+import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
 
 @Component({
   selector: 'app-announcements-management',
@@ -83,7 +84,8 @@ export class AnnouncementsManagementComponent implements OnInit {
 
   loadAnnouncements(){
     this.triggerLoading();
-    this.announcementService.getAllAnnouncements(this.pageIndex,this.pageSize).subscribe({
+    const pagination:PaginationRequest = new PaginationRequest(this.pageIndex,this.pageSize);
+    this.announcementService.getAllAnnouncements(pagination).subscribe({
       next: (res) => {
         if (res){
           this.dataSource.data = res.data ?? [];
