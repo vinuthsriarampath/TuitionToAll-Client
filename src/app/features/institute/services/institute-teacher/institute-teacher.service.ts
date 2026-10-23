@@ -13,6 +13,9 @@ import {
   InstituteTeacherStatsResponse
 } from '../../dtos/response/institute-teacher-responses/InstituteTeacherStatsResponse';
 import {TeacherBasicResponse} from '../../../teacher/dtos/responses/TeacherBasicResponse';
+import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
+import {InstituteTeacherFilterRequest} from '@features/institute/dtos/requests/institute-teacher-filter-request';
+import {buildParams} from '@shared/utils/helpers/params-helper';
 
 @Injectable({
   providedIn: 'root'
@@ -29,8 +32,9 @@ export class InstituteTeacherService {
     return this.http.post<ApiResponse<ApplicationRejectionResponse>>(`${environment.INSTITUTE_TEACHER_API}/reject`,request);
   }
 
-  getAllTeachersByInstitute(pageIndex:number = 0, pageSize:number = 10, direction:string = 'desc', sortBy:string = 'joinedDate'):Observable<PaginatedApiResponse<InstituteTeacherResponse>>{
-    return this.http.get<PaginatedApiResponse<InstituteTeacherResponse>>(`${environment.INSTITUTE_TEACHER_API}?page=${pageIndex}&size=${pageSize}&sortBy=${sortBy}&direction=${direction}`)
+  getAllTeachersByInstitute(pagination:PaginationRequest, filters: InstituteTeacherFilterRequest):Observable<PaginatedApiResponse<InstituteTeacherResponse>>{
+    let params = buildParams({pagination, filters});
+    return this.http.get<PaginatedApiResponse<InstituteTeacherResponse>>(`${environment.INSTITUTE_TEACHER_API}`, { params })
   }
 
   getInstituteTeacherStats():Observable<ApiResponse<InstituteTeacherStatsResponse>>{
