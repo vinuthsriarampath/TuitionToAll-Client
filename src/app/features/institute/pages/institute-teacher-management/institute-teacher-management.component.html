@@ -96,27 +96,8 @@
 
       <!-- Scrollable container -->
       <div class="flex flex-col gap-4">
-        <app-card-shell>
-          <app-filter-toolbar [formGroup]="filterForm" [fields]="filterFields">
-            <button
-              type="button"
-              (click)="toggleSortDirection()"
-              class="btn btn-mini-primary flex gap-2 items-center justify-center titlecase w-full"
-              matTooltip="Toggle Sort Direction"
-            >
-              <lucide-icon [img]="ArrowUpDown" [size]="16"></lucide-icon>
-              {{ sortDirection() | titlecase }}
-            </button>
-            <button
-              type="button"
-              (click)="clearFilters()"
-              class="btn btn-mini-secondary flex gap-2 items-center justify-center w-full"
-              matTooltip="Clear Filters"
-            >
-              Clear Filters
-            </button>
+          <app-filter-toolbar [formGroup]="filterForm" [fields]="filterFields" [sortDirection]="sortDirection()" (onSortDirectionChange)="toggleSortDirection()" (onClearFilters)="clearFilters()">
           </app-filter-toolbar>
-        </app-card-shell>
         <table mat-table [dataSource]="dataSource">
           <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef>#</th>
