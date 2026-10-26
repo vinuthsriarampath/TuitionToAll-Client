@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {CurrencyPipe, DatePipe} from "@angular/common";
+import {CurrencyPipe, DatePipe, TitleCasePipe} from "@angular/common";
 import {
   MatCell,
   MatCellDef,
@@ -19,6 +19,18 @@ import {PaymentDetailedResponse} from '@features/payments/dtos/responses/payment
 import {PaymentService} from '@features/payments/services/payment-service/payment.service';
 import {AlertService} from '@core/services/alerts/alert.service';
 import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
+import {BasePaginatedFilterComponent} from '@shared/utils/base/BasePaginatedFilterComponent';
+import {MyPaymentReceivesFilterRequest} from '@features/payments/dtos/requests/my-payment-receives-filter-request';
+import {Observable} from 'rxjs';
+import {MyPaymentFilterRequest} from '@features/payments/dtos/requests/payment-filter-request';
+import {NonNullableFormBuilder} from '@angular/forms';
+import {PaymentStatus} from '@features/payments/enums/payment-status';
+import {PaymentMethod} from '@features/payments/enums/payment-method';
+import {FilterFieldConfig} from '@shared/utils/config/filter-config';
+import {CardShellComponent} from '@shared/ui';
+import {FilterToolbarComponent} from '@shared/components/filter-toolbar/filter-toolbar.component';
+import {ArrowUpDown, LucideAngularModule} from 'lucide-angular';
+import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-my-receives',
@@ -39,53 +51,52 @@ import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
     PageLayoutComponent,
     PaymentStatusBadgeComponent,
     MatHeaderCellDef,
-    MatNoDataRow
+    MatNoDataRow,
+    CardShellComponent,
+    FilterToolbarComponent,
+    LucideAngularModule,
+    MatTooltip,
+    TitleCasePipe
   ],
   templateUrl: './my-receives.component.html',
   styleUrl: './my-receives.component.css'
 })
-export class MyReceivesComponent implements OnInit{
-  protected loading: boolean = false;
-
-  protected dataSource:MatTableDataSource<PaymentDetailedResponse> = new MatTableDataSource<PaymentDetailedResponse>([]);
-
-  protected pageIndex: number =0;
-  protected pageSize: number = 10;
-  protected totalElements: number = 0;
-
+export class MyReceivesComponent extends BasePaginatedFilterComponent<PaymentDetailedResponse, MyPaymentReceivesFilterRequest>{
   protected displayedColumns: string[] = ['id','student','amount', 'status', 'paymentMethod', 'createdAt'];
+  sortByFields: string[] = ['created_date'];
 
   private readonly paymentService = inject(PaymentService);
-  private readonly alertService = inject(AlertService);
+  private readonly fb = inject(NonNullableFormBuilder);
 
-  ngOnInit(): void {
-    this.loadMyReceives();
+  protected filterForm = this.fb.group({
+    studentName: [''],
+    transactionRef: [''],
+    status: [undefined as PaymentStatus | undefined],
+    paymentMethod: [undefined as PaymentMethod | undefined],
+    createdDate: [''],
+  });
+
+  protected filterFields: FilterFieldConfig[] = [
+    {key: 'studentName', label: 'Student Name', type: 'text', placeholder: 'Find by student name', colSpan: 'lg:col-span-2'},
+    {key: 'transactionRef', label: 'Transaction Reference', type: 'text', placeholder: 'Find by transaction reference'},
+    {key: 'status', label: 'Status', type: 'select', options: Object.values(PaymentStatus).map(status => ({label: status, value: status})), placeholder: 'All Status'},
+    {key: 'paymentMethod', label: 'Payment Method', type: 'select', options: Object.values(PaymentMethod).map(method => ({label: method, value: method})), placeholder: 'Any Method'},
+    {key: 'createdDate', label: 'Created Date', type: 'date', placeholder: 'Select created date'}
+  ];
+
+  fetchApiData(pagination: PaginationRequest, filters: MyPaymentReceivesFilterRequest): Observable<any> {
+    return this.paymentService.myReceives(pagination, filters);
   }
 
-  loadMyReceives(): void {
-    this.loading = true;
-
-    const pagination = new  PaginationRequest(this.pageIndex, this.pageSize, 'desc', ['created_date']);
-    this.paymentService.myReceives(pagination).subscribe({
-      next: res => {
-        if(res.data){
-          this.dataSource.data = res.data ?? [];
-          this.pageIndex = res.page ?? 0;
-          this.pageSize = res.size ?? 10;
-          this.totalElements = res.totalElements ?? 0;
-        }
-        this.loading = false;
-      },
-      error: err => {
-        this.loading = false;
-        this.alertService.triggerErrorAlert(err.error.message ?? 'Failed to load payment receives');
-      }
-    })
+  protected override mapFormToFilter(formValues: Record<string, any>): MyPaymentReceivesFilterRequest {
+    return {
+      studentName: formValues['studentName'] || undefined,
+      transactionRef: formValues['transactionRef'] || undefined,
+      status: formValues['status'] || undefined,
+      paymentMethod: formValues['paymentMethod'] || undefined,
+      createdDate: formValues['createdDate'] || undefined,
+    };
   }
 
-  onPageChange(event: PageEvent){
-    this.pageIndex = event.pageIndex;
-    this.pageSize = event.pageSize;
-    this.loadMyReceives();
-  }
+  protected readonly ArrowUpDown = ArrowUpDown;
 }
