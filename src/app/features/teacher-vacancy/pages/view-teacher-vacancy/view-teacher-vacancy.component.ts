@@ -36,6 +36,7 @@ import {Observable} from 'rxjs';
 import {FormGroup, NonNullableFormBuilder} from '@angular/forms';
 import {FilterFieldConfig} from '@shared/utils/config/filter-config';
 import {FilterToolbarComponent} from '@shared/components/filter-toolbar/filter-toolbar.component';
+import {CardShellComponent} from '@shared/ui';
 
 @Component({
   selector: 'app-view-teacher-vacancy',
@@ -60,7 +61,8 @@ import {FilterToolbarComponent} from '@shared/components/filter-toolbar/filter-t
     MatNoDataRow,
     NoContentComponent,
     FilterToolbarComponent,
-    TitleCasePipe
+    TitleCasePipe,
+    CardShellComponent
   ],
   templateUrl: './view-teacher-vacancy.component.html',
   styleUrl: './view-teacher-vacancy.component.css'
