@@ -1,4 +1,4 @@
-import {Component, inject, input, OnInit} from '@angular/core';
+import {Component, computed, inject, input, OnInit} from '@angular/core';
 import {
   MatCell, MatCellDef,
   MatColumnDef,
@@ -29,6 +29,15 @@ import {
   AssignmentSubmissionViewComponent
 } from '@features/assignment-submission/components/assignment-submission-view/assignment-submission-view.component';
 import {GradingRageResponse} from '@features/assignments/dtos/response/grading-range/grading-range-response';
+import {BasePaginatedFilterComponent} from '@shared/utils/base/BasePaginatedFilterComponent';
+import {
+  AssignmentSubmissionFilterRequest
+} from '@features/assignment-submission/dtos/requests/assignment-submission-filter-request';
+import {FormGroup, NonNullableFormBuilder, Validators} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {AssignmentSubmitStatus} from '@features/assignment-submission/enums/assignment-submit-status';
+import {FilterFieldConfig} from '@shared/utils/config/filter-config';
+import {FilterToolbarComponent} from '@shared/components/filter-toolbar/filter-toolbar.component';
 
 @Component({
   selector: 'app-assignment-submissions-list',
@@ -50,66 +59,73 @@ import {GradingRageResponse} from '@features/assignments/dtos/response/grading-r
     MatHeaderRowDef,
     MatPaginator,
     DatePipe,
-    MatTooltip
+    MatTooltip,
+    FilterToolbarComponent
   ],
   templateUrl: './assignment-submissions-list.component.html',
   styleUrl: './assignment-submissions-list.component.css'
 })
-export class AssignmentSubmissionsListComponent implements OnInit{
+export class AssignmentSubmissionsListComponent extends BasePaginatedFilterComponent<AssignmentSubmissionDetailedResponse, AssignmentSubmissionFilterRequest>{
   assignmentId = input.required<number>();
   totalMarks = input.required<number>();
   gradingRanges = input.required<GradingRageResponse[]>();
 
-  protected loading: boolean = false;
-  protected dataSource: MatTableDataSource<AssignmentSubmissionDetailedResponse> = new MatTableDataSource<AssignmentSubmissionDetailedResponse>([]);
   protected readonly displayedColumns: string[] = ['id', 'student', 'submittedAt', 'status', 'attemptNo', 'marksGained', 'actions'];
+  protected sortByFields:string[] = ['attempt_no','submitted_at'];
 
   private readonly submissionService = inject(AssignmentSubmissionService);
-  private readonly alertService = inject(AlertService);
+  private readonly fb = inject(NonNullableFormBuilder);
   protected readonly dialog = inject(MatDialog);
 
-  protected totalElements:number = 0;
-  protected pageIndex:number = 0;
-  protected pageSize:number = 10;
+  protected filterForm:FormGroup = this.fb.group({
+    studentName: [''],
+    status: [undefined as AssignmentSubmitStatus | undefined],
+    grade: [undefined as string | undefined],
+  });
 
-  ngOnInit(): void {
-      this.loadSubmissions();
+
+  protected readonly filterFields = computed<FilterFieldConfig[]>(() => [
+    {
+      key: 'studentName',
+      label: 'Student Name',
+      type: 'text',
+      placeholder: 'Student Name',
+      colSpan: 'lg:col-span-2'
+    },
+    {
+      key: 'status',
+      label: 'Status',
+      type: 'select',
+      placeholder: 'Select Status',
+      options: Object.values(AssignmentSubmitStatus).map(status => ({
+        label: status,
+        value: status
+      })),
+      colSpan: 'lg:col-span-2'
+    },
+    {
+      key: 'grade',
+      label: 'Grade',
+      type: 'select',
+      options: this.gradingRanges().map(range => ({
+        label: range.desiredGrade,
+        value: range.desiredGrade
+      })),
+      placeholder: 'Select Grade',
+      colSpan: 'lg:col-span-2'
+    },
+  ]);
+
+  protected fetchApiData(pagination:PaginationRequest, filters:AssignmentSubmissionFilterRequest): Observable<any> {
+    return this.submissionService.getAllSubmissions(this.assignmentId(), pagination,filters)
   }
 
-  protected loadSubmissions(): void {
-    this.loading = true;
-
-    const pagination = new PaginationRequest();
-    pagination.page = this.pageIndex;
-    pagination.size = this.pageSize;
-    pagination.direction = 'desc';
-    pagination.sortBy = ['attempt_no','submitted_at'];
-
-    this.submissionService.getAllSubmissions(this.assignmentId(), pagination).subscribe({
-      next: res => {
-        if(res.data){
-          this.dataSource.data = res.data ?? [];
-          this.totalElements = res.totalElements ?? 0;
-          this.pageIndex = res.page ?? 0;
-          this.pageSize = res.size ?? 10;
-        }
-        this.loading = false;
-      },
-      error: err => {
-        this.loading = false;
-        this.alertService.triggerErrorAlert(err.error.message ?? "An error occurred while fetching submissions");
-      }
-    });
-  }
-
-
-  protected readonly RefreshCw = RefreshCw;
-  protected readonly Eye = Eye;
-
-  protected OnPageChange($event: PageEvent) {
-    this.pageIndex = $event.pageIndex;
-    this.pageSize = $event.pageSize;
-    this.loadSubmissions();
+  protected override mapFormToFilter(formValues: Record<string, any>): AssignmentSubmissionFilterRequest {
+    return {
+      studentName: formValues['studentName'] || undefined,
+      status: formValues['status'] || undefined,
+      grade: formValues['grade'] || undefined,
+    };
   }
 
   protected openViewSubmissionDialog(viewData: AssignmentSubmissionDetailedResponse): void {
@@ -125,8 +141,11 @@ export class AssignmentSubmissionsListComponent implements OnInit{
 
     dialogRef.afterClosed().subscribe((res) => {
       if(res){
-        this.loadSubmissions();
+        this.refresh();
       }
     });
   }
+
+  protected readonly RefreshCw = RefreshCw;
+  protected readonly Eye = Eye;
 }

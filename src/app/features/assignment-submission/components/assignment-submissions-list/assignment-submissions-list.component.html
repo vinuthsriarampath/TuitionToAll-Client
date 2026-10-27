@@ -3,13 +3,14 @@
     <h3>Submissions Overview</h3>
     <p class="para-primary">Here are your recent submissions.</p>
   </div>
-  <button class="btn btn-mini-secondary" (click)="loadSubmissions()" [disabled]="loading">
+  <button class="btn btn-mini-secondary" (click)="refresh()" [disabled]="loading">
     <lucide-icon [img]="RefreshCw" class="w-4 h-4"></lucide-icon>
   </button>
 </div>
 
 <app-card-shell>
-  <div class="p-4">
+  <div class="p-4 flex flex-col gap-4">
+    <app-filter-toolbar [formGroup]="filterForm" [fields]="filterFields()" [sortDirection]="sortDirection()" (onSortDirectionChange)="toggleSortDirection()" (onClearFilters)="clearFilters()"></app-filter-toolbar>
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>#</th>
@@ -51,7 +52,7 @@
 
       <tr *matNoDataRow>
         <td class="mat-cell text-center p-4" [attr.colspan]="displayedColumns.length">
-          @if (loading) {
+          @if (loading()) {
             <ng-container>
               Loading all Submissions...
             </ng-container>
@@ -65,6 +66,6 @@
           }
         </td>
     </table>
-    <mat-paginator [pageIndex]="pageIndex" [pageSize]="pageSize" [length]="totalElements" [pageSizeOptions]="[5,10,20,50]" (page)="OnPageChange($event)"></mat-paginator>
+    <mat-paginator [pageIndex]="pageIndex()" [pageSize]="pageSize()" [length]="totalElements()" [pageSizeOptions]="[5,10,20,50]" (page)="onPageChange($event)"></mat-paginator>
   </div>
 </app-card-shell>
