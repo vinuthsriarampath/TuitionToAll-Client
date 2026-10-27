@@ -1,15 +1,17 @@
-import {Directive, inject, OnInit, signal} from '@angular/core';
+import {DestroyRef, Directive, inject, OnInit, signal} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {AlertService} from '@core/services/alerts/alert.service';
-import {toObservable} from '@angular/core/rxjs-interop';
+import {takeUntilDestroyed, toObservable} from '@angular/core/rxjs-interop';
 import {FormGroup} from '@angular/forms';
 import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
-import {combineLatest, debounceTime, distinctUntilChanged, Observable, startWith, switchMap} from 'rxjs';
+import {combineLatest, debounceTime, distinctUntilChanged, Observable, of, startWith, Subject, switchMap} from 'rxjs';
 import {PageEvent} from '@angular/material/paginator';
+import {catchError} from 'rxjs/operators';
 
 @Directive()
 export abstract class BasePaginatedFilterComponent<TItem,TFilter> implements OnInit{
   protected readonly alertService = inject(AlertService);
+  private readonly destroyRef = inject(DestroyRef);
 
   protected readonly loading = signal<boolean>(false);
   protected readonly dataSource = new MatTableDataSource<TItem>([]);
@@ -18,6 +20,8 @@ export abstract class BasePaginatedFilterComponent<TItem,TFilter> implements OnI
   protected readonly pageSize = signal<number>(10);
   protected readonly totalElements = signal<number>(0);
   protected readonly sortDirection = signal<'asc' | 'desc'>('desc');
+
+  private readonly refresh$ = new Subject<void>();
 
   // Observables converted from signals
   private readonly sortDirection$ = toObservable(this.sortDirection);
@@ -59,7 +63,9 @@ export abstract class BasePaginatedFilterComponent<TItem,TFilter> implements OnI
           startWith(control.value),
           distinctUntilChanged()
         );
-        control.valueChanges.subscribe(() => this.pageIndex.set(0));
+        control.valueChanges.pipe(
+          takeUntilDestroyed(this.destroyRef)
+        ).subscribe(() => this.pageIndex.set(0));
       }
     });
 
@@ -67,7 +73,8 @@ export abstract class BasePaginatedFilterComponent<TItem,TFilter> implements OnI
       formValues: combineLatest(formObservables),
       direction: this.sortDirection$,
       page: this.pageIndex$,
-      size: this.pageSize$
+      size: this.pageSize$,
+      refresh: this.refresh$.pipe(startWith(undefined))
     }).pipe(
       debounceTime(50),
       switchMap(({ formValues, direction, page, size }) => {
@@ -75,16 +82,18 @@ export abstract class BasePaginatedFilterComponent<TItem,TFilter> implements OnI
         const filter = this.mapFormToFilter(formValues);
         const pagination = new PaginationRequest(page, size, direction, this.sortByFields);
 
-        return this.fetchApiData(pagination, filter);
-      })
+        return this.fetchApiData(pagination, filter).pipe(
+          catchError((err) => {
+            this.alertService.triggerErrorAlert(err.error?.message ?? 'Something went wrong while fetching data.');
+            return of({data: [], totalElements: 0});
+          })
+        );
+      }),
+      takeUntilDestroyed(this.destroyRef)
     ).subscribe({
       next: (res) => {
         this.dataSource.data = res.data ?? [];
         this.totalElements.set(res.totalElements ?? 0);
-        this.loading.set(false);
-      },
-      error: (err) => {
-        this.alertService.triggerErrorAlert(err.error?.message ?? "Something went wrong while fetching data.");
         this.loading.set(false);
       }
     });
@@ -103,5 +112,9 @@ export abstract class BasePaginatedFilterComponent<TItem,TFilter> implements OnI
   protected onPageChange(event: PageEvent): void {
     this.pageIndex.set(event.pageIndex);
     this.pageSize.set(event.pageSize);
+  }
+
+  protected refresh(): void {
+    this.refresh$.next();
   }
 }
