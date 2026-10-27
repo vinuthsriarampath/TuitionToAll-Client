@@ -16,7 +16,7 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import {DatePipe, NgClass, NgIf, TitleCasePipe} from '@angular/common';
+import {DatePipe, NgClass, NgIf} from '@angular/common';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from '@angular/material/sidenav';
 import {environment} from '@env/environment.development';
@@ -66,8 +66,7 @@ import {ArrowUpDown, LucideAngularModule} from 'lucide-angular';
     NoContentComponent,
     MatNoDataRow,
     FilterToolbarComponent,
-    LucideAngularModule,
-    TitleCasePipe
+    LucideAngularModule
   ],
   templateUrl: './view-application.component.html',
   styleUrl: './view-application.component.css'

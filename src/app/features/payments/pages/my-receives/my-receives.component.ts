@@ -1,36 +1,36 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {CurrencyPipe, DatePipe, TitleCasePipe} from "@angular/common";
+import {Component, inject} from '@angular/core';
+import {CurrencyPipe, DatePipe} from "@angular/common";
 import {
   MatCell,
   MatCellDef,
   MatColumnDef,
-  MatHeaderCell, MatHeaderCellDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
   MatHeaderRow,
-  MatHeaderRowDef, MatNoDataRow,
-  MatRow, MatRowDef, MatTable, MatTableDataSource
+  MatHeaderRowDef,
+  MatNoDataRow,
+  MatRow,
+  MatRowDef,
+  MatTable
 } from "@angular/material/table";
-import {MatPaginator, PageEvent} from "@angular/material/paginator";
+import {MatPaginator} from "@angular/material/paginator";
 import {NoContentComponent} from "@shared/components/no-content/no-content.component";
 import {PageLayoutComponent} from "@core/layouts";
 import {
-    PaymentStatusBadgeComponent
+  PaymentStatusBadgeComponent
 } from "@features/payments/components/payment-status-badge/payment-status-badge.component";
 import {PaymentDetailedResponse} from '@features/payments/dtos/responses/payment-detailed-response';
 import {PaymentService} from '@features/payments/services/payment-service/payment.service';
-import {AlertService} from '@core/services/alerts/alert.service';
 import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
 import {BasePaginatedFilterComponent} from '@shared/utils/base/BasePaginatedFilterComponent';
 import {MyPaymentReceivesFilterRequest} from '@features/payments/dtos/requests/my-payment-receives-filter-request';
 import {Observable} from 'rxjs';
-import {MyPaymentFilterRequest} from '@features/payments/dtos/requests/payment-filter-request';
 import {NonNullableFormBuilder} from '@angular/forms';
 import {PaymentStatus} from '@features/payments/enums/payment-status';
 import {PaymentMethod} from '@features/payments/enums/payment-method';
 import {FilterFieldConfig} from '@shared/utils/config/filter-config';
-import {CardShellComponent} from '@shared/ui';
 import {FilterToolbarComponent} from '@shared/components/filter-toolbar/filter-toolbar.component';
 import {ArrowUpDown, LucideAngularModule} from 'lucide-angular';
-import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-my-receives',
@@ -52,11 +52,8 @@ import {MatTooltip} from '@angular/material/tooltip';
     PaymentStatusBadgeComponent,
     MatHeaderCellDef,
     MatNoDataRow,
-    CardShellComponent,
     FilterToolbarComponent,
-    LucideAngularModule,
-    MatTooltip,
-    TitleCasePipe
+    LucideAngularModule
   ],
   templateUrl: './my-receives.component.html',
   styleUrl: './my-receives.component.css'

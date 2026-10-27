@@ -11,7 +11,8 @@ import {CourseDescriptionComponent} from '@features/course/components/course-des
 import {CourseHeroComponent} from '@features/course/components/course-hero/course-hero.component';
 import {CourseViewShellComponent} from '@features/course/components/course-view-shell/course-view-shell.component';
 import {
-  MatExpansionPanel, MatExpansionPanelContent,
+  MatExpansionPanel,
+  MatExpansionPanelContent,
   MatExpansionPanelHeader,
   MatExpansionPanelTitle
 } from '@angular/material/expansion';

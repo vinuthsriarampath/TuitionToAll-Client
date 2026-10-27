@@ -1,4 +1,4 @@
-import {Component, inject, input, OnInit} from '@angular/core';
+import {Component, inject, input} from '@angular/core';
 import {PageLayoutComponent} from '@core/layouts';
 import {ArrowUpDown, Edit, Eye, LucideAngularModule, Plus, View} from 'lucide-angular';
 import {
@@ -12,14 +12,12 @@ import {
   MatNoDataRow,
   MatRow,
   MatRowDef,
-  MatTable,
-  MatTableDataSource
+  MatTable
 } from '@angular/material/table';
 import {ModuleResponse} from '../../dtos/response/ModuleResponse';
-import {AlertService} from '@core/services/alerts/alert.service';
 import {ModuleBadgeComponent} from '../module-badge/module-badge.component';
-import {MatPaginator, PageEvent} from '@angular/material/paginator';
-import {DatePipe, TitleCasePipe} from '@angular/common';
+import {MatPaginator} from '@angular/material/paginator';
+import {DatePipe} from '@angular/common';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatDialog} from '@angular/material/dialog';
 import {CreateModuleDialogComponent} from '../../dialogs/create-module-dialog/create-module-dialog.component';
@@ -34,7 +32,6 @@ import {ModuleFilterRequest} from '@features/module/dtos/request/ModuleFilterReq
 import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
 import {Observable} from 'rxjs';
 import {FilterFieldConfig} from '@shared/utils/config/filter-config';
-import {CardShellComponent} from '@shared/ui';
 import {FilterToolbarComponent} from '@shared/components/filter-toolbar/filter-toolbar.component';
 
 @Component({
@@ -59,9 +56,7 @@ import {FilterToolbarComponent} from '@shared/components/filter-toolbar/filter-t
     RouterLink,
     NoContentComponent,
     MatNoDataRow,
-    CardShellComponent,
-    FilterToolbarComponent,
-    TitleCasePipe
+    FilterToolbarComponent
   ],
   templateUrl: './module-section.component.html',
   styleUrl: './module-section.component.css'

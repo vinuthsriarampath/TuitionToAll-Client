@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { DashboardShellComponent } from './dashboard-shell.component';
+import {DashboardShellComponent} from './dashboard-shell.component';
 
 describe('DashboardShellComponent', () => {
   let component: DashboardShellComponent;

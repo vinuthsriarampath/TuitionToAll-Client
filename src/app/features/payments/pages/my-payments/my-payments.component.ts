@@ -1,20 +1,24 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {PageLayoutComponent} from '@core/layouts';
 import {PaymentService} from '@features/payments/services/payment-service/payment.service';
-import {AlertService} from '@core/services/alerts/alert.service';
 import {
-  MatCell, MatCellDef,
+  MatCell,
+  MatCellDef,
   MatColumnDef,
   MatHeaderCell,
-  MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatNoDataRow, MatRow, MatRowDef,
-  MatTable,
-  MatTableDataSource
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatNoDataRow,
+  MatRow,
+  MatRowDef,
+  MatTable
 } from '@angular/material/table';
 import {PaymentDetailedResponse} from '@features/payments/dtos/responses/payment-detailed-response';
 import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
-import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {MatPaginator} from '@angular/material/paginator';
 import {NoContentComponent} from '@shared/components/no-content/no-content.component';
-import {CurrencyPipe, DatePipe, TitleCasePipe} from '@angular/common';
+import {CurrencyPipe, DatePipe} from '@angular/common';
 import {
   PaymentStatusBadgeComponent
 } from '@features/payments/components/payment-status-badge/payment-status-badge.component';
@@ -25,10 +29,8 @@ import {NonNullableFormBuilder} from '@angular/forms';
 import {PaymentMethod} from '@features/payments/enums/payment-method';
 import {PaymentStatus} from '@features/payments/enums/payment-status';
 import {FilterFieldConfig} from '@shared/utils/config/filter-config';
-import {CardShellComponent} from '@shared/ui';
 import {FilterToolbarComponent} from '@shared/components/filter-toolbar/filter-toolbar.component';
 import {ArrowUpDown, LucideAngularModule} from 'lucide-angular';
-import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-my-payments',
@@ -50,11 +52,8 @@ import {MatTooltip} from '@angular/material/tooltip';
     PaymentStatusBadgeComponent,
     DatePipe,
     MatPaginator,
-    CardShellComponent,
     FilterToolbarComponent,
-    LucideAngularModule,
-    MatTooltip,
-    TitleCasePipe
+    LucideAngularModule
   ],
   templateUrl: './my-payments.component.html',
   styleUrl: './my-payments.component.css'

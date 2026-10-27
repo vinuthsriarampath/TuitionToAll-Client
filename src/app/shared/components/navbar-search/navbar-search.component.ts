@@ -1,14 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  HostListener,
-  inject,
-  input,
-  Input, output,
-  Output, signal,
-  ViewChild
-} from '@angular/core';
+import {Component, ElementRef, HostListener, inject, input, output, signal, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {SearchResponse} from '../../utils/response/search-response';
 import {environment} from '@env/environment.development';

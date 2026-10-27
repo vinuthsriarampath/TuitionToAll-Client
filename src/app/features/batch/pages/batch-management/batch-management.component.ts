@@ -14,7 +14,7 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import {NgClass, TitleCasePipe} from '@angular/common';
+import {NgClass} from '@angular/common';
 import {BatchEnrollmentStatus} from '../../enums/batch-enrollment-status';
 import {BatchStatus} from '../../enums/batch-status';
 import {MatTooltip} from '@angular/material/tooltip';
@@ -55,8 +55,7 @@ import {FilterToolbarComponent} from '@shared/components/filter-toolbar/filter-t
     NoContentComponent,
     MatNoDataRow,
     CardShellComponent,
-    FilterToolbarComponent,
-    TitleCasePipe
+    FilterToolbarComponent
   ],
   templateUrl: './batch-management.component.html',
   styleUrl: './batch-management.component.css'

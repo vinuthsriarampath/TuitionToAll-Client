@@ -1,5 +1,5 @@
 import {Component, inject, ViewChild} from '@angular/core';
-import {DatePipe, NgClass, NgIf, TitleCasePipe} from '@angular/common';
+import {DatePipe, NgClass, NgIf} from '@angular/common';
 import {FormGroup, FormsModule, NonNullableFormBuilder} from '@angular/forms';
 import {PageTitleComponent} from '@shared/components/page-title/page-title.component';
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from '@angular/material/sidenav';
@@ -70,8 +70,7 @@ import {ArrowUpDown, LucideAngularModule} from 'lucide-angular';
     StatCardComponent,
     MatNoDataRow,
     FilterToolbarComponent,
-    LucideAngularModule,
-    TitleCasePipe
+    LucideAngularModule
   ],
   templateUrl: './institute-teacher-management.component.html',
   styleUrl: './institute-teacher-management.component.css'

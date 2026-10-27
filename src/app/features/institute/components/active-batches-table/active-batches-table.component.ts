@@ -26,7 +26,6 @@ import {RouterLink} from '@angular/router';
 import {BatchService} from '@features/batch/services/batch/batch.service';
 import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
 import {BatchFilterRequest} from '@features/batch/dtos/request/batch-filter-request';
-import {UserService} from '@features/user/services/user/user.service';
 import {AlertService} from '@core/services/alerts/alert.service';
 
 @Component({

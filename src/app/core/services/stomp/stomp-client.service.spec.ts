@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { StompClientService } from './stomp-client.service';
+import {StompClientService} from './stomp-client.service';
 
 describe('StompClientService', () => {
   let service: StompClientService;

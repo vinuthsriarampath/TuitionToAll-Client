@@ -1,7 +1,7 @@
 import {Component, input} from '@angular/core';
 import {AssignmentSubmitStatus} from '@features/assignment-submission/enums/assignment-submit-status';
 import {BadgeComponent} from '@shared/ui';
-import {LowerCasePipe, TitleCasePipe} from '@angular/common';
+import {TitleCasePipe} from '@angular/common';
 
 @Component({
   selector: 'app-assignment-submission-status-badge',

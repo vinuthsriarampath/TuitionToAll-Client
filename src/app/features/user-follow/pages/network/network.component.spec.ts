@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { NetworkComponent } from './network.component';
+import {NetworkComponent} from './network.component';
 
 describe('NetworkComponent', () => {
   let component: NetworkComponent;

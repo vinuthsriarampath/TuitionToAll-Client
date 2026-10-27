@@ -1,8 +1,7 @@
-import {Component, inject, input, OnInit} from '@angular/core';
+import {Component, inject, input} from '@angular/core';
 import {BatchService} from '@features/batch/services/batch/batch.service';
-import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {MatPaginator,} from '@angular/material/paginator';
 import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
-import {AlertService} from "@core/services/alerts/alert.service";
 import {
   MatCell,
   MatCellDef,
@@ -15,23 +14,20 @@ import {
   MatRow,
   MatRowDef,
   MatTable,
-  MatTableDataSource
 } from '@angular/material/table';
 import {StudentUserResponse} from '@features/student/dtos/responses/student-user-response/student-user-response';
 import {PageLayoutComponent} from '@core/layouts';
 import {NoContentComponent} from '@shared/components/no-content/no-content.component';
 import {PhonePipePipe} from '@shared/utils/pipes/phone-pipe/phone-pipe.pipe';
-import {NgOptimizedImage, TitleCasePipe} from '@angular/common';
+import {NgOptimizedImage} from '@angular/common';
 import {FormGroup, NonNullableFormBuilder} from '@angular/forms';
 import {StudentBatchEnrollmentStatus} from '@features/student-batch-enrollment/enums/student-batch-enrollment-status';
 import {BasePaginatedFilterComponent} from '@shared/utils/base/BasePaginatedFilterComponent';
 import {BatchStudentFilterRequest} from '@features/batch/dtos/request/batch-student-filter-request';
 import {Observable} from 'rxjs';
 import {FilterFieldConfig} from '@shared/utils/config/filter-config';
-import {CardShellComponent} from '@shared/ui';
 import {FilterToolbarComponent} from '@shared/components/filter-toolbar/filter-toolbar.component';
 import {ArrowUpDown, LucideAngularModule} from 'lucide-angular';
-import {MatTooltip} from '@angular/material/tooltip';
 import {environment} from '@env/environment.development';
 
 @Component({
@@ -53,11 +49,8 @@ import {environment} from '@env/environment.development';
     MatNoDataRow,
     PhonePipePipe,
     NgOptimizedImage,
-    CardShellComponent,
     FilterToolbarComponent,
-    TitleCasePipe,
     LucideAngularModule,
-    MatTooltip
   ],
   templateUrl: './batch-student-section.component.html',
   styleUrl: './batch-student-section.component.css'

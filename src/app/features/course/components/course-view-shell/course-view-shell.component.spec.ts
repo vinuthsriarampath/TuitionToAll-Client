@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CourseViewShellComponent } from './course-view-shell.component';
+import {CourseViewShellComponent} from './course-view-shell.component';
 
 describe('CourseViewShellComponent', () => {
   let component: CourseViewShellComponent;

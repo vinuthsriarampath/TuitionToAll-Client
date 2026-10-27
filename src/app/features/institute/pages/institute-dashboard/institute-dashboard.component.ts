@@ -5,7 +5,9 @@ import {
   Calendar,
   GraduationCap,
   LucideAngularModule,
-  Megaphone, Plus, RotateCw,
+  Megaphone,
+  Plus,
+  RotateCw,
   UserPlus,
   Users,
   Wallet

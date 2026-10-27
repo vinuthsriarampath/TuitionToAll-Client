@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, ViewChild} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {TeacherVacancyService} from '../../services/teacher-vacancy/teacher-vacancy.service';
 import {TeacherVacancy} from '../../dtos/response/teacher-vacancy';
 import {
@@ -16,7 +16,7 @@ import {
 } from '@angular/material/table';
 import {ArrowUpDown, Edit, Eye, FileUser, LucideAngularModule} from 'lucide-angular';
 import {MatTooltip} from '@angular/material/tooltip';
-import {DatePipe, NgClass, TitleCasePipe} from '@angular/common';
+import {DatePipe, NgClass} from '@angular/common';
 import {MatDialog} from '@angular/material/dialog';
 import {
   ViewTeacherVacancySingleDialogComponent
@@ -36,7 +36,6 @@ import {Observable} from 'rxjs';
 import {FormGroup, NonNullableFormBuilder} from '@angular/forms';
 import {FilterFieldConfig} from '@shared/utils/config/filter-config';
 import {FilterToolbarComponent} from '@shared/components/filter-toolbar/filter-toolbar.component';
-import {CardShellComponent} from '@shared/ui';
 
 @Component({
   selector: 'app-view-teacher-vacancy',
@@ -61,8 +60,6 @@ import {CardShellComponent} from '@shared/ui';
     MatNoDataRow,
     NoContentComponent,
     FilterToolbarComponent,
-    TitleCasePipe,
-    CardShellComponent
   ],
   templateUrl: './view-teacher-vacancy.component.html',
   styleUrl: './view-teacher-vacancy.component.css'

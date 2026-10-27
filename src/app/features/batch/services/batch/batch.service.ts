@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '@env/environment.development';
 import {Batch} from '@features/batch/dtos/response/batch';
@@ -12,7 +12,7 @@ import {StudentUserResponse} from "@features/student/dtos/responses/student-user
 import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
 import {BatchFilterRequest} from "@features/batch/dtos/request/batch-filter-request";
 import {BatchDetailedResponse} from '@features/batch/dtos/response/batch-detailed-response';
-import {addFilterParams, buildPaginationParams, buildParams} from '@shared/utils/helpers/params-helper';
+import {buildParams} from '@shared/utils/helpers/params-helper';
 import {ModuleFilterRequest} from '@features/module/dtos/request/ModuleFilterRequest';
 import {BatchStudentFilterRequest} from '@features/batch/dtos/request/batch-student-filter-request';
 

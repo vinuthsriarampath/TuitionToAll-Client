@@ -1,11 +1,16 @@
-import {Component, computed, inject, input, OnInit} from '@angular/core';
+import {Component, computed, inject, input} from '@angular/core';
 import {
-  MatCell, MatCellDef,
+  MatCell,
+  MatCellDef,
   MatColumnDef,
   MatHeaderCell,
-  MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatNoDataRow, MatRow, MatRowDef,
-  MatTable,
-  MatTableDataSource
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatNoDataRow,
+  MatRow,
+  MatRowDef,
+  MatTable
 } from '@angular/material/table';
 import {
   AssignmentSubmissionDetailedResponse
@@ -13,7 +18,6 @@ import {
 import {
   AssignmentSubmissionService
 } from '@features/assignment-submission/services/assignment-submission-service/assignment-submission.service';
-import {AlertService} from '@core/services/alerts/alert.service';
 import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
 import {Eye, LucideAngularModule, RefreshCw} from 'lucide-angular';
 import {CardShellComponent} from '@shared/ui';
@@ -21,7 +25,7 @@ import {
   AssignmentSubmissionStatusBadgeComponent
 } from '@features/assignment-submission/components/assignment-submission-status-badge/assignment-submission-status-badge.component';
 import {NoContentComponent} from '@shared/components/no-content/no-content.component';
-import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {MatPaginator} from '@angular/material/paginator';
 import {DatePipe} from '@angular/common';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatDialog} from '@angular/material/dialog';
@@ -33,7 +37,7 @@ import {BasePaginatedFilterComponent} from '@shared/utils/base/BasePaginatedFilt
 import {
   AssignmentSubmissionFilterRequest
 } from '@features/assignment-submission/dtos/requests/assignment-submission-filter-request';
-import {FormGroup, NonNullableFormBuilder, Validators} from '@angular/forms';
+import {FormGroup, NonNullableFormBuilder} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {AssignmentSubmitStatus} from '@features/assignment-submission/enums/assignment-submit-status';
 import {FilterFieldConfig} from '@shared/utils/config/filter-config';

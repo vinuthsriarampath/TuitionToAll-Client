@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {PageLayoutComponent} from '@core/layouts';
 import {MatTab, MatTabContent, MatTabGroup} from '@angular/material/tabs';
 import {MyFollowersComponent} from '@features/user-follow/pages/my-followers/my-followers.component';

@@ -1,5 +1,4 @@
 import {Routes} from '@angular/router';
-import {assignmentResolver} from '@features/assignments/resolvers/assignment.resolver';
 
 export const TEACHER_CHAPTER_ROUTES: Routes = [
   {

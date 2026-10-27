@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { FilterToolbarComponent } from './filter-toolbar.component';
+import {FilterToolbarComponent} from './filter-toolbar.component';
 
 describe('FilterToolbarComponent', () => {
   let component: FilterToolbarComponent;

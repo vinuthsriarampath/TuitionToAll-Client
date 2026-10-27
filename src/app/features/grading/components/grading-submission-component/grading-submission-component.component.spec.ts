@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { GradingSubmissionComponentComponent } from './grading-submission-component.component';
+import {GradingSubmissionComponentComponent} from './grading-submission-component.component';
 
 describe('GradingSubmissionComponentComponent', () => {
   let component: GradingSubmissionComponentComponent;

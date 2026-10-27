@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { InstituteDashboardWebsocketService } from './institute-dashboard-websocket.service';
+import {InstituteDashboardWebsocketService} from './institute-dashboard-websocket.service';
 
 describe('InstituteDashboardWebsocketService', () => {
   let service: InstituteDashboardWebsocketService;

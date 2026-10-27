@@ -1,10 +1,9 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {AnnouncementService} from '../../services/announcements/announcement.service';
 import {AnnouncementResponse} from '../../dtos/response/AnnouncementResponse';
-import {AlertService} from '@core/services/alerts/alert.service';
 import {ArrowUpDown, Eye, LucideAngularModule} from 'lucide-angular';
 import {AnnouncementFilterRequest} from '../../dtos/request/AnnouncementFilterRequest';
-import {DatePipe, NgClass, TitleCasePipe} from '@angular/common';
+import {DatePipe, NgClass} from '@angular/common';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {PageTitleComponent} from '@shared/components/page-title/page-title.component';
 import {
@@ -18,21 +17,18 @@ import {
   MatNoDataRow,
   MatRow,
   MatRowDef,
-  MatTable,
-  MatTableDataSource
+  MatTable
 } from '@angular/material/table';
 import {AnnouncementStatus} from '../../enums/AnnouncementStatus';
 import {AnnouncementVisibility} from '../../enums/AnnouncementVisibility';
 import {NoContentComponent} from '@shared/components/no-content/no-content.component';
-import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {MatPaginator} from '@angular/material/paginator';
 import {BasePaginatedFilterComponent} from '@shared/utils/base/BasePaginatedFilterComponent';
 import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
 import {Observable} from 'rxjs';
 import {FormGroup, NonNullableFormBuilder} from '@angular/forms';
 import {FilterFieldConfig} from '@shared/utils/config/filter-config';
-import {CardShellComponent} from '@shared/ui';
 import {FilterToolbarComponent} from '@shared/components/filter-toolbar/filter-toolbar.component';
-import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-course-announcement-view',
@@ -55,10 +51,7 @@ import {MatTooltip} from '@angular/material/tooltip';
     NoContentComponent,
     MatPaginator,
     MatNoDataRow,
-    CardShellComponent,
-    FilterToolbarComponent,
-    MatTooltip,
-    TitleCasePipe
+    FilterToolbarComponent
   ],
   templateUrl: './course-announcement-view.component.html',
   styleUrl: './course-announcement-view.component.css'

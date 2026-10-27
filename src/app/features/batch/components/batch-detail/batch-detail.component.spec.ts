@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { BatchDetailComponent } from './batch-detail.component';
+import {BatchDetailComponent} from './batch-detail.component';
 
 describe('BatchDetailComponent', () => {
   let component: BatchDetailComponent;

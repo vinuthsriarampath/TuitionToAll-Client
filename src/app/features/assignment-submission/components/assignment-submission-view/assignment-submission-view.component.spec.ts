@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AssignmentSubmissionViewComponent } from './assignment-submission-view.component';
+import {AssignmentSubmissionViewComponent} from './assignment-submission-view.component';
 
 describe('AssignmentSubmissionViewComponent', () => {
   let component: AssignmentSubmissionViewComponent;

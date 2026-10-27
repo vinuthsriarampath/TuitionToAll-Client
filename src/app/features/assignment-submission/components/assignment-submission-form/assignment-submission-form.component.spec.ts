@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AssignmentSubmissionFormComponent } from './assignment-submission-form.component';
+import {AssignmentSubmissionFormComponent} from './assignment-submission-form.component';
 
 describe('AssignmentSubmissionFormComponent', () => {
   let component: AssignmentSubmissionFormComponent;

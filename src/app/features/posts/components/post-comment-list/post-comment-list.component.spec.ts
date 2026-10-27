@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PostCommentListComponent } from './post-comment-list.component';
+import {PostCommentListComponent} from './post-comment-list.component';
 
 describe('PostCommentListComponent', () => {
   let component: PostCommentListComponent;

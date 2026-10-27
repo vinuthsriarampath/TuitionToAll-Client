@@ -1,7 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import {CurrencyPipe, NgClass, TitleCasePipe} from '@angular/common';
+import {CurrencyPipe, NgClass} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {ArrowUpDown, Eye, LucideAngularModule, X} from 'lucide-angular';
 import {MatTooltip} from '@angular/material/tooltip';
@@ -10,7 +10,7 @@ import {Course} from '@features/course/dtos/response/course';
 import {NoContentComponent} from '@shared/components/no-content/no-content.component';
 import {CourseFilter} from '@features/course/dtos/request/course-filter';
 import {FormsModule, NonNullableFormBuilder, ReactiveFormsModule} from '@angular/forms';
-import {CardShellComponent, SelectOption} from '@shared/ui';
+import {SelectOption} from '@shared/ui';
 import {FilterFieldConfig} from '@shared/utils/config/filter-config';
 import {FilterToolbarComponent} from '@shared/components/filter-toolbar/filter-toolbar.component';
 import {BasePaginatedFilterComponent} from '@shared/utils/base/BasePaginatedFilterComponent';
@@ -37,9 +37,8 @@ import {Observable} from 'rxjs';
     NoContentComponent,
     FormsModule,
     ReactiveFormsModule,
-    CardShellComponent,
     FilterToolbarComponent,
-    TitleCasePipe,
+
   ],
   templateUrl: './institute-course-management.component.html',
   styleUrl: './institute-course-management.component.css'

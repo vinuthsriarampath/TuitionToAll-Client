@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import { SubmissionGradedResponse } from "@features/grading/dtos/responses/submission-graded-response";
+import {SubmissionGradedResponse} from "@features/grading/dtos/responses/submission-graded-response";
 import {ApiResponse} from '@shared/utils/response/api-response';
 import {Observable} from 'rxjs';
 import {GradingSubmissionRequest} from '@features/grading/dtos/requests/grading-submission-request';

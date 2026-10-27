@@ -1,20 +1,20 @@
 import {Component, inject, OnInit, signal} from '@angular/core';
 import {PageLayoutComponent} from '@core/layouts';
 import {
-  ArrowDownRight, ArrowUpRight, BookOpen,
+  BookOpen,
   Calendar,
   ChevronRight,
-  Clock, FileCheck, Layers,
+  FileCheck,
+  Layers,
   LucideAngularModule,
   RotateCw,
-  Users,
-  Video
+  Users
 } from 'lucide-angular';
 import {UserService} from '@features/user/services/user/user.service';
 import {User} from '@features/user/dtos/responses/user';
 import {UserHelper} from '@shared/utils/helpers/user-helper';
 import {getGreet} from '@shared/utils/helpers/date-helper';
-import {Router, RouterLink} from '@angular/router';
+import {RouterLink} from '@angular/router';
 import {DatePipe} from '@angular/common';
 import {CardShellComponent} from '@shared/ui';
 import {TeacherService} from '@features/teacher/services/teacher/teacher.service';

@@ -3,7 +3,6 @@ import {Observable} from "rxjs";
 import {PaginatedApiResponse} from "@shared/utils/response/paginated-api-response";
 import {ModuleResponse} from '../../dtos/response/ModuleResponse';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {ModuleFilterRequest} from '../../dtos/request/ModuleFilterRequest';
 import {ApiResponse} from '@shared/utils/response/api-response';
 import {ModuleNameUpdateRequest} from '../../dtos/request/ModuleNameUpdateRequest';
 import {ModuleCreateRequest} from '../../dtos/request/ModuleCreateRequest';

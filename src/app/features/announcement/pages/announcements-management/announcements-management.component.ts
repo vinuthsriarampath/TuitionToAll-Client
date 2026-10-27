@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {AnnouncementService} from '../../services/announcements/announcement.service';
 import {
   MatCell,
@@ -11,16 +11,14 @@ import {
   MatNoDataRow,
   MatRow,
   MatRowDef,
-  MatTable,
-  MatTableDataSource
+  MatTable
 } from '@angular/material/table';
 import {AnnouncementResponse} from '../../dtos/response/AnnouncementResponse';
-import {AlertService} from '@core/services/alerts/alert.service';
 import {ArrowUpDown, Edit, Eye, LucideAngularModule} from 'lucide-angular';
 import {MatTooltip} from '@angular/material/tooltip';
-import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {MatPaginator} from '@angular/material/paginator';
 import {MatDialog} from '@angular/material/dialog';
-import {DatePipe, NgClass, TitleCasePipe} from '@angular/common';
+import {DatePipe, NgClass} from '@angular/common';
 import {AnnouncementStatus} from '../../enums/AnnouncementStatus';
 import {AnnouncementVisibility} from '../../enums/AnnouncementVisibility';
 import {
@@ -38,7 +36,6 @@ import {AnnouncementFilterRequest} from '@features/announcement/dtos/request/Ann
 import {Observable} from 'rxjs';
 import {FormGroup, NonNullableFormBuilder} from '@angular/forms';
 import {FilterFieldConfig} from '@shared/utils/config/filter-config';
-import {CardShellComponent} from '@shared/ui';
 import {FilterToolbarComponent} from '@shared/components/filter-toolbar/filter-toolbar.component';
 
 @Component({
@@ -63,9 +60,7 @@ import {FilterToolbarComponent} from '@shared/components/filter-toolbar/filter-t
     PageLayoutComponent,
     NoContentComponent,
     MatNoDataRow,
-    CardShellComponent,
-    FilterToolbarComponent,
-    TitleCasePipe
+    FilterToolbarComponent
   ],
   templateUrl: './announcements-management.component.html',
   styleUrl: './announcements-management.component.css'
