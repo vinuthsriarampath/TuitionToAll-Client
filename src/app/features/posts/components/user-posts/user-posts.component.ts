@@ -9,6 +9,8 @@ import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
 import {UserPostCardComponent} from '@features/posts/components/user-post-card/user-post-card.component';
 import {Funnel, LucideAngularModule} from 'lucide-angular';
 import {PostCreateComponent} from '@features/posts/components/post-create/post-create.component';
+import {combineLatest, distinctUntilChanged, switchMap} from 'rxjs';
+import {toObservable} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-user-posts',
@@ -35,8 +37,40 @@ export class UserPostsComponent implements OnInit {
   private readonly postService = inject(PostService);
   private readonly pagination: PaginationRequest = { page: 0, size: 10, sortBy: ['published_date'], direction: 'desc' };
 
+  private readonly targetUserId$ = toObservable(this.targetUserId);
+  private readonly isOwner$ = toObservable(this.isOwner);
+
   ngOnInit(): void {
-    this.loadPosts();
+    // Reactively listen to changes in targetUserId or isOwner
+    combineLatest([this.targetUserId$, this.isOwner$])
+      .pipe(
+        distinctUntilChanged(([prevId, prevOwner], [currId, currOwner]) =>
+          prevId === currId && prevOwner === currOwner
+        ),// prevents duplicate calls if the values are same
+        switchMap(([userId, isOwner]) => {
+          this.isLoading.set(true);
+
+          if (isOwner) {
+            const filters: MyPostsFilterRequests = {
+              status: this.selectedStatus(),
+              visibility: this.selectedVisibility()
+            };
+            return this.postService.getMyPosts(this.pagination, filters);
+          } else {
+            return this.postService.getUserPosts(userId, this.pagination);
+          }
+        })// switchMap will cancel the previous request if a new one comes in, ensuring only the latest request is processed
+      )
+      .subscribe({
+        next: (res) => {
+          this.posts.set(res.data ?? []);
+          this.isLoading.set(false);
+        },
+        error: () => {
+          this.posts.set([]);
+          this.isLoading.set(false);
+        }
+      });
   }
 
   loadPosts(): void {

@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, ViewChild} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {TeacherVacancyService} from '../../services/teacher-vacancy/teacher-vacancy.service';
 import {TeacherVacancy} from '../../dtos/response/teacher-vacancy';
 import {
@@ -13,9 +13,8 @@ import {
   MatRow,
   MatRowDef,
   MatTable,
-  MatTableDataSource
 } from '@angular/material/table';
-import {Edit, Eye, FileUser, LucideAngularModule} from 'lucide-angular';
+import {ArrowUpDown, Edit, Eye, FileUser, LucideAngularModule} from 'lucide-angular';
 import {MatTooltip} from '@angular/material/tooltip';
 import {DatePipe, NgClass} from '@angular/common';
 import {MatDialog} from '@angular/material/dialog';
@@ -26,11 +25,17 @@ import {TeacherVacancyStatus} from '../../enums/teacher-vacancy-status';
 import {
   UpdateTeacherVacancyDialogComponent
 } from '../../dialogs/update-teacher-vacancy-dialog/update-teacher-vacancy-dialog.component';
-import {MatPaginator, PageEvent} from '@angular/material/paginator';
-import {PaginatedApiResponse} from '@shared/utils/response/paginated-api-response';
+import {MatPaginator} from '@angular/material/paginator';
 import {RouterLink} from '@angular/router';
 import {PageLayoutComponent} from '@core/layouts/page-layout/page-layout.component';
 import {NoContentComponent} from '@shared/components/no-content/no-content.component';
+import {BasePaginatedFilterComponent} from '@shared/utils/base/BasePaginatedFilterComponent';
+import {TeacherVacancyFilterRequest} from '@features/teacher-vacancy/dtos/request/teacher-vacancy-filter-request';
+import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
+import {Observable} from 'rxjs';
+import {FormGroup, NonNullableFormBuilder} from '@angular/forms';
+import {FilterFieldConfig} from '@shared/utils/config/filter-config';
+import {FilterToolbarComponent} from '@shared/components/filter-toolbar/filter-toolbar.component';
 
 @Component({
   selector: 'app-view-teacher-vacancy',
@@ -53,58 +58,37 @@ import {NoContentComponent} from '@shared/components/no-content/no-content.compo
     RouterLink,
     PageLayoutComponent,
     MatNoDataRow,
-    NoContentComponent
+    NoContentComponent,
+    FilterToolbarComponent,
   ],
   templateUrl: './view-teacher-vacancy.component.html',
   styleUrl: './view-teacher-vacancy.component.css'
 })
-export class ViewTeacherVacancyComponent implements OnInit{
+export class ViewTeacherVacancyComponent extends BasePaginatedFilterComponent<TeacherVacancy, TeacherVacancyFilterRequest>{
 
-  protected loading:boolean= false;
-
-  protected vacancies:TeacherVacancy[] = [];
 
   private readonly teacherVacancyService = inject(TeacherVacancyService);
   private readonly dialog = inject(MatDialog);
+  private readonly fb = inject(NonNullableFormBuilder);
+
+  protected filterForm:FormGroup = this.fb.group({
+    title: [''],
+    status: [undefined as TeacherVacancyStatus | undefined]
+  });
+
+  filterFields:FilterFieldConfig[] = [
+    {key:'title', label:'Title', type:'text', placeholder:'Search by title', colSpan:'lg:col-span-3'},
+    {key: 'status', label: 'Status', type: 'select', placeholder: 'Select status', colSpan: 'lg:col-span-2', options: Object.values(TeacherVacancyStatus).map(v => ({label: v, value: v}))}
+  ]
   protected readonly TeacherVacancyStatus = TeacherVacancyStatus;
 
 
   //table related
-  protected dataSource = new MatTableDataSource(this.vacancies);
   protected columns:string[] = ['title','status','requiredExperienceYears', 'closingDate', 'actions']
+  protected sortByFields:string[] = ['created_date'];
 
-  protected totalElements:number=0;
-  protected pageSize:number = 10;
-  protected pageIndex:number = 0;
-
-  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
-
-  ngOnInit() {
-    this.loadVacancies();
-  }
-
-  protected onPageChange(event: PageEvent):void{
-    this.pageIndex = event.pageIndex;
-    this.pageSize = event.pageSize;
-    this.loadVacancies();
-  }
-  private loadVacancies(){
-    this.triggerLoading();
-    this.teacherVacancyService.getVacanciesByInstitute( this.pageIndex, this.pageSize).subscribe({
-      next: (res:PaginatedApiResponse<TeacherVacancy>)=>{
-        this.vacancies= Array.isArray(res.data) ? res.data : [];
-        this.dataSource.data = this.vacancies;
-        this.totalElements = res.totalElements ?? 0;
-        this.pageIndex = res.page ?? 0;
-        this.pageSize = res.size ?? 10;
-
-        this.triggerLoading();
-      },
-      error: (err)=>{
-        console.error(err)
-        this.triggerLoading();
-      }
-    })
+  protected fetchApiData(pagination:PaginationRequest, filters:TeacherVacancyFilterRequest):Observable<any>{
+    return this.teacherVacancyService.getVacanciesByInstitute(pagination, filters)
   }
 
   openSingleVacancyView(vacancy:TeacherVacancy):void{
@@ -117,7 +101,7 @@ export class ViewTeacherVacancyComponent implements OnInit{
 
     dialogRef.afterClosed().subscribe(res => {
       if(res){
-        this.openVacancyUpdateDialog(vacancy);
+        this.clearFilters();
       }
     });
 
@@ -137,21 +121,20 @@ export class ViewTeacherVacancyComponent implements OnInit{
 
     dialogRef.afterClosed().subscribe((res:{message:string,data:TeacherVacancy}) => {
       if(res){
-        this.vacancies.forEach((v,i)=>{
-          if(v.id === res.data.id){
-            this.vacancies[i] = res.data;
-            this.dataSource.data = this.vacancies;
-          }
-        });
+        this.clearFilters();
       }
     });
   }
 
-  private triggerLoading():void{
-    this.loading = !this.loading;
+  protected override mapFormToFilter(formValues: Record<string, any>): TeacherVacancyFilterRequest {
+    return {
+      title: formValues['title'] || undefined,
+      status: formValues['status'] || undefined
+    };
   }
 
   protected readonly Edit = Edit;
   protected readonly Eye = Eye;
   protected readonly FileUser = FileUser;
+  protected readonly ArrowUpDown = ArrowUpDown;
 }

@@ -5,7 +5,7 @@ import {NgIf} from '@angular/common';
 import {ProfileFileServiceService} from '../../services/profile-files/profile-file-service.service';
 import {User} from '../../../user/dtos/responses/user';
 import {DialogLayoutComponent} from '@core/layouts';
-import {ImageIcon} from 'lucide-angular';
+import {ImageIcon, LucideAngularModule, UploadCloud} from 'lucide-angular';
 import {AlertService} from '@core/services/alerts/alert.service';
 
 @Component({
@@ -14,7 +14,8 @@ import {AlertService} from '@core/services/alerts/alert.service';
     FormsModule,
     NgIf,
     ReactiveFormsModule,
-    DialogLayoutComponent
+    DialogLayoutComponent,
+    LucideAngularModule
   ],
   templateUrl: './update-profile-banner-dialog.component.html',
   styleUrl: './update-profile-banner-dialog.component.css'
@@ -97,4 +98,5 @@ export class UpdateProfileBannerDialogComponent {
   }
 
   protected readonly ImageIcon = ImageIcon;
+  protected readonly UploadCloud = UploadCloud;
 }

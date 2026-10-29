@@ -1,18 +1,6 @@
-import {Component, inject, input, output, signal} from '@angular/core';
+import {Component, input, output, signal} from '@angular/core';
 import {UserPostResponse} from '@features/posts/dtos/responses/user-post-response';
-import {
-  Download,
-  Edit,
-  Files, Globe,
-  Heart,
-  Lock, LucideAngularModule,
-  MessageCircleMore,
-  MoreHorizontal,
-  Send,
-  Trash,
-  Users
-} from 'lucide-angular';
-import {PostMediaType} from '@features/posts/enums/post-media-type';
+import {Download, Edit, Globe, Lock, LucideAngularModule, MoreHorizontal, Send, Trash, Users} from 'lucide-angular';
 import {DatePipe, NgClass} from '@angular/common';
 import {PostStatus} from '@features/posts/enums/post-status';
 import {PostVisibility} from '@features/posts/enums/post-visibility';

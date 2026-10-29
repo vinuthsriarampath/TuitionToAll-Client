@@ -1,8 +1,8 @@
 
-  @if (!loading) {
+  @if (!loading()) {
     <div>
-      @if (teacherVacancies.length > 0) {
-        @for (vacancy of teacherVacancies; track vacancy.id) {
+      @if (teacherVacancies().length > 0) {
+        @for (vacancy of teacherVacancies(); track vacancy.id) {
           <app-vacancy-card [vacancy]="vacancy"></app-vacancy-card>
         }
       } @else {
@@ -13,6 +13,6 @@
   } @else {
     <div class="flex flex-col items-center justify-center">
       <mat-spinner diameter="35"></mat-spinner>
-      <p class="text-xs animate-pulse">Loading...</p>
+      <p class="para-xs para-primary animate-pulse">Loading...</p>
     </div>
   }

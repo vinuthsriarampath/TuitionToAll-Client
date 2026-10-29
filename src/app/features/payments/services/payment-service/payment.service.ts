@@ -7,7 +7,7 @@ import {MyPaymentFilterRequest} from '@features/payments/dtos/requests/payment-f
 import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
 import {environment} from '@env/environment.development';
 import {MyPaymentReceivesFilterRequest} from '@features/payments/dtos/requests/my-payment-receives-filter-request';
-import {addFilterParams, buildPaginationParams} from '@shared/utils/helpers/params-helper';
+import {buildParams} from '@shared/utils/helpers/params-helper';
 
 @Injectable({
   providedIn: 'root'
@@ -18,22 +18,12 @@ export class PaymentService {
   private readonly baseUrl: string = environment.PAYMENT_API ?? '';
 
   myPayments(pagination: PaginationRequest, filters?: MyPaymentFilterRequest): Observable<PaginatedApiResponse<PaymentDetailedResponse>> {
-    let params = buildPaginationParams(pagination);
-
-    if (filters) {
-      params = addFilterParams(params, filters);
-    }
-
+    let params = buildParams({pagination,filters})
     return this.http.get<PaginatedApiResponse<PaymentDetailedResponse>>(`${this.baseUrl}/my`, { params });
   }
 
   myReceives(pagination: PaginationRequest, filters?: MyPaymentReceivesFilterRequest): Observable<PaginatedApiResponse<PaymentDetailedResponse>> {
-    let params = buildPaginationParams(pagination);
-
-    if (filters) {
-      params = addFilterParams(params, filters);
-    }
-
+    let params = buildParams({pagination,filters});
     return this.http.get<PaginatedApiResponse<PaymentDetailedResponse>>(`${this.baseUrl}/my/receives`, { params });
   }
 }

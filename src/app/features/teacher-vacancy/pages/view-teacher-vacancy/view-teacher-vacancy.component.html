@@ -3,7 +3,9 @@
   [headerDescription]="'Manage all your vacancies here!'"
   [showBackButton]="true"
 >
-  <div data-body>
+  <div data-body class="flex flex-col gap-4">
+      <app-filter-toolbar [formGroup]="filterForm" [fields]="filterFields" [sortDirection]="sortDirection()" (onSortDirectionChange)="toggleSortDirection()" (onClearFilters)="clearFilters()">
+      </app-filter-toolbar>
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef>Title</th>
@@ -57,7 +59,7 @@
 
       <tr *matNoDataRow>
         <td class="mat-cell text-center p-4" [attr.colspan]="columns.length">
-          @if (loading) {
+          @if (loading()) {
             <ng-container>
               Loading all Vacancies...
             </ng-container>
@@ -74,13 +76,13 @@
     </table>
 
     <mat-paginator
-      [length]="totalElements"
-      [pageIndex]="pageIndex"
-      [pageSize]="pageSize"
+      [length]="totalElements()"
+      [pageIndex]="pageIndex()"
+      [pageSize]="pageSize()"
       [pageSizeOptions]="[10, 20, 50]"
       showFirstLastButtons
       aria-label="Select page of vacancies"
-      [hidden]="loading || dataSource.data.length === 0"
+      [hidden]="loading() || dataSource.data.length === 0"
       (page)="onPageChange($event)"
     ></mat-paginator>
   </div>

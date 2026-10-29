@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {AnnouncementService} from '../../services/announcements/announcement.service';
 import {
   MatCell,
@@ -11,14 +11,12 @@ import {
   MatNoDataRow,
   MatRow,
   MatRowDef,
-  MatTable,
-  MatTableDataSource
+  MatTable
 } from '@angular/material/table';
 import {AnnouncementResponse} from '../../dtos/response/AnnouncementResponse';
-import {AlertService} from '@core/services/alerts/alert.service';
-import {Edit, Eye, LucideAngularModule} from 'lucide-angular';
+import {ArrowUpDown, Edit, Eye, LucideAngularModule} from 'lucide-angular';
 import {MatTooltip} from '@angular/material/tooltip';
-import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {MatPaginator} from '@angular/material/paginator';
 import {MatDialog} from '@angular/material/dialog';
 import {DatePipe, NgClass} from '@angular/common';
 import {AnnouncementStatus} from '../../enums/AnnouncementStatus';
@@ -32,6 +30,13 @@ import {
   CreateAnnouncementDialogComponent
 } from '@features/announcement/dialogs/create-announcement-dialog/create-announcement-dialog.component';
 import {NoContentComponent} from '@shared/components/no-content/no-content.component';
+import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
+import {BasePaginatedFilterComponent} from '@shared/utils/base/BasePaginatedFilterComponent';
+import {AnnouncementFilterRequest} from '@features/announcement/dtos/request/AnnouncementFilterRequest';
+import {Observable} from 'rxjs';
+import {FormGroup, NonNullableFormBuilder} from '@angular/forms';
+import {FilterFieldConfig} from '@shared/utils/config/filter-config';
+import {FilterToolbarComponent} from '@shared/components/filter-toolbar/filter-toolbar.component';
 
 @Component({
   selector: 'app-announcements-management',
@@ -54,56 +59,34 @@ import {NoContentComponent} from '@shared/components/no-content/no-content.compo
     RouterLink,
     PageLayoutComponent,
     NoContentComponent,
-    MatNoDataRow
+    MatNoDataRow,
+    FilterToolbarComponent
   ],
   templateUrl: './announcements-management.component.html',
   styleUrl: './announcements-management.component.css'
 })
-export class AnnouncementsManagementComponent implements OnInit {
-
-  protected loading:boolean = false;
+export class AnnouncementsManagementComponent extends BasePaginatedFilterComponent<AnnouncementResponse, AnnouncementFilterRequest>{
 
   private readonly announcementService :AnnouncementService = inject(AnnouncementService);
-  private readonly alertService:AlertService = inject(AlertService);
   private readonly dialog:MatDialog = inject(MatDialog);
+  private readonly fb = inject(NonNullableFormBuilder);
+
+  filterForm:FormGroup = this.fb.group({
+    status: [undefined as AnnouncementStatus | undefined],
+    visibility: [undefined as AnnouncementVisibility | undefined]
+  })
+
+  filterFields: FilterFieldConfig[] = [
+    {key:'status', label:'Status', type:'select', options: Object.values(AnnouncementStatus).map(status => ({label: status, value: status}))},
+    {key:'visibility', label:'Visibility', type:'select', options: Object.values(AnnouncementVisibility).map(visibility => ({label: visibility, value: visibility}))},
+  ]
 
   // table related variables
   protected readonly columns:string[] = ['id','title','visibility','status','createdDate','lastModifiedDate','actions'];
-  protected dataSource = new MatTableDataSource<AnnouncementResponse>([]);
+  sortByFields:string[] = ['created_date'];
 
-  // pagination related variables
-
-  protected pageIndex = 0;
-  protected pageSize = 10;
-  protected totalElements = 0;
-
-  ngOnInit(): void {
-    this.loadAnnouncements();
-  }
-
-  loadAnnouncements(){
-    this.triggerLoading();
-    this.announcementService.getAllAnnouncements(this.pageIndex,this.pageSize).subscribe({
-      next: (res) => {
-        if (res){
-          this.dataSource.data = res.data ?? [];
-          this.pageIndex =  res.page ?? 0;
-          this.pageSize = res.size ?? 10;
-          this.totalElements = res.totalElements ?? 0;
-          this.triggerLoading();
-        }
-      },
-      error: (err) => {
-        this.alertService.triggerErrorAlert(err.error.message);
-        this.triggerLoading();
-      }
-    })
-  }
-
-  protected onPageChange(event:PageEvent){
-    this.pageIndex = event.pageIndex;
-    this.pageSize = event.pageSize;
-    this.loadAnnouncements();
+  fetchApiData(pagination:PaginationRequest, filters:AnnouncementFilterRequest):Observable<any>{
+    return this.announcementService.getAllAnnouncements(pagination,filters);
   }
 
   protected openCreateAnnouncementDialog(){
@@ -114,7 +97,7 @@ export class AnnouncementsManagementComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(()=>{
-      this.loadAnnouncements();
+      this.clearFilters();
     })
   }
 
@@ -127,16 +110,22 @@ export class AnnouncementsManagementComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(()=>{
-      this.loadAnnouncements();
+      this.clearFilters();
     })
   }
 
-  private triggerLoading():void{
-    this.loading = !this.loading;
+  protected override mapFormToFilter(formValues: Record<string, any>): AnnouncementFilterRequest {
+    return {
+      courseId: undefined,
+      batchId: undefined,
+      status: formValues['status'] || undefined,
+      visibility: formValues['visibility'] || undefined
+    };
   }
 
   protected readonly Eye = Eye;
   protected readonly Edit = Edit;
   protected readonly AnnouncementStatus = AnnouncementStatus;
   protected readonly AnnouncementVisibility = AnnouncementVisibility;
+  protected readonly ArrowUpDown = ArrowUpDown;
 }

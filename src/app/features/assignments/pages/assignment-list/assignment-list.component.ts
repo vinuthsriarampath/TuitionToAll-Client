@@ -27,9 +27,6 @@ import {
   ModuleAssignmentFilterRequest
 } from '@features/assignments/dtos/request/module-assignment/module-assignment-filter-request';
 import {getDateTime} from '@shared/utils/helpers/date-helper';
-import {
-  ChapterAssignmentFilterRequest
-} from '@features/assignments/dtos/request/chapter-assignment/chapter-assignment-filter-request';
 
 export type AssignmentConfig =
   | { type: 'module'; moduleId: number; chapterId?: never }

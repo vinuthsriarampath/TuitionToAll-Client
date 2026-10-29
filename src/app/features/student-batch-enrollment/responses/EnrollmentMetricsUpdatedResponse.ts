@@ -1,4 +1,4 @@
-import { DashboardKpi } from "@shared/utils/response/dashboard-kpi";
+import {DashboardKpi} from "@shared/utils/response/dashboard-kpi";
 import {OverallEnrollmentResponse} from '@features/student-batch-enrollment/dtos/responses/overall-enrollment-response';
 import {
   EnrollmentDistributionResponse

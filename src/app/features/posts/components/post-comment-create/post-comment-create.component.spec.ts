@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PostCommentCreateComponent } from './post-comment-create.component';
+import {PostCommentCreateComponent} from './post-comment-create.component';
 
 describe('PostCommentCreateComponent', () => {
   let component: PostCommentCreateComponent;

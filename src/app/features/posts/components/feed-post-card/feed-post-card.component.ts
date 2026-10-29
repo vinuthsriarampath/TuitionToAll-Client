@@ -1,19 +1,13 @@
 import {Component, inject, input, signal} from '@angular/core';
-import { AlertService } from "@core/services/alerts/alert.service";
-import { environment } from "@env/environment.development";
-import { FeedPostResponse } from "@features/posts/dtos/responses/feed-post-response";
-import { UserFollowService } from "@features/user-follow/services/user-follow-service/user-follow.service";
+import {AlertService} from "@core/services/alerts/alert.service";
+import {environment} from "@env/environment.development";
+import {FeedPostResponse} from "@features/posts/dtos/responses/feed-post-response";
+import {UserFollowService} from "@features/user-follow/services/user-follow-service/user-follow.service";
 import {UserUnfollowService} from '@features/user-follow/services/user-unfollow-service/user-unfollow.service';
 import {RouterLink} from '@angular/router';
 import {DatePipe, NgOptimizedImage} from '@angular/common';
 import {PostVisibility} from '@features/posts/enums/post-visibility';
-import {
-  Globe,
-  Lock,
-  LucideAngularModule,
-  UserPlus,
-  Users
-} from 'lucide-angular';
+import {Globe, Lock, LucideAngularModule, UserPlus, Users} from 'lucide-angular';
 import {PostCardFooterComponent} from '@features/posts/components/post-card-footer/post-card-footer.component';
 import {
   PostMediaAttachmentGalleryComponent

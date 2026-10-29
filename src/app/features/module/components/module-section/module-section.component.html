@@ -1,9 +1,11 @@
-<app-page-layout [headerTitle]="'Modules'" [isLoading]="loading" [loaderTitle]="'Loading Modules'" [loaderDescription]="'Fetch all your modules from the server.'">
+<app-page-layout [headerTitle]="'Modules'">
   <button data-actions class="btn-mini-primary flex items-center gap-1" matTooltip="Create a new module" matTooltipPosition="above" (click)="openCreateModuleDialog()">
     <lucide-icon [img]="Plus" [size]="14"></lucide-icon>
     Add Module
   </button>
-  <div data-body>
+  <div data-body class="flex flex-col gap-4">
+      <app-filter-toolbar [formGroup]="filterForm" [fields]="filterFields" [sortDirection]="sortDirection()" (onSortDirectionChange)="toggleSortDirection()" (onClearFilters)="clearFilters()">
+      </app-filter-toolbar>
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>#</th>
@@ -45,7 +47,7 @@
       <!-- No Data Row -->
       <tr *matNoDataRow>
         <td class="mat-cell text-center p-4" [attr.colspan]="columns.length">
-          @if (loading) {
+          @if (loading()) {
             <ng-container>
               Loading all Modules...
             </ng-container>

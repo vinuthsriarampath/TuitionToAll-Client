@@ -1,5 +1,4 @@
 import {Component, input} from '@angular/core';
-import {Course} from "@features/course/dtos/response/course";
 import {CurrencyPipe, NgOptimizedImage} from '@angular/common';
 import {environment} from '@env/environment.development';
 import {BadgeComponent} from '@shared/ui';

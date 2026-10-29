@@ -19,6 +19,7 @@ import {CourseFilter} from '@features/course/dtos/request/course-filter';
 import {CourseStatus} from '@features/course/enums/course-status';
 import {AnnouncementCreateRequest} from '@features/announcement/dtos/request/AnnouncementCreateRequest';
 import {CardShellComponent} from '@shared/ui';
+import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
 
 // @ts-ignore
 @Component({
@@ -117,17 +118,30 @@ export class CreateAnnouncementDialogComponent implements OnInit{
     })
   }
 
-  private loadAllBatchesByCourse(courseId:number){
-    this.batchService.getAllBatchesByCourseId(courseId).subscribe({
-      next: (res) => {
-        if (res.data){
-          this.batches = res.data;
+  private loadAllBatchesByCourse(courseId:number): void {
+    const pageSize = 10;
+
+    const loadPage = (pageIndex: number): void => {
+      this.batchService.getAllBatchesByCourseId(
+        courseId,
+        new PaginationRequest(pageIndex, pageSize, 'desc', ['created_date'])
+      ).subscribe({
+        next: (res) => {
+          if (res.data) {
+            this.batches = res.data;
+          }
+
+          if (!(res.last ?? true)) {
+            loadPage(pageIndex + 1);
+          }
+        },
+        error: (err) => {
+          this.alertService.triggerErrorAlert(err.error.message ?? "Failed to fetch batches.");
         }
-      },
-      error: (err) => {
-        this.alertService.triggerErrorAlert(err.error.message);
-      }
-    })
+      });
+    };
+
+    loadPage(0);
   }
 
   protected onCancel(): void{

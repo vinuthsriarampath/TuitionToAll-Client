@@ -1,18 +1,18 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {CourseTreeComponent} from './course-tree.component';
+import {FilterToolbarComponent} from './filter-toolbar.component';
 
-describe('CourseTreeComponent', () => {
-  let component: CourseTreeComponent;
-  let fixture: ComponentFixture<CourseTreeComponent>;
+describe('FilterToolbarComponent', () => {
+  let component: FilterToolbarComponent;
+  let fixture: ComponentFixture<FilterToolbarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CourseTreeComponent]
+      imports: [FilterToolbarComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CourseTreeComponent);
+    fixture = TestBed.createComponent(FilterToolbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

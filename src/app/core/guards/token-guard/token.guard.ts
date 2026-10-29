@@ -23,6 +23,10 @@ export const tokenGuard: CanActivateFn = (route, state) => {
   const userService:UserService = inject(UserService);
 
   if (token) {
+    if (state.url.startsWith('/auth')) {
+      router.navigate(['app']);
+      return false;
+    }
     return authService.verifyToken().pipe(
       map((res) => {
         if (res.data) userService.setCurrentUser(res.data)
@@ -37,6 +41,10 @@ export const tokenGuard: CanActivateFn = (route, state) => {
         return of(false);
       })
     );
+  }
+
+  if (state.url.startsWith('/auth')) {
+    return true;
   }
 
   if (state.url !== '/') {

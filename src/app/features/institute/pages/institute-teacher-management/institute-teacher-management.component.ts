@@ -1,6 +1,6 @@
-import {Component, inject, OnInit, ViewChild} from '@angular/core';
+import {Component, inject, ViewChild} from '@angular/core';
 import {DatePipe, NgClass, NgIf} from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import {FormGroup, FormsModule, NonNullableFormBuilder} from '@angular/forms';
 import {PageTitleComponent} from '@shared/components/page-title/page-title.component';
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from '@angular/material/sidenav';
 import {MatDialog} from '@angular/material/dialog';
@@ -20,20 +20,25 @@ import {
   MatRow,
   MatRowDef,
   MatTable,
-  MatTableDataSource
 } from '@angular/material/table';
 import {MatTooltip} from '@angular/material/tooltip';
 import {InstituteTeacherService} from '../../services/institute-teacher/institute-teacher.service';
 import {InstituteTeacherResponse} from '../../dtos/response/institute-teacher-responses/InstituteTeacherResponse';
-import {AlertService} from '@core/services/alerts/alert.service';
 import {environment} from '@env/environment.development';
 import {InstituteTeacherStatus} from '../../enums/InstituteTeacherStatus';
-import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {MatPaginator} from '@angular/material/paginator';
 import {
   InstituteTeacherStatsResponse
 } from '../../dtos/response/institute-teacher-responses/InstituteTeacherStatsResponse';
 import {BadgeComponent, CardShellComponent, StatCardComponent} from '@shared/ui';
 import {NoContentComponent} from '@shared/components/no-content/no-content.component';
+import {InstituteTeacherFilterRequest} from '@features/institute/dtos/requests/institute-teacher-filter-request';
+import {BasePaginatedFilterComponent} from '@shared/utils/base/BasePaginatedFilterComponent';
+import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
+import {Observable} from 'rxjs';
+import {FilterFieldConfig} from '@shared/utils/config/filter-config';
+import {FilterToolbarComponent} from '@shared/components/filter-toolbar/filter-toolbar.component';
+import {ArrowUpDown, LucideAngularModule} from 'lucide-angular';
 
 @Component({
   selector: 'app-institute-teacher-management',
@@ -63,21 +68,37 @@ import {NoContentComponent} from '@shared/components/no-content/no-content.compo
     BadgeComponent,
     NoContentComponent,
     StatCardComponent,
-    MatNoDataRow
+    MatNoDataRow,
+    FilterToolbarComponent,
+    LucideAngularModule
   ],
   templateUrl: './institute-teacher-management.component.html',
   styleUrl: './institute-teacher-management.component.css'
 })
-export class InstituteTeacherManagementComponent implements OnInit{
+export class InstituteTeacherManagementComponent extends BasePaginatedFilterComponent<InstituteTeacherResponse, InstituteTeacherFilterRequest>{
 
   @ViewChild('drawer') drawer!: MatSidenav;
 
-  protected loading:boolean = false;
   protected statLoading:boolean = false;
 
   private readonly dialog = inject(MatDialog);
-  private readonly instituteTeacherService:InstituteTeacherService = inject(InstituteTeacherService)
-  private readonly alertService:AlertService = inject(AlertService);
+  private readonly instituteTeacherService:InstituteTeacherService = inject(InstituteTeacherService);
+  private readonly fb = inject(NonNullableFormBuilder);
+
+  constructor(){
+    super();
+    this.loadInstituteTeacherStats();
+  }
+
+  filterForm:FormGroup = this.fb.group({
+    search: [''],
+    status: [undefined as InstituteTeacherStatus | undefined]
+  });
+
+  filterFields:FilterFieldConfig[] = [
+    {key: 'search', label:'Search', type: 'text', placeholder: 'Search by name, email or userSlug', colSpan: 'lg:col-span-3'},
+    {key: 'status', label:'Status', type: 'select', placeholder: 'Select status', options: Object.values(InstituteTeacherStatus).map(v =>({label: v, value: v}))}
+  ]
 
   selectedTeacher!: InstituteTeacherResponse;
 
@@ -89,54 +110,15 @@ export class InstituteTeacherManagementComponent implements OnInit{
   };
 
   //table related variables
-  protected dataSource = new MatTableDataSource<InstituteTeacherResponse>();
   columns:string[] = ['id','firstName','lastName','email','contact','status','joinedDate','actions'];
+  sortByFields:string[] = ["joined_date"];
 
 
-  // pagination related
-
-  protected pageIndex:number = 0;
-  protected pageSize:number = 10;
-  protected totalElements:number = 0;
-
-  protected onPageChange(event:PageEvent){
-    this.pageIndex = event.pageIndex;
-    this.pageSize = event.pageSize;
-    this.loadTeachersByInstitute();
+  fetchApiData(pagination:PaginationRequest, filters:InstituteTeacherFilterRequest):Observable<any>{
+    return this.instituteTeacherService.getAllTeachersByInstitute(pagination,filters);
   }
 
-  // initialize data
 
-  ngOnInit(): void {
-    this.loadInstituteTeacherStats();
-    this.loadTeachersByInstitute();
-  }
-
-  /***
-   Load all teachers related to the current institute
-  ***/
-  private loadTeachersByInstitute():void{
-    this.triggerLoading();
-    this.instituteTeacherService.getAllTeachersByInstitute(this.pageIndex,this.pageSize).subscribe({
-      next: (res) => {
-        if(res){
-          this.dataSource.data = res.data ?? [];
-          this.pageIndex = res.page ?? 0;
-          this.pageSize = res.size ?? 10;
-          this.totalElements = res.totalElements ?? 0;
-          this.triggerLoading();
-        }
-      },
-      error: (err) => {
-        this.alertService.triggerErrorAlert(err.error.message);
-        this.triggerLoading();
-      }
-    })
-  }
-
-  /***
-   fetch stats related to the current institute
-   ***/
   private loadInstituteTeacherStats():void{
     this.triggerStatLoading();
     this.instituteTeacherService.getInstituteTeacherStats().subscribe({
@@ -181,14 +163,20 @@ export class InstituteTeacherManagementComponent implements OnInit{
     });
   }
 
-  private triggerLoading():void{
-    this.loading = !this.loading;
-  }
-
   private triggerStatLoading():void{
     this.statLoading = !this.statLoading;
   }
 
+  protected override mapFormToFilter(formValues: Record<string, any>): InstituteTeacherFilterRequest {
+    return {
+      name: formValues['search'] || undefined,
+      email: formValues['search'] || undefined,
+      userSlug: formValues['search'] || undefined,
+      status: formValues['status'] || undefined
+    };
+  }
+
   protected readonly environment = environment;
   protected readonly InstituteTeacherStatus = InstituteTeacherStatus;
+  protected readonly ArrowUpDown = ArrowUpDown;
 }

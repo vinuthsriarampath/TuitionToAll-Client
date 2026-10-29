@@ -7,6 +7,9 @@ import {TeacherVacancy} from '../../dtos/response/teacher-vacancy';
 import {environment} from '@env/environment.development';
 import {PaginatedApiResponse} from '@shared/utils/response/paginated-api-response';
 import {TeacherVacancyStatus} from '../../enums/teacher-vacancy-status';
+import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
+import {TeacherVacancyFilterRequest} from '@features/teacher-vacancy/dtos/request/teacher-vacancy-filter-request';
+import {buildParams} from '@shared/utils/helpers/params-helper';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +22,9 @@ export class TeacherVacancyService {
     return this.http.post<ApiResponse<TeacherVacancy>>(`${environment.TEACHER_VACANCY_API}/`,request);
   }
 
-  getVacanciesByInstitute(pageIndex:number = 0, pageSize:number = 10):Observable<PaginatedApiResponse<TeacherVacancy>>{
-    return this.http.get<PaginatedApiResponse<TeacherVacancy>>(`${environment.TEACHER_VACANCY_API}/my?page=${pageIndex}&size=${pageSize}`);
+  getVacanciesByInstitute(pagination:PaginationRequest, filters:TeacherVacancyFilterRequest):Observable<PaginatedApiResponse<TeacherVacancy>>{
+    let params = buildParams({pagination, filters});
+    return this.http.get<PaginatedApiResponse<TeacherVacancy>>(`${environment.TEACHER_VACANCY_API}/my`, { params });
   }
 
   updateVacancy(vacancyId:number,request:TeacherVacancyCreateRequest):Observable<ApiResponse<TeacherVacancy>>{

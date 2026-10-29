@@ -9,6 +9,7 @@ import {ModuleService} from '../../services/module/module.service';
 import {FormErrorHandler} from '@shared/utils/helpers/FormErrorHandler';
 import {ModuleBatchUpdateRequest} from '../../dtos/request/ModuleBatchUpdateRequest';
 import {BatchService} from '@features/batch/services/batch/batch.service';
+import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
 
 export type ModuleUptBatchDialogData = {
   moduleId:number;
@@ -70,19 +71,35 @@ export class ModuleUptBatchComponent {
   }
 
 
-  private loadAllBatches():void{
-    this.batchService.getAllBatchesByCourseId(this.courseId).subscribe({
-      next: (res)=>{
-        if(res.data){
-          for (let batch of res.data){
-            this.batchOptions.push({label: batch.name, value: batch.id});
+  private loadAllBatches(): void {
+    const pageSize = 10;
+
+    const loadPage = (pageIndex: number): void => {
+      this.batchService.getAllBatchesByCourseId(
+        this.courseId,
+        new PaginationRequest(pageIndex, pageSize, 'desc', ['created_date'])
+      ).subscribe({
+        next: (res) => {
+          if (res.data) {
+            for (const batch of res.data) {
+              this.batchOptions.push({
+                label: batch.name,
+                value: batch.id
+              });
+            }
           }
+
+          if (!(res.last ?? true)) {
+            loadPage(pageIndex + 1);
+          }
+        },
+        error: (err) => {
+          this.alertService.triggerErrorAlert(err.error.message);
         }
-      },
-      error: (err)=>{
-        this.alertService.triggerErrorAlert(err.error.message);
-      }
-    })
+      });
+    };
+
+    loadPage(0);
   }
 
   protected onCancel():void{

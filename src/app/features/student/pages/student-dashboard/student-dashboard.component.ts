@@ -1,14 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {
-  ArrowRight,
-  Award,
-  BookOpen,
-  Calendar,
-  CheckCircle,
-  Clock,
-  LucideAngularModule,
-  RotateCw
-} from "lucide-angular";
+import {ArrowRight, Award, BookOpen, Calendar, CheckCircle, Clock, LucideAngularModule, RotateCw} from "lucide-angular";
 import {PageLayoutComponent} from "@core/layouts";
 import {UserHelper} from '@shared/utils/helpers/user-helper';
 import {User} from '@features/user/dtos/responses/user';
@@ -22,7 +13,6 @@ import {StudentService} from '@features/student/services/student/student.service
 import {StudentBootstrapResponse} from '@features/student/dtos/responses/student-bootstrap-response';
 import {AlertService} from '@core/services/alerts/alert.service';
 import {StudentDashboardStats} from '@features/student/dtos/responses/student-dashboard-stats';
-import {Assignment} from '@features/assignments/dtos/response/assignment';
 import {RecentEnrollmentResponse} from '@features/student/dtos/responses/recent-enrollment-response';
 import {UpcomingAssignmentResponse} from '@features/assignments/dtos/response/upcoming-assignment-response';
 import {RecentResultsResponse} from '@features/student/dtos/responses/recent-results-response';

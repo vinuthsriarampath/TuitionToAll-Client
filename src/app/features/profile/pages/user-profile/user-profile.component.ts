@@ -1,6 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {NavbarComponent} from '@shared/components/navbar/navbar.component';
 import {User} from '../../../user/dtos/responses/user';
 import {UserService} from '@features/user/services/user/user.service';
 import {LucideAngularModule} from 'lucide-angular';
@@ -9,16 +8,17 @@ import {ProfileCoverComponent} from '@features/profile/components/profile-cover/
 import {ProfileIntroComponent} from '@features/profile/components/profile-intro/profile-intro.component';
 import {ProfileTabsComponent} from '@features/profile/components/profile-tabs/profile-tabs.component';
 import {CardShellComponent} from '@shared/ui';
+import {PageLayoutComponent} from '@core/layouts';
 
 @Component({
   selector: 'app-user-profile',
   imports: [
-    NavbarComponent,
     LucideAngularModule,
     CardShellComponent,
     ProfileCoverComponent,
     ProfileIntroComponent,
     ProfileTabsComponent,
+    PageLayoutComponent,
   ],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css'

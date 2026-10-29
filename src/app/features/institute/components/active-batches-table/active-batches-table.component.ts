@@ -26,7 +26,6 @@ import {RouterLink} from '@angular/router';
 import {BatchService} from '@features/batch/services/batch/batch.service';
 import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
 import {BatchFilterRequest} from '@features/batch/dtos/request/batch-filter-request';
-import {UserService} from '@features/user/services/user/user.service';
 import {AlertService} from '@core/services/alerts/alert.service';
 
 @Component({
@@ -62,7 +61,6 @@ export class ActiveBatchesTableComponent implements OnInit{
   protected dataSource: MatTableDataSource<BatchDetailedResponse> = new MatTableDataSource<BatchDetailedResponse>([]);
 
   private readonly batchService = inject(BatchService);
-  private readonly userService = inject(UserService);
   private readonly alertService = inject(AlertService);
 
   protected pageIndex:number = 0;
@@ -81,7 +79,6 @@ export class ActiveBatchesTableComponent implements OnInit{
     const pagination = new PaginationRequest(this.pageIndex, this.pageSize);
     const filters = new BatchFilterRequest();
     filters.status = BatchStatus.ONGOING;
-    filters.instituteId = this.userService.getCurrentUser().details.id ?? -1;
     this.batchService.getDetailedBatches(pagination,filters).subscribe({
       next: (res) =>{
         if(res.data){

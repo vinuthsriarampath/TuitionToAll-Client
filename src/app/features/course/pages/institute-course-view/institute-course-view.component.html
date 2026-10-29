@@ -35,20 +35,14 @@
 
         <!-- ACTION TOOLBAR -->
         <div class="mt-8 flex flex-wrap gap-3">
-          <button class="btn-primary" [routerLink]="['batch-mgt']">Batches</button>
-          <button class="btn-secondary btn-success" [routerLink]="['announcements']">Announcements</button>
+          <button class="btn-primary" [routerLink]="['announcements']">Announcements</button>
           <button class="btn-secondary btn-success" [routerLink]="['feedbacks&reviews']">Reviews & Feedbacks</button>
           <button class="btn-light">Analytics (Future)</button>
         </div>
       </div>
 
       <div main-content class="flex flex-col gap-4">
-        <app-card-shell>
-          <div class="p-6 space-y-3">
-            <h3>Course Tree</h3>
-            <app-course-tree></app-course-tree>
-          </div>
-        </app-card-shell>
+        <app-batch-management></app-batch-management>
       </div>
 
       <div side-content class="flex flex-col gap-4">

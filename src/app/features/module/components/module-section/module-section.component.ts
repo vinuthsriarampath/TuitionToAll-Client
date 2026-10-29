@@ -1,6 +1,6 @@
-import {Component, inject, input, OnInit} from '@angular/core';
+import {Component, inject, input} from '@angular/core';
 import {PageLayoutComponent} from '@core/layouts';
-import {Edit, Eye, LucideAngularModule, Plus, View} from 'lucide-angular';
+import {ArrowUpDown, Edit, Eye, LucideAngularModule, Plus, View} from 'lucide-angular';
 import {
   MatCell,
   MatCellDef,
@@ -12,13 +12,11 @@ import {
   MatNoDataRow,
   MatRow,
   MatRowDef,
-  MatTable,
-  MatTableDataSource
+  MatTable
 } from '@angular/material/table';
 import {ModuleResponse} from '../../dtos/response/ModuleResponse';
-import {AlertService} from '@core/services/alerts/alert.service';
 import {ModuleBadgeComponent} from '../module-badge/module-badge.component';
-import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {MatPaginator} from '@angular/material/paginator';
 import {DatePipe} from '@angular/common';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatDialog} from '@angular/material/dialog';
@@ -27,6 +25,14 @@ import {RouterLink} from '@angular/router';
 import {ModuleUpdateViewComponent} from '../../dialogs/module-update-view/module-update-view.component';
 import {BatchService} from '@features/batch/services/batch/batch.service';
 import {NoContentComponent} from '@shared/components/no-content/no-content.component';
+import {NonNullableFormBuilder} from '@angular/forms';
+import {ModuleStatus} from '@features/module/enums/ModuleStatus';
+import {BasePaginatedFilterComponent} from '@shared/utils/base/BasePaginatedFilterComponent';
+import {ModuleFilterRequest} from '@features/module/dtos/request/ModuleFilterRequest';
+import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
+import {Observable} from 'rxjs';
+import {FilterFieldConfig} from '@shared/utils/config/filter-config';
+import {FilterToolbarComponent} from '@shared/components/filter-toolbar/filter-toolbar.component';
 
 @Component({
   selector: 'app-module-section',
@@ -49,52 +55,43 @@ import {NoContentComponent} from '@shared/components/no-content/no-content.compo
     MatTooltip,
     RouterLink,
     NoContentComponent,
-    MatNoDataRow
+    MatNoDataRow,
+    FilterToolbarComponent
   ],
   templateUrl: './module-section.component.html',
   styleUrl: './module-section.component.css'
 })
-export class ModuleSectionComponent implements OnInit {
+export class ModuleSectionComponent extends BasePaginatedFilterComponent<ModuleResponse, ModuleFilterRequest>{
 
   batchId = input.required<number>();
 
-  protected loading:boolean = false;
-
-  //table related variables
-  protected pageIndex:number = 0;
-  protected pageSize:number = 10;
-  protected totalElements:number = 0;
-
-  protected columns:string[] = ['id', 'name', 'status', 'createdDate','lastModifiedDate','actions'];
-  protected dataSource:MatTableDataSource<ModuleResponse> = new MatTableDataSource<ModuleResponse>([]);
-
   //dependencies
   private readonly batchService:BatchService = inject(BatchService);
-  private readonly alertService:AlertService = inject(AlertService);
+  private readonly fb = inject(NonNullableFormBuilder);
   private readonly dialog:MatDialog = inject(MatDialog);
 
+  protected filterForm = this.fb.group({
+    name: [''],
+    status: [undefined as ModuleStatus | undefined]
+  })
 
-  ngOnInit(): void {
-    this.loadModulesByBatch();
+  protected columns:string[] = ['id', 'name', 'status', 'createdDate','lastModifiedDate','actions'];
+  protected sortByFields = ['created_date'];
+
+  protected filterFields:FilterFieldConfig[] = [
+    {key:'name', label:'Module Name', type:'text',placeholder: 'Search by module name',colSpan: 'lg:col-span-2'},
+    {key:'status', label:'Module Status', type:'select', placeholder: 'All Status', colSpan: 'lg:col-span-2', options: Object.values(ModuleStatus).map(v => ({label:v,value:v}))}
+  ]
+
+  protected fetchApiData(pagination:PaginationRequest, filters: ModuleFilterRequest):Observable<any>{
+    return this.batchService.getAllModulesByBatch(this.batchId(),pagination, filters);
   }
 
-  protected loadModulesByBatch():void{
-    this.triggerLoading();
-    this.batchService.getAllModulesByBatch(this.batchId()).subscribe({
-        next:(res)=>{
-          if(res.data){
-            this.dataSource.data = res.data;
-            this.pageIndex = res.page ?? 0;
-            this.pageSize =res.size ?? 10;
-            this.totalElements = res.totalElements ?? 0;
-            this.triggerLoading();
-          }
-        },
-      error:(err)=>{
-          this.alertService.triggerErrorAlert(err.error.message);
-          this.triggerLoading();
-      }
-    });
+  protected override mapFormToFilter(formValues: Record<string, any>): ModuleFilterRequest {
+    return {
+      name: formValues['name'] || undefined ,
+      status: formValues['status'] || undefined
+    };
   }
 
   protected openCreateModuleDialog():void{
@@ -105,18 +102,12 @@ export class ModuleSectionComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe({
       next:() => {
-        this.loadModulesByBatch();
+        this.clearFilters();
       },
       error: (err) => {
         this.alertService.triggerErrorAlert(err.error.message);
       }
     })
-  }
-
-  protected onPageChange(event : PageEvent):void{
-    this.pageIndex = event.pageIndex;
-    this.pageSize = event.pageSize;
-    this.loadModulesByBatch();
   }
 
   protected openModuleUpdateViewDialog(moduleId:number):void{
@@ -127,7 +118,7 @@ export class ModuleSectionComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe({
       next:()=>{
-        this.loadModulesByBatch();
+        this.clearFilters();
       },
       error:() => {
         this.alertService.triggerErrorAlert("Failed to update module");
@@ -135,12 +126,9 @@ export class ModuleSectionComponent implements OnInit {
     })
   }
 
-  private triggerLoading():void{
-    this.loading = !this.loading;
-  }
-
   protected readonly Plus = Plus;
   protected readonly View = View;
   protected readonly Edit = Edit;
   protected readonly Eye = Eye;
+  protected readonly ArrowUpDown = ArrowUpDown;
 }

@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { MyReceivesComponent } from './my-receives.component';
+import {MyReceivesComponent} from './my-receives.component';
 
 describe('MyReceivesComponent', () => {
   let component: MyReceivesComponent;

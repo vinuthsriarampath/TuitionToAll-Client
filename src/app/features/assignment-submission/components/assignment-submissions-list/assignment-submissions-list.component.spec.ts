@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AssignmentSubmissionsListComponent } from './assignment-submissions-list.component';
+import {AssignmentSubmissionsListComponent} from './assignment-submissions-list.component';
 
 describe('AssignmentSubmissionsListComponent', () => {
   let component: AssignmentSubmissionsListComponent;

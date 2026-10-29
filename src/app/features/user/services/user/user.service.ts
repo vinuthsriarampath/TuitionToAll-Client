@@ -15,11 +15,11 @@ import {ApiResponse} from '@shared/utils/response/api-response';
 import {environment} from '@env/environment.development';
 import {User} from '../../dtos/responses/user';
 import {BehaviorSubject, Observable} from 'rxjs';
-import { PaginationRequest } from "@shared/utils/requests/PaginationRequest";
-import { UserBasicFilterRequest } from "@features/user/dtos/requests/user-basic-filter-requests";
-import { PaginatedApiResponse } from "@shared/utils/response/paginated-api-response";
+import {PaginationRequest} from "@shared/utils/requests/PaginationRequest";
+import {UserBasicFilterRequest} from "@features/user/dtos/requests/user-basic-filter-requests";
+import {PaginatedApiResponse} from "@shared/utils/response/paginated-api-response";
 import {addFilterParams, buildPaginationParams} from '@shared/utils/helpers/params-helper';
-import { UserBasicResponse } from "@features/user/dtos/responses/user-basic-response";
+import {UserBasicResponse} from "@features/user/dtos/responses/user-basic-response";
 
 @Injectable({
   providedIn: 'root'

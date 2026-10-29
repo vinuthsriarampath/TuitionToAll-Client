@@ -1,4 +1,4 @@
-import { ModuleStatus } from "@features/module/enums/ModuleStatus";
+import {ModuleStatus} from "@features/module/enums/ModuleStatus";
 
 export class TeacherModuleResponse {
   moduleId!: number;

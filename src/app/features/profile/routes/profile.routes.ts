@@ -1,6 +1,4 @@
 import {Routes} from '@angular/router';
-import {authGuard} from '@core/guards/auth-guard/auth.guard';
-import {tokenGuard} from '@core/guards/token-guard/token.guard';
 import {courseResolver} from '@features/course/resolvers/course-resolver/course.resolver';
 
 export const PROFILE_ROUTES: Routes = [
@@ -11,8 +9,6 @@ export const PROFILE_ROUTES: Routes = [
   },
   {
     path: '',
-    canActivate: [authGuard,tokenGuard],
-    canActivateChild: [authGuard,tokenGuard],
     children: [
       {
         path: '',

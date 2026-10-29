@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PostMediaAttachmentGalleryComponent } from './post-media-attachment-gallery.component';
+import {PostMediaAttachmentGalleryComponent} from './post-media-attachment-gallery.component';
 
 describe('PostMediaAttachmentGalleryComponent', () => {
   let component: PostMediaAttachmentGalleryComponent;

@@ -1,0 +1,66 @@
+<app-card-shell>
+
+  <div [formGroup]="formGroup()" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-8 gap-3 items-end p-4">
+    @for (field of fields(); track field.key) {
+      <div [class]="field.colSpan || 'lg:col-span-1'">
+        @switch (field.type) {
+          @case ('text'){
+            <app-input
+              [control]="formGroup().get(field.key)"
+              [id]="field.key + '-filter'"
+              [label]="field.label"
+              [type]="field.type"
+              [placeholder]="field.placeholder || ''"
+            />
+          }
+          @case ('number'){
+            <app-input
+              [control]="formGroup().get(field.key)"
+              [id]="field.key + '-filter'"
+              [label]="field.label"
+              [type]="field.type"
+              [placeholder]="field.placeholder || ''"
+            />
+          }
+          @case ('date') {
+            <app-input
+              [control]="formGroup().get(field.key)"
+              [id]="field.key + '-filter'"
+              [label]="field.label"
+              [type]="field.type"
+              [placeholder]="field.placeholder || ''"
+            />
+          }
+          @case ('select') {
+            <app-select
+              [control]="formGroup().get(field.key)"
+              [id]="field.key + '-filter'"
+              [label]="field.label"
+              [options]="field.options || []"
+              [placeholder]="field.placeholder || 'All ' + field.label"
+            />
+          }
+        }
+      </div>
+    }
+    <div class="flex flex-row gap-2 items-center ">
+      <button
+        type="button"
+        (click)="onSortDirectionChange.emit()"
+        class="btn btn-mini-primary flex gap-2 items-center justify-center titlecase w-full"
+        matTooltip="Toggle Sort Direction"
+      >
+        <lucide-icon [img]="ArrowUpDown" [size]="16"></lucide-icon>
+        {{ sortDirection() | titlecase }}
+      </button>
+      <button
+        type="button"
+        (click)="onClearFilters.emit()"
+        class="btn btn-mini-secondary flex gap-2 items-center justify-center w-full"
+        matTooltip="Clear Filters"
+      >
+        Clear Filters
+      </button>
+    </div>
+  </div>
+</app-card-shell>

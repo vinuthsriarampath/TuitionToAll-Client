@@ -3,10 +3,16 @@ import {TeacherService} from '@features/teacher/services/teacher/teacher.service
 import {AlertService} from '@core/services/alerts/alert.service';
 import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
 import {
-  MatCell, MatCellDef,
+  MatCell,
+  MatCellDef,
   MatColumnDef,
   MatHeaderCell,
-  MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatNoDataRow, MatRow, MatRowDef,
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatNoDataRow,
+  MatRow,
+  MatRowDef,
   MatTable,
   MatTableDataSource
 } from '@angular/material/table';

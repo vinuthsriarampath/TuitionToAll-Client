@@ -3,7 +3,6 @@ import {Observable} from "rxjs";
 import {PaginatedApiResponse} from "@shared/utils/response/paginated-api-response";
 import {ModuleResponse} from '../../dtos/response/ModuleResponse';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {ModuleFilterRequest} from '../../dtos/request/ModuleFilterRequest';
 import {ApiResponse} from '@shared/utils/response/api-response';
 import {ModuleNameUpdateRequest} from '../../dtos/request/ModuleNameUpdateRequest';
 import {ModuleCreateRequest} from '../../dtos/request/ModuleCreateRequest';
@@ -62,28 +61,6 @@ export class ModuleService {
 
   getDetailedModuleById(id:number):Observable<ApiResponse<ModuleDetailedResponse>>{
     return this.http.get<ApiResponse<ModuleDetailedResponse>>(`${this.baseUrl}/${id}/detailed`);
-  }
-
-  getAllModules(page: number = 0, size: number = 10, direction: string = 'desc', sortBy: string[] = ['created_date'], filter?: ModuleFilterRequest): Observable<PaginatedApiResponse<ModuleResponse>> {
-
-    let params = new HttpParams()
-      .set('page', page)
-      .set('size', size)
-      .set('direction', direction);
-
-    sortBy.forEach(value => {
-      params = params.append('sortBy', value);
-    });
-
-    if (filter?.status) {
-      params = params.set('status', filter.status);
-    }
-
-    if (filter?.batchId) {
-      params = params.set('batchId', filter.batchId);
-    }
-
-    return this.http.get<PaginatedApiResponse<ModuleResponse>>(`${this.baseUrl}`, {params});
   }
 
   getChaptersByModuleId(moduleId: number): Observable<ApiResponse<ChapterResponse[]>> {

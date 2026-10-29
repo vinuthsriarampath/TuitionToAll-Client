@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { InstituteShellComponent } from './institute-shell.component';
+import {InstituteShellComponent} from './institute-shell.component';
 
 describe('InstituteShellComponent', () => {
   let component: InstituteShellComponent;

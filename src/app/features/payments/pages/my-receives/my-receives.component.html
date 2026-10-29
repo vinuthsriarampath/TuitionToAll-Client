@@ -1,6 +1,7 @@
 <app-page-layout [headerTitle]="'My Payment Receives'" [headerDescription]="'View and manage your payment history and details.'">
-  <div data-body>
-
+  <div data-body class="flex flex-col gap-4">
+      <app-filter-toolbar [formGroup]="filterForm" [fields]="filterFields" [sortDirection]="sortDirection()" (onSortDirectionChange)="toggleSortDirection()" (onClearFilters)="clearFilters()">
+      </app-filter-toolbar>
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>#</th>
@@ -41,7 +42,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       <tr *matNoDataRow>
         <td class="mat-cell text-center p-4" [attr.colspan]="displayedColumns.length">
-          @if (loading) {
+          @if (loading()) {
             <ng-container>
               Loading all Payments...
             </ng-container>
@@ -56,6 +57,6 @@
         </td>
       </tr>
     </table>
-    <mat-paginator [length]="totalElements" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="[5,10,20,50]" (page)="onPageChange($event)"></mat-paginator>
+    <mat-paginator [length]="totalElements()" [pageIndex]="pageIndex()" [pageSize]="pageSize()" [pageSizeOptions]="[5,10,20,50]" (page)="onPageChange($event)"></mat-paginator>
   </div>
 </app-page-layout>

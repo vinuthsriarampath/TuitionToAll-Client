@@ -1,8 +1,7 @@
-import {Component, inject, OnInit, ViewChild} from '@angular/core';
+import {Component, inject, ViewChild} from '@angular/core';
 import {ApplicationService} from '../../services/application/application.service';
 import {ActivatedRoute} from '@angular/router';
 import {ApplicationDetailsResponse} from '../../dtos/response/application-details-response';
-import {AlertService} from '@core/services/alerts/alert.service';
 import {PageTitleComponent} from '@shared/components/page-title/page-title.component';
 import {
   MatCell,
@@ -16,7 +15,6 @@ import {
   MatRow,
   MatRowDef,
   MatTable,
-  MatTableDataSource
 } from '@angular/material/table';
 import {DatePipe, NgClass, NgIf} from '@angular/common';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
@@ -31,6 +29,14 @@ import {ApplicationRejectionRequest} from '../../dtos/request/ApplicationRejecti
 import {BadgeComponent, CardShellComponent} from '@shared/ui';
 import {PhonePipePipe} from '@shared/utils/pipes/phone-pipe/phone-pipe.pipe';
 import {NoContentComponent} from '@shared/components/no-content/no-content.component';
+import {BasePaginatedFilterComponent} from '@shared/utils/base/BasePaginatedFilterComponent';
+import {ApplicationFilterRequest} from '@features/applications/dtos/request/application-filter-request';
+import {FormGroup, NonNullableFormBuilder} from '@angular/forms';
+import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
+import {Observable} from 'rxjs';
+import {FilterFieldConfig} from '@shared/utils/config/filter-config';
+import {FilterToolbarComponent} from '@shared/components/filter-toolbar/filter-toolbar.component';
+import {ArrowUpDown, LucideAngularModule} from 'lucide-angular';
 
 @Component({
   selector: 'app-view-application',
@@ -58,23 +64,20 @@ import {NoContentComponent} from '@shared/components/no-content/no-content.compo
     BadgeComponent,
     PhonePipePipe,
     NoContentComponent,
-    MatNoDataRow
+    MatNoDataRow,
+    FilterToolbarComponent,
+    LucideAngularModule
   ],
   templateUrl: './view-application.component.html',
   styleUrl: './view-application.component.css'
 })
-export class ViewApplicationComponent implements OnInit {
+export class ViewApplicationComponent extends BasePaginatedFilterComponent<ApplicationDetailsResponse, ApplicationFilterRequest> {
 
   private vacancyId!:number;
-  private applications:ApplicationDetailsResponse[] = [];
 
-  protected loading:boolean = false;
   // Table related variables
-  protected dataSource = new MatTableDataSource(this.applications);
   protected columns: string[] = ['select','id', 'dp' ,'firstName','lastName', 'status' , 'appliedDate', 'actions'];
-  protected pageIndex:number = 0;
-  protected pageSize:number = 10;
-  protected totalElements:number = 0;
+  protected sortByFields:string[] = ['applied_date'];
 
   //multi select related variables
   protected selection = new SelectionModel<ApplicationDetailsResponse>(true,[]);
@@ -112,46 +115,46 @@ export class ViewApplicationComponent implements OnInit {
   // dependency injection
   private readonly applicationService: ApplicationService = inject((ApplicationService))
   private readonly activatedRoute = inject(ActivatedRoute);
-  private readonly alertService = inject(AlertService);
   private readonly instituteTeacherService = inject(InstituteTeacherService);
-
+  private readonly fb = inject(NonNullableFormBuilder);
   protected readonly environment = environment;
   protected readonly ApplicationStatus = ApplicationStatus;
 
-  ngOnInit(): void {
-    this.loadVacancyIdFromRoute()
-  }
+  filterForm:FormGroup = this.fb.group({
+    status: [undefined as ApplicationStatus | undefined],
+    teacherName: ['']
+  })
 
-  private loadVacancyIdFromRoute():void{
+  filterFields:FilterFieldConfig[] = [
+    {key: 'status', label: 'Status', type: 'select', placeholder: 'Select status', colSpan: 'lg:col-span-2', options: Object.values(ApplicationStatus).map(v => ({label: v, value: v}))},
+    {key: 'teacherName', label: 'Teacher Name', type: 'text', placeholder: 'Search by teacher name', colSpan: 'lg:col-span-3'}
+  ]
+
+  constructor(){
+    super();
     this.activatedRoute.paramMap.subscribe(params => {
       const vacancyId = params.get('vacancyId');
       if(vacancyId) {
         this.vacancyId = Number.parseInt(vacancyId);
-        this.loadApplications();
       }else{
         this.alertService.triggerErrorAlert("Vacancy ID not found in route!");
       }
     });
   }
 
-  private loadApplications():void{
-    this.triggerLoading();
-    this.applicationService.getAllApplicationsByVacancy(this.vacancyId,this.pageIndex,this.pageSize).subscribe({
-      next: (res)=>{
-        if (res.data) {
-          this.applications = res.data;
-          this.dataSource.data = this.applications;
-          this.pageIndex = res.page ?? 0;
-          this.pageSize = res.size ?? 10;
-          this.totalElements = res.totalElements ?? 0;
-          this.triggerLoading();
-        }
-      },
-      error: (err)=>{
-        this.alertService.triggerErrorAlert(err.error.message);
-        this.triggerLoading();
-      }
-    })
+  protected fetchApiData(pagination:PaginationRequest, filters:ApplicationFilterRequest):Observable<any>{
+    if(!this.vacancyId) {
+      this.alertService.triggerErrorAlert("Vacancy ID not found in route!");
+      return new Observable<any>();
+    }
+    return this.applicationService.getAllApplicationsByVacancy(this.vacancyId,pagination, filters);
+  }
+
+  protected override mapFormToFilter(formValues: Record<string, any>): ApplicationFilterRequest {
+    return {
+      status: formValues['status'] || undefined,
+      teacherName: formValues['teacherName'] || undefined
+    };
   }
 
   onBulkSelect():void{
@@ -169,7 +172,7 @@ export class ViewApplicationComponent implements OnInit {
   }
 
   sendSelectionRequest(request:ApplicationSelectionRequest):void{
-    this.triggerLoading();
+    this.loading.set(true);
     this.instituteTeacherService.onboardTeachers(request).subscribe({
       next: (res)=>{
         if(res.data){
@@ -186,12 +189,12 @@ export class ViewApplicationComponent implements OnInit {
           }
 
           this.resetSelection();
-          this.triggerLoading();
+          this.loading.set(false);
         }
       },
       error: (err)=>{
         this.alertService.triggerErrorAlert(err.error.message);
-        this.triggerLoading();
+        this.loading.set(false);
       }
     })
   }
@@ -209,10 +212,10 @@ export class ViewApplicationComponent implements OnInit {
   }
 
   sendRejectionRequest(request:ApplicationRejectionRequest){
-    this.triggerLoading();
+    this.loading.set(true);
     this.instituteTeacherService.rejectApplications(request).subscribe({
       next: (res)=>{
-        this.triggerLoading();
+        this.loading.set(false);
         if(res.data){
           if (res.data.successApplicationIds.length > res.data.failedApplicationIds.length){
             this.alertService.triggerSuccessAlert(`${res.data.successApplicationIds.length} out of ${request.applicationIds.length} applications successfully rejected!`);
@@ -227,16 +230,15 @@ export class ViewApplicationComponent implements OnInit {
         }
       },
       error: (err)=>{
-        this.triggerLoading();
+        this.loading.set(false);
         this.alertService.triggerErrorAlert(err.error.message);
       }
     })
   }
 
-  protected onPageChange(event: PageEvent):void{
-    this.pageIndex = event.pageIndex;
-    this.pageSize = event.pageSize;
-    this.loadApplications();
+  override onPageChange(event: PageEvent):void{
+    this.pageIndex.set(event.pageIndex);
+    this.pageSize.set(event.pageSize);
     this.resetSelection();
   }
 
@@ -246,8 +248,5 @@ export class ViewApplicationComponent implements OnInit {
     this.drawer.open();
   }
 
-    private triggerLoading():void{
-      this.loading = !this.loading;
-    }
-
+  protected readonly ArrowUpDown = ArrowUpDown;
 }

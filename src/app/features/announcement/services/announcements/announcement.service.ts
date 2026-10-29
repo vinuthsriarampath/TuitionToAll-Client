@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {environment} from '@env/environment.development';
 import {AnnouncementCreateRequest} from "../../dtos/request/AnnouncementCreateRequest";
 import {ApiResponse} from '@shared/utils/response/api-response';
@@ -9,6 +9,8 @@ import {AnnouncementVisibilityUpdateRequest} from '../../dtos/request/Announceme
 import {AnnouncementUpdateRequest} from '../../dtos/request/AnnouncementUpdateRequest';
 import {AnnouncementFilterRequest} from '../../dtos/request/AnnouncementFilterRequest';
 import {PaginatedApiResponse} from '@shared/utils/response/paginated-api-response';
+import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
+import {buildParams} from '@shared/utils/helpers/params-helper';
 
 @Injectable({
   providedIn: 'root'
@@ -42,25 +44,8 @@ export class AnnouncementService {
     return this.http.patch<ApiResponse<AnnouncementResponse>>(`${this.baseUrl}/${id}/unpin`, {});
   }
 
-  getAllAnnouncements(page: number = 0, size: number = 5, direction: string = 'desc', sortBy: string[] = ['published_date'], filters?: AnnouncementFilterRequest): Observable<PaginatedApiResponse<AnnouncementResponse>> {
-
-    let params = new HttpParams()
-      .set('page', page)
-      .set('size', size)
-      .set('direction', direction);
-
-    sortBy.forEach(s => {
-      params = params.append('sortBy', s);
-    });
-
-    if(filters){
-      for (const [key, value] of Object.entries(filters)) {
-        if (value) {
-          params = params.set(key, value);
-        }
-      }
-    }
-
+  getAllAnnouncements(pagination: PaginationRequest, filters?: AnnouncementFilterRequest): Observable<PaginatedApiResponse<AnnouncementResponse>> {
+    let params = buildParams({pagination, filters});
     return this.http.get<PaginatedApiResponse<AnnouncementResponse>>(`${this.baseUrl}`, { params });
   }
 

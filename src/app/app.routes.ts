@@ -17,11 +17,13 @@ import {authGuard} from '@core/guards/auth-guard/auth.guard';
 export const routes: Routes = [
   {
     path: '',
+    canActivate: [tokenGuard],
     loadComponent: () => import('@shared/pages/landing-page/landing-page.component').then(m => m.LandingPageComponent),
-    canActivate: [tokenGuard]
   },
   {
     path: 'auth',
+    canActivate: [tokenGuard],
+    canActivateChild: [tokenGuard],
     loadChildren: () => import('@features/auth/routes/auth.routes').then(m => m.AUTH_ROUTES)
   },
   {
@@ -45,14 +47,10 @@ export const routes: Routes = [
     loadChildren: () => import('@features/student/routes/student.routes').then(m => m.STUDENT_ROUTES)
   },
   {
-    path: 'profile/:userSlug',
-    loadChildren: () => import('@features/profile/routes/profile.routes').then(m => m.PROFILE_ROUTES)
-  },
-  {
-    path:'maintenance',
-    title: 'Maintenance',
+    path:'underdevelopment',
+    title: 'Under Development',
+    canActivate: [authGuard],
     loadComponent: () => import('@shared/pages/under-development-page/under-development-page.component').then(m => m.UnderDevelopmentPageComponent),
-    canActivate: [authGuard]
   },
   {
     path: '**',
