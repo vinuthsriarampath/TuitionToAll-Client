@@ -7,7 +7,7 @@ import {PostService} from '@features/posts/services/post-service/post.service';
 import {MyPostsFilterRequests} from '@features/posts/dtos/requests/my-posts-filter-request';
 import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
 import {UserPostCardComponent} from '@features/posts/components/user-post-card/user-post-card.component';
-import {Funnel, LucideAngularModule} from 'lucide-angular';
+import {CloudUpload, Funnel, LucideAngularModule, Trash} from 'lucide-angular';
 import {PostCreateComponent} from '@features/posts/components/post-create/post-create.component';
 import {combineLatest, distinctUntilChanged, switchMap} from 'rxjs';
 import {toObservable} from '@angular/core/rxjs-interop';
@@ -161,7 +161,7 @@ export class UserPostsComponent implements OnInit {
     this.alertService.triggerSuccessConfirmationAlert({
       type: 'success',
       confirmText: 'Yes, Publish',
-      icon: Funnel,
+      icon: CloudUpload,
       title: 'Publish Draft Post',
       message: 'Are you sure you want to publish this draft post? Once published, it will be visible to others.',
       confirmButtonClass: 'btn btn-mini-primary btn-success'
@@ -172,6 +172,34 @@ export class UserPostsComponent implements OnInit {
             next: () => {
               this.alertService.triggerSuccessAlert('Published successfully!');
               this.posts.update(current => current.map(post => post.id === postId ? { ...post, status: PostStatus.PUBLISHED } : post));
+            },
+            error: (err) => {
+              this.alertService.triggerErrorAlert(err.error?.message || 'Failed to publish draft post');
+            }
+          });
+        }
+      },
+      error: () => {
+        this.alertService.triggerErrorAlert('Failed to confirm draft post publication.');
+      }
+    })
+  }
+
+  deletePost(postId:number):void{
+    this.alertService.triggerSuccessConfirmationAlert({
+      type: 'danger',
+      confirmText: 'Yes, Delete',
+      icon: Trash,
+      title: 'Delete Post',
+      message: 'Are you sure you want to delete this post? This action cannot be undone.',
+      confirmButtonClass: 'btn btn-mini-primary btn-danger'
+    }).subscribe({
+      next: (confirmed) => {
+        if (confirmed) {
+          this.postService.deletePost(postId).subscribe({
+            next: () => {
+              this.alertService.triggerSuccessAlert('Deleted successfully!');
+              this.posts.update(current => current.filter(post => post.id !== postId));
             },
             error: (err) => {
               this.alertService.triggerErrorAlert(err.error?.message || 'Failed to publish draft post');

@@ -108,4 +108,8 @@ export class PostService {
 
     return this.http.put<ApiResponse<PostResponse>>(`${environment.POST_API}/${postId}`, formData);
   }
+
+  deletePost(postId:number):Observable<ApiResponse<null>>{
+    return this.http.delete<ApiResponse<null>>(`${this.baseUrl}/${postId}`);
+  }
 }
