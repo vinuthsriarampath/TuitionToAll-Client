@@ -15,6 +15,7 @@ import {PostCommentRequest} from '@features/posts/dtos/requests/post-comment-req
 import {PostCommentResponse} from '@features/posts/dtos/responses/post-comment-response';
 import {PostCommentDetailedResponse} from '@features/posts/dtos/responses/post-comment-detailed-response';
 import {FeedPostResponse} from '@features/posts/dtos/responses/feed-post-response';
+import {PostUpdateRequest} from '@features/posts/dtos/requests/post-update-request';
 
 @Injectable({
   providedIn: 'root'
@@ -95,5 +96,16 @@ export class PostService {
     }
 
     return this.http.get<PaginatedApiResponse<PostCommentDetailedResponse>>(`${this.baseUrl}/${postId}/comments`, { params });
+  }
+
+  updatePost(postId: number, request: PostUpdateRequest, files: File[]): Observable<ApiResponse<PostResponse>> {
+    const formData = new FormData();
+    formData.append('request', new Blob([JSON.stringify(request)], { type: 'application/json' }));
+
+    files.forEach((file) => {
+      formData.append('files', file);
+    });
+
+    return this.http.put<ApiResponse<PostResponse>>(`${environment.POST_API}/${postId}`, formData);
   }
 }
