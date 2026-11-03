@@ -1,0 +1,132 @@
+<app-dialog-layout
+  (cancelEvent)="onCancel()"
+  [title]="'Edit Post'"
+  [description]="'Update your caption, visibility, status, or manage media attachments.'"
+  [icon]="Edit3"
+  [loaderTitle]="'Updating Post'"
+  [loaderDescription]="'Please wait while your post changes are being saved...'"
+  [loading]="loading()">
+
+  <div data-body>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
+
+      <!-- Visibility & Status Controls Row -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <app-select
+          id="visibility"
+          label="Visibility"
+          placeholder="Select visibility"
+          [options]="postVisibilityOptions"
+          [control]="form.get('visibility')"
+          [required]="true">
+        </app-select>
+
+        <app-select
+          id="status"
+          label="Status"
+          placeholder="Select status"
+          [options]="postStatusOptions"
+          [control]="form.get('status')"
+          [required]="true">
+        </app-select>
+      </div>
+
+      <!-- Caption Textarea -->
+      <div class="relative">
+        <label for="caption" class="block text-xs font-medium text-sky-200/80 mb-1">Caption</label>
+        <textarea
+          id="caption"
+          formControlName="caption"
+          rows="4"
+          placeholder="What's on your mind?"
+          class="w-full bg-slate-900/60 border border-sky-800/40 rounded-xl p-3 text-sm text-sky-50 placeholder-sky-300/40 focus:outline-none focus:border-sky-600/80 resize-none transition-all duration-200">
+        </textarea>
+      </div>
+
+      <!-- Media Preview Grid (Existing + New Files combined list with removal state styling) -->
+      @if (selectedFiles().length > 0) {
+        <div>
+          <span class="block text-xs font-medium text-sky-200/80 mb-1">Attached Media</span>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            @for (item of selectedFiles(); track $index) {
+              <div
+                class="relative group rounded-lg overflow-hidden border transition-all duration-200 bg-slate-800/40 p-1 flex items-center justify-between"
+                [class.border-rose-500]="item.isMarkedForRemoval"
+                [class.border-sky-800-50]="!item.isMarkedForRemoval">
+
+                <!-- Media Content Preview -->
+                <div class="w-full relative" [class.opacity-40]="item.isMarkedForRemoval">
+                  @if (item.mediaType === PostMediaType.IMAGE) {
+                    <img [src]="item.isExisting ? getMediaUrl(item.fileName!) : item.previewUrl" alt="attachment" class="h-24 w-full object-cover rounded-md" />
+                  } @else {
+                    <div class="flex items-center gap-2 p-2 min-w-0">
+                      <lucide-icon [img]="Files" [size]="18" class="text-sky-400 shrink-0"></lucide-icon>
+                      <span class="text-xs text-sky-200 truncate">{{ item.isExisting ? item.fileName : item.file?.name }}</span>
+                    </div>
+                  }
+                </div>
+
+                <!-- Marked for Removal Badge Overlay (Existing files only) -->
+                @if (item.isMarkedForRemoval) {
+                  <div class="absolute inset-0 bg-rose-950/70 backdrop-blur-[1px] flex flex-col items-center justify-center p-1 text-center z-10">
+                    <span class="text-[10px] font-semibold text-rose-200 uppercase tracking-wide">Will be removed</span>
+                  </div>
+                }
+
+                <!-- Action Button: Toggle Remove or Restore -->
+                <button
+                  type="button"
+                  (click)="toggleRemoveOrDeleteFile($index)"
+                  [title]="item.isMarkedForRemoval ? 'Restore file' : 'Remove file'"
+                  class="absolute top-1 right-1 p-1 z-20 rounded-full transition-colors duration-150 cursor-pointer"
+                  [class.bg-rose-600]="!item.isMarkedForRemoval"
+                  [class.hover:bg-rose-700]="!item.isMarkedForRemoval"
+                  [class.bg-emerald-600]="item.isMarkedForRemoval"
+                  [class.hover:bg-emerald-700]="item.isMarkedForRemoval"
+                  class="text-white shadow-md">
+                  @if (item.isMarkedForRemoval) {
+                    <lucide-icon [img]="RotateCcw" [size]="14"></lucide-icon>
+                  } @else {
+                    <lucide-icon [img]="X" [size]="14"></lucide-icon>
+                  }
+                </button>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- Action Row: Add Media Triggers -->
+      <div class="flex items-center justify-between pt-2 border-t border-sky-800/30">
+        <div class="flex items-center gap-2">
+          <!-- Image Upload Trigger -->
+          <label class="flex items-center gap-1.5 text-xs text-sky-300/80 hover:text-sky-200 cursor-pointer px-2 py-1.5 rounded-lg hover:bg-sky-900/40 transition-colors">
+            <lucide-icon [img]="Image" [size]="16" class="text-sky-400"></lucide-icon>
+            <span>Add Photo</span>
+            <input type="file" accept="image/*" multiple (change)="onFileSelected($event, PostMediaType.IMAGE)" class="hidden" />
+          </label>
+
+          <!-- Document Upload Trigger -->
+          <label class="flex items-center gap-1.5 text-xs text-sky-300/80 hover:text-sky-200 cursor-pointer px-2 py-1.5 rounded-lg hover:bg-sky-900/40 transition-colors">
+            <lucide-icon [img]="Files" [size]="16" class="text-amber-400"></lucide-icon>
+            <span>Add Document</span>
+            <input type="file" accept=".pdf,.doc,.docx" multiple (change)="onFileSelected($event, PostMediaType.DOCUMENT)" class="hidden" />
+          </label>
+        </div>
+
+        <!-- Dialog Buttons -->
+        <div class="flex items-center gap-2">
+          <button type="button" class="btn-mini-secondary" (click)="onCancel()">Cancel</button>
+          <button
+            type="submit"
+            [disabled]="form.invalid || loading()"
+            class="btn-mini-primary flex items-center gap-1.5">
+            <lucide-icon [img]="Send" [size]="14"></lucide-icon>
+            <span>Save Changes</span>
+          </button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</app-dialog-layout>
