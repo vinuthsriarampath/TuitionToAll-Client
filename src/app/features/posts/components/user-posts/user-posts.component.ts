@@ -157,5 +157,33 @@ export class UserPostsComponent implements OnInit {
     });
   }
 
+  publishDraftPosts(postId:number):void{
+    this.alertService.triggerSuccessConfirmationAlert({
+      type: 'success',
+      confirmText: 'Yes, Publish',
+      icon: Funnel,
+      title: 'Publish Draft Post',
+      message: 'Are you sure you want to publish this draft post? Once published, it will be visible to others.',
+      confirmButtonClass: 'btn btn-mini-primary btn-success'
+    }).subscribe({
+      next: (confirmed) => {
+        if (confirmed) {
+          this.postService.publishDraftPost(postId).subscribe({
+            next: () => {
+              this.alertService.triggerSuccessAlert('Published successfully!');
+              this.posts.update(current => current.map(post => post.id === postId ? { ...post, status: PostStatus.PUBLISHED } : post));
+            },
+            error: (err) => {
+              this.alertService.triggerErrorAlert(err.error?.message || 'Failed to publish draft post');
+            }
+          });
+        }
+      },
+      error: () => {
+        this.alertService.triggerErrorAlert('Failed to confirm draft post publication.');
+      }
+    })
+  }
+
   protected readonly Funnel = Funnel;
 }

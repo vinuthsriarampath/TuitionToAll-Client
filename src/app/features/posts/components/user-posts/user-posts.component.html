@@ -44,7 +44,7 @@
       @for (postItem of posts(); track postItem.id) {
         <app-user-post-card
           [post]="postItem"
-          [isOwner]="isOwner()" (editPost)="editPost(postItem)">
+          [isOwner]="isOwner()" (editPost)="editPost(postItem)" (publishPost)="publishDraftPosts($event)">
         </app-user-post-card>
       }
     </div>
