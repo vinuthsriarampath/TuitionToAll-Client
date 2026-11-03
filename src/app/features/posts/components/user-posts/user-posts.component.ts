@@ -11,6 +11,10 @@ import {Funnel, LucideAngularModule} from 'lucide-angular';
 import {PostCreateComponent} from '@features/posts/components/post-create/post-create.component';
 import {combineLatest, distinctUntilChanged, switchMap} from 'rxjs';
 import {toObservable} from '@angular/core/rxjs-interop';
+import {MatDialog} from '@angular/material/dialog';
+import {PostUpdateDialogComponent} from '@features/posts/dialogs/post-update-dialog/post-update-dialog.component';
+import {PostResponse} from '@features/posts/dtos/responses/post-response';
+import {AlertService} from '@core/services/alerts/alert.service';
 
 @Component({
   selector: 'app-user-posts',
@@ -35,6 +39,9 @@ export class UserPostsComponent implements OnInit {
   protected selectedVisibility = signal<PostVisibility | undefined>(undefined);
 
   private readonly postService = inject(PostService);
+  private readonly alertService = inject(AlertService);
+  private readonly dialog = inject(MatDialog);
+
   private readonly pagination: PaginationRequest = { page: 0, size: 10, sortBy: ['published_date'], direction: 'desc' };
 
   private readonly targetUserId$ = toObservable(this.targetUserId);
@@ -114,6 +121,40 @@ export class UserPostsComponent implements OnInit {
   // Prepend new created post to state dynamically
   addPostToFeed(newPost: UserPostResponse): void {
     this.posts.update(current => [newPost, ...current]);
+  }
+
+  editPost(post:UserPostResponse):void {
+    const postResponse :PostResponse = {
+      id: post.id,
+      caption: post.caption,
+      visibility: post.visibility,
+      status: post.status,
+      userId: this.targetUserId(),
+      createdDate: post.createdDate,
+      publishedDate: post.publishedDate,
+      lastModifiedDate: post.lastModifiedDate,
+      mediaList: post.mediaList
+    };
+
+    const dialogRef = this.dialog.open(PostUpdateDialogComponent, {
+      width: '600px',
+      maxWidth: '95vw',
+      data: postResponse
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: (updatedPostData: PostResponse | false) => {
+        if (updatedPostData) {
+          this.posts.update(current => current.map(p => p.id === post.id ? {
+            ...p,
+            ...updatedPostData
+          } : p));
+        }
+      },
+      error: () => {
+        this.alertService.triggerErrorAlert('Failed to update post dialog session.');
+      }
+    });
   }
 
   protected readonly Funnel = Funnel;

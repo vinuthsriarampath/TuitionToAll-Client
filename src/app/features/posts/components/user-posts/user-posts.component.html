@@ -44,7 +44,7 @@
       @for (postItem of posts(); track postItem.id) {
         <app-user-post-card
           [post]="postItem"
-          [isOwner]="isOwner()">
+          [isOwner]="isOwner()" (editPost)="editPost(postItem)">
         </app-user-post-card>
       }
     </div>
