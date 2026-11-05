@@ -24,6 +24,11 @@ export const MAIN_ROUTES: Routes = [
         loadComponent: () => import('@features/user-follow/pages/network/network.component').then(m => m.NetworkComponent),
       },
       {
+        path: 'message',
+        title: 'Message',
+        loadComponent: () => import('@features/messaging/pages/chat/chat.component').then(m => m.ChatComponent),
+      },
+      {
         path: 'profile/:userSlug',
         loadChildren: () => import('@features/profile/routes/profile.routes').then(m => m.PROFILE_ROUTES)
       },
