@@ -18,6 +18,8 @@ export class ConversationService {
   private readonly baseUrl: string = environment.CONVERSATION_API ?? '';
   private readonly stompClient = inject(StompClientService);
 
+  readonly unreadMap = signal(new Map());
+
   // Active chat state using Angular Signals
   readonly activeConversation = signal<ConversationResponse | null>(null);
   readonly activeMessages = signal<ChatMessageResponse[]>([]);
@@ -98,5 +100,41 @@ export class ConversationService {
     }
     this.activeConversation.set(null);
     this.activeMessages.set([]);
+  }
+
+
+  /**
+   * Initialize unread counts map from loaded conversations list
+   */
+  setInitialUnreadCounts(conversations: ConversationResponse[]): void {
+    const map = new Map<number, number>();
+    conversations.forEach(c => map.set(c.id, c.unreadCount ?? 0));
+    this.unreadMap.set(map);
+  }
+
+  /**
+   * Increment unread count for a specific conversation when background notification arrives
+   */
+  incrementUnread(conversationId: number): void {
+    this.unreadMap.update(map => {
+      const newMap = new Map(map);
+      const current = newMap.get(conversationId) ?? 0;
+      newMap.set(conversationId, current + 1);
+      return newMap;
+    });
+  }
+
+  /**
+   * Clear unread count when user opens/views a conversation
+   */
+  clearUnread(conversationId: number): void {
+    this.unreadMap.update(map => {
+      const newMap = new Map(map);
+      newMap.set(conversationId, 0);
+      return newMap;
+    });
+
+    // Call backend REST to persist last_read_at timestamp update
+    this.http.post<ApiResponse<void>>(`${this.baseUrl}/${conversationId}/read`, {}).subscribe();
   }
 }
