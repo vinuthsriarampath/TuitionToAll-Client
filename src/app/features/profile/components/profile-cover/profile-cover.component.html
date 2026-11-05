@@ -42,7 +42,10 @@
           </div>
         </div>
         @if (!isSameUser()){
-          <app-follow-button [targetUserId]="profileUser().id" [isSameUser]="isSameUser()" [initialFollowingState]="profileUser().isFollowing ?? false" (followChanged)="onFollowStatusChanged($event)"></app-follow-button>
+          <div class="flex flex-row gap-2">
+            <app-follow-button [targetUserId]="profileUser().id" [isSameUser]="isSameUser()" [initialFollowingState]="profileUser().isFollowing ?? false" (followChanged)="onFollowStatusChanged($event)"></app-follow-button>
+            <button class="btn btn-mini-primary" (click)="startDirectChat()">Message</button>
+          </div>
         }
       } @else {
         <div class="w-64 h-7 bg-sky-900/80 animate-pulse mb-1"></div>

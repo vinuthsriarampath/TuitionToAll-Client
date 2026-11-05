@@ -12,6 +12,8 @@ import {LucideAngularModule, Pen} from 'lucide-angular';
 import {NgOptimizedImage} from '@angular/common';
 import {UserHelper} from '@shared/utils/helpers/user-helper';
 import {FollowButtonComponent} from '@features/user-follow/components/follow-button/follow-button.component';
+import {ConversationService} from '@features/messaging/services/conversation/conversation.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-profile-cover',
@@ -33,6 +35,9 @@ export class ProfileCoverComponent {
 
   private readonly alertService:AlertService = inject(AlertService);
   private readonly dialog:MatDialog = inject(MatDialog);
+  private readonly conversationService = inject(ConversationService);
+  private readonly router = inject(Router);
+
 
   openProfilePicUpdateDialog() {
     let userDetails:User = this.profileUser();
@@ -94,6 +99,22 @@ export class ProfileCoverComponent {
 
     this.profileUpdated.emit(updatedUser);
   }
+
+
+  protected startDirectChat(): void {
+
+    this.conversationService.getOrCreateDirectConversation(this.profileUser().id).subscribe({
+      next: async (res) => {
+        if (res.data) {
+          await this.router.navigate(['/app/message']);
+        }
+      },
+      error: (err) => {
+        this.alertService.triggerErrorAlert(err?.error?.message || 'Failed to start conversation.');
+      }
+    });
+  }
+
   protected readonly UserHelper = UserHelper;
   protected readonly Pen = Pen;
 }
