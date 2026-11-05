@@ -44,14 +44,15 @@ export class ChatComponent implements OnInit, OnDestroy{
   // Expose active state signals directly from service
   protected activeConversation = this.conversationService.activeConversation;
   protected activeMessages = this.conversationService.activeMessages;
+  protected unreadMap = this.conversationService.unreadMap;
   protected currentUser = signal<User | null>(null);
 
-  @ViewChild('messagesContainer') private messagesContainer!: ElementRef<HTMLDivElement>;
+  @ViewChild('messagesContainer') private readonly messagesContainer!: ElementRef<HTMLDivElement>;
 
   constructor() {
     effect(() => {
       // Track changes to the messages signal
-      const messages = this.activeMessages();
+      this.activeMessages();
 
       // Wait until Angular updates the DOM
       setTimeout(() => {
@@ -75,6 +76,7 @@ export class ChatComponent implements OnInit, OnDestroy{
       next: (res) => {
         if (res.data) {
           this.conversations.set(res.data);
+          this.conversationService.setInitialUnreadCounts(res.data);
         }
         this.isLoadingConversations.set(false);
       },
@@ -86,6 +88,8 @@ export class ChatComponent implements OnInit, OnDestroy{
 
   protected selectConversation(conversation: ConversationResponse): void {
     if (this.activeConversation()?.id === conversation.id) return;
+
+    this.conversationService.clearUnread(conversation.id);
 
     this.isLoadingMessages.set(true);
     // Subscribe to STOMP WebSocket topic for this room

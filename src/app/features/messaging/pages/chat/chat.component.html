@@ -54,6 +54,13 @@
                   }
                 </div>
               </div>
+
+              <!-- UNREAD BADGE COUNTER -->
+              @if (( unreadMap().get(conv.id) ?? 0) > 0) {
+                <span class="shrink-0 px-2 py-0.5 bg-sky-600 text-white text-xs font-semibold rounded-full shadow-sm">
+                  {{ unreadMap().get(conv.id) }}
+                </span>
+              }
             </div>
           } @empty {
             <div class="p-8 text-center">
