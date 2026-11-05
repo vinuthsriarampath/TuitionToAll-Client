@@ -1,0 +1,183 @@
+<app-card-shell class="h-[calc(100vh-8rem)] block my-7 w-full">
+  <div class="p-4 flex h-full overflow-hidden">
+
+    <!-- LEFT SIDEBAR: Conversation List -->
+    <div class="w-80 md:w-96 border-r border-sky-900/40 flex flex-col bg-slate-900/40 h-full overflow-hidden">
+
+      <!-- Sidebar Header (Fixed) -->
+      <div class="p-4 border-b border-sky-900/40 shrink-0">
+        <h2 class="text-lg font-semibold text-sky-50 mb-3">Chats</h2>
+        <div class="relative">
+          <lucide-angular [img]="Search" class="w-5 h-5 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400/70 pointer-events-none"></lucide-angular>
+          <label for="searchConversations" class="sr-only">Search conversations</label>
+          <input
+            id="searchConversations"
+            type="text"
+            placeholder="Search conversations..."
+            class="form-input input-special w-full"
+          />
+        </div>
+      </div>
+
+      <!-- Conversations Scrollable List -->
+      <div class="flex-1 overflow-y-auto divide-y divide-sky-900/20 min-h-0">
+        @if (isLoadingConversations()) {
+          <div class="p-6 text-center text-sm text-sky-400/60">Loading chats...</div>
+        } @else {
+          @for (conv of conversations(); track conv.id) {
+            <div
+              (click)="selectConversation(conv)"
+              (keydown.enter)="selectConversation(conv)"
+              [class.bg-sky-950]="activeConversation()?.id === conv.id"
+              class="flex items-center gap-3 p-3.5 hover:bg-sky-900/30 cursor-pointer transition-colors"
+            >
+              <!-- Avatar -->
+              <div class="relative shrink-0">
+                <img
+                  [ngSrc]="conv.otherParticipantDp ? environment.USER_PROFILE_API + conv.otherParticipantDp : 'profile_logo.png'"
+                  class="w-12 h-12 rounded-full object-cover border border-sky-800/60"
+                  alt="Avatar"
+                  width="48"
+                  height="48"
+                />
+<!--                <span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-slate-950 rounded-full"></span>-->
+              </div>
+
+              <!-- Details -->
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center justify-between mb-1">
+                  <p class="para para-md font-medium text-sky-50 truncate">
+                    {{ conv.type === 'DIRECT' ? conv.otherParticipantName : conv.topic }}
+                  </p>
+                  @if (conv.lastMessageAt) {
+                    <span class="text-[10px] text-sky-400/50">{{ conv.lastMessageAt | date:'shortTime' }}</span>
+                  }
+                </div>
+              </div>
+            </div>
+          } @empty {
+            <div class="p-8 text-center">
+              <lucide-angular [img]="MessageSquare" class="w-8 h-8 mx-auto text-sky-500/40 mb-2"></lucide-angular>
+              <p class="text-sm text-sky-300/60">No conversations yet.</p>
+            </div>
+          }
+        }
+      </div>
+    </div>
+
+    <!-- RIGHT PANE: Active Chat Window -->
+    <div class="flex-1 flex flex-col bg-slate-950 h-full overflow-hidden">
+      @if (activeConversation(); as activeConv) {
+
+        <!-- Chat Header (Fixed) -->
+        <div class="px-6 py-3.5 border-b border-sky-900/40 flex items-center justify-between bg-slate-900/20 backdrop-blur shrink-0">
+          <div class="flex items-center gap-3">
+            <img
+              [ngSrc]="activeConv.otherParticipantDp ? environment.USER_PROFILE_API + activeConv.otherParticipantDp : 'profile_logo.png'"
+              class="w-10 h-10 rounded-full object-cover border border-sky-800/60"
+              alt="Avatar" width="40" height="40"
+            />
+            <div>
+              <h3 class="text-sm font-semibold text-sky-50">
+                {{ activeConv.type === 'DIRECT' ? activeConv.otherParticipantName : activeConv.topic }}
+              </h3>
+<!--              <span class="text-xs text-emerald-400 flex items-center gap-1.5">-->
+<!--                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Online-->
+<!--              </span>-->
+            </div>
+          </div>
+        </div>
+
+        <!-- Messages History Scrollable View -->
+        <div #messagesContainer class="flex-1 p-6 overflow-y-auto space-y-2 min-h-0">
+          @if (isLoadingMessages()) {
+            <div class="text-center text-xs text-sky-400/60 py-4">Loading messages...</div>
+          } @else {
+            @for (msg of activeMessages(); track msg.id) {
+              <div [class.flex-row-reverse]="msg.senderId === currentUser()?.id" class="flex items-end">
+
+                <!-- Sender Avatar -->
+                @if (msg.senderId !== currentUser()?.id && activeConv.type!== ConversationType.DIRECT) {
+                  <img
+                    [ngSrc]="msg.senderDp ? environment.USER_PROFILE_API + msg.senderDp : 'profile_logo.png'"
+                    class="w-8 h-8 rounded-full object-cover shrink-0 border border-sky-800/50 mb-1"
+                    alt="Sender" width="32" height="32"
+                  />
+                }
+
+                <!-- Bubble -->
+                <div
+                  [class.bg-sky-600]="msg.senderId === currentUser()?.id"
+                  [class.text-white]="msg.senderId === currentUser()?.id"
+                  [class.bg-slate-900]="msg.senderId !== currentUser()?.id"
+                  [class.text-sky-100]="msg.senderId !== currentUser()?.id"
+                  class="max-w-md px-4 py-3 rounded-2xl border border-sky-800/30 shadow-sm"
+                >
+                  <p class="text-sm whitespace-pre-wrap leading-relaxed">{{ msg.content }}</p>
+
+                  <div [class.text-sky-200]="msg.senderId === currentUser()?.id" [class.text-sky-400]="msg.senderId !== currentUser()?.id" class="flex items-center justify-end gap-1.5 mt-1 text-[10px]" >
+                    <span>{{ msg.sentAt | date:'shortTime' }}</span>
+                    @if (msg.senderId === currentUser()?.id) {
+                      <lucide-angular [img]="CheckCheck" class="w-3 h-3 text-sky-200"></lucide-angular>
+                    }
+                  </div>
+                </div>
+              </div>
+            } @empty {
+              <div class="h-full flex items-center justify-center">
+                <app-card-shell>
+                  <div class="p-4 flex flex-col item-center gap-2">
+                    <p class="para-xs para-light">No messages yet. Start the conversation!</p>
+                    <button class="btn btn-mini-secondary" (click)="sendFirstHi()">Send your first Hi!</button>
+                  </div>
+                </app-card-shell>
+              </div>
+            }
+          }
+        </div>
+
+        <!-- Message Input Bar (Fixed) -->
+        <div class="p-4 border-t border-sky-900/40 bg-slate-900/20 backdrop-blur shrink-0">
+          <div class="flex items-center gap-3 bg-slate-900 border border-sky-800/50 rounded-2xl px-4 py-2 focus-within:border-sky-500 transition-all">
+
+            <button class="text-sky-400 hover:text-sky-200 transition-colors">
+              <lucide-angular [img]="Paperclip" class="w-5 h-5"></lucide-angular>
+            </button>
+            <button class="text-sky-400 hover:text-sky-200 transition-colors">
+              <lucide-angular [img]="ImageIcon" class="w-5 h-5"></lucide-angular>
+            </button>
+
+            <label for="messageInput" class="sr-only">Type your message</label>
+            <input
+              id="messageInput"
+              type="text"
+              [(ngModel)]="messageInput"
+              (keyup.enter)="sendMessage()"
+              placeholder="Type your message here..."
+              class="flex-1 bg-transparent text-sm text-sky-50 placeholder-sky-400/40 focus:outline-none"
+            />
+
+            <button
+              (click)="sendMessage()"
+              [disabled]="!messageInput().length && !messageInput().trim()"
+              class="p-2.5 bg-sky-600 hover:bg-sky-500 disabled:opacity-40 disabled:hover:bg-sky-600 text-white rounded-xl transition-all shadow-md shadow-sky-600/20"
+            >
+              <lucide-angular [img]="Send" class="w-4 h-4"></lucide-angular>
+            </button>
+
+          </div>
+        </div>
+
+      } @else {
+        <!-- Empty State when no chat is selected -->
+        <div class="flex-1 flex flex-col items-center justify-center p-8 text-center">
+          <div class="w-16 h-16 rounded-2xl bg-sky-950/60 border border-sky-800/40 flex items-center justify-center mb-4 text-sky-400">
+            <lucide-angular [img]="MessageSquare" class="w-8 h-8"></lucide-angular>
+          </div>
+          <h3 class="text-lg font-medium text-sky-50 mb-1">Select a conversation</h3>
+          <p class="text-sm text-sky-300/60 max-w-sm">Choose a chat from the left sidebar to start messaging in real time with WebSockets.</p>
+        </div>
+      }
+    </div>
+  </div>
+</app-card-shell>
