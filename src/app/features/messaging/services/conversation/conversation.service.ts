@@ -1,4 +1,4 @@
-import {inject, Injectable} from '@angular/core';
+import {inject, Injectable, signal} from '@angular/core';
 import {PaginatedApiResponse} from '@shared/utils/response/paginated-api-response';
 import {ChatMessageResponse} from '@features/messaging/dtos/responses/chat-message-response';
 import {HttpClient, HttpParams} from '@angular/common/http';
@@ -6,6 +6,8 @@ import {Observable} from 'rxjs';
 import {ConversationResponse} from '@features/messaging/dtos/responses/conversation-response';
 import {ApiResponse} from '@shared/utils/response/api-response';
 import {environment} from '@env/environment.development';
+import {StompClientService} from '@core/services/stomp/stomp-client.service';
+import {SendMessageRequest} from '@features/messaging/dtos/requests/send-message-request';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +16,13 @@ export class ConversationService {
 
   private readonly http = inject(HttpClient);
   private readonly baseUrl: string = environment.CONVERSATION_API ?? '';
+  private readonly stompClient = inject(StompClientService);
+
+  // Active chat state using Angular Signals
+  readonly activeConversation = signal<ConversationResponse | null>(null);
+  readonly activeMessages = signal<ChatMessageResponse[]>([]);
+
+  private activeTopicDestination?: string;
 
   /**
    * Fetch all conversation threads for the authenticated user.
@@ -32,7 +41,7 @@ export class ConversationService {
   /**
    * Fetch paginated message history for a conversation.
    */
-  gtConversationMessages(
+  getConversationMessages(
     conversationId: number, page: number = 0, size: number = 30): Observable<PaginatedApiResponse<ChatMessageResponse>> {
 
     const params = new HttpParams()
@@ -40,5 +49,54 @@ export class ConversationService {
       .set('size', size);
 
     return this.http.get<PaginatedApiResponse<ChatMessageResponse>>(`${this.baseUrl}/${conversationId}/messages`, { params });
+  }
+
+  /**
+   * Connect to WebSocket topic for a specific conversation room
+   */
+  subscribeToConversation(conversation: ConversationResponse): void {
+    // Unsubscribe from existing active topic if switching rooms
+    if (this.activeTopicDestination) {
+      this.stompClient.unsubscribe(this.activeTopicDestination);
+    }
+
+    this.activeConversation.set(conversation);
+    this.activeTopicDestination = `/topic/chat/${conversation.id}`;
+
+    // Subscribe to STOMP destination
+    this.stompClient.subscribe(this.activeTopicDestination, (message) => {
+      const incomingMessage = JSON.parse(message.body) as ChatMessageResponse;
+
+      // Append new incoming message to reactive signal array
+      this.activeMessages.update((messages) => [...messages, incomingMessage]);
+    });
+  }
+
+  /**
+   * Send a message through WebSocket destination /app/chat.send
+   */
+  sendMessage(payload: SendMessageRequest): void {
+    if (!this.stompClient.connected()) {
+      console.warn('[ChatService] Cannot send message: STOMP client disconnected');
+      return;
+    }
+
+    // Publish payload over STOMP client
+    this.stompClient['client'].publish({
+      destination: '/app/chat.send',
+      body: JSON.stringify(payload)
+    });
+  }
+
+  /**
+   * Clean up active room subscription when leaving the chat view
+   */
+  leaveConversation(): void {
+    if (this.activeTopicDestination) {
+      this.stompClient.unsubscribe(this.activeTopicDestination);
+      this.activeTopicDestination = undefined;
+    }
+    this.activeConversation.set(null);
+    this.activeMessages.set([]);
   }
 }
