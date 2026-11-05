@@ -8,4 +8,5 @@ export class ConversationResponse {
   otherParticipantName!: string;
   otherParticipantSlug!: string;
   otherParticipantDp!: string;
+  unreadCount!:number;
 }
