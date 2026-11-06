@@ -92,11 +92,15 @@ export class ChatComponent implements OnInit, OnDestroy{
   protected selectConversation(conversation: ConversationResponse): void {
     if (this.activeConversation()?.id === conversation.id) return;
 
-    this.conversationService.clearUnread(conversation.id);
+    if (this.activeConversation()) {
+      this.conversationService.leaveConversation();
+    }
 
-    this.isLoadingMessages.set(true);
+    this.conversationService.clearUnread(conversation.id);
     // Subscribe to STOMP WebSocket topic for this room
     this.conversationService.subscribeToConversation(conversation);
+
+    this.isLoadingMessages.set(true);
 
     // Fetch historical paginated messages
     this.conversationService.getConversationMessages(conversation.id, 0, 30).subscribe({
