@@ -1,4 +1,4 @@
-import {inject, Injectable, signal} from '@angular/core';
+import {inject, Injectable, OnInit, signal} from '@angular/core';
 import {PaginatedApiResponse} from '@shared/utils/response/paginated-api-response';
 import {ChatMessageResponse} from '@features/messaging/dtos/responses/chat-message-response';
 import {HttpClient, HttpParams} from '@angular/common/http';
@@ -8,13 +8,19 @@ import {ApiResponse} from '@shared/utils/response/api-response';
 import {environment} from '@env/environment.development';
 import {StompClientService} from '@core/services/stomp/stomp-client.service';
 import {SendMessageRequest} from '@features/messaging/dtos/requests/send-message-request';
+import {MessageDeliveryStatusUpdate} from '@features/messaging/enums/message-delivery-status-update';
+import {UserService} from '@features/user/services/user/user.service';
+import {User} from '@features/user/dtos/responses/user';
+import {UpdateDeliveryStatusRequest} from '@features/messaging/dtos/requests/update-delivery-status-request';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ConversationService {
+export class ConversationService{
+
 
   private readonly http = inject(HttpClient);
+  private readonly userService = inject(UserService);
   private readonly baseUrl: string = environment.CONVERSATION_API ?? '';
   private readonly stompClient = inject(StompClientService);
 
@@ -25,6 +31,13 @@ export class ConversationService {
   readonly activeMessages = signal<ChatMessageResponse[]>([]);
 
   private activeTopicDestination?: string;
+
+  protected currentUser = signal<User | null>(null);
+
+
+  constructor() {
+    this.currentUser.set(this.userService.getCurrentUser());
+  }
 
   /**
    * Fetch all conversation threads for the authenticated user.
@@ -71,6 +84,34 @@ export class ConversationService {
 
       // Append new incoming message to reactive signal array
       this.activeMessages.update((messages) => [...messages, incomingMessage]);
+
+      // If viewing the chat and a message arrives from someone else, mark it as 'READ' immediately
+      const currentUser = this.currentUser();
+      if (currentUser && incomingMessage.senderId !== currentUser.id) {
+        this.sendDeliveryStatusUpdate(conversation.id, [incomingMessage.id], MessageDeliveryStatusUpdate.READ);
+      }
+    });
+
+    // 2. Listen for real-time delivery status updates ('DELIVERED', 'READ')
+    this.stompClient.subscribe(`${this.activeTopicDestination}/status`, (statusMsg) => {
+      const update = JSON.parse(statusMsg.body) as UpdateDeliveryStatusRequest;
+
+      // Update local signal array status flags
+      this.activeMessages.update(messages =>
+        messages.map(m => update.messageIds.includes(m.id) ? { ...m, deliveryStatus: update.status as any } : m)
+      );
+    });
+  }
+
+  /**
+   * Publish status updates over WebSocket
+   */
+  sendDeliveryStatusUpdate(conversationId: number, messageIds: number[], status: MessageDeliveryStatusUpdate): void {
+    if (!this.stompClient.connected() || messageIds.length === 0) return;
+
+    this.stompClient['client'].publish({
+      destination: '/app/chat.status',
+      body: JSON.stringify({ conversationId, messageIds, status })
     });
   }
 
