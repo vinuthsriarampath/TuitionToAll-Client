@@ -135,6 +135,11 @@ export class ConversationService{
    * Clean up active room subscription when leaving the chat view
    */
   leaveConversation(): void {
+    const activeConv = this.activeConversation();
+    if (activeConv) {
+      this.http.post<ApiResponse<void>>(`${this.baseUrl}/${activeConv.id}/leave`, {}).subscribe();
+    }
+
     if (this.activeTopicDestination) {
       this.stompClient.unsubscribe(this.activeTopicDestination);
       this.activeTopicDestination = undefined;
