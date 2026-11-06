@@ -4,6 +4,7 @@ import {User} from '@features/user/dtos/responses/user';
 import {ConversationService} from '@features/messaging/services/conversation/conversation.service';
 import {UserService} from '@features/user/services/user/user.service';
 import {
+  Check,
   CheckCheck,
   ImageIcon,
   LucideAngularModule,
@@ -18,6 +19,8 @@ import {DatePipe, NgOptimizedImage} from '@angular/common';
 import {environment} from '@env/environment.development';
 import {CardShellComponent} from '@shared/ui';
 import {ConversationType} from '@features/messaging/enums/conversation-type';
+import {MessageDeliveryStatus} from '@features/messaging/enums/message-delivery-status';
+import {MessageDeliveryStatusUpdate} from '@features/messaging/enums/message-delivery-status-update';
 
 @Component({
   selector: 'app-chat',
@@ -102,6 +105,15 @@ export class ChatComponent implements OnInit, OnDestroy{
         if (res.data) {
           // Reverse or order correctly based on backend sorting (backend sent_at ASC)
           this.conversationService.activeMessages.set(res.data);
+
+          const currentUserId = this.currentUser()?.details?.id;
+          const unreadIds = res.data
+            .filter(m => m.senderId !== currentUserId && m.deliveryStatus !== MessageDeliveryStatus.READ)
+            .map(m => m.id);
+
+          if (unreadIds.length > 0) {
+            this.conversationService.sendDeliveryStatusUpdate(conversation.id, unreadIds, MessageDeliveryStatusUpdate.READ);
+          }
         }
         this.isLoadingMessages.set(false);
       },
@@ -169,4 +181,6 @@ export class ChatComponent implements OnInit, OnDestroy{
   protected readonly Search = Search;
   protected readonly environment = environment;
   protected readonly ConversationType = ConversationType;
+  protected readonly MessageDeliveryStatus = MessageDeliveryStatus;
+  protected readonly Check = Check;
 }

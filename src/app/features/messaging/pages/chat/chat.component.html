@@ -125,7 +125,18 @@
                   <div [class.text-sky-200]="msg.senderId === currentUser()?.id" [class.text-sky-400]="msg.senderId !== currentUser()?.id" class="flex items-center justify-end gap-1.5 mt-1 text-[10px]" >
                     <span>{{ msg.sentAt | date:'shortTime' }}</span>
                     @if (msg.senderId === currentUser()?.id) {
-                      <lucide-angular [img]="CheckCheck" class="w-3 h-3 text-sky-200"></lucide-angular>
+
+                      @switch (msg.deliveryStatus) {
+                        @case (MessageDeliveryStatus.SENT) {
+                          <lucide-angular [img]="Check" class="w-3 h-3 text-sky-200"></lucide-angular>
+                        }
+                        @case (MessageDeliveryStatus.DELIVERED) {
+                          <lucide-angular [img]="CheckCheck" class="w-3 h-3 text-sky-200"></lucide-angular>
+                        }
+                        @case (MessageDeliveryStatus.READ) {
+                          <lucide-angular [img]="CheckCheck" class="w-3 h-3 text-blue-800"></lucide-angular>
+                        }
+                      }
                     }
                   </div>
                 </div>
