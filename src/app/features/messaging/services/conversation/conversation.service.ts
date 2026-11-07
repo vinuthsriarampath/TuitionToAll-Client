@@ -35,6 +35,17 @@ export class ConversationService{
   protected currentUser = signal<User | null>(null);
 
 
+  readonly currentPage = signal<number>(0);
+  readonly isLastPage = signal<boolean>(false);
+  readonly isLoadingMore = signal<boolean>(false);
+
+  // Reset pagination state when switching chats
+  resetPagination(): void {
+    this.currentPage.set(0);
+    this.isLastPage.set(false);
+    this.isLoadingMore.set(false);
+  }
+
   constructor() {
     this.currentUser.set(this.userService.getCurrentUser());
   }
