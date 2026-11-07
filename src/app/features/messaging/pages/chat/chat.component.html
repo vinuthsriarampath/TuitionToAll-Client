@@ -96,7 +96,7 @@
         </div>
 
         <!-- Messages History Scrollable View -->
-        <div #messagesContainer class="flex-1 p-6 overflow-y-auto space-y-2 min-h-0">
+        <div #messagesContainer id="chat-messages-container" (scroll)="onChatScroll($event)" class="flex-1 p-6 overflow-y-auto space-y-2 min-h-0">
           @if (isLoadingMessages()) {
             <div class="text-center text-xs text-sky-400/60 py-4">Loading messages...</div>
           } @else {

@@ -52,18 +52,6 @@ export class ChatComponent implements OnInit, OnDestroy{
 
   @ViewChild('messagesContainer') private readonly messagesContainer!: ElementRef<HTMLDivElement>;
 
-  constructor() {
-    effect(() => {
-      // Track changes to the messages signal
-      this.activeMessages();
-
-      // Wait until Angular updates the DOM
-      setTimeout(() => {
-        this.scrollToBottom();
-      });
-    });
-  }
-
   ngOnInit(): void {
     this.currentUser.set(this.userService.getCurrentUser());
     this.loadUserConversations();
@@ -89,6 +77,10 @@ export class ChatComponent implements OnInit, OnDestroy{
     });
   }
 
+  protected currentPage = signal(0);
+  protected isLastPage = signal(false);
+  protected isLoadingMore = signal(false);
+
   protected selectConversation(conversation: ConversationResponse): void {
     if (this.activeConversation()?.id === conversation.id) return;
 
@@ -97,9 +89,10 @@ export class ChatComponent implements OnInit, OnDestroy{
     }
 
     this.conversationService.clearUnread(conversation.id);
-    // Subscribe to STOMP WebSocket topic for this room
     this.conversationService.subscribeToConversation(conversation);
 
+    this.currentPage.set(0);
+    this.isLastPage.set(false);
     this.isLoadingMessages.set(true);
 
     // Fetch historical paginated messages
@@ -108,9 +101,15 @@ export class ChatComponent implements OnInit, OnDestroy{
         // PaginatedApiResponse structure
         if (res.data) {
           // Reverse or order correctly based on backend sorting (backend sent_at ASC)
-          this.conversationService.activeMessages.set(res.data);
+          const rawMessages = res.data || [];
 
-          const currentUserId = this.currentUser()?.details?.id;
+          // Reverse initial batch so oldest is at the top and newest is at the bottom
+          const sortedMessages = [...rawMessages].reverse();
+          this.conversationService.activeMessages.set(sortedMessages);
+
+          this.isLastPage.set(res.last ?? res.data.length < 30);
+
+          const currentUserId = this.currentUser()?.id;
           const unreadIds = res.data
             .filter(m => m.senderId !== currentUserId && m.deliveryStatus !== MessageDeliveryStatus.READ)
             .map(m => m.id);
@@ -119,6 +118,7 @@ export class ChatComponent implements OnInit, OnDestroy{
             this.conversationService.sendDeliveryStatusUpdate(conversation.id, unreadIds, MessageDeliveryStatusUpdate.READ);
           }
         }
+        setTimeout(() => this.scrollToBottom(), 50);
         this.isLoadingMessages.set(false);
       },
       error: () => {
@@ -142,6 +142,7 @@ export class ChatComponent implements OnInit, OnDestroy{
 
     // Clear input field
     this.messageInput.set('');
+    setTimeout(() => this.scrollToBottom(), 50);
   }
 
   sendFirstHi():void{
@@ -156,6 +157,62 @@ export class ChatComponent implements OnInit, OnDestroy{
 
     // Clear input field
     this.messageInput.set('');
+  }
+
+  onChatScroll(event: Event): void {
+    const element = event.target as HTMLElement;
+
+    // If user scrolled near the top (e.g., within 50px) and we aren't already loading and there are more pages
+    if (element.scrollTop <= 50 && !this.isLoadingMore() && !this.isLastPage()) {
+      this.loadOlderMessages(element);
+    }
+  }
+
+  private loadOlderMessages(containerElement: HTMLElement): void {
+    const activeConv = this.activeConversation();
+    if (!activeConv) return;
+
+    this.isLoadingMore.set(true);
+    const nextPage = this.currentPage() + 1;
+
+    // Scroll position before loading older messages
+    const previousScrollTop = containerElement.scrollTop;
+    const previousScrollHeight = containerElement.scrollHeight;
+
+
+    this.conversationService.getConversationMessages(activeConv.id, nextPage, 30).subscribe({
+      next: (res) => {
+        const rawOlderMessages = res.data || [];
+
+        if (rawOlderMessages.length > 0) {
+          const sortedOlderMessages = [...rawOlderMessages].reverse();
+
+          // Prepend older messages to the beginning of the array
+          this.conversationService.activeMessages.update(currentMessages => [
+            ...sortedOlderMessages,
+            ...currentMessages
+          ]);
+
+          this.currentPage.set(nextPage);
+          this.isLastPage.set(res.last || rawOlderMessages.length < 30);
+
+          // Restore scroll position so user doesn't lose their place
+          setTimeout(() => {
+            const newScrollHeight = containerElement.scrollHeight;
+            const scrollDifference = newScrollHeight - previousScrollHeight;
+            containerElement.scrollTop = previousScrollTop + scrollDifference;
+            this.isLoadingMore.set(false);
+          }, 50);
+        } else {
+          this.isLastPage.set(true);
+        }
+
+        this.isLoadingMore.set(false);
+      },
+      error: () => {
+        this.isLoadingMore.set(false);
+      }
+    });
   }
 
   private scrollToBottom(): void {
