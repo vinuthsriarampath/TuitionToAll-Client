@@ -41,6 +41,8 @@ export class ConversationService{
   readonly isLastPage = signal<boolean>(false);
   readonly isLoadingMore = signal<boolean>(false);
 
+  private readonly notificationAudio = new Audio('audio/new-message.mp3');
+
   // Reset pagination state when switching chats
   resetPagination(): void {
     this.currentPage.set(0);
@@ -50,6 +52,7 @@ export class ConversationService{
 
   constructor() {
     this.currentUser.set(this.userService.getCurrentUser());
+    this.notificationAudio.load();
   }
 
   /**
@@ -97,9 +100,13 @@ export class ConversationService{
 
       // Append new incoming message to reactive signal array
       this.activeMessages.update((messages) => [...messages, incomingMessage]);
+      const currentUser = this.currentUser();
+
+      if (incomingMessage.senderId !== this.currentUser()?.id) {
+        this.playNewMessageSound();
+      }
 
       // If viewing the chat and a message arrives from someone else, mark it as 'READ' immediately
-      const currentUser = this.currentUser();
       if (currentUser && incomingMessage.senderId !== currentUser.id) {
         this.sendDeliveryStatusUpdate(conversation.id, [incomingMessage.id], MessageDeliveryStatusUpdate.READ);
       }
@@ -237,5 +244,12 @@ export class ConversationService{
 
     // Call backend REST to persist last_read_at timestamp update
     this.http.post<ApiResponse<void>>(`${this.baseUrl}/${conversationId}/read`, {}).subscribe();
+  }
+
+  private playNewMessageSound(): void {
+    this.notificationAudio.currentTime = 0;
+    this.notificationAudio.play().catch(error => {
+      console.warn('Audio playback prevented by browser policy:', error);
+    });
   }
 }
