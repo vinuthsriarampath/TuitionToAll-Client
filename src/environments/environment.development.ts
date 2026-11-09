@@ -43,6 +43,7 @@ interface Environment {
   POST_API: string;
   CONVERSATION_API: string;
   MESSAGE_ATTACHMENT_API: string;
+  NOTIFICATION_API: string;
 }
 
 const BASE_URL = 'http://localhost:8080/api/v2';
@@ -81,5 +82,6 @@ export const environment: Environment = {
   POST_API: `${BASE_URL}/posts`,
   CONVERSATION_API: `${BASE_URL}/conversations`,
   MESSAGE_ATTACHMENT_API: `${BASE_URL}/chat/attachments`,
+  NOTIFICATION_API: `${BASE_URL}/notifications`,
 };
 

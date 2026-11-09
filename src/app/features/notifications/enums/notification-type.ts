@@ -1,0 +1,7 @@
+export enum NotificationType {
+  CHAT = 'CHAT',
+  ANNOUNCEMENT = 'ANNOUNCEMENT',
+  ASSIGNMENT = 'ASSIGNMENT',
+  LECTURE = 'LECTURE',
+  RESOURCE = 'RESOURCE'
+}
