@@ -1,4 +1,4 @@
-import {Component, effect, ElementRef, HostListener, inject, OnDestroy, OnInit, signal, ViewChild} from '@angular/core';
+import {Component, ElementRef, HostListener, inject, OnDestroy, OnInit, signal, ViewChild} from '@angular/core';
 import {ConversationResponse} from '@features/messaging/dtos/responses/conversation-response';
 import {User} from '@features/user/dtos/responses/user';
 import {ConversationService} from '@features/messaging/services/conversation/conversation.service';
@@ -15,21 +15,23 @@ import {
   Video
 } from 'lucide-angular';
 import {FormsModule} from '@angular/forms';
-import {DatePipe, NgOptimizedImage} from '@angular/common';
 import {environment} from '@env/environment.development';
-import {CardShellComponent} from '@shared/ui';
 import {ConversationType} from '@features/messaging/enums/conversation-type';
 import {MessageDeliveryStatus} from '@features/messaging/enums/message-delivery-status';
 import {MessageDeliveryStatusUpdate} from '@features/messaging/enums/message-delivery-status-update';
+import {ChatAttachmentService} from '@features/messaging/services/chat-attachment/chat-attachment.service';
+import {AlertService} from '@core/services/alerts/alert.service';
+import {CardShellComponent} from '@shared/ui';
+import {DatePipe, NgOptimizedImage} from '@angular/common';
 
 @Component({
   selector: 'app-chat',
   imports: [
     LucideAngularModule,
     FormsModule,
-    DatePipe,
+    CardShellComponent,
     NgOptimizedImage,
-    CardShellComponent
+    DatePipe,
   ],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css'
@@ -38,6 +40,8 @@ export class ChatComponent implements OnInit, OnDestroy{
 
   private readonly conversationService = inject(ConversationService);
   private readonly userService = inject(UserService);
+  private readonly chatAttachmentService = inject(ChatAttachmentService);
+  private readonly alertService = inject(AlertService);
 
   protected conversations = signal<ConversationResponse[]>([]);
   protected isLoadingConversations = signal(false);
@@ -49,6 +53,9 @@ export class ChatComponent implements OnInit, OnDestroy{
   protected activeMessages = this.conversationService.activeMessages;
   protected unreadMap = this.conversationService.unreadMap;
   protected currentUser = signal<User | null>(null);
+
+  protected selectedFiles = signal<File[]>([]);
+  protected isUploadingFiles = signal(false);
 
   @ViewChild('messagesContainer') private readonly messagesContainer!: ElementRef<HTMLDivElement>;
 
@@ -130,18 +137,47 @@ export class ChatComponent implements OnInit, OnDestroy{
   protected sendMessage(): void {
     const content = this.messageInput().trim();
     const activeConv = this.activeConversation();
+    const files = this.selectedFiles();
 
-    if (!content || !activeConv) return;
+    if ((!content && files.length === 0) || !activeConv) return;
 
-    // Send payload over WebSocket destination /app/chat.send
-    this.conversationService.sendMessage({
-      attachments: [],
-      conversationId: activeConv.id,
-      content: content
-    });
+    if (files.length > 0) {
+      this.chatAttachmentService.uploadAttachment(files).subscribe({
+        next: (res) => {
+          const uploadedAttachments = res.data;
+          this.isUploadingFiles.set(false);
+          this.selectedFiles.set([]); // Clear staged files
 
-    // Clear input field
-    this.messageInput.set('');
+          // 2. Dispatch STOMP message with attachment metadata
+          this.conversationService.sendMessage({
+            conversationId: activeConv.id,
+            content: content,
+            attachments: uploadedAttachments ? uploadedAttachments.map(att => ({
+              fileUrl: att.fileUrl,
+              fileName: att.fileName,
+              fileType: att.fileType,
+              fileSize: att.fileSize
+            })) : []
+          });
+          this.messageInput.set('');
+        },
+        error: (err) => {
+          this.isUploadingFiles.set(false);
+          this.alertService.triggerErrorAlert(err.error.message || 'Failed to upload files.');
+        }
+      })
+    }else{
+      // Send payload over WebSocket destination /app/chat.send
+      this.conversationService.sendMessage({
+        attachments: [],
+        conversationId: activeConv.id,
+        content: content
+      });
+
+      // Clear input field
+      this.messageInput.set('');
+    }
+
     setTimeout(() => this.scrollToBottom(), 50);
   }
 
@@ -157,6 +193,21 @@ export class ChatComponent implements OnInit, OnDestroy{
 
     // Clear input field
     this.messageInput.set('');
+  }
+
+  protected onFilesSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const filesArray = Array.from(input.files);
+      // Append or set selected files for preview
+      this.selectedFiles.update(current => [...current, ...filesArray]);
+    }
+    // Reset input so same file can be re-selected if needed
+    input.value = '';
+  }
+
+  protected removeStagedFile(index: number): void {
+    this.selectedFiles.update(files => files.filter((_, i) => i !== index));
   }
 
   onChatScroll(event: Event): void {

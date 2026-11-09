@@ -8,7 +8,8 @@
       <div class="p-4 border-b border-sky-900/40 shrink-0">
         <h2 class="text-lg font-semibold text-sky-50 mb-3">Chats</h2>
         <div class="relative">
-          <lucide-angular [img]="Search" class="w-5 h-5 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400/70 pointer-events-none"></lucide-angular>
+          <lucide-angular [img]="Search"
+                          class="w-5 h-5 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400/70 pointer-events-none"></lucide-angular>
           <label for="searchConversations" class="sr-only">Search conversations</label>
           <input
             id="searchConversations"
@@ -40,7 +41,6 @@
                   width="48"
                   height="48"
                 />
-<!--                <span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-slate-950 rounded-full"></span>-->
               </div>
 
               <!-- Details -->
@@ -56,7 +56,7 @@
               </div>
 
               <!-- UNREAD BADGE COUNTER -->
-              @if (( unreadMap().get(conv.id) ?? 0) > 0) {
+              @if ((unreadMap().get(conv.id) ?? 0) > 0) {
                 <span class="shrink-0 px-2 py-0.5 bg-sky-600 text-white text-xs font-semibold rounded-full shadow-sm">
                   {{ unreadMap().get(conv.id) }}
                 </span>
@@ -77,7 +77,8 @@
       @if (activeConversation(); as activeConv) {
 
         <!-- Chat Header (Fixed) -->
-        <div class="px-6 py-3.5 border-b border-sky-900/40 flex items-center justify-between bg-slate-900/20 backdrop-blur shrink-0">
+        <div
+          class="px-6 py-3.5 border-b border-sky-900/40 flex items-center justify-between bg-slate-900/20 backdrop-blur shrink-0">
           <div class="flex items-center gap-3">
             <img
               [ngSrc]="activeConv.otherParticipantDp ? environment.USER_PROFILE_API + activeConv.otherParticipantDp : 'profile_logo.png'"
@@ -88,15 +89,13 @@
               <h3 class="text-sm font-semibold text-sky-50">
                 {{ activeConv.type === 'DIRECT' ? activeConv.otherParticipantName : activeConv.topic }}
               </h3>
-<!--              <span class="text-xs text-emerald-400 flex items-center gap-1.5">-->
-<!--                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Online-->
-<!--              </span>-->
             </div>
           </div>
         </div>
 
         <!-- Messages History Scrollable View -->
-        <div #messagesContainer id="chat-messages-container" (scroll)="onChatScroll($event)" class="flex-1 p-6 overflow-y-auto space-y-2 min-h-0">
+        <div #messagesContainer id="chat-messages-container" (scroll)="onChatScroll($event)"
+             class="flex-1 p-6 overflow-y-auto space-y-4 min-h-0">
           @if (isLoadingMessages()) {
             <div class="text-center text-xs text-sky-400/60 py-4">Loading messages...</div>
           } @else {
@@ -104,7 +103,7 @@
               <div [class.flex-row-reverse]="msg.senderId === currentUser()?.id" class="flex items-end">
 
                 <!-- Sender Avatar -->
-                @if (msg.senderId !== currentUser()?.id && activeConv.type!== ConversationType.DIRECT) {
+                @if (msg.senderId !== currentUser()?.id && activeConv.type !== ConversationType.DIRECT) {
                   <img
                     [ngSrc]="msg.senderDp ? environment.USER_PROFILE_API + msg.senderDp : 'profile_logo.png'"
                     class="w-8 h-8 rounded-full object-cover shrink-0 border border-sky-800/50 mb-1"
@@ -118,14 +117,64 @@
                   [class.text-white]="msg.senderId === currentUser()?.id"
                   [class.bg-slate-900]="msg.senderId !== currentUser()?.id"
                   [class.text-sky-100]="msg.senderId !== currentUser()?.id"
-                  class="max-w-md px-4 py-3 rounded-2xl border border-sky-800/30 shadow-sm"
+                  class="max-w-md px-4 py-3 rounded-2xl border border-sky-800/30 shadow-sm space-y-2"
                 >
-                  <p class="text-sm whitespace-pre-wrap leading-relaxed">{{ msg.content }}</p>
+                  <!-- Attachments List -->
+                  @if (msg.attachments && msg.attachments.length > 0) {
+                    <div class="space-y-2 mb-1">
+                      @for (att of msg.attachments; track att.id) {
 
-                  <div [class.text-sky-200]="msg.senderId === currentUser()?.id" [class.text-sky-400]="msg.senderId !== currentUser()?.id" class="flex items-center justify-end gap-1.5 mt-1 text-[10px]" >
+                        <!-- IMAGE -->
+                        @if (att.fileType === 'IMAGE') {
+                          <img
+                            [ngSrc]="environment.MESSAGE_ATTACHMENT_API + '/load/' + att.fileUrl"
+                            [alt]="att.fileName"
+                            width="400"
+                            height="240"
+                            class="max-h-60 w-full object-cover hover:scale-105 transition-transform"
+                          />
+                        } @else if (att.fileType === 'VIDEO') {
+                          <video controls class="max-h-60 w-full rounded-xl border border-sky-800/40">
+                            <source
+                              [src]="environment.MESSAGE_ATTACHMENT_API + '/stream/' + att.fileUrl"
+                              type="video/mp4"
+                            />
+                            Your browser does not support the video tag.
+                          </video>
+                        } @else {
+                          <a
+                            [href]="environment.MESSAGE_ATTACHMENT_API + '/load/' + att.fileUrl"
+                            target="_blank"
+                            download
+                            class="flex items-center gap-3 p-2.5 bg-slate-950/60 rounded-xl border border-sky-800/40 hover:bg-sky-900/40 transition-colors"
+                          >
+                            <div class="p-2 bg-sky-600/20 rounded-lg text-sky-400">
+                              <lucide-angular [img]="Paperclip" class="w-4 h-4"></lucide-angular>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                              <p class="text-xs font-medium text-sky-100 truncate">{{ att.fileName }}</p>
+                              <span class="text-[10px] text-sky-400/60">
+                                {{ (att.fileSize / 1024).toFixed(1) }} KB
+                              </span>
+                            </div>
+                          </a>
+                        }
+
+                      }
+                    </div>
+                  }
+
+                  <!-- Text Content -->
+                  @if (msg.content) {
+                    <p class="text-sm whitespace-pre-wrap leading-relaxed">{{ msg.content }}</p>
+                  }
+
+                  <!-- Footer / Metadata -->
+                  <div [class.text-sky-200]="msg.senderId === currentUser()?.id"
+                       [class.text-sky-400]="msg.senderId !== currentUser()?.id"
+                       class="flex items-center justify-end gap-1.5 mt-1 text-[10px]">
                     <span>{{ msg.sentAt | date:'shortTime' }}</span>
                     @if (msg.senderId === currentUser()?.id) {
-
                       @switch (msg.deliveryStatus) {
                         @case (MessageDeliveryStatus.SENT) {
                           <lucide-angular [img]="Check" class="w-3 h-3 text-sky-200"></lucide-angular>
@@ -154,15 +203,35 @@
           }
         </div>
 
+        <!-- Staged Files Preview Bar (Above Input) -->
+        @if (selectedFiles().length > 0) {
+          <div
+            class="px-4 py-2 bg-slate-900/80 border-t border-sky-900/40 flex items-center gap-2 overflow-x-auto shrink-0">
+            @for (file of selectedFiles(); track $index) {
+              <div
+                class="relative shrink-0 flex items-center gap-2 bg-slate-800 px-3 py-1.5 rounded-xl border border-sky-800/50">
+                <span class="text-xs text-sky-200 truncate max-w-[120px]">{{ file.name }}</span>
+                <button (click)="removeStagedFile($index)"
+                        class="text-sky-400 hover:text-rose-400 transition-colors text-xs font-bold">×
+                </button>
+              </div>
+            }
+          </div>
+        }
+
+        <!-- Hidden File Input -->
+        <label for="fileInput" class="sr-only">Attach files</label>
+        <input id="fileInput" type="file" #fileInput multiple (change)="onFilesSelected($event)" class="hidden"
+               accept="image/*,video/*,.pdf,.doc,.docx,.txt"/>
+
         <!-- Message Input Bar (Fixed) -->
         <div class="p-4 border-t border-sky-900/40 bg-slate-900/20 backdrop-blur shrink-0">
-          <div class="flex items-center gap-3 bg-slate-900 border border-sky-800/50 rounded-2xl px-4 py-2 focus-within:border-sky-500 transition-all">
+          <div
+            class="flex items-center gap-3 bg-slate-900 border border-sky-800/50 rounded-2xl px-4 py-2 focus-within:border-sky-500 transition-all">
 
-            <button class="text-sky-400 hover:text-sky-200 transition-colors">
+            <button (click)="fileInput.click()" class="text-sky-400 hover:text-sky-200 transition-colors cursor-pointer"
+                    title="Attach Files">
               <lucide-angular [img]="Paperclip" class="w-5 h-5"></lucide-angular>
-            </button>
-            <button class="text-sky-400 hover:text-sky-200 transition-colors">
-              <lucide-angular [img]="ImageIcon" class="w-5 h-5"></lucide-angular>
             </button>
 
             <label for="messageInput" class="sr-only">Type your message</label>
@@ -177,7 +246,7 @@
 
             <button
               (click)="sendMessage()"
-              [disabled]="!messageInput().length && !messageInput().trim()"
+              [disabled]="(!messageInput().length || !messageInput().trim()) && selectedFiles().length === 0 || isUploadingFiles()"
               class="p-2.5 bg-sky-600 hover:bg-sky-500 disabled:opacity-40 disabled:hover:bg-sky-600 text-white rounded-xl transition-all shadow-md shadow-sky-600/20"
             >
               <lucide-angular [img]="Send" class="w-4 h-4"></lucide-angular>
@@ -189,11 +258,13 @@
       } @else {
         <!-- Empty State when no chat is selected -->
         <div class="flex-1 flex flex-col items-center justify-center p-8 text-center">
-          <div class="w-16 h-16 rounded-2xl bg-sky-950/60 border border-sky-800/40 flex items-center justify-center mb-4 text-sky-400">
+          <div
+            class="w-16 h-16 rounded-2xl bg-sky-950/60 border border-sky-800/40 flex items-center justify-center mb-4 text-sky-400">
             <lucide-angular [img]="MessageSquare" class="w-8 h-8"></lucide-angular>
           </div>
           <h3 class="text-lg font-medium text-sky-50 mb-1">Select a conversation</h3>
-          <p class="text-sm text-sky-300/60 max-w-sm">Choose a chat from the left sidebar to start messaging in real time with WebSockets.</p>
+          <p class="text-sm text-sky-300/60 max-w-sm">Choose a chat from the left sidebar to start messaging in real
+            time with WebSockets.</p>
         </div>
       }
     </div>
