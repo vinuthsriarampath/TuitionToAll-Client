@@ -13,6 +13,7 @@ import {UserService} from '@features/user/services/user/user.service';
 import {User} from '@features/user/dtos/responses/user';
 import {UpdateDeliveryStatusRequest} from '@features/messaging/dtos/requests/update-delivery-status-request';
 import {DeleteMessageRequest} from '@features/messaging/dtos/requests/delete-message-request';
+import {EditMessageRequest} from '@features/messaging/dtos/requests/edit-message-request';
 
 @Injectable({
   providedIn: 'root'
@@ -122,6 +123,15 @@ export class ConversationService{
         messages.map(m => update.id === m.id && update.isDeleted ? update : m)
       );
     });
+
+    // 4. Listen for message edit events
+    this.stompClient.subscribe(`${this.activeTopicDestination}/edit`, (editedMessage) => {
+      const update = JSON.parse(editedMessage.body) as ChatMessageResponse;
+
+      this.activeMessages.update(messages =>
+        messages.map(m => update.id === m.id && update.isEdited ? update : m)
+      );
+    });
   }
 
   /**
@@ -160,6 +170,18 @@ export class ConversationService{
 
     this.stompClient['client'].publish({
       destination: '/app/chat.delete',
+      body: JSON.stringify(payload)
+    });
+  }
+
+  editMessage(payload: EditMessageRequest):void {
+    if (!this.stompClient.connected()) {
+      console.warn('[ChatService] Cannot send message: STOMP client disconnected');
+      return;
+    }
+
+    this.stompClient['client'].publish({
+      destination: '/app/chat.edit',
       body: JSON.stringify(payload)
     });
   }
