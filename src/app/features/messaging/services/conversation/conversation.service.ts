@@ -12,6 +12,7 @@ import {MessageDeliveryStatusUpdate} from '@features/messaging/enums/message-del
 import {UserService} from '@features/user/services/user/user.service';
 import {User} from '@features/user/dtos/responses/user';
 import {UpdateDeliveryStatusRequest} from '@features/messaging/dtos/requests/update-delivery-status-request';
+import {DeleteMessageRequest} from '@features/messaging/dtos/requests/delete-message-request';
 
 @Injectable({
   providedIn: 'root'
@@ -112,6 +113,15 @@ export class ConversationService{
         messages.map(m => update.messageIds.includes(m.id) ? { ...m, deliveryStatus: update.status as any } : m)
       );
     });
+
+    // 3. Listen for message deletion events
+    this.stompClient.subscribe(`${this.activeTopicDestination}/delete`, (deletedMessage) => {
+      const update = JSON.parse(deletedMessage.body) as ChatMessageResponse;
+
+      this.activeMessages.update(messages =>
+        messages.map(m => update.id === m.id && update.isDeleted ? update : m)
+      );
+    });
   }
 
   /**
@@ -138,6 +148,18 @@ export class ConversationService{
     // Publish payload over STOMP client
     this.stompClient['client'].publish({
       destination: '/app/chat.send',
+      body: JSON.stringify(payload)
+    });
+  }
+
+  deleteMessage(payload: DeleteMessageRequest): void {
+    if (!this.stompClient.connected()) {
+      console.warn('[ChatService] Cannot send message: STOMP client disconnected');
+      return;
+    }
+
+    this.stompClient['client'].publish({
+      destination: '/app/chat.delete',
       body: JSON.stringify(payload)
     });
   }
