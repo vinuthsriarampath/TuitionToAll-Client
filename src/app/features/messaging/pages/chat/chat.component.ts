@@ -64,7 +64,7 @@ export class ChatComponent implements OnInit, OnDestroy{
   protected isUploadingFiles = signal(false);
 
   protected searchInput = signal('');
-  private searchSubject = new Subject<string>();
+  private readonly searchSubject = new Subject<string>();
 
   @ViewChild('messagesContainer') private readonly messagesContainer!: ElementRef<HTMLDivElement>;
 
