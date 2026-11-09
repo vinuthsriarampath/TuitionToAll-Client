@@ -1,8 +1,57 @@
-<app-page-layout [headerTitle]="'Notifications'" [headerDescription]="'View your notifications here.'" class="block mt-4">
+<app-page-layout [headerTitle]="'Notifications'" [headerDescription]="'View your real-time alerts, announcements, and assignment notices here.'" class="block mt-4">
   <div data-actions>
-    <button class="btn btn-mini-primary">Mark All read</button>
+    <button (click)="onMarkAllRead()" [disabled]="notifications().length == 0" class="btn btn-mini-primary flex items-center gap-1.5 cursor-pointer">
+      <lucide-icon [img]="CheckCheck" class="w-4 h-4"></lucide-icon>
+      Mark All Read
+    </button>
   </div>
-  <div data-body>
 
+  <div data-body class="space-y-3">
+    @if (loading()) {
+      <div class="flex justify-center items-center py-12">
+        <p class="text-sky-300 animate-pulse text-sm font-medium">Loading notifications...</p>
+      </div>
+    } @else if (notifications().length === 0) {
+      <div class="flex flex-col items-center justify-center py-16 bg-sky-950/40 border border-sky-800/40 rounded-xl text-center">
+        <lucide-icon [img]="Bell" class="w-12 h-12 text-sky-500/50 mb-3"></lucide-icon>
+        <p class="text-sky-200 font-medium">No notifications found</p>
+        <p class="text-sky-400/70 text-xs mt-1">You're all caught up! Check back later for updates.</p>
+      </div>
+    } @else {
+      <div class="space-y-2">
+        @for (notification of notifications(); track notification.id) {
+          <div (click)="onNotificationClick(notification)"
+               [class]="notification.isRead ? 'bg-sky-950/30 border-sky-900/30 text-sky-300/80' : 'bg-sky-900/40 border-sky-700/50 text-sky-100 shadow-sm ring-1 ring-sky-500/20'"
+               class="p-4 rounded-xl border transition-all duration-150 cursor-pointer hover:bg-sky-900/70 flex items-start gap-3.5 group">
+
+            <!-- Type Icon Badge -->
+            <div [class]="notification.isRead ? 'bg-sky-900/40 text-sky-400' : 'bg-sky-600 text-white shadow-sm'"
+                 class="p-2.5 rounded-lg flex items-center justify-center shrink-0 mt-0.5">
+              <lucide-icon [img]="getNotificationIcon(notification.type)" class="w-5 h-5"></lucide-icon>
+            </div>
+
+            <!-- Content Area -->
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <h4 class="text-sm font-semibold tracking-wide truncate group-hover:text-white transition-colors">
+                  {{ notification.title }}
+                </h4>
+                <span class="text-[0.7rem] text-sky-400/80 shrink-0">
+                  {{ notification.createdAt | date:'MMM d, y, h:mm a' }}
+                </span>
+              </div>
+              <p class="text-xs mt-1 text-sky-300/90 leading-relaxed line-clamp-2">
+                {{ notification.content }}
+              </p>
+            </div>
+
+            <!-- Unread Indicator Dot -->
+            @if (!notification.isRead) {
+              <div class="w-2.5 h-2.5 rounded-full bg-sky-400 shrink-0 self-center shadow-[0_0_8px_rgba(56,189,248,0.6)]"></div>
+            }
+          </div>
+        }
+      </div>
+    }
   </div>
 </app-page-layout>
