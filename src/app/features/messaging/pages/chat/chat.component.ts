@@ -6,7 +6,7 @@ import {UserService} from '@features/user/services/user/user.service';
 import {
   ArrowDown,
   Check,
-  CheckCheck, ChevronDown, CircleX,
+  CheckCheck, ChevronDown, CircleX, Edit,
   ImageIcon,
   LucideAngularModule,
   MessageSquare,
@@ -25,6 +25,7 @@ import {AlertService} from '@core/services/alerts/alert.service';
 import {CardShellComponent} from '@shared/ui';
 import {DatePipe, NgOptimizedImage} from '@angular/common';
 import {MatMenu, MatMenuTrigger} from '@angular/material/menu';
+import {ChatMessageResponse} from '@features/messaging/dtos/responses/chat-message-response';
 
 @Component({
   selector: 'app-chat',
@@ -209,6 +210,33 @@ export class ChatComponent implements OnInit, OnDestroy{
     });
   }
 
+  protected editingMessageId = signal<number | null>(null);
+  protected editContentInput = signal<string>('');
+
+  protected startEditing(msg: ChatMessageResponse): void {
+    this.editingMessageId.set(msg.id);
+    this.editContentInput.set(msg.content);
+  }
+
+  protected cancelEditing(): void {
+    this.editingMessageId.set(null);
+    this.editContentInput.set('');
+  }
+
+  protected submitEdit(messageId: number): void {
+    const activeConv = this.activeConversation();
+    const content = this.editContentInput().trim();
+    if (!activeConv || !content) return;
+
+    this.conversationService.editMessage({
+      conversationId: activeConv.id,
+      messageId: messageId,
+      newContent: content
+    });
+
+    this.cancelEditing();
+  }
+
   protected onFilesSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
@@ -313,4 +341,5 @@ export class ChatComponent implements OnInit, OnDestroy{
   protected readonly ChevronDown = ChevronDown;
   protected readonly Trash2 = Trash2;
   protected readonly CircleX = CircleX;
+  protected readonly Edit = Edit;
 }

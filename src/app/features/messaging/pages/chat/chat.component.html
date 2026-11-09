@@ -119,7 +119,7 @@
                     [class.text-white]="msg.senderId === currentUser()?.id"
                     [class.bg-slate-900]="msg.senderId !== currentUser()?.id"
                     [class.text-sky-100]="msg.senderId !== currentUser()?.id"
-                    class="max-w-md px-4 py-3 rounded-2xl border border-sky-800/30 shadow-sm space-y-2 relative group"
+                    class="max-w-md px-4 py-1 rounded-2xl border border-sky-800/30 shadow-sm space-y-2 relative group"
                   >
                     @if (msg.senderId === currentUser()?.id) {
                       <button [matMenuTriggerFor]="messageMenu" class="absolute top-2 right-2 z-10 flex items-center justify-center w-7 h-7 rounded-full bg-slate-800/70 backdrop-blur-sm border border-white/10 text-slate-300 shadow-md opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 hover:bg-slate-700 hover:text-white hover:border-white/20 active:scale-95 transition-all duration-200 ease-out cursor-pointer" title="Message options">
@@ -129,6 +129,10 @@
                         <button (click)="deleteMessage(msg.id)" class="btn-mini-light btn-danger flex justify-center item-center w-full">
                           <lucide-icon [img]="Trash2" class="w-4 h-4 mr-2 text-red-400"></lucide-icon>
                           <span>Delete</span>
+                        </button>
+                        <button (click)="startEditing(msg)" class="btn-mini-secondary flex justify-center item-center w-full">
+                          <lucide-icon [img]="Edit" class="w-4 h-4 mr-2 text-sky-400"></lucide-icon>
+                          <span>Edit</span>
                         </button>
                       </mat-menu>
                     }
@@ -144,7 +148,7 @@
                               [alt]="att.fileName"
                               width="400"
                               height="240"
-                              class="max-h-60 w-full object-cover hover:scale-105 transition-transform"
+                              class="max-h-60 w-full object-cover transition-transform rounded-lg"
                             />
                           } @else if (att.fileType === 'VIDEO') {
                             <video controls class="max-h-60 w-full rounded-xl border border-sky-800/40">
@@ -167,7 +171,13 @@
                               <div class="flex-1 min-w-0">
                                 <p class="text-xs font-medium text-sky-100 truncate">{{ att.fileName }}</p>
                                 <span class="text-[10px] text-sky-400/60">
-                                  {{ (att.fileSize / 1024).toFixed(1) }} KB
+                                  {{
+                                    att.fileSize < 1024 * 1024
+                                      ? (att.fileSize / 1024).toFixed(1) + ' KB'
+                                      : att.fileSize < 1024 * 1024 * 1024
+                                        ? (att.fileSize / (1024 * 1024)).toFixed(1) + ' MB'
+                                        : (att.fileSize / (1024 * 1024 * 1024)).toFixed(1) + ' GB'
+                                  }}
                                 </span>
                               </div>
                             </a>
@@ -177,15 +187,35 @@
                       </div>
                     }
 
-                    <!-- Text Content -->
-                    @if (msg.content) {
-                      <p class="text-sm whitespace-pre-wrap leading-relaxed">{{ msg.content }}</p>
+                    <!-- Text Content / Edit Mode View -->
+                    @if (editingMessageId() === msg.id) {
+                      <div class="space-y-2 pt-1">
+                        <label for="editMessageInput-{{msg.id}}" class="sr-only">Edit message content</label>
+                        <input
+                          id="editMessageInput-{{msg.id}}"
+                          type="text"
+                          [(ngModel)]="editContentInput"
+                          (keyup.enter)="submitEdit(msg.id)"
+                          class="form-input text-xs w-full bg-slate-800 text-white rounded-lg p-2 border border-sky-700/50 focus:outline-none focus:border-sky-500"
+                        />
+                        <div class="flex gap-2 justify-end">
+                          <button (click)="submitEdit(msg.id)" class="px-2.5 py-1 text-[10px] bg-sky-600 hover:bg-sky-500 text-white rounded-lg transition-all font-medium">Save</button>
+                          <button (click)="cancelEditing()" class="px-2.5 py-1 text-[10px] bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg transition-all font-medium">Cancel</button>
+                        </div>
+                      </div>
+                    } @else {
+                      @if (msg.content) {
+                        <p class="text-sm whitespace-pre-wrap leading-relaxed">{{ msg.content }}</p>
+                      }
                     }
 
                     <!-- Footer / Metadata -->
                     <div [class.text-sky-200]="msg.senderId === currentUser()?.id"
                          [class.text-sky-400]="msg.senderId !== currentUser()?.id"
                          class="flex items-center justify-end gap-1.5 mt-1 text-[10px]">
+                      @if (msg.isEdited && !msg.isDeleted) {
+                        <span class="text-[9px] text-sky-300 mr-1">(edited)</span>
+                      }
                       <span>{{ msg.sentAt | date:'shortTime' }}</span>
                       @if (msg.senderId === currentUser()?.id) {
                         @switch (msg.deliveryStatus) {
