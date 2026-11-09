@@ -26,6 +26,7 @@ import {CardShellComponent} from '@shared/ui';
 import {DatePipe, NgOptimizedImage} from '@angular/common';
 import {MatMenu, MatMenuTrigger} from '@angular/material/menu';
 import {ChatMessageResponse} from '@features/messaging/dtos/responses/chat-message-response';
+import {debounceTime, distinctUntilChanged, Subject, switchMap} from 'rxjs';
 
 @Component({
   selector: 'app-chat',
@@ -62,15 +63,48 @@ export class ChatComponent implements OnInit, OnDestroy{
   protected selectedFiles = signal<File[]>([]);
   protected isUploadingFiles = signal(false);
 
+  protected searchInput = signal('');
+  private searchSubject = new Subject<string>();
+
   @ViewChild('messagesContainer') private readonly messagesContainer!: ElementRef<HTMLDivElement>;
 
   ngOnInit(): void {
     this.currentUser.set(this.userService.getCurrentUser());
     this.loadUserConversations();
+    this.setupSearchSubscription();
   }
 
   ngOnDestroy(): void {
     this.conversationService.leaveConversation();
+  }
+
+  private setupSearchSubscription(): void {
+    this.searchSubject.pipe(
+      debounceTime(300), // Wait 300ms after the user stops typing
+      distinctUntilChanged(), // Only trigger if the search term actually changed
+      switchMap(searchTerm => {
+        this.isLoadingConversations.set(true);
+        return this.conversationService.getUserConversations({ searchTerm: searchTerm.trim() });
+      })
+    ).subscribe({
+      next: (res) => {
+        if (res.data) {
+          this.conversations.set(res.data);
+          this.conversationService.setInitialUnreadCounts(res.data);
+        }
+        this.isLoadingConversations.set(false);
+      },
+      error: (err) => {
+        this.isLoadingConversations.set(false);
+        this.alertService.triggerErrorAlert(err.error?.message || 'Failed to search conversations.');
+      }
+    });
+  }
+
+  protected onSearchInput(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.searchInput.set(value);
+    this.searchSubject.next(value); // Push value into RxJS pipeline
   }
 
   private loadUserConversations(): void {

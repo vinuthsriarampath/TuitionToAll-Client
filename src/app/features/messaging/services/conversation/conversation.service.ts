@@ -14,6 +14,8 @@ import {User} from '@features/user/dtos/responses/user';
 import {UpdateDeliveryStatusRequest} from '@features/messaging/dtos/requests/update-delivery-status-request';
 import {DeleteMessageRequest} from '@features/messaging/dtos/requests/delete-message-request';
 import {EditMessageRequest} from '@features/messaging/dtos/requests/edit-message-request';
+import {ConversationFilterRequest} from '@features/messaging/dtos/requests/conversation-filter-request';
+import {buildParams} from '@shared/utils/helpers/params-helper';
 
 @Injectable({
   providedIn: 'root'
@@ -58,8 +60,9 @@ export class ConversationService{
   /**
    * Fetch all conversation threads for the authenticated user.
    */
-  getUserConversations(): Observable<ApiResponse<ConversationResponse[]>> {
-    return this.http.get<ApiResponse<ConversationResponse[]>>(this.baseUrl);
+  getUserConversations(filters?: ConversationFilterRequest): Observable<ApiResponse<ConversationResponse[]>> {
+    const params = buildParams({filters});
+    return this.http.get<ApiResponse<ConversationResponse[]>>(this.baseUrl, { params });
   }
 
   /**

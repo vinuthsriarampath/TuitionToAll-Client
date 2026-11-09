@@ -14,6 +14,8 @@
           <input
             id="searchConversations"
             type="text"
+            [value]="searchInput()"
+            (input)="onSearchInput($event)"
             placeholder="Search conversations..."
             class="form-input input-special w-full"
           />
