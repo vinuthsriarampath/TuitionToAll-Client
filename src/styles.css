@@ -464,6 +464,32 @@ mat-panel-description,
 }
 
 /* ==========================================================================
+   Angular Material Menu Panel Overrides
+   ========================================================================== */
+
+.mat-mdc-menu-panel {
+  background-color: #020617 !important;
+  min-width: 140px !important;
+  border: 1px solid rgba(14, 165, 233, 0.2);
+  border-radius: 8px !important;
+}
+
+.mat-mdc-menu-content {
+  padding: 4px !important;
+}
+
+.mat-mdc-menu-item {
+  min-height: 36px !important;
+  height: 36px !important;
+  padding: 0 10px !important;
+  border-radius: 5px;
+}
+
+.mat-mdc-menu-item:hover:not([disabled]) {
+  background-color: rgba(14, 165, 233, 0.12) !important;
+}
+
+/* ==========================================================================
    Design System Utility Classes (Buttons, Forms, Badges, Cards)
    ========================================================================== */
 

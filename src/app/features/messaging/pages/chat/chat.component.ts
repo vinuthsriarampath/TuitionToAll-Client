@@ -4,14 +4,15 @@ import {User} from '@features/user/dtos/responses/user';
 import {ConversationService} from '@features/messaging/services/conversation/conversation.service';
 import {UserService} from '@features/user/services/user/user.service';
 import {
+  ArrowDown,
   Check,
-  CheckCheck,
+  CheckCheck, ChevronDown, CircleX,
   ImageIcon,
   LucideAngularModule,
   MessageSquare,
   MoreVertical,
   Paperclip, Phone, Search,
-  Send,
+  Send, Trash2,
   Video
 } from 'lucide-angular';
 import {FormsModule} from '@angular/forms';
@@ -23,6 +24,7 @@ import {ChatAttachmentService} from '@features/messaging/services/chat-attachmen
 import {AlertService} from '@core/services/alerts/alert.service';
 import {CardShellComponent} from '@shared/ui';
 import {DatePipe, NgOptimizedImage} from '@angular/common';
+import {MatMenu, MatMenuTrigger} from '@angular/material/menu';
 
 @Component({
   selector: 'app-chat',
@@ -32,6 +34,8 @@ import {DatePipe, NgOptimizedImage} from '@angular/common';
     CardShellComponent,
     NgOptimizedImage,
     DatePipe,
+    MatMenuTrigger,
+    MatMenu,
   ],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css'
@@ -195,6 +199,16 @@ export class ChatComponent implements OnInit, OnDestroy{
     this.messageInput.set('');
   }
 
+  protected deleteMessage(messageId: number): void {
+    const activeConv = this.activeConversation();
+    if (!activeConv) return;
+
+    this.conversationService.deleteMessage({
+      conversationId: activeConv.id,
+      messageId: messageId
+    });
+  }
+
   protected onFilesSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
@@ -295,4 +309,8 @@ export class ChatComponent implements OnInit, OnDestroy{
   protected readonly ConversationType = ConversationType;
   protected readonly MessageDeliveryStatus = MessageDeliveryStatus;
   protected readonly Check = Check;
+  protected readonly ArrowDown = ArrowDown;
+  protected readonly ChevronDown = ChevronDown;
+  protected readonly Trash2 = Trash2;
+  protected readonly CircleX = CircleX;
 }
