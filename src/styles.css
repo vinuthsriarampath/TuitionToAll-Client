@@ -93,6 +93,68 @@
   backdrop-filter: blur(8px);
 }
 
+.interactive-notification-snackbar .mat-mdc-snack-bar-label {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 320px;
+  line-height: 1.35;
+}
+
+/* Chat Notifications (Sky Theme) */
+.chat-notification-snackbar .mat-mdc-snackbar-surface {
+  background-color: rgba(12, 74, 110, 0.96) !important;
+  border: 1px solid rgba(56, 189, 248, 0.5) !important;
+  color: #f0f9ff !important;
+  font-size: 13px;
+  border-radius: 14px;
+  box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+}
+
+/* Announcement Notifications (Amber/Gold Theme) */
+.announcement-notification-snackbar .mat-mdc-snackbar-surface {
+  background-color: rgba(69, 26, 3, 0.96) !important; /* amber-950/96 */
+  border: 1px solid rgba(245, 158, 11, 0.5) !important; /* amber-500/50 */
+  color: #fef3c7 !important; /* amber-100 */
+  font-size: 13px;
+  border-radius: 14px;
+  box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+}
+
+/* Assignment Notifications (Rose Theme) */
+.assignment-notification-snackbar .mat-mdc-snackbar-surface {
+  background-color: rgba(76, 5, 25, 0.96) !important; /* rose-950/96 */
+  border: 1px solid rgba(244, 63, 94, 0.5) !important; /* rose-500/50 */
+  color: #ffe4e6 !important; /* rose-100 */
+  font-size: 13px;
+  border-radius: 14px;
+  box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+}
+
+/* Lecture / Resource Notifications (Emerald Theme) */
+.resource-notification-snackbar .mat-mdc-snackbar-surface {
+  background-color: rgba(6, 78, 59, 0.96) !important; /* emerald-950/96 */
+  border: 1px solid rgba(16, 185, 129, 0.5) !important; /* emerald-500/50 */
+  color: #ecfdf5 !important; /* emerald-50 */
+  font-size: 13px;
+  border-radius: 14px;
+  box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+}
+
+/* Snackbar Action Button Override */
+.mat-mdc-snack-bar-action.mdc-button {
+  color: #38bdf8 !important; /* sky-400 */
+  font-weight: 700 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 /* Angular Material Dialog / Modals Overrides */
 .mat-mdc-dialog-container .mdc-dialog__surface {
   background-color: rgba(12, 74, 110, 0.95) !important; /* sky-950/95 */

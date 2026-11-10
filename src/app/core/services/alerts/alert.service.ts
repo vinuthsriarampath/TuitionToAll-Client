@@ -8,6 +8,8 @@ import {
   ConfirmationDialogComponent,
   ConfirmationDialogData
 } from '@shared/dialogs/confirmation-dialog/confirmation-dialog.component';
+import {NotificationResponse} from '@features/notifications/dtos/responses/notification-response';
+import {NotificationType} from '@features/notifications/enums/notification-type';
 
 @Injectable({
   providedIn: 'root'
@@ -71,6 +73,40 @@ export class AlertService {
     return dialogRef.afterClosed().pipe(
       map(result => result ?? false)
     )
+  }
+
+  /**
+   * Triggers an interactive toast alert for global notifications with a click-to-view action.
+   */
+  notification(notification: NotificationResponse, onViewAction: () => void): void {
+    const panelClass = this.getPanelClassForType(notification.type);
+
+    const snackBarRef = this.snackBar.open(
+      `${notification.title}: ${notification.content}`,
+      'View',
+      {
+        duration: 7000, // Longer duration for reading content
+        horizontalPosition: 'end',
+        verticalPosition: 'bottom',
+        panelClass: [panelClass, 'interactive-notification-snackbar']
+      }
+    );
+
+    // Handle click on the "View" action button
+    snackBarRef.onAction().subscribe(() => {
+      onViewAction();
+    });
+  }
+
+  private getPanelClassForType(type: NotificationType): string {
+    switch (type) {
+      case NotificationType.CHAT: return 'chat-notification-snackbar';
+      case NotificationType.ANNOUNCEMENT: return 'announcement-notification-snackbar';
+      case NotificationType.ASSIGNMENT: return 'assignment-notification-snackbar';
+      case NotificationType.LECTURE:
+      case NotificationType.RESOURCE: return 'resource-notification-snackbar';
+      default: return 'default-notification-snackbar';
+    }
   }
 
 }
