@@ -19,7 +19,7 @@ import {
 import {User} from '@features/user/dtos/responses/user';
 import {UserService} from '@features/user/services/user/user.service';
 import {AuthenticationService} from '@features/auth/services/auth/authentication.service';
-import {NotificationService} from '@features/notifications/services/notification/notification.service';
+import {GlobalNotificationService} from '@core/services/global-notification/global-notification.service';
 
 @Component({
   selector: 'app-navbar',
@@ -50,9 +50,8 @@ export class NavbarComponent implements OnInit{
 
   private readonly userService:UserService = inject(UserService);
   private readonly authService:AuthenticationService = inject(AuthenticationService);
-  private readonly notificationService = inject(NotificationService);
 
-  protected unreadCountSignal = signal<number>(0);
+  protected readonly globalNotificationService = inject(GlobalNotificationService);
 
   @ViewChild('mobileSearchInput') mobileSearchInput!: ElementRef;
 
@@ -61,16 +60,6 @@ export class NavbarComponent implements OnInit{
 
     this.userService.currentUser$.subscribe(user => {
       this.user = user;
-
-      if(user){
-        this.notificationService.getUnreadCount(user.id).subscribe({
-          next: (res) => {
-            if (res.data !== undefined) {
-              this.unreadCountSignal.set(res.data);
-            }
-          }
-        });
-      }
     })
   }
 

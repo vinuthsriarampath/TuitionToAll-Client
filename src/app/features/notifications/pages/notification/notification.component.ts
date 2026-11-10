@@ -8,6 +8,8 @@ import {AlertService} from '@core/services/alerts/alert.service';
 import {PaginationRequest} from '@shared/utils/requests/PaginationRequest';
 import {UserService} from '@features/user/services/user/user.service';
 import {DatePipe} from '@angular/common';
+import {NotificationType} from '@features/notifications/enums/notification-type';
+import {GlobalNotificationService} from '@core/services/global-notification/global-notification.service';
 
 @Component({
   selector: 'app-notification',
@@ -25,8 +27,10 @@ export class NotificationComponent implements OnInit{
   private readonly router = inject(Router);
   private readonly alertService = inject(AlertService);
 
+  protected readonly globalNotificationService = inject(GlobalNotificationService);
+
   protected notifications = signal<NotificationResponse[]>([]);
-  protected unreadCount = signal<number>(0);
+
   protected loading = signal<boolean>(false);
   protected pagination = new PaginationRequest(0, 15, 'desc', ['created_at']);
   protected totalPages = signal<number>(0);
@@ -35,12 +39,10 @@ export class NotificationComponent implements OnInit{
   private userId!: number;
 
   ngOnInit(): void {
-    // Fetch currently logged-in user's ID from your auth service
     const currentUser = this.userService.getCurrentUser();
     if (currentUser?.id) {
       this.userId = currentUser.id;
       this.loadNotifications();
-      this.loadUnreadCount();
     } else {
       this.alertService.triggerErrorAlert('User session not found.');
     }
@@ -64,23 +66,13 @@ export class NotificationComponent implements OnInit{
     });
   }
 
-  protected loadUnreadCount(): void {
-    this.notificationService.getUnreadCount(this.userId).subscribe({
-      next: (res) => {
-        if (res.data !== undefined) {
-          this.unreadCount.set(res.data);
-        }
-      }
-    });
-  }
-
   protected onMarkAllRead(): void {
     this.notificationService.markAllAsRead(this.userId).subscribe({
       next: () => {
         this.alertService.triggerSuccessAlert('All notifications marked as read.');
         // Update local state cleanly
         this.notifications.update(list => list.map(n => ({ ...n, isRead: true })));
-        this.unreadCount.set(0);
+        this.globalNotificationService.resetUnreadCount();
       },
       error: (err) => {
         this.alertService.triggerErrorAlert(err.error?.message || 'Failed to update notifications.');
@@ -96,7 +88,7 @@ export class NotificationComponent implements OnInit{
           this.notifications.update(list =>
             list.map(n => n.id === notification.id ? { ...n, isRead: true } : n)
           );
-          this.unreadCount.update(count => Math.max(0, count - 1));
+          this.globalNotificationService.decrementUnreadCount();
         }
       });
     }
@@ -111,13 +103,13 @@ export class NotificationComponent implements OnInit{
   }
 
   // Icon mapping helper based on notification type
-  protected getNotificationIcon(type: string) {
+  protected getNotificationIcon(type: NotificationType) {
     switch (type) {
-      case 'CHAT': return MessageSquare;
-      case 'ANNOUNCEMENT': return Megaphone;
-      case 'ASSIGNMENT': return FileText;
-      case 'LECTURE': return BookOpen;
-      case 'RESOURCE': return BookOpen;
+      case NotificationType.CHAT: return MessageSquare;
+      case NotificationType.ANNOUNCEMENT: return Megaphone;
+      case NotificationType.ASSIGNMENT: return FileText;
+      case NotificationType.LECTURE: return BookOpen;
+      case NotificationType.RESOURCE: return BookOpen;
       default: return Bell;
     }
   }
