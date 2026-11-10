@@ -33,6 +33,7 @@ import {UserService} from '@features/user/services/user/user.service';
 import {Observable, of, tap} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {Router} from '@angular/router';
+import {GlobalNotificationService} from '@core/services/global-notification/global-notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,7 @@ export class AuthenticationService {
   private readonly stompClient: StompClientService = inject(StompClientService);
   private readonly userService = inject(UserService);
   private readonly router = inject(Router);
+  private readonly globalNotificationService = inject(GlobalNotificationService);
 
   login(UserLoginRequest:UserLoginRequest){
     return this.http.post<AuthResponse>(`${environment.AUTH_API}/login`, UserLoginRequest).pipe(tap(response => {
@@ -53,6 +55,7 @@ export class AuthenticationService {
       if(!this.stompClient.connected()){
         this.stompClient.connect();
       }
+      this.globalNotificationService.initGlobalListener();
     }))
   }
 
@@ -106,7 +109,11 @@ export class AuthenticationService {
     return this.verifyToken().pipe(tap(response => {
         if (response.data) {
           this.userService.setCurrentUser(response.data);
-          this.stompClient.connect();
+
+          if (!this.stompClient.connected()) {
+            this.stompClient.connect();
+          }
+          this.globalNotificationService.initGlobalListener();
         }
       }),
       map(() => true),
