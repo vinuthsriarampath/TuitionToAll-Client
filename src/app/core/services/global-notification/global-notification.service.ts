@@ -10,8 +10,14 @@ export class GlobalNotificationService {
   private readonly stompClient = inject(StompClientService);
   private readonly alertService = inject(AlertService);
 
+  private readonly notificationAudio = new Audio('audio/notification.mp3');
+
   // Global reactive signal for badge count across the app shell
   readonly globalUnreadCount = signal<number>(0);
+
+  constructor() {
+    this.notificationAudio.load();
+  }
 
   /**
    * Initialize background listener for user notifications queue
@@ -23,9 +29,10 @@ export class GlobalNotificationService {
 
       // Increment badge counter
       this.globalUnreadCount.update(count => count + 1);
+      this.playNotificationSound();
 
       // Trigger subtle toast alert
-      this.alertService.triggerSuccessAlert(`New ${notification.type.toLowerCase()}: ${notification.title}`);
+      this.alertService.notification(notification,()=>{});
     });
   }
 
@@ -39,5 +46,12 @@ export class GlobalNotificationService {
 
   resetUnreadCount(): void {
     this.globalUnreadCount.set(0);
+  }
+
+  private playNotificationSound(): void {
+    this.notificationAudio.currentTime = 0;
+    this.notificationAudio.play().catch(error => {
+      console.warn('Audio playback prevented by browser policy:', error);
+    });
   }
 }
