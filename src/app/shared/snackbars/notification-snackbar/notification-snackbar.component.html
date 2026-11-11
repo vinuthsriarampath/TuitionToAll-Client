@@ -1,0 +1,18 @@
+<div (click)="view()"
+     class="group flex items-start gap-3 p-3.5 w-[380px] rounded-2xl shadow-2xl backdrop-blur-md cursor-pointer transition-all duration-200 hover:scale-[1.01] animate-in fade-in slide-in-from-bottom-3 duration-300 border {{ themeStyles }}">
+
+  <!-- Icon based on type -->
+  <div class="p-2 rounded-xl shrink-0 mt-0.5 {{ iconBgStyles }}">
+    <lucide-icon [img]="getIcon()" [strokeWidth]="2" class="w-5 h-5 {{ iconColorStyles }}"></lucide-icon>
+  </div>
+
+  <!-- Text Container -->
+  <div class="flex-1 min-w-0">
+    <h4 class="text-sm font-medium tracking-wide truncate text-white">
+      {{ notification.title }}
+    </h4>
+    <p class="text-xs mt-1 leading-relaxed line-clamp-2 text-slate-300">
+      {{ notification.content }}
+    </p>
+  </div>
+</div>
