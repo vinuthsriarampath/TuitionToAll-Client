@@ -56,7 +56,7 @@ export class CourseService {
     }
 
     return this.http.get<ApiResponse<Course[]>>(
-      `${environment.COURSE_API}/${instituteId}`,
+      `${environment.COURSE_API}/institute/${instituteId}`,
       { params }
     ).pipe(
       map(res => res.data!)
