@@ -50,7 +50,7 @@ export class GlobalNotificationService {
       this.playNotificationSound();
 
       // Trigger subtle toast alert
-      this.alertService.notification(notification,()=>{});
+      this.alertService.notification(notification);
     });
   }
 
