@@ -85,6 +85,10 @@ export class ConversationService{
     return this.http.get<PaginatedApiResponse<ChatMessageResponse>>(`${this.baseUrl}/${conversationId}/messages`, { params });
   }
 
+  getTotalUnreadCount(): Observable<ApiResponse<number>> {
+    return this.http.get<ApiResponse<number>>(`${this.baseUrl}/unread-count`)
+  }
+
   /**
    * Connect to WebSocket topic for a specific conversation room
    */
