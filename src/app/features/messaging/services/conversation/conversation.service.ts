@@ -1,4 +1,4 @@
-import {inject, Injectable, OnInit, signal} from '@angular/core';
+import {inject, Injectable, signal} from '@angular/core';
 import {PaginatedApiResponse} from '@shared/utils/response/paginated-api-response';
 import {ChatMessageResponse} from '@features/messaging/dtos/responses/chat-message-response';
 import {HttpClient, HttpParams} from '@angular/common/http';
@@ -6,14 +6,6 @@ import {Observable} from 'rxjs';
 import {ConversationResponse} from '@features/messaging/dtos/responses/conversation-response';
 import {ApiResponse} from '@shared/utils/response/api-response';
 import {environment} from '@env/environment.development';
-import {StompClientService} from '@core/services/stomp/stomp-client.service';
-import {SendMessageRequest} from '@features/messaging/dtos/requests/send-message-request';
-import {MessageDeliveryStatusUpdate} from '@features/messaging/enums/message-delivery-status-update';
-import {UserService} from '@features/user/services/user/user.service';
-import {User} from '@features/user/dtos/responses/user';
-import {UpdateDeliveryStatusRequest} from '@features/messaging/dtos/requests/update-delivery-status-request';
-import {DeleteMessageRequest} from '@features/messaging/dtos/requests/delete-message-request';
-import {EditMessageRequest} from '@features/messaging/dtos/requests/edit-message-request';
 import {ConversationFilterRequest} from '@features/messaging/dtos/requests/conversation-filter-request';
 import {buildParams} from '@shared/utils/helpers/params-helper';
 
@@ -24,37 +16,22 @@ export class ConversationService{
 
 
   private readonly http = inject(HttpClient);
-  private readonly userService = inject(UserService);
   private readonly baseUrl: string = environment.CONVERSATION_API ?? '';
-  private readonly stompClient = inject(StompClientService);
-
-  readonly unreadMap = signal(new Map());
 
   // Active chat state using Angular Signals
   readonly activeConversation = signal<ConversationResponse | null>(null);
-  readonly activeMessages = signal<ChatMessageResponse[]>([]);
-
-  private activeTopicDestination?: string;
-
-  protected currentUser = signal<User | null>(null);
 
 
   readonly currentPage = signal<number>(0);
   readonly isLastPage = signal<boolean>(false);
   readonly isLoadingMore = signal<boolean>(false);
 
-  private readonly notificationAudio = new Audio('audio/new-message.mp3');
 
   // Reset pagination state when switching chats
   resetPagination(): void {
     this.currentPage.set(0);
     this.isLastPage.set(false);
     this.isLoadingMore.set(false);
-  }
-
-  constructor() {
-    this.currentUser.set(this.userService.getCurrentUser());
-    this.notificationAudio.load();
   }
 
   /**
@@ -85,178 +62,21 @@ export class ConversationService{
     return this.http.get<PaginatedApiResponse<ChatMessageResponse>>(`${this.baseUrl}/${conversationId}/messages`, { params });
   }
 
-  getTotalUnreadCount(): Observable<ApiResponse<number>> {
-    return this.http.get<ApiResponse<number>>(`${this.baseUrl}/unread-count`)
-  }
-
-  /**
-   * Connect to WebSocket topic for a specific conversation room
-   */
-  subscribeToConversation(conversation: ConversationResponse): void {
-    // Unsubscribe from existing active topic if switching rooms
-    if (this.activeTopicDestination) {
-      this.stompClient.unsubscribe(this.activeTopicDestination);
-    }
-
-    this.activeConversation.set(conversation);
-    this.activeTopicDestination = `/topic/chat/${conversation.id}`;
-
-    // Subscribe to STOMP destination
-    this.stompClient.subscribe(this.activeTopicDestination, (message) => {
-      const incomingMessage = JSON.parse(message.body) as ChatMessageResponse;
-
-      // Append new incoming message to reactive signal array
-      this.activeMessages.update((messages) => [...messages, incomingMessage]);
-      const currentUser = this.currentUser();
-
-      if (incomingMessage.senderId !== this.currentUser()?.id) {
-        this.playNewMessageSound();
-      }
-
-      // If viewing the chat and a message arrives from someone else, mark it as 'READ' immediately
-      if (currentUser && incomingMessage.senderId !== currentUser.id) {
-        this.sendDeliveryStatusUpdate(conversation.id, [incomingMessage.id], MessageDeliveryStatusUpdate.READ);
-      }
-    });
-
-    // 2. Listen for real-time delivery status updates ('DELIVERED', 'READ')
-    this.stompClient.subscribe(`${this.activeTopicDestination}/status`, (statusMsg) => {
-      const update = JSON.parse(statusMsg.body) as UpdateDeliveryStatusRequest;
-
-      // Update local signal array status flags
-      this.activeMessages.update(messages =>
-        messages.map(m => update.messageIds.includes(m.id) ? { ...m, deliveryStatus: update.status as any } : m)
-      );
-    });
-
-    // 3. Listen for message deletion events
-    this.stompClient.subscribe(`${this.activeTopicDestination}/delete`, (deletedMessage) => {
-      const update = JSON.parse(deletedMessage.body) as ChatMessageResponse;
-
-      this.activeMessages.update(messages =>
-        messages.map(m => update.id === m.id && update.isDeleted ? update : m)
-      );
-    });
-
-    // 4. Listen for message edit events
-    this.stompClient.subscribe(`${this.activeTopicDestination}/edit`, (editedMessage) => {
-      const update = JSON.parse(editedMessage.body) as ChatMessageResponse;
-
-      this.activeMessages.update(messages =>
-        messages.map(m => update.id === m.id && update.isEdited ? update : m)
-      );
-    });
-  }
-
-  /**
-   * Publish status updates over WebSocket
-   */
-  sendDeliveryStatusUpdate(conversationId: number, messageIds: number[], status: MessageDeliveryStatusUpdate): void {
-    if (!this.stompClient.connected() || messageIds.length === 0) return;
-
-    this.stompClient['client'].publish({
-      destination: '/app/chat.status',
-      body: JSON.stringify({ conversationId, messageIds, status })
-    });
-  }
-
-  /**
-   * Send a message through WebSocket destination /app/chat.send
-   */
-  sendMessage(payload: SendMessageRequest): void {
-    if (!this.stompClient.connected()) {
-      console.warn('[ChatService] Cannot send message: STOMP client disconnected');
-      return;
-    }
-
-    // Publish payload over STOMP client
-    this.stompClient['client'].publish({
-      destination: '/app/chat.send',
-      body: JSON.stringify(payload)
-    });
-  }
-
-  deleteMessage(payload: DeleteMessageRequest): void {
-    if (!this.stompClient.connected()) {
-      console.warn('[ChatService] Cannot send message: STOMP client disconnected');
-      return;
-    }
-
-    this.stompClient['client'].publish({
-      destination: '/app/chat.delete',
-      body: JSON.stringify(payload)
-    });
-  }
-
-  editMessage(payload: EditMessageRequest):void {
-    if (!this.stompClient.connected()) {
-      console.warn('[ChatService] Cannot send message: STOMP client disconnected');
-      return;
-    }
-
-    this.stompClient['client'].publish({
-      destination: '/app/chat.edit',
-      body: JSON.stringify(payload)
-    });
-  }
-
   /**
    * Clean up active room subscription when leaving the chat view
    */
   leaveConversation(): void {
     const activeConv = this.activeConversation();
+
     if (activeConv) {
-      this.http.post<ApiResponse<void>>(`${this.baseUrl}/${activeConv.id}/leave`, {}).subscribe();
+      this.http.post<ApiResponse<void>>(`${this.baseUrl}/${activeConv.id}/leave`, {}).subscribe({
+        error: (error) => {
+          console.error('Failed to leave conversation:', error);
+        }
+      });
+
+
+      this.activeConversation.set(null);
     }
-
-    if (this.activeTopicDestination) {
-      this.stompClient.unsubscribe(this.activeTopicDestination);
-      this.activeTopicDestination = undefined;
-    }
-    this.activeConversation.set(null);
-    this.activeMessages.set([]);
-  }
-
-
-  /**
-   * Initialize unread counts map from loaded conversations list
-   */
-  setInitialUnreadCounts(conversations: ConversationResponse[]): void {
-    const map = new Map<number, number>();
-    conversations.forEach(c => map.set(c.id, c.unreadCount ?? 0));
-    this.unreadMap.set(map);
-  }
-
-  /**
-   * Increment unread count for a specific conversation when background notification arrives
-   */
-  incrementUnread(conversationId: number): void {
-    this.unreadMap.update(map => {
-      const newMap = new Map(map);
-      const current = newMap.get(conversationId) ?? 0;
-      newMap.set(conversationId, current + 1);
-      return newMap;
-    });
-  }
-
-  /**
-   * Clear unread count when user opens/views a conversation
-   */
-  clearUnread(conversationId: number): void {
-    this.unreadMap.update(map => {
-      const newMap = new Map(map);
-      newMap.set(conversationId, 0);
-      return newMap;
-    });
-
-    // Call backend REST to persist last_read_at timestamp update
-    this.http.post<ApiResponse<void>>(`${this.baseUrl}/${conversationId}/read`, {}).subscribe();
-  }
-
-  private playNewMessageSound(): void {
-    this.notificationAudio.currentTime = 0;
-    this.notificationAudio.play().catch(error => {
-      console.warn('Audio playback prevented by browser policy:', error);
-    });
   }
 }
