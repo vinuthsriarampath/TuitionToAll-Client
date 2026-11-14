@@ -61,10 +61,14 @@
             </a>
 
             <!-- Message -->
-            <a [routerLink]="['/app/message']"
-               [routerLinkActive]="'bg-sky-800 text-white font-medium shadow-sm ring-1 ring-sky-500/30'"
-               class="group text-sky-100 flex flex-col items-center justify-center cursor-pointer hover:bg-sky-800/60 rounded-lg px-2 py-1.5 transition-all duration-150 ease-in-out active:scale-[0.98]">
-              <lucide-icon [img]="MessageSquareText" [strokeWidth]="1.35" class="w-5 h-5 text-sky-300 group-hover:text-white transition-colors"></lucide-icon>
+            <a [routerLink]="['/app/message']" [routerLinkActive]="'bg-sky-800 text-white font-medium shadow-sm ring-1 ring-sky-500/30'" class="relative group text-sky-100 flex flex-col items-center justify-center cursor-pointer hover:bg-sky-800/60 rounded-lg px-2 py-1.5 transition-all duration-150 ease-in-out active:scale-[0.98]">
+              <div class="relative">
+                <lucide-icon [img]="MessageSquareText" [strokeWidth]="1.35" class="w-5 h-5 text-sky-300 group-hover:text-white transition-colors"></lucide-icon>
+
+                @if (conversationUnreadService.totalUnreadCount() > 0) {
+                  <span class="absolute -top-1.5 -right-2.5 bg-rose-500 text-white text-[0.6rem] font-bold px-1.5 py-0.2 rounded-full shadow-md ">{{ conversationUnreadService.totalUnreadCount() > 99 ? '99+' : conversationUnreadService.totalUnreadCount() }}</span>
+                }
+              </div>
               <p class="text-[0.8rem] font-medium tracking-wide mt-0.5 truncate">Message</p>
             </a>
 

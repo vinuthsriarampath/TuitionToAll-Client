@@ -20,6 +20,7 @@ import {User} from '@features/user/dtos/responses/user';
 import {UserService} from '@features/user/services/user/user.service';
 import {AuthenticationService} from '@features/auth/services/auth/authentication.service';
 import {GlobalNotificationService} from '@core/services/global-notification/global-notification.service';
+import { ConversationUnreadService } from '@features/messaging/services/conversation-unread/conversation-unread.service';
 
 @Component({
   selector: 'app-navbar',
@@ -51,6 +52,7 @@ export class NavbarComponent implements OnInit{
   private readonly userService:UserService = inject(UserService);
   private readonly authService:AuthenticationService = inject(AuthenticationService);
 
+  protected readonly conversationUnreadService = inject(ConversationUnreadService);
   protected readonly globalNotificationService = inject(GlobalNotificationService);
 
   @ViewChild('mobileSearchInput') mobileSearchInput!: ElementRef;
