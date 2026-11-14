@@ -150,10 +150,7 @@ export class StompClientService {
    * @param callback The callback function to handle incoming messages.
    * @returns The subscription ID.
    */
-  subscribe(
-    destination: string,
-    callback: (message: IMessage) => void,
-  ): number {
+  subscribe(destination: string, callback: (message: IMessage) => void): number {
     const id = ++this.subscriptionId;
 
     const entry: SubscriptionEntry = { id, callback };
@@ -197,9 +194,7 @@ export class StompClientService {
     // Remove only the specified subscription.
     const entry = destinationSubscriptions.get(subscriptionId);
 
-    if (!entry) {
-      return;
-    }
+    if (!entry) {return;}
 
     entry.subscription?.unsubscribe();
 
@@ -259,5 +254,27 @@ export class StompClientService {
         entry.subscription = undefined;
       }
     }
+  }
+
+
+  /**
+   * Publishes a message to a STOMP destination.
+   * @param destination The STOMP destination to publish the message to.
+   * @param body The message body to be sent. It will be serialized to JSON.
+   * @returns A boolean indicating whether the publish was successful (true) or failed due to disconnection (false).
+   * 
+   * NOTE: returning true means the message was handed to the STOMP client, not that the server successfully processed it
+   */
+  publish(destination: string, body: unknown): boolean {
+    if (!this.connected()) {
+      return false;
+    }
+
+    this.client.publish({
+      destination,
+      body: JSON.stringify(body)
+    });
+
+    return true;
   }
 }
