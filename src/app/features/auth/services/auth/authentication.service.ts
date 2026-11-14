@@ -130,6 +130,8 @@ export class AuthenticationService {
 
     if(token){
       this.removeAuthToken();
+      this.userService.setCurrentUser(null);
+      
       if (this.stompClient.connected()) {
         this.stompClient.disconnect();
       }
