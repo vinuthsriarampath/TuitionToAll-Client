@@ -27,6 +27,8 @@ import {DatePipe, NgOptimizedImage} from '@angular/common';
 import {MatMenu, MatMenuTrigger} from '@angular/material/menu';
 import {ChatMessageResponse} from '@features/messaging/dtos/responses/chat-message-response';
 import {debounceTime, distinctUntilChanged, Subject, switchMap} from 'rxjs';
+import { ConversationUnreadService } from '@features/messaging/services/conversation-unread/conversation-unread.service';
+import { ConversationMessageService } from '@features/messaging/services/conversation-message/conversation-message.service';
 
 @Component({
   selector: 'app-chat',
@@ -48,6 +50,8 @@ export class ChatComponent implements OnInit, OnDestroy{
   private readonly userService = inject(UserService);
   private readonly chatAttachmentService = inject(ChatAttachmentService);
   private readonly alertService = inject(AlertService);
+  private readonly conversationUnreadService = inject(ConversationUnreadService);
+  private readonly conversationMessageService = inject(ConversationMessageService);
 
   protected conversations = signal<ConversationResponse[]>([]);
   protected isLoadingConversations = signal(false);
@@ -56,8 +60,8 @@ export class ChatComponent implements OnInit, OnDestroy{
 
   // Expose active state signals directly from service
   protected activeConversation = this.conversationService.activeConversation;
-  protected activeMessages = this.conversationService.activeMessages;
-  protected unreadMap = this.conversationService.unreadMap;
+  protected activeMessages = this.conversationMessageService.activeMessages;
+  protected unreadMap = this.conversationUnreadService.unreadMap;
   protected currentUser = signal<User | null>(null);
 
   protected selectedFiles = signal<File[]>([]);
@@ -75,6 +79,7 @@ export class ChatComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
+    this.conversationMessageService.unsubscribeFromConversation();    
     this.conversationService.leaveConversation();
   }
 
@@ -90,7 +95,6 @@ export class ChatComponent implements OnInit, OnDestroy{
       next: (res) => {
         if (res.data) {
           this.conversations.set(res.data);
-          this.conversationService.setInitialUnreadCounts(res.data);
         }
         this.isLoadingConversations.set(false);
       },
@@ -113,7 +117,6 @@ export class ChatComponent implements OnInit, OnDestroy{
       next: (res) => {
         if (res.data) {
           this.conversations.set(res.data);
-          this.conversationService.setInitialUnreadCounts(res.data);
         }
         this.isLoadingConversations.set(false);
       },
@@ -131,11 +134,14 @@ export class ChatComponent implements OnInit, OnDestroy{
     if (this.activeConversation()?.id === conversation.id) return;
 
     if (this.activeConversation()) {
+      this.conversationMessageService.unsubscribeFromConversation();
       this.conversationService.leaveConversation();
     }
 
-    this.conversationService.clearUnread(conversation.id);
-    this.conversationService.subscribeToConversation(conversation);
+    this.conversationUnreadService.markAsRead(conversation.id);
+
+    this.conversationService.activeConversation.set(conversation);
+    this.conversationMessageService.subscribeToConversation(conversation);
 
     this.currentPage.set(0);
     this.isLastPage.set(false);
@@ -151,7 +157,7 @@ export class ChatComponent implements OnInit, OnDestroy{
 
           // Reverse initial batch so oldest is at the top and newest is at the bottom
           const sortedMessages = [...rawMessages].reverse();
-          this.conversationService.activeMessages.set(sortedMessages);
+          this.conversationMessageService.setInitialMessages(sortedMessages);
 
           this.isLastPage.set(res.last ?? res.data.length < 30);
 
@@ -161,7 +167,7 @@ export class ChatComponent implements OnInit, OnDestroy{
             .map(m => m.id);
 
           if (unreadIds.length > 0) {
-            this.conversationService.sendDeliveryStatusUpdate(conversation.id, unreadIds, MessageDeliveryStatusUpdate.READ);
+            this.conversationMessageService.sendDeliveryStatusUpdate(conversation.id, unreadIds, MessageDeliveryStatusUpdate.READ);
           }
         }
         setTimeout(() => this.scrollToBottom(), 50);
@@ -188,7 +194,7 @@ export class ChatComponent implements OnInit, OnDestroy{
           this.selectedFiles.set([]); // Clear staged files
 
           // 2. Dispatch STOMP message with attachment metadata
-          this.conversationService.sendMessage({
+          this.conversationMessageService.sendMessage({
             conversationId: activeConv.id,
             content: content,
             attachments: uploadedAttachments ? uploadedAttachments.map(att => ({
@@ -207,7 +213,7 @@ export class ChatComponent implements OnInit, OnDestroy{
       })
     }else{
       // Send payload over WebSocket destination /app/chat.send
-      this.conversationService.sendMessage({
+      this.conversationMessageService.sendMessage({
         attachments: [],
         conversationId: activeConv.id,
         content: content
@@ -224,7 +230,7 @@ export class ChatComponent implements OnInit, OnDestroy{
     const activeConv = this.activeConversation();
     if (!activeConv) return;
 
-    this.conversationService.sendMessage({
+    this.conversationMessageService.sendMessage({
       attachments: [],
       conversationId: activeConv.id,
       content: 'Hi there! 👋'
@@ -238,7 +244,7 @@ export class ChatComponent implements OnInit, OnDestroy{
     const activeConv = this.activeConversation();
     if (!activeConv) return;
 
-    this.conversationService.deleteMessage({
+    this.conversationMessageService.deleteMessage({
       conversationId: activeConv.id,
       messageId: messageId
     });
@@ -262,7 +268,7 @@ export class ChatComponent implements OnInit, OnDestroy{
     const content = this.editContentInput().trim();
     if (!activeConv || !content) return;
 
-    this.conversationService.editMessage({
+    this.conversationMessageService.editMessage({
       conversationId: activeConv.id,
       messageId: messageId,
       newContent: content
@@ -315,7 +321,7 @@ export class ChatComponent implements OnInit, OnDestroy{
           const sortedOlderMessages = [...rawOlderMessages].reverse();
 
           // Prepend older messages to the beginning of the array
-          this.conversationService.activeMessages.update(currentMessages => [
+          this.conversationMessageService.activeMessages.update(currentMessages => [
             ...sortedOlderMessages,
             ...currentMessages
           ]);
@@ -355,6 +361,7 @@ export class ChatComponent implements OnInit, OnDestroy{
 
   @HostListener('document:keydown.escape')
   onEscapeKey() {
+    this.conversationMessageService.unsubscribeFromConversation();
     this.conversationService.leaveConversation();
   }
 
