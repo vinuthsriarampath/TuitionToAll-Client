@@ -1,0 +1,4 @@
+export enum ConversationEventType {
+    MESSAGE_RECEIVED = 'MESSAGE_RECEIVED',
+    CONVERSATION_READ = 'CONVERSATION_READ',
+}
