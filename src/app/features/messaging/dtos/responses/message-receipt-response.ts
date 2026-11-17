@@ -3,6 +3,6 @@ import { MessageDeliveryStatus } from "@features/messaging/enums/message-deliver
 export class MessageReceiptResponse {
     recipientId!: number;
     status!: MessageDeliveryStatus
-    deliveredAt!: string;
-    readAt!: string;
+    deliveredAt?: string | null;
+    readAt?: string | null;
 }
