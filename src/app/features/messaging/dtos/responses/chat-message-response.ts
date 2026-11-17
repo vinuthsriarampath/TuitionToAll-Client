@@ -1,5 +1,6 @@
 import {MessageDeliveryStatus} from '@features/messaging/enums/message-delivery-status';
 import {MessageAttachmentResponse} from '@features/messaging/dtos/responses/message-attachment-response';
+import { MessageReceiptResponse } from './message-receipt-response';
 
 export class ChatMessageResponse {
   id!: number;
@@ -8,7 +9,7 @@ export class ChatMessageResponse {
   senderName!: string;
   senderDp!: string;
   content!: string;
-  deliveryStatus!: MessageDeliveryStatus;
+  receipts!: MessageReceiptResponse[];
   isEdited!: boolean;
   isDeleted!: boolean;
   sentAt!: string;
