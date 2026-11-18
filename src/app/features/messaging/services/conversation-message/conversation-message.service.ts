@@ -91,9 +91,6 @@ export class ConversationMessageService {
 
         if (messageWithReceipts.senderId !== currentUser?.id) {
           this.playNewMessageSound();
-
-          // Acknowledge delivery, not reading.
-          this.acknowledgeMessageDelivery( conversation.id, [messageWithReceipts.id] );
         }
       }
     );
