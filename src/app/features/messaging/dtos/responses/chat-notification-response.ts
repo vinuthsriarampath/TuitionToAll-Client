@@ -1,7 +1,7 @@
-import { ConversationEventType } from "@features/messaging/enums/chat-notification-type";
+import { ChatNotificationType } from "@features/messaging/enums/chat-notification-type";
 
 export class ChatNotificationResponse {
-    type!: ConversationEventType;
+    type!: ChatNotificationType;
     conversationId!: number;
     messageId?: number;
 }
