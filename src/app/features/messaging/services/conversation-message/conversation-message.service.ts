@@ -107,7 +107,8 @@ export class ConversationMessageService {
           update.conversationId,
           update.messageIds,
           update.recipientId,
-          update.status
+          update.status,
+          update.deliveredAt
         );
       }
     );
@@ -136,7 +137,8 @@ export class ConversationMessageService {
             )
             .map(msg => msg.id),
           update.readerId,
-          update.status
+          update.status,
+          update.readAt
         );
       }
     );
@@ -325,42 +327,34 @@ export class ConversationMessageService {
   /**
    * Update receipt statuses for one or more messages.
    */
-  private updateReceiptStatuses( conversationId: number, messageIds: number[], recipientId: number, status: MessageDeliveryStatus ): void {
+  private updateReceiptStatuses( conversationId: number, messageIds: number[], recipientId: number, status: MessageDeliveryStatus, timestamp?: string ): void {
 
-    if (messageIds.length === 0) {
-      return;
-    }
+    if (messageIds.length === 0) return;
 
-    const messageIdSet = new Set(messageIds);
+    this.activeMessages.update(messages => messages.map(msg => {
+      if (msg.conversationId !== conversationId || !messageIds.includes(msg.id)) {
+        return msg;
+      }
 
-    this.activeMessages.update(messages =>
-      messages.map(message => {
+      return {
+        ...msg,
+        receipts: msg.receipts.map(receipt => {
+          if (receipt.recipientId !== recipientId) return receipt;
 
-        if ( message.conversationId !== conversationId || !messageIdSet.has(message.id) ) {
-          return message;
-        }
-
-        return {
-          ...message,
-          receipts: message.receipts.map(receipt => {
-
-            if (receipt.recipientId !== recipientId) {
-              return receipt;
-            }
-
-            // Never downgrade a READ receipt to DELIVERED.
-            if (receipt.status === MessageDeliveryStatus.READ && status === MessageDeliveryStatus.DELIVERED) {
-              return receipt;
-            }
-
-            return {
-              ...receipt,
-              status
-            };
-          })
-        };
-      })
-    );
+          return {
+            ...receipt,
+            status,
+            ...(status === MessageDeliveryStatus.DELIVERED && timestamp
+              ? { deliveredAt: timestamp }
+              : {}),
+            ...(status === MessageDeliveryStatus.READ && timestamp
+              ? { readAt: timestamp }
+              : {})
+          };
+        })
+      };
+    })
+  );
   }
 
   /**

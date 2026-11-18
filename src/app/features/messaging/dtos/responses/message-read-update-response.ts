@@ -5,4 +5,5 @@ export class MessageReadUpdateResponse {
     readerId!: number;
     lastReadMessageId!: number;
     status!: MessageDeliveryStatus;
+    readAt!: string;
 }

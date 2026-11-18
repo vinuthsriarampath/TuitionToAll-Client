@@ -5,4 +5,5 @@ export class MessageDeliveryUpdateResponse {
     recipientId!: number;
     messageIds!: number[];
     status!: MessageDeliveryStatus;
+    deliveredAt!: string;
 }
