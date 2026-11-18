@@ -1,32 +1,47 @@
-import {Component, ElementRef, HostListener, inject, OnDestroy, OnInit, signal, ViewChild} from '@angular/core';
-import {ConversationResponse} from '@features/messaging/dtos/responses/conversation-response';
-import {User} from '@features/user/dtos/responses/user';
-import {ConversationService} from '@features/messaging/services/conversation/conversation.service';
-import {UserService} from '@features/user/services/user/user.service';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  inject,
+  OnDestroy,
+  OnInit,
+  signal,
+  ViewChild,
+} from '@angular/core';
+import { ConversationResponse } from '@features/messaging/dtos/responses/conversation-response';
+import { User } from '@features/user/dtos/responses/user';
+import { ConversationService } from '@features/messaging/services/conversation/conversation.service';
+import { UserService } from '@features/user/services/user/user.service';
 import {
   ArrowDown,
   Check,
-  CheckCheck, ChevronDown, CircleX, Edit,
+  CheckCheck,
+  ChevronDown,
+  CircleX,
+  Edit,
   ImageIcon,
   LucideAngularModule,
   MessageSquare,
   MoreVertical,
-  Paperclip, Phone, Search,
-  Send, Trash2,
-  Video
+  Paperclip,
+  Phone,
+  Search,
+  Send,
+  Trash2,
+  Video,
 } from 'lucide-angular';
-import {FormsModule} from '@angular/forms';
-import {environment} from '@env/environment.development';
-import {ConversationType} from '@features/messaging/enums/conversation-type';
-import {MessageDeliveryStatus} from '@features/messaging/enums/message-delivery-status';
-import {MessageDeliveryStatusUpdate} from '@features/messaging/enums/message-delivery-status-update';
-import {ChatAttachmentService} from '@features/messaging/services/chat-attachment/chat-attachment.service';
-import {AlertService} from '@core/services/alerts/alert.service';
-import {CardShellComponent} from '@shared/ui';
-import {DatePipe, NgOptimizedImage} from '@angular/common';
-import {MatMenu, MatMenuTrigger} from '@angular/material/menu';
-import {ChatMessageResponse} from '@features/messaging/dtos/responses/chat-message-response';
-import {debounceTime, distinctUntilChanged, Subject, switchMap} from 'rxjs';
+import { FormsModule } from '@angular/forms';
+import { environment } from '@env/environment.development';
+import { ConversationType } from '@features/messaging/enums/conversation-type';
+import { MessageDeliveryStatus } from '@features/messaging/enums/message-delivery-status';
+import { MessageDeliveryStatusUpdate } from '@features/messaging/enums/message-delivery-status-update';
+import { ChatAttachmentService } from '@features/messaging/services/chat-attachment/chat-attachment.service';
+import { AlertService } from '@core/services/alerts/alert.service';
+import { CardShellComponent } from '@shared/ui';
+import { DatePipe, NgOptimizedImage } from '@angular/common';
+import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
+import { ChatMessageResponse } from '@features/messaging/dtos/responses/chat-message-response';
+import { debounceTime, distinctUntilChanged, Subject, switchMap } from 'rxjs';
 import { ConversationUnreadService } from '@features/messaging/services/conversation-unread/conversation-unread.service';
 import { ConversationMessageService } from '@features/messaging/services/conversation-message/conversation-message.service';
 
@@ -42,16 +57,19 @@ import { ConversationMessageService } from '@features/messaging/services/convers
     MatMenu,
   ],
   templateUrl: './chat.component.html',
-  styleUrl: './chat.component.css'
+  styleUrl: './chat.component.css',
 })
-export class ChatComponent implements OnInit, OnDestroy{
-
+export class ChatComponent implements OnInit, OnDestroy {
   private readonly conversationService = inject(ConversationService);
   private readonly userService = inject(UserService);
   private readonly chatAttachmentService = inject(ChatAttachmentService);
   private readonly alertService = inject(AlertService);
-  private readonly conversationUnreadService = inject(ConversationUnreadService);
-  private readonly conversationMessageService = inject(ConversationMessageService);
+  private readonly conversationUnreadService = inject(
+    ConversationUnreadService,
+  );
+  private readonly conversationMessageService = inject(
+    ConversationMessageService,
+  );
 
   protected conversations = signal<ConversationResponse[]>([]);
   protected isLoadingConversations = signal(false);
@@ -70,7 +88,8 @@ export class ChatComponent implements OnInit, OnDestroy{
   protected searchInput = signal('');
   private readonly searchSubject = new Subject<string>();
 
-  @ViewChild('messagesContainer') private readonly messagesContainer!: ElementRef<HTMLDivElement>;
+  @ViewChild('messagesContainer')
+  private readonly messagesContainer!: ElementRef<HTMLDivElement>;
 
   ngOnInit(): void {
     this.currentUser.set(this.userService.getCurrentUser());
@@ -79,30 +98,35 @@ export class ChatComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    this.conversationMessageService.unsubscribeFromConversation();    
+    this.conversationMessageService.unsubscribeFromConversation();
     this.conversationService.leaveConversation();
   }
 
   private setupSearchSubscription(): void {
     this.searchSubject.pipe(
-      debounceTime(300), // Wait 300ms after the user stops typing
-      distinctUntilChanged(), // Only trigger if the search term actually changed
-      switchMap(searchTerm => {
-        this.isLoadingConversations.set(true);
-        return this.conversationService.getUserConversations({ searchTerm: searchTerm.trim() });
-      })
-    ).subscribe({
-      next: (res) => {
-        if (res.data) {
-          this.conversations.set(res.data);
-        }
-        this.isLoadingConversations.set(false);
-      },
-      error: (err) => {
-        this.isLoadingConversations.set(false);
-        this.alertService.triggerErrorAlert(err.error?.message || 'Failed to search conversations.');
-      }
-    });
+        debounceTime(300), // Wait 300ms after the user stops typing
+        distinctUntilChanged(), // Only trigger if the search term actually changed
+        switchMap((searchTerm) => {
+          this.isLoadingConversations.set(true);
+          return this.conversationService.getUserConversations({
+            searchTerm: searchTerm.trim(),
+          });
+        }),
+      )
+      .subscribe({
+        next: (res) => {
+          if (res.data) {
+            this.conversations.set(res.data);
+          }
+          this.isLoadingConversations.set(false);
+        },
+        error: (err) => {
+          this.isLoadingConversations.set(false);
+          this.alertService.triggerErrorAlert(
+            err.error?.message || 'Failed to search conversations.',
+          );
+        },
+      });
   }
 
   protected onSearchInput(event: Event): void {
@@ -122,7 +146,7 @@ export class ChatComponent implements OnInit, OnDestroy{
       },
       error: () => {
         this.isLoadingConversations.set(false);
-      }
+      },
     });
   }
 
@@ -133,50 +157,41 @@ export class ChatComponent implements OnInit, OnDestroy{
   protected selectConversation(conversation: ConversationResponse): void {
     if (this.activeConversation()?.id === conversation.id) return;
 
+    // Leave the previous conversation.
     if (this.activeConversation()) {
       this.conversationMessageService.unsubscribeFromConversation();
       this.conversationService.leaveConversation();
     }
 
-    this.conversationUnreadService.markAsRead(conversation.id);
-
+    // Set the active conversation.
     this.conversationService.activeConversation.set(conversation);
+
+    // Subscribe to the new conversation's WebSocket destinations.
     this.conversationMessageService.subscribeToConversation(conversation);
 
     this.currentPage.set(0);
     this.isLastPage.set(false);
     this.isLoadingMessages.set(true);
 
-    // Fetch historical paginated messages
-    this.conversationService.getConversationMessages(conversation.id, 0, 30).subscribe({
-      next: (res) => {
-        // PaginatedApiResponse structure
-        if (res.data) {
-          // Reverse or order correctly based on backend sorting (backend sent_at ASC)
-          const rawMessages = res.data || [];
+    // Fetch historical paginated messages.
+    this.conversationService
+      .getConversationMessages(conversation.id, 0, 30)
+      .subscribe({
+        next: (res) => {
+          if (res.data) {
+            // Backend already returns messages in sent_at ASC order.
+            this.conversationMessageService.setInitialMessages(res.data);
 
-          // Reverse initial batch so oldest is at the top and newest is at the bottom
-          const sortedMessages = [...rawMessages].reverse();
-          this.conversationMessageService.setInitialMessages(sortedMessages);
-
-          this.isLastPage.set(res.last ?? res.data.length < 30);
-
-          const currentUserId = this.currentUser()?.id;
-          const unreadIds = res.data
-            .filter(m => m.senderId !== currentUserId && m.deliveryStatus !== MessageDeliveryStatus.READ)
-            .map(m => m.id);
-
-          if (unreadIds.length > 0) {
-            this.conversationMessageService.sendDeliveryStatusUpdate(conversation.id, unreadIds, MessageDeliveryStatusUpdate.READ);
+            this.isLastPage.set(res.last ?? res.data.length < 30);
           }
-        }
-        setTimeout(() => this.scrollToBottom(), 50);
-        this.isLoadingMessages.set(false);
-      },
-      error: () => {
-        this.isLoadingMessages.set(false);
-      }
-    });
+
+          setTimeout(() => this.scrollToBottom(), 50);
+          this.isLoadingMessages.set(false);
+        },
+        error: () => {
+          this.isLoadingMessages.set(false);
+        },
+      });
   }
 
   protected sendMessage(): void {
@@ -197,26 +212,30 @@ export class ChatComponent implements OnInit, OnDestroy{
           this.conversationMessageService.sendMessage({
             conversationId: activeConv.id,
             content: content,
-            attachments: uploadedAttachments ? uploadedAttachments.map(att => ({
-              fileUrl: att.fileUrl,
-              fileName: att.fileName,
-              fileType: att.fileType,
-              fileSize: att.fileSize
-            })) : []
+            attachments: uploadedAttachments
+              ? uploadedAttachments.map((att) => ({
+                  fileUrl: att.fileUrl,
+                  fileName: att.fileName,
+                  fileType: att.fileType,
+                  fileSize: att.fileSize,
+                }))
+              : [],
           });
           this.messageInput.set('');
         },
         error: (err) => {
           this.isUploadingFiles.set(false);
-          this.alertService.triggerErrorAlert(err.error.message || 'Failed to upload files.');
-        }
-      })
-    }else{
+          this.alertService.triggerErrorAlert(
+            err.error.message || 'Failed to upload files.',
+          );
+        },
+      });
+    } else {
       // Send payload over WebSocket destination /app/chat.send
       this.conversationMessageService.sendMessage({
         attachments: [],
         conversationId: activeConv.id,
-        content: content
+        content: content,
       });
 
       // Clear input field
@@ -226,14 +245,14 @@ export class ChatComponent implements OnInit, OnDestroy{
     setTimeout(() => this.scrollToBottom(), 50);
   }
 
-  sendFirstHi():void{
+  sendFirstHi(): void {
     const activeConv = this.activeConversation();
     if (!activeConv) return;
 
     this.conversationMessageService.sendMessage({
       attachments: [],
       conversationId: activeConv.id,
-      content: 'Hi there! 👋'
+      content: 'Hi there! 👋',
     });
 
     // Clear input field
@@ -246,7 +265,7 @@ export class ChatComponent implements OnInit, OnDestroy{
 
     this.conversationMessageService.deleteMessage({
       conversationId: activeConv.id,
-      messageId: messageId
+      messageId: messageId,
     });
   }
 
@@ -271,7 +290,7 @@ export class ChatComponent implements OnInit, OnDestroy{
     this.conversationMessageService.editMessage({
       conversationId: activeConv.id,
       messageId: messageId,
-      newContent: content
+      newContent: content,
     });
 
     this.cancelEditing();
@@ -282,21 +301,25 @@ export class ChatComponent implements OnInit, OnDestroy{
     if (input.files && input.files.length > 0) {
       const filesArray = Array.from(input.files);
       // Append or set selected files for preview
-      this.selectedFiles.update(current => [...current, ...filesArray]);
+      this.selectedFiles.update((current) => [...current, ...filesArray]);
     }
     // Reset input so same file can be re-selected if needed
     input.value = '';
   }
 
   protected removeStagedFile(index: number): void {
-    this.selectedFiles.update(files => files.filter((_, i) => i !== index));
+    this.selectedFiles.update((files) => files.filter((_, i) => i !== index));
   }
 
   onChatScroll(event: Event): void {
     const element = event.target as HTMLElement;
 
     // If user scrolled near the top (e.g., within 50px) and we aren't already loading and there are more pages
-    if (element.scrollTop <= 50 && !this.isLoadingMore() && !this.isLastPage()) {
+    if (
+      element.scrollTop <= 50 &&
+      !this.isLoadingMore() &&
+      !this.isLastPage()
+    ) {
       this.loadOlderMessages(element);
     }
   }
@@ -312,40 +335,40 @@ export class ChatComponent implements OnInit, OnDestroy{
     const previousScrollTop = containerElement.scrollTop;
     const previousScrollHeight = containerElement.scrollHeight;
 
+    this.conversationService
+      .getConversationMessages(activeConv.id, nextPage, 30)
+      .subscribe({
+        next: (res) => {
+          const rawOlderMessages = res.data || [];
 
-    this.conversationService.getConversationMessages(activeConv.id, nextPage, 30).subscribe({
-      next: (res) => {
-        const rawOlderMessages = res.data || [];
+          if (rawOlderMessages.length > 0) {
+            const sortedOlderMessages = [...rawOlderMessages].reverse();
 
-        if (rawOlderMessages.length > 0) {
-          const sortedOlderMessages = [...rawOlderMessages].reverse();
+            // Prepend older messages to the beginning of the array
+            this.conversationMessageService.activeMessages.update(
+              (currentMessages) => [...sortedOlderMessages, ...currentMessages],
+            );
 
-          // Prepend older messages to the beginning of the array
-          this.conversationMessageService.activeMessages.update(currentMessages => [
-            ...sortedOlderMessages,
-            ...currentMessages
-          ]);
+            this.currentPage.set(nextPage);
+            this.isLastPage.set(res.last || rawOlderMessages.length < 30);
 
-          this.currentPage.set(nextPage);
-          this.isLastPage.set(res.last || rawOlderMessages.length < 30);
+            // Restore scroll position so user doesn't lose their place
+            setTimeout(() => {
+              const newScrollHeight = containerElement.scrollHeight;
+              const scrollDifference = newScrollHeight - previousScrollHeight;
+              containerElement.scrollTop = previousScrollTop + scrollDifference;
+              this.isLoadingMore.set(false);
+            }, 50);
+          } else {
+            this.isLastPage.set(true);
+          }
 
-          // Restore scroll position so user doesn't lose their place
-          setTimeout(() => {
-            const newScrollHeight = containerElement.scrollHeight;
-            const scrollDifference = newScrollHeight - previousScrollHeight;
-            containerElement.scrollTop = previousScrollTop + scrollDifference;
-            this.isLoadingMore.set(false);
-          }, 50);
-        } else {
-          this.isLastPage.set(true);
-        }
-
-        this.isLoadingMore.set(false);
-      },
-      error: () => {
-        this.isLoadingMore.set(false);
-      }
-    });
+          this.isLoadingMore.set(false);
+        },
+        error: () => {
+          this.isLoadingMore.set(false);
+        },
+      });
   }
 
   private scrollToBottom(): void {
@@ -355,7 +378,7 @@ export class ChatComponent implements OnInit, OnDestroy{
 
     container.scrollTo({
       top: container.scrollHeight,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
   }
 
