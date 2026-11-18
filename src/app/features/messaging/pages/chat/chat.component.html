@@ -221,6 +221,15 @@
                       <span>{{ msg.sentAt | date:'shortTime' }}</span>
                       @if (msg.senderId === currentUser()?.id) {
                         @if (getMessageDeliveryStatus(msg); as deliveryStatus) {
+                          <button
+                            type="button"
+                            class="inline-flex items-center justify-center rounded-md
+                                  hover:bg-sky-500/10 transition-colors cursor-pointer"
+                            [matMenuTriggerFor]="receiptMenu"
+                            #receiptMenuTrigger="matMenuTrigger"
+                            (mouseenter)="receiptMenuTrigger.openMenu()"
+                            aria-label="View message delivery details"
+                          >
                           @switch (deliveryStatus) {
                             @case (MessageDeliveryStatus.SENT) {
                               <lucide-angular [img]="Check" class="w-3 h-3 text-sky-200" />
@@ -234,6 +243,37 @@
                               <lucide-angular [img]="CheckCheck" class="w-3 h-3 text-blue-800" />
                             }
                           }
+                          </button>
+
+                          <mat-menu #receiptMenu="matMenu" class="chat-receipt-menu">
+                            @for (receipt of msg.receipts; track receipt.recipientId) {
+                              <div class="flex items-center justify-between gap-5 px-3 py-2 min-w-64" >
+                                <div class="flex flex-col min-w-0">
+                                  <span class="text-sm font-medium text-slate-100 truncate">
+                                    {{ receipt.recipientName }}
+                                  </span>
+
+                                  <span class="text-xs text-slate-400">
+                                    @switch (receipt.status) {
+                                      @case (MessageDeliveryStatus.SENT) {
+                                        Sent
+                                      }
+                                      @case (MessageDeliveryStatus.DELIVERED) {
+                                        Delivered
+                                      }
+                                      @case (MessageDeliveryStatus.READ) {
+                                        Read
+                                      }
+                                    }
+                                  </span>
+                                </div>
+
+                                <span class="text-[11px] text-slate-400 whitespace-nowrap">
+                                  {{ getReceiptTimestamp(receipt) }}
+                                </span>
+                              </div>
+                            }
+                          </mat-menu>
                         }
                       }
                     </div>

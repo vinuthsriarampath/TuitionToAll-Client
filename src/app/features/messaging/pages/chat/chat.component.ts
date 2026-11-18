@@ -44,6 +44,7 @@ import { ChatMessageResponse } from '@features/messaging/dtos/responses/chat-mes
 import { debounceTime, distinctUntilChanged, Subject, switchMap } from 'rxjs';
 import { ConversationUnreadService } from '@features/messaging/services/conversation-unread/conversation-unread.service';
 import { ConversationMessageService } from '@features/messaging/services/conversation-message/conversation-message.service';
+import { MessageReceiptResponse } from '@features/messaging/dtos/responses/message-receipt-response';
 
 @Component({
   selector: 'app-chat',
@@ -389,7 +390,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.conversationService.leaveConversation();
   }
 
-  protected getMessageDeliveryStatus(message: ChatMessageResponse): MessageDeliveryStatus | null {
+  protected getMessageDeliveryStatus( message: ChatMessageResponse, ): MessageDeliveryStatus | null {
     const receipts = message.receipts ?? [];
 
     if (message.senderId !== this.currentUser()?.id) {
@@ -439,6 +440,23 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
 
     return null;
+  }
+
+  protected getReceiptTimestamp(receipt: MessageReceiptResponse): string {
+    switch (receipt.status) {
+      case MessageDeliveryStatus.DELIVERED:
+        return receipt.deliveredAt
+          ? new Date(receipt.deliveredAt).toLocaleString()
+          : 'Delivery time unavailable';
+
+      case MessageDeliveryStatus.READ:
+        return receipt.readAt
+          ? new Date(receipt.readAt).toLocaleString()
+          : 'Read time unavailable';
+
+      default:
+        return 'Waiting for delivery';
+    }
   }
 
   protected readonly MessageSquare = MessageSquare;
