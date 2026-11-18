@@ -103,7 +103,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   private setupSearchSubscription(): void {
-    this.searchSubject.pipe(
+    this.searchSubject
+      .pipe(
         debounceTime(300), // Wait 300ms after the user stops typing
         distinctUntilChanged(), // Only trigger if the search term actually changed
         switchMap((searchTerm) => {
@@ -386,6 +387,58 @@ export class ChatComponent implements OnInit, OnDestroy {
   onEscapeKey() {
     this.conversationMessageService.unsubscribeFromConversation();
     this.conversationService.leaveConversation();
+  }
+
+  protected getMessageDeliveryStatus(message: ChatMessageResponse): MessageDeliveryStatus | null {
+    const receipts = message.receipts ?? [];
+
+    if (message.senderId !== this.currentUser()?.id) {
+      return null;
+    }
+
+    const conversation = this.activeConversation();
+
+    if (!conversation || receipts.length === 0) {
+      return null;
+    }
+
+    // Direct conversation: exactly one recipient
+    if (conversation.type === ConversationType.DIRECT) {
+      if (receipts.length !== 1) {
+        return null;
+      }
+
+      return receipts[0].status;
+    }
+
+    // Group conversation: at least two recipients
+    if (conversation.type === ConversationType.GROUP) {
+      if (receipts.length < 2) {
+        return null;
+      }
+
+      const everyoneRead = receipts.every(
+        (receipt) => receipt.status === MessageDeliveryStatus.READ,
+      );
+
+      if (everyoneRead) {
+        return MessageDeliveryStatus.READ;
+      }
+
+      const everyoneDelivered = receipts.every(
+        (receipt) =>
+          receipt.status === MessageDeliveryStatus.DELIVERED ||
+          receipt.status === MessageDeliveryStatus.READ,
+      );
+
+      if (everyoneDelivered) {
+        return MessageDeliveryStatus.DELIVERED;
+      }
+
+      return MessageDeliveryStatus.SENT;
+    }
+
+    return null;
   }
 
   protected readonly MessageSquare = MessageSquare;

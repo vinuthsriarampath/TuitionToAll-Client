@@ -220,15 +220,19 @@
                       }
                       <span>{{ msg.sentAt | date:'shortTime' }}</span>
                       @if (msg.senderId === currentUser()?.id) {
-                        @switch (msg.deliveryStatus) {
-                          @case (MessageDeliveryStatus.SENT) {
-                            <lucide-angular [img]="Check" class="w-3 h-3 text-sky-200"></lucide-angular>
-                          }
-                          @case (MessageDeliveryStatus.DELIVERED) {
-                            <lucide-angular [img]="CheckCheck" class="w-3 h-3 text-sky-200"></lucide-angular>
-                          }
-                          @case (MessageDeliveryStatus.READ) {
-                            <lucide-angular [img]="CheckCheck" class="w-3 h-3 text-blue-800"></lucide-angular>
+                        @if (getMessageDeliveryStatus(msg); as deliveryStatus) {
+                          @switch (deliveryStatus) {
+                            @case (MessageDeliveryStatus.SENT) {
+                              <lucide-angular [img]="Check" class="w-3 h-3 text-sky-200" />
+                            }
+
+                            @case (MessageDeliveryStatus.DELIVERED) {
+                              <lucide-angular [img]="CheckCheck" class="w-3 h-3 text-sky-200" />
+                            }
+
+                            @case (MessageDeliveryStatus.READ) {
+                              <lucide-angular [img]="CheckCheck" class="w-3 h-3 text-blue-800" />
+                            }
                           }
                         }
                       }
