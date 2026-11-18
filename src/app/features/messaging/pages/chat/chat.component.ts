@@ -176,19 +176,33 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.isLoadingMessages.set(true);
 
     // Fetch historical paginated messages.
-    this.conversationService
-      .getConversationMessages(conversation.id, 0, 30)
-      .subscribe({
+    this.conversationService.getConversationMessages(conversation.id, 0, 30).subscribe({
         next: (res) => {
           if (res.data) {
-            // Backend already returns messages in sent_at ASC order.
             this.conversationMessageService.setInitialMessages(res.data);
 
             this.isLastPage.set(res.last ?? res.data.length < 30);
           }
 
-          setTimeout(() => this.scrollToBottom(), 50);
           this.isLoadingMessages.set(false);
+
+          // Wait for messages to render before marking them as read.
+          setTimeout(() => {
+            // Prevent marking a conversation that the user has already left.
+            if (this.activeConversation()?.id !== conversation.id) return;
+
+            this.scrollToBottom();
+
+            const messages = this.conversationMessageService.activeMessages();
+            const lastMessage = messages.at(-1);
+
+            if (lastMessage) {
+              this.conversationUnreadService.markAsRead(
+                conversation.id,
+                lastMessage.id
+              );
+            }
+          }, 50);
         },
         error: () => {
           this.isLoadingMessages.set(false);
