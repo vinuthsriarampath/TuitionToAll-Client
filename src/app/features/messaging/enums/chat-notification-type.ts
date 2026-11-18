@@ -1,4 +1,4 @@
-export enum ConversationEventType {
+export enum ChatNotificationType {
     MESSAGE_RECEIVED = 'MESSAGE_RECEIVED',
     CONVERSATION_READ = 'CONVERSATION_READ',
 }
