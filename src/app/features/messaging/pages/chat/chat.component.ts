@@ -90,6 +90,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   protected searchInput = signal('');
   private readonly searchSubject = new Subject<string>();
 
+  private readonly lastReadMessageIds = new Map<number, number>();
+
   @ViewChild('messagesContainer')
   private readonly messagesContainer!: ElementRef<HTMLDivElement>;
 
@@ -187,6 +189,9 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     // Leave the previous conversation.
     if (this.activeConversation()) {
+      // Acknowledge the latest message before leaving.
+      this.markActiveConversationAsRead();
+
       this.conversationMessageService.unsubscribeFromConversation();
       this.conversationService.leaveConversation();
     }
@@ -426,6 +431,9 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   @HostListener('document:keydown.escape')
   onEscapeKey() {
+
+    this.markActiveConversationAsRead();
+
     this.conversationMessageService.unsubscribeFromConversation();
     this.conversationService.leaveConversation();
   }
@@ -514,10 +522,16 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     const lastMessage = messages[messages.length - 1];
 
-    this.conversationUnreadService.markAsRead(
-      conversation.id,
-      lastMessage.id
-    );
+    const lastReadMessageId = this.lastReadMessageIds.get(conversation.id) ?? 0;
+
+    // Avoid duplicate requests or moving the cursor backwards.
+    if (lastMessage.id <= lastReadMessageId) {
+      return;
+    }
+
+    this.lastReadMessageIds.set(conversation.id, lastMessage.id);
+
+    this.conversationUnreadService.markAsRead(conversation.id, lastMessage.id);
   }
 
   protected readonly MessageSquare = MessageSquare;
