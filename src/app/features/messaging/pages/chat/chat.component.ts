@@ -1,5 +1,6 @@
 import {
   Component,
+  effect,
   ElementRef,
   HostListener,
   inject,
@@ -91,6 +92,31 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   @ViewChild('messagesContainer')
   private readonly messagesContainer!: ElementRef<HTMLDivElement>;
+
+  constructor() {
+    effect(() => {
+      const messages = this.conversationMessageService.activeMessages();
+
+      if (messages.length === 0 || this.isLoadingMessages()) {
+        return;
+      }
+
+      const conversation = this.activeConversation();
+
+      if (!conversation) {
+        return;
+      }
+
+      const lastMessage = messages[messages.length - 1];
+
+      // Only mark as read if the latest message belongs to the active conversation.
+      if (lastMessage.conversationId !== conversation.id) {
+        return;
+      }
+
+      this.markActiveConversationAsRead();
+    });
+  }
 
   ngOnInit(): void {
     this.currentUser.set(this.userService.getCurrentUser());
@@ -471,6 +497,27 @@ export class ChatComponent implements OnInit, OnDestroy {
       default:
         return 'Waiting for delivery';
     }
+  }
+
+  private markActiveConversationAsRead(): void {
+    const conversation = this.activeConversation();
+
+    if (!conversation || this.isLoadingMessages()) {
+      return;
+    }
+
+    const messages = this.conversationMessageService.activeMessages();
+
+    if (messages.length === 0) {
+      return;
+    }
+
+    const lastMessage = messages[messages.length - 1];
+
+    this.conversationUnreadService.markAsRead(
+      conversation.id,
+      lastMessage.id
+    );
   }
 
   protected readonly MessageSquare = MessageSquare;
