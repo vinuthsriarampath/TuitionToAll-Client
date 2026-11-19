@@ -6,7 +6,7 @@ import { ChatNotificationResponse } from '@features/messaging/dtos/responses/cha
 import { ConversationResponse } from '@features/messaging/dtos/responses/conversation-response';
 import { ChatNotificationType } from '@features/messaging/enums/chat-notification-type';
 import { ApiResponse } from '@shared/utils/response/api-response';
-import { Observable } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 import { ConversationMessageService } from '../conversation-message/conversation-message.service';
 
 @Injectable({
@@ -94,13 +94,9 @@ export class ConversationUnreadService {
     this.refreshConversationUnreadCounts();
   }
 
-  markAsRead(conversationId: number, lastReadMessageId: number): void {
-    if (lastReadMessageId <= 0) return;
+  markAsRead(conversationId: number, lastReadMessageId: number): Observable<ApiResponse<void>> {
+    if (lastReadMessageId <= 0) return EMPTY;
 
-    this.http.post<ApiResponse<void>>( `${this.baseUrl}/${conversationId}/read`, { lastReadMessageId } ).subscribe({
-      error: (error) => {
-        console.error('Failed to mark conversation as read:', error);
-      }
-    });
+    return this.http.post<ApiResponse<void>>( `${this.baseUrl}/${conversationId}/read`, { lastReadMessageId } );
   }
 }
