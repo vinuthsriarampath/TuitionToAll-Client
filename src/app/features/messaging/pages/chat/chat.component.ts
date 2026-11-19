@@ -526,7 +526,11 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     this.lastReadMessageIds.set(conversation.id, lastMessage.id);
 
-    this.conversationUnreadService.markAsRead(conversation.id, lastMessage.id);
+    this.conversationUnreadService.markAsRead(conversation.id, lastMessage.id).subscribe({
+      error: (error) => {
+        this.alertService.triggerErrorAlert(error.error?.message || 'Failed to mark conversation as read.');
+      }
+    });
   }
 
   @HostListener('document:visibilitychange')
