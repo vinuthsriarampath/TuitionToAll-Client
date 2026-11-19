@@ -228,10 +228,7 @@ export class ChatComponent implements OnInit, OnDestroy {
             const lastMessage = messages.at(-1);
 
             if (lastMessage) {
-              this.conversationUnreadService.markAsRead(
-                conversation.id,
-                lastMessage.id
-              );
+              this.markActiveConversationAsRead();
             }
           }, 50);
         },
