@@ -135,8 +135,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.conversationMessageService.unsubscribeFromConversation();
-    this.conversationService.leaveConversation();
+    this.leaveActiveConversation();
   }
 
   private setupSearchSubscription(): void {
@@ -197,11 +196,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     // Leave the previous conversation.
     if (this.activeConversation()) {
-      // Acknowledge the latest message before leaving.
-      this.markActiveConversationAsRead();
-
-      this.conversationMessageService.unsubscribeFromConversation();
-      this.conversationService.leaveConversation();
+      this.leaveActiveConversation();
     }
 
     // Set the active conversation.
@@ -435,11 +430,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   @HostListener('document:keydown.escape')
   onEscapeKey() {
-
-    this.markActiveConversationAsRead();
-
-    this.conversationMessageService.unsubscribeFromConversation();
-    this.conversationService.leaveConversation();
+    this.leaveActiveConversation();
   }
 
   protected getMessageDeliveryStatus( message: ChatMessageResponse, ): MessageDeliveryStatus | null {
@@ -547,6 +538,21 @@ export class ChatComponent implements OnInit, OnDestroy {
     if (this.isDocumentVisible() && this.isAtBottom()) {
       this.markActiveConversationAsRead();
     }
+  }
+
+  private leaveActiveConversation(): void {
+    const conversation = this.activeConversation();
+
+    if (!conversation) return;
+
+    // Acknowledge messages only if the user is currently viewing the latest messages.
+    this.markActiveConversationAsRead();
+
+    // Unsubscribe and leave the previous conversation.
+    this.conversationMessageService.unsubscribeFromConversation();
+    this.conversationService.leaveConversation();
+
+    this.conversationService.activeConversation.set(null);
   }
 
   protected readonly MessageSquare = MessageSquare;
