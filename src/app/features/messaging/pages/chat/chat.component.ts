@@ -92,20 +92,21 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private readonly lastReadMessageIds = new Map<number, number>();
 
+  readonly isAtBottom = signal<boolean>(true);
+  readonly isDocumentVisible = signal<boolean>(document.visibilityState === 'visible');
+
   @ViewChild('messagesContainer')
   private readonly messagesContainer!: ElementRef<HTMLDivElement>;
 
   constructor() {
     effect(() => {
       const messages = this.conversationMessageService.activeMessages();
-
-      if (messages.length === 0 || this.isLoadingMessages()) {
-        return;
-      }
-
       const conversation = this.activeConversation();
 
-      if (!conversation) {
+      const atBottom = this.isAtBottom();
+      const documentVisible = this.isDocumentVisible();
+
+      if (!conversation || messages.length === 0 || this.isLoadingMessages() || !atBottom || !documentVisible) {
         return;
       }
 
@@ -116,7 +117,14 @@ export class ChatComponent implements OnInit, OnDestroy {
         return;
       }
 
-      this.markActiveConversationAsRead();
+      setTimeout(() => {
+        if (this.activeConversation()?.id !== conversation.id || !this.isAtBottom() || !this.isDocumentVisible()) {
+          return;
+        }
+
+        this.scrollToBottom();
+        this.markActiveConversationAsRead();
+      }, 50);
     });
   }
 
@@ -358,12 +366,13 @@ export class ChatComponent implements OnInit, OnDestroy {
   onChatScroll(event: Event): void {
     const element = event.target as HTMLElement;
 
-    // If user scrolled near the top (e.g., within 50px) and we aren't already loading and there are more pages
-    if (
-      element.scrollTop <= 50 &&
-      !this.isLoadingMore() &&
-      !this.isLastPage()
-    ) {
+    const distanceFromBottom =
+      element.scrollHeight - element.scrollTop - element.clientHeight;
+
+    this.isAtBottom.set(distanceFromBottom <= 80);
+
+    // Load older messages when scrolling near the top.
+    if (element.scrollTop <= 50 && !this.isLoadingMore() && !this.isLastPage()) {
       this.loadOlderMessages(element);
     }
   }
@@ -379,9 +388,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     const previousScrollTop = containerElement.scrollTop;
     const previousScrollHeight = containerElement.scrollHeight;
 
-    this.conversationService
-      .getConversationMessages(activeConv.id, nextPage, 30)
-      .subscribe({
+    this.conversationService.getConversationMessages(activeConv.id, nextPage, 30).subscribe({
         next: (res) => {
           const rawOlderMessages = res.data || [];
 
@@ -507,7 +514,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   private markActiveConversationAsRead(): void {
     const conversation = this.activeConversation();
 
-    if (!conversation || this.isLoadingMessages()) {
+    if (!conversation || this.isLoadingMessages() || !this.isAtBottom() || !this.isDocumentVisible()) {
       return;
     }
 
@@ -529,6 +536,17 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.lastReadMessageIds.set(conversation.id, lastMessage.id);
 
     this.conversationUnreadService.markAsRead(conversation.id, lastMessage.id);
+  }
+
+  @HostListener('document:visibilitychange')
+  protected onDocumentVisibilityChange(): void {
+    this.isDocumentVisible.set(
+      document.visibilityState === 'visible'
+    );
+
+    if (this.isDocumentVisible() && this.isAtBottom()) {
+      this.markActiveConversationAsRead();
+    }
   }
 
   protected readonly MessageSquare = MessageSquare;
