@@ -1,0 +1,27 @@
+
+<div class="w-80 md:w-96 border-r border-sky-900/40 flex flex-col bg-slate-900/40 h-full overflow-hidden">
+
+  <!-- Sidebar Header -->
+  <div class="p-4 border-b border-sky-900/40 shrink-0">
+
+    <h2 class="text-lg font-semibold text-sky-50 mb-3">
+      Chats
+    </h2>
+
+    <app-conversation-search
+      [searchTerm]="searchTerm()"
+      (searchTermChange)="searchTermChange.emit($event)"
+    />
+
+  </div>
+
+  <!-- Conversation List -->
+  <app-conversation-list
+    [conversations]="conversations()"
+    [activeConversationId]="activeConversationId()"
+    [unreadMap]="unreadMap()"
+    [isLoading]="isLoading()"
+    (conversationSelected)="conversationSelected.emit($event)"
+  />
+
+</div>
