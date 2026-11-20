@@ -1,0 +1,49 @@
+
+<div
+  (click)="selectConversation()"
+  (keydown.enter)="selectConversation()"
+  (keydown.space)="$event.preventDefault(); selectConversation()"
+  role="button"
+  tabindex="0"
+  [attr.aria-pressed]="isActive()"
+  [class.bg-sky-950]="isActive()"
+  class="flex items-center gap-3 p-3.5 hover:bg-sky-900/30 cursor-pointer transition-colors"
+>
+  <!-- Avatar -->
+  <div class="relative shrink-0">
+    <img
+      [ngSrc]="conversation().otherParticipantDp
+        ? environment.USER_PROFILE_API + conversation().otherParticipantDp
+        : 'profile_logo.png'"
+      class="w-12 h-12 rounded-full object-cover border border-sky-800/60"
+      alt="Avatar"
+      width="48"
+      height="48"
+    />
+  </div>
+
+  <!-- Conversation details -->
+  <div class="flex-1 min-w-0">
+    <div class="flex items-center justify-between mb-1">
+      <p class="para para-md font-medium text-sky-50 truncate">
+        {{ conversation().type === 'DIRECT'
+        ? conversation().otherParticipantName
+        : conversation().topic }}
+      </p>
+
+      @if (conversation().lastMessageAt) {
+        <span class="text-[10px] text-sky-400/50">
+          {{ conversation().lastMessageAt | date:'shortTime' }}
+        </span>
+      }
+    </div>
+  </div>
+
+  <!-- Unread badge -->
+  @if (unreadCount() > 0) {
+    <span
+      class="shrink-0 px-2 py-0.5 bg-sky-600 text-white text-xs font-semibold rounded-full shadow-sm">
+      {{ unreadCount() }}
+    </span>
+  }
+</div>
