@@ -66,17 +66,6 @@ export class ConversationService{
    * Clean up active room subscription when leaving the chat view
    */
   leaveConversation(): void {
-    const activeConv = this.activeConversation();
-
-    if (activeConv) {
-      this.http.post<ApiResponse<void>>(`${this.baseUrl}/${activeConv.id}/leave`, {}).subscribe({
-        error: (error) => {
-          console.error('Failed to leave conversation:', error);
-        }
-      });
-
-
-      this.activeConversation.set(null);
-    }
+    this.activeConversation.set(null);
   }
 }

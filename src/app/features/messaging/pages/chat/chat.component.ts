@@ -555,8 +555,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     // Unsubscribe and leave the previous conversation.
     this.conversationMessageService.unsubscribeFromConversation();
     this.conversationService.leaveConversation();
-
-    this.conversationService.activeConversation.set(null);
   }
 
   protected readonly MessageSquare = MessageSquare;
