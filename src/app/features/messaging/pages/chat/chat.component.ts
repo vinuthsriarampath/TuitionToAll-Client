@@ -46,6 +46,7 @@ import { debounceTime, distinctUntilChanged, Subject, switchMap } from 'rxjs';
 import { ConversationUnreadService } from '@features/messaging/services/conversation-unread/conversation-unread.service';
 import { ConversationMessageService } from '@features/messaging/services/conversation-message/conversation-message.service';
 import { MessageReceiptResponse } from '@features/messaging/dtos/responses/message-receipt-response';
+import {ChatSidebarComponent} from '@features/messaging/components/chat-sidebar/chat-sidebar.component';
 
 @Component({
   selector: 'app-chat',
@@ -57,6 +58,7 @@ import { MessageReceiptResponse } from '@features/messaging/dtos/responses/messa
     DatePipe,
     MatMenuTrigger,
     MatMenu,
+    ChatSidebarComponent,
   ],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css',
@@ -166,10 +168,9 @@ export class ChatComponent implements OnInit, OnDestroy {
       });
   }
 
-  protected onSearchInput(event: Event): void {
-    const value = (event.target as HTMLInputElement).value;
+  protected onSearchInput(value: string): void {
     this.searchInput.set(value);
-    this.searchSubject.next(value); // Push value into RxJS pipeline
+    this.searchSubject.next(value);
   }
 
   private loadUserConversations(): void {
@@ -575,4 +576,5 @@ export class ChatComponent implements OnInit, OnDestroy {
   protected readonly Trash2 = Trash2;
   protected readonly CircleX = CircleX;
   protected readonly Edit = Edit;
+  protected readonly Event = Event;
 }

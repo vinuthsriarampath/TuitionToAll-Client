@@ -1,78 +1,17 @@
 <app-card-shell class="h-[calc(100vh-8rem)] block my-7 w-full">
   <div class="p-4 flex h-full overflow-hidden">
 
-    <!-- LEFT SIDEBAR: Conversation List -->
-    <div class="w-80 md:w-96 border-r border-sky-900/40 flex flex-col bg-slate-900/40 h-full overflow-hidden">
+    <!-- LEFT SIDEBAR -->
+    <app-chat-sidebar
+      [conversations]="conversations()"
+      [activeConversationId]="activeConversation()?.id ?? null"
+      [unreadMap]="unreadMap()"
+      [isLoading]="isLoadingConversations()"
+      [searchTerm]="searchInput()"
+      (searchTermChange)="onSearchInput($event)"
+      (conversationSelected)="selectConversation($event)"
+    />
 
-      <!-- Sidebar Header (Fixed) -->
-      <div class="p-4 border-b border-sky-900/40 shrink-0">
-        <h2 class="text-lg font-semibold text-sky-50 mb-3">Chats</h2>
-        <div class="relative">
-          <lucide-angular [img]="Search"
-                          class="w-5 h-5 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400/70 pointer-events-none"></lucide-angular>
-          <label for="searchConversations" class="sr-only">Search conversations</label>
-          <input
-            id="searchConversations"
-            type="text"
-            [value]="searchInput()"
-            (input)="onSearchInput($event)"
-            placeholder="Search conversations..."
-            class="form-input input-special w-full"
-          />
-        </div>
-      </div>
-
-      <!-- Conversations Scrollable List -->
-      <div class="flex-1 overflow-y-auto divide-y divide-sky-900/20 min-h-0">
-        @if (isLoadingConversations()) {
-          <div class="p-6 text-center text-sm text-sky-400/60">Loading chats...</div>
-        } @else {
-          @for (conv of conversations(); track conv.id) {
-            <div
-              (click)="selectConversation(conv)"
-              (keydown.enter)="selectConversation(conv)"
-              [class.bg-sky-950]="activeConversation()?.id === conv.id"
-              class="flex items-center gap-3 p-3.5 hover:bg-sky-900/30 cursor-pointer transition-colors"
-            >
-              <!-- Avatar -->
-              <div class="relative shrink-0">
-                <img
-                  [ngSrc]="conv.otherParticipantDp ? environment.USER_PROFILE_API + conv.otherParticipantDp : 'profile_logo.png'"
-                  class="w-12 h-12 rounded-full object-cover border border-sky-800/60"
-                  alt="Avatar"
-                  width="48"
-                  height="48"
-                />
-              </div>
-
-              <!-- Details -->
-              <div class="flex-1 min-w-0">
-                <div class="flex items-center justify-between mb-1">
-                  <p class="para para-md font-medium text-sky-50 truncate">
-                    {{ conv.type === 'DIRECT' ? conv.otherParticipantName : conv.topic }}
-                  </p>
-                  @if (conv.lastMessageAt) {
-                    <span class="text-[10px] text-sky-400/50">{{ conv.lastMessageAt | date:'shortTime' }}</span>
-                  }
-                </div>
-              </div>
-
-              <!-- UNREAD BADGE COUNTER -->
-              @if ((unreadMap().get(conv.id) ?? 0) > 0) {
-                <span class="shrink-0 px-2 py-0.5 bg-sky-600 text-white text-xs font-semibold rounded-full shadow-sm">
-                  {{ unreadMap().get(conv.id) }}
-                </span>
-              }
-            </div>
-          } @empty {
-            <div class="p-8 text-center">
-              <lucide-angular [img]="MessageSquare" class="w-8 h-8 mx-auto text-sky-500/40 mb-2"></lucide-angular>
-              <p class="text-sm text-sky-300/60">No conversations yet.</p>
-            </div>
-          }
-        }
-      </div>
-    </div>
 
     <!-- RIGHT PANE: Active Chat Window -->
     <div class="flex-1 flex flex-col bg-slate-950 h-full overflow-hidden">
