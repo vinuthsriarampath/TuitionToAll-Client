@@ -1,0 +1,38 @@
+
+<div class="flex-1 overflow-y-auto divide-y divide-sky-900/20 min-h-0">
+
+  @if (isLoading()) {
+
+    <div class="p-6 text-center text-sm text-sky-400/60">
+      Loading chats...
+    </div>
+
+  } @else {
+
+    @for (conv of conversations(); track conv.id) {
+
+      <app-conversation-item
+        [conversation]="conv"
+        [isActive]="activeConversationId() === conv.id"
+        [unreadCount]="unreadMap().get(conv.id) ?? 0"
+        (selected)="conversationSelected.emit($event)"
+      />
+
+    } @empty {
+
+      <div class="p-8 text-center">
+        <lucide-angular
+          [img]="MessageSquare"
+          class="w-8 h-8 mx-auto text-sky-500/40 mb-2">
+        </lucide-angular>
+
+        <p class="text-sm text-sky-300/60">
+          No conversations yet.
+        </p>
+      </div>
+
+    }
+
+  }
+
+</div>
