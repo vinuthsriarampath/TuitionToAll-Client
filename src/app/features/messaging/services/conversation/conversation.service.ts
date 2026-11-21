@@ -18,21 +18,11 @@ export class ConversationService{
   private readonly http = inject(HttpClient);
   private readonly baseUrl: string = environment.CONVERSATION_API ?? '';
 
-  // Active chat state using Angular Signals
+  /**
+   * Signal to hold the currently active conversation.
+   * This is useful for components that need to reactively respond to changes in the active conversation, such as the chat view.
+   */
   readonly activeConversation = signal<ConversationResponse | null>(null);
-
-
-  readonly currentPage = signal<number>(0);
-  readonly isLastPage = signal<boolean>(false);
-  readonly isLoadingMore = signal<boolean>(false);
-
-
-  // Reset pagination state when switching chats
-  resetPagination(): void {
-    this.currentPage.set(0);
-    this.isLastPage.set(false);
-    this.isLoadingMore.set(false);
-  }
 
   /**
    * Fetch all conversation threads for the authenticated user.
