@@ -23,11 +23,9 @@ export class ChatSidebarComponent implements OnInit {
   private readonly conversationService = inject(ConversationService);
   private readonly alertService = inject(AlertService);
 
-  protected conversations = signal<ConversationResponse[]>([]);
+  protected conversations = this.conversationService.userConversations;
   protected activeConversation = this.conversationService.activeConversation;
-  protected isLoadingConversations = signal<boolean>(false);
-
-
+  protected isLoadingConversations = this.conversationService.userConversationsLoading;
 
   protected searchInput = signal('');
   private readonly searchSubject = new Subject<string>();
@@ -39,7 +37,6 @@ export class ChatSidebarComponent implements OnInit {
 
   /**
    * Loads the user's conversations from the server and updates the component state.
-   * @private
    */
   private loadUserConversations(): void {
     this.isLoadingConversations.set(true);
@@ -59,7 +56,6 @@ export class ChatSidebarComponent implements OnInit {
   /**
    * Sets up a subscription to the search input, which will trigger a search for conversations after a debounce period.
    * This prevents excessive API calls while the user is typing.
-   * @private
    */
   private setupSearchSubscription(): void {
     this.searchSubject
@@ -68,6 +64,7 @@ export class ChatSidebarComponent implements OnInit {
         distinctUntilChanged(), // Only trigger if the search term actually changed
         switchMap((searchTerm) => {
           this.isLoadingConversations.set(true);
+
           return this.conversationService.getUserConversations({
             searchTerm: searchTerm.trim(),
           });
@@ -82,9 +79,7 @@ export class ChatSidebarComponent implements OnInit {
         },
         error: (err) => {
           this.isLoadingConversations.set(false);
-          this.alertService.triggerErrorAlert(
-            err.error?.message || 'Failed to search conversations.',
-          );
+          this.alertService.triggerErrorAlert(err.error?.message || 'Failed to search conversations.',);
         },
       });
   }
@@ -92,7 +87,6 @@ export class ChatSidebarComponent implements OnInit {
   /**
    * Handles the search input change event.
    * @param value The new search term.
-   * @private
    */
   protected onSearchInput(value: string): void {
     this.searchInput.set(value);
