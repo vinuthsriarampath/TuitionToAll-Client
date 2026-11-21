@@ -18,6 +18,15 @@ export class ConversationService{
   private readonly http = inject(HttpClient);
   private readonly baseUrl: string = environment.CONVERSATION_API ?? '';
 
+
+  /**
+   * Signal to indicate whether the user's conversations are currently being loaded.
+   */
+  readonly userConversationsLoading =signal<boolean>(false);
+  /**
+   * Signal to hold the list of conversations for the authenticated user.
+   */
+  readonly userConversations = signal<ConversationResponse[]>([]);
   /**
    * Signal to hold the currently active conversation.
    * This is useful for components that need to reactively respond to changes in the active conversation, such as the chat view.
