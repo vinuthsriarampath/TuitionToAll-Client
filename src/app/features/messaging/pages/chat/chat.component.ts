@@ -36,7 +36,6 @@ import { CardShellComponent } from '@shared/ui';
 import { DatePipe, NgOptimizedImage } from '@angular/common';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { ChatMessageResponse } from '@features/messaging/dtos/responses/chat-message-response';
-import { debounceTime, distinctUntilChanged, Subject, switchMap } from 'rxjs';
 import { ConversationUnreadService } from '@features/messaging/services/conversation-unread/conversation-unread.service';
 import { ConversationMessageService } from '@features/messaging/services/conversation-message/conversation-message.service';
 import { MessageReceiptResponse } from '@features/messaging/dtos/responses/message-receipt-response';
@@ -69,22 +68,17 @@ export class ChatComponent implements OnInit, OnDestroy {
     ConversationMessageService,
   );
 
-  protected conversations = signal<ConversationResponse[]>([]);
-  protected isLoadingConversations = signal(false);
   protected isLoadingMessages = signal(false);
   protected messageInput = signal('');
 
   // Expose active state signals directly from service
   protected activeConversation = this.conversationService.activeConversation;
   protected activeMessages = this.conversationMessageService.activeMessages;
-  protected unreadMap = this.conversationUnreadService.unreadMap;
+
   protected currentUser = signal<User | null>(null);
 
   protected selectedFiles = signal<File[]>([]);
   protected isUploadingFiles = signal(false);
-
-  protected searchInput = signal('');
-  private readonly searchSubject = new Subject<string>();
 
   private readonly lastReadMessageIds = new Map<number, number>();
 
@@ -126,60 +120,10 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.currentUser.set(this.userService.getCurrentUser());
-    this.loadUserConversations();
-    this.setupSearchSubscription();
   }
 
   ngOnDestroy(): void {
     this.leaveActiveConversation();
-  }
-
-  private setupSearchSubscription(): void {
-    this.searchSubject
-      .pipe(
-        debounceTime(300), // Wait 300ms after the user stops typing
-        distinctUntilChanged(), // Only trigger if the search term actually changed
-        switchMap((searchTerm) => {
-          this.isLoadingConversations.set(true);
-          return this.conversationService.getUserConversations({
-            searchTerm: searchTerm.trim(),
-          });
-        }),
-      )
-      .subscribe({
-        next: (res) => {
-          if (res.data) {
-            this.conversations.set(res.data);
-          }
-          this.isLoadingConversations.set(false);
-        },
-        error: (err) => {
-          this.isLoadingConversations.set(false);
-          this.alertService.triggerErrorAlert(
-            err.error?.message || 'Failed to search conversations.',
-          );
-        },
-      });
-  }
-
-  protected onSearchInput(value: string): void {
-    this.searchInput.set(value);
-    this.searchSubject.next(value);
-  }
-
-  private loadUserConversations(): void {
-    this.isLoadingConversations.set(true);
-    this.conversationService.getUserConversations().subscribe({
-      next: (res) => {
-        if (res.data) {
-          this.conversations.set(res.data);
-        }
-        this.isLoadingConversations.set(false);
-      },
-      error: () => {
-        this.isLoadingConversations.set(false);
-      },
-    });
   }
 
   protected currentPage = signal(0);

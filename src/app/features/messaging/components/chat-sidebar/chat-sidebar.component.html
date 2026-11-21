@@ -9,8 +9,8 @@
     </h2>
 
     <app-conversation-search
-      [searchTerm]="searchTerm()"
-      (searchTermChange)="searchTermChange.emit($event)"
+      [searchTerm]="searchInput()"
+      (searchTermChange)="onSearchInput($event)"
     />
 
   </div>
@@ -18,9 +18,8 @@
   <!-- Conversation List -->
   <app-conversation-list
     [conversations]="conversations()"
-    [activeConversationId]="activeConversationId()"
-    [unreadMap]="unreadMap()"
-    [isLoading]="isLoading()"
+    [activeConversationId]="activeConversation()?.id ?? null"
+    [isLoading]="isLoadingConversations()"
     (conversationSelected)="conversationSelected.emit($event)"
   />
 

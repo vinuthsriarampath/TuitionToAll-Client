@@ -3,12 +3,6 @@
 
     <!-- LEFT SIDEBAR -->
     <app-chat-sidebar
-      [conversations]="conversations()"
-      [activeConversationId]="activeConversation()?.id ?? null"
-      [unreadMap]="unreadMap()"
-      [isLoading]="isLoadingConversations()"
-      [searchTerm]="searchInput()"
-      (searchTermChange)="onSearchInput($event)"
       (conversationSelected)="selectConversation($event)"
     />
 

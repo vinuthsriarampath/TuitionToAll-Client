@@ -1,7 +1,8 @@
-import {Component, input, output} from '@angular/core';
+import {Component, inject, input, output} from '@angular/core';
 import {ConversationResponse} from '@features/messaging/dtos/responses/conversation-response';
 import {LucideAngularModule, MessageSquare} from 'lucide-angular';
 import {ConversationItemComponent} from '@features/messaging/components/conversation-item/conversation-item.component';
+import {ConversationUnreadService} from '@features/messaging/services/conversation-unread/conversation-unread.service';
 
 @Component({
   selector: 'app-conversation-list',
@@ -17,11 +18,13 @@ export class ConversationListComponent {
 
   activeConversationId = input<number | null>(null);
 
-  unreadMap = input.required<Map<number, number>>();
-
   isLoading = input<boolean>(false);
 
   conversationSelected = output<ConversationResponse>();
+
+  private readonly conversationUnreadService = inject(ConversationUnreadService);
+
+  protected unreadMap = this.conversationUnreadService.unreadMap;
 
   protected readonly MessageSquare = MessageSquare;
 }
