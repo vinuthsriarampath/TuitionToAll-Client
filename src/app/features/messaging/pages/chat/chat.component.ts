@@ -14,28 +14,22 @@ import { User } from '@features/user/dtos/responses/user';
 import { ConversationService } from '@features/messaging/services/conversation/conversation.service';
 import { UserService } from '@features/user/services/user/user.service';
 import {
-  ArrowDown,
   Check,
   CheckCheck,
   ChevronDown,
   CircleX,
   Edit,
-  ImageIcon,
   LucideAngularModule,
   MessageSquare,
-  MoreVertical,
   Paperclip,
-  Phone,
   Search,
   Send,
   Trash2,
-  Video,
 } from 'lucide-angular';
 import { FormsModule } from '@angular/forms';
 import { environment } from '@env/environment.development';
 import { ConversationType } from '@features/messaging/enums/conversation-type';
 import { MessageDeliveryStatus } from '@features/messaging/enums/message-delivery-status';
-import { MessageDeliveryStatusUpdate } from '@features/messaging/enums/message-delivery-status-update';
 import { ChatAttachmentService } from '@features/messaging/services/chat-attachment/chat-attachment.service';
 import { AlertService } from '@core/services/alerts/alert.service';
 import { CardShellComponent } from '@shared/ui';
@@ -112,10 +106,10 @@ export class ChatComponent implements OnInit, OnDestroy {
         return;
       }
 
-      const lastMessage = messages[messages.length - 1];
+      const lastMessage = messages.at(-1);
 
       // Only mark as read if the latest message belongs to the active conversation.
-      if (lastMessage.conversationId !== conversation.id) {
+      if (lastMessage && lastMessage.conversationId !== conversation.id) {
         return;
       }
 
@@ -516,7 +510,9 @@ export class ChatComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const lastMessage = messages[messages.length - 1];
+    const lastMessage = messages.at(-1);
+
+    if(!lastMessage) return;
 
     const lastReadMessageId = this.lastReadMessageIds.get(conversation.id) ?? 0;
 
@@ -560,18 +556,13 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   protected readonly MessageSquare = MessageSquare;
   protected readonly Send = Send;
-  protected readonly ImageIcon = ImageIcon;
   protected readonly Paperclip = Paperclip;
   protected readonly CheckCheck = CheckCheck;
-  protected readonly MoreVertical = MoreVertical;
-  protected readonly Video = Video;
-  protected readonly Phone = Phone;
   protected readonly Search = Search;
   protected readonly environment = environment;
   protected readonly ConversationType = ConversationType;
   protected readonly MessageDeliveryStatus = MessageDeliveryStatus;
   protected readonly Check = Check;
-  protected readonly ArrowDown = ArrowDown;
   protected readonly ChevronDown = ChevronDown;
   protected readonly Trash2 = Trash2;
   protected readonly CircleX = CircleX;

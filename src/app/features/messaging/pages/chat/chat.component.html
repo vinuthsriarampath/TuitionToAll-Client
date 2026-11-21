@@ -97,6 +97,7 @@
                                 [src]="environment.MESSAGE_ATTACHMENT_API + '/stream/' + att.fileUrl"
                                 type="video/mp4"
                               />
+                              <track kind="captions" label="No captions available"  src="#"/>
                               Your browser does not support the video tag.
                             </video>
                           } @else {
@@ -167,7 +168,6 @@
                             [matMenuTriggerFor]="receiptMenu"
                             #receiptMenuTrigger="matMenuTrigger"
                             (mouseenter)="receiptMenuTrigger.openMenu()"
-                            aria-label="View message delivery details"
                           >
                           @switch (deliveryStatus) {
                             @case (MessageDeliveryStatus.SENT) {
