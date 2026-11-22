@@ -39,6 +39,7 @@ import { ConversationMessageService } from '@features/messaging/services/convers
 import { MessageReceiptResponse } from '@features/messaging/dtos/responses/message-receipt-response';
 import { ChatSidebarComponent } from '@features/messaging/components/chat-sidebar/chat-sidebar.component';
 import {AttachmentListComponent} from '@features/messaging/components/attachment-list/attachment-list.component';
+import {DeletedMessageComponent} from '@features/messaging/components/deleted-message/deleted-message.component';
 
 @Component({
   selector: 'app-chat',
@@ -52,6 +53,7 @@ import {AttachmentListComponent} from '@features/messaging/components/attachment
     MatMenu,
     ChatSidebarComponent,
     AttachmentListComponent,
+    DeletedMessageComponent,
   ],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css',
