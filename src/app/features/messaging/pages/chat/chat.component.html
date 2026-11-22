@@ -74,54 +74,7 @@
                     }
                     <!-- Attachments List -->
                     @if (msg.attachments && msg.attachments.length > 0) {
-                      <div class="space-y-2 mb-1">
-                        @for (att of msg.attachments; track att.id) {
-
-                          <!-- IMAGE -->
-                          @if (att.fileType === 'IMAGE') {
-                            <img
-                              [ngSrc]="environment.MESSAGE_ATTACHMENT_API + '/load/' + att.fileUrl"
-                              [alt]="att.fileName"
-                              width="400"
-                              height="240"
-                              class="max-h-60 w-full object-cover transition-transform rounded-lg"
-                            />
-                          } @else if (att.fileType === 'VIDEO') {
-                            <video controls class="max-h-60 w-full rounded-xl border border-sky-800/40">
-                              <source
-                                [src]="environment.MESSAGE_ATTACHMENT_API + '/stream/' + att.fileUrl"
-                                type="video/mp4"
-                              />
-                              <track kind="captions" label="No captions available"  src="#"/>
-                              Your browser does not support the video tag.
-                            </video>
-                          } @else {
-                            <a
-                              [href]="environment.MESSAGE_ATTACHMENT_API + '/load/' + att.fileUrl"
-                              target="_blank"
-                              download
-                              class="flex items-center gap-3 p-2.5 bg-slate-950/60 rounded-xl border border-sky-800/40 hover:bg-sky-900/40 transition-colors"
-                            >
-                              <div class="p-2 bg-sky-600/20 rounded-lg text-sky-400">
-                                <lucide-angular [img]="Paperclip" class="w-4 h-4"></lucide-angular>
-                              </div>
-                              <div class="flex-1 min-w-0">
-                                <p class="text-xs font-medium text-sky-100 truncate">{{ att.fileName }}</p>
-                                <span class="text-[10px] text-sky-400/60">
-                                  {{
-                                    att.fileSize < 1024 * 1024
-                                      ? (att.fileSize / 1024).toFixed(1) + ' KB'
-                                      : att.fileSize < 1024 * 1024 * 1024
-                                        ? (att.fileSize / (1024 * 1024)).toFixed(1) + ' MB'
-                                        : (att.fileSize / (1024 * 1024 * 1024)).toFixed(1) + ' GB'
-                                  }}
-                                </span>
-                              </div>
-                            </a>
-                          }
-
-                        }
-                      </div>
+                      <app-attachment-list [attachments]="msg.attachments"></app-attachment-list>
                     }
 
                     <!-- Text Content / Edit Mode View -->

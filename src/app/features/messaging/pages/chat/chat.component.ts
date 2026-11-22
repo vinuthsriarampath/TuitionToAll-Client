@@ -38,6 +38,7 @@ import { ConversationUnreadService } from '@features/messaging/services/conversa
 import { ConversationMessageService } from '@features/messaging/services/conversation-message/conversation-message.service';
 import { MessageReceiptResponse } from '@features/messaging/dtos/responses/message-receipt-response';
 import { ChatSidebarComponent } from '@features/messaging/components/chat-sidebar/chat-sidebar.component';
+import {AttachmentListComponent} from '@features/messaging/components/attachment-list/attachment-list.component';
 
 @Component({
   selector: 'app-chat',
@@ -50,6 +51,7 @@ import { ChatSidebarComponent } from '@features/messaging/components/chat-sideba
     MatMenuTrigger,
     MatMenu,
     ChatSidebarComponent,
+    AttachmentListComponent,
   ],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css',

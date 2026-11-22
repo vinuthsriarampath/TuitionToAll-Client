@@ -1,0 +1,5 @@
+<div class="space-y-2 mb-1">
+  @for (att of attachments(); track att.id) {
+    <app-attachment-item [attachment]="att"></app-attachment-item>
+  }
+</div>
