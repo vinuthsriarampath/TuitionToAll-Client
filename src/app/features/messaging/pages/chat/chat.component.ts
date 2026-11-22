@@ -40,6 +40,7 @@ import { MessageReceiptResponse } from '@features/messaging/dtos/responses/messa
 import { ChatSidebarComponent } from '@features/messaging/components/chat-sidebar/chat-sidebar.component';
 import {AttachmentListComponent} from '@features/messaging/components/attachment-list/attachment-list.component';
 import {DeletedMessageComponent} from '@features/messaging/components/deleted-message/deleted-message.component';
+import {MessageEditComponent} from '@features/messaging/components/message-edit/message-edit.component';
 
 @Component({
   selector: 'app-chat',
@@ -54,6 +55,7 @@ import {DeletedMessageComponent} from '@features/messaging/components/deleted-me
     ChatSidebarComponent,
     AttachmentListComponent,
     DeletedMessageComponent,
+    MessageEditComponent,
   ],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css',
@@ -238,30 +240,13 @@ export class ChatComponent implements OnInit {
   }
 
   protected editingMessageId = signal<number | null>(null);
-  protected editContentInput = signal<string>('');
 
   protected startEditing(msg: ChatMessageResponse): void {
     this.editingMessageId.set(msg.id);
-    this.editContentInput.set(msg.content);
   }
 
   protected cancelEditing(): void {
     this.editingMessageId.set(null);
-    this.editContentInput.set('');
-  }
-
-  protected submitEdit(messageId: number): void {
-    const activeConv = this.activeConversation();
-    const content = this.editContentInput().trim();
-    if (!activeConv || !content) return;
-
-    this.conversationMessageService.editMessage({
-      conversationId: activeConv.id,
-      messageId: messageId,
-      newContent: content,
-    });
-
-    this.cancelEditing();
   }
 
   protected onFilesSelected(event: Event): void {

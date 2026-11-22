@@ -1,0 +1,14 @@
+<div class="space-y-2 pt-1">
+  <label for="editMessageInput-{{message().id}}" class="sr-only">Edit message content</label>
+  <input
+    id="editMessageInput-{{message().id}}"
+    type="text"
+    [(ngModel)]="editContentInput"
+    (keyup.enter)="submitEdit(message().id)"
+    class="form-input text-xs w-full bg-slate-800 text-white rounded-lg p-2 border border-sky-700/50 focus:outline-none focus:border-sky-500"
+  />
+  <div class="flex gap-2 justify-end">
+    <button (click)="submitEdit(message().id)" class="px-2.5 py-1 text-[10px] bg-sky-600 hover:bg-sky-500 text-white rounded-lg transition-all font-medium">Save</button>
+    <button (click)="cancelEditing()" class="px-2.5 py-1 text-[10px] bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg transition-all font-medium">Cancel</button>
+  </div>
+</div>
