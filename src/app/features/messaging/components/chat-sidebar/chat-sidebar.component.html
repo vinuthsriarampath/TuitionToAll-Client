@@ -8,19 +8,14 @@
       Chats
     </h2>
 
-    <app-conversation-search
-      [searchTerm]="searchInput()"
-      (searchTermChange)="onSearchInput($event)"
-    />
+    <app-conversation-search/>
 
   </div>
 
   <!-- Conversation List -->
   <app-conversation-list
-    [conversations]="conversations()"
-    [activeConversationId]="activeConversation()?.id ?? null"
-    [isLoading]="isLoadingConversations()"
-    (conversationSelected)="conversationSelected.emit($event)"
+    (markActiveConversationAsRead)="markActiveConversationAsRead.emit()"
+    (loadInitialMessages)="loadInitialMessages.emit($event)"
   />
 
 </div>

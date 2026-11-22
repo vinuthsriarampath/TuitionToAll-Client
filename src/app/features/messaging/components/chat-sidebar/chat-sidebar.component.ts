@@ -1,5 +1,4 @@
-import {Component, inject, input, output, signal, OnInit} from '@angular/core';
-import {ConversationResponse} from '@features/messaging/dtos/responses/conversation-response';
+import {Component, inject, output, signal, OnInit} from '@angular/core';
 import {
   ConversationSearchComponent
 } from '@features/messaging/components/conversation-search/conversation-search.component';
@@ -18,21 +17,16 @@ import {debounceTime, distinctUntilChanged, Subject, switchMap} from 'rxjs';
   styleUrl: './chat-sidebar.component.css'
 })
 export class ChatSidebarComponent implements OnInit {
-  conversationSelected = output<ConversationResponse>();
+  loadInitialMessages = output<number>();
+  markActiveConversationAsRead = output<void>();
 
   private readonly conversationService = inject(ConversationService);
-  private readonly alertService = inject(AlertService);
 
   protected conversations = this.conversationService.userConversations;
-  protected activeConversation = this.conversationService.activeConversation;
   protected isLoadingConversations = this.conversationService.userConversationsLoading;
-
-  protected searchInput = signal('');
-  private readonly searchSubject = new Subject<string>();
 
   ngOnInit(): void {
     this.loadUserConversations();
-    this.setupSearchSubscription();
   }
 
   /**
@@ -52,46 +46,4 @@ export class ChatSidebarComponent implements OnInit {
       },
     });
   }
-
-  /**
-   * Sets up a subscription to the search input, which will trigger a search for conversations after a debounce period.
-   * This prevents excessive API calls while the user is typing.
-   */
-  private setupSearchSubscription(): void {
-    this.searchSubject
-      .pipe(
-        debounceTime(300), // Wait 300ms after the user stops typing
-        distinctUntilChanged(), // Only trigger if the search term actually changed
-        switchMap((searchTerm) => {
-          this.isLoadingConversations.set(true);
-
-          return this.conversationService.getUserConversations({
-            searchTerm: searchTerm.trim(),
-          });
-        }),
-      )
-      .subscribe({
-        next: (res) => {
-          if (res.data) {
-            this.conversations.set(res.data);
-          }
-          this.isLoadingConversations.set(false);
-        },
-        error: (err) => {
-          this.isLoadingConversations.set(false);
-          this.alertService.triggerErrorAlert(err.error?.message || 'Failed to search conversations.',);
-        },
-      });
-  }
-
-  /**
-   * Handles the search input change event.
-   * @param value The new search term.
-   */
-  protected onSearchInput(value: string): void {
-    this.searchInput.set(value);
-    this.searchSubject.next(value);
-  }
-
-
 }
