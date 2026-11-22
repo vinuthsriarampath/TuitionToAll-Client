@@ -1,8 +1,9 @@
-import {Component, inject, input, output} from '@angular/core';
-import {ConversationResponse} from '@features/messaging/dtos/responses/conversation-response';
+import {Component, HostListener, inject, OnDestroy, output} from '@angular/core';
 import {LucideAngularModule, MessageSquare} from 'lucide-angular';
 import {ConversationItemComponent} from '@features/messaging/components/conversation-item/conversation-item.component';
 import {ConversationUnreadService} from '@features/messaging/services/conversation-unread/conversation-unread.service';
+import { ConversationService } from '@features/messaging/services/conversation/conversation.service';
+import { ConversationMessageService } from '@features/messaging/services/conversation-message/conversation-message.service';
 
 @Component({
   selector: 'app-conversation-list',
@@ -13,18 +14,43 @@ import {ConversationUnreadService} from '@features/messaging/services/conversati
   templateUrl: './conversation-list.component.html',
   styleUrl: './conversation-list.component.css'
 })
-export class ConversationListComponent {
-  conversations = input.required<ConversationResponse[]>();
+export class ConversationListComponent implements OnDestroy{
 
-  activeConversationId = input<number | null>(null);
+  loadInitialMessages = output<number>();
+  markActiveConversationAsRead = output<void>();
 
-  isLoading = input<boolean>(false);
-
-  conversationSelected = output<ConversationResponse>();
-
+  private readonly conversationService = inject(ConversationService);
+  private readonly conversationMessageService = inject(ConversationMessageService)
   private readonly conversationUnreadService = inject(ConversationUnreadService);
 
+  protected conversations = this.conversationService.userConversations;
+  protected activeConversation = this.conversationService.activeConversation;
+  protected isConversationsLoading = this.conversationService.userConversationsLoading;
   protected unreadMap = this.conversationUnreadService.unreadMap;
+
+  ngOnDestroy(): void {
+    if(this.activeConversation()){
+      this.leaveActiveConversation();
+    }
+  }
+
+  protected leaveActiveConversation(): void {
+    const conversation = this.activeConversation();
+
+    if (!conversation) return;
+
+    // Acknowledge messages only if the user is currently viewing the latest messages.
+    this.markActiveConversationAsRead.emit();
+
+    // Unsubscribe and leave the previous conversation.
+    this.conversationMessageService.unsubscribeFromConversation();
+    this.conversationService.leaveConversation();
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscapeKey() {
+    this.leaveActiveConversation();
+  }
 
   protected readonly MessageSquare = MessageSquare;
 }
