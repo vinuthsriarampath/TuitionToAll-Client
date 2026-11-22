@@ -41,14 +41,29 @@ export class ConversationMessageService {
   // Stores receipts that arrive before their corresponding message.
   private pendingReceipts = new Map<string, MessageReceiptResponse[]>();
 
+  currentPage = signal<number>(0);
+  isLastPage = signal<boolean>(false);
+  isInitialMessagesLoading = signal<boolean>(false);
+  isLoadingMoreMessages = signal<boolean>(false);
+
   constructor() {
     this.newMessageAudio.load();
   }
 
   /**
    * Subscribe to all WebSocket destinations for a conversation.
+   * 
+   * Resets the `currentPage` and `isLastPage` state, and clears any previous subscriptions.
+   * 
+   * @remarks This method never changes states of `isInitialMessagesLoading` or `isLoadingMoreMessages`. Those states should be managed by the caller.
+   * 
+   * @param conversation The conversation to subscribe to.
+   * @returns void
    */
   subscribeToConversation(conversation: ConversationResponse): void {
+
+    this.currentPage.set(0);
+    this.isLastPage.set(false);
 
     this.unsubscribeFromConversation();
 
