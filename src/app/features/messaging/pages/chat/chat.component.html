@@ -3,7 +3,8 @@
 
     <!-- LEFT SIDEBAR -->
     <app-chat-sidebar
-      (conversationSelected)="selectConversation($event)"
+      (loadInitialMessages)="loadInitialMessages($event)"
+      (markActiveConversationAsRead)="markActiveConversationAsRead()"
     />
 
 
@@ -31,7 +32,7 @@
         <!-- Messages History Scrollable View -->
         <div #messagesContainer id="chat-messages-container" (scroll)="onChatScroll($event)"
              class="flex-1 p-6 overflow-y-auto space-y-4 min-h-0">
-          @if (isLoadingMessages()) {
+          @if (isInitialMessagesLoading()) {
             <div class="text-center text-xs text-sky-400/60 py-4">Loading messages...</div>
           } @else {
             @for (msg of activeMessages(); track msg.id) {

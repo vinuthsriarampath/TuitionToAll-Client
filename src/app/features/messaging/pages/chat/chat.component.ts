@@ -4,12 +4,10 @@ import {
   ElementRef,
   HostListener,
   inject,
-  OnDestroy,
   OnInit,
   signal,
   ViewChild,
 } from '@angular/core';
-import { ConversationResponse } from '@features/messaging/dtos/responses/conversation-response';
 import { User } from '@features/user/dtos/responses/user';
 import { ConversationService } from '@features/messaging/services/conversation/conversation.service';
 import { UserService } from '@features/user/services/user/user.service';
@@ -39,7 +37,7 @@ import { ChatMessageResponse } from '@features/messaging/dtos/responses/chat-mes
 import { ConversationUnreadService } from '@features/messaging/services/conversation-unread/conversation-unread.service';
 import { ConversationMessageService } from '@features/messaging/services/conversation-message/conversation-message.service';
 import { MessageReceiptResponse } from '@features/messaging/dtos/responses/message-receipt-response';
-import {ChatSidebarComponent} from '@features/messaging/components/chat-sidebar/chat-sidebar.component';
+import { ChatSidebarComponent } from '@features/messaging/components/chat-sidebar/chat-sidebar.component';
 
 @Component({
   selector: 'app-chat',
@@ -56,19 +54,19 @@ import {ChatSidebarComponent} from '@features/messaging/components/chat-sidebar/
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css',
 })
-export class ChatComponent implements OnInit, OnDestroy {
+export class ChatComponent implements OnInit {
   private readonly conversationService = inject(ConversationService);
   private readonly userService = inject(UserService);
   private readonly chatAttachmentService = inject(ChatAttachmentService);
   private readonly alertService = inject(AlertService);
-  private readonly conversationUnreadService = inject(
-    ConversationUnreadService,
-  );
-  private readonly conversationMessageService = inject(
-    ConversationMessageService,
-  );
+  private readonly conversationUnreadService = inject(ConversationUnreadService);
+  private readonly conversationMessageService = inject(ConversationMessageService);
 
-  protected isLoadingMessages = signal(false);
+  protected currentPage = this.conversationMessageService.currentPage;
+  protected isLastPage = this.conversationMessageService.isLastPage;
+  protected isLoadingMoreMessages = this.conversationMessageService.isLoadingMoreMessages;
+  protected isInitialMessagesLoading = this.conversationMessageService.isInitialMessagesLoading;
+
   protected messageInput = signal('');
 
   // Expose active state signals directly from service
@@ -96,7 +94,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       const atBottom = this.isAtBottom();
       const documentVisible = this.isDocumentVisible();
 
-      if (!conversation || messages.length === 0 || this.isLoadingMessages() || !atBottom || !documentVisible) {
+      if ( !conversation || messages.length === 0 || this.isInitialMessagesLoading() || !atBottom || !documentVisible) {
         return;
       }
 
@@ -108,7 +106,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       }
 
       setTimeout(() => {
-        if (this.activeConversation()?.id !== conversation.id || !this.isAtBottom() || !this.isDocumentVisible()) {
+        if ( this.activeConversation()?.id !== conversation.id || !this.isAtBottom() || !this.isDocumentVisible() ) {
           return;
         }
 
@@ -122,34 +120,13 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.currentUser.set(this.userService.getCurrentUser());
   }
 
-  ngOnDestroy(): void {
-    this.leaveActiveConversation();
-  }
 
-  protected currentPage = signal(0);
-  protected isLastPage = signal(false);
-  protected isLoadingMore = signal(false);
 
-  protected selectConversation(conversation: ConversationResponse): void {
-    if (this.activeConversation()?.id === conversation.id) return;
-
-    // Leave the previous conversation.
-    if (this.activeConversation()) {
-      this.leaveActiveConversation();
-    }
-
-    // Set the active conversation.
-    this.conversationService.activeConversation.set(conversation);
-
-    // Subscribe to the new conversation's WebSocket destinations.
-    this.conversationMessageService.subscribeToConversation(conversation);
-
-    this.currentPage.set(0);
-    this.isLastPage.set(false);
-    this.isLoadingMessages.set(true);
+  protected loadInitialMessages(conversationId: number): void {
+    this.isInitialMessagesLoading.set(true);
 
     // Fetch historical paginated messages.
-    this.conversationService.getConversationMessages(conversation.id, 0, 30).subscribe({
+    this.conversationService.getConversationMessages(conversationId, 0, 30).subscribe({
         next: (res) => {
           if (res.data) {
             this.conversationMessageService.setInitialMessages(res.data);
@@ -157,12 +134,12 @@ export class ChatComponent implements OnInit, OnDestroy {
             this.isLastPage.set(res.last ?? res.data.length < 30);
           }
 
-          this.isLoadingMessages.set(false);
+          this.isInitialMessagesLoading.set(false);
 
           // Wait for messages to render before marking them as read.
           setTimeout(() => {
             // Prevent marking a conversation that the user has already left.
-            if (this.activeConversation()?.id !== conversation.id) return;
+            if (this.activeConversation()?.id !== conversationId) return;
 
             this.scrollToBottom();
 
@@ -175,7 +152,8 @@ export class ChatComponent implements OnInit, OnDestroy {
           }, 50);
         },
         error: () => {
-          this.isLoadingMessages.set(false);
+          this.isInitialMessagesLoading.set(false);
+          this.alertService.triggerErrorAlert('Failed to load conversation messages.');
         },
       });
   }
@@ -306,7 +284,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.isAtBottom.set(distanceFromBottom <= 80);
 
     // Load older messages when scrolling near the top.
-    if (element.scrollTop <= 50 && !this.isLoadingMore() && !this.isLastPage()) {
+    if ( element.scrollTop <= 50 && !this.isLoadingMoreMessages() && !this.isLastPage() ) {
       this.loadOlderMessages(element);
     }
   }
@@ -315,7 +293,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     const activeConv = this.activeConversation();
     if (!activeConv) return;
 
-    this.isLoadingMore.set(true);
+    this.isLoadingMoreMessages.set(true);
     const nextPage = this.currentPage() + 1;
 
     // Scroll position before loading older messages
@@ -342,16 +320,16 @@ export class ChatComponent implements OnInit, OnDestroy {
               const newScrollHeight = containerElement.scrollHeight;
               const scrollDifference = newScrollHeight - previousScrollHeight;
               containerElement.scrollTop = previousScrollTop + scrollDifference;
-              this.isLoadingMore.set(false);
+              this.isLoadingMoreMessages.set(false);
             }, 50);
           } else {
             this.isLastPage.set(true);
           }
 
-          this.isLoadingMore.set(false);
+          this.isLoadingMoreMessages.set(false);
         },
         error: () => {
-          this.isLoadingMore.set(false);
+          this.isLoadingMoreMessages.set(false);
         },
       });
   }
@@ -365,11 +343,6 @@ export class ChatComponent implements OnInit, OnDestroy {
       top: container.scrollHeight,
       behavior: 'smooth',
     });
-  }
-
-  @HostListener('document:keydown.escape')
-  onEscapeKey() {
-    this.leaveActiveConversation();
   }
 
   protected getMessageDeliveryStatus( message: ChatMessageResponse, ): MessageDeliveryStatus | null {
@@ -441,10 +414,10 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
   }
 
-  private markActiveConversationAsRead(): void {
+  protected markActiveConversationAsRead(): void {
     const conversation = this.activeConversation();
 
-    if (!conversation || this.isLoadingMessages() || !this.isAtBottom() || !this.isDocumentVisible()) {
+    if (!conversation || this.isInitialMessagesLoading() || !this.isAtBottom() || !this.isDocumentVisible()) {
       return;
     }
 
@@ -456,7 +429,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     const lastMessage = messages.at(-1);
 
-    if(!lastMessage) return;
+    if (!lastMessage) return;
 
     const lastReadMessageId = this.lastReadMessageIds.get(conversation.id) ?? 0;
 
@@ -476,27 +449,13 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   @HostListener('document:visibilitychange')
   protected onDocumentVisibilityChange(): void {
-    this.isDocumentVisible.set(
-      document.visibilityState === 'visible'
-    );
+    this.isDocumentVisible.set(document.visibilityState === 'visible');
 
     if (this.isDocumentVisible() && this.isAtBottom()) {
       this.markActiveConversationAsRead();
     }
   }
 
-  private leaveActiveConversation(): void {
-    const conversation = this.activeConversation();
-
-    if (!conversation) return;
-
-    // Acknowledge messages only if the user is currently viewing the latest messages.
-    this.markActiveConversationAsRead();
-
-    // Unsubscribe and leave the previous conversation.
-    this.conversationMessageService.unsubscribeFromConversation();
-    this.conversationService.leaveConversation();
-  }
 
   protected readonly MessageSquare = MessageSquare;
   protected readonly Send = Send;
