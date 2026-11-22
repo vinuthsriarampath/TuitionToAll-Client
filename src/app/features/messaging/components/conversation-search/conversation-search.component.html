@@ -1,8 +1,6 @@
 
 <div class="relative">
-  <lucide-angular
-    [img]="Search"
-    class="w-5 h-5 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400/70 pointer-events-none">
+  <lucide-angular [img]="Search" class="w-5 h-5 absolute left-2 top-1/2 transform -translate-y-1/2 text-sky-400/70 pointer-events-none">
   </lucide-angular>
 
   <label for="searchConversations" class="sr-only">
@@ -12,7 +10,7 @@
   <input
     id="searchConversations"
     type="text"
-    [ngModel]="searchTerm()"
+    [ngModel]="searchInput()"
     (ngModelChange)="onSearch($event)"
     placeholder="Search conversations..."
     class="form-input input-special w-full"
