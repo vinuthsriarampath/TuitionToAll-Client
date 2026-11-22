@@ -1,13 +1,12 @@
 
-<div
+<button role="menuitem"
   (click)="selectConversation()"
   (keydown.enter)="selectConversation()"
   (keydown.space)="$event.preventDefault(); selectConversation()"
-  role="button"
   tabindex="0"
   [attr.aria-pressed]="isActive()"
   [class.bg-sky-950]="isActive()"
-  class="flex items-center gap-3 p-3.5 hover:bg-sky-900/30 cursor-pointer transition-colors"
+  class="flex items-center w-full gap-3 p-3.5 hover:bg-sky-900/30 cursor-pointer transition-colors"
 >
   <!-- Avatar -->
   <div class="relative shrink-0">
@@ -41,9 +40,8 @@
 
   <!-- Unread badge -->
   @if (unreadCount() > 0) {
-    <span
-      class="shrink-0 px-2 py-0.5 bg-sky-600 text-white text-xs font-semibold rounded-full shadow-sm">
+    <span class="shrink-0 px-2 py-0.5 bg-sky-600 text-white text-xs font-semibold rounded-full shadow-sm">
       {{ unreadCount() }}
     </span>
   }
-</div>
+</button>
